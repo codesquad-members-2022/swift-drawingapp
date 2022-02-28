@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC7ECF8E27CCB46A00BC6AEC /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7ECF8D27CCB46A00BC6AEC /* Square.swift */; };
+		BC7ECF8F27CCB46A00BC6AEC /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7ECF8D27CCB46A00BC6AEC /* Square.swift */; };
 		BCE3CB8027CC6D8E004F2AFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE3CB7F27CC6D8E004F2AFE /* AppDelegate.swift */; };
 		BCE3CB8227CC6D8E004F2AFE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE3CB8127CC6D8E004F2AFE /* SceneDelegate.swift */; };
 		BCE3CB8427CC6D8E004F2AFE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE3CB8327CC6D8E004F2AFE /* ViewController.swift */; };
@@ -36,6 +38,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BC7ECF8D27CCB46A00BC6AEC /* Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Square.swift; path = DrawingApp/Model/Model/Square.swift; sourceTree = SOURCE_ROOT; };
 		BCE3CB7C27CC6D8E004F2AFE /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCE3CB7F27CC6D8E004F2AFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCE3CB8127CC6D8E004F2AFE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +80,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC7ECF9027CCB48D00BC6AEC /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BC7ECF8D27CCB46A00BC6AEC /* Square.swift */,
+			);
+			name = Model;
+			path = Model/Model;
+			sourceTree = "<group>";
+		};
 		BCE3CB7327CC6D8E004F2AFE = {
 			isa = PBXGroup;
 			children = (
@@ -100,7 +112,7 @@
 		BCE3CB7E27CC6D8E004F2AFE /* DrawingApp */ = {
 			isa = PBXGroup;
 			children = (
-				BCE3CBB027CC704A004F2AFE /* Model */,
+				BC7ECF9027CCB48D00BC6AEC /* Model */,
 				BCE3CBB127CC7050004F2AFE /* View */,
 				BCE3CBB227CC7053004F2AFE /* Controller */,
 				BCE3CBB427CC7100004F2AFE /* Resource */,
@@ -124,13 +136,6 @@
 				BCE3CBA227CC6D90004F2AFE /* DrawingAppUITestsLaunchTests.swift */,
 			);
 			path = DrawingAppUITests;
-			sourceTree = "<group>";
-		};
-		BCE3CBB027CC704A004F2AFE /* Model */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		BCE3CBB127CC7050004F2AFE /* View */ = {
@@ -300,6 +305,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC7ECF8E27CCB46A00BC6AEC /* Square.swift in Sources */,
 				BCE3CB8427CC6D8E004F2AFE /* ViewController.swift in Sources */,
 				BCE3CB8027CC6D8E004F2AFE /* AppDelegate.swift in Sources */,
 				BCE3CB8227CC6D8E004F2AFE /* SceneDelegate.swift in Sources */,
@@ -310,6 +316,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC7ECF8F27CCB46A00BC6AEC /* Square.swift in Sources */,
 				BCE3CB9727CC6D90004F2AFE /* DrawingAppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
