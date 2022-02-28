@@ -34,33 +34,12 @@ class Rectangle: CustomStringConvertible{
     }
     
     func showColor() -> [Double]{
-        let rgb = [color.redValue() / 250, color.greenValue() / 250, color.blueValue() / 250]
+        let rgb = [color.redValue() / 255, color.greenValue() / 255, color.blueValue() / 255]
         return rgb
     }
     
     func showAlpha() -> Double{
-        switch alpha {
-        case .one:
-            return 1
-        case .two:
-            return 2
-        case .three:
-            return 3
-        case .four:
-            return 4
-        case .five:
-            return 5
-        case .six:
-            return 6
-        case .seven:
-            return 7
-        case .eight:
-            return 8
-        case .nine:
-            return 9
-        case .ten:
-            return 10
-        }
+        return alpha.showValue()
     }
     
     init(id: String, size: MySize, point: MyPoint, color: RGBColor, alpha: Alpha){
