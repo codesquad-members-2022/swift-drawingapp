@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import os
 
 class ViewController: UIViewController {
     private var rectangles = RectangleArray()
@@ -33,6 +34,7 @@ class ViewController: UIViewController {
         rectangleView.backgroundColor = UIColor(displayP3Red: rectangle.showColor()[0], green: rectangle.showColor()[1], blue: rectangle.showColor()[2], alpha: rectangle.showAlpha())
         rectangleView.restorationIdentifier = rectangle.showId()
         
+        os_log("%@", "\(rectangle.description)")
         self.view.addSubview(rectangleView)
     }
     
