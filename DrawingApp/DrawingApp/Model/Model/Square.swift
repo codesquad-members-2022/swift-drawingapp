@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Square {
+class Square: CustomStringConvertible {
     private var id: String
     
     private var width: Double
@@ -18,13 +18,19 @@ class Square {
     
     private var color: Color
     
-    init(id: String, width: Double, height: Double, positionX: Double, positionY: Double, color: Color) {
-        self.id = id
+    init(width: Double, height: Double, positionX: Double, positionY: Double, color: Color) {
+        self.id = UUID().uuidString.prefix(9).reduce("") { partialResult, char in
+            "\(partialResult)\(char)"
+        }
         self.width = width
         self.height = height
         self.positionX = positionX
         self.positionY = positionY
         self.color = color
+    }
+    
+    var description: String {
+        return "(\(id)), X:\(positionX), Y:\(positionY), W\(width), H\(height), R:\(color.red), G:\(color.green), B:\(color.blue), A: \(color.alpha)"
     }
 }
 
