@@ -46,7 +46,7 @@ id: ( ya5-w1o-nag ), ( X: 0.0, Y: 0.0 ), ( W: 150.0, H: 120.0 ), ( R: 0, G: 0, B
 id: ( af9-yyi-g9g ), ( X: 0.0, Y: 0.0 ), ( W: 150.0, H: 120.0 ), ( R: 0, G: 0, B: 0 ), alpha: 10
 ```
 
-
+![스크린샷 2022-02-28 오후 10 17 42](https://user-images.githubusercontent.com/5019378/155989861-d69a478e-eca5-497f-beb2-0814dd9ccdde.png)
 
 
 
