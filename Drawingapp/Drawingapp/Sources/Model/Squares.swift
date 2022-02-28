@@ -14,12 +14,12 @@ class Squares {
         squares.count
     }
     
-    func add(square: Square) {
+    func append(square: Square) {
         self.squares.append(square)
     }
     
     func selected(point: Point) -> Square? {
-        
+        squares.filter{ $0.isSelected(by: point) }.first
     }
 }
 
