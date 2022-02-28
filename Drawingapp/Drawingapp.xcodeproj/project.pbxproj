@@ -1,0 +1,681 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		E0D7D9DE27CC594D00A56635 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9DD27CC594D00A56635 /* AppDelegate.swift */; };
+		E0D7D9E027CC594D00A56635 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9DF27CC594D00A56635 /* SceneDelegate.swift */; };
+		E0D7D9E227CC594D00A56635 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9E127CC594D00A56635 /* ViewController.swift */; };
+		E0D7D9E527CC594D00A56635 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0D7D9E327CC594D00A56635 /* Main.storyboard */; };
+		E0D7D9E727CC594E00A56635 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E0D7D9E627CC594E00A56635 /* Assets.xcassets */; };
+		E0D7D9EA27CC594E00A56635 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E0D7D9E827CC594E00A56635 /* LaunchScreen.storyboard */; };
+		E0D7D9F527CC594E00A56635 /* DrawingappTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9F427CC594E00A56635 /* DrawingappTests.swift */; };
+		E0D7D9FF27CC594E00A56635 /* DrawingappUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9FE27CC594E00A56635 /* DrawingappUITests.swift */; };
+		E0D7DA0127CC594E00A56635 /* DrawingappUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA0027CC594E00A56635 /* DrawingappUITestsLaunchTests.swift */; };
+		E0D7DA1427CC5EB000A56635 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1327CC5EB000A56635 /* Square.swift */; };
+		E0D7DA1727CC642800A56635 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1627CC642800A56635 /* Size.swift */; };
+		E0D7DA1927CC643000A56635 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1827CC643000A56635 /* Point.swift */; };
+		E0D7DA1C27CC64B300A56635 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1827CC643000A56635 /* Point.swift */; };
+		E0D7DA1D27CC64B300A56635 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1327CC5EB000A56635 /* Square.swift */; };
+		E0D7DA1E27CC64B300A56635 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1627CC642800A56635 /* Size.swift */; };
+		E0D7DA2027CC656500A56635 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1F27CC656500A56635 /* Color.swift */; };
+		E0D7DA2127CC666F00A56635 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1F27CC656500A56635 /* Color.swift */; };
+		E0D7DA2327CC67DF00A56635 /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA2227CC67DF00A56635 /* Alpha.swift */; };
+		E0D7DA2427CC690200A56635 /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA2227CC67DF00A56635 /* Alpha.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E0D7D9F127CC594E00A56635 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E0D7D9D227CC594D00A56635 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E0D7D9D927CC594D00A56635;
+			remoteInfo = Drawingapp;
+		};
+		E0D7D9FB27CC594E00A56635 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E0D7D9D227CC594D00A56635 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E0D7D9D927CC594D00A56635;
+			remoteInfo = Drawingapp;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		E0D7D9DA27CC594D00A56635 /* Drawingapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drawingapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E0D7D9DD27CC594D00A56635 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		E0D7D9DF27CC594D00A56635 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		E0D7D9E127CC594D00A56635 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		E0D7D9E427CC594D00A56635 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		E0D7D9E627CC594E00A56635 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		E0D7D9E927CC594E00A56635 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		E0D7D9EB27CC594E00A56635 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E0D7D9F027CC594E00A56635 /* DrawingappTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingappTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E0D7D9F427CC594E00A56635 /* DrawingappTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingappTests.swift; sourceTree = "<group>"; };
+		E0D7D9FA27CC594E00A56635 /* DrawingappUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingappUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E0D7D9FE27CC594E00A56635 /* DrawingappUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingappUITests.swift; sourceTree = "<group>"; };
+		E0D7DA0027CC594E00A56635 /* DrawingappUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingappUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		E0D7DA1327CC5EB000A56635 /* Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
+		E0D7DA1627CC642800A56635 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
+		E0D7DA1827CC643000A56635 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
+		E0D7DA1F27CC656500A56635 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		E0D7DA2227CC67DF00A56635 /* Alpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alpha.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		E0D7D9D727CC594D00A56635 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0D7D9ED27CC594E00A56635 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0D7D9F727CC594E00A56635 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		E0D7D9D127CC594D00A56635 = {
+			isa = PBXGroup;
+			children = (
+				E0D7D9DC27CC594D00A56635 /* Drawingapp */,
+				E0D7D9F327CC594E00A56635 /* DrawingappTests */,
+				E0D7D9FD27CC594E00A56635 /* DrawingappUITests */,
+				E0D7D9DB27CC594D00A56635 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		E0D7D9DB27CC594D00A56635 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E0D7D9DA27CC594D00A56635 /* Drawingapp.app */,
+				E0D7D9F027CC594E00A56635 /* DrawingappTests.xctest */,
+				E0D7D9FA27CC594E00A56635 /* DrawingappUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E0D7D9DC27CC594D00A56635 /* Drawingapp */ = {
+			isa = PBXGroup;
+			children = (
+				E0D7DA0E27CC5A4700A56635 /* Sources */,
+				E0D7DA0F27CC5A4F00A56635 /* Resources */,
+				E0D7DA1127CC5A9000A56635 /* Configuration */,
+			);
+			path = Drawingapp;
+			sourceTree = "<group>";
+		};
+		E0D7D9F327CC594E00A56635 /* DrawingappTests */ = {
+			isa = PBXGroup;
+			children = (
+				E0D7D9F427CC594E00A56635 /* DrawingappTests.swift */,
+			);
+			path = DrawingappTests;
+			sourceTree = "<group>";
+		};
+		E0D7D9FD27CC594E00A56635 /* DrawingappUITests */ = {
+			isa = PBXGroup;
+			children = (
+				E0D7D9FE27CC594E00A56635 /* DrawingappUITests.swift */,
+				E0D7DA0027CC594E00A56635 /* DrawingappUITestsLaunchTests.swift */,
+			);
+			path = DrawingappUITests;
+			sourceTree = "<group>";
+		};
+		E0D7DA0D27CC5A4100A56635 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E0D7DA1327CC5EB000A56635 /* Square.swift */,
+				E0D7DA1627CC642800A56635 /* Size.swift */,
+				E0D7DA1827CC643000A56635 /* Point.swift */,
+				E0D7DA1F27CC656500A56635 /* Color.swift */,
+				E0D7DA2227CC67DF00A56635 /* Alpha.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E0D7DA0E27CC5A4700A56635 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				E0D7DA1227CC5E8E00A56635 /* New Group */,
+				E0D7DA1027CC5A6E00A56635 /* Present */,
+				E0D7DA0D27CC5A4100A56635 /* Model */,
+				E0D7D9DD27CC594D00A56635 /* AppDelegate.swift */,
+				E0D7D9DF27CC594D00A56635 /* SceneDelegate.swift */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		E0D7DA0F27CC5A4F00A56635 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E0D7D9E327CC594D00A56635 /* Main.storyboard */,
+				E0D7D9E627CC594E00A56635 /* Assets.xcassets */,
+				E0D7D9E827CC594E00A56635 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		E0D7DA1027CC5A6E00A56635 /* Present */ = {
+			isa = PBXGroup;
+			children = (
+				E0D7D9E127CC594D00A56635 /* ViewController.swift */,
+			);
+			path = Present;
+			sourceTree = "<group>";
+		};
+		E0D7DA1127CC5A9000A56635 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				E0D7D9EB27CC594E00A56635 /* Info.plist */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+		E0D7DA1227CC5E8E00A56635 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "New Group";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		E0D7D9D927CC594D00A56635 /* Drawingapp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E0D7DA0427CC594E00A56635 /* Build configuration list for PBXNativeTarget "Drawingapp" */;
+			buildPhases = (
+				E0D7D9D627CC594D00A56635 /* Sources */,
+				E0D7D9D727CC594D00A56635 /* Frameworks */,
+				E0D7D9D827CC594D00A56635 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Drawingapp;
+			productName = Drawingapp;
+			productReference = E0D7D9DA27CC594D00A56635 /* Drawingapp.app */;
+			productType = "com.apple.product-type.application";
+		};
+		E0D7D9EF27CC594E00A56635 /* DrawingappTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E0D7DA0727CC594E00A56635 /* Build configuration list for PBXNativeTarget "DrawingappTests" */;
+			buildPhases = (
+				E0D7D9EC27CC594E00A56635 /* Sources */,
+				E0D7D9ED27CC594E00A56635 /* Frameworks */,
+				E0D7D9EE27CC594E00A56635 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E0D7D9F227CC594E00A56635 /* PBXTargetDependency */,
+			);
+			name = DrawingappTests;
+			productName = DrawingappTests;
+			productReference = E0D7D9F027CC594E00A56635 /* DrawingappTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		E0D7D9F927CC594E00A56635 /* DrawingappUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E0D7DA0A27CC594E00A56635 /* Build configuration list for PBXNativeTarget "DrawingappUITests" */;
+			buildPhases = (
+				E0D7D9F627CC594E00A56635 /* Sources */,
+				E0D7D9F727CC594E00A56635 /* Frameworks */,
+				E0D7D9F827CC594E00A56635 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E0D7D9FC27CC594E00A56635 /* PBXTargetDependency */,
+			);
+			name = DrawingappUITests;
+			productName = DrawingappUITests;
+			productReference = E0D7D9FA27CC594E00A56635 /* DrawingappUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		E0D7D9D227CC594D00A56635 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1320;
+				LastUpgradeCheck = 1320;
+				TargetAttributes = {
+					E0D7D9D927CC594D00A56635 = {
+						CreatedOnToolsVersion = 13.2.1;
+					};
+					E0D7D9EF27CC594E00A56635 = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = E0D7D9D927CC594D00A56635;
+					};
+					E0D7D9F927CC594E00A56635 = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = E0D7D9D927CC594D00A56635;
+					};
+				};
+			};
+			buildConfigurationList = E0D7D9D527CC594D00A56635 /* Build configuration list for PBXProject "Drawingapp" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = E0D7D9D127CC594D00A56635;
+			productRefGroup = E0D7D9DB27CC594D00A56635 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				E0D7D9D927CC594D00A56635 /* Drawingapp */,
+				E0D7D9EF27CC594E00A56635 /* DrawingappTests */,
+				E0D7D9F927CC594E00A56635 /* DrawingappUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		E0D7D9D827CC594D00A56635 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E0D7D9EA27CC594E00A56635 /* LaunchScreen.storyboard in Resources */,
+				E0D7D9E727CC594E00A56635 /* Assets.xcassets in Resources */,
+				E0D7D9E527CC594D00A56635 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0D7D9EE27CC594E00A56635 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0D7D9F827CC594E00A56635 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		E0D7D9D627CC594D00A56635 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E0D7DA1427CC5EB000A56635 /* Square.swift in Sources */,
+				E0D7DA1727CC642800A56635 /* Size.swift in Sources */,
+				E0D7DA2027CC656500A56635 /* Color.swift in Sources */,
+				E0D7DA1927CC643000A56635 /* Point.swift in Sources */,
+				E0D7DA2327CC67DF00A56635 /* Alpha.swift in Sources */,
+				E0D7D9E227CC594D00A56635 /* ViewController.swift in Sources */,
+				E0D7D9DE27CC594D00A56635 /* AppDelegate.swift in Sources */,
+				E0D7D9E027CC594D00A56635 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0D7D9EC27CC594E00A56635 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E0D7D9F527CC594E00A56635 /* DrawingappTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E0D7D9F627CC594E00A56635 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E0D7DA1D27CC64B300A56635 /* Square.swift in Sources */,
+				E0D7DA1E27CC64B300A56635 /* Size.swift in Sources */,
+				E0D7DA2427CC690200A56635 /* Alpha.swift in Sources */,
+				E0D7D9FF27CC594E00A56635 /* DrawingappUITests.swift in Sources */,
+				E0D7DA0127CC594E00A56635 /* DrawingappUITestsLaunchTests.swift in Sources */,
+				E0D7DA1C27CC64B300A56635 /* Point.swift in Sources */,
+				E0D7DA2127CC666F00A56635 /* Color.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E0D7D9F227CC594E00A56635 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E0D7D9D927CC594D00A56635 /* Drawingapp */;
+			targetProxy = E0D7D9F127CC594E00A56635 /* PBXContainerItemProxy */;
+		};
+		E0D7D9FC27CC594E00A56635 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E0D7D9D927CC594D00A56635 /* Drawingapp */;
+			targetProxy = E0D7D9FB27CC594E00A56635 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		E0D7D9E327CC594D00A56635 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E0D7D9E427CC594D00A56635 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		E0D7D9E827CC594E00A56635 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E0D7D9E927CC594E00A56635 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		E0D7DA0227CC594E00A56635 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		E0D7DA0327CC594E00A56635 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E0D7DA0527CC594E00A56635 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Drawingapp/Configuration/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shingha.Drawingapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		E0D7DA0627CC594E00A56635 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = Drawingapp/Configuration/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shingha.Drawingapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Release;
+		};
+		E0D7DA0827CC594E00A56635 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shingha.DrawingappTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Drawingapp.app/Drawingapp";
+			};
+			name = Debug;
+		};
+		E0D7DA0927CC594E00A56635 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shingha.DrawingappTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Drawingapp.app/Drawingapp";
+			};
+			name = Release;
+		};
+		E0D7DA0B27CC594E00A56635 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shingha.DrawingappUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Drawingapp;
+			};
+			name = Debug;
+		};
+		E0D7DA0C27CC594E00A56635 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.shingha.DrawingappUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = Drawingapp;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		E0D7D9D527CC594D00A56635 /* Build configuration list for PBXProject "Drawingapp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E0D7DA0227CC594E00A56635 /* Debug */,
+				E0D7DA0327CC594E00A56635 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E0D7DA0427CC594E00A56635 /* Build configuration list for PBXNativeTarget "Drawingapp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E0D7DA0527CC594E00A56635 /* Debug */,
+				E0D7DA0627CC594E00A56635 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E0D7DA0727CC594E00A56635 /* Build configuration list for PBXNativeTarget "DrawingappTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E0D7DA0827CC594E00A56635 /* Debug */,
+				E0D7DA0927CC594E00A56635 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E0D7DA0A27CC594E00A56635 /* Build configuration list for PBXNativeTarget "DrawingappUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E0D7DA0B27CC594E00A56635 /* Debug */,
+				E0D7DA0C27CC594E00A56635 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = E0D7D9D227CC594D00A56635 /* Project object */;
+}
