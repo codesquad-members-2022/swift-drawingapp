@@ -14,11 +14,12 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-//        for i in 1..<5 {
-//            let rect = RectangleFactory(screenWidth: screenWdith, screenHeight: screenHeight).makeRect()
-//            os_log(.debug, "%@", "Rect\(i) \(rect.description)")
-//        }
+        //Calling Factory
+        for i in 1..<5 {
+            if let rect = RectangleFactory(screenWidth: screenWdith, screenHeight: screenHeight).makeRect() {
+                os_log(.debug, "Rect\(i) \(rect.description)")
+            }
+        }
         
     }
     
