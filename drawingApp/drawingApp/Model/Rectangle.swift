@@ -6,7 +6,8 @@
 //
 
 /*
-필수 속성 : 고유아이디(String), 크기(Width, Height), 위치(X, Y), 배경색(R, G, B), 투명도(Alpha)
+목적: 사각형 뷰를 표현하는 모델 클래스(class)를 설계한다.
+요구사항 : 고유아이디(String), 크기(Width, Height), 위치(X, Y), 배경색(R, G, B), 투명도(Alpha)
 
 고유아이디는 랜덤값으로 3자리-3자리-3자리 형태
 
@@ -39,11 +40,11 @@ class Rectangle {
     }
     
     //Getters
-    func getId () -> String {
+    func getId() -> String {
         self.id
     }
     
-    func getSize () -> Size {
+    func getSize() -> Size {
         self.size
     }
     
@@ -61,7 +62,7 @@ class Rectangle {
 }
 
 
-//(fxd-0fz-4b9), X:10,Y:200, W150, H120, R:245, G:0, B:245, Alpha: 9
+//형태 : (fxd-0fz-4b9), X:10,Y:200, W150, H120, R:245, G:0, B:245, Alpha: 9
 extension Rectangle : CustomStringConvertible {
     var description: String {
         return "\(id), \(point), \(size), \(color)"
