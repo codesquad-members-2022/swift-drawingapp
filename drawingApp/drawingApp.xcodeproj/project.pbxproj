@@ -14,6 +14,7 @@
 		B743229627CC5DF400445645 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B743229527CC5DF400445645 /* Assets.xcassets */; };
 		B743229927CC5DF400445645 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B743229727CC5DF400445645 /* LaunchScreen.storyboard */; };
 		B74322A327CC6F4000445645 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322A227CC6F4000445645 /* Rectangle.swift */; };
+		B74322A527CC81ED00445645 /* RectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322A427CC81ED00445645 /* RectangleFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		B743229827CC5DF400445645 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B743229A27CC5DF400445645 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B74322A227CC6F4000445645 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
+		B74322A427CC81ED00445645 /* RectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				B74322A227CC6F4000445645 /* Rectangle.swift */,
+				B74322A427CC81ED00445645 /* RectangleFactory.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -158,6 +161,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B743229127CC5DF300445645 /* ViewController.swift in Sources */,
+				B74322A527CC81ED00445645 /* RectangleFactory.swift in Sources */,
 				B743228D27CC5DF300445645 /* AppDelegate.swift in Sources */,
 				B743228F27CC5DF300445645 /* SceneDelegate.swift in Sources */,
 				B74322A327CC6F4000445645 /* Rectangle.swift in Sources */,
