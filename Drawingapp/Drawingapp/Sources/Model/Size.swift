@@ -17,7 +17,7 @@ class Size: CustomStringConvertible {
     }
     
     var description: String {
-        "( width: \(width), height: \(height) )"
+        "( W: \(width), H: \(height) )"
     }
 }
 
