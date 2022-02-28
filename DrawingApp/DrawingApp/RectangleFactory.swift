@@ -9,6 +9,7 @@ import Foundation
 
 class RectangleFactory {
     private let screenSize: (width: Double, height: Double)
+    var delegate: RectangleDelegate?
     
     init(screenSize: (width: Double, height: Double)) {
         self.screenSize = screenSize
@@ -21,7 +22,11 @@ class RectangleFactory {
         let backgroundColor = generateRandomColor()
         let alpha = generateRandomAlpha()
         
-        return Rectangle(id: id, size: size, point: point, backgroundColor: backgroundColor, alpha: alpha)
+        let newRectangle = Rectangle(id: id, size: size, point: point, backgroundColor: backgroundColor, alpha: alpha)
+        
+        delegate?.printLog(of: newRectangle)
+        
+        return newRectangle
     }
     
     private func generateRandomID() -> String {
