@@ -31,6 +31,7 @@ class Rectangle {
     private var color : Color
     private var alpha : Int
     
+    
     init (id: String, size:Size, point: Point, color: Color, alpha : Int) {
         self.id = id
         self.size = size
@@ -65,14 +66,15 @@ class Rectangle {
 //형태 : (fxd-0fz-4b9), X:10,Y:200, W150, H120, R:245, G:0, B:245, Alpha: 9
 extension Rectangle : CustomStringConvertible {
     var description: String {
-        return "\(id), \(point), \(size), \(color)"
+        return "(\(id)), \(point), \(size), \(color), Alpha:\(alpha)"
     }
 }
 
+
 //Size 타입 정의
 struct Size : CustomStringConvertible {
-    var width : Double = 0.0
-    var height : Double = 0.0
+    var width : Double = 150
+    var height : Double = 120
     var description: String {
         return "W\(width), H\(height)"
     }
@@ -80,8 +82,8 @@ struct Size : CustomStringConvertible {
 
 //Point (좌표) 타입 정의
 struct Point : CustomStringConvertible {
-    var x : Double = 0.0
-    var y : Double = 0.0
+    var x : Double = 0
+    var y : Double = 0
     var description: String {
         return "X:\(x), Y:\(y)"
     }
@@ -89,9 +91,9 @@ struct Point : CustomStringConvertible {
 
 //Color (RGB) 타입 정의
 struct Color : CustomStringConvertible {
-    var red : Double = 0.0
-    var green : Double = 0.0
-    var blue : Double = 0.0
+    var red : Double = 0
+    var green : Double = 0
+    var blue : Double = 0
     var description: String {
         return "R:\(red), G:\(green), B:\(blue)"
     }

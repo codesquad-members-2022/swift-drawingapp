@@ -66,7 +66,7 @@ class RectangleFactory {
     }
     
     
-    func makeRect () -> Rectangle{
+    func makeRect() -> Rectangle{
         return Rectangle(id: generateRandomId(), size: Size(width: width, height: height), point: generateRandomPoint() , color: generateRandomColor(), alpha: generateRandomAlpha())
     }
     
