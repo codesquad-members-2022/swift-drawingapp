@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Square: CustomStringConvertible {
+class Rectangle: CustomStringConvertible {
     private var id: String
     
     private var width: Double
@@ -19,9 +19,15 @@ class Square: CustomStringConvertible {
     private var color: Color
     
     init(width: Double, height: Double, positionX: Double, positionY: Double, color: Color) {
-        self.id = UUID().uuidString.prefix(9).reduce("") { partialResult, char in
-            "\(partialResult)\(char)"
-        }
+        self.id = {
+            var id = ""
+            let partOfUUIDString = UUID().uuidString.suffix(9)
+            for (i, char) in partOfUUIDString.enumerated() {
+                if (i+1) % 3 == 0 && i != partOfUUIDString.count-1 { id += "\(char)-"}
+                else { id += "\(char)" }
+            }
+            return id
+        }()
         self.width = width
         self.height = height
         self.positionX = positionX
