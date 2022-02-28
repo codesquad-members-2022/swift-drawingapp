@@ -70,13 +70,13 @@
 				72C4FDF227CC5FA600CE5D25 /* view */,
 				72400F2427CC5D1800D24138 /* AppDelegate.swift */,
 				72400F2827CC5D1800D24138 /* DrawingViewController.swift */,
+				72A40E1927CCBB3F002D076C /* RandomLogic.swift */,
+				72A40E1B27CCBB86002D076C /* SquareViewState.swift */,
+				72A40E1D27CCBD8C002D076C /* SquareViewProtocol.swift */,
 				72400F2A27CC5D1800D24138 /* Main.storyboard */,
 				72400F2D27CC5D1900D24138 /* Assets.xcassets */,
 				72400F2F27CC5D1900D24138 /* LaunchScreen.storyboard */,
 				72400F3227CC5D1900D24138 /* Info.plist */,
-				72A40E1927CCBB3F002D076C /* RandomLogic.swift */,
-				72A40E1B27CCBB86002D076C /* SquareViewState.swift */,
-				72A40E1D27CCBD8C002D076C /* SquareViewProtocol.swift */,
 			);
 			path = DrawingApp;
 			sourceTree = "<group>";
