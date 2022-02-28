@@ -47,8 +47,8 @@ class RectangleFactory {
         return BackgroundColor(R: red, G: green, B: blue)
     }
     
-    private func generateRandomAlpha() -> Int {
-        return (1...10).randomElement() ?? 0
+    private func generateRandomAlpha() -> Alpha {
+        return Alpha(rawValue: (1...10).randomElement() ?? 1) ?? .one
     }
     
 }
