@@ -17,8 +17,10 @@ class DrawingappUITests: XCTestCase {
     override func tearDownWithError() throws {
     }
     
+    let factory = Factory()
+    
     func testCreateSquare() {
-        let newSquare = Square.make()
+        let newSquare = factory.makeSquare()
         print(newSquare)
     }
 }
