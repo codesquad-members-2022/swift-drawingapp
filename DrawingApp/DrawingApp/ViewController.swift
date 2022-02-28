@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import OSLog
 
 class ViewController: UIViewController {
 
@@ -19,6 +20,8 @@ class ViewController: UIViewController {
         let rect3 = factory.generateRectangle()
         let rect4 = factory.generateRectangle()
         
+        let message = "Rect1: \(rect1)\nRect2: \(rect2)\nRect3: \(rect3)\nRect4: \(rect4)"
+        os_log("%@", message)
     }
 
 
