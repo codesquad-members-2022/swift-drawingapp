@@ -32,8 +32,5 @@ class SquareView: UIView{
         let blue = CGFloat(squareViewState.blue)/255
         backgroundColor = UIColor(red: red, green: green, blue: blue, alpha: CGFloat(squareViewState.alpha))
     }
-    
-
-    
 }
 
