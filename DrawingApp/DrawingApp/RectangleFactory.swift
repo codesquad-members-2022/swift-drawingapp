@@ -13,10 +13,10 @@ class RectangleFactory {
         self.screenSize = screenSize
     }
     func make() -> Rectangle {
-        return Rectangle(id: Id(), width: 150, height: 120, position: randomPosition(), color: randomColor(), alpha: randomAlpha())
+        return Rectangle(id: Id(), width: 150, height: 120, position: randomPosition, color: randomColor, alpha: randomAlpha)
     }
     
-    private func randomPosition() -> Position {
+    private var randomPosition : Position {
         let screenWidth = screenSize.0
         let screenHeight = screenSize.1
         let randomCoordinate = {range in
@@ -27,14 +27,15 @@ class RectangleFactory {
         return Position(x: randomX, y: randomY)
     }
     
-    private func randomColor() -> (Int,Int,Int){
+    private var randomColor : Color {
         var randomInt: Int {
             (0..<255).randomElement() ?? 0
         }
-        return (randomInt,randomInt,randomInt)
+        let randomColor = Color(red: randomInt, green: randomInt, blue: randomInt)
+        return randomColor
     }
     
-    private func randomAlpha() -> Int {
+    private var randomAlpha : Int {
         return (1...10).randomElement() ?? 5
     }
     
