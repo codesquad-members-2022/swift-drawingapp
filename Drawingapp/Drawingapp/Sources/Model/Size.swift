@@ -11,13 +11,13 @@ class Size: CustomStringConvertible {
     let width: Double
     let height: Double
     
+    var description: String {
+        "( W: \(width), H: \(height) )"
+    }
+    
     init(width: Double, height: Double) {
         self.width = width
         self.height = height
-    }
-    
-    var description: String {
-        "( W: \(width), H: \(height) )"
     }
 }
 

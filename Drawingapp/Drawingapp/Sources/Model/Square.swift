@@ -14,6 +14,10 @@ class Square: CustomStringConvertible {
     let backgroundColor: Color
     let alpha: Alpha
     
+    var description: String {
+        "id: ( \(id) ), \(point), \(size), \(backgroundColor), alpha: \(alpha)"
+    }
+    
     init(id: String, size: Size = Size(width: 150, height: 120), point: Point = Point(x: 0, y: 0), backgroundColor: Color = .black, alpha: Alpha = Alpha.ten) {
         self.id = id
         self.size = size
@@ -22,9 +26,7 @@ class Square: CustomStringConvertible {
         self.alpha = alpha
     }
     
-    var description: String {
-        "id: ( \(id) ), \(point), \(size), \(backgroundColor), alpha: \(alpha)"
-    }
+    fu
 }
 
 extension Square {
