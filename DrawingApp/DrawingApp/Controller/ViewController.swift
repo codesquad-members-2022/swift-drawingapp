@@ -11,7 +11,12 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        let factory = Factory()
+        if let rect = factory.createRandomSquare() {
+            print("rect1: \(rect)")
+            
+        }
     }
 
 
