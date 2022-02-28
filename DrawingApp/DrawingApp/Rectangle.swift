@@ -11,10 +11,10 @@ class Rectangle {
     private let id: String
     private let size: Size
     private let point: Point
-    private let backgroundColor: (R: Int, G: Int, B: Int)
+    private let backgroundColor: BackgroundColor
     private let alpha: Int
     
-    init(id: String, width: Double, height: Double, x: Double, y: Double, backgroundColor: (R:Int, G: Int, B: Int), alpha: Int) {
+    init(id: String, width: Double, height: Double, x: Double, y: Double, backgroundColor: BackgroundColor, alpha: Int) {
         self.id = id
         size = Size(width: width, height: height)
         point = Point(x: x, y: y)
