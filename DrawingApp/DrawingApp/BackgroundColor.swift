@@ -7,20 +7,20 @@
 
 import Foundation
 
-    let R: Int
-    let G: Int
-    let B: Int
 struct BackgroundColor {
+    private var r: Int
+    private var g: Int
+    private var b: Int
     
-    init(R: Int, G: Int, B: Int) {
-        self.R = R
-        self.G = G
-        self.B = B
+    init(r: Int, g: Int, b: Int) {
+        self.r = r
+        self.g = g
+        self.b = b
     }
 }
 
 extension BackgroundColor: CustomStringConvertible {
     var description: String {
-        return "(R: \(R), G: \(G), B: \(B))"
+        return "(R: \(r), G: \(g), B: \(b))"
     }
 }

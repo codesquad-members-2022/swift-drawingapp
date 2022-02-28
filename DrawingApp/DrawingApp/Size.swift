@@ -7,12 +7,9 @@
 
 import Foundation
 
-    private let width: Double
-    private let height: Double
-    private var size: Double {
-        return width * height
-    }
 struct Size {
+    private var width: Double
+    private var height: Double
     
     init(width: Double, height: Double) {
         self.width = width
