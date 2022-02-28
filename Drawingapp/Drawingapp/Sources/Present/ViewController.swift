@@ -18,9 +18,6 @@ class ViewController: UIViewController {
             let newSquare = factory.makeSquare()
             Log.print("\(newSquare)")
         }
-        
-        
-//        ViewController 클래스에 viewDidLoad() 함수에서 팩토리에서 모델 객체 4종류를 생성하고 print()가 아닌 시스템 로그 함수로 출력한다
     }
 
 
