@@ -9,10 +9,10 @@ import Foundation
 
 class Rectangle {
     private let id: String
-    private let size: Size
-    private let point: Point
-    private let backgroundColor: BackgroundColor
-    private let alpha: Int
+    private var size: Size
+    private var point: Point
+    private var backgroundColor: BackgroundColor
+    private var alpha: Int
     
     init(id: String, width: Double, height: Double, x: Double, y: Double, backgroundColor: BackgroundColor, alpha: Int) {
         self.id = id
