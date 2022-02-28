@@ -7,10 +7,10 @@
 
 import Foundation
 
-class BackgroundColor {
     let R: Int
     let G: Int
     let B: Int
+struct BackgroundColor {
     
     init(R: Int, G: Int, B: Int) {
         self.R = R

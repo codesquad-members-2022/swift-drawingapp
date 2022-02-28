@@ -49,7 +49,7 @@ class RectangleFactory {
         let red = (0...255).randomElement() ?? 0
         let green = (0...255).randomElement() ?? 0
         let blue = (0...255).randomElement() ?? 0
-        return BackgroundColor(R: red, G: green, B: blue)
+        return BackgroundColor(r: red, g: green, b: blue)
     }
     
     private func generateRandomAlpha() -> Alpha {
