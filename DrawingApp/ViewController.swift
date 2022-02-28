@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     }
 
     @IBAction func makeRandomRectangle(_ sender: Any) {
-        rectangles.makeRectangle(viewWidth: self.view.frame.width, viewHeight: self.view.frame.height)
+        rectangles.makeRectangle(viewWidth: self.view.frame.width, viewHeight: self.rectangleButton.frame.minY)
         
         guard let rectangle = rectangles.nowMadeRectangle() else{
             let alert = UIAlertController(title: "Warning", message: "작성된 사각형이 없습니다.", preferredStyle: .alert)

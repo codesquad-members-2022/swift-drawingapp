@@ -26,7 +26,7 @@ class RectangleFactory{
         let xPoint = Int.random(in: 0..<Int(maxWidth))
         
         let maxHeight = viewHeight - height
-        let yPoint = Int.random(in: 0..<Int(maxHeight))
+        let yPoint = Int.random(in: 30..<Int(maxHeight))
         
         let point = MyPoint(x: Double(xPoint), y: Double(yPoint))
         return point
