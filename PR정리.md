@@ -1,3 +1,85 @@
+## 2022.02.28 step2-1
+
+## 작업목록
+
+- [x] Plane 구조체 구현
+  - [x] 새로운 사각형 생성 시 Plane에 추가
+  - [x] 사각형의 전체갯수를 알려주는 프로퍼티 제작
+  - [x] Subscrit로 index를 넘기면 해당 사각형 모델 리턴
+  - [x] 터치 좌표를 넘기면, 해당위치를 포함하는 사각형이 있는지 판단
+  - [x] 테스트 코드 작성
+- [x] 터치 시 해당위치에 사각형 선택
+  - [x] 테스트 코드 작성
+- [ ] 사각형이 없으면 기존 선택된 다른 사각형도 선택 취소
+- [ ] 사각형 선택 시, 테두리에 선을 표시
+- [ ] 사각형 선택 시, 화면 우측에 해당 사각형의 배경색과 투명도가 반영
+- [ ] 투명도는 10단계, 각 단계별 알파값 적용
+- [ ] 투명도 좌, 우에 투명도 단계를 조절하는 버튼을 만들고, 더이상 작거나 커질수 없으면 비활성화
+
+## 고민과 해결
+
+* **UITapGestureRecognizer.UIGestureRecognizerDelegate**
+
+  * UIGestureRecognizerDelegate 채택 시 사용할 수 있는 이벤트에 대해 궁굼해짐
+
+  * 우선은  event, touch, shouldBegin, Press 4가지 동작 확인
+
+    * 4가지 모두 return true
+
+      ```
+      // 일반 터치 시
+      Event
+      Touch Event
+      ShouldBegin
+      
+      //터치 후 일정 시간 후 떼기
+      Event
+      Touch Event
+      ```
+
+    * ShouldBegin만 false
+
+      * 위와 같음
+
+    * touch를 false
+
+      * ShouldBegin의 이벤트가 발생하지 않음
+
+      ```
+      // 일반 터치 시
+      Event
+      Touch Event
+      
+      //터치 후 일정 시간 후 떼기
+      Event
+      Touch Event
+      ```
+
+    * event를 false
+
+      * Touch Event, ShouldBegin의 이벤트가 발생하지 않음
+
+      ```
+      // 일반 터치 시
+      Event
+      
+      //터치 후 일정 시간 후 떼기
+      Event
+      ```
+
+  * 위의 테스트로 알 수 있는것
+
+    1. Event -> Touch -> ShouldBegin 순으로 이벤트가 발생
+    2. 각 구간에서 Bool를 리턴해 주는데, 해당 구간에서 false를 리턴하면 이후 이벤트는 발생하지 않음
+    3. Press이벤트는 발생하지 않음
+
+  * 그 외에도 여러 이벤트들이 있지만 어떤 타이밍에 발생하는지 파악 필요
+
+    * shouldRequireFailureOf
+    * shouldBeRequiredToFailBy
+    * shouldRecognizeSimultaneouslyWith
+    * press
+
 ## 2022.02.28 Step1
 
 ## 작업목록
