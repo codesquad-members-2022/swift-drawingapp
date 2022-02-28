@@ -13,15 +13,7 @@ class RectangleFactory {
         self.screenSize = screenSize
     }
     func make() -> Rectangle {
-        return Rectangle(id: randomId(), width: 150, height: 120, position: randomPosition(), color: randomColor(), alpha: randomAlpha())
-    }
-    
-    private func randomId() -> String {
-        let string = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        var randomString : String {
-            (0..<3).map{_ in String(string.randomElement() ?? Character(""))}.joined()
-        }
-        return "\(randomString)-\(randomString)-\(randomString)"
+        return Rectangle(id: Id(), width: 150, height: 120, position: randomPosition(), color: randomColor(), alpha: randomAlpha())
     }
     
     private func randomPosition() -> (Double,Double) {
