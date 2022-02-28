@@ -8,8 +8,8 @@
 import Foundation
 
 class Position {
-    private let x : Double
-    private let y : Double
+    private var x : Double
+    private var y : Double
     init(x: Double, y: Double) {
         self.x = x
         self.y = y
