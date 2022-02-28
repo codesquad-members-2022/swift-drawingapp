@@ -26,7 +26,6 @@ class Rectangle {
 
 extension Rectangle : CustomStringConvertible {
     var description: String {
-        var positionXY = self.position.description.components(separatedBy: ",")
         return "(\(self.id)), \(position), \(self.size), \(self.backGroundColor) , \(self.alpha)"
     }
 }

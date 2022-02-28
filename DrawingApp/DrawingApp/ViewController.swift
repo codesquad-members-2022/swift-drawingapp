@@ -13,10 +13,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         let screenSize = (Double(self.view.safeAreaLayoutGuide.layoutFrame.size.width), Double(self.view.safeAreaLayoutGuide.layoutFrame.size.height))
         let rectangleFactory = RectangleFactory(screenSize: screenSize)
-        let rect1 = rectangleFactory.make()
-        let rect2 = rectangleFactory.make()
-        let rect3 = rectangleFactory.make()
-        let rect4 = rectangleFactory.make()
+        let rect1 = rectangleFactory.makeRandomRectangle()
+        let rect2 = rectangleFactory.makeRandomRectangle()
+        let rect3 = rectangleFactory.makeRandomRectangle()
+        let rect4 = rectangleFactory.makeRandomRectangle()
         
     }
 
