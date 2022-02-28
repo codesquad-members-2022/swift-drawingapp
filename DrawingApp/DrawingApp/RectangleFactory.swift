@@ -35,8 +35,11 @@ class RectangleFactory {
         return randomColor
     }
     
-    private var randomAlpha : Int {
-        return (1...10).randomElement() ?? 5
+    private var randomAlpha : Alpha {
+        guard let randomAlpha = Alpha.allCases.randomElement() else {
+            return Alpha.ten
+        }
+        return randomAlpha
     }
     
 }

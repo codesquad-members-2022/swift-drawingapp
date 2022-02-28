@@ -12,10 +12,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let screenSize = (Double(self.view.safeAreaLayoutGuide.layoutFrame.size.width), Double(self.view.safeAreaLayoutGuide.layoutFrame.size.height))
-        let rect1 = RectangleFactory(screenSize: screenSize).make()
-        let rect2 = RectangleFactory(screenSize: screenSize).make()
-        let rect3 = RectangleFactory(screenSize: screenSize).make()
-        let rect4 = RectangleFactory(screenSize: screenSize).make()
+        let rectangleFactory = RectangleFactory(screenSize: screenSize)
+        let rect1 = rectangleFactory.make()
+        let rect2 = rectangleFactory.make()
+        let rect3 = rectangleFactory.make()
+        let rect4 = rectangleFactory.make()
         
     }
 
