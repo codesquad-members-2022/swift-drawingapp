@@ -19,3 +19,9 @@ class Size {
         self.height = height
     }
 }
+
+extension Size: CustomStringConvertible {
+    var description: String {
+        return "H\(height), W\(width)"
+    }
+}
