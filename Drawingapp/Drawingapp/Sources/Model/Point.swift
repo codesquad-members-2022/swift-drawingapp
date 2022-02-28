@@ -20,3 +20,9 @@ class Point: CustomStringConvertible {
         "( x: \(x), y: \(y) )"
     }
 }
+
+extension Point {
+    static func make(x: Double, y: Double) -> Point {
+        Point(x: x, y: y)
+    }
+}

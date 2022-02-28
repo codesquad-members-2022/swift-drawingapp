@@ -14,7 +14,7 @@ class Square: CustomStringConvertible {
     let backgroundColor: Color
     let alpha: Alpha
     
-    init(id: String, size: Size = Size(width: 150, height: 120), point: Point = Point(x: 0, y: 0), backgroundColor: Color = .black, alpha: Alpha = Alpha.five) {
+    init(id: String, size: Size = Size(width: 150, height: 120), point: Point = Point(x: 0, y: 0), backgroundColor: Color = .black, alpha: Alpha = Alpha.ten) {
         self.id = id
         self.size = size
         self.point = point
@@ -23,27 +23,20 @@ class Square: CustomStringConvertible {
     }
     
     var description: String {
-"""
-{
-    id: \(id),
-    size: \(size),
-    point: \(point),
-    backgroundColor: \(backgroundColor),
-    alpha: \(alpha),
-}
-"""
+        "id: ( \(id) ), size: \(size), point: \(point), backgroundColor: \(backgroundColor), alpha: \(alpha)"
     }
 }
 
 extension Square {
     static func make() -> Square {
+        Square(id: makeId())
+    }
+    
+    private static func makeId() -> String {
         let chars = "abcdefghijklmnopqrstuvwxyz0123456789"
-
-        let newId = String((0..<3).reduce(""){ id, _ in
+        return String((0..<3).reduce(""){ id, _ in
             let randomId = String((0..<3).compactMap{ _ in chars.randomElement()})
             return id + randomId + "-"
         }.dropLast())
-        
-        return Square(id: newId)
     }
 }
