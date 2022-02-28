@@ -16,7 +16,7 @@ class ViewController: UIViewController {
         
         (0..<4).forEach { _ in
             let newSquare = factory.makeSquare()
-            print("\(newSquare)")
+            Log.print("\(newSquare)")
         }
         
         
