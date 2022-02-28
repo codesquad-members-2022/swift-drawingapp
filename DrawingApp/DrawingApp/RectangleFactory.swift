@@ -20,9 +20,8 @@ class RectangleFactory {
         let size = Size(width: 150, height: 120)
         let point = generateRandomPoint()
         let backgroundColor = generateRandomColor()
-        let alpha = generateRandomAlpha()
         
-        let newRectangle = Rectangle(id: id, size: size, point: point, backgroundColor: backgroundColor, alpha: alpha)
+        let newRectangle = Rectangle(id: id, size: size, point: point, backgroundColor: backgroundColor)
         
         delegate?.printLog(of: newRectangle)
         
@@ -49,11 +48,7 @@ class RectangleFactory {
         let red = (0...255).randomElement() ?? 0
         let green = (0...255).randomElement() ?? 0
         let blue = (0...255).randomElement() ?? 0
-        return BackgroundColor(r: red, g: green, b: blue)
+        let alpha = (1...10).randomElement() ?? 1
+        return BackgroundColor(r: red, g: green, b: blue, alpha: alpha)
     }
-    
-    private func generateRandomAlpha() -> Alpha {
-        return Alpha(rawValue: (1...10).randomElement() ?? 1) ?? .one
-    }
-    
 }
