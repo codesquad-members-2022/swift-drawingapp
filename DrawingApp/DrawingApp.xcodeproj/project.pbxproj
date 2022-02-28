@@ -16,6 +16,7 @@
 		02D5541627CC5FB000291B27 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D5541527CC5FB000291B27 /* Rectangle.swift */; };
 		02D5541827CC5FF200291B27 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D5541727CC5FF200291B27 /* Size.swift */; };
 		02D5541A27CC606300291B27 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D5541927CC606300291B27 /* Point.swift */; };
+		02D5541C27CC6CE100291B27 /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D5541B27CC6CE100291B27 /* BackgroundColor.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		02D5541527CC5FB000291B27 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 		02D5541727CC5FF200291B27 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		02D5541927CC606300291B27 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
+		02D5541B27CC6CE100291B27 /* BackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +68,7 @@
 				02D5540327CC5E7D00291B27 /* SceneDelegate.swift */,
 				02D5540527CC5E7D00291B27 /* ViewController.swift */,
 				02D5541527CC5FB000291B27 /* Rectangle.swift */,
+				02D5541B27CC6CE100291B27 /* BackgroundColor.swift */,
 				02D5541727CC5FF200291B27 /* Size.swift */,
 				02D5541927CC606300291B27 /* Point.swift */,
 				02D5540727CC5E7D00291B27 /* Main.storyboard */,
@@ -153,6 +156,7 @@
 				02D5540227CC5E7D00291B27 /* AppDelegate.swift in Sources */,
 				02D5540427CC5E7D00291B27 /* SceneDelegate.swift in Sources */,
 				02D5541627CC5FB000291B27 /* Rectangle.swift in Sources */,
+				02D5541C27CC6CE100291B27 /* BackgroundColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
