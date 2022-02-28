@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import OSLog
 
 class ViewController: UIViewController {
 
@@ -13,10 +14,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         let factory = Factory()
-        if let rect = factory.createRandomSquare() {
-            print("rect1: \(rect)")
-            
+        let rects = factory.createRandomRectangles(number: 4)
+        
+        let logger = Logger()
+        for i in 0..<rects.count {
+            guard let rect = rects[i] else { continue }
+            logger.info("Rect\(i): \(rect, privacy: .public)")
         }
+        
     }
 
 
