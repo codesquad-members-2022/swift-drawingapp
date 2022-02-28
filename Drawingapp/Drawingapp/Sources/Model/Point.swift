@@ -11,13 +11,13 @@ class Point: CustomStringConvertible {
     let x: Double
     let y: Double
     
+    var description: String {
+        "( X: \(x), Y: \(y) )"
+    }
+    
     init(x: Double, y: Double) {
         self.x = x
         self.y = y
-    }
-    
-    var description: String {
-        "( X: \(x), Y: \(y) )"
     }
 }
 
