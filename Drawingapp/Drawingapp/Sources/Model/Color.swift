@@ -7,13 +7,13 @@
 
 import Foundation
 
-class Color: CustomStringConvertible {
+struct Color: CustomStringConvertible {
     let r: Int
     let g: Int
     let b: Int
     
     var description: String {
-        "( R: \(r), G: \(b), B: \(b) )"
+        "R: \(r), G: \(b), B: \(b)"
     }
     
     init(r: Int = 0, g: Int = 0, b: Int = 0) {
