@@ -17,6 +17,7 @@
 		1BD7289327CCBC7C008DED9E /* DrawingAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD7289227CCBC7C008DED9E /* DrawingAppUITests.swift */; };
 		1BD7289527CCBC7C008DED9E /* DrawingAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD7289427CCBC7C008DED9E /* DrawingAppUITestsLaunchTests.swift */; };
 		1BD728A227CCBD58008DED9E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1BD728A127CCBD58008DED9E /* README.md */; };
+		1BD728A527CCC1ED008DED9E /* Model_ViewController.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1BD728A427CCC1ED008DED9E /* Model_ViewController.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		1BD7289227CCBC7C008DED9E /* DrawingAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingAppUITests.swift; sourceTree = "<group>"; };
 		1BD7289427CCBC7C008DED9E /* DrawingAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		1BD728A127CCBD58008DED9E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		1BD728A427CCC1ED008DED9E /* Model_ViewController.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Model_ViewController.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				1BD728A127CCBD58008DED9E /* README.md */,
+				1BD728A327CCC106008DED9E /* IMAGES */,
 				1BD7287027CCBC7A008DED9E /* DrawingApp */,
 				1BD7288727CCBC7C008DED9E /* DrawingAppTests */,
 				1BD7289127CCBC7C008DED9E /* DrawingAppUITests */,
@@ -128,6 +131,14 @@
 				1BD7289427CCBC7C008DED9E /* DrawingAppUITestsLaunchTests.swift */,
 			);
 			path = DrawingAppUITests;
+			sourceTree = "<group>";
+		};
+		1BD728A327CCC106008DED9E /* IMAGES */ = {
+			isa = PBXGroup;
+			children = (
+				1BD728A427CCC1ED008DED9E /* Model_ViewController.jpg */,
+			);
+			path = IMAGES;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -236,6 +247,7 @@
 			files = (
 				1BD7287E27CCBC7C008DED9E /* LaunchScreen.storyboard in Resources */,
 				1BD7287B27CCBC7C008DED9E /* Assets.xcassets in Resources */,
+				1BD728A527CCC1ED008DED9E /* Model_ViewController.jpg in Resources */,
 				1BD728A227CCBD58008DED9E /* README.md in Resources */,
 				1BD7287927CCBC7A008DED9E /* Main.storyboard in Resources */,
 			);
