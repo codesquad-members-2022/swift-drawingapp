@@ -26,6 +26,7 @@
   - [x] 좌표를 관리할 클래스 제작, CGPoint 사용하지 않기
   - [x] 크기를 관리할 클래스 제작, CGSize 사용하지 않기
   - [x] 색상을 관리할 클래스 제작, UIColor 사용하지 않기
+  - [x] alpha를 표시할 enum 제작
 
 - [x] 사각형을 만들어 줄 팩토리 구현
 - [x] CustomStringConvertible을 사용하고, 구현하기
