@@ -13,7 +13,8 @@
 		6CD0B2E727CC610E009F5E9E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CD0B2E527CC610E009F5E9E /* Main.storyboard */; };
 		6CD0B2E927CC610F009F5E9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6CD0B2E827CC610F009F5E9E /* Assets.xcassets */; };
 		6CD0B2EC27CC610F009F5E9E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6CD0B2EA27CC610F009F5E9E /* LaunchScreen.storyboard */; };
-		6CD0B2F427CC6383009F5E9E /* RectangleGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD0B2F327CC6383009F5E9E /* RectangleGenerator.swift */; };
+		6CD0B2F427CC6383009F5E9E /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD0B2F327CC6383009F5E9E /* Rectangle.swift */; };
+		6CD0B2F627CC6824009F5E9E /* RectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD0B2F527CC6824009F5E9E /* RectangleFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +26,8 @@
 		6CD0B2E827CC610F009F5E9E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6CD0B2EB27CC610F009F5E9E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6CD0B2ED27CC610F009F5E9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6CD0B2F327CC6383009F5E9E /* RectangleGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleGenerator.swift; sourceTree = "<group>"; };
+		6CD0B2F327CC6383009F5E9E /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
+		6CD0B2F527CC6824009F5E9E /* RectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +64,8 @@
 				6CD0B2E127CC610E009F5E9E /* SceneDelegate.swift */,
 				6CD0B2E327CC610E009F5E9E /* ViewController.swift */,
 				6CD0B2E527CC610E009F5E9E /* Main.storyboard */,
-				6CD0B2F327CC6383009F5E9E /* RectangleGenerator.swift */,
+				6CD0B2F327CC6383009F5E9E /* Rectangle.swift */,
+				6CD0B2F527CC6824009F5E9E /* RectangleFactory.swift */,
 				6CD0B2E827CC610F009F5E9E /* Assets.xcassets */,
 				6CD0B2EA27CC610F009F5E9E /* LaunchScreen.storyboard */,
 				6CD0B2ED27CC610F009F5E9E /* Info.plist */,
@@ -141,10 +144,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6CD0B2F627CC6824009F5E9E /* RectangleFactory.swift in Sources */,
 				6CD0B2E427CC610E009F5E9E /* ViewController.swift in Sources */,
 				6CD0B2E027CC610E009F5E9E /* AppDelegate.swift in Sources */,
 				6CD0B2E227CC610E009F5E9E /* SceneDelegate.swift in Sources */,
-				6CD0B2F427CC6383009F5E9E /* RectangleGenerator.swift in Sources */,
+				6CD0B2F427CC6383009F5E9E /* Rectangle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
