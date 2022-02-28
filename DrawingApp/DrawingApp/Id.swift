@@ -8,9 +8,9 @@
 import Foundation
 
 class Id {
-    private var firstSection : String
-    private var secondSection : String
-    private var thirdSection : String
+    private let firstSection : String
+    private let secondSection : String
+    private let thirdSection : String
     init() {
         let string = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         var randomString : String {

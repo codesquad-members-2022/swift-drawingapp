@@ -13,7 +13,7 @@ class RectangleFactory {
         self.screenSize = screenSize
     }
     func make() -> Rectangle {
-        return Rectangle(id: Id(), width: 150, height: 120, position: randomPosition, color: randomColor, alpha: randomAlpha)
+        return Rectangle(id: Id(), size: Size(width: 150, height: 120), position: randomPosition, color: randomColor, alpha: randomAlpha)
     }
     
     private var randomPosition : Position {
