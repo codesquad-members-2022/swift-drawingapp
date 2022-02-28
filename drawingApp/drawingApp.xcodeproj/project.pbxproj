@@ -15,7 +15,18 @@
 		B743229927CC5DF400445645 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B743229727CC5DF400445645 /* LaunchScreen.storyboard */; };
 		B74322A327CC6F4000445645 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322A227CC6F4000445645 /* Rectangle.swift */; };
 		B74322A527CC81ED00445645 /* RectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322A427CC81ED00445645 /* RectangleFactory.swift */; };
+		B74322B027CCE42000445645 /* drawingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322AF27CCE42000445645 /* drawingAppTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B74322B127CCE42000445645 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B743228127CC5DF300445645 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B743228827CC5DF300445645;
+			remoteInfo = drawingApp;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		B743228927CC5DF300445645 /* drawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = drawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -28,10 +39,19 @@
 		B743229A27CC5DF400445645 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B74322A227CC6F4000445645 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 		B74322A427CC81ED00445645 /* RectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactory.swift; sourceTree = "<group>"; };
+		B74322AD27CCE42000445645 /* drawingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = drawingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B74322AF27CCE42000445645 /* drawingAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = drawingAppTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		B743228627CC5DF300445645 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B74322AA27CCE42000445645 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -45,6 +65,7 @@
 			isa = PBXGroup;
 			children = (
 				B743228B27CC5DF300445645 /* drawingApp */,
+				B74322AE27CCE42000445645 /* drawingAppTests */,
 				B743228A27CC5DF300445645 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -53,6 +74,7 @@
 			isa = PBXGroup;
 			children = (
 				B743228927CC5DF300445645 /* drawingApp.app */,
+				B74322AD27CCE42000445645 /* drawingAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -64,7 +86,6 @@
 				B74322A027CC6F1800445645 /* Model */,
 				B743228C27CC5DF300445645 /* AppDelegate.swift */,
 				B743228E27CC5DF300445645 /* SceneDelegate.swift */,
-				B743229027CC5DF300445645 /* ViewController.swift */,
 				B743229227CC5DF300445645 /* Main.storyboard */,
 				B743229527CC5DF400445645 /* Assets.xcassets */,
 				B743229727CC5DF400445645 /* LaunchScreen.storyboard */,
@@ -85,8 +106,17 @@
 		B74322A127CC6F1E00445645 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				B743229027CC5DF300445645 /* ViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		B74322AE27CCE42000445645 /* drawingAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				B74322AF27CCE42000445645 /* drawingAppTests.swift */,
+			);
+			path = drawingAppTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -109,6 +139,24 @@
 			productReference = B743228927CC5DF300445645 /* drawingApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B74322AC27CCE42000445645 /* drawingAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B74322B327CCE42000445645 /* Build configuration list for PBXNativeTarget "drawingAppTests" */;
+			buildPhases = (
+				B74322A927CCE42000445645 /* Sources */,
+				B74322AA27CCE42000445645 /* Frameworks */,
+				B74322AB27CCE42000445645 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B74322B227CCE42000445645 /* PBXTargetDependency */,
+			);
+			name = drawingAppTests;
+			productName = drawingAppTests;
+			productReference = B74322AD27CCE42000445645 /* drawingAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -121,6 +169,10 @@
 				TargetAttributes = {
 					B743228827CC5DF300445645 = {
 						CreatedOnToolsVersion = 13.2.1;
+					};
+					B74322AC27CCE42000445645 = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = B743228827CC5DF300445645;
 					};
 				};
 			};
@@ -138,6 +190,7 @@
 			projectRoot = "";
 			targets = (
 				B743228827CC5DF300445645 /* drawingApp */,
+				B74322AC27CCE42000445645 /* drawingAppTests */,
 			);
 		};
 /* End PBXProject section */
@@ -150,6 +203,13 @@
 				B743229927CC5DF400445645 /* LaunchScreen.storyboard in Resources */,
 				B743229627CC5DF400445645 /* Assets.xcassets in Resources */,
 				B743229427CC5DF300445645 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B74322AB27CCE42000445645 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -168,7 +228,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		B74322A927CCE42000445645 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B74322B027CCE42000445645 /* drawingAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B74322B227CCE42000445645 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B743228827CC5DF300445645 /* drawingApp */;
+			targetProxy = B74322B127CCE42000445645 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B743229227CC5DF300445645 /* Main.storyboard */ = {
@@ -362,6 +438,42 @@
 			};
 			name = Release;
 		};
+		B74322B427CCE42000445645 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 57KUPHDJ89;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Kai.drawingAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/drawingApp.app/drawingApp";
+			};
+			name = Debug;
+		};
+		B74322B527CCE42000445645 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 57KUPHDJ89;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Kai.drawingAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/drawingApp.app/drawingApp";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -379,6 +491,15 @@
 			buildConfigurations = (
 				B743229E27CC5DF400445645 /* Debug */,
 				B743229F27CC5DF400445645 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B74322B327CCE42000445645 /* Build configuration list for PBXNativeTarget "drawingAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B74322B427CCE42000445645 /* Debug */,
+				B74322B527CCE42000445645 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
