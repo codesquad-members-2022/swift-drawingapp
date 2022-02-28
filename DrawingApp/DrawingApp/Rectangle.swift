@@ -11,11 +11,11 @@ class Rectangle {
     private var id : Id
     private var width : Double
     private var height : Double
-    private var position : (Double,Double)
+    private var position : Position
     private var backGroundColor : (Int,Int,Int)
     private var alpha : Int
     
-    init(id: Id, width : Double, height: Double, position : (Double,Double), color : (Int,Int,Int), alpha : Int) {
+    init(id: Id, width : Double, height: Double, position : Position, color : (Int,Int,Int), alpha : Int) {
         self.id = id
         self.width = width
         self.height = height
@@ -28,6 +28,7 @@ class Rectangle {
 
 extension Rectangle : CustomStringConvertible {
     var description: String {
-        return "(\(self.id)), x:\(self.position.0), y:\(self.position.1), W\(width), H\(height), R:\(self.backGroundColor.0), G:\(self.backGroundColor.1), B:\(self.backGroundColor.2), Alpha:\(self.alpha)"
+        var positionXY = self.position.description.components(separatedBy: ",")
+        return "(\(self.id)), \(position), W\(width), H\(height), R:\(self.backGroundColor.0), G:\(self.backGroundColor.1), B:\(self.backGroundColor.2), Alpha:\(self.alpha)"
     }
 }
