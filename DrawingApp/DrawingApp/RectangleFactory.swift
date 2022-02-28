@@ -16,11 +16,15 @@ class RectangleFactory {
         return Rectangle(id: Id(), width: 150, height: 120, position: randomPosition(), color: randomColor(), alpha: randomAlpha())
     }
     
-    private func randomPosition() -> (Double,Double) {
+    private func randomPosition() -> Position {
         let screenWidth = screenSize.0
         let screenHeight = screenSize.1
-        let position = (Double.random(in: 0...screenWidth), Double.random(in: 0...screenHeight))
-        return position
+        let randomCoordinate = {range in
+            Double.random(in: 0...range)
+        }
+        let randomX = randomCoordinate(screenWidth)
+        let randomY = randomCoordinate(screenHeight)
+        return Position(x: randomX, y: randomY)
     }
     
     private func randomColor() -> (Int,Int,Int){
