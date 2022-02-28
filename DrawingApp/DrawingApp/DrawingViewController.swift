@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import os
 
 class DrawingViewController: UIViewController {
 
@@ -15,6 +16,10 @@ class DrawingViewController: UIViewController {
         super.viewDidLoad()
         view.addSubview(squardAddButton)
         setSquareButtonEvent()
+        let squareFactory = SquareFactory(squareProtocol: self)
+        for i in 0 ..< 4{
+            squareFactory.makeRandomSquare()
+        }
     }
 
     func setSquareButtonEvent(){
@@ -22,13 +27,14 @@ class DrawingViewController: UIViewController {
     }
     
     @objc func squardAddButtonTapped(sender: Any){
-        var randomLogic = RandomLogic(squareProtocol: self)
-        randomLogic.makeSquareViewState()
+        let squareView = SquareView(frame: CGRect(x: RandomMax.x.randomValue, y: RandomMax.y.randomValue, width: 150, height: 120))
+        squareView.backgroundColor = .blue
+        view.addSubview(squareView)
     }
 }
 extension DrawingViewController: SquareViewProtocol{
-    func makeSquareView(squareViewState: SquareViewState) {
-        let squareView = SquareView(squareViewState: squareViewState)
-        view.addSubview(squareView)
+    func logging(square: Square) {
+        let logger = Logger()
+        logger.info("Rect : \(square.description)")
     }
 }
