@@ -8,7 +8,7 @@
 import Foundation
 
 class Factory {
-    func createRandomSquare() -> Square? {
+    func createRandomRectangle() -> Rectangle? {
         let (width, height) = (Double(150), Double(120))
         let X = Double(Int.random(in: 10...500))
         let Y = Double(Int.random(in: 10...500))
@@ -19,6 +19,10 @@ class Factory {
             return nil
         }
         
-        return Square(width: width, height: height, positionX: X, positionY: Y, color: color)
+        return Rectangle(width: width, height: height, positionX: X, positionY: Y, color: color)
+    }
+    
+    func createRandomRectangles(number: Int) -> [Rectangle?] {
+        return (0..<number).map { _ in createRandomRectangle() }
     }
 }
