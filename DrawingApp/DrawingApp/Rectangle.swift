@@ -12,9 +12,9 @@ class Rectangle {
     private var size : Size
     private var position : Position
     private var backGroundColor : Color
-    private var alpha : Int
+    private var alpha : Alpha
     
-    init(id: Id, size: Size, position : Position, color : Color, alpha : Int) {
+    init(id: Id, size: Size, position : Position, color : Color, alpha : Alpha) {
         self.id = id
         self.size = size
         self.position = position
@@ -27,6 +27,6 @@ class Rectangle {
 extension Rectangle : CustomStringConvertible {
     var description: String {
         var positionXY = self.position.description.components(separatedBy: ",")
-        return "(\(self.id)), \(position), \(self.size), \(self.backGroundColor) , Alpha:\(self.alpha)"
+        return "(\(self.id)), \(position), \(self.size), \(self.backGroundColor) , \(self.alpha)"
     }
 }
