@@ -28,7 +28,11 @@ class DrawingViewController: UIViewController {
     
     @objc func squardAddButtonTapped(sender: Any){
         let squareView = SquareView(frame: CGRect(x: RandomMax.x.randomValue, y: RandomMax.y.randomValue, width: 150, height: 120))
-        squareView.backgroundColor = .blue
+        let red = CGFloat(RandomMax.color.randomValue)/255
+        let green = CGFloat(RandomMax.color.randomValue)/255
+        let blue = CGFloat(RandomMax.color.randomValue)/255
+        let alpha = CGFloat(RandomMax.alpha.randomValue)
+        squareView.backgroundColor = UIColor(red: red, green: green, blue: blue, alpha: alpha)
         view.addSubview(squareView)
     }
 }
