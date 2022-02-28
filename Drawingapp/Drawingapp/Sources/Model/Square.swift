@@ -23,7 +23,7 @@ class Square: CustomStringConvertible {
     }
     
     var description: String {
-        "id: ( \(id) ), size: \(size), point: \(point), backgroundColor: \(backgroundColor), alpha: \(alpha)"
+        "id: ( \(id) ), \(point), \(size), \(backgroundColor), alpha: \(alpha)"
     }
 }
 

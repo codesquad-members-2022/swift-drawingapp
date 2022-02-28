@@ -17,7 +17,7 @@ class Point: CustomStringConvertible {
     }
     
     var description: String {
-        "( x: \(x), y: \(y) )"
+        "( X: \(x), Y: \(y) )"
     }
 }
 

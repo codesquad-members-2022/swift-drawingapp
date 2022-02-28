@@ -19,7 +19,7 @@ class Color: CustomStringConvertible {
     }
     
     var description: String {
-        "( r: \(r), g: \(b), b: \(b) )"
+        "( R: \(r), G: \(b), B: \(b) )"
     }
 }
 
