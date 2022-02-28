@@ -23,3 +23,9 @@ class Rectangle {
     }
 
 }
+
+extension Rectangle: CustomStringConvertible {
+    var description: String {
+        return "\(id) Rectangle, \(point), \(size), \(backgroundColor), Alpha: \(alpha)"
+    }
+}

@@ -19,3 +19,8 @@ class BackgroundColor {
     }
 }
 
+extension BackgroundColor: CustomStringConvertible {
+    var description: String {
+        return "(R: \(R), G: \(G), B: \(B))"
+    }
+}

@@ -16,3 +16,9 @@ class Point {
         yPosition = y
     }
 }
+
+extension Point: CustomStringConvertible {
+    var description: String {
+        return "(\(xPosition), \(yPosition))"
+    }
+}
