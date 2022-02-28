@@ -22,11 +22,13 @@
 0. Square, SquareFactory, DrawingViewController가 어떤 역할을 하고, 어떤 변수를 갖을 지 고민한다.
 1. SquareFactory를 구현한다.
     1. 랜덤 색, 좌표
+    2. Square클래스를 만드는 함수.
 
 ### 결과 화면
 
 <img width="614" alt="스크린샷 2022-02-28 오후 6 04 32" src="https://user-images.githubusercontent.com/62687919/155954858-632c1628-5e5c-4cf2-bc90-c07eab5acc23.png">
 
+<img width="847" alt="스크린샷 2022-02-28 오후 8 55 06" src="https://user-images.githubusercontent.com/62687919/155979350-1062dec1-e066-4357-8fdd-e46a66cc323f.png">
 
 ### 고민했던 점.
 1. 어떻게 하면 enum을 잘 활용할 수 있을까? : RandomValue
