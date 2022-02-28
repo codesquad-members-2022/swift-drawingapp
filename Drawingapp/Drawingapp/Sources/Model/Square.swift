@@ -9,8 +9,8 @@ import Foundation
 
 class Square: CustomStringConvertible {
     let id: String
-    let size: Size
     let point: Point
+    let size: Size
     let backgroundColor: Color
     let alpha: Alpha
     
@@ -18,15 +18,23 @@ class Square: CustomStringConvertible {
         "id: ( \(id) ), \(point), \(size), \(backgroundColor), alpha: \(alpha)"
     }
     
-    init(id: String, size: Size = Size(width: 150, height: 120), point: Point = Point(x: 0, y: 0), backgroundColor: Color = .black, alpha: Alpha = Alpha.ten) {
+    init(id: String, point: Point = Point(x: 0, y: 0), size: Size = Size(width: 150, height: 120), backgroundColor: Color = .black, alpha: Alpha = Alpha.ten) {
         self.id = id
-        self.size = size
         self.point = point
+        self.size = size
         self.backgroundColor = backgroundColor
         self.alpha = alpha
     }
     
-    fu
+    func isSelected(by touchPoint: Point) -> Bool {
+        if touchPoint.x >= point.x,
+           touchPoint.y >= point.y,
+           touchPoint.x <= size.width,
+           touchPoint.y <= size.height {
+            return true
+        }
+        return false
+    }
 }
 
 extension Square {
