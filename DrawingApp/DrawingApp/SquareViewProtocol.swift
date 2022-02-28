@@ -8,5 +8,5 @@
 import Foundation
 
 protocol SquareViewProtocol{
-    func makeSquareView(squareViewState: SquareViewState)
+    func logging(square: Square)
 }

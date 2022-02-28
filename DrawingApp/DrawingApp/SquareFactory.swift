@@ -7,7 +7,7 @@
 
 import Foundation
 
-class RandomLogic{
+class SquareFactory{
     
     init(squareProtocol: SquareViewProtocol){
         self.squareProtocol = squareProtocol
@@ -34,16 +34,18 @@ class RandomLogic{
         return property.randomValue
     }
     
-    func makeSquareViewState(){
+    func makeRandomSquare(){
         let red = randomValue(property: .color)
         let blue = randomValue(property: .color)
         let green = randomValue(property: .color)
-        let uniqueId = makeUiniqueId()
+        let alpha = randomValue(property: .alpha)
         let x = randomValue(property: .x)
         let y = randomValue(property: .y) + 44
-        let alpha = randomValue(property: .alpha)
-        let squareViewState = SquareViewState(red: red, green: green, blue: blue, uniqueId: uniqueId, x: x, y: y, width: 150, height: 120, alpha: alpha)
-        squareProtocol?.makeSquareView(squareViewState: squareViewState)
+        let uniqueId = makeUiniqueId()
+        let color = SquareColor(red: red, green: green, blue: blue, alpha: alpha)
+        let point = ViewPoint(x: x, y: y, width: 150, height: 120)
+        let square = Square(uniqueId: uniqueId, color: color, point: point)
+        squareProtocol?.logging(square: square)
     }
 }
 
