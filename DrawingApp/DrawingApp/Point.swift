@@ -7,9 +7,9 @@
 
 import Foundation
 
-class Point {
-    private let xPosition: Double
-    private let yPosition: Double
+struct Point {
+    private var xPosition: Double
+    private var yPosition: Double
     
     init(x: Double, y: Double) {
         xPosition = x
