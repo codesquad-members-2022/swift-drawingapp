@@ -14,7 +14,7 @@ class RectangleFactory {
         self.screenSize = screenSize
     }
     
-    public func generateRectangle() -> Rectangle? {
+    public func generateRectangle() -> Rectangle {
         let id = generateRandomID()
         let size = Size(width: 150, height: 120)
         let point = generateRandomPoint()
