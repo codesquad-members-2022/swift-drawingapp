@@ -10,16 +10,24 @@ import UIKit
 class ViewController: UIViewController {
 
     let factory = Factory()
+    let plane = Plane()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        (0..<4).forEach { _ in
-            let newSquare = factory.makeSquare()
-            Log.print("\(newSquare)")
-        }
+        bind()
     }
-
-
+    
+    func bind() {
+        let tapGesture = UITapGestureRecognizer()
+        tapGesture.delegate = self
+        self.view.addGestureRecognizer(tapGesture)
+    }
 }
 
+extension ViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        let location = gestureRecognizer.location(in: self.view)
+        self.plane.action.onScreenTouched(Point(x: location.x, y: location.y))
+        return true
+    }
+}
