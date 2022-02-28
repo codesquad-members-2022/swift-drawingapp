@@ -7,12 +7,12 @@
 
 import Foundation
 
-class Point: CustomStringConvertible {
+struct Point: CustomStringConvertible {
     let x: Double
     let y: Double
     
     var description: String {
-        "( X: \(x), Y: \(y) )"
+        "X: \(x), Y: \(y)"
     }
     
     init(x: Double, y: Double) {

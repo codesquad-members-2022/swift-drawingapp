@@ -7,12 +7,13 @@
 
 import Foundation
 
-class Size: CustomStringConvertible {
+struct Size: CustomStringConvertible {
     let width: Double
     let height: Double
     
+    
     var description: String {
-        "( W: \(width), H: \(height) )"
+        "W: \(width), H: \(height)"
     }
     
     init(width: Double, height: Double) {
