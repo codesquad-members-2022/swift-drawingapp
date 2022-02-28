@@ -61,7 +61,7 @@ extension String{
                 break
             }
             
-            if num == 4 || num == 7{
+            if num == 3 || num == 7{
                 name.append("-")
             } else{
                 name.append(randomString)

@@ -10,6 +10,9 @@
 		D26D915727CC67E8007507AE /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26D915627CC67E8007507AE /* Attributes.swift */; };
 		D26D915927CC6D87007507AE /* RectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26D915827CC6D87007507AE /* RectangleFactory.swift */; };
 		D26D915B27CCB8B3007507AE /* RectangleArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26D915A27CCB8B3007507AE /* RectangleArray.swift */; };
+		D26D916327CD03B0007507AE /* RectangleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26D916227CD03B0007507AE /* RectangleTest.swift */; };
+		D26D916B27CD08C6007507AE /* RectangleFactoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26D916A27CD08C6007507AE /* RectangleFactoryTest.swift */; };
+		D26D916D27CD0B13007507AE /* RectangleArrayTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26D916C27CD0B13007507AE /* RectangleArrayTest.swift */; };
 		D273EADE27CC5C6500DCDF78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D273EADD27CC5C6500DCDF78 /* AppDelegate.swift */; };
 		D273EAE027CC5C6500DCDF78 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D273EADF27CC5C6500DCDF78 /* SceneDelegate.swift */; };
 		D273EAE227CC5C6500DCDF78 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D273EAE127CC5C6500DCDF78 /* ViewController.swift */; };
@@ -19,10 +22,24 @@
 		D273EAF327CC5DA000DCDF78 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D273EAF227CC5DA000DCDF78 /* Rectangle.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		D26D916427CD03B0007507AE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D273EAD227CC5C6500DCDF78 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D273EAD927CC5C6500DCDF78;
+			remoteInfo = DrawingApp;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		D26D915627CC67E8007507AE /* Attributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attributes.swift; sourceTree = "<group>"; };
 		D26D915827CC6D87007507AE /* RectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactory.swift; sourceTree = "<group>"; };
 		D26D915A27CCB8B3007507AE /* RectangleArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleArray.swift; sourceTree = "<group>"; };
+		D26D916027CD03B0007507AE /* RectangleTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RectangleTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D26D916227CD03B0007507AE /* RectangleTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleTest.swift; sourceTree = "<group>"; };
+		D26D916A27CD08C6007507AE /* RectangleFactoryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactoryTest.swift; sourceTree = "<group>"; };
+		D26D916C27CD0B13007507AE /* RectangleArrayTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleArrayTest.swift; sourceTree = "<group>"; };
 		D273EADA27CC5C6500DCDF78 /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D273EADD27CC5C6500DCDF78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D273EADF27CC5C6500DCDF78 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -35,6 +52,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D26D915D27CD03B0007507AE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D273EAD727CC5C6500DCDF78 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -45,10 +69,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D26D916127CD03B0007507AE /* RectangleTest */ = {
+			isa = PBXGroup;
+			children = (
+				D26D916227CD03B0007507AE /* RectangleTest.swift */,
+				D26D916A27CD08C6007507AE /* RectangleFactoryTest.swift */,
+				D26D916C27CD0B13007507AE /* RectangleArrayTest.swift */,
+			);
+			path = RectangleTest;
+			sourceTree = "<group>";
+		};
 		D273EAD127CC5C6500DCDF78 = {
 			isa = PBXGroup;
 			children = (
 				D273EADC27CC5C6500DCDF78 /* DrawingApp */,
+				D26D916127CD03B0007507AE /* RectangleTest */,
 				D273EADB27CC5C6500DCDF78 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -57,6 +92,7 @@
 			isa = PBXGroup;
 			children = (
 				D273EADA27CC5C6500DCDF78 /* DrawingApp.app */,
+				D26D916027CD03B0007507AE /* RectangleTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -90,6 +126,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		D26D915F27CD03B0007507AE /* RectangleTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D26D916627CD03B0007507AE /* Build configuration list for PBXNativeTarget "RectangleTest" */;
+			buildPhases = (
+				D26D915C27CD03B0007507AE /* Sources */,
+				D26D915D27CD03B0007507AE /* Frameworks */,
+				D26D915E27CD03B0007507AE /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D26D916527CD03B0007507AE /* PBXTargetDependency */,
+			);
+			name = RectangleTest;
+			productName = RectangleTest;
+			productReference = D26D916027CD03B0007507AE /* RectangleTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		D273EAD927CC5C6500DCDF78 /* DrawingApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D273EAEE27CC5C6600DCDF78 /* Build configuration list for PBXNativeTarget "DrawingApp" */;
@@ -117,6 +171,10 @@
 				LastSwiftUpdateCheck = 1320;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
+					D26D915F27CD03B0007507AE = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = D273EAD927CC5C6500DCDF78;
+					};
 					D273EAD927CC5C6500DCDF78 = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
@@ -136,11 +194,19 @@
 			projectRoot = "";
 			targets = (
 				D273EAD927CC5C6500DCDF78 /* DrawingApp */,
+				D26D915F27CD03B0007507AE /* RectangleTest */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D26D915E27CD03B0007507AE /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D273EAD827CC5C6500DCDF78 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -154,6 +220,16 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D26D915C27CD03B0007507AE /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D26D916B27CD08C6007507AE /* RectangleFactoryTest.swift in Sources */,
+				D26D916D27CD0B13007507AE /* RectangleArrayTest.swift in Sources */,
+				D26D916327CD03B0007507AE /* RectangleTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D273EAD627CC5C6500DCDF78 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -169,6 +245,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D26D916527CD03B0007507AE /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D273EAD927CC5C6500DCDF78 /* DrawingApp */;
+			targetProxy = D26D916427CD03B0007507AE /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		D273EAE327CC5C6500DCDF78 /* Main.storyboard */ = {
@@ -190,6 +274,42 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		D26D916727CD03B0007507AE /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q646ABLXY6;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codesquad.RectangleTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DrawingApp.app/DrawingApp";
+			};
+			name = Debug;
+		};
+		D26D916827CD03B0007507AE /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = Q646ABLXY6;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.codesquad.RectangleTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DrawingApp.app/DrawingApp";
+			};
+			name = Release;
+		};
 		D273EAEC27CC5C6600DCDF78 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -367,6 +487,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D26D916627CD03B0007507AE /* Build configuration list for PBXNativeTarget "RectangleTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D26D916727CD03B0007507AE /* Debug */,
+				D26D916827CD03B0007507AE /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D273EAD527CC5C6500DCDF78 /* Build configuration list for PBXProject "DrawingApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
