@@ -9,21 +9,33 @@
 /* Begin PBXBuildFile section */
 		72400F2527CC5D1800D24138 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72400F2427CC5D1800D24138 /* AppDelegate.swift */; };
 		72400F2727CC5D1800D24138 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72400F2627CC5D1800D24138 /* SceneDelegate.swift */; };
-		72400F2927CC5D1800D24138 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72400F2827CC5D1800D24138 /* ViewController.swift */; };
+		72400F2927CC5D1800D24138 /* DrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72400F2827CC5D1800D24138 /* DrawingViewController.swift */; };
 		72400F2C27CC5D1800D24138 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72400F2A27CC5D1800D24138 /* Main.storyboard */; };
 		72400F2E27CC5D1900D24138 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72400F2D27CC5D1900D24138 /* Assets.xcassets */; };
 		72400F3127CC5D1900D24138 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72400F2F27CC5D1900D24138 /* LaunchScreen.storyboard */; };
+		72A40E1627CCB32A002D076C /* SquareAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1527CCB32A002D076C /* SquareAddButton.swift */; };
+		72A40E1A27CCBB3F002D076C /* RandomLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1927CCBB3F002D076C /* RandomLogic.swift */; };
+		72A40E1C27CCBB87002D076C /* SquareViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1B27CCBB86002D076C /* SquareViewState.swift */; };
+		72A40E1E27CCBD8C002D076C /* SquareViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1D27CCBD8C002D076C /* SquareViewProtocol.swift */; };
+		72C4FDF427CC5FB300CE5D25 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C4FDF327CC5FB300CE5D25 /* SquareView.swift */; };
+		72C4FDF627CC73EB00CE5D25 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 72C4FDF527CC73EB00CE5D25 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		72400F2127CC5D1800D24138 /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72400F2427CC5D1800D24138 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		72400F2627CC5D1800D24138 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		72400F2827CC5D1800D24138 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		72400F2827CC5D1800D24138 /* DrawingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingViewController.swift; sourceTree = "<group>"; };
 		72400F2B27CC5D1800D24138 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		72400F2D27CC5D1900D24138 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		72400F3027CC5D1900D24138 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		72400F3227CC5D1900D24138 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		72A40E1527CCB32A002D076C /* SquareAddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareAddButton.swift; sourceTree = "<group>"; };
+		72A40E1927CCBB3F002D076C /* RandomLogic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomLogic.swift; sourceTree = "<group>"; };
+		72A40E1B27CCBB86002D076C /* SquareViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareViewState.swift; sourceTree = "<group>"; };
+		72A40E1D27CCBD8C002D076C /* SquareViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareViewProtocol.swift; sourceTree = "<group>"; };
+		72C4FDF327CC5FB300CE5D25 /* SquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
+		72C4FDF527CC73EB00CE5D25 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +52,7 @@
 		72400F1827CC5D1800D24138 = {
 			isa = PBXGroup;
 			children = (
+				72C4FDF527CC73EB00CE5D25 /* README.md */,
 				72400F2327CC5D1800D24138 /* DrawingApp */,
 				72400F2227CC5D1800D24138 /* Products */,
 			);
@@ -56,15 +69,28 @@
 		72400F2327CC5D1800D24138 /* DrawingApp */ = {
 			isa = PBXGroup;
 			children = (
+				72C4FDF227CC5FA600CE5D25 /* view */,
 				72400F2427CC5D1800D24138 /* AppDelegate.swift */,
 				72400F2627CC5D1800D24138 /* SceneDelegate.swift */,
-				72400F2827CC5D1800D24138 /* ViewController.swift */,
+				72400F2827CC5D1800D24138 /* DrawingViewController.swift */,
 				72400F2A27CC5D1800D24138 /* Main.storyboard */,
 				72400F2D27CC5D1900D24138 /* Assets.xcassets */,
 				72400F2F27CC5D1900D24138 /* LaunchScreen.storyboard */,
 				72400F3227CC5D1900D24138 /* Info.plist */,
+				72A40E1927CCBB3F002D076C /* RandomLogic.swift */,
+				72A40E1B27CCBB86002D076C /* SquareViewState.swift */,
+				72A40E1D27CCBD8C002D076C /* SquareViewProtocol.swift */,
 			);
 			path = DrawingApp;
+			sourceTree = "<group>";
+		};
+		72C4FDF227CC5FA600CE5D25 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				72C4FDF327CC5FB300CE5D25 /* SquareView.swift */,
+				72A40E1527CCB32A002D076C /* SquareAddButton.swift */,
+			);
+			path = view;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -127,6 +153,7 @@
 			files = (
 				72400F3127CC5D1900D24138 /* LaunchScreen.storyboard in Resources */,
 				72400F2E27CC5D1900D24138 /* Assets.xcassets in Resources */,
+				72C4FDF627CC73EB00CE5D25 /* README.md in Resources */,
 				72400F2C27CC5D1800D24138 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -138,9 +165,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				72400F2927CC5D1800D24138 /* ViewController.swift in Sources */,
+				72400F2927CC5D1800D24138 /* DrawingViewController.swift in Sources */,
+				72A40E1627CCB32A002D076C /* SquareAddButton.swift in Sources */,
 				72400F2527CC5D1800D24138 /* AppDelegate.swift in Sources */,
 				72400F2727CC5D1800D24138 /* SceneDelegate.swift in Sources */,
+				72A40E1E27CCBD8C002D076C /* SquareViewProtocol.swift in Sources */,
+				72A40E1C27CCBB87002D076C /* SquareViewState.swift in Sources */,
+				72A40E1A27CCBB3F002D076C /* RandomLogic.swift in Sources */,
+				72C4FDF427CC5FB300CE5D25 /* SquareView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
