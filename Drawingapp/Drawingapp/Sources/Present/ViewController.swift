@@ -10,12 +10,12 @@ import UIKit
 class ViewController: UIViewController {
 
     let drawingBoard = UIView()
+    var squareViews: [String:UIView] = [:]
     
     let makeSquareIcon = UIImageView()
     let makeSquareLabel = UILabel()
     let makeSquare = UIButton()
     
-    var squareViews: [String:UIView] = [:]
     
     let plane = Plane()
     
@@ -70,7 +70,7 @@ class ViewController: UIViewController {
         drawingBoard.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         drawingBoard.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
         
-        self.drawingBoard.addSubview(makeSquare)
+        self.view.addSubview(makeSquare)
         makeSquare.translatesAutoresizingMaskIntoConstraints = false
         makeSquare.bottomAnchor.constraint(equalTo: safeAreaGuide.bottomAnchor).isActive = true
         makeSquare.centerXAnchor.constraint(equalTo: safeAreaGuide.centerXAnchor).isActive = true
