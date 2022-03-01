@@ -22,12 +22,12 @@ class DrawingappUITests: XCTestCase {
     
     //사각형을 하나 만들고, 터치 action에 사각형 좌표X에 200을 더해 선택되지 않음을 확인
     func testNotSelectSquare() {
-        plane.state.selectedSquare = { square in
+        plane.state.didSelectedSquare = { square in
             XCTAssertTrue(square == nil, "사각형이 선택되었습니다")
         }
         
-        plane.state.renderSquare = { square in
-            self.plane.action.onScreenTouched(Point(x: square.point.x + 200, y: square.point.y))
+        plane.state.drawSquare = { square in
+            self.plane.action.onScreenTapped(Point(x: square.x + 200, y: square.y))
         }
         
         plane.action.makeSquareButtonTapped()
@@ -35,12 +35,12 @@ class DrawingappUITests: XCTestCase {
     
     //사각형을 하나 만들고, 터치 action에 사각형 좌표를 보내 선택되는지 확인
     func testSelectSquare() {
-        plane.state.selectedSquare = { square in
+        plane.state.didSelectedSquare = { square in
             XCTAssertTrue(square != nil, "사각형이 선택되지 않았습니다")
         }
         
-        plane.state.renderSquare = { square in
-            self.plane.action.onScreenTouched(square.point)
+        plane.state.drawSquare = { square in
+            self.plane.action.onScreenTapped(Point(x: square.x, y: square.y))
         }
         
         plane.action.makeSquareButtonTapped()
