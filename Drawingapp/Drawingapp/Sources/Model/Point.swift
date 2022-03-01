@@ -20,9 +20,3 @@ struct Point: CustomStringConvertible {
         self.y = y
     }
 }
-
-extension Point {
-    static func make(x: Double, y: Double) -> Point {
-        Point(x: x, y: y)
-    }
-}

@@ -22,13 +22,3 @@ struct Color: CustomStringConvertible {
         self.b = b
     }
 }
-
-extension Color {
-    static func make(r: Int = 0, g: Int = 0, b: Int = 0) -> Color {
-        Color(r: r, g: g, b: b)
-    }
-}
-
-extension Color {
-    static var black = Color(r: 0, g: 0, b: 0)
-}
