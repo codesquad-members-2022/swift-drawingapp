@@ -6,3 +6,8 @@
 //
 
 import Foundation
+import UIKit
+
+class InspectorItemView: BaseView {
+    let title = UILabel()
+}

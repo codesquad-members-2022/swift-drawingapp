@@ -8,6 +8,6 @@
 import Foundation
 import UIKit
 
-class InspectorItemLabelView: UIView {
+class InspectorItemLabelView: InspectorItemView {
     
 }
