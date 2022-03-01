@@ -35,6 +35,8 @@
 		E0D7DA3B27CD1DBD00A56635 /* Squares.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA2F27CD09F500A56635 /* Squares.swift */; };
 		E0D7DA4127CDD8E600A56635 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA4027CDD8E600A56635 /* ColorExtension.swift */; };
 		E0D7DA4327CDE10500A56635 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA4227CDE10500A56635 /* SquareView.swift */; };
+		E0D7DA4527CDE32300A56635 /* TopMenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA4427CDE32300A56635 /* TopMenuBarView.swift */; };
+		E0D7DA4827CDE3C800A56635 /* TopMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA4727CDE3C800A56635 /* TopMenuItemView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +81,8 @@
 		E0D7DA2F27CD09F500A56635 /* Squares.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squares.swift; sourceTree = "<group>"; };
 		E0D7DA4027CDD8E600A56635 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		E0D7DA4227CDE10500A56635 /* SquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
+		E0D7DA4427CDE32300A56635 /* TopMenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMenuBarView.swift; sourceTree = "<group>"; };
+		E0D7DA4727CDE3C800A56635 /* TopMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMenuItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -193,8 +197,8 @@
 		E0D7DA1027CC5A6E00A56635 /* Present */ = {
 			isa = PBXGroup;
 			children = (
+				E0D7DA4627CDE32800A56635 /* View */,
 				E0D7D9E127CC594D00A56635 /* ViewController.swift */,
-				E0D7DA4227CDE10500A56635 /* SquareView.swift */,
 			);
 			path = Present;
 			sourceTree = "<group>";
@@ -222,6 +226,40 @@
 				E0D7DA4027CDD8E600A56635 /* ColorExtension.swift */,
 			);
 			path = Extension;
+			sourceTree = "<group>";
+		};
+		E0D7DA4627CDE32800A56635 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E0D7DA4B27CDF1BA00A56635 /* Inspector */,
+				E0D7DA4A27CDEDAF00A56635 /* DrawingItem */,
+				E0D7DA4927CDE3CD00A56635 /* TopMenu */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E0D7DA4927CDE3CD00A56635 /* TopMenu */ = {
+			isa = PBXGroup;
+			children = (
+				E0D7DA4427CDE32300A56635 /* TopMenuBarView.swift */,
+				E0D7DA4727CDE3C800A56635 /* TopMenuItemView.swift */,
+			);
+			path = TopMenu;
+			sourceTree = "<group>";
+		};
+		E0D7DA4A27CDEDAF00A56635 /* DrawingItem */ = {
+			isa = PBXGroup;
+			children = (
+				E0D7DA4227CDE10500A56635 /* SquareView.swift */,
+			);
+			path = DrawingItem;
+			sourceTree = "<group>";
+		};
+		E0D7DA4B27CDF1BA00A56635 /* Inspector */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Inspector;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -357,9 +395,11 @@
 			files = (
 				E0D7DA3027CD09F500A56635 /* Squares.swift in Sources */,
 				E0D7DA1427CC5EB000A56635 /* Square.swift in Sources */,
+				E0D7DA4827CDE3C800A56635 /* TopMenuItemView.swift in Sources */,
 				E0D7DA1727CC642800A56635 /* Size.swift in Sources */,
 				E0D7DA2C27CCF83300A56635 /* Log.swift in Sources */,
 				E0D7DA2027CC656500A56635 /* Color.swift in Sources */,
+				E0D7DA4527CDE32300A56635 /* TopMenuBarView.swift in Sources */,
 				E0D7DA1927CC643000A56635 /* Point.swift in Sources */,
 				E0D7DA2327CC67DF00A56635 /* Alpha.swift in Sources */,
 				E0D7DA2927CCDC9200A56635 /* Factory.swift in Sources */,
