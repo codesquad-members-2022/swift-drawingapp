@@ -12,10 +12,6 @@ class InspectorView: BaseView {
     
     let itemStackView = UIStackView()
     let backgroundColorInfo = InspectorItemLabelView()
-    let backgroundColorInfo1 = InspectorItemLabelView()
-    
-    func bind(plane: Plane) {
-    }
     
     override func attribute() {
         super.attribute()
@@ -32,16 +28,15 @@ class InspectorView: BaseView {
         
         self.addSubview(itemStackView)
         itemStackView.addArrangedSubview(backgroundColorInfo)
-        itemStackView.addArrangedSubview(backgroundColorInfo1)
         
         itemStackView.translatesAutoresizingMaskIntoConstraints = false
         itemStackView.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor).isActive = true
         itemStackView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         itemStackView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        itemStackView.bottomAnchor.constraint(equalTo: backgroundColorInfo1.bottomAnchor).isActive = true
+        itemStackView.bottomAnchor.constraint(equalTo: backgroundColorInfo.bottomAnchor).isActive = true
     }
     
-    func setSquare(square: Square?) {
+    func setSquare(in square: Square?) {
         guard let square = square else {
             itemStackView.isHidden = true
             return

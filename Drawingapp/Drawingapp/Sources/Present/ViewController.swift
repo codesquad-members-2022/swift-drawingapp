@@ -45,7 +45,7 @@ class ViewController: UIViewController {
         }
         
         plane.state.didSelectedSquare = { square in
-            self.inspectorView.setSquare(square: square)
+            self.inspectorView.setSquare(in: square)
             
             guard let square = square else {
                 return
@@ -55,7 +55,6 @@ class ViewController: UIViewController {
     }
     
     func attribute() {
-        self.view.backgroundColor = .black
         drawingBoard.backgroundColor = .white
     }
     
