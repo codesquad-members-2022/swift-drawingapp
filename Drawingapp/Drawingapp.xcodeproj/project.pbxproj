@@ -33,8 +33,7 @@
 		E0D7DA3927CD1DBD00A56635 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1827CC643000A56635 /* Point.swift */; };
 		E0D7DA3A27CD1DBD00A56635 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA2D27CD048C00A56635 /* Plane.swift */; };
 		E0D7DA3B27CD1DBD00A56635 /* Squares.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA2F27CD09F500A56635 /* Squares.swift */; };
-		E0D7DA3D27CDA94B00A56635 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA3C27CDA94B00A56635 /* UIColor.swift */; };
-		E0D7DA3F27CDA98900A56635 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA3C27CDA94B00A56635 /* UIColor.swift */; };
+		E0D7DA4127CDD8E600A56635 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA4027CDD8E600A56635 /* ColorExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,7 +76,7 @@
 		E0D7DA2B27CCF83300A56635 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		E0D7DA2D27CD048C00A56635 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		E0D7DA2F27CD09F500A56635 /* Squares.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squares.swift; sourceTree = "<group>"; };
-		E0D7DA3C27CDA94B00A56635 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		E0D7DA4027CDD8E600A56635 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,8 +168,8 @@
 		E0D7DA0E27CC5A4700A56635 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				E0D7DA1027CC5A6E00A56635 /* Present */,
 				E0D7DA0D27CC5A4100A56635 /* Model */,
+				E0D7DA1027CC5A6E00A56635 /* Present */,
 				E0D7DA2727CCDC7900A56635 /* Common */,
 				E0D7DA3E27CDA95200A56635 /* Extension */,
 				E0D7D9DD27CC594D00A56635 /* AppDelegate.swift */,
@@ -217,7 +216,7 @@
 		E0D7DA3E27CDA95200A56635 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				E0D7DA3C27CDA94B00A56635 /* UIColor.swift */,
+				E0D7DA4027CDD8E600A56635 /* ColorExtension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -362,10 +361,10 @@
 				E0D7DA2327CC67DF00A56635 /* Alpha.swift in Sources */,
 				E0D7DA2927CCDC9200A56635 /* Factory.swift in Sources */,
 				E0D7D9E227CC594D00A56635 /* ViewController.swift in Sources */,
-				E0D7DA3D27CDA94B00A56635 /* UIColor.swift in Sources */,
 				E0D7D9DE27CC594D00A56635 /* AppDelegate.swift in Sources */,
 				E0D7D9E027CC594D00A56635 /* SceneDelegate.swift in Sources */,
 				E0D7DA2E27CD048C00A56635 /* Plane.swift in Sources */,
+				E0D7DA4127CDD8E600A56635 /* ColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -388,7 +387,6 @@
 				E0D7DA2A27CCDCDB00A56635 /* Factory.swift in Sources */,
 				E0D7DA3827CD1DBD00A56635 /* Alpha.swift in Sources */,
 				E0D7DA3527CD1DBD00A56635 /* Color.swift in Sources */,
-				E0D7DA3F27CDA98900A56635 /* UIColor.swift in Sources */,
 				E0D7D9FF27CC594E00A56635 /* DrawingappUITests.swift in Sources */,
 				E0D7DA3727CD1DBD00A56635 /* Size.swift in Sources */,
 				E0D7DA0127CC594E00A56635 /* DrawingappUITestsLaunchTests.swift in Sources */,
