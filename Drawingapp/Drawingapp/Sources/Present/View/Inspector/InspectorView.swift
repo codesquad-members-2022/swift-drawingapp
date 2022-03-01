@@ -8,28 +8,17 @@
 import Foundation
 import UIKit
 
-class InspectorView: UIView {
-    
-    init() {
-        super.init(frame: .zero)
-        attribute()
-        layout()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        attribute()
-        layout()
-    }
+class InspectorView: BaseView {
     
     func bind(plane: Plane) {
     }
     
-    func attribute() {
+    override func attribute() {
+        super.attribute()
         self.backgroundColor = UIColor(red: 200.0 / 255.0, green: 200.0 / 255.0, blue: 1, alpha: 1)
     }
     
-    func layout() {
-        
+    override func layout() {
+        super.layout()
     }
 }

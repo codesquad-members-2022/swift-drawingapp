@@ -8,21 +8,9 @@
 import Foundation
 import UIKit
 
-class TopMenuBarView: UIView {
+class TopMenuBarView: BaseView {
     let stackView = UIStackView()
     let makeSquare = TopMenuItemView()
-    
-    init() {
-        super.init(frame: .zero)
-        attribute()
-        layout()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        attribute()
-        layout()
-    }
     
     func bind(plane: Plane) {
         makeSquare.button.addAction(UIAction(){ _ in
@@ -30,7 +18,8 @@ class TopMenuBarView: UIView {
         }, for: .touchUpInside)
     }
     
-    func attribute() {
+    override func attribute() {
+        super.attribute()
         self.backgroundColor = UIColor(red: 200.0 / 255.0, green: 200.0 / 255.0, blue: 1, alpha: 1)
         self.layer.cornerRadius = 5
         
@@ -39,7 +28,8 @@ class TopMenuBarView: UIView {
         makeSquare.icon.image = UIImage(named: "ic_square")
     }
     
-    func layout() {
+    override func layout() {
+        super.layout()
         self.addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
