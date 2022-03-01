@@ -15,7 +15,7 @@ class InspectorItemLabelView: InspectorItemView {
         super.attribute()
         
         info.textAlignment = .center
-        info.textColor = .systemGray4
+        info.textColor = .black
         info.backgroundColor = .clear
         info.layer.borderWidth = 1
         info.layer.borderColor = UIColor.lightGray.cgColor
