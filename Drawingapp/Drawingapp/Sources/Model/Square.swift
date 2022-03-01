@@ -10,10 +10,10 @@ import UIKit
 
 class Square: CustomStringConvertible {
     let id: String
-    let point: Point
-    let size: Size
-    let color: Color
-    let alpha: Alpha
+    private let point: Point
+    private let size: Size
+    private let color: Color
+    private let alpha: Alpha
         
     var minX: Double {
         point.x
@@ -45,6 +45,10 @@ class Square: CustomStringConvertible {
     
     var height: Double {
         size.height
+    }
+    
+    var uiColor: UIColor {
+        UIColor(red: CGFloat(color.r) / 255, green: CGFloat(color.g) / 255, blue: CGFloat(color.b / 255), alpha: alpha.value)
     }
     
     var description: String {
