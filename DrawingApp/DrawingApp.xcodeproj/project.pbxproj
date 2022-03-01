@@ -15,6 +15,7 @@
 		B5E73BAC27CDC2A10016E628 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B5E73BAA27CDC2A10016E628 /* LaunchScreen.storyboard */; };
 		B5E73BB527CDC2F90016E628 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E73BB427CDC2F90016E628 /* Rectangle.swift */; };
 		B5E73BB727CDE3910016E628 /* RectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E73BB627CDE3910016E628 /* RectangleFactory.swift */; };
+		B5E73BBA27CE01320016E628 /* OSLog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5E73BB927CE01320016E628 /* OSLog.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		B5E73BAD27CDC2A10016E628 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5E73BB427CDC2F90016E628 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 		B5E73BB627CDE3910016E628 /* RectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactory.swift; sourceTree = "<group>"; };
+		B5E73BB927CE01320016E628 /* OSLog.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OSLog.framework; path = System/Library/Frameworks/OSLog.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B5E73BBA27CE01320016E628 /* OSLog.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,6 +49,7 @@
 			children = (
 				B5E73B9E27CDC29E0016E628 /* DrawingApp */,
 				B5E73B9D27CDC29E0016E628 /* Products */,
+				B5E73BB827CE01320016E628 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -79,6 +83,14 @@
 				B5E73BB627CDE3910016E628 /* RectangleFactory.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		B5E73BB827CE01320016E628 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B5E73BB927CE01320016E628 /* OSLog.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
