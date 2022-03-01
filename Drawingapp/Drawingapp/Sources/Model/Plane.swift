@@ -16,6 +16,7 @@ class Plane {
     
     struct State {
         var selectedSquare: (Square?) -> Void = { _ in }
+        var renderSquare: (Square) -> Void = { _ in }
     }
     
     var action = Action()
@@ -33,6 +34,7 @@ class Plane {
         self.action.makeSquareButtonTapped = {
             let square = self.squareFactory.makeSquare()
             self.squares.append(square: square)
+            self.state.renderSquare(square)
         }
     }
 }
