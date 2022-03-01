@@ -33,7 +33,6 @@
 		E0D7DA3927CD1DBD00A56635 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1827CC643000A56635 /* Point.swift */; };
 		E0D7DA3A27CD1DBD00A56635 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA2D27CD048C00A56635 /* Plane.swift */; };
 		E0D7DA3B27CD1DBD00A56635 /* Squares.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA2F27CD09F500A56635 /* Squares.swift */; };
-		E0D7DA4127CDD8E600A56635 /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA4027CDD8E600A56635 /* ColorExtension.swift */; };
 		E0D7DA4327CDE10500A56635 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA4227CDE10500A56635 /* SquareView.swift */; };
 		E0D7DA4527CDE32300A56635 /* TopMenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA4427CDE32300A56635 /* TopMenuBarView.swift */; };
 		E0D7DA4827CDE3C800A56635 /* TopMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA4727CDE3C800A56635 /* TopMenuItemView.swift */; };
@@ -84,7 +83,6 @@
 		E0D7DA2B27CCF83300A56635 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		E0D7DA2D27CD048C00A56635 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		E0D7DA2F27CD09F500A56635 /* Squares.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squares.swift; sourceTree = "<group>"; };
-		E0D7DA4027CDD8E600A56635 /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		E0D7DA4227CDE10500A56635 /* SquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
 		E0D7DA4427CDE32300A56635 /* TopMenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMenuBarView.swift; sourceTree = "<group>"; };
 		E0D7DA4727CDE3C800A56635 /* TopMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMenuItemView.swift; sourceTree = "<group>"; };
@@ -187,7 +185,6 @@
 				E0D7DA0D27CC5A4100A56635 /* Model */,
 				E0D7DA1027CC5A6E00A56635 /* Present */,
 				E0D7DA2727CCDC7900A56635 /* Common */,
-				E0D7DA3E27CDA95200A56635 /* Extension */,
 				E0D7D9DD27CC594D00A56635 /* AppDelegate.swift */,
 				E0D7D9DF27CC594D00A56635 /* SceneDelegate.swift */,
 			);
@@ -231,18 +228,10 @@
 			path = Common;
 			sourceTree = "<group>";
 		};
-		E0D7DA3E27CDA95200A56635 /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				E0D7DA4027CDD8E600A56635 /* ColorExtension.swift */,
-			);
-			path = Extension;
-			sourceTree = "<group>";
-		};
 		E0D7DA4627CDE32800A56635 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E0D7DA4A27CDEDAF00A56635 /* DrawingItem */,
+				E0D7DA5927CE14E600A56635 /* DrawingBoard */,
 				E0D7DA4B27CDF1BA00A56635 /* Inspector */,
 				E0D7DA4927CDE3CD00A56635 /* TopMenu */,
 			);
@@ -258,12 +247,12 @@
 			path = TopMenu;
 			sourceTree = "<group>";
 		};
-		E0D7DA4A27CDEDAF00A56635 /* DrawingItem */ = {
+		E0D7DA4A27CDEDAF00A56635 /* Item */ = {
 			isa = PBXGroup;
 			children = (
 				E0D7DA4227CDE10500A56635 /* SquareView.swift */,
 			);
-			path = DrawingItem;
+			path = Item;
 			sourceTree = "<group>";
 		};
 		E0D7DA4B27CDF1BA00A56635 /* Inspector */ = {
@@ -291,6 +280,14 @@
 				E0D7DA5727CDF83A00A56635 /* BaseView.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		E0D7DA5927CE14E600A56635 /* DrawingBoard */ = {
+			isa = PBXGroup;
+			children = (
+				E0D7DA4A27CDEDAF00A56635 /* Item */,
+			);
+			path = DrawingBoard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -444,7 +441,6 @@
 				E0D7DA4327CDE10500A56635 /* SquareView.swift in Sources */,
 				E0D7DA5827CDF83A00A56635 /* BaseView.swift in Sources */,
 				E0D7DA2E27CD048C00A56635 /* Plane.swift in Sources */,
-				E0D7DA4127CDD8E600A56635 /* ColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
