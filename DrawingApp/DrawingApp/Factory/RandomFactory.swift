@@ -5,8 +5,6 @@
 //  Created by 박진섭 on 2022/03/01.
 //
 
-import UIKit
-
 final class RandomFactory {
     
     static func makeRandomRGB() -> RGB {
@@ -18,6 +16,7 @@ final class RandomFactory {
         
         return randomRGB
     }
+    
     
     static func makeRandomPoint() -> Point {
         let randomX = Double.random(in: 0...820.0)
