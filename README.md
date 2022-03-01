@@ -27,7 +27,7 @@ MVC 구조에 객체지향 프로그래밍 방식을 섞어 학습한다.
 
 ```View Controller 구간:point_down:```
 
-- [ ] 사각형(뷰)을 뷰에 추가하는 뷰컨트롤러를 생성한다.
+- [x] 사각형(뷰)을 뷰에 추가하는 뷰컨트롤러를 생성한다.
 - [x] 모델을 생성할 때 랜덤값을 보내주는 팩토리 메소드를 생성한다. 모델은 랜덤값을 생성하지 않는다.
 
 ```View-View Controller 구간:point_down:```
@@ -35,8 +35,8 @@ MVC 구조에 객체지향 프로그래밍 방식을 섞어 학습한다.
 - [ ] View-ViewController 간의 관계가 명확히 드러나도록 구현한다.
 
 ### 추가로 진행한 사항
-- [ ] 접근제한자 처리
-- [ ] 객체 간 역할 분담
-- [ ] 테스트에 맞게 메소드 수정
+- [x] 접근제한자 처리
+- [x] 객체 간 역할 분담
+- [x] 테스트에 맞게 메소드 수정
 
 <img src="DrawingApp/IMAGES/Model_ViewController.jpg" alt="Model_ViewController" width="350" />

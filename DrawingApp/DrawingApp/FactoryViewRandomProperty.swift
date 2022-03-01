@@ -27,23 +27,41 @@ class FactoryViewRandomProperty: ViewPropertyCreator {
     
     func make() -> ViewRandomProperty {
         
-        var randomSize = rectSizeGenerator(maxWidth: viewFrame.width, maxHeight: viewFrame.height)
-        var randomPoint = rectPointGenerator(maxPointX: viewFrame.maxX, maxPointY: viewFrame.maxY - Double(130))
-        
-        while (randomSize.height+randomPoint.y) >= (superview.frame.height)
-                && (randomSize.width+randomPoint.x) >= (superview.frame.width)
-        {
-            randomSize = rectSizeGenerator(maxWidth: viewFrame.width, maxHeight: viewFrame.height)
-            randomPoint = rectPointGenerator(maxPointX: viewFrame.maxX, maxPointY: viewFrame.maxY - Double(130))
-        }
+//        let locationProperty = getRandomPoint()
+        let locationProperty = getRandomSizeAndPoint()
         
         return ViewRandomProperty(
             as: name,
             using: String.randomViewIdGenerator,
-            at: randomPoint,
-            size: randomSize,
+            at: locationProperty.point,
+            size: locationProperty.size,
             color: rectRGBPointGenerator(maxR: 255, maxG: 255, maxB: 255),
             alpha: Double.random(in: 0.0...1.0)
         )
+    }
+    
+    private func getRandomSizeAndPoint() -> (size:RectSize, point:RectPoint) {
+        let randomSize = rectSizeGenerator(maxWidth: viewFrame.width, maxHeight: viewFrame.height-130)
+        let randomPoint = rectPointGenerator(
+            maxPointX: viewFrame.maxX - randomSize.width,
+            maxPointY: viewFrame.maxY - (randomSize.height + 130)
+        )
+        
+        return (randomSize, randomPoint)
+    }
+    
+    private func getRandomPoint() -> (size:RectSize, point:RectPoint) {
+        let size = (width: 150, height: 120) as RectSize
+        let randomPoint = rectPointGenerator(
+            maxPointX: viewFrame.maxX - Double(150),
+            maxPointY: (viewFrame.maxY - Double(130 * 2))
+        )
+        
+        return (size, randomPoint)
+    }
+    
+    func isExceededSuperView() -> Bool {
+        let locationProperty = getRandomPoint()
+        return (locationProperty.size.width + locationProperty.point.x) <= viewFrame.width && (locationProperty.size.height + locationProperty.point.y) <= viewFrame.height
     }
 }
