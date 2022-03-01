@@ -19,4 +19,9 @@ struct Point: CustomStringConvertible {
         self.x = x
         self.y = y
     }
+    
+    init(x: Int, y: Int) {
+        self.x = Double(x)
+        self.y = Double(y)
+    }
 }
