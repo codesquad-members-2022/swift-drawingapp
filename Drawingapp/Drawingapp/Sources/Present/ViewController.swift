@@ -10,7 +10,7 @@ import UIKit
 class ViewController: UIViewController {
 
     let drawingBoard = UIView()
-    var squareViews: [String:UIView] = [:]
+    var squareViews: [String:SquareView] = [:]
     
     let makeSquareIcon = UIImageView()
     let makeSquareLabel = UILabel()
@@ -36,11 +36,25 @@ class ViewController: UIViewController {
         }, for: .touchUpInside)
         
         plane.state.drawSquare = { square in
-            let squareView = UIView()
+            let squareView = SquareView()
             self.drawingBoard.addSubview(squareView)
             squareView.backgroundColor = square.color.uiColor
             squareView.frame = CGRect(x: square.x, y: square.y, width: square.width, height: square.height)
             self.squareViews[square.id] = squareView
+        }
+        
+        plane.state.disSelectedSquare = { square in
+            guard let square = square else {
+                return
+            }
+            self.squareViews[square.id]?.selected(is: false)
+        }
+        
+        plane.state.selectedSquare = { square in
+            guard let square = square else {
+                return
+            }
+            self.squareViews[square.id]?.selected(is: true)
         }
     }
     
