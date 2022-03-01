@@ -8,6 +8,7 @@
 import Foundation
 
 struct Size: CustomStringConvertible {
+    // MARK: - Properties
     var description: String {
         return "W: \(self.width), H: \(self.height)"
     }
@@ -15,6 +16,7 @@ struct Size: CustomStringConvertible {
     var width: Double
     var height: Double
     
+    // MARK: - Initializers
     init(width: Int, height: Int) {
         self.width = Double(width)
         self.height = Double(height)
@@ -27,6 +29,7 @@ struct Size: CustomStringConvertible {
 }
 
 struct Point: CustomStringConvertible {
+    // MARK: - Properties
     var description: String {
         return "X: \(self.x), Y: \(self.y)"
     }
@@ -34,6 +37,7 @@ struct Point: CustomStringConvertible {
     var x: Double
     var y: Double
     
+    // MARK: - Initializers
     init(x: Int, y: Int) {
         self.x = Double(x)
         self.y = Double(y)
@@ -46,6 +50,7 @@ struct Point: CustomStringConvertible {
 }
 
 struct Color: CustomStringConvertible {
+    // MARK: - Properties
     var description: String {
         return "R: \(self.red), G: \(self.green), B: \(self.blue)"
     }
@@ -56,6 +61,7 @@ struct Color: CustomStringConvertible {
     var green: Double
     var blue: Double
     
+    // MARK: - Initializers
     init(red: Double, green: Double, blue: Double) {
         self.red = red
         self.green = green
