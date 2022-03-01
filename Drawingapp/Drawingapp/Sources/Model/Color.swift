@@ -13,7 +13,7 @@ struct Color: CustomStringConvertible {
     let b: Int
     
     var hexColor: String {
-        "\(String(r, radix: 16))\(String(g, radix: 16))\(String(b, radix: 16))"
+        "#\(String(r, radix: 16))\(String(g, radix: 16))\(String(b, radix: 16))"
     }
     
     var description: String {

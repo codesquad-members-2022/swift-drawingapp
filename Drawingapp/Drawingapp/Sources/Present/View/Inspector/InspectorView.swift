@@ -21,7 +21,18 @@ class InspectorView: BaseView {
         
         alphaSlider.slider.addAction(UIAction{ _ in
             plane.action.changeAlphaSliderEvent(self.alphaSlider.slider.value)
+            self.alphaSlider.updateButtons()
         }, for: .touchDragInside)
+        
+        alphaSlider.minusButton.addAction(UIAction{ _ in
+            self.alphaSlider.addValue(-1)
+            plane.action.changeAlphaSliderEvent(self.alphaSlider.slider.value)
+        }, for: .touchUpInside)
+        
+        alphaSlider.plusButton.addAction(UIAction{ _ in
+            self.alphaSlider.addValue(1)
+            plane.action.changeAlphaSliderEvent(self.alphaSlider.slider.value)
+        }, for: .touchUpInside)
     }
     
     override func attribute() {
@@ -63,6 +74,6 @@ class InspectorView: BaseView {
         
         let inspectorData = square.inspectorData
         colorButton.button.setTitle(inspectorData.hexColor, for: .normal)
-        alphaSlider.slider.value = Float(inspectorData.alpha.index)
+        alphaSlider.setValue(Float(inspectorData.alpha.index))
     }
 }

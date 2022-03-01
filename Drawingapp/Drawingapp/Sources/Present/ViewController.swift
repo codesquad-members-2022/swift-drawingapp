@@ -79,7 +79,7 @@ class ViewController: UIViewController {
         inspectorView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         inspectorView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         inspectorView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        inspectorView.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        inspectorView.widthAnchor.constraint(equalToConstant: 250).isActive = true
         
         topMenuBarView.translatesAutoresizingMaskIntoConstraints = false
         topMenuBarView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
