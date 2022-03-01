@@ -12,6 +12,11 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let shapeFactory = ShapeFactory()
+        
+        (0..<4).forEach { _ in
+            let Rect = shapeFactory.createShape(shapeType: .Rectangle)
+        }
     }
 }
 
