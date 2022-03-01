@@ -24,6 +24,10 @@ class ViewController: UIViewController {
         randomView.backgroundColor = UIColor.viewModelColor(value: viewModel.rgbValue, alpha: viewModel.alpha)
         
         self.view.addSubview(randomView)
+        
+//        os_log(.debug, "%@", String(describing: viewModel))
+//        Log.debug("%@", String(describing: viewModel))
+        Log.error(String(describing: viewModel))
     }
 }
 
