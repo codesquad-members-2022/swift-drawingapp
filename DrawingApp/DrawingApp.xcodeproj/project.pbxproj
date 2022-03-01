@@ -21,6 +21,8 @@
 		8D69083927CE08F000F78A51 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69083827CE08F000F78A51 /* Point.swift */; };
 		8D69083B27CE249200F78A51 /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69083A27CE249200F78A51 /* Alpha.swift */; };
 		8D69083D27CE249900F78A51 /* RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69083C27CE249900F78A51 /* RGB.swift */; };
+		8D69084227CE2CAF00F78A51 /* RandomFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69084127CE2CAF00F78A51 /* RandomFactory.swift */; };
+		8D69084427CE2CB900F78A51 /* RectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69084327CE2CB900F78A51 /* RectangleFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		8D69083827CE08F000F78A51 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		8D69083A27CE249200F78A51 /* Alpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alpha.swift; sourceTree = "<group>"; };
 		8D69083C27CE249900F78A51 /* RGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGB.swift; sourceTree = "<group>"; };
+		8D69084127CE2CAF00F78A51 /* RandomFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomFactory.swift; sourceTree = "<group>"; };
+		8D69084327CE2CB900F78A51 /* RectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,10 +115,8 @@
 			children = (
 				8D6907FC27CCBEF100F78A51 /* ViewController.swift */,
 				8D69082D27CDFDFD00F78A51 /* Rectangle.swift */,
-				8D69083627CE08E900F78A51 /* Size.swift */,
-				8D69083827CE08F000F78A51 /* Point.swift */,
-				8D69083C27CE249900F78A51 /* RGB.swift */,
-				8D69083A27CE249200F78A51 /* Alpha.swift */,
+				8D69084527CE2CBD00F78A51 /* Factory */,
+				8D69084027CE2C9100F78A51 /* ShapeElement */,
 				8D6907FE27CCBEF100F78A51 /* Main.storyboard */,
 				8D69082827CCBF0200F78A51 /* Supporting Files */,
 				8D69080627CCBEF400F78A51 /* Info.plist */,
@@ -148,6 +150,26 @@
 				8D69080327CCBEF400F78A51 /* LaunchScreen.storyboard */,
 			);
 			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		8D69084027CE2C9100F78A51 /* ShapeElement */ = {
+			isa = PBXGroup;
+			children = (
+				8D69083627CE08E900F78A51 /* Size.swift */,
+				8D69083827CE08F000F78A51 /* Point.swift */,
+				8D69083C27CE249900F78A51 /* RGB.swift */,
+				8D69083A27CE249200F78A51 /* Alpha.swift */,
+			);
+			path = ShapeElement;
+			sourceTree = "<group>";
+		};
+		8D69084527CE2CBD00F78A51 /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				8D69084127CE2CAF00F78A51 /* RandomFactory.swift */,
+				8D69084327CE2CB900F78A51 /* RectangleFactory.swift */,
+			);
+			path = Factory;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -281,10 +303,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D69084427CE2CB900F78A51 /* RectangleFactory.swift in Sources */,
 				8D6907FD27CCBEF100F78A51 /* ViewController.swift in Sources */,
 				8D69083727CE08E900F78A51 /* Size.swift in Sources */,
 				8D69083B27CE249200F78A51 /* Alpha.swift in Sources */,
 				8D69083927CE08F000F78A51 /* Point.swift in Sources */,
+				8D69084227CE2CAF00F78A51 /* RandomFactory.swift in Sources */,
 				8D6907F927CCBEF100F78A51 /* AppDelegate.swift in Sources */,
 				8D6907FB27CCBEF100F78A51 /* SceneDelegate.swift in Sources */,
 				8D69082E27CDFDFD00F78A51 /* Rectangle.swift in Sources */,
