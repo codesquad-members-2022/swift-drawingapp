@@ -22,8 +22,7 @@ class InspectorView: BaseView {
         self.backgroundColor = UIColor(red: 200.0 / 255.0, green: 200.0 / 255.0, blue: 1, alpha: 1)
         
         itemStackView.axis = .vertical
-        
-        backgroundColorInfo.title.text = "배경색"
+        itemStackView.isHidden = true
     }
     
     override func layout() {
@@ -40,5 +39,15 @@ class InspectorView: BaseView {
         itemStackView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         itemStackView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         itemStackView.bottomAnchor.constraint(equalTo: backgroundColorInfo1.bottomAnchor).isActive = true
+    }
+    
+    func setSquare(square: Square?) {
+        guard let square = square else {
+            itemStackView.isHidden = true
+            return
+        }
+        itemStackView.isHidden = false
+        backgroundColorInfo.title.text = "배경색"
+        backgroundColorInfo.info.text = square.hexColor
     }
 }

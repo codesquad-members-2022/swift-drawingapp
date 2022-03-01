@@ -47,6 +47,10 @@ class Square: CustomStringConvertible {
         size.height
     }
     
+    var hexColor: String {
+        color.hexColor
+    }
+    
     var uiColor: UIColor {
         UIColor(red: CGFloat(color.r) / 255, green: CGFloat(color.g) / 255, blue: CGFloat(color.b / 255), alpha: alpha.value)
     }
