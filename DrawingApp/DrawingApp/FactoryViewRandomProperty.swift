@@ -8,18 +8,33 @@
 import Foundation
 import UIKit
 
-class FactoryViewRandomProperty {
-    static func make(as name: String, in superview: UIView) -> ViewRandomProperty {
+class FactoryViewRandomProperty: ViewPropertyCreator {
+    
+    private let name: String
+    private let superview: UIView
+    
+    private var viewFrame: CGRect {
+        superview.frame
+    }
+    
+    init(name: String, superview: UIView) {
         
-        var randomSize = rectSizeGenerator(in: superview)
-        var randomPoint = rectPointGenerator(in: superview)
-        let bottomCap: Double = 130
+        self.name = name
+        self.superview = superview
         
-        while (randomSize.width+randomPoint.y) >= (superview.frame.width-bottomCap)
-                && (randomSize.height+randomPoint.x) >= (superview.frame.height)
+        super.init()
+    }
+    
+    func make() -> ViewRandomProperty {
+        
+        var randomSize = rectSizeGenerator(maxWidth: viewFrame.width, maxHeight: viewFrame.height)
+        var randomPoint = rectPointGenerator(maxPointX: viewFrame.maxX, maxPointY: viewFrame.maxY - Double(130))
+        
+        while (randomSize.height+randomPoint.y) >= (superview.frame.height)
+                && (randomSize.width+randomPoint.x) >= (superview.frame.width)
         {
-            randomSize = rectSizeGenerator(in: superview)
-            randomPoint = rectPointGenerator(in: superview)
+            randomSize = rectSizeGenerator(maxWidth: viewFrame.width, maxHeight: viewFrame.height)
+            randomPoint = rectPointGenerator(maxPointX: viewFrame.maxX, maxPointY: viewFrame.maxY - Double(130))
         }
         
         return ViewRandomProperty(
@@ -27,35 +42,8 @@ class FactoryViewRandomProperty {
             using: String.randomViewIdGenerator,
             at: randomPoint,
             size: randomSize,
-            color: rectRGBPointGenerator(in: superview),
+            color: rectRGBPointGenerator(maxR: 255, maxG: 255, maxB: 255),
             alpha: Double.random(in: 0.0...1.0)
         )
-    }
-    
-    private static func rectPointGenerator(in view: UIView) -> RectPoint {
-        (
-            x: randomDouble(from: 0, to: view.frame.size.height),
-            y: randomDouble(from: 0, to: view.frame.size.width)
-        )
-    }
-    
-    private static func rectSizeGenerator(in view: UIView) -> RectSize {
-        (
-            width: randomDouble(from: 0, to: view.frame.size.width),
-            height: randomDouble(from: 0, to: view.frame.size.height)
-        )
-    }
-    
-    private static func rectRGBPointGenerator(in view: UIView) -> RectRGBColor {
-        (
-            r: randomDouble(from: 0, to: 255),
-            g: randomDouble(from: 0, to: 255),
-            b: randomDouble(from: 0, to: 255)
-        )
-    }
-    
-    private static func randomDouble(from: Double, to: Double) -> Double {
-        guard from <= to else { return 0.0 }
-        return Double.random(in: from...to)
     }
 }

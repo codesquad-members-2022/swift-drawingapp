@@ -7,13 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B4A55AA27CD99EC009CDC7B /* RandomizeValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4A55A927CD99EC009CDC7B /* RandomizeValue.swift */; };
+		1B4A55AC27CD9F96009CDC7B /* ViewPropertyCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4A55AB27CD9F96009CDC7B /* ViewPropertyCreator.swift */; };
 		1BD7287227CCBC7A008DED9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD7287127CCBC7A008DED9E /* AppDelegate.swift */; };
 		1BD7287427CCBC7A008DED9E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD7287327CCBC7A008DED9E /* SceneDelegate.swift */; };
 		1BD7287627CCBC7A008DED9E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD7287527CCBC7A008DED9E /* ViewController.swift */; };
 		1BD7287927CCBC7A008DED9E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BD7287727CCBC7A008DED9E /* Main.storyboard */; };
 		1BD7287B27CCBC7C008DED9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1BD7287A27CCBC7C008DED9E /* Assets.xcassets */; };
 		1BD7287E27CCBC7C008DED9E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1BD7287C27CCBC7C008DED9E /* LaunchScreen.storyboard */; };
-		1BD7288927CCBC7C008DED9E /* DrawingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD7288827CCBC7C008DED9E /* DrawingAppTests.swift */; };
+		1BD7288927CCBC7C008DED9E /* DrawingAppAddViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD7288827CCBC7C008DED9E /* DrawingAppAddViewTests.swift */; };
 		1BD7289327CCBC7C008DED9E /* DrawingAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD7289227CCBC7C008DED9E /* DrawingAppUITests.swift */; };
 		1BD7289527CCBC7C008DED9E /* DrawingAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD7289427CCBC7C008DED9E /* DrawingAppUITestsLaunchTests.swift */; };
 		1BD728A227CCBD58008DED9E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1BD728A127CCBD58008DED9E /* README.md */; };
@@ -43,6 +45,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1B4A55A927CD99EC009CDC7B /* RandomizeValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomizeValue.swift; sourceTree = "<group>"; };
+		1B4A55AB27CD9F96009CDC7B /* ViewPropertyCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPropertyCreator.swift; sourceTree = "<group>"; };
 		1BD7286E27CCBC7A008DED9E /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BD7287127CCBC7A008DED9E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1BD7287327CCBC7A008DED9E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -52,7 +56,7 @@
 		1BD7287D27CCBC7C008DED9E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1BD7287F27CCBC7C008DED9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1BD7288427CCBC7C008DED9E /* DrawingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		1BD7288827CCBC7C008DED9E /* DrawingAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingAppTests.swift; sourceTree = "<group>"; };
+		1BD7288827CCBC7C008DED9E /* DrawingAppAddViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingAppAddViewTests.swift; sourceTree = "<group>"; };
 		1BD7288E27CCBC7C008DED9E /* DrawingAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BD7289227CCBC7C008DED9E /* DrawingAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingAppUITests.swift; sourceTree = "<group>"; };
 		1BD7289427CCBC7C008DED9E /* DrawingAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
@@ -122,6 +126,8 @@
 				1BD7287527CCBC7A008DED9E /* ViewController.swift */,
 				1BD728AF27CD0E88008DED9E /* SystemLog.swift */,
 				1BD728AA27CCFB8D008DED9E /* FactoryViewRandomProperty.swift */,
+				1B4A55AB27CD9F96009CDC7B /* ViewPropertyCreator.swift */,
+				1B4A55A927CD99EC009CDC7B /* RandomizeValue.swift */,
 				1BD728A827CCF635008DED9E /* String+Extension.swift */,
 				1BD7287727CCBC7A008DED9E /* Main.storyboard */,
 				1BD728A627CCC6B3008DED9E /* ViewRandomProperty.swift */,
@@ -135,7 +141,7 @@
 		1BD7288727CCBC7C008DED9E /* DrawingAppTests */ = {
 			isa = PBXGroup;
 			children = (
-				1BD7288827CCBC7C008DED9E /* DrawingAppTests.swift */,
+				1BD7288827CCBC7C008DED9E /* DrawingAppAddViewTests.swift */,
 			);
 			path = DrawingAppTests;
 			sourceTree = "<group>";
@@ -303,8 +309,10 @@
 				1BD7287227CCBC7A008DED9E /* AppDelegate.swift in Sources */,
 				1BD728A927CCF635008DED9E /* String+Extension.swift in Sources */,
 				1BD7287427CCBC7A008DED9E /* SceneDelegate.swift in Sources */,
+				1B4A55AA27CD99EC009CDC7B /* RandomizeValue.swift in Sources */,
 				1BD728B027CD0E88008DED9E /* SystemLog.swift in Sources */,
 				1BD728AB27CCFB8D008DED9E /* FactoryViewRandomProperty.swift in Sources */,
+				1B4A55AC27CD9F96009CDC7B /* ViewPropertyCreator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,7 +320,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1BD7288927CCBC7C008DED9E /* DrawingAppTests.swift in Sources */,
+				1BD7288927CCBC7C008DED9E /* DrawingAppAddViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

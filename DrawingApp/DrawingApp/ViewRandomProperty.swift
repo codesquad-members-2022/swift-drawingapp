@@ -14,7 +14,7 @@ typealias RectRGBColor = (r:Double, g:Double, b: Double)
 
 // 처음에는 사각형인 Rect등의 단어를 넣었지만, 이 뷰는 사각형, 정사각형, 원 어디에서나 사용할 수 있는 값을 저장하기 때문에,
 // 랜덤 프로퍼티를 소유한 뷰라는 의미의 이름을 넣게 되었습니다.
-class ViewRandomProperty {
+class ViewRandomProperty: ViewPropertyCreator {
     
     let name: String
     let id: String
