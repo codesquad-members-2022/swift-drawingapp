@@ -15,7 +15,22 @@
 		E481266E27CCF8E100A3FFF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E481266C27CCF8E100A3FFF6 /* LaunchScreen.storyboard */; };
 		E4E8082D27CDF00A00F4C062 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E8082C27CDF00A00F4C062 /* Data.swift */; };
 		E4E8082F27CDF0C100F4C062 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E8082E27CDF0C100F4C062 /* Rectangle.swift */; };
+		E4E8083127CE062600F4C062 /* ShapeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E8083027CE062600F4C062 /* ShapeFactory.swift */; };
+		E4E8083B27CE0EBB00F4C062 /* DrawingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E8083A27CE0EBB00F4C062 /* DrawingAppTests.swift */; };
+		E4E8084127CE0EF700F4C062 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E8082C27CDF00A00F4C062 /* Data.swift */; };
+		E4E8084227CE0EF700F4C062 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E8082E27CDF0C100F4C062 /* Rectangle.swift */; };
+		E4E8084327CE0F0000F4C062 /* ShapeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E8083027CE062600F4C062 /* ShapeFactory.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		E4E8083C27CE0EBB00F4C062 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E481265627CCF8E000A3FFF6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E481265D27CCF8E000A3FFF6;
+			remoteInfo = DrawingApp;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		E4630C2627CDD2BC00644B70 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -28,10 +43,20 @@
 		E481266F27CCF8E100A3FFF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E4E8082C27CDF00A00F4C062 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		E4E8082E27CDF0C100F4C062 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
+		E4E8083027CE062600F4C062 /* ShapeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeFactory.swift; sourceTree = "<group>"; };
+		E4E8083827CE0EBB00F4C062 /* DrawingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		E4E8083A27CE0EBB00F4C062 /* DrawingAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingAppTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		E481265B27CCF8E000A3FFF6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E4E8083527CE0EBB00F4C062 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -79,6 +104,7 @@
 			isa = PBXGroup;
 			children = (
 				E481266027CCF8E000A3FFF6 /* DrawingApp */,
+				E4E8083927CE0EBB00F4C062 /* DrawingAppTests */,
 				E481265F27CCF8E000A3FFF6 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				E481265E27CCF8E000A3FFF6 /* DrawingApp.app */,
+				E4E8083827CE0EBB00F4C062 /* DrawingAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -96,6 +123,7 @@
 			children = (
 				E481266127CCF8E000A3FFF6 /* AppDelegate.swift */,
 				E4630C2627CDD2BC00644B70 /* SceneDelegate.swift */,
+				E4E8083027CE062600F4C062 /* ShapeFactory.swift */,
 				E4630C2227CDD22900644B70 /* Model */,
 				E4630C2327CDD22D00644B70 /* View */,
 				E4630C2427CDD23000644B70 /* Controller */,
@@ -103,6 +131,14 @@
 				E481266F27CCF8E100A3FFF6 /* Info.plist */,
 			);
 			path = DrawingApp;
+			sourceTree = "<group>";
+		};
+		E4E8083927CE0EBB00F4C062 /* DrawingAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				E4E8083A27CE0EBB00F4C062 /* DrawingAppTests.swift */,
+			);
+			path = DrawingAppTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,6 +161,24 @@
 			productReference = E481265E27CCF8E000A3FFF6 /* DrawingApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		E4E8083727CE0EBB00F4C062 /* DrawingAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E4E8083E27CE0EBB00F4C062 /* Build configuration list for PBXNativeTarget "DrawingAppTests" */;
+			buildPhases = (
+				E4E8083427CE0EBB00F4C062 /* Sources */,
+				E4E8083527CE0EBB00F4C062 /* Frameworks */,
+				E4E8083627CE0EBB00F4C062 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E4E8083D27CE0EBB00F4C062 /* PBXTargetDependency */,
+			);
+			name = DrawingAppTests;
+			productName = DrawingAppTests;
+			productReference = E4E8083827CE0EBB00F4C062 /* DrawingAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -137,6 +191,10 @@
 				TargetAttributes = {
 					E481265D27CCF8E000A3FFF6 = {
 						CreatedOnToolsVersion = 13.2.1;
+					};
+					E4E8083727CE0EBB00F4C062 = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = E481265D27CCF8E000A3FFF6;
 					};
 				};
 			};
@@ -154,6 +212,7 @@
 			projectRoot = "";
 			targets = (
 				E481265D27CCF8E000A3FFF6 /* DrawingApp */,
+				E4E8083727CE0EBB00F4C062 /* DrawingAppTests */,
 			);
 		};
 /* End PBXProject section */
@@ -169,6 +228,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E4E8083627CE0EBB00F4C062 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -176,6 +242,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4E8083127CE062600F4C062 /* ShapeFactory.swift in Sources */,
 				E4E8082F27CDF0C100F4C062 /* Rectangle.swift in Sources */,
 				E4E8082D27CDF00A00F4C062 /* Data.swift in Sources */,
 				E481266627CCF8E000A3FFF6 /* ViewController.swift in Sources */,
@@ -184,7 +251,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E4E8083427CE0EBB00F4C062 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E4E8084327CE0F0000F4C062 /* ShapeFactory.swift in Sources */,
+				E4E8084127CE0EF700F4C062 /* Data.swift in Sources */,
+				E4E8084227CE0EF700F4C062 /* Rectangle.swift in Sources */,
+				E4E8083B27CE0EBB00F4C062 /* DrawingAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		E4E8083D27CE0EBB00F4C062 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E481265D27CCF8E000A3FFF6 /* DrawingApp */;
+			targetProxy = E4E8083C27CE0EBB00F4C062 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		E481266727CCF8E000A3FFF6 /* Main.storyboard */ = {
@@ -378,6 +464,42 @@
 			};
 			name = Release;
 		};
+		E4E8083F27CE0EBB00F4C062 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FCQD35AW5P;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.Song.DrawingAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DrawingApp.app/DrawingApp";
+			};
+			name = Debug;
+		};
+		E4E8084027CE0EBB00F4C062 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FCQD35AW5P;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = co.Song.DrawingAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DrawingApp.app/DrawingApp";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -395,6 +517,15 @@
 			buildConfigurations = (
 				E481267327CCF8E100A3FFF6 /* Debug */,
 				E481267427CCF8E100A3FFF6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E4E8083E27CE0EBB00F4C062 /* Build configuration list for PBXNativeTarget "DrawingAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E4E8083F27CE0EBB00F4C062 /* Debug */,
+				E4E8084027CE0EBB00F4C062 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

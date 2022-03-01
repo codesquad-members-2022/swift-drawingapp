@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Size: CustomStringConvertible {
+struct Size: CustomStringConvertible, Equatable {
     // MARK: - Properties
     var description: String {
         return "W: \(self.width), H: \(self.height)"
@@ -28,7 +28,7 @@ struct Size: CustomStringConvertible {
     }
 }
 
-struct Point: CustomStringConvertible {
+struct Point: CustomStringConvertible, Equatable {
     // MARK: - Properties
     var description: String {
         return "X: \(self.x), Y: \(self.y)"
@@ -49,7 +49,7 @@ struct Point: CustomStringConvertible {
     }
 }
 
-struct Color: CustomStringConvertible {
+struct Color: CustomStringConvertible, Equatable {
     // MARK: - Properties
     var description: String {
         return "R: \(self.red), G: \(self.green), B: \(self.blue)"

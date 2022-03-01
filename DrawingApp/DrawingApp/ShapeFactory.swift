@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ShapeFactory {
+enum ShapeFactory {
     private static let letters = "abcdefghjklmnpqrstuvwxyz12345789"
     private static var identifierCache = [String: Bool]()
     

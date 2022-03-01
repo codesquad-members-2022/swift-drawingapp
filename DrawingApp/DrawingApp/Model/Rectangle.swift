@@ -9,7 +9,7 @@ import Foundation
 
 class Rectangle {
     // MARK: - Properties
-    private let id: String
+    let id: String
     
     var backgroundColor: Color = .white
     var alpha: Alpha = .ten
