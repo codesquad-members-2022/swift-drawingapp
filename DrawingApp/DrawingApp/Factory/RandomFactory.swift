@@ -33,24 +33,18 @@ final class RandomFactory {
     }
     
     static func makeRandomID() -> String {
-        var randomID = ""
+        let randomIdElement0 = makeIdElements()
+        let randomIdElement1 = makeIdElements()
+        let randomIdElement2 = makeIdElements()
         
-        for _ in 0..<3 {
-            randomID.append(makeIdElements(number:3))
-            randomID.append("-")
-        }
+        let randomID = "\(randomIdElement0)-\(randomIdElement1)-\(randomIdElement2)"
         
         return randomID
     }
     
-    private static func makeIdElements(number:Int) -> String {
+    private static func makeIdElements() -> String {
         let idSource = "abcdefghijklmnopqrstu0123456789"
-        var idElements = ""
-        
-        for _ in 0..<number {
-            idElements.append(idSource.randomElement() ?? " ")
-        }
-        
-        return idElements
+        let randomIdElement = String(idSource.randomElement() ?? " ")
+        return randomIdElement
     }
 }
