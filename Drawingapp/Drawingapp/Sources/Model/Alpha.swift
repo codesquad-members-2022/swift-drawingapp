@@ -6,11 +6,16 @@
 //
 
 import Foundation
+import UIKit
 
 enum Alpha: Int, CustomStringConvertible {
-    case one = 1, two, three, four, five, six, seven, eight, nine, ten
+    case zero, one, two, three, four, five, six, seven, eight, nine, ten
     
     var description: String {
         "\(self.rawValue)"
+    }
+    
+    var value: CGFloat  {
+        CGFloat(self.rawValue) / CGFloat(Alpha.ten.rawValue)
     }
 }
