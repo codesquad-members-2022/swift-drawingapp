@@ -35,6 +35,12 @@ class Rectangle: CustomStringConvertible{
         var description: String{
             return "r:\(r),g:\(g),b:\(b)"
         }
+        
+        init(r: Double, g: Double, b: Double){
+            self.r = r
+            self.g = g
+            self.b = b
+        }
     }
     
     enum Alpha:Int, CaseIterable, CustomStringConvertible{
@@ -51,7 +57,7 @@ class Rectangle: CustomStringConvertible{
         case ten = 10
         
         var description: String{
-            return String(self.rawValue)
+            return "Alpha:\(String(self.rawValue))"
         }
     }
     
