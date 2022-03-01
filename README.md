@@ -110,7 +110,16 @@ ViewController : viewDidLoad 에서 4개의 사각형을 만든다.
     - `os_log()` 를 사용하여 로그 기록을 남길수 있다.
     - `os_log()` 는 Static String 을 매개 변수로 사용하는데, 문자열이 고정되어있는 형태라고 한다(바뀌지 않음). 변수 또는 상수 등의 값을 문자열 내에 나타내고 싶을 때 사용하는 문자열 보간법 `\()` 이나 `%@` 을 사용하면 사용가능하다.   
     
-
+    ### [화면 출력]
+    ** 시뮬레이터 다크모드 전환은 cmd+shift+A 로 가능했다** 
+    
+    - RGB 와 Alpha 값 스케일링 전
+    
+    ![drawApp-Step1 No scaling](https://user-images.githubusercontent.com/36659877/156177458-bf9cb547-fc39-43e9-a941-dd2913cdcdc5.gif)
+    
+    - RGB 와 Alpha 값 스케일링 후
+    
+    ![drawApp-Step1 With scaling](https://user-images.githubusercontent.com/36659877/156177495-d2aca1e3-3c1a-4aed-bb63-d4d2940748f7.gif)
 </details>
 
 
