@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E4630C2727CDD2BC00644B70 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4630C2627CDD2BC00644B70 /* SceneDelegate.swift */; };
 		E481266227CCF8E000A3FFF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E481266127CCF8E000A3FFF6 /* AppDelegate.swift */; };
-		E481266427CCF8E000A3FFF6 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E481266327CCF8E000A3FFF6 /* SceneDelegate.swift */; };
 		E481266627CCF8E000A3FFF6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E481266527CCF8E000A3FFF6 /* ViewController.swift */; };
 		E481266927CCF8E000A3FFF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E481266727CCF8E000A3FFF6 /* Main.storyboard */; };
 		E481266B27CCF8E100A3FFF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E481266A27CCF8E100A3FFF6 /* Assets.xcassets */; };
@@ -16,9 +16,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E4630C2627CDD2BC00644B70 /* SceneDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E481265E27CCF8E000A3FFF6 /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E481266127CCF8E000A3FFF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E481266327CCF8E000A3FFF6 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		E481266527CCF8E000A3FFF6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		E481266827CCF8E000A3FFF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E481266A27CCF8E100A3FFF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -37,6 +37,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E4630C2227CDD22900644B70 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E4630C2327CDD22D00644B70 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		E4630C2427CDD23000644B70 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E481266527CCF8E000A3FFF6 /* ViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E4630C2527CDD24000644B70 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				E481266727CCF8E000A3FFF6 /* Main.storyboard */,
+				E481266A27CCF8E100A3FFF6 /* Assets.xcassets */,
+				E481266C27CCF8E100A3FFF6 /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		E481265527CCF8E000A3FFF6 = {
 			isa = PBXGroup;
 			children = (
@@ -57,11 +89,11 @@
 			isa = PBXGroup;
 			children = (
 				E481266127CCF8E000A3FFF6 /* AppDelegate.swift */,
-				E481266327CCF8E000A3FFF6 /* SceneDelegate.swift */,
-				E481266527CCF8E000A3FFF6 /* ViewController.swift */,
-				E481266727CCF8E000A3FFF6 /* Main.storyboard */,
-				E481266A27CCF8E100A3FFF6 /* Assets.xcassets */,
-				E481266C27CCF8E100A3FFF6 /* LaunchScreen.storyboard */,
+				E4630C2627CDD2BC00644B70 /* SceneDelegate.swift */,
+				E4630C2227CDD22900644B70 /* Model */,
+				E4630C2327CDD22D00644B70 /* View */,
+				E4630C2427CDD23000644B70 /* Controller */,
+				E4630C2527CDD24000644B70 /* Resources */,
 				E481266F27CCF8E100A3FFF6 /* Info.plist */,
 			);
 			path = DrawingApp;
@@ -140,7 +172,7 @@
 			files = (
 				E481266627CCF8E000A3FFF6 /* ViewController.swift in Sources */,
 				E481266227CCF8E000A3FFF6 /* AppDelegate.swift in Sources */,
-				E481266427CCF8E000A3FFF6 /* SceneDelegate.swift in Sources */,
+				E4630C2727CDD2BC00644B70 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
