@@ -19,11 +19,10 @@ class ViewController: UIViewController {
         let rect3 = rectangleFactory.makeRectangleAtRandomPoint()
         let rect4 = rectangleFactory.makeRectangleAtRandomPoint()
         
-        
-        os_log("\(rect1)")
-        os_log("\(rect2)")
-        os_log("\(rect3)")
-        os_log("\(rect4)")
+        os_log(.default,"\(rect1)" )
+        os_log(.debug, "\(rect2)")
+        os_log(.error,"\(rect3)")
+        os_log(.fault,"\(rect4)")
     }
 }
 
