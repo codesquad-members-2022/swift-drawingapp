@@ -27,8 +27,8 @@ class FactoryViewRandomProperty: ViewPropertyCreator {
     
     func make() -> ViewRandomProperty {
         
-//        let locationProperty = getRandomPoint()
-        let locationProperty = getRandomSizeAndPoint()
+        let locationProperty = getRandomPoint()
+//        let locationProperty = getRandomSizeAndPoint()
         
         return ViewRandomProperty(
             as: name,
