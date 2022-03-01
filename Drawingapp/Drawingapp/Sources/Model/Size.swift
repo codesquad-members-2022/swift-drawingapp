@@ -21,9 +21,3 @@ struct Size: CustomStringConvertible {
         self.height = height
     }
 }
-
-extension Size {
-    static func make(width: Double, height: Double) -> Size {
-        Size(width: width, height: height)
-    }
-}
