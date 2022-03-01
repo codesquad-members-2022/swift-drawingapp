@@ -11,7 +11,18 @@ import UIKit
 class InspectorView: BaseView {
     
     let itemStackView = UIStackView()
-    let backgroundColorInfo = InspectorItemLabelView()
+    let colorButton = InspectorItemButtonView()
+    let alphaSlider = InspectorSliderView()
+    
+    func bind(plane: Plane) {
+        colorButton.button.addAction(UIAction{ _ in
+            plane.action.changeColorButtonTapped()
+        }, for: .touchUpInside)
+        
+        alphaSlider.slider.addAction(UIAction{ _ in
+            plane.action.changeAlphaSliderEvent(self.alphaSlider.slider.value)
+        }, for: .touchDragInside)
+    }
     
     override func attribute() {
         super.attribute()
@@ -27,13 +38,14 @@ class InspectorView: BaseView {
         let safeAreaGuide = self.safeAreaLayoutGuide
         
         self.addSubview(itemStackView)
-        itemStackView.addArrangedSubview(backgroundColorInfo)
+        itemStackView.addArrangedSubview(colorButton)
+        itemStackView.addArrangedSubview(alphaSlider)
         
         itemStackView.translatesAutoresizingMaskIntoConstraints = false
         itemStackView.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor).isActive = true
-        itemStackView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-        itemStackView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-        itemStackView.bottomAnchor.constraint(equalTo: backgroundColorInfo.bottomAnchor).isActive = true
+        itemStackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
+        itemStackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
+        itemStackView.bottomAnchor.constraint(equalTo: alphaSlider.bottomAnchor).isActive = true
     }
     
     func setSquare(in square: Square?) {
@@ -42,7 +54,15 @@ class InspectorView: BaseView {
             return
         }
         itemStackView.isHidden = false
-        backgroundColorInfo.title.text = "배경색"
-        backgroundColorInfo.info.text = square.hexColor
+        
+        let inspectorData = square.inspectorData
+        
+        colorButton.title.text = "배경색"
+        colorButton.button.setTitle(inspectorData.hexColor, for: .normal)
+        
+        alphaSlider.title.text = "Alpha"
+        alphaSlider.slider.minimumValue = 0
+        alphaSlider.slider.maximumValue = Float(Alpha.max.index - 1)
+        alphaSlider.slider.value = Float(inspectorData.alpha.index)
     }
 }

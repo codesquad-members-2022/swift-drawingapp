@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-enum Alpha: Int, CustomStringConvertible {
-    case zero, one, two, three, four, five, six, seven, eight, nine, ten
+enum Alpha: Int, CaseIterable, CustomStringConvertible {
+    case zero, one, two, three, four, five, six, seven, eight, nine, ten, max
     
     var description: String {
         "\(self.rawValue)"
@@ -17,5 +17,9 @@ enum Alpha: Int, CustomStringConvertible {
     
     var value: CGFloat  {
         CGFloat(self.rawValue) / CGFloat(Alpha.ten.rawValue)
+    }
+    
+    var index: Int {
+        self.rawValue
     }
 }

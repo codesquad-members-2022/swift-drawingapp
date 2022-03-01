@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import UIKit
 
 class InspectorSliderView: InspectorItemView {
+    let slider = UISlider()
     
     override func attribute() {
         super.attribute()
@@ -15,5 +17,8 @@ class InspectorSliderView: InspectorItemView {
     
     override func layout() {
         super.layout()
+        self.stackView.addArrangedSubview(slider)
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        slider.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
 }

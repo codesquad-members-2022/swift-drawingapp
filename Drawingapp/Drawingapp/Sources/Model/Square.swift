@@ -9,11 +9,17 @@ import Foundation
 import UIKit
 
 class Square: CustomStringConvertible {
+    
+    struct InspectorData {
+        let alpha: Alpha
+        let hexColor: String
+    }
+    
     let id: String
     private let point: Point
     private let size: Size
-    private let color: Color
-    private let alpha: Alpha
+    private var color: Color
+    private var alpha: Alpha
     
     var description: String {
         "id: ( \(id) ), \(point), \(size), \(color), alpha: \(alpha)"
@@ -33,6 +39,15 @@ class Square: CustomStringConvertible {
             return true
         }
         return false
+    }
+    
+    func changeRandomColor() {
+        let colorValues = (0..<3).map{ _ in Int.random(in: 0...255) }
+        color = Color(r: colorValues[0], g: colorValues[1], b: colorValues[2])
+    }
+    
+    func update(alphaValue: Float) {
+        self.alpha = Alpha(rawValue: Int(alphaValue)) ?? .ten
     }
 }
 
@@ -70,15 +85,15 @@ extension Square {
         size.height
     }
     
-    var hexColor: String {
-        color.hexColor
-    }
-    
     var uiColor: UIColor {
         UIColor(red: CGFloat(color.r) / 255, green: CGFloat(color.g) / 255, blue: CGFloat(color.b / 255), alpha: alpha.value)
     }
     
     var rect: CGRect {
         CGRect(x: x, y: y, width: width, height: height)
+    }
+    
+    var inspectorData: InspectorData {
+        InspectorData(alpha: self.alpha, hexColor: color.hexColor)
     }
 }
