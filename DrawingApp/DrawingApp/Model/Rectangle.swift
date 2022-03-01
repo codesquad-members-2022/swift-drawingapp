@@ -6,7 +6,7 @@ class Rectangle: CustomStringConvertible{
         var width: Double
         var height: Double
         var description: String{
-            return "W\(width),H\(height)"
+            return "W\(Int(width)),H\(Int(height))"
         }
         
         init(width: Double, height: Double){
@@ -19,7 +19,7 @@ class Rectangle: CustomStringConvertible{
         var x: Double
         var y: Double
         var description: String{
-            return "x:\(x),y:\(y)"
+            return "x:\(Int(x)),y:\(Int(y))"
         }
         
         init(x: Double, y: Double){
@@ -33,7 +33,7 @@ class Rectangle: CustomStringConvertible{
         var g: Double
         var b: Double
         var description: String{
-            return "r:\(r),g:\(g),b:\(b)"
+            return "r:\(Int(r)),g:\(Int(g)),b:\(Int(b))"
         }
         
         init(r: Double, g: Double, b: Double){
