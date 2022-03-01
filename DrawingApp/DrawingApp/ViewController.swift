@@ -11,7 +11,6 @@ class ViewController: UIViewController {
         for index in 0..<4{
             let rectangle = factory.createRenctangle()
             logger.debug("Rectangle\(index) : \(rectangle)")
-            
         }
     }
 
