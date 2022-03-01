@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class Square: CustomStringConvertible {
     let id: String
@@ -43,26 +44,10 @@ class Square: CustomStringConvertible {
     }
     
     func isSelected(by touchPoint: Point) -> Bool {
-        if touchPoint.x >= minX,
-           touchPoint.y >= minY,
-           touchPoint.x <= maxX,
-           touchPoint.y <= maxY {
+        if touchPoint.x >= minX, touchPoint.y >= minY,
+           touchPoint.x <= maxX, touchPoint.y <= maxY {
             return true
         }
         return false
-    }
-}
-
-extension Square {
-    static func make() -> Square {
-        Square(id: makeId())
-    }
-    
-    private static func makeId() -> String {
-        let chars = "abcdefghijklmnopqrstuvwxyz0123456789"
-        return String((0..<3).reduce(""){ id, _ in
-            let randomId = String((0..<3).compactMap{ _ in chars.randomElement()})
-            return id + randomId + "-"
-        }.dropLast())
     }
 }
