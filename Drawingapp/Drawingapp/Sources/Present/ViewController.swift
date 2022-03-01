@@ -29,6 +29,7 @@ class ViewController: UIViewController {
     
     func bind() {
         topMenuBarView.bind(plane: self.plane)
+        inspectorView.bind(plane: self.plane)
         
         plane.state.drawSquare = { square in
             let squareView = SquareView()
@@ -51,6 +52,11 @@ class ViewController: UIViewController {
                 return
             }
             self.squareViews[square.id]?.selected(is: true)
+        }
+        
+        plane.state.updateSquare = { square in
+            self.squareViews[square.id]?.setSquare(in: square)
+            self.inspectorView.setSquare(in: square)
         }
     }
     

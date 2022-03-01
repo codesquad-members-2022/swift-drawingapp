@@ -11,7 +11,7 @@ import UIKit
 class InspectorItemView: BaseView {
     let title = UILabel()
     let stackView = UIStackView()
-    
+        
     override func attribute() {
         super.attribute()
         title.text = "제목 출력 부분"
