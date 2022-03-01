@@ -32,38 +32,34 @@ class ViewController: UIViewController {
         
         plane.state.drawSquare = { square in
             let squareView = SquareView()
+            squareView.setSquare(in: square)
             self.drawingBoard.addSubview(squareView)
-            squareView.backgroundColor = square.uiColor
-            squareView.frame = CGRect(x: square.x, y: square.y, width: square.width, height: square.height)
             self.squareViews[square.id] = squareView
         }
         
-        plane.state.disSelectedSquare = { square in
+        plane.state.didDisSelectedSquare = { square in
             guard let square = square else {
                 return
             }
             self.squareViews[square.id]?.selected(is: false)
         }
         
-        plane.state.selectedSquare = { square in
+        plane.state.didSelectedSquare = { square in
+            self.inspectorView.setSquare(square: square)
+            
             guard let square = square else {
-                self.inspectorView.setSquare(square: nil)
                 return
             }
             self.squareViews[square.id]?.selected(is: true)
-            self.inspectorView.setSquare(square: square)
         }
     }
     
     func attribute() {
         self.view.backgroundColor = .black
-        
         drawingBoard.backgroundColor = .white
     }
     
     func layout() {
-        let safeAreaGuide = self.view.safeAreaLayoutGuide
-        
         self.view.addSubview(drawingBoard)
         self.view.addSubview(inspectorView)
         self.view.addSubview(topMenuBarView)

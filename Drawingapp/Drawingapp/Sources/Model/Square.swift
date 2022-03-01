@@ -14,7 +14,30 @@ class Square: CustomStringConvertible {
     private let size: Size
     private let color: Color
     private let alpha: Alpha
-        
+    
+    var description: String {
+        "id: ( \(id) ), \(point), \(size), \(color), alpha: \(alpha)"
+    }
+    
+    init(id: String, point: Point = Point(x: 100, y: 100), size: Size = Size(width: 150, height: 120), color: Color = .black, alpha: Alpha = Alpha.ten) {
+        self.id = id
+        self.point = point
+        self.size = size
+        self.color = color
+        self.alpha = alpha
+    }
+    
+    func isSelected(by touchPoint: Point) -> Bool {
+        if touchPoint.x >= minX, touchPoint.y >= minY,
+           touchPoint.x <= maxX, touchPoint.y <= maxY {
+            return true
+        }
+        return false
+    }
+}
+
+extension Square {
+    
     var minX: Double {
         point.x
     }
@@ -55,23 +78,7 @@ class Square: CustomStringConvertible {
         UIColor(red: CGFloat(color.r) / 255, green: CGFloat(color.g) / 255, blue: CGFloat(color.b / 255), alpha: alpha.value)
     }
     
-    var description: String {
-        "id: ( \(id) ), \(point), \(size), \(color), alpha: \(alpha)"
-    }
-    
-    init(id: String, point: Point = Point(x: 100, y: 100), size: Size = Size(width: 150, height: 120), color: Color = .black, alpha: Alpha = Alpha.ten) {
-        self.id = id
-        self.point = point
-        self.size = size
-        self.color = color
-        self.alpha = alpha
-    }
-    
-    func isSelected(by touchPoint: Point) -> Bool {
-        if touchPoint.x >= minX, touchPoint.y >= minY,
-           touchPoint.x <= maxX, touchPoint.y <= maxY {
-            return true
-        }
-        return false
+    var rect: CGRect {
+        CGRect(x: x, y: y, width: width, height: height)
     }
 }

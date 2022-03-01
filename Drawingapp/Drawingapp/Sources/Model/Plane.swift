@@ -15,8 +15,8 @@ class Plane {
     }
     
     struct State {
-        var disSelectedSquare: (Square?) -> Void = { _ in }
-        var selectedSquare: (Square?) -> Void = { _ in }
+        var didDisSelectedSquare: (Square?) -> Void = { _ in }
+        var didSelectedSquare: (Square?) -> Void = { _ in }
         var drawSquare: (Square) -> Void = { _ in }
     }
     
@@ -26,14 +26,12 @@ class Plane {
     private let squareFactory = Factory()
     private let squares = Squares()
     
-    private var selectedSquare: Square?
-    
     init() {
         self.action.onScreenTapped = { point in
+            let prevSelectedSquare = self.squares.selectedSquare
             let square = self.squares.selected(point: point)
-            self.state.disSelectedSquare(self.selectedSquare)
-            self.state.selectedSquare(square)
-            self.selectedSquare = square
+            self.state.didDisSelectedSquare(prevSelectedSquare)
+            self.state.didSelectedSquare(square)
         }
         
         self.action.makeSquareButtonTapped = {
