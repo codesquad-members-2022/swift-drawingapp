@@ -12,22 +12,18 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let id = RandomFactory.makeRandomID()
-        let origin = RandomFactory.makeRandomPoint()
-        let size = Size(width: 150, height: 120)
-        let alpha = RandomFactory.makeRandomAlpha()
-        let rgb = RandomFactory.makeRandomRGB()
+        let rectangleFactory = RectangleFactory()
         
-        let rectangle = RectangleFactory.makeRectangleAtRandomPoint(
-            id: id,
-            origin: origin,
-            size: size,
-            backGroundColor: rgb,
-            alpha:alpha
-        )
+        let rect1 = rectangleFactory.makeRectangleAtRandomPoint()
+        let rect2 = rectangleFactory.makeRectangleAtRandomPoint()
+        let rect3 = rectangleFactory.makeRectangleAtRandomPoint()
+        let rect4 = rectangleFactory.makeRectangleAtRandomPoint()
         
-        os_log("\(rectangle)")
         
+        os_log("\(rect1)")
+        os_log("\(rect2)")
+        os_log("\(rect3)")
+        os_log("\(rect4)")
     }
 }
 

@@ -7,12 +7,18 @@
 
 final class RectangleFactory {
     
-    static func makeRectangleAtRandomPoint(id:String,origin:Point,size:Size, backGroundColor:RGB, alpha:Alpha) -> Rectangle {
+    let id = RandomFactory.makeRandomID()
+    let origin = RandomFactory.makeRandomPoint()
+    let size = Size(width: 150, height: 120)
+    let alpha = RandomFactory.makeRandomAlpha()
+    let rgb = RandomFactory.makeRandomRGB()
+    
+    func makeRectangleAtRandomPoint() -> Rectangle {
         let rectangleAtRandomPoint = Rectangle (
             id: id,
             origin:origin,
             size: size,
-            backGroundColor: backGroundColor,
+            backGroundColor: rgb,
             alpha: alpha
         )
         return rectangleAtRandomPoint
