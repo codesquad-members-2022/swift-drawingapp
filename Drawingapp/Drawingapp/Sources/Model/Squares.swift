@@ -19,7 +19,7 @@ class Squares {
     }
     
     func selected(point: Point) -> Square? {
-        squares.filter{ $0.isSelected(by: point) }.first
+        squares.filter{ $0.isSelected(by: point) }.last
     }
 }
 
