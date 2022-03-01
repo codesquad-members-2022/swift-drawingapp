@@ -9,4 +9,11 @@ import Foundation
 
 class InspectorSliderView: InspectorItemView {
     
+    override func attribute() {
+        super.attribute()
+    }
+    
+    override func layout() {
+        super.layout()
+    }
 }
