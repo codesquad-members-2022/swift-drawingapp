@@ -20,8 +20,8 @@ final class RandomFactory {
     }
     
     static func makeRandomPoint() -> Point {
-        let randomX = Double.random(in: 0...UIScreen.main.bounds.width)
-        let randomY = Double.random(in: 0...UIScreen.main.bounds.height)
+        let randomX = Double.random(in: 0...820.0)
+        let randomY =  Double.random(in: 0...1180.0)
         let randomPoint = Point(x: randomX, y: randomY)
         return randomPoint
     }
