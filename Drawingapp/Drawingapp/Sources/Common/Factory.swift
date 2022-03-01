@@ -16,8 +16,10 @@ class Factory {
         let pointX = Int.random(in: 0..<Int(screenSize.width - size.width))
         let pointY = Int.random(in: 0..<Int(screenSize.height - size.height))
         
-        return Square(id: makeId(), point: Point(x: pointX, y: pointY), size: size)
-//        Square.make()
+        let colorValues = (0..<3).map{ _ in Int.random(in: 0...255) }
+        let color = Color(r: colorValues[0], g: colorValues[1], b: colorValues[2])
+        
+        return Square(id: makeId(), point: Point(x: pointX, y: pointY), size: size, color: color)
     }
     
     private func makeId() -> String {
