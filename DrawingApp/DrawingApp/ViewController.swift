@@ -18,7 +18,7 @@ class ViewController: UIViewController {
 
     @IBAction func addRectButtonTouchUpInside(_ sender: UIButton) {
         let subviewName = "subView #\(self.view.subviews.count)"
-        let viewModel = FactoryViewRandomProperty.make(as: subviewName, in: self.view)
+        let viewModel = FactoryViewRandomProperty(name: subviewName, superview: self.view).make()
         
         let randomView = UIView(frame: CGRect.viewModelRect(point: viewModel.point, size: viewModel.size))
         randomView.backgroundColor = UIColor.viewModelColor(value: viewModel.rgbValue, alpha: viewModel.alpha)
