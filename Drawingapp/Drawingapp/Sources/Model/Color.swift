@@ -13,7 +13,7 @@ struct Color: CustomStringConvertible {
     let b: Int
     
     var description: String {
-        "R: \(r), G: \(b), B: \(b)"
+        "R: \(r), G: \(g), B: \(b)"
     }
     
     init(r: Int = 0, g: Int = 0, b: Int = 0) {
