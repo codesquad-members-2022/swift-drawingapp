@@ -37,9 +37,9 @@ class DrawingappUITests: XCTestCase {
         }
         
         //사각형의 기본 생성위치
-        //0, 0, 150, 120
+        //100, 100, 150, 120
         plane.action.makeSquareButtonTapped()
-        plane.action.onScreenTouched(Point(x: 150, y: 120))
+        plane.action.onScreenTouched(Point(x: 249, y: 120))
     }
     
     func testCreateSquare() {
