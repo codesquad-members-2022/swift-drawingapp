@@ -38,6 +38,9 @@
 		E0D7DA4527CDE32300A56635 /* TopMenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA4427CDE32300A56635 /* TopMenuBarView.swift */; };
 		E0D7DA4827CDE3C800A56635 /* TopMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA4727CDE3C800A56635 /* TopMenuItemView.swift */; };
 		E0D7DA4D27CDF28C00A56635 /* InspectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA4C27CDF28C00A56635 /* InspectorView.swift */; };
+		E0D7DA4F27CDF65D00A56635 /* InspectorItemLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA4E27CDF65D00A56635 /* InspectorItemLabelView.swift */; };
+		E0D7DA5127CDF6FE00A56635 /* InspectorSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA5027CDF6FE00A56635 /* InspectorSliderView.swift */; };
+		E0D7DA5327CDF70D00A56635 /* InspectorItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA5227CDF70D00A56635 /* InspectorItemView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +88,9 @@
 		E0D7DA4427CDE32300A56635 /* TopMenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMenuBarView.swift; sourceTree = "<group>"; };
 		E0D7DA4727CDE3C800A56635 /* TopMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMenuItemView.swift; sourceTree = "<group>"; };
 		E0D7DA4C27CDF28C00A56635 /* InspectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorView.swift; sourceTree = "<group>"; };
+		E0D7DA4E27CDF65D00A56635 /* InspectorItemLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorItemLabelView.swift; sourceTree = "<group>"; };
+		E0D7DA5027CDF6FE00A56635 /* InspectorSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorSliderView.swift; sourceTree = "<group>"; };
+		E0D7DA5227CDF70D00A56635 /* InspectorItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,8 +239,8 @@
 		E0D7DA4627CDE32800A56635 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E0D7DA4B27CDF1BA00A56635 /* Inspector */,
 				E0D7DA4A27CDEDAF00A56635 /* DrawingItem */,
+				E0D7DA4B27CDF1BA00A56635 /* Inspector */,
 				E0D7DA4927CDE3CD00A56635 /* TopMenu */,
 			);
 			path = View;
@@ -260,9 +266,28 @@
 		E0D7DA4B27CDF1BA00A56635 /* Inspector */ = {
 			isa = PBXGroup;
 			children = (
-				E0D7DA4C27CDF28C00A56635 /* InspectorView.swift */,
+				E0D7DA5527CDF71F00A56635 /* View */,
+				E0D7DA5427CDF71200A56635 /* Base */,
+				E0D7DA5227CDF70D00A56635 /* InspectorItemView.swift */,
 			);
 			path = Inspector;
+			sourceTree = "<group>";
+		};
+		E0D7DA5427CDF71200A56635 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				E0D7DA4C27CDF28C00A56635 /* InspectorView.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		E0D7DA5527CDF71F00A56635 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E0D7DA4E27CDF65D00A56635 /* InspectorItemLabelView.swift */,
+				E0D7DA5027CDF6FE00A56635 /* InspectorSliderView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -401,14 +426,17 @@
 				E0D7DA4827CDE3C800A56635 /* TopMenuItemView.swift in Sources */,
 				E0D7DA1727CC642800A56635 /* Size.swift in Sources */,
 				E0D7DA4D27CDF28C00A56635 /* InspectorView.swift in Sources */,
+				E0D7DA5127CDF6FE00A56635 /* InspectorSliderView.swift in Sources */,
 				E0D7DA2C27CCF83300A56635 /* Log.swift in Sources */,
 				E0D7DA2027CC656500A56635 /* Color.swift in Sources */,
+				E0D7DA4F27CDF65D00A56635 /* InspectorItemLabelView.swift in Sources */,
 				E0D7DA4527CDE32300A56635 /* TopMenuBarView.swift in Sources */,
 				E0D7DA1927CC643000A56635 /* Point.swift in Sources */,
 				E0D7DA2327CC67DF00A56635 /* Alpha.swift in Sources */,
 				E0D7DA2927CCDC9200A56635 /* Factory.swift in Sources */,
 				E0D7D9E227CC594D00A56635 /* ViewController.swift in Sources */,
 				E0D7D9DE27CC594D00A56635 /* AppDelegate.swift in Sources */,
+				E0D7DA5327CDF70D00A56635 /* InspectorItemView.swift in Sources */,
 				E0D7D9E027CC594D00A56635 /* SceneDelegate.swift in Sources */,
 				E0D7DA4327CDE10500A56635 /* SquareView.swift in Sources */,
 				E0D7DA2E27CD048C00A56635 /* Plane.swift in Sources */,

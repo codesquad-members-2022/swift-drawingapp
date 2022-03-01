@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     var squareViews: [String:SquareView] = [:]
     
     let topMenuBarView = TopMenuBarView()
-    let inspectorView = 
+    let inspectorView = InspectorView()
     
     let plane = Plane()
     
@@ -63,13 +63,21 @@ class ViewController: UIViewController {
         let safeAreaGuide = self.view.safeAreaLayoutGuide
         
         self.view.addSubview(drawingBoard)
+        self.view.addSubview(inspectorView)
+        self.view.addSubview(topMenuBarView)
+        
         drawingBoard.translatesAutoresizingMaskIntoConstraints = false
         drawingBoard.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         drawingBoard.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         drawingBoard.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        drawingBoard.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        drawingBoard.rightAnchor.constraint(equalTo: self.inspectorView.leftAnchor).isActive = true
         
-        self.view.addSubview(topMenuBarView)
+        inspectorView.translatesAutoresizingMaskIntoConstraints = false
+        inspectorView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        inspectorView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        inspectorView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        inspectorView.widthAnchor.constraint(equalToConstant: 150).isActive = true
+        
         topMenuBarView.translatesAutoresizingMaskIntoConstraints = false
         topMenuBarView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         topMenuBarView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
