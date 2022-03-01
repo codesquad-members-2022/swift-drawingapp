@@ -1,17 +1,18 @@
-//
-//  ViewController.swift
-//  DrawingApp
-//
-//  Created by 이준우 on 2022/03/01.
-//
-
 import UIKit
+import OSLog
 
 class ViewController: UIViewController {
-
+    
+    private var logger: Logger = Logger()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        let factory = RectangleFactory()
+        for index in 0..<4{
+            let rectangle = factory.createRenctangle()
+            logger.debug("Rectangle\(index) : \(rectangle)")
+            
+        }
     }
 
 
