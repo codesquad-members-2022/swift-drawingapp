@@ -20,7 +20,6 @@ class InspectorItemLabelView: InspectorItemView {
         info.layer.borderWidth = 1
         info.layer.borderColor = UIColor.lightGray.cgColor
         info.layer.cornerRadius = 5
-        info.text = "info Message"
     }
     
     override func layout() {

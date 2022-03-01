@@ -30,6 +30,12 @@ class InspectorView: BaseView {
         
         itemStackView.axis = .vertical
         itemStackView.isHidden = true
+        
+        colorButton.title.text = "배경색"
+        
+        alphaSlider.title.text = "Alpha"
+        alphaSlider.slider.minimumValue = 0
+        alphaSlider.slider.maximumValue = Float(Alpha.max.index - 1)
     }
     
     override func layout() {
@@ -48,7 +54,7 @@ class InspectorView: BaseView {
         itemStackView.bottomAnchor.constraint(equalTo: alphaSlider.bottomAnchor).isActive = true
     }
     
-    func setSquare(in square: Square?) {
+    func updateInspector(in square: Square?) {
         guard let square = square else {
             itemStackView.isHidden = true
             return
@@ -56,13 +62,7 @@ class InspectorView: BaseView {
         itemStackView.isHidden = false
         
         let inspectorData = square.inspectorData
-        
-        colorButton.title.text = "배경색"
         colorButton.button.setTitle(inspectorData.hexColor, for: .normal)
-        
-        alphaSlider.title.text = "Alpha"
-        alphaSlider.slider.minimumValue = 0
-        alphaSlider.slider.maximumValue = Float(Alpha.max.index - 1)
         alphaSlider.slider.value = Float(inspectorData.alpha.index)
     }
 }

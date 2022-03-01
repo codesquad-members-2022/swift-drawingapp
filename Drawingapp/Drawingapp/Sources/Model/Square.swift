@@ -34,8 +34,8 @@ class Square: CustomStringConvertible {
     }
     
     func isSelected(by touchPoint: Point) -> Bool {
-        if touchPoint.x >= minX, touchPoint.y >= minY,
-           touchPoint.x <= maxX, touchPoint.y <= maxY {
+        if touchPoint.x >= point.x, touchPoint.y >= point.y,
+           touchPoint.x <= point.x + size.width, touchPoint.y <= point.y + size.height {
             return true
         }
         return false
@@ -53,44 +53,12 @@ class Square: CustomStringConvertible {
 
 extension Square {
     
-    var minX: Double {
-        point.x
-    }
-    
-    var minY: Double {
-        point.y
-    }
-    
-    var maxX: Double {
-        point.x + size.width
-    }
-    
-    var maxY: Double {
-        point.y + size.height
-    }
-    
-    var x: Double {
-        point.x
-    }
-    
-    var y: Double {
-        point.y
-    }
-    
-    var width: Double {
-        size.width
-    }
-    
-    var height: Double {
-        size.height
-    }
-    
     var uiColor: UIColor {
         UIColor(red: CGFloat(color.r) / 255, green: CGFloat(color.g) / 255, blue: CGFloat(color.b / 255), alpha: alpha.value)
     }
     
     var rect: CGRect {
-        CGRect(x: x, y: y, width: width, height: height)
+        CGRect(x: point.x, y: point.y, width: size.width, height: size.height)
     }
     
     var inspectorData: InspectorData {
