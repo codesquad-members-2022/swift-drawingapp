@@ -11,11 +11,11 @@ class Rectangle:CustomStringConvertible {
     }
     
     
-    var id:String
-    var origin:Point
-    var size:Size
-    var backGroundColor:RGB
-    var alpha:Alpha
+    private let id:String
+    private let origin:Point
+    private let size:Size
+    private let backGroundColor:RGB
+    private let alpha:Alpha
     
     
     init(id:String,origin:Point,size:Size,backGroundColor:RGB, alpha:Alpha) {
