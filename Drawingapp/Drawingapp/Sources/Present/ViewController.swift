@@ -9,7 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    let board = UIView()
+    let drawingBoard = UIView()
     
     let makeSquareIcon = UIImageView()
     let makeSquareLabel = UILabel()
@@ -27,7 +27,7 @@ class ViewController: UIViewController {
         
         let tapGesture = UITapGestureRecognizer()
         tapGesture.delegate = self
-        self.board.addGestureRecognizer(tapGesture)
+        self.drawingBoard.addGestureRecognizer(tapGesture)
     }
     
     func bind() {
@@ -35,10 +35,10 @@ class ViewController: UIViewController {
             self.plane.action.makeSquareButtonTapped()
         }, for: .touchUpInside)
         
-        plane.state.renderSquare = { square in
+        plane.state.drawSquare = { square in
             let squareView = UIView()
-            self.board.addSubview(squareView)
-            squareView.backgroundColor = square.backgroundColor.uiColor
+            self.drawingBoard.addSubview(squareView)
+            squareView.backgroundColor = square.color.uiColor
             squareView.frame = CGRect(x: square.x, y: square.y, width: square.width, height: square.height)
             self.squareViews[square.id] = squareView
         }
@@ -47,7 +47,7 @@ class ViewController: UIViewController {
     func attribute() {
         self.view.backgroundColor = .black
         
-        board.backgroundColor = .white
+        drawingBoard.backgroundColor = .white
         
         makeSquare.backgroundColor = .lightGray
         makeSquare.layer.cornerRadius = 5
@@ -63,14 +63,14 @@ class ViewController: UIViewController {
     func layout() {
         let safeAreaGuide = self.view.safeAreaLayoutGuide
         
-        self.view.addSubview(board)
-        board.translatesAutoresizingMaskIntoConstraints = false
-        board.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        board.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        board.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        board.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        self.view.addSubview(drawingBoard)
+        drawingBoard.translatesAutoresizingMaskIntoConstraints = false
+        drawingBoard.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        drawingBoard.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        drawingBoard.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        drawingBoard.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
         
-        self.board.addSubview(makeSquare)
+        self.drawingBoard.addSubview(makeSquare)
         makeSquare.translatesAutoresizingMaskIntoConstraints = false
         makeSquare.bottomAnchor.constraint(equalTo: safeAreaGuide.bottomAnchor).isActive = true
         makeSquare.centerXAnchor.constraint(equalTo: safeAreaGuide.centerXAnchor).isActive = true
@@ -94,7 +94,7 @@ class ViewController: UIViewController {
 extension ViewController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         let location = gestureRecognizer.location(in: gestureRecognizer.view)
-        self.plane.action.onScreenTouched(Point(x: location.x, y: location.y))
+        self.plane.action.onScreenTapped(Point(x: location.x, y: location.y))
         return true
     }
 }
