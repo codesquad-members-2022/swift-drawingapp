@@ -36,7 +36,7 @@ class FactoryViewRandomProperty: ViewPropertyCreator {
             at: locationProperty.point,
             size: locationProperty.size,
             color: rectRGBPointGenerator(maxR: 255, maxG: 255, maxB: 255),
-            alpha: Double.random(in: 0.0...1.0)
+            alpha: Double.random(in: 1.0...10.0)
         )
     }
     
@@ -58,10 +58,5 @@ class FactoryViewRandomProperty: ViewPropertyCreator {
         )
         
         return (size, randomPoint)
-    }
-    
-    func isExceededSuperView() -> Bool {
-        let locationProperty = getRandomPoint()
-        return (locationProperty.size.width + locationProperty.point.x) <= viewFrame.width && (locationProperty.size.height + locationProperty.point.y) <= viewFrame.height
     }
 }

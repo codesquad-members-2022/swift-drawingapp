@@ -12,9 +12,13 @@ class DrawingAppAddViewTests: XCTestCase {
 
     func testDrawViewExceeded() throws {
         for _ in 1...100 {
-            let model = FactoryViewRandomProperty(name: "random", superview: ViewController().view)
-            XCTAssertFalse(!model.isExceededSuperView(), "[ERROR] View Excceeded! \(model.make())")
-            print(model.make())
+            let view = ViewController().view!
+            let model = FactoryViewRandomProperty(name: "random", superview: view).make()
+            
+            if model.isExceeded(superView: view) {
+                print(model)
+                XCTFail()
+            }
         }
     }
 }

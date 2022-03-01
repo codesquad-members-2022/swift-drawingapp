@@ -10,35 +10,31 @@ import os.log
 
 class ViewController: UIViewController {
     
-//    var subviews = [UIView]()
-
     override func viewDidLoad() {
         super.viewDidLoad()
     }
 
     @IBAction func addRectButtonTouchUpInside(_ sender: UIButton) {
-        let subviewName = "subView #\(self.view.subviews.count)"
-        let viewModel = FactoryViewRandomProperty(name: subviewName, superview: self.view).make()
+        let subviewName = "subView #\(view.subviews.count)"
+        let viewModel = FactoryViewRandomProperty(name: subviewName, superview: view).make()
         
-        let randomView = UIView(frame: CGRect.viewModelRect(point: viewModel.point, size: viewModel.size))
-        randomView.backgroundColor = UIColor.viewModelColor(value: viewModel.rgbValue, alpha: viewModel.alpha)
+        let randomView = UIView(frame: CGRect.useViewModel(point: viewModel.point, size: viewModel.size))
+        randomView.backgroundColor = UIColor.useViewModel(rgbValue: viewModel.rgbValue, alpha: viewModel.alpha)
         
-        self.view.addSubview(randomView)
+        view.addSubview(randomView)
         
-//        os_log(.debug, "%@", String(describing: viewModel))
-//        Log.debug("%@", String(describing: viewModel))
         Log.error(String(describing: viewModel))
     }
 }
 
 extension CGRect {
-    static func viewModelRect(point: RectPoint, size: RectSize) -> CGRect {
+    static func useViewModel(point: RectPoint, size: RectSize) -> CGRect {
         CGRect(x: point.x, y: point.y, width: size.width, height: size.height)
     }
 }
 
 extension UIColor {
-    static func viewModelColor(value: RectRGBColor, alpha: Double) -> UIColor {
-        UIColor(red: value.r/255, green: value.g/255, blue: value.b/255, alpha: alpha)
+    static func useViewModel(rgbValue: RectRGBColor, alpha: Double) -> UIColor {
+        UIColor(red: rgbValue.r/255, green: rgbValue.g/255, blue: rgbValue.b/255, alpha: alpha/10)
     }
 }

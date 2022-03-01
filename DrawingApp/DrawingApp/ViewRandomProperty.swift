@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 // typeAlias를 통해 튜플의 용도가 이름에서도 드러나도록 하였습니다.
 typealias RectSize = (width:Double, height:Double)
@@ -16,8 +17,8 @@ typealias RectRGBColor = (r:Double, g:Double, b: Double)
 // 랜덤 프로퍼티를 소유한 뷰라는 의미의 이름을 넣게 되었습니다.
 class ViewRandomProperty: ViewPropertyCreator {
     
-    let name: String
-    let id: String
+    private let name: String
+    private let id: String
     
     let size: RectSize
     let point: RectPoint
@@ -34,10 +35,15 @@ class ViewRandomProperty: ViewPropertyCreator {
         self.rgbValue = color
         self.alpha = alpha
     }
+    
+    // superview 에서 뷰의 영역이 넘어가는지 확인합니다.
+    func isExceeded(superView: UIView) -> Bool {
+        return (size.width + point.x) > superView.frame.width || (size.height + point.y) > superView.frame.height
+    }
 }
 
 extension ViewRandomProperty: CustomStringConvertible {
     var description: String {
-        return "\(name) \(id), X:\(point.x),Y:\(point.y), W\(size.width), H\(size.height), R:\(rgbValue.r), G:\(rgbValue.g), B:\(rgbValue.b), Alpha:\(alpha)"
+        "\(name) \(id), X:\(point.x),Y:\(point.y), W\(size.width), H\(size.height), R:\(rgbValue.r), G:\(rgbValue.g), B:\(rgbValue.b), Alpha:\(alpha)"
     }
 }
