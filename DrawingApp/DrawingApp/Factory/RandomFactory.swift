@@ -5,9 +5,11 @@
 //  Created by 박진섭 on 2022/03/01.
 //
 
+import UIKit
+
 final class RandomFactory {
     
-    static func makeRandomRGBValue() -> RGB {
+    static func makeRandomRGB() -> RGB {
         let randomRed = Int.random(in: 0...255)
         let randomGreen = Int.random(in: 0...255)
         let randomBlue = Int.random(in: 0...255)
@@ -16,6 +18,12 @@ final class RandomFactory {
         
         return randomRGB
     }
+    
+    static func makeRandomPoint() -> Point {
+        let randomPoint = Point(x: UIScreen.main.bounds.width, y: UIScreen.main.bounds.height)
+        return randomPoint
+    }
+    
     
     static func makeRandomAlpha() -> Alpha {
         let randomAlphaValue = Int.random(in: 0...10)
