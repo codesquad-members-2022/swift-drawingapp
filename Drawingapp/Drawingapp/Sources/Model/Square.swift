@@ -31,6 +31,22 @@ class Square: CustomStringConvertible {
         point.y + size.height
     }
     
+    var x: Double {
+        point.x
+    }
+    
+    var y: Double {
+        point.y
+    }
+    
+    var width: Double {
+        size.width
+    }
+    
+    var height: Double {
+        size.height
+    }
+    
     var description: String {
         "id: ( \(id) ), \(point), \(size), \(backgroundColor), alpha: \(alpha)"
     }
