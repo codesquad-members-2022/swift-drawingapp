@@ -29,10 +29,10 @@ class Rectangle {
     private var size : Size
     private var point : Point
     private var color : Color
-    private var alpha : Int
+    private var alpha : Double
     
     
-    init (id: String, size:Size, point: Point, color: Color, alpha : Int) {
+    init (id: String, size:Size, point: Point, color: Color, alpha : Double) {
         self.id = id
         self.size = size
         self.point = point
@@ -57,7 +57,7 @@ class Rectangle {
         self.color
     }
     
-    func getAlpha() -> Int {
+    func getAlpha() -> Double {
         self.alpha
     }
 }

@@ -18,7 +18,7 @@
 
 
 import Foundation
-import UIKit
+
 
 //Rectangle 를 만들어주는 팩토리
 class RectangleFactory {
@@ -64,8 +64,8 @@ class RectangleFactory {
         return Color(red: red, green: green, blue: blue)
     }
     
-    func generateRandomAlpha() -> Int {
-        return Int.random(in: 1..<11)
+    func generateRandomAlpha() -> Double {
+        return Double.random(in: 1..<11)
     }
     
     
