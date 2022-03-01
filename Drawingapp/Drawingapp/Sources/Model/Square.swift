@@ -13,12 +13,28 @@ class Square: CustomStringConvertible {
     let size: Size
     let backgroundColor: Color
     let alpha: Alpha
+        
+    var minX: Double {
+        point.x
+    }
+    
+    var minY: Double {
+        point.y
+    }
+    
+    var maxX: Double {
+        point.x + size.width
+    }
+    
+    var maxY: Double {
+        point.y + size.height
+    }
     
     var description: String {
         "id: ( \(id) ), \(point), \(size), \(backgroundColor), alpha: \(alpha)"
     }
     
-    init(id: String, point: Point = Point(x: 0, y: 0), size: Size = Size(width: 150, height: 120), backgroundColor: Color = .black, alpha: Alpha = Alpha.ten) {
+    init(id: String, point: Point = Point(x: 100, y: 100), size: Size = Size(width: 150, height: 120), backgroundColor: Color = .black, alpha: Alpha = Alpha.ten) {
         self.id = id
         self.point = point
         self.size = size
@@ -27,10 +43,10 @@ class Square: CustomStringConvertible {
     }
     
     func isSelected(by touchPoint: Point) -> Bool {
-        if touchPoint.x >= point.x,
-           touchPoint.y >= point.y,
-           touchPoint.x <= size.width,
-           touchPoint.y <= size.height {
+        if touchPoint.x >= minX,
+           touchPoint.y >= minY,
+           touchPoint.x <= maxX,
+           touchPoint.y <= maxY {
             return true
         }
         return false
