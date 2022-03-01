@@ -47,9 +47,11 @@ class ViewController: UIViewController {
         
         plane.state.selectedSquare = { square in
             guard let square = square else {
+                self.inspectorView.setSquare(square: nil)
                 return
             }
             self.squareViews[square.id]?.selected(is: true)
+            self.inspectorView.setSquare(square: square)
         }
     }
     

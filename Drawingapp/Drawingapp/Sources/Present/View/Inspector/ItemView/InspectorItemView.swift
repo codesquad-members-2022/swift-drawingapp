@@ -14,10 +14,8 @@ class InspectorItemView: BaseView {
     
     override func attribute() {
         super.attribute()
-        title.backgroundColor = .red
         title.text = "제목 출력 부분"
-        
-        stackView.backgroundColor = .black
+        title.textColor = .black
         stackView.axis = .vertical
     }
     

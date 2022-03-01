@@ -14,8 +14,13 @@ class InspectorItemLabelView: InspectorItemView {
     override func attribute() {
         super.attribute()
         
-        info.backgroundColor = .lightGray
-        info.text = "asadsad"
+        info.textAlignment = .center
+        info.textColor = .systemGray4
+        info.backgroundColor = .clear
+        info.layer.borderWidth = 1
+        info.layer.borderColor = UIColor.lightGray.cgColor
+        info.layer.cornerRadius = 5
+        info.text = "info Message"
     }
     
     override func layout() {
