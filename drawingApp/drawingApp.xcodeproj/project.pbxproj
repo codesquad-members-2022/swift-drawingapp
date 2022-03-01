@@ -85,6 +85,7 @@
 				B74322A127CC6F1E00445645 /* Controller */,
 				B74322A027CC6F1800445645 /* Model */,
 				B743228C27CC5DF300445645 /* AppDelegate.swift */,
+				B743229027CC5DF300445645 /* ViewController.swift */,
 				B743228E27CC5DF300445645 /* SceneDelegate.swift */,
 				B743229227CC5DF300445645 /* Main.storyboard */,
 				B743229527CC5DF400445645 /* Assets.xcassets */,
@@ -106,7 +107,6 @@
 		B74322A127CC6F1E00445645 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				B743229027CC5DF300445645 /* ViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

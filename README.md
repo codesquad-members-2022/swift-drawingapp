@@ -59,12 +59,43 @@ ViewController : viewDidLoad 에서 4개의 사각형을 만든다.
 ## [추가학습]
 - iOS 앱을 구성하는 핵심 객체들과 iOS 메인 런루프 동작 이해하기 위해서 애플 UIKit 설명, App and Environment 문서를 학습한다.
 
+### [UIKit] 
+- IOS 와 tvOS 의 앱에 사용되는 핵심 오브젝트들을 제공해주는 프레임워크이다. 
+- 이 오브젝트들을 사용해서 스크린에 내가 원하는 내용을 보여주고 상호작용 및 관리를 할수있다.  
+- UIKit 은 기본적인 앱의 동작 뿐만아니라 사용자가 원하는데로 커스터마이즈 를 할수 있는 여러 방법들을 제공해준다. 
+- [Required Resources]
+    - App icons 
+    - Launch screen stroyboard 
+
+- [Code Structure of a UIKit App]
+    - UIKit 의 structure 는 MVC 디자인패턴으로 만들어 졌다. 
+    - Model: 앱의 데이터 와 로직 을 관리한다. 
+    - View : 데이터의 visual representation 을 담당한다. 
+    - Controller : 모델과 뷰 오브젝트들 사이의 다리역할을 해준다. 
+   <p align="center">
+   <img src="https://user-images.githubusercontent.com/36659877/156154004-c959fb3f-25f2-4203-8c85-d44b7a6ca711.png" width="350" height="250"> 
+   </p>
+   
+    - 위 그림에서 모델과 뷰의 데이터 관리를 뷰 컨트롤러와 App delegate 오브젝트들이 해주는것을 확인 할수 있다.
+    - `UIApplication` 오브젝트가 앱의 메인 이벤트 loop 을 실행 하고 앱의 전반적인 생명주기를 관리한다. 
+     
+    
+
+### [App and Environment]
+ - [관리 목록]
+ - 이벤트의 생명주기
+ - UI scene 
+ - `traits` of app 
+ - `environment` of app 
+
 - 프로토콜(Protocol) 역할과 표현 방식에 대해 학습한다.
+### [Protocol]
     - 특정 요구사항 (구현 해야할 메소드) 들이 명시가 되어 있어서 특정 class 나 struct 들이 어떠한 프로토콜을 채택 한다는 뜻은 해당 프로토콜에 명시되어있는 기능들을 모두 구현 하겠다는 말이 된다. 
 
     - 한 카테고리에 속하는 Class/ Struct 들은 기본적인 기능을 모두 수행해야하는데,  프로젝트가 커질경우 이 기본적인 기능들이 너무 많아져 기능 하나하나 체크하기 힘들다. 하지만 프로토콜을 채택을 할시에 이런 불편함이 없어지고 설계했던 대로 그 카테고리의 객체들이 기본적인 기능을 갖추게 코드를 짤수 있다. 
     
 - iOS13+ 이상에서 적용가능한 시스템 로그 함수를 학습한다.
+### [OSLog]
     - `OSLog` 프레임워크 는 IOS14+ 적용가능한 통합 로킹 시스템이다. 
     - 통합 로깅 시스템은 데이터를 텍스트 기반 로그 파일에 쓰지 않고 메모리 및 디스크에 로그 데이터를 중앙 집중식으로 저장하는 방법인데, 이는 시스템의 모든 수준에서 원격 측정을 캡쳐할 수 있는 포괄적이고 성능이 뛰어난 API를 제공한다. 
     
