@@ -20,7 +20,9 @@ final class RandomFactory {
     }
     
     static func makeRandomPoint() -> Point {
-        let randomPoint = Point(x: UIScreen.main.bounds.width, y: UIScreen.main.bounds.height)
+        let randomX = Double.random(in: 0...UIScreen.main.bounds.width)
+        let randomY = Double.random(in: 0...UIScreen.main.bounds.height)
+        let randomPoint = Point(x: randomX, y: randomY)
         return randomPoint
     }
     
@@ -37,14 +39,17 @@ final class RandomFactory {
         let randomIdElement1 = makeIdElements()
         let randomIdElement2 = makeIdElements()
         
-        let randomID = "\(randomIdElement0)-\(randomIdElement1)-\(randomIdElement2)"
+        let randomID = "(\(randomIdElement0)-\(randomIdElement1)-\(randomIdElement2))"
         
         return randomID
     }
     
     private static func makeIdElements() -> String {
         let idSource = "abcdefghijklmnopqrstu0123456789"
-        let randomIdElement = String(idSource.randomElement() ?? " ")
+        var randomIdElement = ""
+        for _ in 0...2 {
+            randomIdElement.append(idSource.randomElement() ?? " ")
+        }
         return randomIdElement
     }
 }

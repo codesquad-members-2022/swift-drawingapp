@@ -7,7 +7,7 @@
 
 class Rectangle:CustomStringConvertible {
     var description: String {
-        return "\(id),\(origin),\(size),\(backGroundColor),\(alpha)"
+        return "\(id), \(origin), \(size),\(backGroundColor), \(alpha)"
     }
     
     

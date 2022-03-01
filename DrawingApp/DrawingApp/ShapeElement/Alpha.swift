@@ -5,7 +5,11 @@
 //  Created by 박진섭 on 2022/03/01.
 //
 
-class Alpha {
+class Alpha:CustomStringConvertible {
+    var description: String {
+        "Alpha: \(alpha)"
+    }
+    
     private var alpha:Int
     
     init(alpha:Int) {
