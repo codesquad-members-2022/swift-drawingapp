@@ -33,7 +33,7 @@ class ViewController: UIViewController {
         
         plane.state.drawSquare = { square in
             let squareView = SquareView()
-            squareView.setSquare(in: square)
+            squareView.update(in: square)
             self.drawingBoard.addSubview(squareView)
             self.squareViews[square.id] = squareView
         }
@@ -46,7 +46,7 @@ class ViewController: UIViewController {
         }
         
         plane.state.didSelectedSquare = { square in
-            self.inspectorView.setSquare(in: square)
+            self.inspectorView.updateInspector(in: square)
             
             guard let square = square else {
                 return
@@ -55,8 +55,8 @@ class ViewController: UIViewController {
         }
         
         plane.state.updateSquare = { square in
-            self.squareViews[square.id]?.setSquare(in: square)
-            self.inspectorView.setSquare(in: square)
+            self.squareViews[square.id]?.update(in: square)
+            self.inspectorView.updateInspector(in: square)
         }
     }
     

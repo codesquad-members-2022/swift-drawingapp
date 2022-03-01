@@ -14,7 +14,6 @@ class InspectorItemButtonView: InspectorItemView {
     override func attribute() {
         super.attribute()
         
-        button.setTitle("name", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
         button.layer.borderWidth = 1

@@ -10,7 +10,7 @@ import UIKit
 
 class SquareView: UIView {
     
-    func setSquare(in square: Square) {
+    func update(in square: Square) {
         backgroundColor = square.uiColor
         frame = square.rect
     }
