@@ -13,6 +13,11 @@
 		73C750A327CDB7D300086C1D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73C750A127CDB7D300086C1D /* Main.storyboard */; };
 		73C750A527CDB7D400086C1D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 73C750A427CDB7D400086C1D /* Assets.xcassets */; };
 		73C750A827CDB7D400086C1D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 73C750A627CDB7D400086C1D /* LaunchScreen.storyboard */; };
+		73C750B127CE007300086C1D /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C750B027CE007300086C1D /* Size.swift */; };
+		73C750B327CE00FE00086C1D /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C750B227CE00FE00086C1D /* Point.swift */; };
+		73C750B527CE015800086C1D /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C750B427CE015800086C1D /* BackgroundColor.swift */; };
+		73C750B727CE01CF00086C1D /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C750B627CE01CF00086C1D /* Alpha.swift */; };
+		73C750B927CE033900086C1D /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C750B827CE033900086C1D /* Rectangle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +29,11 @@
 		73C750A427CDB7D400086C1D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		73C750A727CDB7D400086C1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		73C750A927CDB7D400086C1D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		73C750B027CE007300086C1D /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
+		73C750B227CE00FE00086C1D /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
+		73C750B427CE015800086C1D /* BackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColor.swift; sourceTree = "<group>"; };
+		73C750B627CE01CF00086C1D /* Alpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alpha.swift; sourceTree = "<group>"; };
+		73C750B827CE033900086C1D /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +66,7 @@
 		73C7509A27CDB7D300086C1D /* DrawingApp */ = {
 			isa = PBXGroup;
 			children = (
+				73C750AF27CE003D00086C1D /* Model */,
 				73C7509B27CDB7D300086C1D /* AppDelegate.swift */,
 				73C7509D27CDB7D300086C1D /* SceneDelegate.swift */,
 				73C7509F27CDB7D300086C1D /* ViewController.swift */,
@@ -65,6 +76,18 @@
 				73C750A927CDB7D400086C1D /* Info.plist */,
 			);
 			path = DrawingApp;
+			sourceTree = "<group>";
+		};
+		73C750AF27CE003D00086C1D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				73C750B827CE033900086C1D /* Rectangle.swift */,
+				73C750B027CE007300086C1D /* Size.swift */,
+				73C750B227CE00FE00086C1D /* Point.swift */,
+				73C750B427CE015800086C1D /* BackgroundColor.swift */,
+				73C750B627CE01CF00086C1D /* Alpha.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +161,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				73C750B127CE007300086C1D /* Size.swift in Sources */,
+				73C750B527CE015800086C1D /* BackgroundColor.swift in Sources */,
+				73C750B727CE01CF00086C1D /* Alpha.swift in Sources */,
+				73C750B327CE00FE00086C1D /* Point.swift in Sources */,
 				73C750A027CDB7D300086C1D /* ViewController.swift in Sources */,
 				73C7509C27CDB7D300086C1D /* AppDelegate.swift in Sources */,
 				73C7509E27CDB7D300086C1D /* SceneDelegate.swift in Sources */,
+				73C750B927CE033900086C1D /* Rectangle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
