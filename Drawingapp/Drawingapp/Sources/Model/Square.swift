@@ -12,7 +12,7 @@ class Square: CustomStringConvertible {
     let id: String
     let point: Point
     let size: Size
-    let backgroundColor: Color
+    let color: Color
     let alpha: Alpha
         
     var minX: Double {
@@ -48,14 +48,14 @@ class Square: CustomStringConvertible {
     }
     
     var description: String {
-        "id: ( \(id) ), \(point), \(size), \(backgroundColor), alpha: \(alpha)"
+        "id: ( \(id) ), \(point), \(size), \(color), alpha: \(alpha)"
     }
     
-    init(id: String, point: Point = Point(x: 100, y: 100), size: Size = Size(width: 150, height: 120), backgroundColor: Color = .black, alpha: Alpha = Alpha.ten) {
+    init(id: String, point: Point = Point(x: 100, y: 100), size: Size = Size(width: 150, height: 120), color: Color = .black, alpha: Alpha = Alpha.ten) {
         self.id = id
         self.point = point
         self.size = size
-        self.backgroundColor = backgroundColor
+        self.color = color
         self.alpha = alpha
     }
     
