@@ -19,7 +19,9 @@ class Factory {
         let colorValues = (0..<3).map{ _ in Int.random(in: 0...255) }
         let color = Color(r: colorValues[0], g: colorValues[1], b: colorValues[2])
         
-        return Square(id: makeId(), point: Point(x: pointX, y: pointY), size: size, color: color)
+        let alpha = Alpha.allCases.randomElement() ?? .ten
+        
+        return Square(id: makeId(), point: Point(x: pointX, y: pointY), size: size, color: color, alpha: alpha)
     }
     
     private func makeId() -> String {
