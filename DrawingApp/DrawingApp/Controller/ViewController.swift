@@ -6,16 +6,15 @@
 //
 
 import UIKit
+import OSLog
 
 class ViewController: UIViewController {
-    // MARK: - Properties
-
+    
     // MARK: - View Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        let rect = ShapeFactory.makeRectangle()
+        print(rect)
     }
-    
-    // MARK: - Methods
 }
 
