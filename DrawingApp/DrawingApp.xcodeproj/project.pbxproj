@@ -13,9 +13,6 @@
 		8D69080027CCBEF100F78A51 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D6907FE27CCBEF100F78A51 /* Main.storyboard */; };
 		8D69080227CCBEF400F78A51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D69080127CCBEF400F78A51 /* Assets.xcassets */; };
 		8D69080527CCBEF400F78A51 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D69080327CCBEF400F78A51 /* LaunchScreen.storyboard */; };
-		8D69081027CCBEF400F78A51 /* DrawingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69080F27CCBEF400F78A51 /* DrawingAppTests.swift */; };
-		8D69081A27CCBEF400F78A51 /* DrawingAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69081927CCBEF400F78A51 /* DrawingAppUITests.swift */; };
-		8D69081C27CCBEF400F78A51 /* DrawingAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69081B27CCBEF400F78A51 /* DrawingAppUITestsLaunchTests.swift */; };
 		8D69082E27CDFDFD00F78A51 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69082D27CDFDFD00F78A51 /* Rectangle.swift */; };
 		8D69083727CE08E900F78A51 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69083627CE08E900F78A51 /* Size.swift */; };
 		8D69083927CE08F000F78A51 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69083827CE08F000F78A51 /* Point.swift */; };
@@ -52,10 +49,7 @@
 		8D69080427CCBEF400F78A51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8D69080627CCBEF400F78A51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D69080B27CCBEF400F78A51 /* DrawingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8D69080F27CCBEF400F78A51 /* DrawingAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingAppTests.swift; sourceTree = "<group>"; };
 		8D69081527CCBEF400F78A51 /* DrawingAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8D69081927CCBEF400F78A51 /* DrawingAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingAppUITests.swift; sourceTree = "<group>"; };
-		8D69081B27CCBEF400F78A51 /* DrawingAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		8D69082D27CDFDFD00F78A51 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 		8D69083627CE08E900F78A51 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		8D69083827CE08F000F78A51 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
@@ -94,8 +88,6 @@
 			isa = PBXGroup;
 			children = (
 				8D6907F727CCBEF100F78A51 /* DrawingApp */,
-				8D69080E27CCBEF400F78A51 /* DrawingAppTests */,
-				8D69081827CCBEF400F78A51 /* DrawingAppUITests */,
 				8D6907F627CCBEF100F78A51 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -122,23 +114,6 @@
 				8D69080627CCBEF400F78A51 /* Info.plist */,
 			);
 			path = DrawingApp;
-			sourceTree = "<group>";
-		};
-		8D69080E27CCBEF400F78A51 /* DrawingAppTests */ = {
-			isa = PBXGroup;
-			children = (
-				8D69080F27CCBEF400F78A51 /* DrawingAppTests.swift */,
-			);
-			path = DrawingAppTests;
-			sourceTree = "<group>";
-		};
-		8D69081827CCBEF400F78A51 /* DrawingAppUITests */ = {
-			isa = PBXGroup;
-			children = (
-				8D69081927CCBEF400F78A51 /* DrawingAppUITests.swift */,
-				8D69081B27CCBEF400F78A51 /* DrawingAppUITestsLaunchTests.swift */,
-			);
-			path = DrawingAppUITests;
 			sourceTree = "<group>";
 		};
 		8D69082827CCBF0200F78A51 /* Supporting Files */ = {
@@ -320,7 +295,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D69081027CCBEF400F78A51 /* DrawingAppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,8 +302,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D69081A27CCBEF400F78A51 /* DrawingAppUITests.swift in Sources */,
-				8D69081C27CCBEF400F78A51 /* DrawingAppUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
