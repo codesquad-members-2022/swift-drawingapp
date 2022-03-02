@@ -45,6 +45,6 @@ class RectangleFactory {
     }
     
     private func generateRandomAlpha() -> Alpha {
-        return Alpha.allCases.randomElement() ?? Alpha.one
+        return Alpha(opacityLevel: (1...10).randomElement() ?? 1)
     }
 }

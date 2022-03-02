@@ -7,12 +7,22 @@
 
 import Foundation
 
-
-enum Alpha: Int, CustomStringConvertible, CaseIterable {
-    case one = 1, two, three, four, five
-    case six, seven, eight, nine, ten
+struct Alpha {
+    let value: Double
     
-    var description: String {
-        return "Alpha: \(self.rawValue)"
+    init(opacityLevel: Int) {
+        let maxOpacityLavel = 10
+        let minOpacityLevel = 1
+        
+        if opacityLevel > maxOpacityLavel {
+            self.value = 1.0
+        } else if opacityLevel < minOpacityLevel {
+            self.value = 0
+        } else {
+            let possibileAlphaValue = [0, 0.1, 0.2, 0.3, 0.4, 0.5,
+                                      0.6, 0.7, 0.8, 0.9, 1.0]
+            self.value = possibileAlphaValue[opacityLevel]
+        }
+
     }
 }
