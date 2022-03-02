@@ -27,7 +27,8 @@ class DrawingappUITests: XCTestCase {
         }
         
         plane.state.drawSquare = { square in
-            self.plane.action.onScreenTapped(Point(x: square.x + 200, y: square.y))
+            let squareRect = square.rect
+            self.plane.action.onScreenTapped(Point(x: squareRect.minX + 200, y: squareRect.minY))
         }
         
         plane.action.makeSquareButtonTapped()
@@ -40,7 +41,8 @@ class DrawingappUITests: XCTestCase {
         }
         
         plane.state.drawSquare = { square in
-            self.plane.action.onScreenTapped(Point(x: square.x, y: square.y))
+            let squareRect = square.rect
+            self.plane.action.onScreenTapped(Point(x: squareRect.minX, y: squareRect.minY))
         }
         
         plane.action.makeSquareButtonTapped()

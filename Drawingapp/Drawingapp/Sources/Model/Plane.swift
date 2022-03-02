@@ -26,7 +26,7 @@ class Plane {
     var action = Action()
     var state = State()
     
-    private let squareFactory = Factory()
+    private let squareFactory = SquareFactory()
     private let squares = Squares()
     
     init() {
