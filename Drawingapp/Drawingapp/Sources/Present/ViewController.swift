@@ -64,6 +64,8 @@ class ViewController: UIViewController {
     }
     
     func layout() {
+        let safeAreaGuide = self.view.safeAreaLayoutGuide
+        
         self.view.addSubview(drawingBoard)
         self.view.addSubview(inspectorView)
         self.view.addSubview(topMenuBarView)
@@ -78,11 +80,11 @@ class ViewController: UIViewController {
         inspectorView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         inspectorView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         inspectorView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        inspectorView.widthAnchor.constraint(equalToConstant: 250).isActive = true
+        inspectorView.widthAnchor.constraint(equalTo: safeAreaGuide.widthAnchor, multiplier: 0.25).isActive = true
         
         topMenuBarView.translatesAutoresizingMaskIntoConstraints = false
         topMenuBarView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
-        topMenuBarView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor).isActive = true
+        topMenuBarView.centerXAnchor.constraint(equalTo: self.drawingBoard.centerXAnchor).isActive = true
         topMenuBarView.heightAnchor.constraint(equalToConstant: 70).isActive = true
     }
 }

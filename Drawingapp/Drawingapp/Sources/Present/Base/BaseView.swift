@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 class BaseView: UIView {
-    
     init() {
         super.init(frame: .zero)
         attribute()
