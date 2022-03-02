@@ -8,20 +8,21 @@
 import Foundation
 import UIKit
 
-class SquareAddButton: UIButton{
+class RectangleAddButton: UIButton{
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setSquareAddButtonProperty()
+        setRectangleAddButtonProperty()
     }
     
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+        setRectangleAddButtonProperty()
     }
     
     private lazy var shapeImageView = UIImageView(frame: CGRect(x: 25, y: 20, width: 50, height: 40))
     private lazy var shapeNameLabel = UILabel(frame: CGRect(x: 10, y: 60, width: 80, height: 30))
     
-    private func setSquareAddButtonProperty(){
+    private func setRectangleAddButtonProperty(){
         backgroundColor = .white
         setShapeImageViewProperty()
         setShapeNameLabelProperty()

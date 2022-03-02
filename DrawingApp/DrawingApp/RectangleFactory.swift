@@ -6,13 +6,9 @@
 //
 
 import Foundation
+import os
 
-class SquareFactory{
-    
-    init(squareProtocol: SquareViewProtocol){
-        self.squareProtocol = squareProtocol
-    }
-    private var squareProtocol: SquareViewProtocol?
+class RectangleFactory{
     
     private func makeUiniqueId() -> String{
         let allString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -34,7 +30,7 @@ class SquareFactory{
         return property.randomValue
     }
     
-    func makeRandomSquare(){
+    func makeRandomRectangle(){
         let red = randomValue(property: .color)
         let blue = randomValue(property: .color)
         let green = randomValue(property: .color)
@@ -42,10 +38,11 @@ class SquareFactory{
         let x = randomValue(property: .x)
         let y = randomValue(property: .y) + 44
         let uniqueId = makeUiniqueId()
-        let color = SquareColor(red: red, green: green, blue: blue, alpha: alpha)
+        let color = RectangleColor(red: red, green: green, blue: blue, alpha: alpha)
         let point = ViewPoint(x: x, y: y, width: 150, height: 120)
-        let square = Square(uniqueId: uniqueId, color: color, point: point)
-        squareProtocol?.logging(square: square)
+        let rectangle = Rectangle(uniqueId: uniqueId, color: color, point: point)
+        let logger = Logger()
+        logger.info("Rect : \(rectangle.description)")
     }
 }
 
