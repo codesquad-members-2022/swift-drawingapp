@@ -10,15 +10,21 @@ import Foundation
 struct ID {
     let description: String
     
-    init() {
-        self.description = ID.generateRandomID()
+    init?(with id: String) {
+        if ID.isCorrectFormat(id) {
+            self.description = id
+        } else {
+            return nil
+        }
+
     }
     
-    private static func generateRandomID() -> String {
-        return "\(generateRandomPartOfID(length: 3))-\(generateRandomPartOfID(length: 3))-\(generateRandomPartOfID(length: 3))"
-    }
-    
-    private static func generateRandomPartOfID(length: Int) -> String {
-        return String(NSUUID().uuidString.prefix(length))
+    private static func isCorrectFormat(_ id: String) -> Bool {
+        let correctFormat = "^[a-zA-Z0-9]..[-][a-zA-Z0-9]..[-][a-zA-Z0-9].."
+        if let _ = id.range(of: correctFormat, options: .regularExpression) {
+            return true
+        } else {
+            return false
+        }
     }
 }

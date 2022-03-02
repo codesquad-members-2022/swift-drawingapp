@@ -15,13 +15,14 @@ class RectangleFactory {
         self.screenSize = screenSize
     }
     
-    public func generateRandomRectangle() -> Rectangle {
+    public func generateRandomRectangle() -> Rectangle? {
         let size = Size(width: 150, height: 120)
         let point = generateRandomPoint()
         let backgroundColor = generateRandomColor()
         let alpha = generateRandomAlpha()
+        guard let id = generateRandomID() else { return nil }
         
-        let newRectangle = Rectangle(size: size, point: point, backgroundColor: backgroundColor, alpha: alpha)
+        let newRectangle = Rectangle(id: id, size: size, point: point, backgroundColor: backgroundColor, alpha: alpha)
         
         delegate?.printLog(of: newRectangle)
         
@@ -55,4 +56,14 @@ class RectangleFactory {
         return Alpha(opacityLevel: (minimumOpacityLevel...maximumOpacityLevel).randomElement() ?? minimumOpacityLevel,
                      min: minimumOpacityLevel, max: maximumOpacityLevel)
     }
+    
+    private func generateRandomID() -> ID? {
+        func generateRandomString(length: Int) -> String {
+            return String(NSUUID().uuidString.prefix(length))
+        }
+        
+        let randomIDParts = [generateRandomString(length: 3), generateRandomString(length: 3), generateRandomString(length: 3)]
+        return ID.init(with: randomIDParts.joined(separator: "-")) ?? nil
+    }
+    
 }
