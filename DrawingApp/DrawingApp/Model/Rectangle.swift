@@ -50,17 +50,27 @@ class Rectangle: CustomStringConvertible{
     }
     
     struct Color:Equatable, CustomStringConvertible{
-        var r: Double
-        var g: Double
-        var b: Double
+        var r: Double = 0
+        var g: Double = 0
+        var b: Double = 0
         var description: String{
             return "r:\(Int(r)),g:\(Int(g)),b:\(Int(b))"
         }
         
         init(r: Double, g: Double, b: Double){
-            self.r = r
-            self.g = g
-            self.b = b
+            self.r = adjustRange(value: r)
+            self.g = adjustRange(value: g)
+            self.b = adjustRange(value: b)
+        }
+        
+        private func adjustRange(value: Double)-> Double{
+            if(value<0){
+                return Double(0)
+            }else if(value>255){
+                return Double(255)
+            }else{
+                return value
+            }
         }
     }
     
