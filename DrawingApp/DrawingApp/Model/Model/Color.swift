@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Color {
+struct Color: CustomStringConvertible {
     var red: Float
     var green: Float
     var blue: Float
@@ -18,5 +18,9 @@ struct Color {
         self.red = red / 255
         self.green = green / 255
         self.blue = blue / 255
+    }
+    
+    var description: String {
+        "R:\(red), G:\(green), B:\(blue)"
     }
 }
