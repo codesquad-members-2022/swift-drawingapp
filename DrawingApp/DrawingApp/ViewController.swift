@@ -10,20 +10,39 @@ import os.log
 
 class ViewController: UIViewController {
     
+    let factory = FactoryViewRandomProperty()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        factory.delegate = self
+        
+        for i in 1...4 {
+            
+            guard let viewModel = factory.makeRandomView(as: "subView #\(i)") else {
+                continue
+            }
+            
+            let randomView = UIView(frame: CGRect.useViewModel(point: viewModel.point, size: viewModel.size))
+            randomView.backgroundColor = UIColor.useViewModel(rgbValue: viewModel.rgbValue, alpha: viewModel.alpha)
+            
+            Log.error(String(describing: viewModel))
+        }
     }
 
     @IBAction func addRectButtonTouchUpInside(_ sender: UIButton) {
-        let subviewName = "subView #\(view.subviews.count)"
-        let viewModel = FactoryViewRandomProperty(name: subviewName, superview: view).make()
+    }
+}
+
+extension ViewController: MasterViewDelegate {
+    func getMasterViewProperty() -> MasterRandomViewProperties {
+        let frame = self.view.frame
         
-        let randomView = UIView(frame: CGRect.useViewModel(point: viewModel.point, size: viewModel.size))
-        randomView.backgroundColor = UIColor.useViewModel(rgbValue: viewModel.rgbValue, alpha: viewModel.alpha)
-        
-        view.addSubview(randomView)
-        
-        Log.error(String(describing: viewModel))
+        return MasterRandomViewProperties(
+            maxX: frame.maxX,
+            maxY: frame.maxY,
+            width: frame.width,
+            height: frame.height
+        )
     }
 }
 
@@ -31,6 +50,10 @@ extension CGRect {
     static func useViewModel(point: RectPoint, size: RectSize) -> CGRect {
         CGRect(x: point.x, y: point.y, width: size.width, height: size.height)
     }
+    
+//    func getViewProperties() -> ViewProperties {
+//        ViewProperties(maxX: self.maxX, maxY: self.maxY, width: self.width, height: self.height)
+//    }
 }
 
 extension UIColor {

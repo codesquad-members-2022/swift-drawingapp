@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 // typeAlias를 통해 튜플의 용도가 이름에서도 드러나도록 하였습니다.
 typealias RectSize = (width:Double, height:Double)
@@ -36,9 +35,13 @@ class ViewRandomProperty: ViewPropertyCreator {
         self.alpha = alpha
     }
     
-    // superview 에서 뷰의 영역이 넘어가는지 확인합니다.
-    func isExceeded(superView: UIView) -> Bool {
-        return (size.width + point.x) > superView.frame.width || (size.height + point.y) > superView.frame.height
+    init(as name: String, using id: String, from properties: MasterRandomViewProperties, color: RectRGBColor, alpha: Double) {
+        self.name = name
+        self.id = id
+        self.point = (x: properties.maxX, y: properties.maxY)
+        self.size = (width: properties.width, height: properties.height)
+        self.rgbValue = color
+        self.alpha = alpha
     }
 }
 
