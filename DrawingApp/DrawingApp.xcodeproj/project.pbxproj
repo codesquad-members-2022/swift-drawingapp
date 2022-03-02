@@ -12,14 +12,13 @@
 		72400F2C27CC5D1800D24138 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72400F2A27CC5D1800D24138 /* Main.storyboard */; };
 		72400F2E27CC5D1900D24138 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72400F2D27CC5D1900D24138 /* Assets.xcassets */; };
 		72400F3127CC5D1900D24138 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72400F2F27CC5D1900D24138 /* LaunchScreen.storyboard */; };
-		72A40E1627CCB32A002D076C /* SquareAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1527CCB32A002D076C /* SquareAddButton.swift */; };
-		72A40E1A27CCBB3F002D076C /* SquareFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1927CCBB3F002D076C /* SquareFactory.swift */; };
-		72A40E1C27CCBB87002D076C /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1B27CCBB86002D076C /* Square.swift */; };
-		72A40E1E27CCBD8C002D076C /* SquareViewProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1D27CCBD8C002D076C /* SquareViewProtocol.swift */; };
+		72A40E1627CCB32A002D076C /* RectangleAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1527CCB32A002D076C /* RectangleAddButton.swift */; };
+		72A40E1A27CCBB3F002D076C /* RectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1927CCBB3F002D076C /* RectangleFactory.swift */; };
+		72A40E1C27CCBB87002D076C /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1B27CCBB86002D076C /* Rectangle.swift */; };
 		72A40E2027CCD067002D076C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1F27CCD067002D076C /* SceneDelegate.swift */; };
-		72A40E2227CCDB88002D076C /* SquareColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E2127CCDB88002D076C /* SquareColor.swift */; };
+		72A40E2227CCDB88002D076C /* RectangleColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E2127CCDB88002D076C /* RectangleColor.swift */; };
 		72A40E2427CCDC48002D076C /* ViewPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E2327CCDC48002D076C /* ViewPoint.swift */; };
-		72C4FDF427CC5FB300CE5D25 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C4FDF327CC5FB300CE5D25 /* SquareView.swift */; };
+		72C4FDF427CC5FB300CE5D25 /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C4FDF327CC5FB300CE5D25 /* RectangleView.swift */; };
 		72C4FDF627CC73EB00CE5D25 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 72C4FDF527CC73EB00CE5D25 /* README.md */; };
 /* End PBXBuildFile section */
 
@@ -31,14 +30,13 @@
 		72400F2D27CC5D1900D24138 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		72400F3027CC5D1900D24138 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		72400F3227CC5D1900D24138 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		72A40E1527CCB32A002D076C /* SquareAddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareAddButton.swift; sourceTree = "<group>"; };
-		72A40E1927CCBB3F002D076C /* SquareFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareFactory.swift; sourceTree = "<group>"; };
-		72A40E1B27CCBB86002D076C /* Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
-		72A40E1D27CCBD8C002D076C /* SquareViewProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareViewProtocol.swift; sourceTree = "<group>"; };
+		72A40E1527CCB32A002D076C /* RectangleAddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleAddButton.swift; sourceTree = "<group>"; };
+		72A40E1927CCBB3F002D076C /* RectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactory.swift; sourceTree = "<group>"; };
+		72A40E1B27CCBB86002D076C /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 		72A40E1F27CCD067002D076C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		72A40E2127CCDB88002D076C /* SquareColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareColor.swift; sourceTree = "<group>"; };
+		72A40E2127CCDB88002D076C /* RectangleColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleColor.swift; sourceTree = "<group>"; };
 		72A40E2327CCDC48002D076C /* ViewPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPoint.swift; sourceTree = "<group>"; };
-		72C4FDF327CC5FB300CE5D25 /* SquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
+		72C4FDF327CC5FB300CE5D25 /* RectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
 		72C4FDF527CC73EB00CE5D25 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -76,10 +74,9 @@
 				72C4FDF227CC5FA600CE5D25 /* view */,
 				72400F2427CC5D1800D24138 /* AppDelegate.swift */,
 				72400F2827CC5D1800D24138 /* DrawingViewController.swift */,
-				72A40E1927CCBB3F002D076C /* SquareFactory.swift */,
-				72A40E1B27CCBB86002D076C /* Square.swift */,
-				72A40E1D27CCBD8C002D076C /* SquareViewProtocol.swift */,
-				72A40E2127CCDB88002D076C /* SquareColor.swift */,
+				72A40E1927CCBB3F002D076C /* RectangleFactory.swift */,
+				72A40E1B27CCBB86002D076C /* Rectangle.swift */,
+				72A40E2127CCDB88002D076C /* RectangleColor.swift */,
 				72A40E2327CCDC48002D076C /* ViewPoint.swift */,
 				72A40E1F27CCD067002D076C /* SceneDelegate.swift */,
 				72400F2A27CC5D1800D24138 /* Main.storyboard */,
@@ -93,8 +90,8 @@
 		72C4FDF227CC5FA600CE5D25 /* view */ = {
 			isa = PBXGroup;
 			children = (
-				72C4FDF327CC5FB300CE5D25 /* SquareView.swift */,
-				72A40E1527CCB32A002D076C /* SquareAddButton.swift */,
+				72C4FDF327CC5FB300CE5D25 /* RectangleView.swift */,
+				72A40E1527CCB32A002D076C /* RectangleAddButton.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -173,14 +170,13 @@
 			files = (
 				72400F2927CC5D1800D24138 /* DrawingViewController.swift in Sources */,
 				72A40E2427CCDC48002D076C /* ViewPoint.swift in Sources */,
-				72A40E1627CCB32A002D076C /* SquareAddButton.swift in Sources */,
+				72A40E1627CCB32A002D076C /* RectangleAddButton.swift in Sources */,
 				72400F2527CC5D1800D24138 /* AppDelegate.swift in Sources */,
-				72A40E1E27CCBD8C002D076C /* SquareViewProtocol.swift in Sources */,
-				72A40E1C27CCBB87002D076C /* Square.swift in Sources */,
-				72A40E1A27CCBB3F002D076C /* SquareFactory.swift in Sources */,
-				72C4FDF427CC5FB300CE5D25 /* SquareView.swift in Sources */,
+				72A40E1C27CCBB87002D076C /* Rectangle.swift in Sources */,
+				72A40E1A27CCBB3F002D076C /* RectangleFactory.swift in Sources */,
+				72C4FDF427CC5FB300CE5D25 /* RectangleView.swift in Sources */,
 				72A40E2027CCD067002D076C /* SceneDelegate.swift in Sources */,
-				72A40E2227CCDB88002D076C /* SquareColor.swift in Sources */,
+				72A40E2227CCDB88002D076C /* RectangleColor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

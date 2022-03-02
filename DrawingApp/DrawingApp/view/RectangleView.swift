@@ -1,5 +1,5 @@
 //
-//  SquareView.swift
+//  RectangleView.swift
 //  DrawingApp
 //
 //  Created by 김동준 on 2022/02/28.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class SquareView: UIView{
+class RectangleView: UIView{
     override init(frame: CGRect) {
         super.init(frame: frame)
     }

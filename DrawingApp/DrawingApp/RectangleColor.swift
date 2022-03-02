@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct SquareColor{
+struct RectangleColor{
     private var red: Int
     private var green: Int
     private var blue: Int
@@ -20,7 +20,7 @@ struct SquareColor{
         self.alpha = alpha
     }
 }
-extension SquareColor: CustomStringConvertible{
+extension RectangleColor: CustomStringConvertible{
     var description: String {
         return "R:\(red), G:\(green), B:\(blue), Alpha\(alpha)"
     }
