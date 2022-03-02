@@ -19,6 +19,7 @@
 		B74322B927CF0C0500445645 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322B827CF0C0500445645 /* Color.swift */; };
 		B74322BD27CF0C3400445645 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322BC27CF0C3400445645 /* Size.swift */; };
 		B74322BF27CF0C3D00445645 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322BE27CF0C3D00445645 /* Point.swift */; };
+		B74322C127CF35F000445645 /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322C027CF35F000445645 /* Alpha.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		B74322B827CF0C0500445645 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		B74322BC27CF0C3400445645 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		B74322BE27CF0C3D00445645 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
+		B74322C027CF35F000445645 /* Alpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alpha.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +110,7 @@
 				B74322A427CC81ED00445645 /* RectangleFactory.swift */,
 				B74322B827CF0C0500445645 /* Color.swift */,
 				B74322BC27CF0C3400445645 /* Size.swift */,
+				B74322C027CF35F000445645 /* Alpha.swift */,
 				B74322BE27CF0C3D00445645 /* Point.swift */,
 			);
 			path = Model;
@@ -237,6 +240,7 @@
 				B743228F27CC5DF300445645 /* SceneDelegate.swift in Sources */,
 				B74322A327CC6F4000445645 /* Rectangle.swift in Sources */,
 				B74322B927CF0C0500445645 /* Color.swift in Sources */,
+				B74322C127CF35F000445645 /* Alpha.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

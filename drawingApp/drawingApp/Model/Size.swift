@@ -8,8 +8,8 @@
 import Foundation
 //Size 타입 정의
 struct Size : CustomStringConvertible {
-    let width : Double = 0
-    let height : Double = 0
+    let width : Double
+    let height : Double
     var description: String {
         return "W\(width), H\(height)"
     }

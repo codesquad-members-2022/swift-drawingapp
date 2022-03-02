@@ -8,8 +8,8 @@
 import Foundation
 //Point (좌표) 타입 정의
 struct Point : CustomStringConvertible {
-    let x : Double = 0
-    let y : Double = 0
+    let x : Double
+    let y : Double 
     var description: String {
         return "X:\(x), Y:\(y)"
     }

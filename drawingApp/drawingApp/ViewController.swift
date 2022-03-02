@@ -28,6 +28,8 @@ class ViewController: UIViewController {
     
     //Rectangle 생성 함수
     @objc func didTapButton () {
+        
+        
         if let rect = RectangleFactory(screenWidth: screenWdith, screenHeight: screenHeight).makeRect() {
             os_log(.debug, "\(rect.description)")
             let rectangleView = UIView(frame: CGRect(x: rect.point.x, y: rect.point.y, width: rect.size.width, height: rect.size.height))

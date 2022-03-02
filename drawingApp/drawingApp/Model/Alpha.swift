@@ -6,8 +6,8 @@
 //
 
 import Foundation
-enum Alpha : Double, CaseIterable, CustomStringConvertible {
-    case One = 0.1
+enum Alpha : Int , CustomStringConvertible{
+    case One = 1
     case Two
     case Three
     case Four
@@ -18,6 +18,6 @@ enum Alpha : Double, CaseIterable, CustomStringConvertible {
     case Nine
     case Ten
     var description: String {
-        return "Alpha \()"
+        "Alpha : \(self.rawValue)"
     }
 }
