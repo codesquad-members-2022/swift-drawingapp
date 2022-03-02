@@ -25,7 +25,7 @@ class ViewController: UIViewController {
             let randomView = UIView(frame: CGRect.useViewModel(point: viewModel.point, size: viewModel.size))
             randomView.backgroundColor = UIColor.useViewModel(rgbValue: viewModel.rgbValue, alpha: viewModel.alpha)
             
-            Log.error(String(describing: viewModel))
+            LoggerUtil.faultLog(message: String(describing: viewModel))
         }
     }
 }
