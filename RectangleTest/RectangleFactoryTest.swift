@@ -19,7 +19,6 @@ class RectangleFactoryTest: XCTestCase {
     func testExample() throws {
         let rectangleFactory = RectangleFactory()
         
-        let randomId = rectangleFactory.makeId()
         let randomSize = rectangleFactory.makeSize()
         let randomPoint = rectangleFactory.makePoint(viewWidth: 500, viewHeight: 500)
         let randomColor = rectangleFactory.makeColor()
