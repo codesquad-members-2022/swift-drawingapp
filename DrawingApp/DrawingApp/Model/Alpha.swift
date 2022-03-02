@@ -7,17 +7,17 @@
 
 import Foundation
 
-enum Alpha: Int {
-    case one = 1
-    case two
-    case three
-    case four
-    case five
-    case six
-    case seven
-    case eight
-    case nin
-    case ten
+enum Alpha: Double {
+    case level1 = 0.1
+    case level2 = 0.2
+    case level3 = 0.3
+    case level4 = 0.4
+    case level5 = 0.5
+    case level6 = 0.6
+    case level7 = 0.7
+    case level8 = 0.8
+    case level9 = 0.9
+    case level10 = 1.0
 }
 
 extension Alpha: CustomStringConvertible {
@@ -27,8 +27,8 @@ extension Alpha: CustomStringConvertible {
 }
 
 extension Alpha: CaseIterable {
-    static var randomAlpha: Alpha {
-        let range = (0..<Alpha.allCases.count)
-        return Alpha.allCases[Int.random(in: range)]
+    static var random: Alpha {
+        var shuffledAllCases = Alpha.allCases.shuffled()
+        return shuffledAllCases.removeLast()
     }
 }
