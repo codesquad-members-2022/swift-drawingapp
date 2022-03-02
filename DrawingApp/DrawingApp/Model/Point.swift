@@ -17,6 +17,13 @@ struct Point {
     }
 }
 
+extension Point {
+    enum Bound {
+        static let lowwer = 0.0
+        static let upper = 100.0
+    }
+}
+
 extension Point: CustomStringConvertible {
     var description: String {
         return "X: \(self.x), Y: \(self.y)"

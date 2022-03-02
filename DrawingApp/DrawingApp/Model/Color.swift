@@ -19,6 +19,13 @@ struct Color {
     }
 }
 
+extension Color {
+    enum Bound {
+        static let lowwer = 0.0
+        static let upper = 255.0
+    }
+}
+
 extension Color: CustomStringConvertible {
     var description: String {
         return "R: \(self.red), G: \(self.green) B: \(self.blue)"

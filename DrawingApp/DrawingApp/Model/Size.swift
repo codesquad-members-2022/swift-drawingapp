@@ -8,12 +8,20 @@
 import Foundation
 
 struct Size {
+    
     private var width: Double
     private var height: Double
     
     init(width: Double, height: Double) {
         self.width = width
         self.height = height
+    }
+}
+
+extension Size {
+    enum Bound {
+        static let lowwer = 0.0
+        static let upper = 100.0
     }
 }
 

@@ -21,10 +21,10 @@ struct Identifier {
     }
     
     static func generateToken() -> String {
-        let characters = Array(ShapeBound.Id.alphaNumeric)
+        let characters = Array(Bound.alphaNumeric)
         
         var token = ""
-        (0..<ShapeBound.Id.tokenLength).forEach { _ in
+        (0..<Bound.tokenLength).forEach { _ in
             let randomCharacter = characters[Int.random(in: (0..<characters.count))]
             token.append(randomCharacter)
         }
@@ -35,5 +35,12 @@ struct Identifier {
 extension Identifier: CustomStringConvertible {
     var description: String {
         return "\(self.firstToken)\(self.delimiter)\(self.secondToken)\(self.delimiter)\(self.thirdToken)"
+    }
+}
+
+extension Identifier {
+    enum Bound {
+        static let alphaNumeric = "abcdefghijklmnopqrstuvxyz0123456789"
+        static let tokenLength = 3
     }
 }

@@ -21,7 +21,6 @@
 		1EE4CCEF27CDDCA5005EA3D4 /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCEE27CDDCA5005EA3D4 /* Alpha.swift */; };
 		1EE4CCF127CDDD53005EA3D4 /* ShapeFactorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCF027CDDD53005EA3D4 /* ShapeFactorable.swift */; };
 		1EE4CCF327CDDD66005EA3D4 /* ShapeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCF227CDDD66005EA3D4 /* ShapeType.swift */; };
-		1EE4CCF927CDF6EA005EA3D4 /* ShapeBound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCF827CDF6EA005EA3D4 /* ShapeBound.swift */; };
 		1EE4CCFB27CE5174005EA3D4 /* Shapable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCFA27CE5174005EA3D4 /* Shapable.swift */; };
 		1EE4CCFD27CF0282005EA3D4 /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCFC27CF0282005EA3D4 /* Identifier.swift */; };
 /* End PBXBuildFile section */
@@ -43,7 +42,6 @@
 		1EE4CCEE27CDDCA5005EA3D4 /* Alpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alpha.swift; sourceTree = "<group>"; };
 		1EE4CCF027CDDD53005EA3D4 /* ShapeFactorable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeFactorable.swift; sourceTree = "<group>"; };
 		1EE4CCF227CDDD66005EA3D4 /* ShapeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeType.swift; sourceTree = "<group>"; };
-		1EE4CCF827CDF6EA005EA3D4 /* ShapeBound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeBound.swift; sourceTree = "<group>"; };
 		1EE4CCFA27CE5174005EA3D4 /* Shapable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shapable.swift; sourceTree = "<group>"; };
 		1EE4CCFC27CF0282005EA3D4 /* Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,7 +103,6 @@
 				1EE4CCF227CDDD66005EA3D4 /* ShapeType.swift */,
 				1EE4CCF027CDDD53005EA3D4 /* ShapeFactorable.swift */,
 				1EE4CCE627CD0751005EA3D4 /* ShapeFactory.swift */,
-				1EE4CCF827CDF6EA005EA3D4 /* ShapeBound.swift */,
 				1EE4CCFA27CE5174005EA3D4 /* Shapable.swift */,
 				1EE4CCE427CCFD44005EA3D4 /* Rectangle.swift */,
 				1EE4CCFC27CF0282005EA3D4 /* Identifier.swift */,
@@ -201,7 +198,6 @@
 				1E541E7827CCBC97000C8B50 /* AppDelegate.swift in Sources */,
 				1E541E7A27CCBC97000C8B50 /* SceneDelegate.swift in Sources */,
 				1EE4CCEB27CDDC9F005EA3D4 /* Point.swift in Sources */,
-				1EE4CCF927CDF6EA005EA3D4 /* ShapeBound.swift in Sources */,
 				1EE4CCED27CDDCA2005EA3D4 /* Color.swift in Sources */,
 				1EE4CCF327CDDD66005EA3D4 /* ShapeType.swift in Sources */,
 				1EE4CCF127CDDD53005EA3D4 /* ShapeFactorable.swift in Sources */,
