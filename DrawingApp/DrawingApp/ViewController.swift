@@ -12,17 +12,25 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        let rectangleFactory = RectangleFactory()
         
-        let rect1 = rectangleFactory.makeRectangleAtRandomPoint()
-        let rect2 = rectangleFactory.makeRectangleAtRandomPoint()
-        let rect3 = rectangleFactory.makeRectangleAtRandomPoint()
-        let rect4 = rectangleFactory.makeRectangleAtRandomPoint()
         
-        os_log(.default,"\(rect1)" )
-        os_log(.debug, "\(rect2)")
-        os_log(.error,"\(rect3)")
-        os_log(.fault,"\(rect4)")
+        for _ in 0..<4 {
+            let drawableFactory = DrawableFactory()
+            let decoableFactory = DecoableFactory()
+            
+            let id = IDFactory.makeRandomID()
+            
+            guard let size = drawableFactory.makeDrawable(drawType: .size, horizontal: 120,vertical: 150) as? Size else { return }
+            guard let origin = drawableFactory.makeRandomDrawable(drawType: .point) as? Point else { return }
+            
+            guard let backgroundColor = decoableFactory.makeRandomDecoable(decoType: .RGB) as? RGB else { return }
+            guard let alpha = decoableFactory.makeRandomDecoable(decoType: .alpha) as? Alpha else { return }
+            
+            
+            let rect = Rectangle(id: id, origin: origin, size: size, backGroundColor: backgroundColor, alpha: alpha)
+            
+            os_log(.default, "\(rect)")
+        }
     }
 }
 
