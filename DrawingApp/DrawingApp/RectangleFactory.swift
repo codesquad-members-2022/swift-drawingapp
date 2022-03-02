@@ -16,25 +16,16 @@ class RectangleFactory {
     }
     
     public func generateRandomRectangle() -> Rectangle {
-        let id = generateRandomID()
         let size = Size(width: 150, height: 120)
         let point = generateRandomPoint()
         let backgroundColor = generateRandomColor()
         let alpha = generateRandomAlpha()
         
-        let newRectangle = Rectangle(id: id, size: size, point: point, backgroundColor: backgroundColor, alpha: alpha)
+        let newRectangle = Rectangle(size: size, point: point, backgroundColor: backgroundColor, alpha: alpha)
         
         delegate?.printLog(of: newRectangle)
         
         return newRectangle
-    }
-    
-    private func generateRandomID() -> String {
-        return "\(getRandomString(length: 3))-\(getRandomString(length: 3))-\(getRandomString(length: 3))"
-    }
-    
-    private func getRandomString(length: Int) -> String {
-        return String(NSUUID().uuidString.prefix(length))
     }
     
     private func generateRandomPoint() -> Point {
