@@ -25,7 +25,7 @@ class RandomRectangleView: UIView {
             return
         }
         
-        self.backgroundColor = UIColor(displayP3Red: rectangle.showColor().redValue(), green: rectangle.showColor().greenValue(), blue: rectangle.showColor().blueValue(), alpha: rectangle.showAlpha().showValue())
+        self.backgroundColor = UIColor(red: rectangle.showColor().redValue(), green: rectangle.showColor().greenValue(), blue: rectangle.showColor().blueValue(), alpha: rectangle.showAlpha().showValue())
         self.restorationIdentifier = rectangle.showId()
     }
     

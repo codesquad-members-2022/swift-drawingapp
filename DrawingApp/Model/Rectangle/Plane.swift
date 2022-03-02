@@ -45,4 +45,12 @@ struct Plane{
         
         return findedRectangle
     }
+    
+    func findRectangleIndex(rectangle: Rectangle) -> Int?{
+        guard let index = rectangles.firstIndex(where: { $0 === rectangle }) else{
+            return nil
+        }
+        
+        return index
+    }
 }
