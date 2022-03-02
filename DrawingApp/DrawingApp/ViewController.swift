@@ -17,5 +17,10 @@ class ViewController: UIViewController {
         
         let rect2 = RectangleFactory.make(origin: Rectangle.Point(x: 0, y: 0), size: Rectangle.Size(width: 100, height: 100))
         print("Rect2", rect2)
+        
+        let rect3 = ShapeFactoryType.rectangle(width: 100, height: 120).make()
+        let rect4 = ShapeFactoryType.square(length: 20).make()
+        print(rect3)
+        print(rect4)
     }
 }
