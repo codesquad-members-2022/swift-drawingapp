@@ -11,7 +11,19 @@ import UIKit
 class InspectorItemView: BaseView {
     let title = UILabel()
     let stackView = UIStackView()
-        
+    
+    override init() {
+        super.init()
+        bind()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        bind()
+    }
+    
+    func bind() { }
+    
     override func attribute() {
         super.attribute()
         title.textColor = .black
@@ -29,5 +41,9 @@ class InspectorItemView: BaseView {
         stackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -5).isActive = true
         
         self.bottomAnchor.constraint(equalTo: stackView.bottomAnchor).isActive = true
+    }
+    
+    func setTitle(_ title: String) {
+        self.title.text = title
     }
 }

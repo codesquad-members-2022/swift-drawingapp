@@ -26,25 +26,25 @@ class Plane {
     var action = Action()
     var state = State()
     
-    private let squareFactory = DrawingModelFactory()
+    private let drawingModelFactory = DrawingModelFactory()
     private let squares = Squares()
+    private var selectedSquare: Square?
     
     init() {
         self.action.onScreenTapped = { point in
-            let prevSelectedSquare = self.squares.selectedSquare
-            let square = self.squares.selected(point: point)
-            self.state.didDisSelectedSquare(prevSelectedSquare)
-            self.state.didSelectedSquare(square)
+            self.state.didDisSelectedSquare(self.selectedSquare)
+            self.selectedSquare = self.squares.selected(point: point)
+            self.state.didSelectedSquare(self.selectedSquare)
         }
         
         self.action.makeSquareButtonTapped = {
-            let square = self.squareFactory.make(type: .square)
+            let square = self.drawingModelFactory.make(type: .square)
             self.squares.append(square: square)
             self.state.drawSquare(square)
         }
         
         self.action.changeColorButtonTapped = {
-            guard let square = self.squares.selectedSquare else {
+            guard let square = self.selectedSquare else {
                 return
             }
             square.changeRandomColor()
@@ -52,7 +52,7 @@ class Plane {
         }
         
         self.action.changeAlphaSliderEvent = { alpha in
-            guard let square = self.squares.selectedSquare else {
+            guard let square = self.selectedSquare else {
                 return
             }
             square.update(alphaValue: alpha)
