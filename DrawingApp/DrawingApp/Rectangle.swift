@@ -8,22 +8,22 @@
 import Foundation
 
 class Rectangle {
-    private let id: String
+    private let id: ID
     private var size: Size
     private var point: Point
     private var backgroundColor: BackgroundColor
     private var alpha: Alpha
     
-    init(id: String, width: Double, height: Double, x: Double, y: Double, backgroundColor: BackgroundColor, alpha: Alpha) {
-        self.id = id
+    init(width: Double, height: Double, x: Double, y: Double, backgroundColor: BackgroundColor, alpha: Alpha) {
+        self.id = ID()
         size = Size(width: width, height: height)
         point = Point(x: x, y: y)
         self.backgroundColor = backgroundColor
         self.alpha = alpha
     }
     
-    init(id: String, size: Size, point: Point, backgroundColor: BackgroundColor, alpha: Alpha) {
-        self.id = id
+    init(size: Size, point: Point, backgroundColor: BackgroundColor, alpha: Alpha) {
+        self.id = ID()
         self.size = size
         self.point = point
         self.backgroundColor = backgroundColor
