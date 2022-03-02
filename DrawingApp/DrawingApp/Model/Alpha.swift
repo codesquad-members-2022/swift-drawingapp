@@ -13,6 +13,7 @@ enum Alpha: Int {
     case three
     case four
     case five
+    case six
     case seven
     case eight
     case nine

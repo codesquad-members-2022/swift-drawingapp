@@ -13,12 +13,6 @@ class DrawingAppTests: XCTestCase {
         XCTAssertEqual(size.width, 30)
         XCTAssertEqual(size.height, 30)
         
-        size.width = 100
-        XCTAssertEqual(size.width, 100)
-        
-        size.height = 100
-        XCTAssertEqual(size.height, 100)
-        
         size = Size(width: 31.5, height: 30.5)
         XCTAssertEqual(size.width, 31.5)
         XCTAssertEqual(size.height, 30.5)
@@ -28,12 +22,6 @@ class DrawingAppTests: XCTestCase {
         var point = Point(x: 0, y: 10)
         XCTAssertEqual(point.x, 0)
         XCTAssertEqual(point.y, 10)
-        
-        point.x = 10
-        XCTAssertEqual(point.x, 10)
-        
-        point.y = 30
-        XCTAssertEqual(point.y, 30)
         
         point = Point(x: 15.5, y: 27.5)
         XCTAssertEqual(point.x, 15.5)
@@ -47,23 +35,17 @@ class DrawingAppTests: XCTestCase {
         XCTAssertEqual(color.green, 100)
         XCTAssertEqual(color.blue, 0)
         
-        color.green = 0
-        XCTAssertEqual(color.green, 0)
-        XCTAssertEqual(color, Color.white)
+        color = .red
+        XCTAssertEqual(color.red, 255.0)
     }
     
     func testAlpha() {
-        var alpha = Alpha(raw: 5)
+        var alpha = Alpha(rawValue: 5)
+        XCTAssertNotNil(alpha)
         XCTAssertEqual(alpha, .five)
         
-        alpha = Alpha(value: -1)
-        XCTAssertEqual(alpha, .ten)
-        
-        alpha = Alpha(value: 0)
-        XCTAssertEqual(alpha, .ten)
-        
-        alpha = Alpha(value: 100)
-        XCTAssertEqual(alpha, .ten)
+        alpha = Alpha(rawValue: 0)
+        XCTAssertNil(alpha)
     }
     
     func testRectangle() {
@@ -72,7 +54,7 @@ class DrawingAppTests: XCTestCase {
         
         let rect = ShapeFactory.makeRectangle()
         XCTAssertEqual(rect.backgroundColor, .white)
-        XCTAssertEqual(rect.alpha, .ten)
+        XCTAssertEqual(rect.backgroundColor.alpha, .opaque)
         XCTAssertEqual(rect.point.x, 0)
         XCTAssertEqual(rect.point.x, 0)
         XCTAssertEqual(rect.size.width, 30)
@@ -80,7 +62,7 @@ class DrawingAppTests: XCTestCase {
         
         let secondRect = ShapeFactory.makeRectangle(x: 50.5, y: 75.1, width: 100.3, height: 150.4)
         XCTAssertEqual(secondRect.backgroundColor, .white)
-        XCTAssertEqual(secondRect.alpha, .ten)
+        XCTAssertEqual(secondRect.backgroundColor.alpha, .opaque)
         XCTAssertEqual(secondRect.point.x, 50.5)
         XCTAssertEqual(secondRect.point.y, 75.1)
         XCTAssertEqual(secondRect.size.width, 100.3)
