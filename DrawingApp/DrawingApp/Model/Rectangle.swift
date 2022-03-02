@@ -90,6 +90,10 @@ class Rectangle: CustomStringConvertible{
         var description: String{
             return "Alpha:\(String(self.rawValue))"
         }
+        
+        var opacity: Int{
+            return self.rawValue
+        }
     }
     
     private var id: Id
