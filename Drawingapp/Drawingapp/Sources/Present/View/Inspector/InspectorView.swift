@@ -14,6 +14,10 @@ class InspectorView: BaseView {
     let colorButton = InspectorItemButtonView()
     let alphaSlider = InspectorSliderView()
     
+    private var items: [InspectorItemView] {
+        [colorButton, alphaSlider]
+    }
+    
     func bind(plane: Plane) {        
         colorButton.buttonEventHandler = {
             plane.action.changeColorButtonTapped()
@@ -43,14 +47,15 @@ class InspectorView: BaseView {
         let safeAreaGuide = self.safeAreaLayoutGuide
         
         self.addSubview(itemStackView)
-        itemStackView.addArrangedSubview(colorButton)
-        itemStackView.addArrangedSubview(alphaSlider)
+        items.forEach {
+            itemStackView.addArrangedSubview($0)
+        }
         
         itemStackView.translatesAutoresizingMaskIntoConstraints = false
         itemStackView.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor).isActive = true
         itemStackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
         itemStackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
-        itemStackView.bottomAnchor.constraint(equalTo: alphaSlider.bottomAnchor).isActive = true
+        itemStackView.bottomAnchor.constraint(equalTo: items[items.count - 1].bottomAnchor).isActive = true
     }
     
     func updateInspector(in square: Square?) {
