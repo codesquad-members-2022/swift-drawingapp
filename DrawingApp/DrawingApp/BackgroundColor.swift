@@ -8,10 +8,10 @@
 import Foundation
 
 struct BackgroundColor {
-    private var r: Int
-    private var g: Int
-    private var b: Int
-    private var alpha: Alpha
+    let r: Int
+    let g: Int
+    let b: Int
+    let alpha: Alpha
     
     init(r: Int, g: Int, b: Int, alpha: Int) {
         self.r = r
