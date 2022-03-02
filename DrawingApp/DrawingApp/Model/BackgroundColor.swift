@@ -8,19 +8,23 @@
 import Foundation
 
 struct BackgroundColor {
-    let r: Int
-    let g: Int
-    let b: Int
+    let r: Double
+    let g: Double
+    let b: Double
     
-    init(r: Int, g: Int, b: Int) {
-        let maxColorValue = 255
-        let minColorValue = 0
-        var colors = [r, g, b]
+    init(r: Int, g: Int, b: Int, min: Int = 0, max: Int = 255) {
+        var colors = [Double(r), Double(g), Double(b)]
+        let scale = Double(255) / Double(max)
+        let possibleColorValues = (min...max).map {
+            Double($0) * scale
+        }
         colors.enumerated().forEach {
-            if $0.element > maxColorValue {
-                colors[$0.offset] = 255
-            } else if $0.element < minColorValue {
-                colors[$0.offset] = 0
+            if $0.element > Double(max) {
+                colors[$0.offset] = 255.0
+            } else if $0.element < Double(min) {
+                colors[$0.offset] = 0.0
+            } else {
+                colors[$0.offset] = possibleColorValues[Int($0.element)]
             }
         }
         self.r = colors[0]

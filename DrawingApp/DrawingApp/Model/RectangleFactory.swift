@@ -37,14 +37,22 @@ class RectangleFactory {
     }
     
     private func generateRandomColor() -> BackgroundColor {
-        let red = (0...255).randomElement() ?? 0
-        let green = (0...255).randomElement() ?? 0
-        let blue = (0...255).randomElement() ?? 0
+        let minimumColorValue = 0
+        let maximumColorValue = 255
+        
+        let red = (minimumColorValue...maximumColorValue).randomElement() ?? minimumColorValue
+        let green = (minimumColorValue...maximumColorValue).randomElement() ?? minimumColorValue
+        let blue = (minimumColorValue...maximumColorValue).randomElement() ?? minimumColorValue
 
-        return BackgroundColor(r: red, g: green, b: blue)
+        return BackgroundColor(r: red, g: green, b: blue,
+                               min: minimumColorValue, max: maximumColorValue)
     }
     
     private func generateRandomAlpha() -> Alpha {
-        return Alpha(opacityLevel: (1...10).randomElement() ?? 1)
+        let minimumOpacityLevel = 1
+        let maximumOpacityLevel = 10
+        
+        return Alpha(opacityLevel: (minimumOpacityLevel...maximumOpacityLevel).randomElement() ?? minimumOpacityLevel,
+                     min: minimumOpacityLevel, max: maximumOpacityLevel)
     }
 }
