@@ -29,7 +29,7 @@ class ViewController: UIViewController {
     //Rectangle 생성 함수
     @objc func didTapButton () {
         do {
-            let rect = try RectangleFactory(screenWidth: screenWdith, screenHeight: screenHeight).makeRect()
+            let rect = try ShapeFactory(screenWidth: screenWdith, screenHeight: screenHeight, shapeSize: Size(width: 130, height: 120)).makeRect()
             os_log(.debug, "\(rect.description)")
             let rectangleView = UIView(frame: CGRect(x: rect.point.x, y: rect.point.y, width: rect.size.width, height: rect.size.height))
             rectangleView.backgroundColor = UIColor(red: rect.color.red/255.0, green: rect.color.green/255.0, blue: rect.color.blue/255.0, alpha: Double(rect.alpha.rawValue)/10.0)

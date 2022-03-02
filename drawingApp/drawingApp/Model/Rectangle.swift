@@ -33,7 +33,7 @@ class Rectangle {
     let alpha : Alpha
     
     
-    init (id: String, size:Size, point: Point, color: Color, alpha : Alpha) {
+    init (id: String, size:Size , point: Point, color: Color, alpha : Alpha) {
         self.id = id
         self.size = size
         self.point = point
