@@ -29,6 +29,6 @@ struct Color {
 
 extension Color: CustomStringConvertible, Equatable {
     var description: String {
-        return "R: \(self.red), G: \(self.green), B: \(self.blue), Alph: \(self.alpha)"
+        return "R: \(self.red), G: \(self.green), B: \(self.blue), \(self.alpha)"
     }
 }
