@@ -7,7 +7,11 @@
 
 import Foundation
 
-class Rectangle: CustomStringConvertible {
+protocol viewModel {
+    func contains(_ point: Point) -> Bool
+}
+
+class Rectangle: viewModel, CustomStringConvertible {
     private var id: String
     private var origin: Point
     private var size: Size
@@ -20,6 +24,11 @@ class Rectangle: CustomStringConvertible {
         self.size = size
         self.color = color
         self.alpha = alpha
+    }
+    
+    func contains(_ point: Point) -> Bool {
+        return (origin.x...origin.x+size.width).contains(point.x)
+        && (origin.y...origin.y+size.height).contains(point.y)
     }
     
     var description: String {
