@@ -9,7 +9,7 @@ import Foundation
 
 
 struct UniqueID {
-    static func generate(split digit: Int, stringCount: Int, separatedBy separator: String = "-") -> String {
+    static func generate(split digit: Int = 3, stringCount: Int = 3, separatedBy separator: String = "-") -> String {
         return (0..<digit).map{ _ in randomStrings(count: stringCount) }.joined(separator: separator)
     }
     

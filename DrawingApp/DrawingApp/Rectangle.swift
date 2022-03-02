@@ -19,8 +19,8 @@ class Rectangle {
         }
     }
     
-    init(point: Point, size: Size, color: Color, alpha: Int) {
-        self.uniqueID = UniqueID.generate(split: 3, stringCount: 4)
+    init(uid: String, point: Point, size: Size, color: Color, alpha: Int) {
+        self.uniqueID = uid
         self.point = point
         self.size = size
         self.color = color
