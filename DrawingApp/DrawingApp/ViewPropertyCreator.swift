@@ -11,25 +11,25 @@ import Foundation
 // 랜덤 값을 추출하는 RandomizeValue 를 서브클래싱 합니다.
 class ViewPropertyCreator: RandomizeValue {
     
-    func rectPointGenerator(maxPointX: Double, maxPointY: Double) -> RectPoint {
+    func generateRandomPoint(maxPointX: Double, maxPointY: Double) -> RectPoint {
         (
-            x: randomDouble(from: 0, to: maxPointX),
-            y: randomDouble(from: 0, to: maxPointY)
+            x: getDoubleRandom(from: 0, to: maxPointX),
+            y: getDoubleRandom(from: 0, to: maxPointY)
         )
     }
     
-    func rectSizeGenerator(maxWidth: Double, maxHeight: Double) -> RectSize {
+    func generateRandomSize(maxWidth: Double, maxHeight: Double) -> RectSize {
         (
-            width: randomDouble(from: 0, to: maxWidth),
-            height: randomDouble(from: 0, to: maxHeight)
+            width: getDoubleRandom(from: 0, to: maxWidth),
+            height: getDoubleRandom(from: 0, to: maxHeight)
         )
     }
     
-    func rectRGBPointGenerator(maxR: Double, maxG: Double, maxB: Double) -> RectRGBColor {
+    func generateRandomRGBColor(maxR: Double, maxG: Double, maxB: Double) -> RectRGBColor {
         (
-            r: randomDouble(from: 0, to: maxR),
-            g: randomDouble(from: 0, to: maxG),
-            b: randomDouble(from: 0, to: maxB)
+            r: getDoubleRandom(from: 0, to: maxR),
+            g: getDoubleRandom(from: 0, to: maxG),
+            b: getDoubleRandom(from: 0, to: maxB)
         )
     }
 }
