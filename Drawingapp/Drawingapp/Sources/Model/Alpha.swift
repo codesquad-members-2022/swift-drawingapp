@@ -16,7 +16,7 @@ enum Alpha: Int, CaseIterable, CustomStringConvertible {
     }
     
     var value: CGFloat  {
-        CGFloat(self.rawValue) / CGFloat(Alpha.ten.rawValue)
+        CGFloat(self.rawValue) / CGFloat(Alpha.max.rawValue - 1)
     }
     
     var index: Int {

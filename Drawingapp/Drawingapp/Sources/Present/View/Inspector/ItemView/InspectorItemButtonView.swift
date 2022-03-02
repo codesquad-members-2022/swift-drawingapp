@@ -33,7 +33,7 @@ class InspectorItemButtonView: InspectorItemView {
         super.layout()
         self.stackView.addArrangedSubview(button)
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
     
     func setButtonTitle(_ title: String) {

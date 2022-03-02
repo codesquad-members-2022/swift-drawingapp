@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 class InspectorView: BaseView {
-    
     let itemStackView = UIStackView()
     let colorButton = InspectorItemButtonView()
     let alphaSlider = InspectorSliderView()
@@ -44,26 +43,24 @@ class InspectorView: BaseView {
     override func layout() {
         super.layout()
         
-        let safeAreaGuide = self.safeAreaLayoutGuide
-        
         self.addSubview(itemStackView)
         items.forEach {
             itemStackView.addArrangedSubview($0)
         }
         
         itemStackView.translatesAutoresizingMaskIntoConstraints = false
-        itemStackView.topAnchor.constraint(equalTo: safeAreaGuide.topAnchor).isActive = true
+        itemStackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
         itemStackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
         itemStackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         itemStackView.bottomAnchor.constraint(equalTo: items[items.count - 1].bottomAnchor).isActive = true
     }
     
     func updateInspector(in square: Square?) {
+        itemStackView.isHidden = square == nil
+        
         guard let square = square else {
-            itemStackView.isHidden = true
             return
         }
-        itemStackView.isHidden = false
         
         let inspectorData = square.inspectorData
         colorButton.setButtonTitle(inspectorData.hexColor)
