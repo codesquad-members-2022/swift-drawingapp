@@ -23,6 +23,7 @@
 		1EE4CCF327CDDD66005EA3D4 /* ShapeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCF227CDDD66005EA3D4 /* ShapeType.swift */; };
 		1EE4CCF927CDF6EA005EA3D4 /* ShapeBound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCF827CDF6EA005EA3D4 /* ShapeBound.swift */; };
 		1EE4CCFB27CE5174005EA3D4 /* Shapable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCFA27CE5174005EA3D4 /* Shapable.swift */; };
+		1EE4CCFD27CF0282005EA3D4 /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCFC27CF0282005EA3D4 /* Identifier.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		1EE4CCF227CDDD66005EA3D4 /* ShapeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeType.swift; sourceTree = "<group>"; };
 		1EE4CCF827CDF6EA005EA3D4 /* ShapeBound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeBound.swift; sourceTree = "<group>"; };
 		1EE4CCFA27CE5174005EA3D4 /* Shapable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shapable.swift; sourceTree = "<group>"; };
+		1EE4CCFC27CF0282005EA3D4 /* Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,7 @@
 				1EE4CCF827CDF6EA005EA3D4 /* ShapeBound.swift */,
 				1EE4CCFA27CE5174005EA3D4 /* Shapable.swift */,
 				1EE4CCE427CCFD44005EA3D4 /* Rectangle.swift */,
+				1EE4CCFC27CF0282005EA3D4 /* Identifier.swift */,
 				1EE4CCE827CDDC96005EA3D4 /* Size.swift */,
 				1EE4CCEA27CDDC9F005EA3D4 /* Point.swift */,
 				1EE4CCEC27CDDCA2005EA3D4 /* Color.swift */,
@@ -202,6 +205,7 @@
 				1EE4CCED27CDDCA2005EA3D4 /* Color.swift in Sources */,
 				1EE4CCF327CDDD66005EA3D4 /* ShapeType.swift in Sources */,
 				1EE4CCF127CDDD53005EA3D4 /* ShapeFactorable.swift in Sources */,
+				1EE4CCFD27CF0282005EA3D4 /* Identifier.swift in Sources */,
 				1EE4CCE927CDDC96005EA3D4 /* Size.swift in Sources */,
 				1EE4CCE527CCFD44005EA3D4 /* Rectangle.swift in Sources */,
 				1EE4CCEF27CDDCA5005EA3D4 /* Alpha.swift in Sources */,
