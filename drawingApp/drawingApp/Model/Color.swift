@@ -11,6 +11,7 @@ struct Color : CustomStringConvertible {
     let red : Double
     let green : Double
     let blue : Double
+    let range = 0.0...255.0
     var description: String {
         return "R:\(red), G:\(green), B:\(blue)"
     }
@@ -19,10 +20,8 @@ struct Color : CustomStringConvertible {
         //각각의 rgb 가 0~255 사이의 값이 아닐시
         var values = [r,g,b]
         for i in 0..<values.count {
-            if values[i] < 0 {
+            if !range.contains(values[i]){
                 values[i] = 0.0
-            }else if values[i] > 255 {
-                values[i] = 255.0
             }
         }
         
