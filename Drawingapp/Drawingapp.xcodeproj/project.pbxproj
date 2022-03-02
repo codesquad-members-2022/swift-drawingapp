@@ -7,7 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E03455AA27CE414D0036988A /* InspectorItemButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03455A927CE414D0036988A /* InspectorItemButtonView.swift */; };
+		E03455AE27CF24560036988A /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03455AD27CF24560036988A /* SquareView.swift */; };
+		E03455B127CF25300036988A /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03455B027CF25300036988A /* BaseView.swift */; };
+		E03455B327CF25520036988A /* InspectorItemButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03455B227CF25520036988A /* InspectorItemButtonView.swift */; };
 		E0D7D9DE27CC594D00A56635 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9DD27CC594D00A56635 /* AppDelegate.swift */; };
 		E0D7D9E027CC594D00A56635 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9DF27CC594D00A56635 /* SceneDelegate.swift */; };
 		E0D7D9E227CC594D00A56635 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9E127CC594D00A56635 /* ViewController.swift */; };
@@ -34,14 +36,12 @@
 		E0D7DA3927CD1DBD00A56635 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1827CC643000A56635 /* Point.swift */; };
 		E0D7DA3A27CD1DBD00A56635 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA2D27CD048C00A56635 /* Plane.swift */; };
 		E0D7DA3B27CD1DBD00A56635 /* Squares.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA2F27CD09F500A56635 /* Squares.swift */; };
-		E0D7DA4327CDE10500A56635 /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA4227CDE10500A56635 /* SquareView.swift */; };
 		E0D7DA4527CDE32300A56635 /* TopMenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA4427CDE32300A56635 /* TopMenuBarView.swift */; };
 		E0D7DA4827CDE3C800A56635 /* TopMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA4727CDE3C800A56635 /* TopMenuItemView.swift */; };
 		E0D7DA4D27CDF28C00A56635 /* InspectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA4C27CDF28C00A56635 /* InspectorView.swift */; };
 		E0D7DA4F27CDF65D00A56635 /* InspectorItemLabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA4E27CDF65D00A56635 /* InspectorItemLabelView.swift */; };
 		E0D7DA5127CDF6FE00A56635 /* InspectorSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA5027CDF6FE00A56635 /* InspectorSliderView.swift */; };
 		E0D7DA5327CDF70D00A56635 /* InspectorItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA5227CDF70D00A56635 /* InspectorItemView.swift */; };
-		E0D7DA5827CDF83A00A56635 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA5727CDF83A00A56635 /* BaseView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,7 +62,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		E03455A927CE414D0036988A /* InspectorItemButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorItemButtonView.swift; sourceTree = "<group>"; };
+		E03455AD27CF24560036988A /* SquareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
+		E03455B027CF25300036988A /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		E03455B227CF25520036988A /* InspectorItemButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectorItemButtonView.swift; sourceTree = "<group>"; };
 		E0D7D9DA27CC594D00A56635 /* Drawingapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drawingapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0D7D9DD27CC594D00A56635 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0D7D9DF27CC594D00A56635 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -85,14 +87,12 @@
 		E0D7DA2B27CCF83300A56635 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		E0D7DA2D27CD048C00A56635 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		E0D7DA2F27CD09F500A56635 /* Squares.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squares.swift; sourceTree = "<group>"; };
-		E0D7DA4227CDE10500A56635 /* SquareView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
 		E0D7DA4427CDE32300A56635 /* TopMenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMenuBarView.swift; sourceTree = "<group>"; };
 		E0D7DA4727CDE3C800A56635 /* TopMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMenuItemView.swift; sourceTree = "<group>"; };
 		E0D7DA4C27CDF28C00A56635 /* InspectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorView.swift; sourceTree = "<group>"; };
 		E0D7DA4E27CDF65D00A56635 /* InspectorItemLabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorItemLabelView.swift; sourceTree = "<group>"; };
 		E0D7DA5027CDF6FE00A56635 /* InspectorSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorSliderView.swift; sourceTree = "<group>"; };
 		E0D7DA5227CDF70D00A56635 /* InspectorItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorItemView.swift; sourceTree = "<group>"; };
-		E0D7DA5727CDF83A00A56635 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +120,31 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E03455AB27CF24560036988A /* DrawingBoard */ = {
+			isa = PBXGroup;
+			children = (
+				E03455AC27CF24560036988A /* Item */,
+			);
+			path = DrawingBoard;
+			sourceTree = "<group>";
+		};
+		E03455AC27CF24560036988A /* Item */ = {
+			isa = PBXGroup;
+			children = (
+				E03455AD27CF24560036988A /* SquareView.swift */,
+			);
+			path = Item;
+			sourceTree = "<group>";
+		};
+		E03455AF27CF25300036988A /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				E03455B027CF25300036988A /* BaseView.swift */,
+			);
+			name = Base;
+			path = Drawingapp/Sources/Present/Base;
+			sourceTree = SOURCE_ROOT;
+		};
 		E0D7D9D127CC594D00A56635 = {
 			isa = PBXGroup;
 			children = (
@@ -206,7 +231,6 @@
 		E0D7DA1027CC5A6E00A56635 /* Present */ = {
 			isa = PBXGroup;
 			children = (
-				E0D7DA5627CDF82A00A56635 /* Base */,
 				E0D7DA4627CDE32800A56635 /* View */,
 				E0D7D9E127CC594D00A56635 /* ViewController.swift */,
 			);
@@ -233,7 +257,8 @@
 		E0D7DA4627CDE32800A56635 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E0D7DA5927CE14E600A56635 /* DrawingBoard */,
+				E03455AF27CF25300036988A /* Base */,
+				E03455AB27CF24560036988A /* DrawingBoard */,
 				E0D7DA4B27CDF1BA00A56635 /* Inspector */,
 				E0D7DA4927CDE3CD00A56635 /* TopMenu */,
 			);
@@ -249,14 +274,6 @@
 			path = TopMenu;
 			sourceTree = "<group>";
 		};
-		E0D7DA4A27CDEDAF00A56635 /* Item */ = {
-			isa = PBXGroup;
-			children = (
-				E0D7DA4227CDE10500A56635 /* SquareView.swift */,
-			);
-			path = Item;
-			sourceTree = "<group>";
-		};
 		E0D7DA4B27CDF1BA00A56635 /* Inspector */ = {
 			isa = PBXGroup;
 			children = (
@@ -269,28 +286,12 @@
 		E0D7DA5527CDF71F00A56635 /* ItemView */ = {
 			isa = PBXGroup;
 			children = (
+				E03455B227CF25520036988A /* InspectorItemButtonView.swift */,
 				E0D7DA5227CDF70D00A56635 /* InspectorItemView.swift */,
-				E03455A927CE414D0036988A /* InspectorItemButtonView.swift */,
 				E0D7DA4E27CDF65D00A56635 /* InspectorItemLabelView.swift */,
 				E0D7DA5027CDF6FE00A56635 /* InspectorSliderView.swift */,
 			);
 			path = ItemView;
-			sourceTree = "<group>";
-		};
-		E0D7DA5627CDF82A00A56635 /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				E0D7DA5727CDF83A00A56635 /* BaseView.swift */,
-			);
-			path = Base;
-			sourceTree = "<group>";
-		};
-		E0D7DA5927CE14E600A56635 /* DrawingBoard */ = {
-			isa = PBXGroup;
-			children = (
-				E0D7DA4A27CDEDAF00A56635 /* Item */,
-			);
-			path = DrawingBoard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -431,19 +432,19 @@
 				E0D7DA4D27CDF28C00A56635 /* InspectorView.swift in Sources */,
 				E0D7DA5127CDF6FE00A56635 /* InspectorSliderView.swift in Sources */,
 				E0D7DA2C27CCF83300A56635 /* Log.swift in Sources */,
+				E03455B127CF25300036988A /* BaseView.swift in Sources */,
 				E0D7DA2027CC656500A56635 /* Color.swift in Sources */,
 				E0D7DA4F27CDF65D00A56635 /* InspectorItemLabelView.swift in Sources */,
 				E0D7DA4527CDE32300A56635 /* TopMenuBarView.swift in Sources */,
 				E0D7DA1927CC643000A56635 /* Point.swift in Sources */,
+				E03455AE27CF24560036988A /* SquareView.swift in Sources */,
 				E0D7DA2327CC67DF00A56635 /* Alpha.swift in Sources */,
+				E03455B327CF25520036988A /* InspectorItemButtonView.swift in Sources */,
 				E0D7DA2927CCDC9200A56635 /* Factory.swift in Sources */,
 				E0D7D9E227CC594D00A56635 /* ViewController.swift in Sources */,
-				E03455AA27CE414D0036988A /* InspectorItemButtonView.swift in Sources */,
 				E0D7D9DE27CC594D00A56635 /* AppDelegate.swift in Sources */,
 				E0D7DA5327CDF70D00A56635 /* InspectorItemView.swift in Sources */,
 				E0D7D9E027CC594D00A56635 /* SceneDelegate.swift in Sources */,
-				E0D7DA4327CDE10500A56635 /* SquareView.swift in Sources */,
-				E0D7DA5827CDF83A00A56635 /* BaseView.swift in Sources */,
 				E0D7DA2E27CD048C00A56635 /* Plane.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

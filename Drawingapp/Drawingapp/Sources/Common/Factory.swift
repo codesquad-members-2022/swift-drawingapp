@@ -9,7 +9,15 @@ import Foundation
 import UIKit
 
 class Factory {
-    func makeSquare() -> Square {
+    
+    func makeDrawingItem(type: DrawingType) -> Square {
+        switch type {
+        case .square:
+            return makeSquare()
+        }
+    }
+    
+    private func makeSquare() -> Square {
         let size = Size(width: 150, height: 120)
         
         let screenSize = UIScreen.main.bounds.size
@@ -30,5 +38,11 @@ class Factory {
             let randomId = String((0..<3).compactMap{ _ in chars.randomElement()})
             return id + randomId + "-"
         }.dropLast())
+    }
+}
+
+extension Factory {
+    enum DrawingType {
+        case square
     }
 }
