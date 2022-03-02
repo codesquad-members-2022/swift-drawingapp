@@ -6,7 +6,8 @@
 //
 
 import UIKit
-import OSLog
+import os
+
 
 class ViewController: UIViewController {
     
@@ -16,9 +17,7 @@ class ViewController: UIViewController {
         
         for i in 0..<4 {
             let rect = ShapeFactory.makeRandomRectangle()
-            print("Rect \(i+1): \(rect)")
+            os_log(.default, "Rect \(i+1): \(rect)")
         }
-        
     }
 }
-

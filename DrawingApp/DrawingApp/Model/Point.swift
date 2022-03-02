@@ -27,3 +27,4 @@ extension Point: CustomStringConvertible, Equatable {
         return "X: \(self.x), Y: \(self.y)"
     }
 }
+
