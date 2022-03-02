@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import OSLog
 
 class ViewController: UIViewController {
 
@@ -14,9 +15,10 @@ class ViewController: UIViewController {
     }
 
     @IBAction func createRectangle(_ sender: UIButton) {
+        let logger = Logger()
         let factory = FactoryArray()
-        factory.createRectangle()
-        print(factory.createRectanleArray())
+        
+        logger.info("\(factory.createRectanleArray())")
     }
     
 }
