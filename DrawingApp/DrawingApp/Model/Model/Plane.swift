@@ -15,15 +15,19 @@ class Plane {
     private var viewModels: [viewModel] = [] {
         didSet {
             guard let newModel = viewModels.last else { return }
-            Log.info("New viewModel is Added")
-            Log.info("\(newModel)")
+            Log.info("Added: \(newModel)")
         }
     }
+    
     var selected: viewModel?
-    var delegate: Plane?
+    var delegate: PlaneDelegate?
     
     var rectangleCount: Int {
         viewModels.filter { $0 is Rectangle }.count
+    }
+    
+    subscript(index: Int) -> viewModel {
+        return viewModels[index]
     }
     
     func setUpInitialModels() {
@@ -34,10 +38,6 @@ class Plane {
     
     func addRectangle() {
         viewModels.append(Factory.createRectangle())
-    }
-    
-    subscript(index: Int) -> viewModel {
-        return viewModels[index]
     }
     
     func tap(on point: Point) {

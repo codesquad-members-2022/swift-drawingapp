@@ -8,6 +8,7 @@
 import Foundation
 
 protocol viewModel {
+    var center: Point { get }
     func contains(_ point: Point) -> Bool
 }
 
@@ -29,6 +30,11 @@ class Rectangle: viewModel, CustomStringConvertible {
     func contains(_ point: Point) -> Bool {
         return (origin.x...origin.x+size.width).contains(point.x)
         && (origin.y...origin.y+size.height).contains(point.y)
+    }
+    
+    var center: Point {
+        Point(x: origin.x + (size.width / 2),
+              y: origin.y + (size.height / 2))
     }
     
     var description: String {
