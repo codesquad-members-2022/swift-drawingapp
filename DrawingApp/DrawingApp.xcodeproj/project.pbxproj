@@ -106,12 +106,12 @@
 				6F78542C27CF694300C1154D /* AppDelegate.swift */,
 				6F78542E27CF694300C1154D /* SceneDelegate.swift */,
 				6F78543027CF694300C1154D /* ViewController.swift */,
+				6F045CF727CFB2BC00D64C5A /* Color.swift */,
 				6F045CF927CFB8B000D64C5A /* Rectangle.swift */,
 				6F78543227CF694300C1154D /* Main.storyboard */,
 				6F78543527CF694700C1154D /* Assets.xcassets */,
 				6F78543727CF694700C1154D /* LaunchScreen.storyboard */,
 				6F78543A27CF694700C1154D /* Info.plist */,
-				6F045CF727CFB2BC00D64C5A /* Color.swift */,
 			);
 			path = DrawingApp;
 			sourceTree = "<group>";
