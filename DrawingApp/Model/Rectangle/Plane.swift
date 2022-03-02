@@ -9,8 +9,6 @@ import Foundation
 
 struct Plane{
     private var rectangles: [Rectangle] = []
-    private let rectangleFactory = RectangleFactory()
-    private let rectangleIDFactory = RectangleIDFactory()
     
     subscript(index: Int) -> Rectangle?{
         guard rectangles.count > index else{
@@ -19,17 +17,10 @@ struct Plane{
         return rectangles[index]
     }
     
-    mutating func makeRectangle(viewWidth: Double, viewHeight: Double){
-        let id = rectangleIDFactory.makeID()
-        let size = rectangleFactory.makeSize()
-        let point = rectangleFactory.makePoint(viewWidth: viewWidth, viewHeight: viewHeight)
-        let color = rectangleFactory.makeColor()
-        let alpha = rectangleFactory.makeAlpha()
-        
-        let rectangle = Rectangle(id: id, size: size, point: point, color: color, alpha: alpha)
-        rectangles.append(rectangle)
+    mutating func addRectangle(rectangle: Rectangle){
+        self.rectangles.append(rectangle)
     }
-    
+   
     func count() -> Int{
         return rectangles.count
     }

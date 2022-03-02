@@ -10,6 +10,7 @@ import os
 
 class ViewController: UIViewController {
     private var rectangles = Plane()
+    private let rectangleMaker = RandomRectangleMaker()
     
     @IBOutlet weak var rectangleButton: UIButton!
     
@@ -20,15 +21,8 @@ class ViewController: UIViewController {
     }
 
     @IBAction func makeRandomRectangle(_ sender: Any) {
-        rectangles.makeRectangle(viewWidth: self.view.frame.width, viewHeight: self.rectangleButton.frame.minY)
-        
-        guard rectangles.count() > 0, let rectangle = rectangles[rectangles.count() - 1] else{
-            let alert = UIAlertController(title: "Warning", message: "작성된 사각형이 없습니다.", preferredStyle: .alert)
-            let okayAction = UIAlertAction(title: "Okay", style: UIAlertAction.Style.cancel)
-            alert.addAction(okayAction)
-            self.present(alert, animated: true)
-            return
-        }
+        let rectangle = rectangleMaker.makeRectangle(viewWidth: self.view.frame.width, viewHeight: self.rectangleButton.frame.minY)
+        self.rectangles.addRectangle(rectangle: rectangle)
         
         let rectangleView = UIView(frame: CGRect(x: rectangle.showPoint().xValue(), y: rectangle.showPoint().yValue(), width: rectangle.showSize().widthValue(), height: rectangle.showSize().heightValue()))
         rectangleView.backgroundColor = UIColor(displayP3Red: rectangle.showColor().redValue(), green: rectangle.showColor().greenValue(), blue: rectangle.showColor().blueValue(), alpha: rectangle.showAlpha().showValue())
