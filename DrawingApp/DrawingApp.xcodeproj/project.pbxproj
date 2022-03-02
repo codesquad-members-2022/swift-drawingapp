@@ -11,6 +11,7 @@
 		BC1806BF27CF40970057679D /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1806BE27CF40970057679D /* Alpha.swift */; };
 		BC1806C127CF41AE0057679D /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1806C027CF41AE0057679D /* Size.swift */; };
 		BC1806C327CF41C30057679D /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1806C227CF41C30057679D /* Point.swift */; };
+		BC1806C527CF49A90057679D /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1806C427CF49A90057679D /* Plane.swift */; };
 		BC7ECF8E27CCB46A00BC6AEC /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7ECF8D27CCB46A00BC6AEC /* Rectangle.swift */; };
 		BC7ECF8F27CCB46A00BC6AEC /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7ECF8D27CCB46A00BC6AEC /* Rectangle.swift */; };
 		BC7ECF9227CCB8CA00BC6AEC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7ECF9127CCB8CA00BC6AEC /* Color.swift */; };
@@ -51,6 +52,7 @@
 		BC1806BE27CF40970057679D /* Alpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alpha.swift; sourceTree = "<group>"; };
 		BC1806C027CF41AE0057679D /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		BC1806C227CF41C30057679D /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
+		BC1806C427CF49A90057679D /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		BC7ECF8D27CCB46A00BC6AEC /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Rectangle.swift; path = DrawingApp/Model/Model/Rectangle.swift; sourceTree = SOURCE_ROOT; };
 		BC7ECF9127CCB8CA00BC6AEC /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		BC7ECF9427CCB90600BC6AEC /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 		BC7ECF9027CCB48D00BC6AEC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				BC1806C427CF49A90057679D /* Plane.swift */,
 				BC7ECF8D27CCB46A00BC6AEC /* Rectangle.swift */,
 				BC7ECF9127CCB8CA00BC6AEC /* Color.swift */,
 				BC1806BE27CF40970057679D /* Alpha.swift */,
@@ -356,6 +359,7 @@
 				BCE3CB8027CC6D8E004F2AFE /* AppDelegate.swift in Sources */,
 				BC7ECF9227CCB8CA00BC6AEC /* Color.swift in Sources */,
 				BCE3CB8227CC6D8E004F2AFE /* SceneDelegate.swift in Sources */,
+				BC1806C527CF49A90057679D /* Plane.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
