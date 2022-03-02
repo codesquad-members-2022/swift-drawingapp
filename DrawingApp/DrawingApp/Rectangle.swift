@@ -7,6 +7,7 @@
 
 import Foundation
 
+
 class Rectangle {
     private let uniqueID: String
     private let size: Size
@@ -19,7 +20,7 @@ class Rectangle {
     }
     
     init(point: Point, size: Size, color: Color, alpha: Int) {
-        self.uniqueID = "123-456-789"
+        self.uniqueID = UniqueID.generate(split: 3, stringCount: 4)
         self.point = point
         self.size = size
         self.color = color
