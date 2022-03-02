@@ -12,21 +12,21 @@ protocol PlaneDelegate {
 }
 
 class Plane {
-    private var viewModels: [viewModel] = [] {
+    private var viewModels: [ViewModel] = [] {
         didSet {
             guard let newModel = viewModels.last else { return }
             Log.info("Added: \(newModel)")
         }
     }
     
-    var selected: viewModel?
+    var selected: ViewModel?
     var delegate: PlaneDelegate?
     
     var rectangleCount: Int {
         viewModels.filter { $0 is Rectangle }.count
     }
     
-    subscript(index: Int) -> viewModel {
+    subscript(index: Int) -> ViewModel {
         return viewModels[index]
     }
     
@@ -48,4 +48,13 @@ class Plane {
         self.selected = selected
     }
     
+    func transform(to color: Color) {
+        guard let mutableViewModel = selected as? ColorMutable else { return }
+        mutableViewModel.transform(to: color)
+    }
+    
+    func transform(to alpha: Alpha) {
+        guard let mutableViewModel = selected as? AlphaMutable else { return }
+        mutableViewModel.transform(to: alpha)
+    }
 }
