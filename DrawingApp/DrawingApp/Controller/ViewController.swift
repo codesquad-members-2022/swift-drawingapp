@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import OSLog
 
 class ViewController: UIViewController {
 
@@ -16,6 +17,7 @@ class ViewController: UIViewController {
         
         (0..<4).forEach { _ in
             let Rect = shapeFactory.createShape(shapeType: .Rectangle)
+            os_log(.debug, log: .default, "\n\(Rect.description)")
         }
     }
 }
