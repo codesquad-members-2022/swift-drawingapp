@@ -25,7 +25,6 @@ import Foundation
 //뷰에 나타날 사각형의 데이터.
 class Rectangle {
     //사각형에 대한 모든 속성을 가지고 있다
-    //로직을 포함하는게 아니라면 속성을 let 으로 설정해도 좋다.
     let `id` : String
     let size : Size
     let point : Point

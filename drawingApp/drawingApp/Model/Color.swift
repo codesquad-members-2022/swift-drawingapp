@@ -17,7 +17,7 @@ struct Color : CustomStringConvertible {
     }
     
     init(r:Double, g: Double, b:Double){
-        //각각의 rgb 가 0~255 사이의 값이 아닐시
+        //각각의 rgb 가 0~255 사이의 값이 아닐시 0으로 설정해준다.
         var values = [r,g,b]
         for i in 0..<values.count {
             if !range.contains(values[i]){
