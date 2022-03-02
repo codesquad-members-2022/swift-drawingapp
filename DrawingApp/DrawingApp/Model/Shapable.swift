@@ -8,7 +8,7 @@
 import Foundation
 
 protocol Shapable: CustomStringConvertible {
-    var id: String { get }
+    var id: Identifier { get }
     var size: Size { get }
     var point: Point { get }
     var backGroundColor: Color { get }
