@@ -38,4 +38,13 @@ class PlaneTests: XCTestCase {
             XCTAssertTrue(plane.selected!.contains(testPoint))
         }
     }
+    
+    func testSelectedWhenEmptyTapped() {
+        let plane = Plane()
+        plane.setUpInitialModels()
+        
+        let emptyPoint = Point(x: Double(0), y: Double(0))
+        plane.tap(on: emptyPoint)
+        XCTAssertNil(plane.selected)
+    }
 }

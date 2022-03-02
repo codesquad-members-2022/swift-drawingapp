@@ -44,8 +44,12 @@ class Plane {
         let candidate = viewModels.filter { viewModel in
             viewModel.contains(point)
         }
-        guard let selected = candidate.last else { return }
-        self.selected = selected
+        
+        if let selected = candidate.last {
+            self.selected = selected
+        } else {
+            self.selected = nil
+        }
     }
     
     func transform(to color: Color) {
