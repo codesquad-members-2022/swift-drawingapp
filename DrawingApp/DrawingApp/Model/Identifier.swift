@@ -35,6 +35,6 @@ struct Identifier {
 
 extension Identifier: CustomStringConvertible {
     var description: String {
-        return "(\(self.firstToken)\(self.delimiter)\(self.secondToken)\(self.delimiter)\(self.thirdToken))"
+        return "\(self.firstToken)\(self.delimiter)\(self.secondToken)\(self.delimiter)\(self.thirdToken)"
     }
 }
