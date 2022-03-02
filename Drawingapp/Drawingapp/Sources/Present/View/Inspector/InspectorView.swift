@@ -14,25 +14,14 @@ class InspectorView: BaseView {
     let colorButton = InspectorItemButtonView()
     let alphaSlider = InspectorSliderView()
     
-    func bind(plane: Plane) {
-        colorButton.button.addAction(UIAction{ _ in
+    func bind(plane: Plane) {        
+        colorButton.buttonEventHandler = {
             plane.action.changeColorButtonTapped()
-        }, for: .touchUpInside)
+        }
         
-        alphaSlider.slider.addAction(UIAction{ _ in
-            plane.action.changeAlphaSliderEvent(self.alphaSlider.slider.value)
-            self.alphaSlider.updateButtons()
-        }, for: .touchDragInside)
-        
-        alphaSlider.minusButton.addAction(UIAction{ _ in
-            self.alphaSlider.addValue(-1)
-            plane.action.changeAlphaSliderEvent(self.alphaSlider.slider.value)
-        }, for: .touchUpInside)
-        
-        alphaSlider.plusButton.addAction(UIAction{ _ in
-            self.alphaSlider.addValue(1)
-            plane.action.changeAlphaSliderEvent(self.alphaSlider.slider.value)
-        }, for: .touchUpInside)
+        alphaSlider.valueChangedHandler = { value in
+            plane.action.changeAlphaSliderEvent(value)
+        }
     }
     
     override func attribute() {
@@ -42,11 +31,10 @@ class InspectorView: BaseView {
         itemStackView.axis = .vertical
         itemStackView.isHidden = true
         
-        colorButton.title.text = "배경색"
+        colorButton.setTitle("배경색")
         
-        alphaSlider.title.text = "Alpha"
-        alphaSlider.slider.minimumValue = 0
-        alphaSlider.slider.maximumValue = Float(Alpha.max.index - 1)
+        alphaSlider.setTitle("Alpha")
+        alphaSlider.setLimit(min: 0, max: Float(Alpha.max.index - 1))
     }
     
     override func layout() {
@@ -73,7 +61,7 @@ class InspectorView: BaseView {
         itemStackView.isHidden = false
         
         let inspectorData = square.inspectorData
-        colorButton.button.setTitle(inspectorData.hexColor, for: .normal)
+        colorButton.setButtonTitle(inspectorData.hexColor)
         alphaSlider.setValue(Float(inspectorData.alpha.index))
     }
 }

@@ -10,8 +10,6 @@ import Foundation
 class Squares {
     private var squares: [Square] = []
     
-    private(set) var selectedSquare: Square?
-    
     var count: Int {
         squares.count
     }
@@ -21,8 +19,7 @@ class Squares {
     }
     
     func selected(point: Point) -> Square? {
-        selectedSquare = squares.filter{ $0.isSelected(by: point) }.last
-        return selectedSquare
+        squares.filter{ $0.isSelected(by: point) }.last
     }
 }
 

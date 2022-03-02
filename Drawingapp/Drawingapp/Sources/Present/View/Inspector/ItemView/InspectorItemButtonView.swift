@@ -9,7 +9,15 @@ import Foundation
 import UIKit
 
 class InspectorItemButtonView: InspectorItemView {
-    let button = UIButton()
+    private let button = UIButton()
+    
+    var buttonEventHandler: () -> Void = { }
+    
+    override func bind() {
+        button.addAction(UIAction{ _ in
+            self.buttonEventHandler()
+        }, for: .touchUpInside)
+    }
     
     override func attribute() {
         super.attribute()
@@ -26,5 +34,9 @@ class InspectorItemButtonView: InspectorItemView {
         self.stackView.addArrangedSubview(button)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.heightAnchor.constraint(equalToConstant: 30).isActive = true
+    }
+    
+    func setButtonTitle(_ title: String) {
+        button.setTitle(title, for: .normal)
     }
 }

@@ -9,10 +9,26 @@ import Foundation
 import UIKit
 
 class InspectorSliderView: InspectorItemView {
-    let sliderStackView = UIStackView()
-    let minusButton = UIButton()
-    let plusButton = UIButton()
-    let slider = UISlider()
+    private let sliderStackView = UIStackView()
+    private let minusButton = UIButton()
+    private let plusButton = UIButton()
+    private let slider = UISlider()
+    
+    var valueChangedHandler: (Float) -> Void = { _ in }
+    
+    override func bind() {
+        minusButton.addAction(UIAction{ _ in
+            self.addValue(-1)
+        }, for: .touchUpInside)
+        
+        plusButton.addAction(UIAction{ _ in
+            self.addValue(1)
+        }, for: .touchUpInside)
+        
+        slider.addAction(UIAction{ _ in
+            self.valueChangedHandler(self.slider.value)
+        }, for: .valueChanged)
+    }
     
     override func attribute() {
         super.attribute()
@@ -45,17 +61,24 @@ class InspectorSliderView: InspectorItemView {
         slider.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
     
-    func addValue(_ addValue: Float) {
-        setValue(slider.value + addValue)
+    private func updateButtonsState() {
+        minusButton.isEnabled = slider.value > slider.minimumValue
+        plusButton.isEnabled = slider.value < slider.maximumValue
+    }
+    
+    private func addValue(_ value: Float) {
+        slider.value += value
+        slider.sendActions(for: .valueChanged)
+        updateButtonsState()
     }
     
     func setValue(_ value: Float) {
-        slider.setValue(value, animated: false)
-        updateButtons()
+        slider.value = value
+        updateButtonsState()
     }
     
-    func updateButtons() {
-        minusButton.isEnabled = slider.value > slider.minimumValue
-        plusButton.isEnabled = slider.value < slider.maximumValue
+    func setLimit(min: Float, max: Float) {
+        slider.minimumValue = min
+        slider.maximumValue = max
     }
 }

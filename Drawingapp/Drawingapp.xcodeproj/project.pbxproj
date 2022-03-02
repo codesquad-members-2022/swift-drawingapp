@@ -316,8 +316,8 @@
 		E0D7DA5527CDF71F00A56635 /* ItemView */ = {
 			isa = PBXGroup;
 			children = (
-				E03455B227CF25520036988A /* InspectorItemButtonView.swift */,
 				E0D7DA5227CDF70D00A56635 /* InspectorItemView.swift */,
+				E03455B227CF25520036988A /* InspectorItemButtonView.swift */,
 				E0D7DA4E27CDF65D00A56635 /* InspectorItemLabelView.swift */,
 				E0D7DA5027CDF6FE00A56635 /* InspectorSliderView.swift */,
 			);

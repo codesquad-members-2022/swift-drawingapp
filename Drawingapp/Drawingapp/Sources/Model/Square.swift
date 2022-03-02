@@ -50,6 +50,10 @@ extension Square {
         let alpha: Alpha
         let hexColor: String
     }
+    
+    var inspectorData: InspectorData {
+        InspectorData(alpha: self.alpha, hexColor: color.hexColor)
+    }
 }
 
 extension Square {
@@ -60,9 +64,5 @@ extension Square {
     
     var rect: CGRect {
         CGRect(x: point.x, y: point.y, width: size.width, height: size.height)
-    }
-    
-    var inspectorData: InspectorData {
-        InspectorData(alpha: self.alpha, hexColor: color.hexColor)
     }
 }
