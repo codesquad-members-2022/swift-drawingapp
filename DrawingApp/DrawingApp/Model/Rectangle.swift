@@ -2,6 +2,27 @@ import Foundation
 
 class Rectangle: CustomStringConvertible{
     
+    struct Id:CustomStringConvertible{
+        private var idValue: String
+        var description: String{
+            return self.idValue
+        }
+        
+        init(){
+            var asciiValues: [Int] = []
+            asciiValues.append(contentsOf: Array(97...122))
+            asciiValues.append(contentsOf: Array(48...57))
+            
+            var characters: [Character] = []
+            while(characters.count != 9){
+                guard let value = UnicodeScalar(asciiValues[Int.random(in: 0..<asciiValues.count)]) else { continue }
+                let character = Character(value)
+                characters.append(character)
+            }
+            self.idValue = "\(String(characters[0...2]))-\(String(characters[3...5]))-\(String(characters[6...8]))"
+        }
+    }
+    
     struct Size: Equatable, CustomStringConvertible{
         var width: Double
         var height: Double
@@ -61,7 +82,7 @@ class Rectangle: CustomStringConvertible{
         }
     }
     
-    private var id: String
+    private var id: Id
     private var size: Size
     private var point: Point
     private var backgroundColor: Color
@@ -70,7 +91,7 @@ class Rectangle: CustomStringConvertible{
         return "(\(id)), \(size), \(point), \(backgroundColor), \(alpha)"
     }
     
-    init(id: String, size: Size, point: Point, backgroundColor: Color, alpha: Alpha){
+    init(id: Id, size: Size, point: Point, backgroundColor: Color, alpha: Alpha){
         self.id = id
         self.size = size
         self.point = point
