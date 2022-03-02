@@ -11,14 +11,14 @@ class Rectangle:CustomStringConvertible {
     }
     
     
-    private let id:String
+    private let id:ID
     private let origin:Point
     private let size:Size
     private let backGroundColor:RGB
     private let alpha:Alpha
     
     
-    init(id:String,origin:Point,size:Size,backGroundColor:RGB, alpha:Alpha) {
+    init(id:ID,origin:Point,size:Size,backGroundColor:RGB, alpha:Alpha) {
         self.id = id
         self.origin = origin
         self.size = size
