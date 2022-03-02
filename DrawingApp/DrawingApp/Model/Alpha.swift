@@ -25,8 +25,8 @@ extension Alpha: CustomStringConvertible, CaseIterable {
         return "Alpha: \(self.rawValue)"
     }
     
-    func randomElement() -> Self {
-        let element = Self.allCases.randomElement() ?? .opaque
-        return element
+    static func randomElement() -> Self {
+        let index = Int.random(in: 0..<Self.allCases.count)
+        return Self.allCases[index]
     }
 }
