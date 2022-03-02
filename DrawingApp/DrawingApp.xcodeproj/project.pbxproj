@@ -53,6 +53,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		02B9D2A227CF4AF600A7185E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				02A7161B27CCF63C00034A70 /* RectangleFactory.swift */,
+				02A7161F27CD11C000034A70 /* RectangleDelegate.swift */,
+				02D5541527CC5FB000291B27 /* Rectangle.swift */,
+				02B9D2A027CF37E600A7185E /* id.swift */,
+				02D5541B27CC6CE100291B27 /* BackgroundColor.swift */,
+				02D5541727CC5FF200291B27 /* Size.swift */,
+				02D5541927CC606300291B27 /* Point.swift */,
+				02B9D29E27CF033B00A7185E /* Alpha.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		02D553F527CC5E7C00291B27 = {
 			isa = PBXGroup;
 			children = (
@@ -75,14 +90,7 @@
 				02D5540127CC5E7D00291B27 /* AppDelegate.swift */,
 				02D5540327CC5E7D00291B27 /* SceneDelegate.swift */,
 				02D5540527CC5E7D00291B27 /* ViewController.swift */,
-				02A7161B27CCF63C00034A70 /* RectangleFactory.swift */,
-				02D5541527CC5FB000291B27 /* Rectangle.swift */,
-				02B9D2A027CF37E600A7185E /* id.swift */,
-				02D5541B27CC6CE100291B27 /* BackgroundColor.swift */,
-				02D5541727CC5FF200291B27 /* Size.swift */,
-				02D5541927CC606300291B27 /* Point.swift */,
-				02B9D29E27CF033B00A7185E /* Alpha.swift */,
-				02A7161F27CD11C000034A70 /* RectangleDelegate.swift */,
+				02B9D2A227CF4AF600A7185E /* Model */,
 				02D5540727CC5E7D00291B27 /* Main.storyboard */,
 				02D5540A27CC5E7F00291B27 /* Assets.xcassets */,
 				02D5540C27CC5E7F00291B27 /* LaunchScreen.storyboard */,
