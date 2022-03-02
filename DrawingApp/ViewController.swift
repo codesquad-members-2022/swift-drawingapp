@@ -11,6 +11,7 @@ import os
 class ViewController: UIViewController {
     private var rectangles = Plane()
     private let rectangleMaker = RandomRectangleMaker()
+    let attributer = RightAttributerView()
     
     @IBOutlet weak var rectangleButton: UIButton!
     
@@ -18,16 +19,24 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         rectangleButton.layer.cornerRadius = 15
+        self.view.addSubview(attributer)
+        attributer.layout()
     }
 
     @IBAction func makeRandomRectangle(_ sender: Any) {
-        let rectangle = rectangleMaker.makeRectangle(viewWidth: self.view.frame.width, viewHeight: self.rectangleButton.frame.minY)
-        self.rectangles.addRectangle(rectangle: rectangle)
+        let rectangleView = RandomRectangleView()
+        rectangleView.makeRectangleView(width: self.attributer.frame.minX, height: self.rectangleButton.frame.minY)
         
-        let rectangleView = UIView(frame: CGRect(x: rectangle.showPoint().xValue(), y: rectangle.showPoint().yValue(), width: rectangle.showSize().widthValue(), height: rectangle.showSize().heightValue()))
-        rectangleView.backgroundColor = UIColor(displayP3Red: rectangle.showColor().redValue(), green: rectangle.showColor().greenValue(), blue: rectangle.showColor().blueValue(), alpha: rectangle.showAlpha().showValue())
-        rectangleView.restorationIdentifier = rectangle.showId()
+        guard let rectangle = rectangleView.giveRectangle() else{
+            let alert = UIAlertController(title: "Warning", message: "사각형 생성에 문제가 있습니다.", preferredStyle: .actionSheet)
+            let action = UIAlertAction(title: "Okay", style: .cancel)
+            alert.addAction(action)
+            self.present(alert, animated: false)
+            return
+        }
         
+        rectangles.addRectangle(rectangle: rectangle)
+
         os_log("%@", "\(rectangle.description)")
         self.view.addSubview(rectangleView)
     }
