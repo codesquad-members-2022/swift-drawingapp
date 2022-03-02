@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC1806BD27CF3E4C0057679D /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1806BC27CF3E4C0057679D /* Log.swift */; };
 		BC7ECF8E27CCB46A00BC6AEC /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7ECF8D27CCB46A00BC6AEC /* Rectangle.swift */; };
 		BC7ECF8F27CCB46A00BC6AEC /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7ECF8D27CCB46A00BC6AEC /* Rectangle.swift */; };
 		BC7ECF9227CCB8CA00BC6AEC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7ECF9127CCB8CA00BC6AEC /* Color.swift */; };
@@ -44,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		BC1806BC27CF3E4C0057679D /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		BC7ECF8D27CCB46A00BC6AEC /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Rectangle.swift; path = DrawingApp/Model/Model/Rectangle.swift; sourceTree = SOURCE_ROOT; };
 		BC7ECF9127CCB8CA00BC6AEC /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		BC7ECF9427CCB90600BC6AEC /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
@@ -89,6 +91,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		BC1806BB27CF3E310057679D /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				BC1806BC27CF3E4C0057679D /* Log.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		BC7ECF9027CCB48D00BC6AEC /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -131,6 +141,7 @@
 		BCE3CB7E27CC6D8E004F2AFE /* DrawingApp */ = {
 			isa = PBXGroup;
 			children = (
+				BC1806BB27CF3E310057679D /* Common */,
 				BC7ECF9027CCB48D00BC6AEC /* Model */,
 				BCE3CBB127CC7050004F2AFE /* View */,
 				BCE3CBB227CC7053004F2AFE /* Controller */,
@@ -328,6 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC7ECF8E27CCB46A00BC6AEC /* Rectangle.swift in Sources */,
+				BC1806BD27CF3E4C0057679D /* Log.swift in Sources */,
 				BCE3CB8427CC6D8E004F2AFE /* ViewController.swift in Sources */,
 				BC7ECF9527CCB90600BC6AEC /* Factory.swift in Sources */,
 				BCE3CB8027CC6D8E004F2AFE /* AppDelegate.swift in Sources */,
