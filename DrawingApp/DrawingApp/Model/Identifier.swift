@@ -20,12 +20,11 @@ struct Identifier {
         self.delimiter = delimiter
     }
     
-    
     static func generateToken() -> String {
         let characters = Array(ShapeBound.Id.alphaNumeric)
         
         var token = ""
-        (0..<ShapeBound.Id.tokenLength).forEach { count in
+        (0..<ShapeBound.Id.tokenLength).forEach { _ in
             let randomCharacter = characters[Int.random(in: (0..<characters.count))]
             token.append(randomCharacter)
         }
