@@ -7,45 +7,23 @@
 
 import Foundation
 
-enum Alpha : Int {
-    case one = 1
-    case two
-    case three
-    case four
-    case five
-    case six
-    case seven
-    case eight
-    case nine
-    case ten
+class Alpha {
+    private var transparency : Int
+    
+    init(transparency : Int) {
+        switch transparency {
+        case ...0 :
+            self.transparency = 0
+        case 10... :
+            self.transparency = 10
+        default:
+            self.transparency = transparency
+        }
+    }
 }
 
-extension Alpha : CustomStringConvertible, CaseIterable {
+extension Alpha : CustomStringConvertible {
     var description: String {
-        var value : Int {
-            switch self {
-            case .one:
-                return 1
-            case .two:
-                return 2
-            case .three:
-                return 3
-            case .four:
-                return 4
-            case .five:
-                return 5
-            case .six:
-                return 6
-            case .seven:
-                return 7
-            case .eight:
-                return 8
-            case .nine:
-                return 9
-            case .ten:
-                return 10
-            }
-        }
-        return "Alpha: \(value)"
+        return "Alpha: \(self.transparency)"
     }
 }

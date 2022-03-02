@@ -12,18 +12,20 @@ class Color {
     private var green : Int
     private var blue : Int
     
-    init?(red: Int, green: Int, blue: Int){
-        var isColorAble : Bool {
-            return 0...255 ~= red &&
-                   0...255 ~= green &&
-                   0...255 ~= blue
+    init(red: Int, green: Int, blue: Int){
+        let inRange : (Int) -> Int = { (color) in
+            switch color {
+            case ...0:
+                return 0
+            case 255...:
+                return 255
+            default:
+                return color
+            }
         }
-        guard isColorAble else{
-            return nil
-        }
-        self.red = red
-        self.green = green
-        self.blue = blue
+        self.red = inRange(red)
+        self.green = inRange(green)
+        self.blue = inRange(blue)
     }
 }
 extension Color : CustomStringConvertible {
