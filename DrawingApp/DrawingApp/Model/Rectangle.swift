@@ -74,21 +74,25 @@ class Rectangle: CustomStringConvertible{
         }
     }
     
-    enum Alpha:Int, CaseIterable, CustomStringConvertible{
+    struct Alpha: CustomStringConvertible{
         
-        case one = 1
-        case two = 2
-        case three = 3
-        case four = 4
-        case five = 5
-        case six = 6
-        case seven = 7
-        case eight = 8
-        case nine = 9
-        case ten = 10
-        
+        var opacity = 10
         var description: String{
-            return "Alpha:\(String(self.rawValue))"
+            return "Alpha:\(String(self.opacity))"
+        }
+        
+        init(opacity: Int){
+            self.opacity = adjustRange(opacity: opacity)
+        }
+        
+        private func adjustRange(opacity: Int)-> Int{
+            if(opacity>10){
+                return 10
+            }else if(opacity<1){
+                return 1
+            }else{
+                return opacity
+            }
         }
     }
     
