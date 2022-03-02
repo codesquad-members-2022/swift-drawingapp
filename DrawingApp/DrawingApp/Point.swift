@@ -8,17 +8,17 @@
 import Foundation
 
 struct Point {
-    let xPosition: Double
-    let yPosition: Double
+    let x: Double
+    let y: Double
     
     init(x: Double, y: Double) {
-        xPosition = x
-        yPosition = y
+        self.x = x
+        self.y = y
     }
 }
 
 extension Point: CustomStringConvertible {
     var description: String {
-        return "(\(xPosition), \(yPosition))"
+        return "(\(x), \(y))"
     }
 }
