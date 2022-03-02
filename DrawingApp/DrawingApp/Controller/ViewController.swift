@@ -16,10 +16,9 @@ class ViewController: UIViewController {
         let factory = Factory()
         let rects = factory.createRandomRectangles(number: 4)
         
-        let logger = Logger()
         for i in 0..<rects.count {
             guard let rect = rects[i] else { continue }
-            logger.info("Rect\(i): \(rect, privacy: .public)")
+            Log.info("\(rect)")
         }
         
     }
