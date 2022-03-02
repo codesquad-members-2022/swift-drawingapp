@@ -41,7 +41,7 @@ class ShapeFactory {
         let randomGreen = round(Double.random(in: range))
         let randomBlue = round(Double.random(in: range))
         
-        return Color(red: randomRed, green: randomGreen, blue: randomBlue, alpha: Alpha.randomAlpha)
+        return Color(red: randomRed, green: randomGreen, blue: randomBlue, alpha: Alpha.random)
     }
 }
 
