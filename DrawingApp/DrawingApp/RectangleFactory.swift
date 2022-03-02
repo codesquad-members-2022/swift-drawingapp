@@ -26,17 +26,17 @@ class RectangleFactory {
         
         var randomColor : Color?{
             var randomInt: Int {
-                (255..<300).randomElement() ?? 0
+                (0...255).randomElement() ?? 0
             }
-            guard let randomColor = Color(red: randomInt, green: randomInt, blue: randomInt) else {return nil}
+            let randomColor = Color(red: randomInt, green: randomInt, blue: randomInt)
             return randomColor
         }
         
         var randomAlpha : Alpha {
-            guard let randomAlpha = Alpha.allCases.randomElement() else {
-                return Alpha.ten
+            guard let randomTransparency = (0...10).randomElement() else {
+                return Alpha(transparency: 10)
             }
-            return randomAlpha
+            return Alpha(transparency: randomTransparency)
         }
         guard let randomColor = randomColor else {return nil}
         return Rectangle(id: Id(), size: Size(width: 150, height: 120), position: randomPosition, color: randomColor, alpha: randomAlpha)
