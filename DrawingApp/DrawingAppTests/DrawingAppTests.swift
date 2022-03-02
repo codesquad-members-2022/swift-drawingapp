@@ -30,4 +30,16 @@ class DrawingAppTests: XCTestCase {
         XCTAssertEqual(color.green, 0)
         XCTAssertEqual(color.blue, 0)
     }
+    
+    // MARK:- UniqueID
+    func testUniqueID_generatedStringCount() throws {
+        let splitDash = 3
+        let stringCount = 4
+        let separator = "-"
+        
+        let uniqueID = UniqueID.generate(split: splitDash, stringCount: stringCount, separatedBy: separator)
+        let separatedUID = uniqueID.components(separatedBy: separator)
+        XCTAssertEqual(separatedUID.count, splitDash)
+        XCTAssertEqual(separatedUID[0].count, 4)
+    }
 }

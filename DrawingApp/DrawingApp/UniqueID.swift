@@ -9,8 +9,8 @@ import Foundation
 
 
 struct UniqueID {
-    static func generate(split digit: Int, stringCount: Int) -> String {
-        return (0..<digit).map{ _ in randomStrings(count: stringCount) }.joined(separator: "-")
+    static func generate(split digit: Int, stringCount: Int, separatedBy separator: String = "-") -> String {
+        return (0..<digit).map{ _ in randomStrings(count: stringCount) }.joined(separator: separator)
     }
     
     static private func randomStrings(count: Int) -> String {
