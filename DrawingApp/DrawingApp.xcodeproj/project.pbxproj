@@ -12,6 +12,7 @@
 		6C2F1DE627CCBCA10025803A /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2F1DE527CCBCA10025803A /* Color.swift */; };
 		6C2F1DE827CCBEE40025803A /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2F1DE727CCBEE40025803A /* Size.swift */; };
 		6C2F1DEA27CCC15A0025803A /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2F1DE927CCC15A0025803A /* Alpha.swift */; };
+		6C8EBEC527CF430A005C2EC9 /* OSLog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C8EBEC427CF430A005C2EC9 /* OSLog.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		6CD0B2E027CC610E009F5E9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD0B2DF27CC610E009F5E9E /* AppDelegate.swift */; };
 		6CD0B2E227CC610E009F5E9E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD0B2E127CC610E009F5E9E /* SceneDelegate.swift */; };
 		6CD0B2E427CC610E009F5E9E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CD0B2E327CC610E009F5E9E /* ViewController.swift */; };
@@ -28,6 +29,7 @@
 		6C2F1DE527CCBCA10025803A /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		6C2F1DE727CCBEE40025803A /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		6C2F1DE927CCC15A0025803A /* Alpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alpha.swift; sourceTree = "<group>"; };
+		6C8EBEC427CF430A005C2EC9 /* OSLog.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OSLog.framework; path = System/Library/Frameworks/OSLog.framework; sourceTree = SDKROOT; };
 		6CD0B2DC27CC610E009F5E9E /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6CD0B2DF27CC610E009F5E9E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6CD0B2E127CC610E009F5E9E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,17 +47,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C8EBEC527CF430A005C2EC9 /* OSLog.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6C8EBEC327CF430A005C2EC9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6C8EBEC427CF430A005C2EC9 /* OSLog.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		6CD0B2D327CC610E009F5E9E = {
 			isa = PBXGroup;
 			children = (
 				6CD0B2DE27CC610E009F5E9E /* DrawingApp */,
 				6CD0B2DD27CC610E009F5E9E /* Products */,
+				6C8EBEC327CF430A005C2EC9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
