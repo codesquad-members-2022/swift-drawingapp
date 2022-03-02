@@ -30,10 +30,10 @@ class Rectangle {
     let size : Size
     let point : Point
     let color : Color
-    let alpha : Int
+    let alpha : Alpha
     
     
-    init (id: String, size:Size, point: Point, color: Color, alpha : Int) {
+    init (id: String, size:Size, point: Point, color: Color, alpha : Alpha) {
         self.id = id
         self.size = size
         self.point = point

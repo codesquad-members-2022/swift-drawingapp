@@ -6,7 +6,8 @@
 //
 
 import Foundation
-enum Alpha : Int , CustomStringConvertible{
+//값이 낮을수록 투명함.
+enum Alpha : Int , CustomStringConvertible , CaseIterable{
     case One = 1
     case Two
     case Three

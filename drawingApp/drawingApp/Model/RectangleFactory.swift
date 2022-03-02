@@ -61,8 +61,8 @@ class RectangleFactory {
         return Color(r: red, g: green, b: blue)
     }
     
-    func generateRandomAlpha() -> Int {
-        return Int.random(in: 1..<11)
+    func generateRandomAlpha() -> Alpha {
+        return Alpha.allCases.randomElement()!
     }
     
     
