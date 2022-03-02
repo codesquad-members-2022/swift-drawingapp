@@ -8,19 +8,12 @@
 import Foundation
 
 class ShapeFactory {
-    private func generateRandomIdentifier(tokenLength: Int, delimiter: Character, totalLength: Int) -> String {
-        let characters = Array(ShapeBound.Id.alphaNumeric)
-
-        var id = ""
-        (1...totalLength).forEach { count in
-            let randomCharacter = characters[Int.random(in: (0..<characters.count))]
-            id.append(randomCharacter)
-            
-            if (count % tokenLength == 0) && (count != totalLength) {
-                id.append(delimiter)
-            }
-        }
-        return id
+    private func generateRandomIdentifier(delimiter: Character) -> Identifier {
+        let firstToken = Identifier.generateToken()
+        let secondToken = Identifier.generateToken()
+        let thirdToken = Identifier.generateToken()
+        
+        return Identifier(firstToken: firstToken, secondToken: secondToken, thirdToken: thirdToken, delimiter: delimiter)
     }
 
     private func generateRandomSize() -> Size {
@@ -57,7 +50,7 @@ extension ShapeFactory: ShapeFactorable {
     func createShape(shapeType: ShapeType) -> Shapable {
         switch shapeType {
         case .Rectangle:
-            return Rectangle(identifier: generateRandomIdentifier(tokenLength: 3, delimiter: "-", totalLength: 9),
+            return Rectangle(identifier: generateRandomIdentifier(delimiter: "-"),
                              size: generateRandomSize(),
                              point: generateRandomPoint(),
                              backGroundColor: generateRandomColor())
