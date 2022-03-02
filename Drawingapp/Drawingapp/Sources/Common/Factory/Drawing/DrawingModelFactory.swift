@@ -8,11 +8,11 @@
 import Foundation
 import UIKit
 
-class SquareFactory {
+class DrawingModelFactory {
     
     private let typeDataFactory = TypeDataFactory()
     
-    func makeDrawingItem(type: DrawingType) -> Square {
+    func make(type: ModelType) -> Square {
         switch type {
         case .square:
             return makeSquare()
@@ -30,8 +30,8 @@ class SquareFactory {
     }
 }
 
-extension SquareFactory {
-    enum DrawingType {
+extension DrawingModelFactory {
+    enum ModelType {
         case square
     }
 }

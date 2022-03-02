@@ -10,11 +10,11 @@ import UIKit
 class ViewController: UIViewController {
     let drawingBoard = UIView()
     var squareViews: [String:SquareView] = [:]
-    
     let topMenuBarView = TopMenuBarView()
     let inspectorView = InspectorView()
     
     let plane = Plane()
+    let drawingViewFactory = DrawingViewFactory()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,10 +32,9 @@ class ViewController: UIViewController {
         inspectorView.bind(plane: self.plane)
         
         plane.state.drawSquare = { square in
-            let squareView = SquareView()
-            squareView.update(in: square)
-            self.drawingBoard.addSubview(squareView)
-            self.squareViews[square.id] = squareView
+            let drawView = self.drawingViewFactory.make(type: .square(model: square))
+            self.drawingBoard.addSubview(drawView)
+            self.squareViews[square.id] = drawView
         }
         
         plane.state.didDisSelectedSquare = { square in

@@ -9,12 +9,6 @@ import Foundation
 import UIKit
 
 class Square: CustomStringConvertible {
-    
-    struct InspectorData {
-        let alpha: Alpha
-        let hexColor: String
-    }
-    
     let id: String
     private let point: Point
     private let size: Size
@@ -48,6 +42,13 @@ class Square: CustomStringConvertible {
     
     func update(alphaValue: Float) {
         self.alpha = Alpha(rawValue: Int(alphaValue)) ?? .ten
+    }
+}
+
+extension Square {
+    struct InspectorData {
+        let alpha: Alpha
+        let hexColor: String
     }
 }
 

@@ -26,7 +26,7 @@ class Plane {
     var action = Action()
     var state = State()
     
-    private let squareFactory = SquareFactory()
+    private let squareFactory = DrawingModelFactory()
     private let squares = Squares()
     
     init() {
@@ -38,7 +38,7 @@ class Plane {
         }
         
         self.action.makeSquareButtonTapped = {
-            let square = self.squareFactory.makeDrawingItem(type: .square)
+            let square = self.squareFactory.make(type: .square)
             self.squares.append(square: square)
             self.state.drawSquare(square)
         }
