@@ -9,10 +9,9 @@ import Foundation
 import UIKit
 
 class SquareView: UIView {
-    
-    func update(in square: Square) {
-        backgroundColor = square.uiColor
-        frame = square.rect
+    func update(in model: Square) {
+        backgroundColor = model.uiColor
+        frame = model.rect
     }
     
     func selected(is select: Bool) {
