@@ -11,9 +11,13 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
     }
 
-
+    @IBAction func createRectangle(_ sender: UIButton) {
+        let factory = FactoryArray()
+        factory.createRectangle()
+        print(factory.createRectanleArray())
+    }
+    
 }
 
