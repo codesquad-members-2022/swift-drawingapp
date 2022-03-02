@@ -25,11 +25,12 @@ import Foundation
 //뷰에 나타날 사각형의 데이터.
 class Rectangle {
     //사각형에 대한 모든 속성을 가지고 있다
-    private var `id` : String
-    private var size : Size
-    private var point : Point
-    private var color : Color
-    private var alpha : Double
+    //로직을 포함하는게 아니라면 속성을 let 으로 설정해도 좋다.
+    let `id` : String
+    let size : Size
+    let point : Point
+    let color : Color
+    let alpha : Double
     
     
     init (id: String, size:Size, point: Point, color: Color, alpha : Double) {
@@ -40,26 +41,6 @@ class Rectangle {
         self.alpha = alpha
     }
     
-    //Getters
-    func getId() -> String {
-        self.id
-    }
-    
-    func getSize() -> Size {
-        self.size
-    }
-    
-    func getPoint() -> Point {
-        self.point
-    }
-    
-    func getColor() -> Color {
-        self.color
-    }
-    
-    func getAlpha() -> Double {
-        self.alpha
-    }
 }
 
 
