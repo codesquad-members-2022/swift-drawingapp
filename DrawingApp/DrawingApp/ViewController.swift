@@ -28,16 +28,13 @@ class ViewController: UIViewController {
             Log.error(String(describing: viewModel))
         }
     }
-
-    @IBAction func addRectButtonTouchUpInside(_ sender: UIButton) {
-    }
 }
 
 extension ViewController: MasterViewDelegate {
-    func getMasterViewProperty() -> MasterRandomViewProperties {
+    func getMasterViewProperty() -> FactoryProperties {
         let frame = self.view.frame
         
-        return MasterRandomViewProperties(
+        return FactoryProperties(
             maxX: frame.maxX,
             maxY: frame.maxY,
             width: frame.width,
@@ -50,10 +47,6 @@ extension CGRect {
     static func useViewModel(point: RectPoint, size: RectSize) -> CGRect {
         CGRect(x: point.x, y: point.y, width: size.width, height: size.height)
     }
-    
-//    func getViewProperties() -> ViewProperties {
-//        ViewProperties(maxX: self.maxX, maxY: self.maxY, width: self.width, height: self.height)
-//    }
 }
 
 extension UIColor {
