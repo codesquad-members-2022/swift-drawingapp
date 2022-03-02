@@ -47,13 +47,10 @@ class RectangleFactory {
         return UUID[1..<4].joined(separator:"-")
     }
 
-    func generateRandomPoint() throws -> Point {
-        if maxX <= minX || maxY <= minY {
-            throw Errors.notValidScreenSize
-        }
+    func generateRandomPoint() -> Point {
         let x = Double.random(in: minX..<maxX)
         let y = Double.random(in: minY..<maxY)
-        return Point.init(x: x, y: y)
+        return Point(x: x, y: y)
     }
     
     
@@ -61,7 +58,7 @@ class RectangleFactory {
         let red = Double.random(in: 0..<255)
         let green = Double.random(in: 0..<255)
         let blue = Double.random(in: 0..<255)
-        return Color(red: red, green: green, blue: blue)
+        return Color(r: red, g: green, b: blue)
     }
     
     func generateRandomAlpha() -> Int {
@@ -69,14 +66,13 @@ class RectangleFactory {
     }
     
     
-    func makeRect() -> Rectangle? {
-        do {
-            let rect = try Rectangle(id: generateRandomId(), size: Size(width: width, height: height), point: generateRandomPoint(), color: generateRandomColor(), alpha: generateRandomAlpha())
-            return rect
-        }catch{
-            print(Errors.notValidScreenSize)
+    func makeRect() throws-> Rectangle{
+        if maxX <= minX || maxY <= minY {
+            throw Errors.notValidScreenSize
         }
-        return nil
+        let rect =  Rectangle(id: generateRandomId(), size: Size(width: width, height: height), point: generateRandomPoint(), color: generateRandomColor(), alpha: generateRandomAlpha())
+       return rect
+
     }
     
     
