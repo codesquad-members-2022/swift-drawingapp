@@ -6,3 +6,11 @@
 //
 
 import Foundation
+
+extension Double {
+    static func random(in range: ClosedRange<Double>, digits: Int) -> Double {
+        let value = Double.random(in: range)
+        let divisor = pow(10, Double(digits))
+        return (value * divisor).rounded() / divisor
+    }
+}
