@@ -14,7 +14,7 @@
 		B743229627CC5DF400445645 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B743229527CC5DF400445645 /* Assets.xcassets */; };
 		B743229927CC5DF400445645 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B743229727CC5DF400445645 /* LaunchScreen.storyboard */; };
 		B74322A327CC6F4000445645 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322A227CC6F4000445645 /* Rectangle.swift */; };
-		B74322A527CC81ED00445645 /* RectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322A427CC81ED00445645 /* RectangleFactory.swift */; };
+		B74322A527CC81ED00445645 /* ShapeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322A427CC81ED00445645 /* ShapeFactory.swift */; };
 		B74322B027CCE42000445645 /* drawingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322AF27CCE42000445645 /* drawingAppTests.swift */; };
 		B74322B927CF0C0500445645 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322B827CF0C0500445645 /* Color.swift */; };
 		B74322BD27CF0C3400445645 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322BC27CF0C3400445645 /* Size.swift */; };
@@ -42,7 +42,7 @@
 		B743229827CC5DF400445645 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B743229A27CC5DF400445645 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B74322A227CC6F4000445645 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
-		B74322A427CC81ED00445645 /* RectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactory.swift; sourceTree = "<group>"; };
+		B74322A427CC81ED00445645 /* ShapeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeFactory.swift; sourceTree = "<group>"; };
 		B74322AD27CCE42000445645 /* drawingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = drawingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B74322AF27CCE42000445645 /* drawingAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = drawingAppTests.swift; sourceTree = "<group>"; };
 		B74322B827CF0C0500445645 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -107,7 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				B74322A227CC6F4000445645 /* Rectangle.swift */,
-				B74322A427CC81ED00445645 /* RectangleFactory.swift */,
+				B74322A427CC81ED00445645 /* ShapeFactory.swift */,
 				B74322B827CF0C0500445645 /* Color.swift */,
 				B74322BC27CF0C3400445645 /* Size.swift */,
 				B74322C027CF35F000445645 /* Alpha.swift */,
@@ -234,7 +234,7 @@
 			files = (
 				B74322BD27CF0C3400445645 /* Size.swift in Sources */,
 				B743229127CC5DF300445645 /* ViewController.swift in Sources */,
-				B74322A527CC81ED00445645 /* RectangleFactory.swift in Sources */,
+				B74322A527CC81ED00445645 /* ShapeFactory.swift in Sources */,
 				B743228D27CC5DF300445645 /* AppDelegate.swift in Sources */,
 				B74322BF27CF0C3D00445645 /* Point.swift in Sources */,
 				B743228F27CC5DF300445645 /* SceneDelegate.swift in Sources */,
