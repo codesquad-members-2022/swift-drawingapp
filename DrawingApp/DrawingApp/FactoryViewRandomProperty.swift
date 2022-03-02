@@ -8,10 +8,10 @@
 import Foundation
 
 protocol MasterViewDelegate {
-    func getMasterViewProperty() -> MasterRandomViewProperties
+    func getMasterViewProperty() -> FactoryProperties
 }
 
-typealias MasterRandomViewProperties = FactoryViewRandomProperty.ViewProperties
+typealias FactoryProperties = FactoryViewRandomProperty.ViewProperties
 
 class FactoryViewRandomProperty: ViewPropertyCreator {
     
