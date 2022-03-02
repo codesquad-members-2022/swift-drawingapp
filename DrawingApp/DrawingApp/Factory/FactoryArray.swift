@@ -10,6 +10,7 @@ import Foundation
 class FactoryArray: Factory {
     
     func createRectanleArray() -> String {
+        self.createRectangle()
         var rectangleArray = String()
         for number in 1...4 {
             let tempRactangle = "Rect\(number) \(self.description)\n"
