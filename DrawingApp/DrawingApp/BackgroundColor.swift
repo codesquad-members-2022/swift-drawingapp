@@ -11,27 +11,17 @@ struct BackgroundColor {
     let r: Int
     let g: Int
     let b: Int
-    let alpha: Alpha
     
-    init(r: Int, g: Int, b: Int, alpha: Int) {
+    init(r: Int, g: Int, b: Int) {
         self.r = r
         self.g = g
         self.b = b
-        self.alpha = Alpha(rawValue: alpha) ?? .one
     }
-    
-    enum Alpha: Int, CustomStringConvertible {
-        case one = 1, two, three, four, five
-        case six, seven, eight, nine, ten
-        
-        var description: String {
-            return "Alpha: \(self.rawValue)"
-        }
-    }
+
 }
 
 extension BackgroundColor: CustomStringConvertible {
     var description: String {
-        return "(R: \(r), G: \(g), B: \(b), \(alpha)"
+        return "(R: \(r), G: \(g), B: \(b)"
     }
 }
