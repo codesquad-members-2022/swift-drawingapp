@@ -2,13 +2,6 @@ import Foundation
 
 class RectangleFactory{
     
-    private var asciiValues: [Int] = []
-    
-    init(){
-        asciiValues.append(contentsOf: Array(97...122))
-        asciiValues.append(contentsOf: Array(48...57))
-    }
-    
     func createRenctangle()-> Rectangle{
         let id = createRandomStringId()
         let point = createRandomPoint()
@@ -19,15 +12,8 @@ class RectangleFactory{
         return Rectangle(id: id, size: size, point: point, backgroundColor: color, alpha: alpha)
     }
     
-    private func createRandomStringId()-> String{
-        
-        var characters: [Character] = []
-        while(characters.count != 9){
-            guard let value = UnicodeScalar(asciiValues[Int.random(in: 0..<asciiValues.count)]) else { continue }
-            let character = Character(value)
-            characters.append(character)
-        }
-        return "\(String(characters[0...2]))-\(String(characters[3...5]))-\(String(characters[6...8]))"
+    private func createRandomStringId()-> Rectangle.Id{
+        return Rectangle.Id()
     }
     
     private func createRandomPoint()-> Rectangle.Point{
