@@ -10,6 +10,7 @@ import Foundation
 enum ShapeBound {
     enum Id {
         static let alphaNumeric = "abcdefghijklmnopqrstuvxyz0123456789"
+        static let tokenLength = 3
     }
     
     enum Size {
