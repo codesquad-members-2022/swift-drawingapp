@@ -8,7 +8,7 @@
 import Foundation
 
 enum Alpha: Int {
-    case one = 1
+    case transparent = 1
     case two
     case three
     case four
@@ -16,16 +16,7 @@ enum Alpha: Int {
     case seven
     case eight
     case nine
-    case ten
-    
-    init(value: Int) {
-        switch value {
-        case value where value <= 10 && value >= 1:
-            self = Alpha(rawValue: value)!
-        default:
-            self = Alpha.ten
-        }
-    }
+    case opaque
 }
 
 extension Alpha: CustomStringConvertible, CaseIterable {
@@ -34,7 +25,7 @@ extension Alpha: CustomStringConvertible, CaseIterable {
     }
     
     func randomElement() -> Self {
-        let element = Self.allCases.randomElement() ?? .ten
+        let element = Self.allCases.randomElement() ?? .opaque
         return element
     }
 }

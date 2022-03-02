@@ -8,8 +8,8 @@
 import Foundation
 
 struct Point {
-    var x: Double
-    var y: Double
+    let x: Double
+    let y: Double
     
     init(x: Int, y: Int) {
         self.x = Double(x)

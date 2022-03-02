@@ -53,7 +53,7 @@ class DrawingAppTests: XCTestCase {
     }
     
     func testAlpha() {
-        var alpha = Alpha(value: 5)
+        var alpha = Alpha(raw: 5)
         XCTAssertEqual(alpha, .five)
         
         alpha = Alpha(value: -1)
