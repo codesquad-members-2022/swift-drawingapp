@@ -14,16 +14,16 @@ class Rectangle {
     private var backgroundColor: BackgroundColor
     private var alpha: Alpha
     
-    init(width: Double, height: Double, x: Double, y: Double, backgroundColor: BackgroundColor, alpha: Alpha) {
-        self.id = ID()
+    init(id: ID, width: Double, height: Double, x: Double, y: Double, backgroundColor: BackgroundColor, alpha: Alpha) {
+        self.id = id
         size = Size(width: width, height: height)
         point = Point(x: x, y: y)
         self.backgroundColor = backgroundColor
         self.alpha = alpha
     }
     
-    init(size: Size, point: Point, backgroundColor: BackgroundColor, alpha: Alpha) {
-        self.id = ID()
+    init(id: ID, size: Size, point: Point, backgroundColor: BackgroundColor, alpha: Alpha) {
+        self.id = id
         self.size = size
         self.point = point
         self.backgroundColor = backgroundColor
