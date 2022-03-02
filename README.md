@@ -37,8 +37,31 @@
 	3. Alpha의 값 범위에 대한 제한 설정
 
 		프로그래밍 요구사항 내에 존재하는 제한 범위를 지키도록, Alpha 타입 초기화 시 범위를 초과하는 값이 들어오면 최솟값 또는 최댓값을 가지도록 설정
+		
+	3. Alpha, BackgroundColor의 값 제한 설정
+	
+		사용하는 사람이 해당 타입 값의 범위를 어떻게 알 수 있냐는 말씀을 듣고, 직접 Color 값과  Alpha Level에 대한 최소, 최댓값을 설정할 수 있도록 해당 타입들의 초기화 메서드를 아래와 같이 수정
+		
+		```swift
+		// struct Alpha
+		// let value: Double
+		init(opacityLevel: Int, min: Int = 1, max: Int = 10) {
+		    if opacityLevel > max {
+		        self.value = 1.0
+		    } else if opacityLevel < min {
+		        self.value = 0.1
+		    } else {
+		        let possibleAlphaValue = [0] + (min...max).map {
+		            Double($0) / Double(max)
+		        }
+		        self.value = possibleAlphaValues[opacityLevel]
+		    }
+		}
+		```
+		
+		
 
-> 완성 일시: 2022.03.02/ 15:40
+> 완성 일시: 2022.03.02/ 17:35
 
 ---
 
