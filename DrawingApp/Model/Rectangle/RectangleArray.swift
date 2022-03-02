@@ -7,13 +7,14 @@
 
 import Foundation
 
-class RectangleArray{
+final class RectangleArray{
     private var rectangles: [Rectangle] = []
     private var lastRectangle: Rectangle?
     private let rectangleFactory = RectangleFactory()
+    private let rectangleIDFactory = RectangleIDFactory()
     
     func makeRectangle(viewWidth: Double, viewHeight: Double){
-        let id = rectangleFactory.makeId()
+        let id = rectangleIDFactory.makeID()
         let size = rectangleFactory.makeSize()
         let point = rectangleFactory.makePoint(viewWidth: viewWidth, viewHeight: viewHeight)
         let color = rectangleFactory.makeColor()

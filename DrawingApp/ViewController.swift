@@ -30,8 +30,8 @@ class ViewController: UIViewController {
             return
         }
         
-        let rectangleView = UIView(frame: CGRect(x: rectangle.showPoint()[0], y: rectangle.showPoint()[1], width: rectangle.showSize()[0], height: rectangle.showSize()[1]))
-        rectangleView.backgroundColor = UIColor(displayP3Red: rectangle.showColor()[0], green: rectangle.showColor()[1], blue: rectangle.showColor()[2], alpha: rectangle.showAlpha())
+        let rectangleView = UIView(frame: CGRect(x: rectangle.showPoint().xValue(), y: rectangle.showPoint().yValue(), width: rectangle.showSize().widthValue(), height: rectangle.showSize().heightValue()))
+        rectangleView.backgroundColor = UIColor(displayP3Red: rectangle.showColor().redValue(), green: rectangle.showColor().greenValue(), blue: rectangle.showColor().blueValue(), alpha: rectangle.showAlpha().showValue())
         rectangleView.restorationIdentifier = rectangle.showId()
         
         os_log("%@", "\(rectangle.description)")

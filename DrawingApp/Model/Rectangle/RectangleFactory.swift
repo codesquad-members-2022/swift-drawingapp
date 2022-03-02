@@ -7,14 +7,9 @@
 
 import Foundation
 
-class RectangleFactory{
+final class RectangleFactory{
     private let width: Double = 150
     private let height: Double = 120
-    
-    func makeId() -> String{
-        let id = String.makeRectangleID()
-        return id
-    }
     
     func makeSize() -> MySize{
         let size = MySize(width: self.width, height: self.height)

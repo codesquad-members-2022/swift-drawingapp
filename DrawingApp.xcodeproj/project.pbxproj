@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D26D915727CC67E8007507AE /* Attributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26D915627CC67E8007507AE /* Attributes.swift */; };
+		D255615A27CEFA4700B4F9D7 /* MyPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255615927CEFA4700B4F9D7 /* MyPoint.swift */; };
+		D255615C27CEFA5C00B4F9D7 /* RGBColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255615B27CEFA5C00B4F9D7 /* RGBColor.swift */; };
+		D255615E27CEFA7000B4F9D7 /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255615D27CEFA7000B4F9D7 /* Alpha.swift */; };
+		D255616127CF003000B4F9D7 /* RectangleIDFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255616027CF003000B4F9D7 /* RectangleIDFactory.swift */; };
+		D26D915727CC67E8007507AE /* MySize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26D915627CC67E8007507AE /* MySize.swift */; };
 		D26D915927CC6D87007507AE /* RectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26D915827CC6D87007507AE /* RectangleFactory.swift */; };
 		D26D915B27CCB8B3007507AE /* RectangleArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26D915A27CCB8B3007507AE /* RectangleArray.swift */; };
 		D26D916327CD03B0007507AE /* RectangleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26D916227CD03B0007507AE /* RectangleTest.swift */; };
@@ -33,7 +37,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D26D915627CC67E8007507AE /* Attributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Attributes.swift; sourceTree = "<group>"; };
+		D255615927CEFA4700B4F9D7 /* MyPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPoint.swift; sourceTree = "<group>"; };
+		D255615B27CEFA5C00B4F9D7 /* RGBColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBColor.swift; sourceTree = "<group>"; };
+		D255615D27CEFA7000B4F9D7 /* Alpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alpha.swift; sourceTree = "<group>"; };
+		D255616027CF003000B4F9D7 /* RectangleIDFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleIDFactory.swift; sourceTree = "<group>"; };
+		D26D915627CC67E8007507AE /* MySize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySize.swift; sourceTree = "<group>"; };
 		D26D915827CC6D87007507AE /* RectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactory.swift; sourceTree = "<group>"; };
 		D26D915A27CCB8B3007507AE /* RectangleArray.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleArray.swift; sourceTree = "<group>"; };
 		D26D916027CD03B0007507AE /* RectangleTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RectangleTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,6 +77,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D255615827CEFA1200B4F9D7 /* Attributes */ = {
+			isa = PBXGroup;
+			children = (
+				D26D915627CC67E8007507AE /* MySize.swift */,
+				D255615927CEFA4700B4F9D7 /* MyPoint.swift */,
+				D255615B27CEFA5C00B4F9D7 /* RGBColor.swift */,
+				D255615D27CEFA7000B4F9D7 /* Alpha.swift */,
+			);
+			path = Attributes;
+			sourceTree = "<group>";
+		};
+		D255615F27CF000300B4F9D7 /* Rectangle */ = {
+			isa = PBXGroup;
+			children = (
+				D273EAF227CC5DA000DCDF78 /* Rectangle.swift */,
+				D26D915827CC6D87007507AE /* RectangleFactory.swift */,
+				D255616027CF003000B4F9D7 /* RectangleIDFactory.swift */,
+				D26D915A27CCB8B3007507AE /* RectangleArray.swift */,
+			);
+			path = Rectangle;
+			sourceTree = "<group>";
+		};
 		D26D916127CD03B0007507AE /* RectangleTest */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,10 +145,8 @@
 		D273EAF127CC5D8600DCDF78 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D273EAF227CC5DA000DCDF78 /* Rectangle.swift */,
-				D26D915827CC6D87007507AE /* RectangleFactory.swift */,
-				D26D915A27CCB8B3007507AE /* RectangleArray.swift */,
-				D26D915627CC67E8007507AE /* Attributes.swift */,
+				D255615827CEFA1200B4F9D7 /* Attributes */,
+				D255615F27CF000300B4F9D7 /* Rectangle */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -234,12 +262,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D255615C27CEFA5C00B4F9D7 /* RGBColor.swift in Sources */,
+				D255616127CF003000B4F9D7 /* RectangleIDFactory.swift in Sources */,
+				D255615A27CEFA4700B4F9D7 /* MyPoint.swift in Sources */,
 				D273EAE227CC5C6500DCDF78 /* ViewController.swift in Sources */,
 				D26D915B27CCB8B3007507AE /* RectangleArray.swift in Sources */,
 				D273EADE27CC5C6500DCDF78 /* AppDelegate.swift in Sources */,
 				D26D915927CC6D87007507AE /* RectangleFactory.swift in Sources */,
+				D255615E27CEFA7000B4F9D7 /* Alpha.swift in Sources */,
 				D273EAE027CC5C6500DCDF78 /* SceneDelegate.swift in Sources */,
-				D26D915727CC67E8007507AE /* Attributes.swift in Sources */,
+				D26D915727CC67E8007507AE /* MySize.swift in Sources */,
 				D273EAF327CC5DA000DCDF78 /* Rectangle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
