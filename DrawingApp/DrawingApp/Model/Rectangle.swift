@@ -6,24 +6,24 @@
 //
 
 import Foundation
-import OSLog
 
 class Rectangle: Shapable {
     private(set) var id: Identifier
     private(set) var size: Size
     private(set) var point: Point
     private(set) var backGroundColor: Color
+    private(set) var alpha: Alpha
     
     init(identifier: Identifier,
          size: Size = Size(width: 150, height: 120),
          point: Point,
-         backGroundColor: Color)
+         backGroundColor: Color,
+         alpha: Alpha)
     {
         self.id = identifier
         self.size = size
         self.point = point
         self.backGroundColor = backGroundColor
-        
-        os_log(.debug, log: .default, "\n\(self)")
+        self.alpha = alpha
     }
 }

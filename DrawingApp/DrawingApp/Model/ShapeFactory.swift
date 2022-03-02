@@ -53,7 +53,8 @@ extension ShapeFactory: ShapeFactorable {
             return Rectangle(identifier: generateRandomIdentifier(delimiter: "-"),
                              size: generateRandomSize(),
                              point: generateRandomPoint(),
-                             backGroundColor: generateRandomColor())
+                             backGroundColor: generateRandomColor(),
+                             alpha: Alpha.random)
         }
     }
 }
