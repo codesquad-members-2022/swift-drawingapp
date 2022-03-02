@@ -30,10 +30,10 @@ class Rectangle {
     let size : Size
     let point : Point
     let color : Color
-    let alpha : Double
+    let alpha : Int
     
     
-    init (id: String, size:Size, point: Point, color: Color, alpha : Double) {
+    init (id: String, size:Size, point: Point, color: Color, alpha : Int) {
         self.id = id
         self.size = size
         self.point = point
@@ -52,33 +52,10 @@ extension Rectangle : CustomStringConvertible {
 }
 
 
-//Size 타입 정의
-struct Size : CustomStringConvertible {
-    var width : Double = 150
-    var height : Double = 120
-    var description: String {
-        return "W\(width), H\(height)"
-    }
-}
 
-//Point (좌표) 타입 정의
-struct Point : CustomStringConvertible {
-    var x : Double = 0
-    var y : Double = 0
-    var description: String {
-        return "X:\(x), Y:\(y)"
-    }
-}
 
-//Color (RGB) 타입 정의
-struct Color : CustomStringConvertible {
-    var red : Double = 0
-    var green : Double = 0
-    var blue : Double = 0
-    var description: String {
-        return "R:\(red), G:\(green), B:\(blue)"
-    }
-}
+
+
 
 
 

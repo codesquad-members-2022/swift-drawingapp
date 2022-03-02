@@ -30,8 +30,8 @@ class ViewController: UIViewController {
     @objc func didTapButton () {
         if let rect = RectangleFactory(screenWidth: screenWdith, screenHeight: screenHeight).makeRect() {
             os_log(.debug, "\(rect.description)")
-            let rectangleView = UIView(frame: CGRect(x: rect.getPoint().x, y: rect.getPoint().y, width: rect.getSize().width, height: rect.getSize().height))
-            rectangleView.backgroundColor = UIColor(red: rect.getColor().red/255.0, green: rect.getColor().green/255.0, blue: rect.getColor().blue/255.0, alpha: rect.getAlpha()/10.0)
+            let rectangleView = UIView(frame: CGRect(x: rect.point.x, y: rect.point.y, width: rect.size.width, height: rect.size.height))
+            rectangleView.backgroundColor = UIColor(red: rect.color.red/255.0, green: rect.color.green/255.0, blue: rect.color.blue/255.0, alpha: Double(rect.alpha)/10.0)
             self.view.addSubview(rectangleView)
         }
     }
