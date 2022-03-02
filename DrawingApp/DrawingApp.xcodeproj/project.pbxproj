@@ -11,6 +11,7 @@
 		6F045CFA27CFB8B000D64C5A /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F045CF927CFB8B000D64C5A /* Rectangle.swift */; };
 		6F045CFC27CFC83600D64C5A /* UniqueID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F045CFB27CFC83600D64C5A /* UniqueID.swift */; };
 		6F045CFE27CFD91E00D64C5A /* RectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F045CFD27CFD91D00D64C5A /* RectangleFactory.swift */; };
+		6F045D0027CFEDEA00D64C5A /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F045CFF27CFEDEA00D64C5A /* Log.swift */; };
 		6F78542D27CF694300C1154D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F78542C27CF694300C1154D /* AppDelegate.swift */; };
 		6F78542F27CF694300C1154D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F78542E27CF694300C1154D /* SceneDelegate.swift */; };
 		6F78543127CF694300C1154D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F78543027CF694300C1154D /* ViewController.swift */; };
@@ -43,6 +44,7 @@
 		6F045CF927CFB8B000D64C5A /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 		6F045CFB27CFC83600D64C5A /* UniqueID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniqueID.swift; sourceTree = "<group>"; };
 		6F045CFD27CFD91D00D64C5A /* RectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactory.swift; sourceTree = "<group>"; };
+		6F045CFF27CFEDEA00D64C5A /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		6F78542927CF694300C1154D /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F78542C27CF694300C1154D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6F78542E27CF694300C1154D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				6F78542C27CF694300C1154D /* AppDelegate.swift */,
 				6F78542E27CF694300C1154D /* SceneDelegate.swift */,
 				6F78543027CF694300C1154D /* ViewController.swift */,
+				6F045CFF27CFEDEA00D64C5A /* Log.swift */,
 				6F045CFD27CFD91D00D64C5A /* RectangleFactory.swift */,
 				6F045CF727CFB2BC00D64C5A /* Color.swift */,
 				6F045CF927CFB8B000D64C5A /* Rectangle.swift */,
@@ -276,6 +279,7 @@
 				6F045CF827CFB2BC00D64C5A /* Color.swift in Sources */,
 				6F045CFC27CFC83600D64C5A /* UniqueID.swift in Sources */,
 				6F78542D27CF694300C1154D /* AppDelegate.swift in Sources */,
+				6F045D0027CFEDEA00D64C5A /* Log.swift in Sources */,
 				6F78542F27CF694300C1154D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -455,7 +459,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 56KBBDN6MA;
 				INFOPLIST_FILE = DrawingApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -475,7 +479,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 56KBBDN6MA;
 				INFOPLIST_FILE = DrawingApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
