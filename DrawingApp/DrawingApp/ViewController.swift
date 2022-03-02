@@ -17,7 +17,6 @@ class ViewController: UIViewController {
         let rect2 = rectangleFactory.makeRandomRectangle()
         let rect3 = rectangleFactory.makeRandomRectangle()
         let rect4 = rectangleFactory.makeRandomRectangle()
-        
     }
 
 
