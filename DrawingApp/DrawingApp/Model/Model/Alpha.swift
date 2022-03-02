@@ -10,10 +10,10 @@ import Foundation
 struct Alpha: CustomStringConvertible {
     var value: Float
     
-    init?(value: Float) {
+    init?(value: Int) {
         guard 0 <= value, value <= 10 else { return nil }
         
-        self.value = value / 10
+        self.value = Float(value) / 10.0
     }
     
     var description: String {
