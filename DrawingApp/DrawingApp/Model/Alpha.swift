@@ -7,16 +7,12 @@
 
 import Foundation
 
-class Alpha {
-    
-    private let alpha: Opacity
-    
-    enum Opacity: Int {
-        case one = 1, two, three, four, five, six, seven, eight, nine, ten
+enum Alpha: Int, CaseIterable {
+    case one = 1, two, three, four, five, six, seven, eight, nine, ten
+}
+
+extension Alpha: CustomStringConvertible {
+    var description: String {
+        return "\(self.rawValue)"
     }
-    
-    init(alpha: Opacity) {
-        self.alpha = alpha
-    }
-    
 }
