@@ -17,7 +17,7 @@ class ShapeFactory {
     }
 
     private func generateRandomSize() -> Size {
-        let range = (ShapeBound.Size.lowwer...ShapeBound.Size.upper)
+        let range = (Size.Bound.lowwer...Size.Bound.upper)
 
         let randomWidth = round(Double.random(in: range))
         let randomHeight = round(Double.random(in: range))
@@ -26,7 +26,7 @@ class ShapeFactory {
     }
     
     private func generateRandomPoint() -> Point {
-        let range = (ShapeBound.Point.lowwer...ShapeBound.Point.upper)
+        let range = (Point.Bound.lowwer...Point.Bound.upper)
         
         let randomX = round(Double.random(in: range))
         let randomY = round(Double.random(in: range))
@@ -35,7 +35,7 @@ class ShapeFactory {
     }
     
     private func generateRandomColor() -> Color {
-        let range = (ShapeBound.Color.lowwer...ShapeBound.Color.upper)
+        let range = (Color.Bound.lowwer...Color.Bound.upper)
         
         let randomRed = round(Double.random(in: range))
         let randomGreen = round(Double.random(in: range))
