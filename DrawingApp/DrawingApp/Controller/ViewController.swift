@@ -81,12 +81,15 @@ extension ViewController: UIGestureRecognizerDelegate{
         let tappedPoint = touch.location(in: self.canvasView)
         guard let rectangle = self.plane[tappedPoint.x,tappedPoint.y] else { return true }
         guard let stylerView = self.stylerView else { return true }
+        guard let canvasView = self.canvasView else { return true }
+        guard let rectangleView = canvasView[tappedPoint.x,tappedPoint.y] else { return true }
         
         let r = rectangle.backgroundColor.r
         let g = rectangle.backgroundColor.g
         let b = rectangle.backgroundColor.b
         let opacity = rectangle.alpha.opacity
         stylerView.updateRectangleInfo(r: r, g: g, b: b, opacity: opacity)
+        canvasView.selectTappedRectangle(subView: rectangleView)
         
         return true
     }

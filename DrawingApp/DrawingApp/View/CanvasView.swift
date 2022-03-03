@@ -4,6 +4,7 @@ import UIKit
 class CanvasView: UIView{
     
     private (set) var generatingButton: UIButton = UIButton()
+    private var selectedRectangleView: UIView?
     
     init(frame: CGRect, backGroundColor: UIColor, buttonActionClosure: @escaping ()->Void) {
         super.init(frame: frame)
@@ -14,6 +15,14 @@ class CanvasView: UIView{
         
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    func selectTappedRectangle(subView: UIView){
+        if let selectedRectangleView = self.selectedRectangleView {
+            selectedRectangleView.layer.borderWidth = 0
+        }
+        subView.layer.borderWidth = 2
+        self.selectedRectangleView = subView
     }
     
     private func setGeneratingButton(){
@@ -37,6 +46,23 @@ class CanvasView: UIView{
         let buttonAction:UIAction = UIAction(title: ""){ _ in
             buttonActionClosure() }
         self.generatingButton.addAction(buttonAction, for: .touchDown)
+    }
+    
+    subscript(x: Double, y: Double)-> UIView?{
+        func isTappedPointInsideTheRange(view: UIView)-> Bool{
+            if((x <= view.frame.maxX && x >= view.frame.minX) && (y <= view.frame.maxY && y >= view.frame.minY)){
+                return true
+            }
+            return false
+        }
+        
+        for view in self.subviews{
+            if(isTappedPointInsideTheRange(view: view)){
+                return view
+            }
+        }
+        
+        return nil
     }
 
 }
