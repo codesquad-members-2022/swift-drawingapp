@@ -8,9 +8,9 @@
 import Foundation
 
 struct Color: CustomStringConvertible {
-    var red: Float
-    var green: Float
-    var blue: Float
+    let red: Float
+    let green: Float
+    let blue: Float
     
     init?(r red: Float, g green: Float, b blue: Float) {
         guard red >= 0, red <= 255, green >= 0, green <= 255, blue >= 0, blue <= 255 else { return nil }
