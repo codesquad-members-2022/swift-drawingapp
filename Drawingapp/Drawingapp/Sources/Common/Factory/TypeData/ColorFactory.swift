@@ -8,7 +8,7 @@
 import Foundation
 
 class ColorFactory {
-    func maker() -> Color {
+    func make() -> Color {
         let colorValues = (0..<3).map{ _ in Int.random(in: 0...255) }
         return Color(r: colorValues[0], g: colorValues[1], b: colorValues[2])
     }

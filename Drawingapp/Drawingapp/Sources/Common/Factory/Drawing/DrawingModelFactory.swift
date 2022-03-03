@@ -17,7 +17,7 @@ class DrawingModelFactory {
         let id = makeId()
         let size = sizeFactory.make()
         let point = pointFactory.make()
-        let color = colorFactory.maker()
+        let color = colorFactory.make()
         let alpha = Alpha.allCases.randomElement() ?? .ten
         
         return Square(id: id, point: point, size: size, color: color, alpha: alpha)
