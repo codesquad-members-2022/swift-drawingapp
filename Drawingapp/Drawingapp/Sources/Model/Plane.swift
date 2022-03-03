@@ -53,7 +53,8 @@ class Plane {
         }
         
         self.action.changeAlphaSliderEvent = { alpha in
-            guard let square = self.selectedSquare else {
+            guard let square = self.selectedSquare,
+                  let alpha = alpha else {
                 return
             }
             square.update(alpha: alpha)

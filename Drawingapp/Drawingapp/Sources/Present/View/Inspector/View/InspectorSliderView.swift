@@ -52,10 +52,12 @@ class InspectorSliderView: InspectorItemView {
     private func bind() {
         minusButton.addAction(UIAction{ _ in
             self.addValue(-1)
+            self.updateButtonsState()
         }, for: .touchUpInside)
 
         plusButton.addAction(UIAction{ _ in
             self.addValue(1)
+            self.updateButtonsState()
         }, for: .touchUpInside)
     }
         
@@ -80,16 +82,10 @@ class InspectorSliderView: InspectorItemView {
     private func addValue(_ value: Float) {
         slider.value += value
         slider.sendActions(for: .valueChanged)
-        updateButtonsState()
     }
     
     func setValue(_ value: Float) {
         slider.value = value
         updateButtonsState()
-    }
-    
-    func setLimit(min: Float, max: Float) {
-        slider.minimumValue = min
-        slider.maximumValue = max
     }
 }

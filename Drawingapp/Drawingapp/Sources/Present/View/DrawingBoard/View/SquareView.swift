@@ -17,7 +17,9 @@ class SquareView {
         
         let point = model.point
         let size = model.size
+        let alpha = model.alpha.value
         view.frame = CGRect(x: point.x, y: point.y, width: size.width, height: size.height)
+        view.alpha = alpha
     }
     
     func selected(is select: Bool) {

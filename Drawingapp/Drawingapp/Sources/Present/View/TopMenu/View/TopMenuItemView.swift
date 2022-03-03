@@ -8,26 +8,37 @@
 import Foundation
 import UIKit
 
-class TopMenuItemView: BaseView {
-    let icon = UIImageView()
-    let button = UIButton()
+class TopMenuItemView: UIView {
+    let icon: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
     
-    override func attribute() {
-        super.attribute()
-        self.backgroundColor = .clear
+    let button: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        layout()
     }
     
-    override func layout() {
-        super.layout()
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        layout()
+    }
+    
+    private func layout() {
         self.addSubview(icon)
-        icon.translatesAutoresizingMaskIntoConstraints = false
         icon.topAnchor.constraint(equalTo: self.topAnchor, constant: 10 ).isActive = true
         icon.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         icon.widthAnchor.constraint(equalToConstant: 30).isActive = true
         icon.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         self.addSubview(button)
-        button.translatesAutoresizingMaskIntoConstraints = false
         button.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         button.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         button.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true

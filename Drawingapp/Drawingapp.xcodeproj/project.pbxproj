@@ -134,17 +134,17 @@
 		E03455AB27CF24560036988A /* DrawingBoard */ = {
 			isa = PBXGroup;
 			children = (
-				E03455AC27CF24560036988A /* Item */,
+				E03455AC27CF24560036988A /* View */,
 			);
 			path = DrawingBoard;
 			sourceTree = "<group>";
 		};
-		E03455AC27CF24560036988A /* Item */ = {
+		E03455AC27CF24560036988A /* View */ = {
 			isa = PBXGroup;
 			children = (
 				E03455AD27CF24560036988A /* SquareView.swift */,
 			);
-			path = Item;
+			path = View;
 			sourceTree = "<group>";
 		};
 		E03455AF27CF25300036988A /* Base */ = {
@@ -182,6 +182,14 @@
 				E034560C27D0AC3A0036988A /* ColorFactory.swift */,
 			);
 			path = TypeData;
+			sourceTree = "<group>";
+		};
+		E034561327D0F1C40036988A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				E0D7DA4727CDE3C800A56635 /* TopMenuItemView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		E0D7D9D127CC594D00A56635 = {
@@ -307,8 +315,8 @@
 		E0D7DA4927CDE3CD00A56635 /* TopMenu */ = {
 			isa = PBXGroup;
 			children = (
+				E034561327D0F1C40036988A /* View */,
 				E0D7DA4427CDE32300A56635 /* TopMenuBarView.swift */,
-				E0D7DA4727CDE3C800A56635 /* TopMenuItemView.swift */,
 			);
 			path = TopMenu;
 			sourceTree = "<group>";
@@ -316,13 +324,13 @@
 		E0D7DA4B27CDF1BA00A56635 /* Inspector */ = {
 			isa = PBXGroup;
 			children = (
-				E0D7DA5527CDF71F00A56635 /* ItemView */,
+				E0D7DA5527CDF71F00A56635 /* View */,
 				E0D7DA4C27CDF28C00A56635 /* InspectorView.swift */,
 			);
 			path = Inspector;
 			sourceTree = "<group>";
 		};
-		E0D7DA5527CDF71F00A56635 /* ItemView */ = {
+		E0D7DA5527CDF71F00A56635 /* View */ = {
 			isa = PBXGroup;
 			children = (
 				E0D7DA5227CDF70D00A56635 /* InspectorItemView.swift */,
@@ -330,7 +338,7 @@
 				E0D7DA4E27CDF65D00A56635 /* InspectorItemLabelView.swift */,
 				E0D7DA5027CDF6FE00A56635 /* InspectorSliderView.swift */,
 			);
-			path = ItemView;
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -34,8 +34,4 @@ class InspectorItemButtonView: InspectorItemView {
         self.stackView.addArrangedSubview(button)
         button.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
-    
-    func setButtonTitle(_ title: String) {
-        button.setTitle(title, for: .normal)
-    }
 }
