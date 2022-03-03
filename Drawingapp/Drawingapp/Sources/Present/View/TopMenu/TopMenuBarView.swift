@@ -8,6 +8,10 @@
 import Foundation
 import UIKit
 
+protocol TopMenuBarDelegate {
+    func makeSquareButtonTapped()
+}
+
 class TopMenuBarView: UIView {
     let stackView: UIStackView = {
         let stackView = UIStackView()
@@ -24,22 +28,25 @@ class TopMenuBarView: UIView {
         return makeSquare
     }()
     
+    var delegate: TopMenuBarDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        bind()
         layout()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        bind()
         layout()
     }
     
-//    func bind(plane: Plane) {
-//        makeSquare.button.addAction(UIAction{ _ in
-//            plane.action.makeSquareButtonTapped()
-//        }, for: .touchUpInside)
-//    }
-    
+    private func bind() {
+        makeSquare.button.addAction(UIAction{ _ in
+            self.delegate?.makeSquareButtonTapped()
+        }, for: .touchUpInside)
+    }
     
     private func layout() {
         self.addSubview(stackView)

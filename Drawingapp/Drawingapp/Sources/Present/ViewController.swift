@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, PlaneOutput {
     let drawingBoard: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -37,44 +37,15 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bind()
         layout()
+        
+        inspectorView.delegate = self
+        topMenuBarView.delegate = self
+        plane.delegate = self
         
         let tapGesture = UITapGestureRecognizer()
         tapGesture.delegate = self
         self.drawingBoard.addGestureRecognizer(tapGesture)
-    }
-    
-    func bind() {
-//        topMenuBarView.bind(plane: self.plane)
-//        inspectorView.bind(plane: self.plane)
-        
-        plane.state.drawSquare = { square in
-            let drawView = self.drawingViewFactory.make(square: square)
-            self.drawingBoard.addSubview(drawView.view)
-            self.squareViews[square.id] = drawView
-        }
-        
-        plane.state.didDisSelectedSquare = { square in
-            guard let square = square else {
-                return
-            }
-            self.squareViews[square.id]?.selected(is: false)
-        }
-        
-        plane.state.didSelectedSquare = { square in
-            self.inspectorView.updateInspector(in: square)
-            
-            guard let square = square else {
-                return
-            }
-            self.squareViews[square.id]?.selected(is: true)
-        }
-        
-        plane.state.updateSquare = { square in
-            self.squareViews[square.id]?.update(in: square)
-            self.inspectorView.updateInspector(in: square)
-        }
     }
     
     func layout() {
@@ -98,12 +69,55 @@ class ViewController: UIViewController {
         topMenuBarView.centerXAnchor.constraint(equalTo: self.drawingBoard.centerXAnchor).isActive = true
         topMenuBarView.heightAnchor.constraint(equalToConstant: 70).isActive = true
     }
+    
+    func didDisSelectedSquare(to square: Square?) {
+        guard let square = square else {
+            return
+        }
+        self.squareViews[square.id]?.selected(is: false)
+    }
+    
+    func didSelectedSquare(to square: Square?) {
+        self.inspectorView.updateInspector(in: square)
+        
+        guard let square = square else {
+            return
+        }
+        self.squareViews[square.id]?.selected(is: true)
+    }
+    
+    func drawSquare(to square: Square) {
+        let drawView = self.drawingViewFactory.make(square: square)
+        self.drawingBoard.addSubview(drawView.view)
+        self.squareViews[square.id] = drawView
+    }
+    
+    func updateSquare(to square: Square) {
+        self.squareViews[square.id]?.update(in: square)
+        self.inspectorView.updateInspector(in: square)
+    }
 }
 
 extension ViewController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         let location = gestureRecognizer.location(in: gestureRecognizer.view)
-        self.plane.action.onScreenTapped(Point(x: location.x, y: location.y))
+        self.plane.drawingBoardTapped(where: Point(x: location.x, y: location.y))
         return true
+    }
+}
+
+extension ViewController: InspectorDelegate {
+    func changeColorButtonTapped() {
+        self.plane.changeColorButtonTapped()
+    }
+    
+    func alphaSliderValueChanged(alpha: Alpha?) {
+        self.plane.alphaChanged(alpha: alpha)
+    }
+}
+
+extension ViewController: TopMenuBarDelegate {
+    func makeSquareButtonTapped() {
+        self.plane.makeSquareButtonTapped()
     }
 }
