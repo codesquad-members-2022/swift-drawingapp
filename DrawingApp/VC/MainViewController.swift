@@ -14,6 +14,7 @@ class MainViewController: UIViewController {
     let rightAttributerView = RightAttributerView()
     
     private var selectedRectangleView: UIView?
+    private var selectedRectangleIndex: Int?
     
     @IBOutlet weak var rectangleButton: UIButton!
     
@@ -23,6 +24,11 @@ class MainViewController: UIViewController {
         rectangleButton.layer.cornerRadius = 15
         self.view.addSubview(rightAttributerView)
         rightAttributerView.layout()
+        
+        rightAttributerView.redSlider.addTarget(self, action: #selector(self.changeRectangleAttribute), for: .valueChanged)
+        rightAttributerView.greenSlider.addTarget(self, action: #selector(self.changeRectangleAttribute), for: .valueChanged)
+        rightAttributerView.blueSlider.addTarget(self, action: #selector(self.changeRectangleAttribute), for: .valueChanged)
+        rightAttributerView.alphaSlider.addTarget(self, action: #selector(self.changeRectangleAttribute), for: .valueChanged)
         
         let tapGestureRecognizer = UITapGestureRecognizer()
         tapGestureRecognizer.delegate = self
@@ -46,13 +52,29 @@ class MainViewController: UIViewController {
         os_log("%@", "\(rectangle.description)")
         self.view.addSubview(rectangleView)
     }
+    
+    @objc func changeRectangleAttribute(){
+        guard let index = selectedRectangleIndex, let rectangle = self.rectangles[index], let rectView = selectedRectangleView else{
+            return
+        }
+        let newColor = RGBColor(red: rightAttributerView.redValue, green: rightAttributerView.greenValue, blue: rightAttributerView.blueValue)
+        let newAlpha = rightAttributerView.alphaValue
+        
+        rectangle.changeAlpha(alpha: newAlpha)
+        rectangle.changeColor(color: newColor)
+        
+        rectView.backgroundColor = UIColor(red: rectangle.showColor().redValue(), green: rectangle.showColor().greenValue(), blue: rectangle.showColor().blueValue(), alpha: rectangle.showAlpha().showValue())
+        
+        rightAttributerView.changeAllSliderValue()
+    }
 }
 
 extension MainViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         let touchPoint = touch.location(in: self.view)
+        findSelectedRectangle(point: touchPoint)
         
-        guard let index = findSelectedRectangle(point: touchPoint), let rectangle = self.rectangles[index] else{
+        guard let index = selectedRectangleIndex, let rectangle = self.rectangles[index] else{
             return true
         }
         
@@ -64,9 +86,9 @@ extension MainViewController: UIGestureRecognizerDelegate {
         return true
     }
     
-    private func findSelectedRectangle(point: CGPoint) -> Int?{
+    private func findSelectedRectangle(point: CGPoint){
         guard let rectangleInPlane = rectangles.findRectangle(withX: point.x, withY: point.y) else{
-            return nil
+            return
         }
         
         self.view.subviews.forEach{ rectangle in
@@ -74,8 +96,7 @@ extension MainViewController: UIGestureRecognizerDelegate {
                 return
             }
             self.selectedRectangleView = rectangle
+            self.selectedRectangleIndex = rectangles.findRectangleIndex(rectangle: rectangleInPlane)
         }
-        
-        return rectangles.findRectangleIndex(rectangle: rectangleInPlane)
     }
 }
