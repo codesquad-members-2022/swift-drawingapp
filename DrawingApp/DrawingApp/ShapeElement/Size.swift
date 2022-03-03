@@ -5,12 +5,7 @@
 //  Created by 박진섭 on 2022/03/01.
 //
 
-class Size:CustomStringConvertible,Drawable {
-
-    
-    func draw() {
-        print("Size Draw Width:\(width), height:\(height)")
-    }
+struct Size:CustomStringConvertible{
     
     var description: String {
         "W\(width), H\(height)"

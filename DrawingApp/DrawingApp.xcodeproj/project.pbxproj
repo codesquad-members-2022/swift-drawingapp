@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D1E046627D0A30B00645A7F /* SizeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1E046527D0A30B00645A7F /* SizeFactory.swift */; };
+		8D1E046827D0A31500645A7F /* PointFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1E046727D0A31500645A7F /* PointFactory.swift */; };
+		8D1E046A27D0A31B00645A7F /* RGBFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1E046927D0A31B00645A7F /* RGBFactory.swift */; };
+		8D1E046E27D0AE6D00645A7F /* AlphaFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1E046D27D0AE6D00645A7F /* AlphaFactory.swift */; };
 		8D6907F927CCBEF100F78A51 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6907F827CCBEF100F78A51 /* AppDelegate.swift */; };
 		8D6907FB27CCBEF100F78A51 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6907FA27CCBEF100F78A51 /* SceneDelegate.swift */; };
 		8D6907FD27CCBEF100F78A51 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6907FC27CCBEF100F78A51 /* ViewController.swift */; };
@@ -18,16 +22,8 @@
 		8D69083927CE08F000F78A51 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69083827CE08F000F78A51 /* Point.swift */; };
 		8D69083B27CE249200F78A51 /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69083A27CE249200F78A51 /* Alpha.swift */; };
 		8D69083D27CE249900F78A51 /* RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69083C27CE249900F78A51 /* RGB.swift */; };
-		8D69084727CF3B1700F78A51 /* Drawable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69084627CF3B1700F78A51 /* Drawable.swift */; };
-		8D69084927CF3CD400F78A51 /* DrawableCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69084827CF3CD400F78A51 /* DrawableCreator.swift */; };
-		8D69084B27CF3D5C00F78A51 /* DrawableFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69084A27CF3D5C00F78A51 /* DrawableFactory.swift */; };
 		8D69084D27CF4D4200F78A51 /* IDFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69084C27CF4D4200F78A51 /* IDFactory.swift */; };
 		8D69084F27CF4D9F00F78A51 /* ID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69084E27CF4D9F00F78A51 /* ID.swift */; };
-		8D69085127CF5D4E00F78A51 /* Decoable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69085027CF5D4E00F78A51 /* Decoable.swift */; };
-		8D69085527CF639300F78A51 /* DrawType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69085427CF639300F78A51 /* DrawType.swift */; };
-		8D69085727CF63C400F78A51 /* DecoType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69085627CF63C400F78A51 /* DecoType.swift */; };
-		8D69085927CF64FF00F78A51 /* DecoableCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69085827CF64FF00F78A51 /* DecoableCreator.swift */; };
-		8D69085B27CF659800F78A51 /* DecoableFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69085A27CF659800F78A51 /* DecoableFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +44,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8D1E046527D0A30B00645A7F /* SizeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeFactory.swift; sourceTree = "<group>"; };
+		8D1E046727D0A31500645A7F /* PointFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointFactory.swift; sourceTree = "<group>"; };
+		8D1E046927D0A31B00645A7F /* RGBFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBFactory.swift; sourceTree = "<group>"; };
+		8D1E046D27D0AE6D00645A7F /* AlphaFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphaFactory.swift; sourceTree = "<group>"; };
 		8D6907F527CCBEF100F78A51 /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D6907F827CCBEF100F78A51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D6907FA27CCBEF100F78A51 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -63,16 +63,8 @@
 		8D69083827CE08F000F78A51 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		8D69083A27CE249200F78A51 /* Alpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alpha.swift; sourceTree = "<group>"; };
 		8D69083C27CE249900F78A51 /* RGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGB.swift; sourceTree = "<group>"; };
-		8D69084627CF3B1700F78A51 /* Drawable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawable.swift; sourceTree = "<group>"; };
-		8D69084827CF3CD400F78A51 /* DrawableCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawableCreator.swift; sourceTree = "<group>"; };
-		8D69084A27CF3D5C00F78A51 /* DrawableFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawableFactory.swift; sourceTree = "<group>"; };
 		8D69084C27CF4D4200F78A51 /* IDFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDFactory.swift; sourceTree = "<group>"; };
 		8D69084E27CF4D9F00F78A51 /* ID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ID.swift; sourceTree = "<group>"; };
-		8D69085027CF5D4E00F78A51 /* Decoable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Decoable.swift; sourceTree = "<group>"; };
-		8D69085427CF639300F78A51 /* DrawType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawType.swift; sourceTree = "<group>"; };
-		8D69085627CF63C400F78A51 /* DecoType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoType.swift; sourceTree = "<group>"; };
-		8D69085827CF64FF00F78A51 /* DecoableCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoableCreator.swift; sourceTree = "<group>"; };
-		8D69085A27CF659800F78A51 /* DecoableFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DecoableFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,10 +116,8 @@
 				8D6907FC27CCBEF100F78A51 /* ViewController.swift */,
 				8D69082D27CDFDFD00F78A51 /* Rectangle.swift */,
 				8D69084E27CF4D9F00F78A51 /* ID.swift */,
-				8D69085227CF634500F78A51 /* Protocol */,
 				8D69084527CE2CBD00F78A51 /* Factory */,
 				8D69084027CE2C9100F78A51 /* ShapeElement */,
-				8D69085327CF637200F78A51 /* Type */,
 				8D6907FE27CCBEF100F78A51 /* Main.storyboard */,
 				8D69082827CCBF0200F78A51 /* Supporting Files */,
 				8D69080627CCBEF400F78A51 /* Info.plist */,
@@ -160,31 +150,13 @@
 		8D69084527CE2CBD00F78A51 /* Factory */ = {
 			isa = PBXGroup;
 			children = (
-				8D69084A27CF3D5C00F78A51 /* DrawableFactory.swift */,
-				8D69085A27CF659800F78A51 /* DecoableFactory.swift */,
 				8D69084C27CF4D4200F78A51 /* IDFactory.swift */,
+				8D1E046527D0A30B00645A7F /* SizeFactory.swift */,
+				8D1E046727D0A31500645A7F /* PointFactory.swift */,
+				8D1E046927D0A31B00645A7F /* RGBFactory.swift */,
+				8D1E046D27D0AE6D00645A7F /* AlphaFactory.swift */,
 			);
 			path = Factory;
-			sourceTree = "<group>";
-		};
-		8D69085227CF634500F78A51 /* Protocol */ = {
-			isa = PBXGroup;
-			children = (
-				8D69084827CF3CD400F78A51 /* DrawableCreator.swift */,
-				8D69085827CF64FF00F78A51 /* DecoableCreator.swift */,
-				8D69084627CF3B1700F78A51 /* Drawable.swift */,
-				8D69085027CF5D4E00F78A51 /* Decoable.swift */,
-			);
-			path = Protocol;
-			sourceTree = "<group>";
-		};
-		8D69085327CF637200F78A51 /* Type */ = {
-			isa = PBXGroup;
-			children = (
-				8D69085427CF639300F78A51 /* DrawType.swift */,
-				8D69085627CF63C400F78A51 /* DecoType.swift */,
-			);
-			path = Type;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -318,24 +290,20 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D69085727CF63C400F78A51 /* DecoType.swift in Sources */,
 				8D6907FD27CCBEF100F78A51 /* ViewController.swift in Sources */,
 				8D69083727CE08E900F78A51 /* Size.swift in Sources */,
 				8D69083B27CE249200F78A51 /* Alpha.swift in Sources */,
-				8D69084727CF3B1700F78A51 /* Drawable.swift in Sources */,
+				8D1E046E27D0AE6D00645A7F /* AlphaFactory.swift in Sources */,
+				8D1E046A27D0A31B00645A7F /* RGBFactory.swift in Sources */,
 				8D69083927CE08F000F78A51 /* Point.swift in Sources */,
 				8D6907F927CCBEF100F78A51 /* AppDelegate.swift in Sources */,
-				8D69085B27CF659800F78A51 /* DecoableFactory.swift in Sources */,
-				8D69085127CF5D4E00F78A51 /* Decoable.swift in Sources */,
 				8D69084F27CF4D9F00F78A51 /* ID.swift in Sources */,
 				8D6907FB27CCBEF100F78A51 /* SceneDelegate.swift in Sources */,
-				8D69085527CF639300F78A51 /* DrawType.swift in Sources */,
 				8D69084D27CF4D4200F78A51 /* IDFactory.swift in Sources */,
+				8D1E046627D0A30B00645A7F /* SizeFactory.swift in Sources */,
 				8D69082E27CDFDFD00F78A51 /* Rectangle.swift in Sources */,
-				8D69084B27CF3D5C00F78A51 /* DrawableFactory.swift in Sources */,
-				8D69084927CF3CD400F78A51 /* DrawableCreator.swift in Sources */,
 				8D69083D27CE249900F78A51 /* RGB.swift in Sources */,
-				8D69085927CF64FF00F78A51 /* DecoableCreator.swift in Sources */,
+				8D1E046827D0A31500645A7F /* PointFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
