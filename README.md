@@ -13,7 +13,8 @@
 	- ID타입을 선언후 팩토리를 이용해서 생성해보았다.
     - [X] 모델 클래스 파일은 Core Graphics나 UIKit에 독립적인 타입으로 선언한다. (해당 프레임워크를 import 하지 않아야 한다)
 - [X] 모델 클래스 출력을 위해서 CustomStringConvertible 프로토콜을 추가하고 구현한다.
-    ~~~swift
+- 
+~~~swift
     struct ID:CustomStringConvertible {
     var description: String {
         "(\(firstName)-\(middleName)-\(lastName))"
@@ -38,7 +39,8 @@
 - [X] 투명도는 1-10사이값으로 10단계로 표현한다.
 	- 투명도는 Int값으로 들어오게 되어있는데 init할때 10보다 큰값이나 작은값이 들어오면 어떻게 처리할지가 고민이었다.
     - 들어온 값과 실제 보여주는 값을 따로 설정해서 관리를 해보았다.
-    ~~~swift
+    
+~~~swift
     class Alpha:CustomStringConvertible,Decoable {
     
     var description: String {
