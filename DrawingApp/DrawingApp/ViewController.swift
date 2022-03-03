@@ -12,16 +12,20 @@ class ViewController: UIViewController {
     
     let plane = Plane()
     var rectangleFactory: RectangleFactory?
+    weak var generateRectangleButton: UIButton?
+    weak var drawableAreaView: UIView?
     @IBOutlet weak var statusView: UIView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addGenerateRectangleButton()
+        addDrawableAreaView()
         
-        let currentScreenSize = (width: Double(self.view.safeAreaLayoutGuide.layoutFrame.width),
-                                 height: Double(self.view.safeAreaLayoutGuide.layoutFrame.height))
-        let rectangleFactory = RectangleFactory(screenSize: currentScreenSize)
+        let drawableAreaSize = (width: Double(self.drawableAreaView?.frame.width ?? 0),
+                                height: Double(self.drawableAreaView?.frame.height ?? 0))
+        
+        let rectangleFactory = RectangleFactory(screenSize: drawableAreaSize)
         self.rectangleFactory = rectangleFactory
         rectangleFactory.delegate = self
         
@@ -40,9 +44,22 @@ class ViewController: UIViewController {
         generateButton.backgroundColor = .gray
         generateButton.setTitle("사각형 생성", for: .normal)
         
+        self.generateRectangleButton = generateButton
         self.view.addSubview(generateButton)
     }
-
+    
+    func addDrawableAreaView() {
+        let drawableViewX = self.view.frame.origin.x
+        let drawableViewY = self.view.frame.origin.y
+        let drawableViewWidth = self.view.frame.width - self.statusView.frame.width
+        let generateButtonHeight = 100.0
+        let drawableViewHeight = self.view.frame.height - generateButtonHeight
+        let drawableAreaView = UIView(frame: CGRect(x: drawableViewX, y: drawableViewY, width: drawableViewWidth, height: drawableViewHeight))
+        drawableAreaView.clipsToBounds = true
+        
+        self.drawableAreaView = drawableAreaView
+        self.view.addSubview(drawableAreaView)
+    }
 
 }
 
@@ -52,5 +69,6 @@ extension ViewController: RectangleDelegate {
         plane.add(rectangle: rectangle)
         
         let newRectangleView = ViewFactory.generateRectangleView(of: rectangle)
+        self.drawableAreaView?.addSubview(newRectangleView)
     }
 }
