@@ -23,4 +23,8 @@ class Plane {
             rectangle.hasSamePoint(point)
         }.count != 0
     }
+    
+    public func add(rectangle: Rectangle) {
+        rectangles.append(rectangle)
+    }
 }

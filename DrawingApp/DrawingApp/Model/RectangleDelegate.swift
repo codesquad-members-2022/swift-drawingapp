@@ -8,5 +8,5 @@
 import Foundation
 
 protocol RectangleDelegate {
-    func printLog(of rectangle: Rectangle)
+    func factoryDidGenerateRandomRectangle(_ rectangle: Rectangle)
 }
