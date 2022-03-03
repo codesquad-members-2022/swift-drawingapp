@@ -25,5 +25,19 @@ struct Plane {
         self.rectangles.append(rect)
     }
     
-   
+    func detectRect(x: Double, y: Double) -> Rectangle? {
+        for rectangle in rectangles {
+            let minX = rectangle.point.x
+            let minY = rectangle.point.y
+            let maxX = rectangle.point.x + rectangle.size.width
+            let maxY = rectangle.point.y + rectangle.size.height
+            
+            if minX <= x, maxX >= x, minY <= y , maxY >= y {
+                return rectangle
+            }
+        }
+        
+        return nil
+    }
+    
 }
