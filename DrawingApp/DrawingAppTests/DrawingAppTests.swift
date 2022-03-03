@@ -29,7 +29,7 @@ class DrawingAppTests: XCTestCase {
     }
     
     func testColor() {
-        var color = Color(red: 0, green: 100, blue: 0)
+        var color = Color(red: 0, green: 100, blue: 0) ?? .white
         XCTAssertNotEqual(color, Color.white)
         XCTAssertEqual(color.red, 0)
         XCTAssertEqual(color.green, 100)
@@ -37,6 +37,8 @@ class DrawingAppTests: XCTestCase {
         
         color = .red
         XCTAssertEqual(color.red, 255.0)
+        
+        XCTAssertNil(Color(red: 260, green: 0, blue: 10))
     }
     
     func testAlpha() {

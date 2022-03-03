@@ -53,7 +53,7 @@ enum ColorFactory: TypeFactory {
         let green = Double.random(in: range).rounded()
         let blue = Double.random(in: range).rounded()
         
-        return Color(red: red, green: green, blue: blue)
+        return Color(red: red, green: green, blue: blue) ?? .white
     }
 }
 

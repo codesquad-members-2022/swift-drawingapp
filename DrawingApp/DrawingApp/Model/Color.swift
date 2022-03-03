@@ -20,7 +20,30 @@ struct Color {
     let green: Double
     let blue: Double
     
-    init(red: Double, green: Double, blue: Double) {
+    private static func isValid(value: Double) -> Bool {
+        return Color.range.contains(value)
+    }
+    
+    private static func isValid(value: Int) -> Bool {
+        return Color.range.contains(Double(value))
+    }
+    
+    private init(red: Int, green: Int, blue: Int) {
+        if !Self.isValid(value: red) || !Self.isValid(value: green) || !Self.isValid(value: blue) {
+            self = .white
+            return
+        }
+        
+        self.red = Double(red)
+        self.green = Double(green)
+        self.blue = Double(blue)
+    }
+    
+    init?(red: Double, green: Double, blue: Double) {
+        if !Self.isValid(value: red) || !Self.isValid(value: green) || !Self.isValid(value: blue) {
+            return nil
+        }
+            
         self.red = red
         self.green = green
         self.blue = blue
