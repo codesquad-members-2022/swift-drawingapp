@@ -12,14 +12,15 @@ class BaseView: UIView {
     
     init(viewModel: ViewModel) {
         self.id = viewModel.id
-        super.init(frame: viewModel.cgRect)
+        let frame = Converter.toCGRect(origin: viewModel.origin, size: viewModel.size)
+        super.init(frame: frame)
         
         if let colorMutableViewModel = viewModel as? ColorMutable {
-            backgroundColor = colorMutableViewModel.uiColor
+            backgroundColor = Converter.toUIColor(colorMutableViewModel.color)
         }
         
         if let alphaMutableViewModel = viewModel as? AlphaMutable {
-            alpha = alphaMutableViewModel.cgAlpha
+            alpha = Converter.toCGFloat(alphaMutableViewModel.alpha)
         }
     }
     

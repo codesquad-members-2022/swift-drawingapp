@@ -6,31 +6,29 @@
 //
 
 import Foundation
-import UIKit
 
 protocol ViewModel {
     var id: String { get }
     var center: Point { get }
-    var cgRect: CGRect { get }
+    var origin: Point { get }
+    var size: Size { get }
     func contains(_ point: Point) -> Bool
 }
 
 protocol ColorMutable {
     var color: Color { get }
-    var uiColor: UIColor { get }
     func transform(to color: Color)
 }
 
 protocol AlphaMutable {
     var alpha: Alpha { get }
-    var cgAlpha: CGFloat { get }
     func transform(to alpha: Alpha)
 }
 
 class Rectangle: ViewModel {
     private(set) var id: String
-    private var origin: Point
-    private var size: Size
+    private(set) var origin: Point
+    private(set) var size: Size
     private(set) var color: Color
     private(set) var alpha: Alpha
     
@@ -46,11 +44,11 @@ class Rectangle: ViewModel {
         Point(x: origin.x + (size.width / 2),
               y: origin.y + (size.height / 2))
     }
-    
-    var cgRect: CGRect {
-        CGRect(origin: origin.cgPoint, size: size.cgSize)
-    }
-    
+//
+//    var cgRect: CGRect {
+//        Converter.toCGRect(origin: <#T##Point#>, size: <#T##Size#>)
+//    }
+//
     func contains(_ point: Point) -> Bool {
         return (origin.x...origin.x+size.width).contains(point.x)
         && (origin.y...origin.y+size.height).contains(point.y)
@@ -58,20 +56,12 @@ class Rectangle: ViewModel {
 }
 
 extension Rectangle: ColorMutable {
-    var uiColor: UIColor {
-        color.uiColor
-    }
-    
     func transform(to color: Color) {
         self.color = color
     }
 }
 
 extension Rectangle: AlphaMutable {
-    var cgAlpha: CGFloat {
-        CGFloat(alpha.value)
-    }
-    
     func transform(to alpha: Alpha) {
         self.alpha = alpha
     }

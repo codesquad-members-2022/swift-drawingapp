@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 struct Point: CustomStringConvertible {
     var x: Double
@@ -15,15 +14,6 @@ struct Point: CustomStringConvertible {
     init(x: Double, y: Double) {
         self.x = x
         self.y = y
-    }
-    
-    init(cgPoint: CGPoint) {
-        self.x = cgPoint.x
-        self.y = cgPoint.y
-    }
-    
-    var cgPoint: CGPoint {
-        CGPoint(x: x, y: y)
     }
     
     var description: String {
