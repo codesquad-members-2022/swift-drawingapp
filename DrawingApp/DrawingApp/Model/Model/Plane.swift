@@ -7,13 +7,18 @@
 
 import Foundation
 
-protocol PlaneDelegate {
+protocol PlaneCanvasDelegate {
     func didAddViewModels(_ new: [ViewModel])
+    func didMutateColorViewModels(_ mutated: ColorMutable)
+    func didMutateAlphaViewModels(_ mutated: AlphaMutable)
 }
 
-protocol PlaneSelectionDelegate {
+protocol PlanePanelDelegate {
     func didSelectViewModels(_ selected: ViewModel?)
+    func didMutateColorViewModels(_ mutated: ColorMutable)
+    func didMutateAlphaViewModels(_ mutated: AlphaMutable)
 }
+
 
 class Plane {
     var viewModels: [ViewModel] = [] {
@@ -24,8 +29,9 @@ class Plane {
     }
     
     var selected: ViewModel?
-    var additionDelegate: PlaneDelegate?
-    var selectionDelgate: PlaneSelectionDelegate?
+    var canvasDelegate: PlaneCanvasDelegate?
+    var panelDelgate: PlanePanelDelegate?
+    
     
     var rectangleCount: Int {
         viewModels.filter { $0 is Rectangle }.count
@@ -38,23 +44,27 @@ class Plane {
     func addRectangle() {
         let newRectangle = Factory.createRectangle()
         viewModels.append(newRectangle)
-        additionDelegate?.didAddViewModels([newRectangle])
+        canvasDelegate?.didAddViewModels([newRectangle])
     }
     
     func tap(on point: Point) {
         self.selected = viewModels.last(where: { viewModel in
             viewModel.contains(point)
         })
-        selectionDelgate?.didSelectViewModels(selected)
+        panelDelgate?.didSelectViewModels(selected)
     }
     
     func transform(to color: Color) {
         guard let mutableViewModel = selected as? ColorMutable else { return }
         mutableViewModel.transform(to: color)
+        canvasDelegate?.didMutateColorViewModels(mutableViewModel)
+        panelDelgate?.didMutateColorViewModels(mutableViewModel)
     }
     
     func transform(to alpha: Alpha) {
         guard let mutableViewModel = selected as? AlphaMutable else { return }
         mutableViewModel.transform(to: alpha)
+        canvasDelegate?.didMutateAlphaViewModels(mutableViewModel)
+        panelDelgate?.didMutateAlphaViewModels(mutableViewModel)
     }
 }
