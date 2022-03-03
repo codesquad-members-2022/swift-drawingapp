@@ -11,6 +11,10 @@ protocol PlaneDelegate {
     func didAddViewModels(_ new: [ViewModel])
 }
 
+protocol PlaneSelectionDelegate {
+    func didSelectViewModels(_ selected: ViewModel?)
+}
+
 class Plane {
     var viewModels: [ViewModel] = [] {
         didSet {
@@ -20,7 +24,8 @@ class Plane {
     }
     
     var selected: ViewModel?
-    var delegate: PlaneDelegate?
+    var additionDelegate: PlaneDelegate?
+    var selectionDelgate: PlaneSelectionDelegate?
     
     var rectangleCount: Int {
         viewModels.filter { $0 is Rectangle }.count
@@ -33,13 +38,14 @@ class Plane {
     func addRectangle() {
         let newRectangle = Factory.createRectangle()
         viewModels.append(newRectangle)
-        delegate?.didAddViewModels([newRectangle])
+        additionDelegate?.didAddViewModels([newRectangle])
     }
     
     func tap(on point: Point) {
         self.selected = viewModels.last(where: { viewModel in
             viewModel.contains(point)
         })
+        selectionDelgate?.didSelectViewModels(selected)
     }
     
     func transform(to color: Color) {
