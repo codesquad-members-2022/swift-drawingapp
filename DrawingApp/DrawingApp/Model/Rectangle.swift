@@ -58,9 +58,9 @@ class Rectangle: CustomStringConvertible{
         }
         
         init(r: Double, g: Double, b: Double){
-            self.r = adjustRange(value: r)
-            self.g = adjustRange(value: g)
-            self.b = adjustRange(value: b)
+            self.r = adjustRange(value: r)/255
+            self.g = adjustRange(value: g)/255
+            self.b = adjustRange(value: b)/255
         }
         
         private func adjustRange(value: Double)-> Double{
@@ -96,11 +96,11 @@ class Rectangle: CustomStringConvertible{
         }
     }
     
-    private var id: Id
-    private var size: Size
-    private var point: Point
-    private var backgroundColor: Color
-    private var alpha: Alpha
+    var id: Id
+    var size: Size
+    var point: Point
+    var backgroundColor: Color
+    var alpha: Alpha
     var description: String{
         return "(\(id)), \(size), \(point), \(backgroundColor), \(alpha)"
     }
