@@ -13,9 +13,9 @@ class TopMenuBarView: BaseView {
     let makeSquare = TopMenuItemView()
     
     func bind(plane: Plane) {
-        makeSquare.buttonEventHandler = {
+        makeSquare.button.addAction(UIAction{ _ in
             plane.action.makeSquareButtonTapped()
-        }
+        }, for: .touchUpInside)
     }
     
     override func attribute() {
@@ -25,7 +25,7 @@ class TopMenuBarView: BaseView {
         
         stackView.spacing = 5
         
-        makeSquare.setIcon(image: UIImage(named: "ic_square"))
+        makeSquare.icon.image = UIImage(named: "ic_square")
     }
     
     override func layout() {

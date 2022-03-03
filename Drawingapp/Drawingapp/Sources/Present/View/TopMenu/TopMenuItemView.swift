@@ -9,26 +9,8 @@ import Foundation
 import UIKit
 
 class TopMenuItemView: BaseView {
-    private let icon = UIImageView()
-    private let button = UIButton()
-    
-    var buttonEventHandler: () -> Void = { }
-    
-    override init() {
-        super.init()
-        bind()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        bind()
-    }
-    
-    func bind() {
-        button.addAction(UIAction(){ _ in
-            self.buttonEventHandler()
-        }, for: .touchUpInside)
-    }
+    let icon = UIImageView()
+    let button = UIButton()
     
     override func attribute() {
         super.attribute()
@@ -50,9 +32,5 @@ class TopMenuItemView: BaseView {
         button.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         button.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         button.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-    }
-    
-    func setIcon(image: UIImage?) {
-        self.button.setImage(image, for: .normal)
     }
 }

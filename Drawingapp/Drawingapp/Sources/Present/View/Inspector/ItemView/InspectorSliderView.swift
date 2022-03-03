@@ -17,6 +17,7 @@ class InspectorSliderView: InspectorItemView {
     var valueChangedHandler: (Float) -> Void = { _ in }
     
     override func bind() {
+        super.bind()
         minusButton.addAction(UIAction{ _ in
             self.addValue(-1)
         }, for: .touchUpInside)
