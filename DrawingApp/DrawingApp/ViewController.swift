@@ -9,6 +9,8 @@ import UIKit
 import OSLog
 
 class ViewController: UIViewController {
+    
+    let plane = Plane()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +29,8 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: RectangleDelegate {
-    func printLog(of rectangle: Rectangle) {
+    func factoryDidGenerateRandomRectangle(_ rectangle: Rectangle) {
         os_log("\(rectangle)")
+        plane.add(rectangle: rectangle)
     }
 }

@@ -24,7 +24,7 @@ class RectangleFactory {
         
         let newRectangle = Rectangle(id: id, size: size, point: point, backgroundColor: backgroundColor, alpha: alpha)
         
-        delegate?.printLog(of: newRectangle)
+        delegate?.factoryDidGenerateRandomRectangle(newRectangle)
         
         return newRectangle
     }
