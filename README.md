@@ -117,7 +117,7 @@ final class DrawableFactory:DrawableCreator {
 }
 ~~~
 
-- 추가 설명 및 참고 사이트 [참고](https://icksw.tistory.com/237)
+- 추가 설명 및 참고 사이트 [참고](https://icksw.tistory.com/237)  
 ![스크린샷 2022-03-02 오후 8 11 29](https://user-images.githubusercontent.com/80263729/156350841-385334f4-dcde-4b38-a995-83ac1dc265bf.png)
 
 - 초기에는 이게 더 나을 거 같애라는 방식으로 접근을 했으나,
