@@ -36,13 +36,13 @@ class Factory {
         return Size(width: 150.0, height: 120.0)
     }
     
-    private static func createColor() -> Color {
+    static func createColor() -> Color {
         return Color(r: Float.random(in: 0...255),
                      g: Float.random(in: 0...255),
                      b: Float.random(in: 0...255))!
     }
     
     private static func createAlpha() -> Alpha {
-        return Alpha(value: Int.random(in: 1...10))!
+        return Alpha(Int.random(in: 1...10))!
     }
 }
