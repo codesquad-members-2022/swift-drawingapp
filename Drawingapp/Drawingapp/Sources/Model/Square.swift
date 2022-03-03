@@ -19,7 +19,7 @@ class Square: CustomStringConvertible {
         "id: ( \(id) ), \(point), \(size), \(color), alpha: \(alpha)"
     }
     
-    init(id: String, point: Point = Point(x: 100, y: 100), size: Size = Size(width: 150, height: 120), color: Color = .black, alpha: Alpha = Alpha.ten) {
+    init(id: String, point: Point, size: Size, color: Color, alpha: Alpha) {
         self.id = id
         self.point = point
         self.size = size
