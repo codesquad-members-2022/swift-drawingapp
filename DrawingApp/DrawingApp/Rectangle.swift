@@ -29,18 +29,6 @@ class Rectangle {
 }
 
 extension Rectangle {
-    struct Size {
-        let width: Double
-        let height: Double
-    }
-
-    struct Point {
-        let x: Double
-        let y: Double
-    }
-}
-
-extension Rectangle {
     private func adjustRange(opacity: Int) -> Int {
         let min = 1
         let max = 10

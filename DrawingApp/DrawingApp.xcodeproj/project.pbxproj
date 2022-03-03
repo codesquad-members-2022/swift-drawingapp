@@ -20,6 +20,8 @@
 		6F78543927CF694700C1154D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6F78543727CF694700C1154D /* LaunchScreen.storyboard */; };
 		6F78544427CF694700C1154D /* DrawingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F78544327CF694700C1154D /* DrawingAppTests.swift */; };
 		6F78544F27CF694700C1154D /* DrawingAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6F78544E27CF694700C1154D /* DrawingAppUITests.swift */; };
+		6FA5905827D09CBD00FB2C93 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA5905727D09CBD00FB2C93 /* Size.swift */; };
+		6FA5905A27D09CCC00FB2C93 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA5905927D09CCC00FB2C93 /* Point.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +61,8 @@
 		6F78544A27CF694700C1154D /* DrawingAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6F78544E27CF694700C1154D /* DrawingAppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingAppUITests.swift; sourceTree = "<group>"; };
 		6F78545027CF694700C1154D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6FA5905727D09CBD00FB2C93 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
+		6FA5905927D09CCC00FB2C93 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +120,8 @@
 				6F045CFD27CFD91D00D64C5A /* RectangleFactory.swift */,
 				6F045CF727CFB2BC00D64C5A /* Color.swift */,
 				6F045CF927CFB8B000D64C5A /* Rectangle.swift */,
+				6FA5905727D09CBD00FB2C93 /* Size.swift */,
+				6FA5905927D09CCC00FB2C93 /* Point.swift */,
 				6F78543227CF694300C1154D /* Main.storyboard */,
 				6F78543527CF694700C1154D /* Assets.xcassets */,
 				6F78543727CF694700C1154D /* LaunchScreen.storyboard */,
@@ -277,7 +283,9 @@
 				6F045CFA27CFB8B000D64C5A /* Rectangle.swift in Sources */,
 				6F78543127CF694300C1154D /* ViewController.swift in Sources */,
 				6F045CF827CFB2BC00D64C5A /* Color.swift in Sources */,
+				6FA5905827D09CBD00FB2C93 /* Size.swift in Sources */,
 				6F045CFC27CFC83600D64C5A /* UniqueID.swift in Sources */,
+				6FA5905A27D09CCC00FB2C93 /* Point.swift in Sources */,
 				6F78542D27CF694300C1154D /* AppDelegate.swift in Sources */,
 				6F045D0027CFEDEA00D64C5A /* Log.swift in Sources */,
 				6F78542F27CF694300C1154D /* SceneDelegate.swift in Sources */,
