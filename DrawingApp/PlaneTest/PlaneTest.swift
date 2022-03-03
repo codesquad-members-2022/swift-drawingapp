@@ -35,4 +35,12 @@ class PlaneTest: XCTestCase {
         guard let indexedRectangle = plane[0] else {return}
         XCTAssertEqual(indexedRectangle, rect1)
     }
+    
+    func testPlaneIsRectangleAtPosition() {
+        let plane = Plane()
+        let rectangle = Rectangle(size: Size(width: 150, height: 120), position: Position(x: 300, y: 300), color: Color(red: 255, green: 255, blue: 255), alpha: Alpha(transparency: 10))
+        plane.addRectangle(rectangle: rectangle)
+        XCTAssertEqual(plane[0], rectangle)
+        XCTAssertEqual(plane.isRectangle(at: Position(x: 400, y: 400)), true)
+    }
 }
