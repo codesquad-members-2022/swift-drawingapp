@@ -8,10 +8,13 @@
 import Foundation
 
 struct Alpha: CustomStringConvertible {
-    var value: Float
+    static let max = 10
+    static let min = 0
+    
+    let value: Float
     
     init?(value: Int) {
-        guard 0 <= value, value <= 10 else { return nil }
+        guard 0 <= Alpha.min, value <= Alpha.max else { return nil }
         
         self.value = Float(value) / 10.0
     }

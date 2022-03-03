@@ -8,8 +8,8 @@
 import Foundation
 
 struct Size: CustomStringConvertible {
-    var width: Double
-    var height: Double
+    let width: Double
+    let height: Double
     
     var description: String {
         "W\(width), H\(height)"
