@@ -6,15 +6,10 @@
 //
 
 import Foundation
-import UIKit
 
 struct Size: CustomStringConvertible {
     let width: Double
     let height: Double
-    
-    var cgSize: CGSize {
-        CGSize(width: width, height: height)
-    }
     
     var description: String {
         "W\(width), H\(height)"

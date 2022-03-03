@@ -33,7 +33,8 @@ class CanvasViewController: UIViewController {
     
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
         let location = gesture.location(in: view)
-        containerVC?.plane.tap(on: Point(cgPoint: location))
+        let tappedPoint = Point(x: location.x, y: location.y)
+        containerVC?.plane.tap(on: tappedPoint)
     }
     
     private func getMatchedUIView(with viewModel: ViewModel) -> UIView? {
@@ -81,11 +82,11 @@ extension CanvasViewController: PlaneCanvasDelegate {
     
     func didMutateColorViewModels(_ mutated: ColorMutable) {
         let mutatedUIView = getMatchedUIView(with: mutated as! ViewModel)
-        mutatedUIView?.backgroundColor = mutated.color.uiColor
+        mutatedUIView?.backgroundColor = Converter.toUIColor(mutated.color)
     }
     
     func didMutateAlphaViewModels(_ mutated: AlphaMutable) {
         let mutatedUIView = getMatchedUIView(with: mutated as! ViewModel)
-        mutatedUIView?.alpha = mutated.cgAlpha
+        mutatedUIView?.alpha = Converter.toCGFloat(mutated.alpha)
     }
 }

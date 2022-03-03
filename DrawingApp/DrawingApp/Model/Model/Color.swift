@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 struct Color: CustomStringConvertible {
     let red: Float
@@ -20,10 +19,6 @@ struct Color: CustomStringConvertible {
         self.red = red / 255
         self.green = green / 255
         self.blue = blue / 255
-    }
-    
-    var uiColor: UIColor {
-        UIColor(red: CGFloat(red), green: CGFloat(green), blue: CGFloat(blue), alpha: CGFloat(alpha))
     }
     
     var description: String {

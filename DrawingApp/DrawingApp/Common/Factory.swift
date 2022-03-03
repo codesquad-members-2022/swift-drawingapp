@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Factory {
+enum Factory {
     static func createRectangle() -> Rectangle {
         let rectangleID = createID()
         let origin = createPoint()

@@ -50,8 +50,8 @@ extension PanelViewController: PlanePanelDelegate {
     private func displayColor(_ selected: ColorMutable) {
         colorButton.isEnabled = true
         
-        let selectedColor = selected.uiColor
-        colorButton.tintColor = selected.uiColor
+        let selectedColor = Converter.toUIColor(selected.color)
+        colorButton.tintColor = selectedColor
         
         let selectedColorHex = selectedColor.toHex() ?? ""
         colorButton.setTitle(selectedColorHex, for: .normal)
