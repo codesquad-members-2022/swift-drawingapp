@@ -33,22 +33,23 @@ class PanelViewController: UIViewController {
 
 extension PanelViewController: PlanePanelDelegate {
     func didSelectViewModels(_ selected: ViewModel?) {
-        guard let selected = selected else { return }
+        guard let selected = selected else {
+            clearPanel()
+            return
+        }
         
         if let colorMutableViewModel = selected as? ColorMutable {
             displayColor(colorMutableViewModel)
-        } else {
-            colorButton.isEnabled = false
         }
         
         if let alphaMutableViewModel = selected as? AlphaMutable {
             displayAlpha(alphaMutableViewModel)
-        } else {
-            alphaSlider.isEnabled = false
         }
     }
     
     private func displayColor(_ selected: ColorMutable) {
+        colorButton.isEnabled = true
+        
         let selectedColor = selected.uiColor
         colorButton.tintColor = selected.uiColor
         
@@ -60,11 +61,22 @@ extension PanelViewController: PlanePanelDelegate {
     }
     
     private func displayAlpha(_ selected: AlphaMutable) {
+        alphaSlider.isEnabled = true
+        
         let selectedAlpha = selected.alpha
         alphaSlider.value = selectedAlpha.value * 10
         
         let selectedAlphaString = String.init(format: "%.0f", selectedAlpha.value * 10)
         AlphaLabel.text = selectedAlphaString
+    }
+    
+    private func clearPanel() {
+        colorButton.setTitle("", for: .normal)
+        colorButton.tintColor = UIColor.systemGray
+        colorButton.isEnabled = false
+        AlphaLabel.text = ""
+        alphaSlider.value = 0
+        alphaSlider.isEnabled = false
     }
     
     func didMutateColorViewModels(_ mutated: ColorMutable) {
