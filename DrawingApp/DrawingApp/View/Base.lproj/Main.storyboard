@@ -11,10 +11,9 @@
         <!--Canvas View Controller-->
         <scene sceneID="2DC-Sr-hBE">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Pwx-7i-iYL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="l8x-Ot-BnL" customClass="CanvasViewController" customModule="DrawingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xo9-MY-jyf">
-                        <rect key="frame" x="0.0" y="0.0" width="859.5" height="820"/>
+                        <rect key="frame" x="0.0" y="0.0" width="860" height="820"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Canvas" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cZQ-xc-i3f">
@@ -23,35 +22,58 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I43-gx-lAf">
+                                <rect key="frame" x="380" y="696" width="100" height="88"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="100" id="fLn-Ni-txr"/>
+                                    <constraint firstAttribute="height" constant="88" id="sAt-g6-BkP"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" image="rectangle" catalog="system" imagePlacement="top" title="사각형">
+                                    <color key="baseForegroundColor" systemColor="labelColor"/>
+                                    <color key="baseBackgroundColor" systemColor="systemGray2Color"/>
+                                </buttonConfiguration>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="addRectanglePressed:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="xMp-E6-HpT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="sws-bt-2LQ"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="cZQ-xc-i3f" firstAttribute="centerY" secondItem="xo9-MY-jyf" secondAttribute="centerY" id="IzP-VU-oGl"/>
+                            <constraint firstItem="sws-bt-2LQ" firstAttribute="bottom" secondItem="I43-gx-lAf" secondAttribute="bottom" constant="16" id="RzH-do-eS1"/>
+                            <constraint firstItem="I43-gx-lAf" firstAttribute="centerX" secondItem="xo9-MY-jyf" secondAttribute="centerX" id="Xlh-vQ-RJh"/>
                             <constraint firstItem="cZQ-xc-i3f" firstAttribute="centerX" secondItem="xo9-MY-jyf" secondAttribute="centerX" id="cQr-NB-u6R"/>
                         </constraints>
                     </view>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Pwx-7i-iYL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="841" y="1465"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="cJd-5Y-eBh">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="4Le-L2-HL3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <splitViewController allowDoubleColumnStyle="YES" primaryEdge="trailing" id="IJ5-QC-bLz" sceneMemberID="viewController">
                     <connections>
                         <segue destination="LiX-43-8CF" kind="relationship" relationship="masterViewController" id="uXV-pM-oMX"/>
                         <segue destination="l8x-Ot-BnL" kind="relationship" relationship="detailViewController" id="89v-2C-Hgv"/>
                     </connections>
                 </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Le-L2-HL3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="139" y="1163"/>
         </scene>
         <!--Panel View Controller-->
         <scene sceneID="jV0-Rs-sIg">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="nTJ-o3-kbP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="LiX-43-8CF" customClass="PanelViewController" customModule="DrawingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="CJW-kb-W5k">
                         <rect key="frame" x="0.0" y="0.0" width="420" height="820"/>
@@ -72,13 +94,21 @@
                         </constraints>
                     </view>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nTJ-o3-kbP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="841" y="727"/>
         </scene>
     </scenes>
     <resources>
+        <image name="rectangle" catalog="system" width="128" height="93"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray5Color">
             <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

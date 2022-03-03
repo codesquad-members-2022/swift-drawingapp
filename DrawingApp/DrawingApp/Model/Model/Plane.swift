@@ -8,11 +8,11 @@
 import Foundation
 
 protocol PlaneDelegate {
-    func didUpdateViewModel(_ plane: Plane)
+    func didAddViewModels(_ newViewModels: [ViewModel])
 }
 
 class Plane {
-    private var viewModels: [ViewModel] = [] {
+    var viewModels: [ViewModel] = [] {
         didSet {
             guard let newModel = viewModels.last else { return }
             Log.info("Added: \(newModel)")
@@ -30,26 +30,16 @@ class Plane {
         return viewModels[index]
     }
     
-    func setUpInitialModels() {
-        for _ in 0..<4 {
-            addRectangle()
-        }
-    }
-    
     func addRectangle() {
-        viewModels.append(Factory.createRectangle())
+        let newRectangle = Factory.createRectangle()
+        viewModels.append(newRectangle)
+        delegate?.didAddViewModels([newRectangle])
     }
     
     func tap(on point: Point) {
-        let candidate = viewModels.filter { viewModel in
+        self.selected = viewModels.last(where: { viewModel in
             viewModel.contains(point)
-        }
-        
-        if let selected = candidate.last {
-            self.selected = selected
-        } else {
-            self.selected = nil
-        }
+        })
     }
     
     func transform(to color: Color) {
