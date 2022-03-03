@@ -13,10 +13,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let shapeFactory = ShapeFactory()
+        let randomRectangleFactory = RectangleFactory()
         
         (0..<4).forEach { _ in
-            let Rect = shapeFactory.createShape(shapeType: .Rectangle)
+            let Rect = randomRectangleFactory.createRandomShape()
             os_log(.debug, log: .default, "\n\(Rect.description)")
         }
     }
