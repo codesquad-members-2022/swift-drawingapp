@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		E03455AE27CF24560036988A /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03455AD27CF24560036988A /* SquareView.swift */; };
-		E03455B127CF25300036988A /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03455B027CF25300036988A /* BaseView.swift */; };
 		E03455B327CF25520036988A /* InspectorItemButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03455B227CF25520036988A /* InspectorItemButtonView.swift */; };
 		E03455B727CF2A1A0036988A /* DrawingViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03455B627CF2A1A0036988A /* DrawingViewFactory.swift */; };
 		E034560927D0AC2B0036988A /* SizeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034560827D0AC2B0036988A /* SizeFactory.swift */; };
@@ -70,7 +69,6 @@
 
 /* Begin PBXFileReference section */
 		E03455AD27CF24560036988A /* SquareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
-		E03455B027CF25300036988A /* BaseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		E03455B227CF25520036988A /* InspectorItemButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectorItemButtonView.swift; sourceTree = "<group>"; };
 		E03455B627CF2A1A0036988A /* DrawingViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingViewFactory.swift; sourceTree = "<group>"; };
 		E034560827D0AC2B0036988A /* SizeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeFactory.swift; sourceTree = "<group>"; };
@@ -146,15 +144,6 @@
 			);
 			path = View;
 			sourceTree = "<group>";
-		};
-		E03455AF27CF25300036988A /* Base */ = {
-			isa = PBXGroup;
-			children = (
-				E03455B027CF25300036988A /* BaseView.swift */,
-			);
-			name = Base;
-			path = Drawingapp/Sources/Present/Base;
-			sourceTree = SOURCE_ROOT;
 		};
 		E03455B827CF2A880036988A /* Factory */ = {
 			isa = PBXGroup;
@@ -304,7 +293,6 @@
 		E0D7DA4627CDE32800A56635 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E03455AF27CF25300036988A /* Base */,
 				E03455AB27CF24560036988A /* DrawingBoard */,
 				E0D7DA4B27CDF1BA00A56635 /* Inspector */,
 				E0D7DA4927CDE3CD00A56635 /* TopMenu */,
@@ -480,7 +468,6 @@
 				E0D7DA4D27CDF28C00A56635 /* InspectorView.swift in Sources */,
 				E0D7DA5127CDF6FE00A56635 /* InspectorSliderView.swift in Sources */,
 				E0D7DA2C27CCF83300A56635 /* Log.swift in Sources */,
-				E03455B127CF25300036988A /* BaseView.swift in Sources */,
 				E0D7DA2027CC656500A56635 /* Color.swift in Sources */,
 				E0D7DA4F27CDF65D00A56635 /* InspectorItemLabelView.swift in Sources */,
 				E03455B727CF2A1A0036988A /* DrawingViewFactory.swift in Sources */,
