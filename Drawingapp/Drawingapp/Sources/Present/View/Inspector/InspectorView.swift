@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class InspectorView: BaseView {
-    let itemStackView = UIStackView()
+    private let itemStackView = UIStackView()
     let colorButton = InspectorItemButtonView()
     let alphaSlider = InspectorSliderView()
     
@@ -24,7 +24,6 @@ class InspectorView: BaseView {
         alphaSlider.slider.addAction(UIAction{ _ in
             let alpha = Alpha.init(rawValue: Int(self.alphaSlider.slider.value))
             plane.action.changeAlphaSliderEvent(alpha)
-            
         }, for: .valueChanged)
     }
     

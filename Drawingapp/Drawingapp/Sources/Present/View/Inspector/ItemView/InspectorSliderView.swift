@@ -9,51 +9,66 @@ import Foundation
 import UIKit
 
 class InspectorSliderView: InspectorItemView {
-    private let sliderStackView = UIStackView()
-    private let minusButton = UIButton()
-    private let plusButton = UIButton()
-    let slider = UISlider()
+    private let sliderStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.spacing = 5
+        return stackView
+    }()
     
+    private let minusButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "ic_minus"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     
-    override func bind() {
-        super.bind()
+    private let plusButton: UIButton = {
+        let button = UIButton()
+        button.setImage(UIImage(named: "ic_plus"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    let slider: UISlider = {
+        let slider = UISlider()
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        return slider
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        bind()
+        layout()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        bind()
+        layout()
+    }
+    
+    private func bind() {
         minusButton.addAction(UIAction{ _ in
             self.addValue(-1)
         }, for: .touchUpInside)
-        
+
         plusButton.addAction(UIAction{ _ in
             self.addValue(1)
         }, for: .touchUpInside)
     }
-    
-    override func attribute() {
-        super.attribute()
         
-        sliderStackView.axis = .horizontal
-        sliderStackView.spacing = 5
-        
-        minusButton.setImage(UIImage(named: "ic_minus"), for: .normal)
-        plusButton.setImage(UIImage(named: "ic_plus"), for: .normal)
-    }
-    
-    override func layout() {
-        super.layout()
+    private func layout() {
         self.stackView.addArrangedSubview(sliderStackView)
         
         sliderStackView.addArrangedSubview(minusButton)
         sliderStackView.addArrangedSubview(slider)
         sliderStackView.addArrangedSubview(plusButton)
         
-        sliderStackView.translatesAutoresizingMaskIntoConstraints = false
         sliderStackView.heightAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        minusButton.translatesAutoresizingMaskIntoConstraints = false
         minusButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        plusButton.translatesAutoresizingMaskIntoConstraints = false
         plusButton.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        
-        slider.translatesAutoresizingMaskIntoConstraints = false
         slider.heightAnchor.constraint(equalToConstant: 40).isActive = true
     }
     

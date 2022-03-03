@@ -8,35 +8,35 @@
 import Foundation
 import UIKit
 
-class InspectorItemView: BaseView {
-    let view = UIView()
-    let title = UILabel()
-    let stackView = UIStackView()
+class InspectorItemView: UIView {
+    let title: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textColor = .black
+        return label
+    }()
     
-    override init() {
-        super.init()
-        bind()
+    let stackView: UIStackView = {
+       let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        return stackView
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        layout()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        bind()
+        layout()
     }
-    
-    func bind() { }
-    
-    override func attribute() {
-        super.attribute()
-        title.textColor = .black
-        stackView.axis = .vertical
-    }
-    
-    override func layout() {
-        super.layout()
+        
+    private func layout() {
         self.addSubview(stackView)
         stackView.addArrangedSubview(title)
         
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 5).isActive = true
         stackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 5).isActive = true
         stackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -5).isActive = true
