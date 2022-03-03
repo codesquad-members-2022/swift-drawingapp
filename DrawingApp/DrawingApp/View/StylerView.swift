@@ -19,6 +19,14 @@ class StylerView: UIView{
         super.init(coder: coder)
     }
     
+    func updateRectangleInfo(r: Double, g: Double, b: Double, opacity: Float){
+        
+        let hexString = "#\(String(Int(r*255), radix: 16))\(String(Int(g*255), radix: 16))\(String(Int(b*255), radix: 16))"
+        self.rectangleColorValueField.text = hexString
+        self.rectangleColorValueField.textAlignment = .center
+        self.rectangleAlphaSlider.value = opacity
+    }
+    
     private func setRectangleColorInformationView(){
         self.rectangleColorTextLabel.text = "배경색"
         self.rectangleColorTextLabel.frame = CGRect(x: self.frame.width*0.1,
