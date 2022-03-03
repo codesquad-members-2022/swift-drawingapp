@@ -15,18 +15,24 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         factory.delegate = self
-        
-        for i in 1...4 {
-            
-            guard let viewModel = factory.makeRandomView(as: "subView #\(i)") else {
-                continue
-            }
-            
-            let randomView = UIView(frame: CGRect.useViewModel(point: viewModel.point, size: viewModel.size))
-            randomView.backgroundColor = UIColor.useViewModel(rgbValue: viewModel.rgbValue, alpha: viewModel.alpha)
-            
-            LoggerUtil.faultLog(message: String(describing: viewModel))
-        }
+    }
+    
+    @IBAction func buttonForAddTouchUpInside(_ sender: UIButton) {
+        Logger(subsystem: OSLog.subsystem, category: "Screen control check").debug("buttonForAddTouchUpInside(_:UIButton)")
+    }
+    
+    @IBAction func buttonAdmitColorTouchUpInside(_ sender: UIButton) {
+        Logger(subsystem: OSLog.subsystem, category: "Screen control check").debug("buttonAdmitColorTouchUpInside(_:UIButton)")
+    }
+    
+    @IBAction func sliderAdmitAlphaValueChanged(_ sender: UISlider) {
+        sender.value = round(sender.value)
+        Logger(subsystem: OSLog.subsystem, category: "Screen control check").debug("sliderAdmitAlphaValueChanged(_:UISlider)")
+    }
+    
+    @IBAction func sliderAdmitAlphaEditingChanged(_ sender: UISlider) {
+        // Do Not Execute...
+        Logger(subsystem: OSLog.subsystem, category: "Screen control check").debug("sliderAdmitAlphaEditingChanged(_:UISlider)")
     }
 }
 
