@@ -38,8 +38,8 @@ class ViewController: UIViewController {
         let generateButton = UIButton(type: .custom, primaryAction: buttonUIAction)
         let buttonWidth = 100.0
         let buttonHeight = 100.0
-        let buttonX = self.view.safeAreaLayoutGuide.layoutFrame.width/2.0 - buttonWidth/2.0
-        let buttonY = self.view.safeAreaLayoutGuide.layoutFrame.height - buttonHeight
+        let buttonX = (self.view.frame.size.width/2.0) - (buttonWidth/2.0)
+        let buttonY = self.view.frame.size.height - buttonHeight
         generateButton.frame = CGRect(x: buttonX, y: buttonY, width: buttonWidth, height: buttonHeight)
         generateButton.backgroundColor = .gray
         generateButton.setTitle("사각형 생성", for: .normal)
