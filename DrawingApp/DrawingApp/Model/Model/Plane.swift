@@ -9,6 +9,7 @@ import Foundation
 
 protocol PlaneCanvasDelegate {
     func didAddViewModels(_ new: [ViewModel])
+    func didSelectViewModels(_ new: ViewModel?, _ old: ViewModel?)
     func didMutateColorViewModels(_ mutated: ColorMutable)
     func didMutateAlphaViewModels(_ mutated: AlphaMutable)
 }
@@ -18,7 +19,6 @@ protocol PlanePanelDelegate {
     func didMutateColorViewModels(_ mutated: ColorMutable)
     func didMutateAlphaViewModels(_ mutated: AlphaMutable)
 }
-
 
 class Plane {
     var viewModels: [ViewModel] = [] {
@@ -48,10 +48,12 @@ class Plane {
     }
     
     func tap(on point: Point) {
+        let oldSelected = selected
         self.selected = viewModels.last(where: { viewModel in
             viewModel.contains(point)
         })
         panelDelgate?.didSelectViewModels(selected)
+        canvasDelegate?.didSelectViewModels(selected, oldSelected)
     }
     
     func transform(to color: Color) {

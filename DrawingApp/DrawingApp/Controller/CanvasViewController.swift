@@ -15,8 +15,13 @@ class CanvasViewController: UIViewController {
         containerVC = splitViewController as? DrawingSplitViewController
         containerVC?.plane.canvasDelegate = self
         setUpInitialModels()
+        setUpRecognizer()
     }
     
+    private func setUpRecognizer() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
+        view.addGestureRecognizer(tap)
+    }
     
     private func setUpInitialModels() {
         (0..<4).forEach { _ in containerVC?.plane.addRectangle() }
@@ -27,13 +32,6 @@ class CanvasViewController: UIViewController {
     }
     
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
-        guard let selectedView = gesture.view else { return }
-        changeBorder(selectedView)
-        
-        if let oldSelected = containerVC?.plane.selected, let oldSelectedUIView = getMatchedUIView(with: oldSelected) {
-            clearBorder(oldSelectedUIView)
-        }
-        
         let location = gesture.location(in: view)
         containerVC?.plane.tap(on: Point(cgPoint: location))
     }
@@ -61,13 +59,23 @@ class CanvasViewController: UIViewController {
 }
 
 extension CanvasViewController: PlaneCanvasDelegate {
-    func didAddViewModels(_ new: [ViewModel]) {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
+    func didSelectViewModels(_ new: ViewModel?, _ old: ViewModel?) {
+        if let new = new {
+            guard let newView = getMatchedUIView(with: new) else { return }
+            changeBorder(newView)
+        }
         
+        if let old = old {
+            guard let oldView = getMatchedUIView(with: old) else { return }
+            clearBorder(oldView)
+        }
+    }
+    
+    
+    func didAddViewModels(_ new: [ViewModel]) {
         for newViewModel in new {
             guard let newUIView = createBaseView(from: newViewModel) else { continue }
             view.addSubview(newUIView)
-            newUIView.addGestureRecognizer(tap)
         }
     }
     

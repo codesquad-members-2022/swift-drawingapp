@@ -77,7 +77,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ja-qU-gTV">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9ja-qU-gTV">
                                 <rect key="frame" x="32" y="143" width="240" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Aug-rn-QXg"/>
@@ -96,7 +96,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="2IS-Tl-qfB">
+                            <slider opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="2IS-Tl-qfB">
                                 <rect key="frame" x="30" y="252" width="244" height="31"/>
                                 <connections>
                                     <action selector="SliderChanged:" destination="LiX-43-8CF" eventType="valueChanged" id="7ND-sN-b6c"/>
