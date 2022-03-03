@@ -1,11 +1,14 @@
 import Foundation
 
-struct Plane{
+struct Plane:CustomStringConvertible{
     
     private var rectangles:[String:Rectangle] = [:]
     private var rectangleIndex:[String] = []
     var count: Int{
         return rectangles.count
+    }
+    var description: String{
+        return self.rectangles.description
     }
     
     mutating func addRectangle(_ rectangle: Rectangle){
