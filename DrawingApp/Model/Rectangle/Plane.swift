@@ -17,13 +17,8 @@ struct Plane{
         return rectangles[index]
     }
     
-    mutating func makeRectangle(maxWidth: Double, maxHeight: Double) -> Rectangle{
-        let rectFactory = RectangleFactory()
-        
-        let rectangle = Rectangle(id: IDFactory.makeID(), size: rectFactory.makeSize(), point: rectFactory.makePoint(viewWidth: maxWidth, viewHeight: maxHeight), color: rectFactory.makeColor(), alpha: rectFactory.makeAlpha())
-        
+    mutating func addRectangle(rectangle: Rectangle){
         self.rectangles.append(rectangle)
-        return rectangle
     }
    
     func count() -> Int{
