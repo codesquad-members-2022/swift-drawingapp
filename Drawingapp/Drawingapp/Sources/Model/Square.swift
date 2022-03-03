@@ -6,14 +6,13 @@
 //
 
 import Foundation
-import UIKit
 
 class Square: CustomStringConvertible {
     let id: String
-    private let point: Point
-    private let size: Size
-    private var color: Color
-    private var alpha: Alpha
+    let point: Point
+    let size: Size
+    var color: Color
+    var alpha: Alpha
     
     var description: String {
         "id: ( \(id) ), \(point), \(size), \(color), alpha: \(alpha)"
@@ -57,16 +56,5 @@ extension Square {
     
     var inspectorData: InspectorData {
         InspectorData(alpha: self.alpha, hexColor: color.hexColor)
-    }
-}
-
-extension Square {
-    
-    var uiColor: UIColor {
-        UIColor(red: CGFloat(color.r) / 255, green: CGFloat(color.g) / 255, blue: CGFloat(color.b / 255), alpha: alpha.value)
-    }
-    
-    var rect: CGRect {
-        CGRect(x: point.x, y: point.y, width: size.width, height: size.height)
     }
 }

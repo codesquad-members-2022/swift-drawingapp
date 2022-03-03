@@ -10,8 +10,12 @@ import UIKit
 
 class SquareView: UIView {
     func update(in model: Square) {
-        backgroundColor = model.uiColor
-        frame = model.rect
+        let color = model.color
+        backgroundColor = UIColor(red: CGFloat(color.r) / 255, green: CGFloat(color.g) / 255, blue: CGFloat(color.b / 255), alpha: 1)
+        
+        let point = model.point
+        let size = model.size
+        frame = CGRect(x: point.x, y: point.y, width: size.width, height: size.height)
     }
     
     func selected(is select: Bool) {
