@@ -4,9 +4,11 @@ class Factory {
     struct RectangleView: CustomStringConvertible {
         enum Alpha: Int {
             case one = 1, two, three, four, five, six, seve, eight, nine, ten
-            func selectRandomAlpha() -> Self {
+            func selectRandom() -> Self {
                 let randomNumber = Int.random(in: 1...10)
-                if randomNumber =
+                if self.rawValue == randomNumber {
+                    return self
+                }
             }
         }
         struct BackgroundColor {
@@ -43,6 +45,7 @@ class Factory {
         let alpha: Alpha
         
         var description: String {
+            
         }
     }
     
