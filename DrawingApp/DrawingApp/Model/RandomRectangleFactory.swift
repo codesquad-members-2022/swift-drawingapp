@@ -1,5 +1,5 @@
 //
-//  RectangleFactory.swift
+//  RandomRectangleFactory.swift
 //  DrawingApp
 //
 //  Created by 김상혁 on 2022/02/28.
@@ -7,23 +7,7 @@
 
 import Foundation
 
-class RectangleFactory {
-
-    func createRactangle(identifier: Identifier,
-                         size: Size,
-                         point: Point,
-                         color: Color,
-                         alpha: Alpha) -> Rectangle {
-        
-        return Rectangle(identifier: identifier,
-                         size: size,
-                         point: point,
-                         backGroundColor: color,
-                         alpha: alpha)
-    }
-}
-
-extension RectangleFactory: RandomRectangleFactorable {
+class RandomRectangleFactory {
     
     func generateRandomIdentifier() -> Identifier {
         return Identifier()
