@@ -26,6 +26,10 @@ class Rectangle {
         self.color = color
         self.alpha = adjustRange(opacity: alpha)
     }
+    
+    convenience init(uid: String, point: Point = .zero, size: Size, colorType: Color.Standard = .white) {
+        self.init(uid: uid, point: point, size: size, color: colorType.rgb, alpha: 1)
+    }
 }
 
 extension Rectangle {

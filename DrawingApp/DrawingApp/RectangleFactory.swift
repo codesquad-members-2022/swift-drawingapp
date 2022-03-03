@@ -23,38 +23,8 @@ enum ShapeFactoryType {
 
 
 final class RectangleFactory {
-    static func make(colorType: Color.Standard, x: Double = 0, y: Double, width: Double = 100, height: Double = 100) -> Rectangle {
+    static func make(size: Size) -> Rectangle {
         let uid = UniqueID.generate()
-        return Rectangle(uid: uid,
-                         point: Point(x: x, y: y),
-                         size: Size(width: width, height: height),
-                         color: colorType.rgb,
-                         alpha: 1)
-    }
-    
-    static func make(x: Double, y: Double, width: Double, height: Double) -> Rectangle {
-        let uid = UniqueID.generate()
-        return Rectangle(uid: uid,
-                         point: Point(x: x, y: y),
-                         size: Size(width: width, height: height),
-                         color: Color.Standard.white.rgb, alpha: 1)
-    }
-    
-    static func make(x: Int, y: Int, width: Int, height: Int) -> Rectangle {
-        let uid = UniqueID.generate()
-        return Rectangle(uid: uid,
-                         point: Point(x: Double(x), y: Double(y)),
-                         size: Size(width: Double(width), height: Double(height)),
-                         color: Color.Standard.white.rgb,
-                         alpha: 1)
-    }
-    
-    static func make(origin: Point = Point(x: 0, y: 0), size: Size) -> Rectangle {
-        let uid = UniqueID.generate()
-        return Rectangle(uid: uid,
-                         point: origin,
-                         size: size,
-                         color: Color.Standard.white.rgb,
-                         alpha: 1)
+        return Rectangle(uid: uid, size: size)
     }
 }
