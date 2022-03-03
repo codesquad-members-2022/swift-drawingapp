@@ -13,18 +13,18 @@ class ViewController: UIViewController {
     let screenHeight = UIScreen.main.bounds.height
     var plane = Plane()
     private let rectangleGenerationButton = RectangleGenerationButton()
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(rectangleGenerationButton)
-        
-        rectangleGenerationButton.addTarget(self, action: #selector(didTapButton), for: .touchDown)
-        
+        //rectangleGenerationButton 의 delegate 프로퍼티 에서 옵셔녈로 설정했던 프로토콜 타입을 현재 뷰컨트롤러로 설정해준다. (이때 뷰컨트롤러는 해당프로토콜을 채택하고있어야함).
+        rectangleGenerationButton.delegate = self
+        plane.delegate = self
         let tapGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapTriggered))
         tapGuestureRecognizer.numberOfTapsRequired = 1
         self.view.addGestureRecognizer(tapGuestureRecognizer)
-
+        
     }
     
     override func viewWillLayoutSubviews() {
@@ -40,23 +40,29 @@ class ViewController: UIViewController {
         
     }
     
-    
-    
-    //Rectangle 모델 생성후 Plane 객체에 넘긴다.
-    @objc func didTapButton () {
+}
+
+//RectableView 에서 정의한 delegate.didTapGenerateButton() 은 viewController 의 didTapGenerateButton() 을 호출하게 되고
+//아래 정의된 함수를 실행하게 된다.
+extension ViewController : GenerateRectangleButtonDelegate {
+    //사각형 생성 버튼이 눌리면 함수 정의
+    func didTapGenerateButton() {
         do {
             let rect = try ShapeFactory(planeWidth: screenWdith, planeHeight: screenHeight - rectangleGenerationButton.frame.height, shapeSize: Size(width: 130, height: 120)).makeRect()
             os_log(.debug, "\(rect)")
-//            var rectUI = UIView(frame: CGRect(x: rect.point.x, y: rect.point.y, width: rect.size.width, height: rect.size.height))
-//            rectUI.backgroundColor = UIColor(red: rect.color.red/255, green: rect.color.green/255, blue: rect.color.blue/255, alpha: Double(rect.alpha.rawValue)/10)
-//            view.addSubview(rectUI)
             plane.append(rect)
         }catch{
             os_log("")
         }
-       
     }
-   
-
 }
 
+extension ViewController : PlaneDelegate {
+    func didAppendRect(rect: Rectangle?) {
+        if let appendedRect = rect {
+            let rectUI = UIView(frame: CGRect(x: appendedRect.point.x, y: appendedRect.point.y, width: appendedRect.size.width, height: appendedRect.size.height))
+            rectUI.backgroundColor = UIColor(red: appendedRect.color.red/255, green: appendedRect.color.green/255, blue: appendedRect.color.blue/255, alpha: Double(appendedRect.alpha.rawValue)/10)
+            view.addSubview(rectUI)
+        }
+    }
+}
