@@ -6,17 +6,21 @@
 //
 
 import Foundation
+import UIKit
 
 protocol ViewModel {
     var center: Point { get }
+    var cgRect: CGRect { get }
     func contains(_ point: Point) -> Bool
 }
 
 protocol ColorMutable {
+    var uiColor: UIColor { get }
     func transform(to color: Color)
 }
 
 protocol AlphaMutable {
+    var cgAlpha: CGFloat { get }
     func transform(to alpha: Alpha)
 }
 
@@ -40,6 +44,10 @@ class Rectangle: ViewModel {
               y: origin.y + (size.height / 2))
     }
     
+    var cgRect: CGRect {
+        CGRect(origin: origin.cgPoint, size: size.cgSize)
+    }
+    
     func contains(_ point: Point) -> Bool {
         return (origin.x...origin.x+size.width).contains(point.x)
         && (origin.y...origin.y+size.height).contains(point.y)
@@ -47,8 +55,22 @@ class Rectangle: ViewModel {
 }
 
 extension Rectangle: ColorMutable {
+    var uiColor: UIColor {
+        color.uiColor
+    }
+    
     func transform(to color: Color) {
         self.color = color
+    }
+}
+
+extension Rectangle: AlphaMutable {
+    var cgAlpha: CGFloat {
+        CGFloat(alpha.value)
+    }
+    
+    func transform(to alpha: Alpha) {
+        self.alpha = alpha
     }
 }
 
