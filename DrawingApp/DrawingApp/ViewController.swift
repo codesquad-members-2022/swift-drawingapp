@@ -12,6 +12,8 @@ class ViewController: UIViewController {
     
     let plane = Plane()
     var rectangleFactory: RectangleFactory?
+    @IBOutlet weak var statusView: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
