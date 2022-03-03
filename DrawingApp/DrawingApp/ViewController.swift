@@ -24,10 +24,10 @@ class ViewController: UIViewController {
         let factory = RectangleFactory(screenSize: currentScreenSize)
         self.factory = factory
         factory.delegate = self
-        let rect1 = factory.generateRandomRectangle()
-        let rect2 = factory.generateRandomRectangle()
-        let rect3 = factory.generateRandomRectangle()
-        let rect4 = factory.generateRandomRectangle()
+        
+        generateRectangleButton?.addTarget(self, action: #selector(generateRectangleButtonTouched), for: .touchUpInside)
+    }
+    
     func addGenerateRectangleButton() {
         let buttonWidth = 100.0
         let buttonHeight = 100.0
@@ -41,6 +41,9 @@ class ViewController: UIViewController {
         self.generateRectangleButton = generateButton
         self.view.addSubview(generateButton)
     }
+    
+    @objc func generateRectangleButtonTouched() {
+        let newRectangle = factory?.generateRandomRectangle()
     }
 
 
