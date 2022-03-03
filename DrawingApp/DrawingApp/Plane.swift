@@ -25,6 +25,9 @@ class Plane {
     }
     
     func isRectangle(at position : Position) -> Bool {
-        return false
+        return !rectangles.filter{
+            ($0.position.x...($0.position.x + $0.size.width)).contains($0.position.x) &&
+            ($0.position.y...($0.position.y + $0.size.height)).contains($0.position.y)
+        }.isEmpty
     }
 }
