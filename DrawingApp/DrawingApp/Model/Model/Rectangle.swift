@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 protocol ViewModel {
+    var id: String { get }
     var center: Point { get }
     var cgRect: CGRect { get }
     func contains(_ point: Point) -> Bool
@@ -25,7 +26,7 @@ protocol AlphaMutable {
 }
 
 class Rectangle: ViewModel {
-    private var id: String
+    private(set) var id: String
     private var origin: Point
     private var size: Size
     private var color: Color
