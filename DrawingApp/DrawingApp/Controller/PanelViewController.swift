@@ -18,6 +18,7 @@ class PanelViewController: UIViewController {
     
     @IBOutlet weak var AlphaLabel: UILabel!
     
+    @IBOutlet weak var alphaSlider: UISlider!
     @IBAction func SliderChanged(_ sender: UISlider) {
         
     }
@@ -33,18 +34,38 @@ class PanelViewController: UIViewController {
 extension PanelViewController: PlaneSelectionDelegate {
     func didSelectViewModels(_ selected: ViewModel?) {
         guard let selected = selected else { return }
-        guard let colorMutableViewModel = selected as? ColorMutable else { return }
-        let selectedColor = colorMutableViewModel.uiColor
-        let selectedColorHex = selectedColor.toHex() ?? ""
-        colorButton.tintColor = colorMutableViewModel.uiColor
         
-        colorButton.setTitle(selectedColorHex, for: .normal)
-        if selectedColor.isDark {
-            colorButton.setTitleColor(.black, for: .normal)
+        if let colorMutableViewModel = selected as? ColorMutable {
+            displayColor(colorMutableViewModel)
         } else {
-            colorButton.setTitleColor(.white, for: .normal)
+            colorButton.isEnabled = false
         }
         
+        if let alphaMutableViewModel = selected as? AlphaMutable {
+            displayAlpha(alphaMutableViewModel)
+        } else {
+            alphaSlider.isEnabled = false
+            return
+        }
+    }
+    
+    private func displayColor(_ selected: ColorMutable) {
+        let selectedColor = selected.uiColor
+        colorButton.tintColor = selected.uiColor
+        
+        let selectedColorHex = selectedColor.toHex() ?? ""
+        colorButton.setTitle(selectedColorHex, for: .normal)
+        
+        let visibleColor = selectedColor.isDark ? UIColor.white : UIColor.black
+        colorButton.setTitleColor(visibleColor, for: .normal)
+    }
+    
+    private func displayAlpha(_ selected: AlphaMutable) {
+        let selectedAlpha = selected.alpha
+        alphaSlider.value = selectedAlpha.value
+        
+        let selectedAlphaString = "\(selectedAlpha.value)"
+        AlphaLabel.text = selectedAlphaString
     }
 }
 
