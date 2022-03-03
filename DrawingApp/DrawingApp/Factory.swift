@@ -1,8 +1,8 @@
 import Foundation
 
 class Factory {
-    static func createRandomRectangle() -> RectangleView {
-        return RectangleView()
+    static func createRandomRectangle(name: String) -> RectangleView {
+        return RectangleView(name: name)
     }
     struct RectangleView: CustomStringConvertible {
         enum Alpha: Int {
@@ -66,6 +66,7 @@ class Factory {
             let randomB: UInt8 = UInt8.random(in: 0...255)
             return BackgroundColor(R: randomR, G: randomG, B: randomB)
         }
+        //TODO: 이 부분 어떻게 하면 더 깔끔하게 할 수 있을지 질문하자.
         var alpha: Alpha {
             let randomInt = Int.random(in: 1...10)
             guard let alpha =  Alpha(rawValue: randomInt) else {
@@ -76,6 +77,10 @@ class Factory {
 
         var description: String {
             return "(\(self.id)), X:\(self.point.x), Y:\(self.point.y), W\(self.size.width), H\(self.size.height), R\(self.color.R), G\(self.color.G), B\(self.color.B), Alpha: \(self.alpha.rawValue)"
+        }
+        let name: String
+        init(name: String) {
+            self.name = name
         }
     }
 }

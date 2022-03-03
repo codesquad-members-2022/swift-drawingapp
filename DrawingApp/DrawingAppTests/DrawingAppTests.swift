@@ -1,4 +1,6 @@
 import XCTest
+import OSLog
+
 @testable import DrawingApp
 
 class DrawingAppTests: XCTestCase {
@@ -11,12 +13,5 @@ class DrawingAppTests: XCTestCase {
     override func tearDownWithError() throws {
         sut = nil
         try super.tearDownWithError()
-    }
-    func testFactoryCanMakeRectangle() {
-        //given
-        var rectangle = Factory.createRandomRectangle()
-        
-        //when
-        print("\(rectangle.description)")
     }
 }
