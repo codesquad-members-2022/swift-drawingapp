@@ -13,7 +13,7 @@ class CanvasViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         containerVC = splitViewController as? DrawingSplitViewController
-        containerVC?.plane.additionDelegate = self
+        containerVC?.plane.canvasDelegate = self
         setUpInitialModels()
     }
     
@@ -60,7 +60,7 @@ class CanvasViewController: UIViewController {
     }
 }
 
-extension CanvasViewController: PlaneDelegate {
+extension CanvasViewController: PlaneCanvasDelegate {
     func didAddViewModels(_ new: [ViewModel]) {
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
         
@@ -69,5 +69,15 @@ extension CanvasViewController: PlaneDelegate {
             view.addSubview(newUIView)
             newUIView.addGestureRecognizer(tap)
         }
+    }
+    
+    func didMutateColorViewModels(_ mutated: ColorMutable) {
+        let mutatedUIView = getMatchedUIView(with: mutated as! ViewModel)
+        mutatedUIView?.backgroundColor = mutated.color.uiColor
+    }
+    
+    func didMutateAlphaViewModels(_ mutated: AlphaMutable) {
+        let mutatedUIView = getMatchedUIView(with: mutated as! ViewModel)
+        mutatedUIView?.alpha = mutated.cgAlpha
     }
 }
