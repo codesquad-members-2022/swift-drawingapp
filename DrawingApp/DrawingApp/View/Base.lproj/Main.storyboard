@@ -85,7 +85,7 @@
                                 </constraints>
                                 <color key="tintColor" systemColor="linkColor"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled"/>
                                 <connections>
                                     <action selector="ColorButtonPressed:" destination="LiX-43-8CF" eventType="touchUpInside" id="fkV-j3-xAp"/>
                                 </connections>

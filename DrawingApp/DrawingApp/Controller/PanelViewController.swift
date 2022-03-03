@@ -26,8 +26,7 @@ class PanelViewController: UIViewController {
         super.viewDidLoad()
         containerVC = splitViewController as? DrawingSplitViewController
         containerVC?.plane.selectionDelgate = self
-        colorButton.titleLabel?.shadowColor = .black
-        colorButton.titleLabel?.shadowOffset = CGSize(width: 1, height: 1)
+        
     }
 }
 
@@ -35,8 +34,17 @@ extension PanelViewController: PlaneSelectionDelegate {
     func didSelectViewModels(_ selected: ViewModel?) {
         guard let selected = selected else { return }
         guard let colorMutableViewModel = selected as? ColorMutable else { return }
-        print(colorMutableViewModel.uiColor)
+        let selectedColor = colorMutableViewModel.uiColor
+        let selectedColorHex = selectedColor.toHex() ?? ""
         colorButton.tintColor = colorMutableViewModel.uiColor
+        
+        colorButton.setTitle(selectedColorHex, for: .normal)
+        if selectedColor.isDark {
+            colorButton.setTitleColor(.black, for: .normal)
+        } else {
+            colorButton.setTitleColor(.white, for: .normal)
+        }
         
     }
 }
+
