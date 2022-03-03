@@ -46,7 +46,7 @@ class Rectangle {
 //형태 : (fxd-0fz-4b9), X:10,Y:200, W150, H120, R:245, G:0, B:245, Alpha: 9
 extension Rectangle : CustomStringConvertible {
     var description: String {
-        return "(\(id)), \(point), \(size), \(color), Alpha:\(alpha)"
+        return "(\(id)), \(point), \(size), \(color), \(alpha)"
     }
 }
 
