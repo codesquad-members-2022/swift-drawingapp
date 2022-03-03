@@ -10,7 +10,7 @@ class ViewController: UIViewController {
             rectangleArray.append(rect)
         }
         for rectangle in rectangleArray {
-            os_log("\(rectangle.name) \(rectangle.description)")
+            os_log("\(rectangle.description)")
         }
     }
 }
