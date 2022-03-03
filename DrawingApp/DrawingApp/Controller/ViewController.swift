@@ -10,10 +10,8 @@ class ViewController: UIViewController {
         let factory = RectangleFactory()
         for index in 0..<4{
             let rectangle = factory.createRenctangle()
-            logger.debug("Rectangle\(index) : \(rectangle)")
+            logger.debug("Rectangle\(index+1) : \(rectangle)")
         }
     }
-
-
 }
 
