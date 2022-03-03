@@ -3,7 +3,7 @@ import UIKit
 
 class CanvasView: UIView{
     
-    private var generatingButton: UIButton = UIButton()
+    private (set) var generatingButton: UIButton = UIButton()
     
     init(frame: CGRect, backGroundColor: UIColor, buttonActionClosure: @escaping ()->Void) {
         super.init(frame: frame)
