@@ -14,15 +14,14 @@
 		1E541E8127CCBC98000C8B50 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E541E8027CCBC98000C8B50 /* Assets.xcassets */; };
 		1E541E8427CCBC98000C8B50 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E541E8227CCBC98000C8B50 /* LaunchScreen.storyboard */; };
 		1EE4CCE527CCFD44005EA3D4 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCE427CCFD44005EA3D4 /* Rectangle.swift */; };
-		1EE4CCE727CD0751005EA3D4 /* ShapeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCE627CD0751005EA3D4 /* ShapeFactory.swift */; };
+		1EE4CCE727CD0751005EA3D4 /* RectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCE627CD0751005EA3D4 /* RectangleFactory.swift */; };
 		1EE4CCE927CDDC96005EA3D4 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCE827CDDC96005EA3D4 /* Size.swift */; };
 		1EE4CCEB27CDDC9F005EA3D4 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCEA27CDDC9F005EA3D4 /* Point.swift */; };
 		1EE4CCED27CDDCA2005EA3D4 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCEC27CDDCA2005EA3D4 /* Color.swift */; };
 		1EE4CCEF27CDDCA5005EA3D4 /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCEE27CDDCA5005EA3D4 /* Alpha.swift */; };
-		1EE4CCF127CDDD53005EA3D4 /* ShapeFactorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCF027CDDD53005EA3D4 /* ShapeFactorable.swift */; };
-		1EE4CCF327CDDD66005EA3D4 /* ShapeType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCF227CDDD66005EA3D4 /* ShapeType.swift */; };
 		1EE4CCFB27CE5174005EA3D4 /* Shapable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCFA27CE5174005EA3D4 /* Shapable.swift */; };
 		1EE4CCFD27CF0282005EA3D4 /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCFC27CF0282005EA3D4 /* Identifier.swift */; };
+		1EE4CD0327D0648E005EA3D4 /* RandomRectangleFactorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CD0227D0648E005EA3D4 /* RandomRectangleFactorable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,15 +34,14 @@
 		1E541E8327CCBC98000C8B50 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1E541E8527CCBC98000C8B50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1EE4CCE427CCFD44005EA3D4 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
-		1EE4CCE627CD0751005EA3D4 /* ShapeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeFactory.swift; sourceTree = "<group>"; };
+		1EE4CCE627CD0751005EA3D4 /* RectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactory.swift; sourceTree = "<group>"; };
 		1EE4CCE827CDDC96005EA3D4 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		1EE4CCEA27CDDC9F005EA3D4 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		1EE4CCEC27CDDCA2005EA3D4 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		1EE4CCEE27CDDCA5005EA3D4 /* Alpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alpha.swift; sourceTree = "<group>"; };
-		1EE4CCF027CDDD53005EA3D4 /* ShapeFactorable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeFactorable.swift; sourceTree = "<group>"; };
-		1EE4CCF227CDDD66005EA3D4 /* ShapeType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeType.swift; sourceTree = "<group>"; };
 		1EE4CCFA27CE5174005EA3D4 /* Shapable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shapable.swift; sourceTree = "<group>"; };
 		1EE4CCFC27CF0282005EA3D4 /* Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
+		1EE4CD0227D0648E005EA3D4 /* RandomRectangleFactorable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomRectangleFactorable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,9 +98,8 @@
 		1E541E8C27CCBD8C000C8B50 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				1EE4CCF227CDDD66005EA3D4 /* ShapeType.swift */,
-				1EE4CCF027CDDD53005EA3D4 /* ShapeFactorable.swift */,
-				1EE4CCE627CD0751005EA3D4 /* ShapeFactory.swift */,
+				1EE4CD0227D0648E005EA3D4 /* RandomRectangleFactorable.swift */,
+				1EE4CCE627CD0751005EA3D4 /* RectangleFactory.swift */,
 				1EE4CCFA27CE5174005EA3D4 /* Shapable.swift */,
 				1EE4CCE427CCFD44005EA3D4 /* Rectangle.swift */,
 				1EE4CCFC27CF0282005EA3D4 /* Identifier.swift */,
@@ -192,17 +189,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1EE4CCE727CD0751005EA3D4 /* ShapeFactory.swift in Sources */,
+				1EE4CCE727CD0751005EA3D4 /* RectangleFactory.swift in Sources */,
 				1EE4CCFB27CE5174005EA3D4 /* Shapable.swift in Sources */,
 				1E541E7C27CCBC97000C8B50 /* ViewController.swift in Sources */,
 				1E541E7827CCBC97000C8B50 /* AppDelegate.swift in Sources */,
 				1E541E7A27CCBC97000C8B50 /* SceneDelegate.swift in Sources */,
 				1EE4CCEB27CDDC9F005EA3D4 /* Point.swift in Sources */,
 				1EE4CCED27CDDCA2005EA3D4 /* Color.swift in Sources */,
-				1EE4CCF327CDDD66005EA3D4 /* ShapeType.swift in Sources */,
-				1EE4CCF127CDDD53005EA3D4 /* ShapeFactorable.swift in Sources */,
 				1EE4CCFD27CF0282005EA3D4 /* Identifier.swift in Sources */,
 				1EE4CCE927CDDC96005EA3D4 /* Size.swift in Sources */,
+				1EE4CD0327D0648E005EA3D4 /* RandomRectangleFactorable.swift in Sources */,
 				1EE4CCE527CCFD44005EA3D4 /* Rectangle.swift in Sources */,
 				1EE4CCEF27CDDCA5005EA3D4 /* Alpha.swift in Sources */,
 			);
