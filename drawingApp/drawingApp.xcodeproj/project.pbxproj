@@ -23,6 +23,7 @@
 		B74322C327CF5A0700445645 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322C227CF5A0700445645 /* Plane.swift */; };
 		B74322C627D0CB8400445645 /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322C527D0CB8400445645 /* RectangleView.swift */; };
 		B74322C827D0DA7500445645 /* RectangleGenerationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322C727D0DA7500445645 /* RectangleGenerationButton.swift */; };
+		B74322CA27D0F5EE00445645 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322C927D0F5EE00445645 /* Protocols.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		B74322C227CF5A0700445645 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		B74322C527D0CB8400445645 /* RectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
 		B74322C727D0DA7500445645 /* RectangleGenerationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleGenerationButton.swift; sourceTree = "<group>"; };
+		B74322C927D0F5EE00445645 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +103,7 @@
 				B74322A027CC6F1800445645 /* Model */,
 				B743228C27CC5DF300445645 /* AppDelegate.swift */,
 				B743228E27CC5DF300445645 /* SceneDelegate.swift */,
+				B74322C927D0F5EE00445645 /* Protocols.swift */,
 				B743229227CC5DF300445645 /* Main.storyboard */,
 				B743229527CC5DF400445645 /* Assets.xcassets */,
 				B743229727CC5DF400445645 /* LaunchScreen.storyboard */,
@@ -258,6 +261,7 @@
 				B74322BF27CF0C3D00445645 /* Point.swift in Sources */,
 				B743228F27CC5DF300445645 /* SceneDelegate.swift in Sources */,
 				B74322A327CC6F4000445645 /* Rectangle.swift in Sources */,
+				B74322CA27D0F5EE00445645 /* Protocols.swift in Sources */,
 				B74322B927CF0C0500445645 /* Color.swift in Sources */,
 				B74322C127CF35F000445645 /* Alpha.swift in Sources */,
 				B74322C827D0DA7500445645 /* RectangleGenerationButton.swift in Sources */,

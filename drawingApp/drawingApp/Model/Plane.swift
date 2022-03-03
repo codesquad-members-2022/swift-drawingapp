@@ -6,9 +6,22 @@
 //
 
 import Foundation
+import OSLog
+
+protocol PlaneDelegate {
+    func didAppendRect(rect: Rectangle?)
+}
 
 struct Plane {
-    private var rectangles = [Rectangle]()
+    
+    var delegate : PlaneDelegate?
+    
+    private var rectangles = [Rectangle]() {
+        willSet{
+            os_log(.debug, "Plane 에 있는 사각형 정보 : \(newValue)")
+            delegate?.didAppendRect(rect: newValue.last)
+        }
+    }
     var numberOfRect : Int {
         self.rectangles.count
     }
@@ -40,4 +53,5 @@ struct Plane {
         return nil
     }
     
+ 
 }
