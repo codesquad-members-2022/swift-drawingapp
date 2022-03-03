@@ -50,5 +50,7 @@ extension ViewController: RectangleDelegate {
     func factoryDidGenerateRandomRectangle(_ rectangle: Rectangle) {
         os_log("\(rectangle)")
         plane.add(rectangle: rectangle)
+        
+        let newRectangleView = ViewFactory.generateRectangleView(of: rectangle)
     }
 }
