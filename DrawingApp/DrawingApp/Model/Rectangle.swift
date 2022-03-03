@@ -54,7 +54,7 @@ class Rectangle: CustomStringConvertible{
         var g: Double = 0
         var b: Double = 0
         var description: String{
-            return "r:\(Int(r)),g:\(Int(g)),b:\(Int(b))"
+            return "r:\(Int(r*255)),g:\(Int(g*255)),b:\(Int(b*255))"
         }
         
         init(r: Double, g: Double, b: Double){
