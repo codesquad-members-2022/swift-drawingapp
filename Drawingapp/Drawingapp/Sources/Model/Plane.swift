@@ -22,8 +22,6 @@ protocol PlaneOutput {
 }
 
 class Plane: PlaneInput {
-    private let drawingModelFactory = DrawingModelFactory()
-    private let colorFactory = ColorFactory()
     private let squares = Squares()
     private var selectedSquare: Square?
     
@@ -36,7 +34,7 @@ class Plane: PlaneInput {
     }
     
     func makeSquareButtonTapped() {
-        let square = self.drawingModelFactory.makeSquare()
+        let square = DrawingModelFactory.makeSquare()
         self.squares.append(square: square)
         self.delegate?.drawSquare(to: square)
     }
@@ -45,7 +43,7 @@ class Plane: PlaneInput {
         guard let square = self.selectedSquare else {
             return
         }
-        square.update(color: self.colorFactory.make())
+        square.update(color: ColorFactory.make())
         self.delegate?.updateSquare(to: square)
     }
     

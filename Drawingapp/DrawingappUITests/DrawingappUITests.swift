@@ -19,6 +19,25 @@ class DrawingappUITests: XCTestCase {
     
     let plane = Plane()
     
+    class TestView: PlaneOutput {
+        var drawSquare: Square?
+        var selectSquare: Square?
+        
+        func didDisSelectedSquare(to square: Square?) {
+        }
+        
+        func didSelectedSquare(to square: Square?) {
+            self.selectSquare = square
+        }
+        
+        func drawSquare(to square: Square) {
+            self.drawSquare = square
+        }
+        
+        func updateSquare(to square: Square) {
+        }
+    }
+    
     class testRandomColorGenerator: RandomColorValueGenerator {
         var ramdomValue: [Int] = []
         func next() -> [Int] {
@@ -29,8 +48,7 @@ class DrawingappUITests: XCTestCase {
     
     func testRandomColor() {
         let randomGenerator = testRandomColorGenerator()
-        let colorFactory = ColorFactory()
-        let color = colorFactory.make(using: randomGenerator)
+        let color = ColorFactory.make(using: randomGenerator)
         
         XCTAssertEqual(randomGenerator.ramdomValue[0], color.r)
         XCTAssertEqual(randomGenerator.ramdomValue[1], color.g)
@@ -39,29 +57,33 @@ class DrawingappUITests: XCTestCase {
     
     //사각형을 하나 만들고, 터치 action에 사각형 좌표X에 200을 더해 선택되지 않음을 확인
     func testNotSelectSquare() {
-        plane.state.didSelectedSquare = { square in
-            XCTAssertTrue(square == nil, "사각형이 선택되었습니다")
+        let testView = TestView()
+        plane.delegate = testView
+        
+        plane.makeSquareButtonTapped()
+        XCTAssertTrue(testView.drawSquare != nil, "사각형이 생성되지 않았습니다")
+        
+        guard let square = testView.drawSquare else {
+            return
         }
         
-        plane.state.drawSquare = { square in
-            let squareRect = square.rect
-            self.plane.action.onScreenTapped(Point(x: squareRect.minX + 200, y: squareRect.minY))
-        }
-        
-        plane.action.makeSquareButtonTapped()
+        plane.drawingBoardTapped(where: Point(x: square.point.x + 200.0, y: square.point.y))
+        XCTAssertTrue(testView.selectSquare == nil, "사각형이 선택되었습니다")
     }
     
     //사각형을 하나 만들고, 터치 action에 사각형 좌표를 보내 선택되는지 확인
     func testSelectSquare() {
-        plane.state.didSelectedSquare = { square in
-            XCTAssertTrue(square != nil, "사각형이 선택되지 않았습니다")
+        let testView = TestView()
+        plane.delegate = testView
+        
+        plane.makeSquareButtonTapped()
+        XCTAssertTrue(testView.drawSquare != nil, "사각형이 생성되지 않았습니다")
+        
+        guard let square = testView.drawSquare else {
+            return
         }
         
-        plane.state.drawSquare = { square in
-            let squareRect = square.rect
-            self.plane.action.onScreenTapped(Point(x: squareRect.minX, y: squareRect.minY))
-        }
-        
-        plane.action.makeSquareButtonTapped()
+        plane.drawingBoardTapped(where: Point(x: square.point.x, y: square.point.y))
+        XCTAssertTrue(testView.selectSquare != nil, "사각형이 선택되지 않았습니다")
     }
 }

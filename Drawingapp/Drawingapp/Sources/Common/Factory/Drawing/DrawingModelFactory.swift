@@ -7,23 +7,18 @@
 
 import Foundation
 
-class DrawingModelFactory {
-    
-    private let sizeFactory = SizeFactory()
-    private let pointFactory = PointFactory()
-    private let colorFactory = ColorFactory()
-    
-    func makeSquare() -> Square {
+class DrawingModelFactory {    
+    static func makeSquare() -> Square {
         let id = makeId()
-        let size = sizeFactory.make()
-        let point = pointFactory.make()
-        let color = colorFactory.make()
+        let size = SizeFactory.make()
+        let point = PointFactory.make()
+        let color = ColorFactory.make()
         let alpha = Alpha.allCases.randomElement() ?? .ten
         
         return Square(id: id, point: point, size: size, color: color, alpha: alpha)
     }
     
-    private func makeId() -> String {
+    private static func makeId() -> String {
         let chars = "abcdefghijklmnopqrstuvwxyz0123456789"
         return String((0..<3).reduce(""){ id, _ in
             let randomId = String((0..<3).compactMap{ _ in chars.randomElement()})
