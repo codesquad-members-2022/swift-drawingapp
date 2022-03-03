@@ -7,15 +7,26 @@
 
 import Foundation
 
-struct Color {
+class Color {
     private var red: Double
     private var green: Double
     private var blue: Double
     
-    init(red: Double, green: Double, blue: Double, alpha: Alpha) {
-        self.red = red
-        self.green = green
-        self.blue = blue
+    init(validRed: Double, validGreen: Double, validBlue: Double) {
+        self.red = validRed
+        self.green = validGreen
+        self.blue = validBlue
+    }
+    
+    convenience init?(red: Double, green: Double, blue: Double) {
+        if red < Bound.lowwer || red > Bound.upper ||
+            green < Bound.lowwer || green > Bound.upper ||
+            blue < Bound.lowwer || blue > Bound.upper
+        {
+            return nil
+        }
+        
+        self.init(validRed: red, validGreen: green, validBlue: blue)
     }
 }
 
