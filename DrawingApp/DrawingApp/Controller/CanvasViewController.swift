@@ -8,32 +8,34 @@
 import UIKit
 
 class CanvasViewController: UIViewController {
-    private let plane = Plane()
+    private var containerVC: DrawingSplitViewController?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        plane.delegate = self
+        containerVC = splitViewController as? DrawingSplitViewController
+        containerVC?.plane.additionDelegate = self
         setUpInitialModels()
     }
     
+    
     private func setUpInitialModels() {
-        (0..<4).forEach { _ in plane.addRectangle() }
+        (0..<4).forEach { _ in containerVC?.plane.addRectangle() }
     }
     
     @IBAction func addRectanglePressed(_ sender: UIButton) {
-        plane.addRectangle()
+        containerVC?.plane.addRectangle()
     }
     
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
         guard let selectedView = gesture.view else { return }
         changeBorder(selectedView)
         
-        if let oldSelected = plane.selected, let oldSelectedUIView = getMatchedUIView(with: oldSelected) {
+        if let oldSelected = containerVC?.plane.selected, let oldSelectedUIView = getMatchedUIView(with: oldSelected) {
             clearBorder(oldSelectedUIView)
         }
         
         let location = gesture.location(in: view)
-        plane.tap(on: Point(cgPoint: location))
+        containerVC?.plane.tap(on: Point(cgPoint: location))
     }
     
     private func getMatchedUIView(with viewModel: ViewModel) -> UIView? {
