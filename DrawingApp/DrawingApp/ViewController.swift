@@ -12,8 +12,8 @@ class ViewController: UIViewController {
     
     let plane = Plane()
     var rectangleFactory: RectangleFactory?
-    weak var generateRectangleButton: UIButton?
-    weak var drawableAreaView: UIView?
+    weak var generateRectangleButton: UIButton!
+    weak var drawableAreaView: UIView!
     @IBOutlet weak var statusView: UIView!
     
     override func viewDidLoad() {
@@ -22,8 +22,8 @@ class ViewController: UIViewController {
         addGenerateRectangleButton()
         addDrawableAreaView()
         
-        let drawableAreaSize = (width: Double(self.drawableAreaView?.frame.width ?? 0),
-                                height: Double(self.drawableAreaView?.frame.height ?? 0))
+        let drawableAreaSize = (width: Double(self.drawableAreaView.frame.width),
+                                height: Double(self.drawableAreaView.frame.height))
         
         let rectangleFactory = RectangleFactory(screenSize: drawableAreaSize)
         self.rectangleFactory = rectangleFactory
@@ -69,6 +69,6 @@ extension ViewController: RectangleDelegate {
         plane.add(rectangle: rectangle)
         
         let newRectangleView = ViewFactory.generateRectangleView(of: rectangle)
-        self.drawableAreaView?.addSubview(newRectangleView)
+        self.drawableAreaView.addSubview(newRectangleView)
     }
 }
