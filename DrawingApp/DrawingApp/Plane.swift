@@ -7,7 +7,14 @@
 
 import Foundation
 class Plane {
-    private var rectangles : [Rectangle] = []
+    var rectangles : [Rectangle] = []
+    subscript(index: Int) -> Rectangle? {
+        if index > rectangleCount {
+            let targetRectangle = rectangles[index]
+            return targetRectangle
+        }
+        return nil
+    }
     
     var rectangleCount : Int {
         return rectangles.count
