@@ -14,6 +14,12 @@
 		B37F41B827CF4E05001F6115 /* DrawingApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B37F41B627CF4E05001F6115 /* DrawingApp.xcdatamodeld */; };
 		B37F41BA27CF4E0B001F6115 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B37F41B927CF4E0B001F6115 /* Assets.xcassets */; };
 		B37F41BD27CF4E0B001F6115 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B37F41BB27CF4E0B001F6115 /* LaunchScreen.storyboard */; };
+		B37F41C527CF50AB001F6115 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37F41C427CF50AB001F6115 /* Rectangle.swift */; };
+		B37F41C727CF526A001F6115 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37F41C627CF526A001F6115 /* Size.swift */; };
+		B37F41C927CF52C7001F6115 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37F41C827CF52C7001F6115 /* Point.swift */; };
+		B37F41CB27CF5354001F6115 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37F41CA27CF5354001F6115 /* Color.swift */; };
+		B37F41CF27D08DBF001F6115 /* RectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37F41CE27D08DBF001F6115 /* RectangleFactory.swift */; };
+		B37F41D127D0A09B001F6115 /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37F41D027D0A09B001F6115 /* Alpha.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +32,12 @@
 		B37F41B927CF4E0B001F6115 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B37F41BC27CF4E0B001F6115 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B37F41BE27CF4E0B001F6115 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B37F41C427CF50AB001F6115 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
+		B37F41C627CF526A001F6115 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
+		B37F41C827CF52C7001F6115 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
+		B37F41CA27CF5354001F6115 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		B37F41CE27D08DBF001F6115 /* RectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactory.swift; sourceTree = "<group>"; };
+		B37F41D027D0A09B001F6115 /* Alpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alpha.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,6 +78,12 @@
 				B37F41BB27CF4E0B001F6115 /* LaunchScreen.storyboard */,
 				B37F41BE27CF4E0B001F6115 /* Info.plist */,
 				B37F41B627CF4E05001F6115 /* DrawingApp.xcdatamodeld */,
+				B37F41C427CF50AB001F6115 /* Rectangle.swift */,
+				B37F41CE27D08DBF001F6115 /* RectangleFactory.swift */,
+				B37F41C627CF526A001F6115 /* Size.swift */,
+				B37F41C827CF52C7001F6115 /* Point.swift */,
+				B37F41CA27CF5354001F6115 /* Color.swift */,
+				B37F41D027D0A09B001F6115 /* Alpha.swift */,
 			);
 			path = DrawingApp;
 			sourceTree = "<group>";
@@ -141,9 +159,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B37F41C927CF52C7001F6115 /* Point.swift in Sources */,
+				B37F41C527CF50AB001F6115 /* Rectangle.swift in Sources */,
 				B37F41B827CF4E05001F6115 /* DrawingApp.xcdatamodeld in Sources */,
 				B37F41B227CF4E05001F6115 /* ViewController.swift in Sources */,
 				B37F41AE27CF4E05001F6115 /* AppDelegate.swift in Sources */,
+				B37F41CF27D08DBF001F6115 /* RectangleFactory.swift in Sources */,
+				B37F41D127D0A09B001F6115 /* Alpha.swift in Sources */,
+				B37F41CB27CF5354001F6115 /* Color.swift in Sources */,
+				B37F41C727CF526A001F6115 /* Size.swift in Sources */,
 				B37F41B027CF4E05001F6115 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -299,7 +323,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -310,7 +334,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -327,7 +351,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -338,7 +362,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};
