@@ -8,6 +8,11 @@
 import Foundation
 import UIKit
 
+protocol InspectorDelegate {
+    func changeColorButtonTapped()
+    func alphaSliderValueChanged(alpha: Alpha?)
+}
+
 class InspectorView: UIView {
     private let itemStackView: UIStackView = {
         let stackView = UIStackView()
@@ -17,14 +22,14 @@ class InspectorView: UIView {
         return stackView
     }()
     
-    let colorButton: InspectorItemButtonView = {
+    private let colorButton: InspectorItemButtonView = {
         let instpacorButton = InspectorItemButtonView()
         instpacorButton.title.text = "배경색"
         instpacorButton.translatesAutoresizingMaskIntoConstraints = false
         return instpacorButton
     }()
     
-    let alphaSlider: InspectorSliderView = {
+    private let alphaSlider: InspectorSliderView = {
         let instpacorSlider = InspectorSliderView()
         instpacorSlider.title.text = "Alpha"
         instpacorSlider.slider.minimumValue = 0
@@ -37,24 +42,28 @@ class InspectorView: UIView {
         [colorButton, alphaSlider]
     }
     
+    var delegate: InspectorDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        bind()
         layout()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        bind()
         layout()
     }
     
-    func bind(plane: Plane) {         
+    private func bind() {
         colorButton.button.addAction(UIAction{ _ in
-            plane.action.changeColorButtonTapped()
+            self.delegate?.changeColorButtonTapped()
             }, for: .touchUpInside)
         
         alphaSlider.slider.addAction(UIAction{ _ in
             let alpha = Alpha.init(rawValue: Int(self.alphaSlider.slider.value))
-            plane.action.changeAlphaSliderEvent(alpha)
+            self.delegate?.alphaSliderValueChanged(alpha: alpha)
         }, for: .valueChanged)
     }
     
