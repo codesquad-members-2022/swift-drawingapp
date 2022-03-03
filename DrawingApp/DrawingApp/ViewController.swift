@@ -11,8 +11,7 @@ import OSLog
 class ViewController: UIViewController {
     
     let plane = Plane()
-    var factory: RectangleFactory?
-
+    var rectangleFactory: RectangleFactory?
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,15 +19,15 @@ class ViewController: UIViewController {
         
         let currentScreenSize = (width: Double(self.view.safeAreaLayoutGuide.layoutFrame.width),
                                  height: Double(self.view.safeAreaLayoutGuide.layoutFrame.height))
-        let factory = RectangleFactory(screenSize: currentScreenSize)
-        self.factory = factory
-        factory.delegate = self
+        let rectangleFactory = RectangleFactory(screenSize: currentScreenSize)
+        self.rectangleFactory = rectangleFactory
+        rectangleFactory.delegate = self
         
     }
     
     func addGenerateRectangleButton() {
         let buttonUIAction = UIAction { _ in
-            let _ = self.factory?.generateRandomRectangle()
+            let _ = self.rectangleFactory?.generateRandomRectangle()
         }
         let generateButton = UIButton(type: .custom, primaryAction: buttonUIAction)
         let buttonWidth = 100.0
