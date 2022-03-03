@@ -8,15 +8,23 @@ class ViewController: UIViewController {
     private var stylerView: StylerView?
     private var rectangleFactory: RectangleFactory = RectangleFactory()
     private var plane: Plane = Plane()
+    var gestureRecognizer = UITapGestureRecognizer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeAllUIViews()
+        setGestureRecognizer()
     }
     
     private func initializeAllUIViews(){
         setCanvasView()
         setStylerView()
+    }
+    
+    private func setGestureRecognizer(){
+        guard let canvasView = self.canvasView else { return }
+        self.gestureRecognizer.delegate = self
+        canvasView.addGestureRecognizer(self.gestureRecognizer)
     }
     
     private func setCanvasView(){
@@ -62,8 +70,25 @@ class ViewController: UIViewController {
         
         plane.addRectangle(rectangle)
         canvasView.insertSubview(rectangleView, belowSubview: canvasView.generatingButton)
-        logger.debug("\(self.plane)")
     }
 
+}
+
+extension ViewController: UIGestureRecognizerDelegate{
+    
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        
+        let tappedPoint = touch.location(in: self.canvasView)
+        guard let rectangle = self.plane[tappedPoint.x,tappedPoint.y] else { return true }
+        guard let stylerView = self.stylerView else { return true }
+        
+        let r = rectangle.backgroundColor.r
+        let g = rectangle.backgroundColor.g
+        let b = rectangle.backgroundColor.b
+        let opacity = rectangle.alpha.opacity
+        stylerView.updateRectangleInfo(r: r, g: g, b: b, opacity: opacity)
+        
+        return true
+    }
 }
 
