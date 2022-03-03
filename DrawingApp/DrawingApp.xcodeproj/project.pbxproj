@@ -11,6 +11,7 @@
 		8D1E046827D0A31500645A7F /* PointFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1E046727D0A31500645A7F /* PointFactory.swift */; };
 		8D1E046A27D0A31B00645A7F /* RGBFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1E046927D0A31B00645A7F /* RGBFactory.swift */; };
 		8D1E046E27D0AE6D00645A7F /* AlphaFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1E046D27D0AE6D00645A7F /* AlphaFactory.swift */; };
+		8D5DF31427D0E9D200F5E9C5 /* UIView++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5DF31327D0E9D200F5E9C5 /* UIView++.swift */; };
 		8D6907F927CCBEF100F78A51 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6907F827CCBEF100F78A51 /* AppDelegate.swift */; };
 		8D6907FB27CCBEF100F78A51 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6907FA27CCBEF100F78A51 /* SceneDelegate.swift */; };
 		8D6907FD27CCBEF100F78A51 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6907FC27CCBEF100F78A51 /* ViewController.swift */; };
@@ -48,6 +49,7 @@
 		8D1E046727D0A31500645A7F /* PointFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointFactory.swift; sourceTree = "<group>"; };
 		8D1E046927D0A31B00645A7F /* RGBFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBFactory.swift; sourceTree = "<group>"; };
 		8D1E046D27D0AE6D00645A7F /* AlphaFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphaFactory.swift; sourceTree = "<group>"; };
+		8D5DF31327D0E9D200F5E9C5 /* UIView++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView++.swift"; sourceTree = "<group>"; };
 		8D6907F527CCBEF100F78A51 /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D6907F827CCBEF100F78A51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D6907FA27CCBEF100F78A51 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 				8D6907FC27CCBEF100F78A51 /* ViewController.swift */,
 				8D69082D27CDFDFD00F78A51 /* Rectangle.swift */,
 				8D69084E27CF4D9F00F78A51 /* ID.swift */,
+				8D5DF31327D0E9D200F5E9C5 /* UIView++.swift */,
 				8D69084527CE2CBD00F78A51 /* Factory */,
 				8D69084027CE2C9100F78A51 /* ShapeElement */,
 				8D6907FE27CCBEF100F78A51 /* Main.storyboard */,
@@ -303,6 +306,7 @@
 				8D1E046627D0A30B00645A7F /* SizeFactory.swift in Sources */,
 				8D69082E27CDFDFD00F78A51 /* Rectangle.swift in Sources */,
 				8D69083D27CE249900F78A51 /* RGB.swift in Sources */,
+				8D5DF31427D0E9D200F5E9C5 /* UIView++.swift in Sources */,
 				8D1E046827D0A31500645A7F /* PointFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,7 +8,7 @@
 final class AlphaFactory {
     
     static func makeRandomAlpha() -> Alpha {
-        let randomAlpha = Int.random(in:Alpha.minValue...Alpha.maxValue)
+        let randomAlpha = Double.random(in:Alpha.minValue...Alpha.maxValue)
         
         return Alpha(randomAlpha)
     }
