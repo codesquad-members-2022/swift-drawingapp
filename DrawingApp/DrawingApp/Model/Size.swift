@@ -8,6 +8,8 @@
 import Foundation
 
 struct Size {
+    static let range = 30.0...100.0
+    
     let width: Double
     let height: Double
     
