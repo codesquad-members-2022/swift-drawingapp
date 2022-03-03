@@ -10,6 +10,7 @@ import os
 
 class MainViewController: UIViewController {
     private var rectangles = Plane()
+    let rectFactory = RectangleFactory()
     let rightAttributerView = RightAttributerView()
     
     private var selectedRectangleView: UIView?
@@ -22,7 +23,6 @@ class MainViewController: UIViewController {
         
         rectangleButton.layer.cornerRadius = 15
         self.view.addSubview(rightAttributerView)
-        rightAttributerView.layout()
         
         rightAttributerView.redSlider.addTarget(self, action: #selector(self.changeRectangleAttribute), for: .valueChanged)
         rightAttributerView.greenSlider.addTarget(self, action: #selector(self.changeRectangleAttribute), for: .valueChanged)
@@ -36,8 +36,9 @@ class MainViewController: UIViewController {
 
     @IBAction func makeRandomRectangle(_ sender: Any) {
         let uiViewClass = RandomRectangleView()
-        let rectangleValue = self.rectangles.makeRectangle(maxWidth: self.rightAttributerView.frame.minX, maxHeight: self.rectangleButton.frame.minY)
+        let rectangleValue = Rectangle(id: IDFactory.makeID(), size: rectFactory.makeSize(), point: rectFactory.makePoint(viewWidth: self.rightAttributerView.frame.minX, viewHeight: self.rectangleButton.frame.minY), color: rectFactory.makeColor(), alpha: rectFactory.makeAlpha())
         
+        rectangles.addRectangle(rectangle: rectangleValue)
         let rectangleView = uiViewClass.makeRectangleView(rectangle: rectangleValue)
 
         os_log("%@", "\(rectangleValue.description)")
