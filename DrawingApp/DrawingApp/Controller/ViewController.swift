@@ -16,7 +16,10 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         for i in 0..<4 {
-            let rect = ShapeFactory.makeRandomRectangle()
+            guard let rect = ShapeFactoryCluster.makeShape(by: .rectangle) as? Rectangle else {
+                return
+            }
+            
             os_log(.default, "Rect \(i+1): \(rect)")
         }
     }

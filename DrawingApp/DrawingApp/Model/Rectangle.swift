@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Rectangle {
+class Rectangle: Shapable {
     // MARK: - Properties
     let id: String
     let backgroundColor: Color
@@ -33,7 +33,11 @@ class Rectangle {
     }
 }
 
-extension Rectangle: CustomStringConvertible {
+extension Rectangle: Equatable {
+    static func == (lhs: Rectangle, rhs: Rectangle) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
     var description: String {
         return """
         (\(self.id)), \(self.point), \(self.size), \(self.backgroundColor)
