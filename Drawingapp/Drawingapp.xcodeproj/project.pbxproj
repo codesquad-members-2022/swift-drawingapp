@@ -14,6 +14,9 @@
 		E034560927D0AC2B0036988A /* SizeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034560827D0AC2B0036988A /* SizeFactory.swift */; };
 		E034560B27D0AC310036988A /* PointFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034560A27D0AC310036988A /* PointFactory.swift */; };
 		E034560D27D0AC3A0036988A /* ColorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034560C27D0AC3A0036988A /* ColorFactory.swift */; };
+		E034561027D0BABF0036988A /* PointFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034560A27D0AC310036988A /* PointFactory.swift */; };
+		E034561127D0BABF0036988A /* SizeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034560827D0AC2B0036988A /* SizeFactory.swift */; };
+		E034561227D0BABF0036988A /* ColorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034560C27D0AC3A0036988A /* ColorFactory.swift */; };
 		E0D7D9DE27CC594D00A56635 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9DD27CC594D00A56635 /* AppDelegate.swift */; };
 		E0D7D9E027CC594D00A56635 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9DF27CC594D00A56635 /* SceneDelegate.swift */; };
 		E0D7D9E227CC594D00A56635 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9E127CC594D00A56635 /* ViewController.swift */; };
@@ -503,10 +506,13 @@
 			files = (
 				E0D7DA3927CD1DBD00A56635 /* Point.swift in Sources */,
 				E0D7DA3A27CD1DBD00A56635 /* Plane.swift in Sources */,
+				E034561227D0BABF0036988A /* ColorFactory.swift in Sources */,
 				E0D7DA3B27CD1DBD00A56635 /* Squares.swift in Sources */,
+				E034561127D0BABF0036988A /* SizeFactory.swift in Sources */,
 				E0D7DA3627CD1DBD00A56635 /* Square.swift in Sources */,
 				E0D7DA2A27CCDCDB00A56635 /* DrawingModelFactory.swift in Sources */,
 				E0D7DA3827CD1DBD00A56635 /* Alpha.swift in Sources */,
+				E034561027D0BABF0036988A /* PointFactory.swift in Sources */,
 				E0D7DA3527CD1DBD00A56635 /* Color.swift in Sources */,
 				E0D7D9FF27CC594E00A56635 /* DrawingappUITests.swift in Sources */,
 				E0D7DA3727CD1DBD00A56635 /* Size.swift in Sources */,

@@ -17,8 +17,25 @@ class DrawingappUITests: XCTestCase {
     override func tearDownWithError() throws {
     }
     
-    let factory = Factory()
     let plane = Plane()
+    
+    class testRandomColorGenerator: RandomColorValueGenerator {
+        var ramdomValue: [Int] = []
+        func next() -> [Int] {
+            ramdomValue = (0..<3).map{ _ in Int.random(in: 0...255) }
+            return ramdomValue
+        }
+    }
+    
+    func testRandomColor() {
+        let randomGenerator = testRandomColorGenerator()
+        let colorFactory = ColorFactory()
+        let color = colorFactory.make(using: randomGenerator)
+        
+        XCTAssertEqual(randomGenerator.ramdomValue[0], color.r)
+        XCTAssertEqual(randomGenerator.ramdomValue[1], color.g)
+        XCTAssertEqual(randomGenerator.ramdomValue[2], color.b)
+    }
     
     //사각형을 하나 만들고, 터치 action에 사각형 좌표X에 200을 더해 선택되지 않음을 확인
     func testNotSelectSquare() {
