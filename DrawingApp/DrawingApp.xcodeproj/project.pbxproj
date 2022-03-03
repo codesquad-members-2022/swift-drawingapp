@@ -22,6 +22,7 @@
 		BC1806D127D06DEF0057679D /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1806D027D06DEF0057679D /* BaseView.swift */; };
 		BC1806D527D084200057679D /* DrawingSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1806D427D084200057679D /* DrawingSplitViewController.swift */; };
 		BC1806D727D095E30057679D /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1806D627D095E30057679D /* UIColorExtension.swift */; };
+		BC1806D927D0D3D10057679D /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1806D827D0D3D10057679D /* Converter.swift */; };
 		BC7ECF8E27CCB46A00BC6AEC /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7ECF8D27CCB46A00BC6AEC /* Rectangle.swift */; };
 		BC7ECF8F27CCB46A00BC6AEC /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7ECF8D27CCB46A00BC6AEC /* Rectangle.swift */; };
 		BC7ECF9227CCB8CA00BC6AEC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7ECF9127CCB8CA00BC6AEC /* Color.swift */; };
@@ -67,6 +68,7 @@
 		BC1806D027D06DEF0057679D /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		BC1806D427D084200057679D /* DrawingSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingSplitViewController.swift; sourceTree = "<group>"; };
 		BC1806D627D095E30057679D /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
+		BC1806D827D0D3D10057679D /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
 		BC7ECF8D27CCB46A00BC6AEC /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Rectangle.swift; path = DrawingApp/Model/Model/Rectangle.swift; sourceTree = SOURCE_ROOT; };
 		BC7ECF9127CCB8CA00BC6AEC /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		BC7ECF9427CCB90600BC6AEC /* Factory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factory.swift; sourceTree = "<group>"; };
@@ -118,6 +120,7 @@
 				BC1806BC27CF3E4C0057679D /* Log.swift */,
 				BC7ECF9427CCB90600BC6AEC /* Factory.swift */,
 				BC1806D627D095E30057679D /* UIColorExtension.swift */,
+				BC1806D827D0D3D10057679D /* Converter.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -369,6 +372,7 @@
 			files = (
 				BC7ECF8E27CCB46A00BC6AEC /* Rectangle.swift in Sources */,
 				BC1806D527D084200057679D /* DrawingSplitViewController.swift in Sources */,
+				BC1806D927D0D3D10057679D /* Converter.swift in Sources */,
 				BC1806D727D095E30057679D /* UIColorExtension.swift in Sources */,
 				BC1806BD27CF3E4C0057679D /* Log.swift in Sources */,
 				BCE3CB8427CC6D8E004F2AFE /* CanvasViewController.swift in Sources */,
