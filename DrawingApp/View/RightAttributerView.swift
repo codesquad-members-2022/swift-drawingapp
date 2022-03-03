@@ -8,17 +8,30 @@
 import UIKit
 
 class RightAttributerView: UIView {
-    let colorTitle = UILabel()
-    let alphaTitle = UILabel()
+    private let colorTitle = UILabel()
+    private let alphaTitle = UILabel()
     
-    private var colorNameRed = UILabel()
-    private var colorNameGreen = UILabel()
-    private var colorNameBlue = UILabel()
+    private let colorNameRed = UILabel()
+    private let colorNameGreen = UILabel()
+    private let colorNameBlue = UILabel()
     
-    private var redSlider = UISlider()
-    private var greenSlider = UISlider()
-    private var blueSlider = UISlider()
-    private var alphaSlider = UISlider()
+    let redSlider = UISlider()
+    let greenSlider = UISlider()
+    let blueSlider = UISlider()
+    let alphaSlider = UISlider()
+    
+    var redValue: Double{
+        return Double(redSlider.value)
+    }
+    var greenValue: Double{
+        return Double(greenSlider.value)
+    }
+    var blueValue: Double{
+        return Double(blueSlider.value)
+    }
+    var alphaValue: Double{
+        return Double(alphaSlider.value)
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -62,8 +75,8 @@ class RightAttributerView: UIView {
         greenSlider.maximumValue = 255
         blueSlider.minimumValue = 0
         blueSlider.maximumValue = 255
-        alphaSlider.minimumValue = Float(Alpha.one.showValue())
-        alphaSlider.maximumValue = Float(Alpha.ten.showValue())
+        alphaSlider.minimumValue = 0.1
+        alphaSlider.maximumValue = 1.0
     }
     
     func layout(){
@@ -91,26 +104,29 @@ class RightAttributerView: UIView {
     }
     
     func changeAlphaSliderValue(value: Float){
-        let alphaValue = String(format: "%.0f", value * 10)
-        self.alphaSlider.value = Float(value)
-        self.alphaTitle.text = "투명도 : \(alphaValue)"
+        self.alphaSlider.value = value
+        self.alphaTitle.text = "투명도 : \(String(format: "%.0f", alphaValue * 10))"
     }
     
     func changeRedSliderValue(value: Float){
-        let redValue = String(format: "%.0f", value)
-        self.redSlider.value = Float(value)
-        self.colorNameRed.text = "Red : \(redValue)"
+        self.redSlider.value = value
+        self.colorNameRed.text = "Red : \(String(format: "%.0f", redValue))"
     }
     
     func changeGreenSliderValue(value: Float){
-        let greenValue = String(format: "%.0f", value)
-        self.greenSlider.value = Float(value)
-        self.colorNameGreen.text = "Green : \(greenValue)"
+        self.greenSlider.value = value
+        self.colorNameGreen.text = "Green : \(String(format: "%.0f", greenValue))"
     }
     
     func changeBlueSliderValue(value: Float){
-        let blueValue = String(format: "%.0f", value)
-        self.blueSlider.value = Float(value)
-        self.colorNameBlue.text = "Blue : \(blueValue)"
+        self.blueSlider.value = value
+        self.colorNameBlue.text = "Blue : \(String(format: "%.0f", blueValue))"
+    }
+    
+    func changeAllSliderValue(){
+        self.alphaTitle.text = "투명도 : \(String(format: "%.0f", alphaValue * 10))"
+        self.colorNameRed.text = "Red : \(String(format: "%.0f", redValue))"
+        self.colorNameGreen.text = "Green : \(String(format: "%.0f", greenValue))"
+        self.colorNameBlue.text = "Blue : \(String(format: "%.0f", blueValue))"
     }
 }
