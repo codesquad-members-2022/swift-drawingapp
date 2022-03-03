@@ -8,7 +8,7 @@
 import Foundation
 
 protocol RandomRectangleFactorable {
-    func generateRandomIdentifier(delimiter: Character) -> Identifier
+    func generateRandomIdentifier() -> Identifier
     func generateRandomSize() -> Size
     func generateRandomPoint() -> Point
     func generateRandomColor() -> Color
