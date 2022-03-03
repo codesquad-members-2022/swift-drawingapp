@@ -99,6 +99,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1B54996E27D09AE10086EC5F /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1BD728AA27CCFB8D008DED9E /* FactoryViewRandomProperty.swift */,
+				1B4A55AB27CD9F96009CDC7B /* ViewPropertyCreator.swift */,
+				1B4A55A927CD99EC009CDC7B /* RandomizeValue.swift */,
+				1BD728A627CCC6B3008DED9E /* ViewRandomProperty.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		1B54996F27D09AF80086EC5F /* Loggers */ = {
+			isa = PBXGroup;
+			children = (
+				1BD728AF27CD0E88008DED9E /* SystemLog.swift */,
+				1B811EBA27CF4F3300C3E6BC /* LoggerUtil.swift */,
+			);
+			path = Loggers;
+			sourceTree = "<group>";
+		};
 		1BD7286527CCBC7A008DED9E = {
 			isa = PBXGroup;
 			children = (
@@ -128,14 +148,10 @@
 				1BD7287127CCBC7A008DED9E /* AppDelegate.swift */,
 				1BD7287327CCBC7A008DED9E /* SceneDelegate.swift */,
 				1BD7287527CCBC7A008DED9E /* ViewController.swift */,
-				1BD728AF27CD0E88008DED9E /* SystemLog.swift */,
-				1B811EBA27CF4F3300C3E6BC /* LoggerUtil.swift */,
-				1BD728AA27CCFB8D008DED9E /* FactoryViewRandomProperty.swift */,
-				1B4A55AB27CD9F96009CDC7B /* ViewPropertyCreator.swift */,
-				1B4A55A927CD99EC009CDC7B /* RandomizeValue.swift */,
 				1BD728A827CCF635008DED9E /* String+Extension.swift */,
 				1BD7287727CCBC7A008DED9E /* Main.storyboard */,
-				1BD728A627CCC6B3008DED9E /* ViewRandomProperty.swift */,
+				1B54996E27D09AE10086EC5F /* Models */,
+				1B54996F27D09AF80086EC5F /* Loggers */,
 				1BD7287A27CCBC7C008DED9E /* Assets.xcassets */,
 				1BD7287C27CCBC7C008DED9E /* LaunchScreen.storyboard */,
 				1BD7287F27CCBC7C008DED9E /* Info.plist */,
