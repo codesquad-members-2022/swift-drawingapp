@@ -9,23 +9,30 @@ import Foundation
 import UIKit
 
 class InspectorItemLabelView: InspectorItemView {
-    let info = UILabel()
+    let info: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.textColor = .black
+        label.backgroundColor = .clear
+        label.layer.borderWidth = 1
+        label.layer.borderColor = UIColor.lightGray.cgColor
+        label.layer.cornerRadius = 5
+        return label
+    }()
     
-    override func attribute() {
-        super.attribute()
-        
-        info.textAlignment = .center
-        info.textColor = .black
-        info.backgroundColor = .clear
-        info.layer.borderWidth = 1
-        info.layer.borderColor = UIColor.lightGray.cgColor
-        info.layer.cornerRadius = 5
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        layout()
     }
     
-    override func layout() {
-        super.layout()
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        layout()
+    }
+    
+    private func layout() {
         self.stackView.addArrangedSubview(info)
-        info.translatesAutoresizingMaskIntoConstraints = false
         info.heightAnchor.constraint(equalToConstant: 30).isActive = true
     }
 }
