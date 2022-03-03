@@ -1,16 +1,23 @@
 //
-//  ShapeFactory.swift
+//  TypeFactory.swift
 //  DrawingApp
 //
-//  Created by 송태환 on 2022/03/01.
+//  Created by 송태환 on 2022/03/03.
 //
 
 import Foundation
 
-enum ShapeFactory {
+protocol TypeFactory {
+    associatedtype T
+    static func makeType() -> T
+}
+
+enum IdentifierFactory: TypeFactory {
+    typealias T = String
+    
     private static var identifierCache = Set<String>()
     
-    private static func generateIdentifier(length: Int, delimiter: String) -> String {
+    static func makeType(length: Int, delimiter: String) -> String {
         var identifier: String = ""
         
         for i in 1...length {
@@ -24,7 +31,7 @@ enum ShapeFactory {
         }
         
         if self.identifierCache.contains(identifier) {
-            return self.generateIdentifier(length: length, delimiter: delimiter)
+            return self.makeType(length: length, delimiter: delimiter)
         }
         
         self.identifierCache.update(with: identifier)
@@ -32,25 +39,9 @@ enum ShapeFactory {
         return identifier
     }
     
-    static func makeRectangle(x: Double = 0, y: Double = 0, width: Double = 30, height: Double = 30) -> Rectangle {
-        let id = self.generateIdentifier(length: 9, delimiter: "-")
-        return Rectangle(id: id, x: x, y: y, width: width, height: height, alpha: .opaque)
+    static func makeType() -> T {
+        return self.makeType(length: 9, delimiter: "-")
     }
-    
-    static func makeRandomRectangle() -> Rectangle {
-        let id = self.generateIdentifier(length: 9, delimiter: "-")
-        let point = PointFactory.makeType()
-        let size = SizeFactory.makeType()
-        let color = ColorFactory.makeType()
-        let alpha = Alpha.randomElement()
-        
-        return Rectangle(id: id, origin: point, size: size, color: color, alpha: alpha)
-    }
-}
-
-protocol TypeFactory {
-    associatedtype T
-    static func makeType() -> T
 }
 
 enum ColorFactory: TypeFactory {
