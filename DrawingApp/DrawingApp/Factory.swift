@@ -16,15 +16,6 @@ class Factory {
             case eight
             case nine
             case ten
-            
-            func selectRandomAlpha() -> Self {
-                let randomInt = Int.random(in: 1...10)
-                guard let alpha =  Alpha(rawValue: randomInt) else {
-                    //TODO: 나중에 이것은 수정이 되어야할거같다.
-                    return Alpha.one
-                }
-                return alpha
-            }
         }
         
         struct BackgroundColor {
