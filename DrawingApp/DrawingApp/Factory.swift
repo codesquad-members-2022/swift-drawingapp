@@ -76,9 +76,9 @@ class Factory {
         }
 
         var description: String {
-            return "(\(self.id)), X:\(self.point.x), Y:\(self.point.y), W\(self.size.width), H\(self.size.height), R\(self.color.R), G\(self.color.G), B\(self.color.B), Alpha: \(self.alpha.rawValue)"
+            return "\(self.name) (\(self.id)), X:\(self.point.x), Y:\(self.point.y), W\(self.size.width), H\(self.size.height), R\(self.color.R), G\(self.color.G), B\(self.color.B), Alpha: \(self.alpha.rawValue)"
         }
-        let name: String
+        private let name: String
         init(name: String) {
             self.name = name
         }
