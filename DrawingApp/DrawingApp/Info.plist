@@ -21,5 +21,7 @@
 			</array>
 		</dict>
 	</dict>
+	<key>UIMainStoryboardFile~ipad</key>
+	<string>Main</string>
 </dict>
 </plist>

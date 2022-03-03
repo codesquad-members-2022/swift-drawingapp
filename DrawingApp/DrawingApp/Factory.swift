@@ -1,16 +1,32 @@
 import Foundation
 
 class Factory {
+    static func createRandomRectangle() -> RectangleView {
+        return RectangleView()
+    }
     struct RectangleView: CustomStringConvertible {
         enum Alpha: Int {
-            case one = 1, two, three, four, five, six, seve, eight, nine, ten
-            func selectRandom() -> Self {
-                let randomNumber = Int.random(in: 1...10)
-                if self.rawValue == randomNumber {
-                    return self
+            case one = 1
+            case two
+            case three
+            case four
+            case five
+            case six
+            case seve
+            case eight
+            case nine
+            case ten
+            
+            func selectRandomAlpha() -> Self {
+                let randomInt = Int.random(in: 1...10)
+                guard let alpha =  Alpha(rawValue: randomInt) else {
+                    //TODO: 나중에 이것은 수정이 되어야할거같다.
+                    return Alpha.one
                 }
+                return alpha
             }
         }
+        
         struct BackgroundColor {
             let R: UInt8
             let G: UInt8
@@ -24,7 +40,7 @@ class Factory {
             let x: Double
             let y: Double
         }
-        
+
         var  id: String {               // UUID: xxx-xxx-xxx
             var uuid = UUID().uuidString.split(separator: "-").map{String($0)}
             uuid.removeFirst()
@@ -39,17 +55,27 @@ class Factory {
         }
         let size = Size()
         var point: Point {
-            
+            // 아이패드 앱에서 Safe Area 내에서 화면이 짤리지 않고 보이는 4개의 점이 자리할 수 있는 x와 y값의 범위 지정
+            let randomX: Double = Double.random(in: 20...1010)
+            let randomY: Double = Double.random(in: 24...680)
+            return Point(x: randomX, y: randomY)
         }
-        let color: BackgroundColor
-        let alpha: Alpha
-        
+        var color: BackgroundColor {
+            let randomR: UInt8 = UInt8.random(in: 0...255)
+            let randomG: UInt8 = UInt8.random(in: 0...255)
+            let randomB: UInt8 = UInt8.random(in: 0...255)
+            return BackgroundColor(R: randomR, G: randomG, B: randomB)
+        }
+        var alpha: Alpha {
+            let randomInt = Int.random(in: 1...10)
+            guard let alpha =  Alpha(rawValue: randomInt) else {
+                return self.alpha
+            }
+            return alpha
+        }
+
         var description: String {
-            
+            return "(\(self.id)), X:\(self.point.x), Y:\(self.point.y), W\(self.size.width), H\(self.size.height), R\(self.color.R), G\(self.color.G), B\(self.color.B), Alpha: \(self.alpha.rawValue)"
         }
-    }
-    
-    static func createRandomRectangle() -> RectangleView {
-        return RectangleView(point: <#T##RectangleView.Point#>, color: <#T##RectangleView.BackgroundColor#>, alpha: <#T##RectangleView.Alpha#>)
     }
 }
