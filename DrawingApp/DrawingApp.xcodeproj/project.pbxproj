@@ -21,7 +21,6 @@
 		E4D3DFAA27CF18740096810A /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D3DFA327CEFE7C0096810A /* Size.swift */; };
 		E4D3DFAB27CF18740096810A /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D3DFA527CEFE7F0096810A /* Color.swift */; };
 		E4D3DFAC27CF18740096810A /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D3DFA727CEFEB90096810A /* Alpha.swift */; };
-		E4D3DFAE27CF3A5E0096810A /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D3DFAD27CF3A5E0096810A /* Constants.swift */; };
 		E4D3DFB027CF42560096810A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D3DFAF27CF42560096810A /* Extensions.swift */; };
 		E4E8082F27CDF0C100F4C062 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E8082E27CDF0C100F4C062 /* Rectangle.swift */; };
 		E4E8083127CE062600F4C062 /* ShapeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E8083027CE062600F4C062 /* ShapeFactory.swift */; };
@@ -53,7 +52,6 @@
 		E4D3DFA327CEFE7C0096810A /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		E4D3DFA527CEFE7F0096810A /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		E4D3DFA727CEFEB90096810A /* Alpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alpha.swift; sourceTree = "<group>"; };
-		E4D3DFAD27CF3A5E0096810A /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E4D3DFAF27CF42560096810A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		E4E8082E27CDF0C100F4C062 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 		E4E8083027CE062600F4C062 /* ShapeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeFactory.swift; sourceTree = "<group>"; };
@@ -140,7 +138,6 @@
 				E481266127CCF8E000A3FFF6 /* AppDelegate.swift */,
 				E4630C2627CDD2BC00644B70 /* SceneDelegate.swift */,
 				E4E8083027CE062600F4C062 /* ShapeFactory.swift */,
-				E4D3DFAD27CF3A5E0096810A /* Constants.swift */,
 				E4D3DFAF27CF42560096810A /* Extensions.swift */,
 				E4630C2227CDD22900644B70 /* Model */,
 				E4630C2327CDD22D00644B70 /* View */,
@@ -265,7 +262,6 @@
 				E4D3DFA227CEFE490096810A /* Point.swift in Sources */,
 				E4D3DFA627CEFE7F0096810A /* Color.swift in Sources */,
 				E4D3DFA827CEFEB90096810A /* Alpha.swift in Sources */,
-				E4D3DFAE27CF3A5E0096810A /* Constants.swift in Sources */,
 				E4E8083127CE062600F4C062 /* ShapeFactory.swift in Sources */,
 				E481266627CCF8E000A3FFF6 /* ViewController.swift in Sources */,
 				E481266227CCF8E000A3FFF6 /* AppDelegate.swift in Sources */,
