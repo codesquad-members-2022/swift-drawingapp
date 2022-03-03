@@ -18,7 +18,6 @@
 		B5E73BBA27CE01320016E628 /* OSLog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5E73BB927CE01320016E628 /* OSLog.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		B5E73BBC27CF457B0016E628 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E73BBB27CF457B0016E628 /* Plane.swift */; };
 		B5E73BC427D082630016E628 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E73BC327D082630016E628 /* CanvasView.swift */; };
-		B5E73BC627D0835B0016E628 /* GeneratorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E73BC527D0835B0016E628 /* GeneratorView.swift */; };
 		B5E73BC827D083750016E628 /* StylerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E73BC727D083750016E628 /* StylerView.swift */; };
 /* End PBXBuildFile section */
 
@@ -36,7 +35,6 @@
 		B5E73BB927CE01320016E628 /* OSLog.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OSLog.framework; path = System/Library/Frameworks/OSLog.framework; sourceTree = SDKROOT; };
 		B5E73BBB27CF457B0016E628 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		B5E73BC327D082630016E628 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
-		B5E73BC527D0835B0016E628 /* GeneratorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneratorView.swift; sourceTree = "<group>"; };
 		B5E73BC727D083750016E628 /* StylerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StylerView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -115,7 +113,6 @@
 			isa = PBXGroup;
 			children = (
 				B5E73BC327D082630016E628 /* CanvasView.swift */,
-				B5E73BC527D0835B0016E628 /* GeneratorView.swift */,
 				B5E73BC727D083750016E628 /* StylerView.swift */,
 			);
 			path = View;
@@ -192,7 +189,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B5E73BC627D0835B0016E628 /* GeneratorView.swift in Sources */,
 				B5E73BB727CDE3910016E628 /* RectangleFactory.swift in Sources */,
 				B5E73BC427D082630016E628 /* CanvasView.swift in Sources */,
 				B5E73BC827D083750016E628 /* StylerView.swift in Sources */,
