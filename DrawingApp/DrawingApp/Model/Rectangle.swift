@@ -91,8 +91,8 @@ class Rectangle: CustomStringConvertible{
             return "Alpha:\(String(self.rawValue))"
         }
         
-        var opacity: Int{
-            return self.rawValue
+        var opacity: Float{
+            return Float(self.rawValue) / 10
         }
     }
     
