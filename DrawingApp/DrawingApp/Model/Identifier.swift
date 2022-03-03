@@ -7,40 +7,46 @@
 
 import Foundation
 
-struct Identifier {
+class Identifier {
     private var firstToken: String
     private var secondToken: String
     private var thirdToken: String
-    private var delimiter: Character
     
-    init(firstToken: String, secondToken: String, thirdToken: String, delimiter: Character) {
+    init(firstToken: String, secondToken: String, thirdToken: String) {
         self.firstToken = firstToken
         self.secondToken = secondToken
         self.thirdToken = thirdToken
-        self.delimiter = delimiter
     }
     
-    static func generateToken() -> String {
+    convenience init() {
+        let firstToken = Identifier.generateRandomToken()
+        let secondToken = Identifier.generateRandomToken()
+        let thirdToken = Identifier.generateRandomToken()
+        
+        self.init(firstToken: firstToken, secondToken: secondToken, thirdToken: thirdToken)
+    }
+    
+    static func generateRandomToken() -> String {
         let characters = Array(Bound.alphaNumeric)
         
-        var token = ""
+        var id = ""
         (0..<Bound.tokenLength).forEach { _ in
             let randomCharacter = characters[Int.random(in: (0..<characters.count))]
-            token.append(randomCharacter)
+            id.append(randomCharacter)
         }
-        return token
+        return id
     }
 }
 
 extension Identifier: CustomStringConvertible {
     var description: String {
-        return "\(self.firstToken)\(self.delimiter)\(self.secondToken)\(self.delimiter)\(self.thirdToken)"
+        return "\(self.firstToken)-\(self.secondToken)-\(self.thirdToken)"
     }
 }
 
 extension Identifier {
     enum Bound {
-        static let alphaNumeric = "abcdefghijklmnopqrstuvxyz0123456789"
+        static let alphaNumeric = "abcdefghijklmnopqrstuvwxyz0123456789"
         static let tokenLength = 3
     }
 }
