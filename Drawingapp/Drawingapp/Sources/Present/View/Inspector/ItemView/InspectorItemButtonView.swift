@@ -9,15 +9,7 @@ import Foundation
 import UIKit
 
 class InspectorItemButtonView: InspectorItemView {
-    private let button = UIButton()
-    
-    var buttonEventHandler: () -> Void = { }
-    
-    override func bind() {
-        button.addAction(UIAction{ _ in
-            self.buttonEventHandler()
-        }, for: .touchUpInside)
-    }
+    let button = UIButton()
     
     override func attribute() {
         super.attribute()

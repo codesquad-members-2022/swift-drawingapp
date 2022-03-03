@@ -12,9 +12,8 @@ class InspectorSliderView: InspectorItemView {
     private let sliderStackView = UIStackView()
     private let minusButton = UIButton()
     private let plusButton = UIButton()
-    private let slider = UISlider()
+    let slider = UISlider()
     
-    var valueChangedHandler: (Float) -> Void = { _ in }
     
     override func bind() {
         super.bind()
@@ -25,10 +24,6 @@ class InspectorSliderView: InspectorItemView {
         plusButton.addAction(UIAction{ _ in
             self.addValue(1)
         }, for: .touchUpInside)
-        
-        slider.addAction(UIAction{ _ in
-            self.valueChangedHandler(self.slider.value)
-        }, for: .valueChanged)
     }
     
     override func attribute() {
