@@ -33,7 +33,7 @@ class ViewController: UIViewController {
         
         plane.state.drawSquare = { square in
             let drawView = self.drawingViewFactory.make(square: square)
-            self.drawingBoard.addSubview(drawView)
+            self.drawingBoard.addSubview(drawView.view)
             self.squareViews[square.id] = drawView
         }
         
