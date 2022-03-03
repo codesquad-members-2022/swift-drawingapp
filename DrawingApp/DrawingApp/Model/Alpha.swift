@@ -24,3 +24,9 @@ struct Alpha {
 
     }
 }
+
+extension Alpha: CustomStringConvertible {
+    var description: String {
+        return "Alpha: \(value)"
+    }
+}
