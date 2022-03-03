@@ -34,9 +34,7 @@ enum ShapeFactory {
     
     static func makeRectangle(x: Double = 0, y: Double = 0, width: Double = 30, height: Double = 30) -> Rectangle {
         let id = self.generateIdentifier(length: 9, delimiter: "-")
-        let alpha = Alpha.randomElement()
-        
-        return Rectangle(id: id, x: x, y: y, width: width, height: height, alpha: alpha)
+        return Rectangle(id: id, x: x, y: y, width: width, height: height, alpha: .opaque)
     }
     
     static func makeRandomRectangle() -> Rectangle {
