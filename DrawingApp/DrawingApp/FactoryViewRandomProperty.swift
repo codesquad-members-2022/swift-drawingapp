@@ -19,14 +19,14 @@ class FactoryViewRandomProperty: ViewPropertyCreator {
     
     // MARK: - Make Model Of View.
     func makeRandomView(as name: String) -> ViewRandomProperty? {
-        // 슈퍼 뷰로부터 팩토리 메소드에 필요한 값 타입을 얻을 수 있는 델리게이트 객체를 가져옵니다.
+        
         guard let delegate = delegate else { return nil }
         let superviewProperties = delegate.getMasterViewProperty()
         
-        // 슈퍼 뷰로부터 가져온 값을 이용하여 랜덤값을 가져옵니다.
+        
         let randomLocationProperties = getRandomPoint(from: superviewProperties)
         
-        // 팩토리 메소드 자체에서 생산해내는 랜덤 값을 반영해줍니다. makeRandomView(as:) 이기 때문입니다.
+        
         let randomColor = getRandomColor()
         let randomID = getRandomId()
         let randomAlpha = getRandomAlpha()

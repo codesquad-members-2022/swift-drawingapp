@@ -7,10 +7,6 @@
 
 import Foundation
 
-// typeAlias를 통해 튜플의 용도가 이름에서도 드러나도록 하였습니다.
-// [수정] 값 타입 사용을 위해 typealias는 struct로 변경됩니다.
-// [수정] 아래의 struct를 ViewRandomProperty의 서브타입으로 할까도 고민했지만, 아래의 값 타입은 어디서든 사용이 가능하겠다고 생각되어서 서브타입으로 하지 않았습니다.
-
 struct RectSize {
     var width: Double
     var height: Double
@@ -27,7 +23,6 @@ struct RectRGBColor {
     var b: Double
 }
 
-// 랜덤 프로퍼티를 소유한 뷰라는 의미의 이름을 넣게 되었습니다.
 class ViewRandomProperty: ViewPropertyCreator {
     
     private let name: String
