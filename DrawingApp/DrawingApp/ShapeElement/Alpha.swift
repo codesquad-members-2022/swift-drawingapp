@@ -13,23 +13,23 @@ final class Alpha:CustomStringConvertible {
     
     //최소 최대값은 고정되어 있어야 하기에 let으로 선언했습니다.
     //Alpha의 min과 max는 타입 자체와 관련이 있기 때문에 Static으로 선언했습니다.
-    static let minValue:Int = 0
-    static let maxValue:Int = 10
+    static let minValue:Double = 0
+    static let maxValue:Double = 1
     
-    private var inputAlphaValue:Int
+    var inputAlphaValue:Double
     
     //투명도는 0부터 10사이가 들어와야하므로 0보다 작은 수가 들어오면 0으로 10보다 큰 수가 들어오면 10으로 변환한다.
-    var alpha:Int {
+    var alpha:Double {
         translateInputAlphaValue()
     }
     
     //alpha값을 후에 바꾸고 싶다면 현재 보이고 있는 alpha값을 빠구는게 아니라, 다시 inputValue를 이용해서 계산해야 하므로 changeAlpha메서드를 선언했다.
-    func changeAlpha(to newValue:Int) {
+    func changeAlpha(to newValue:Double) {
         self.inputAlphaValue = newValue
     }
     
     //가장큰값 maxValue보다 크면 maxValue로 가작 작은값 minValue보다 작으면 minValue를 주도록 했습니다.
-    private func translateInputAlphaValue() -> Int{
+    private func translateInputAlphaValue() -> Double{
         
         if self.inputAlphaValue < Alpha.minValue {
             return Alpha.minValue
@@ -40,11 +40,7 @@ final class Alpha:CustomStringConvertible {
         }
     }
     
-    private static func isValid(_ input:Int) -> Bool {
-        return input > Alpha.minValue && input < Alpha.maxValue ? true : false
-    }
-    
-    init(_ alpha:Int) {
+    init(_ alpha:Double) {
         self.inputAlphaValue = alpha
     }
 

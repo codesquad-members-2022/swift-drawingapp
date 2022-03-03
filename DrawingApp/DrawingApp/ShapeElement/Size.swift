@@ -11,8 +11,8 @@ struct Size:CustomStringConvertible{
         "W\(width), H\(height)"
     }
     
-    private var width:Double
-    private var height:Double
+    var width:Double
+    var height:Double
     
     //min과 max는 타입 자체와 관련이 있기 때문에 Static으로 선언했습니다.
     static let maxWidth:Double = 820.0

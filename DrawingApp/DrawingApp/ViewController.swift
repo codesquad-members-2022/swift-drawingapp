@@ -17,18 +17,9 @@ class ViewController: UIViewController {
             
             configureRectangleButton()
         
-            let id = IDFactory.makeRandomID()
-            let size = SizeFactory.makeRandomSize()
-            let point = PointFactory.makeRandomPoint()
-            let rgb = RGBFactory.makeRandomRGB()
-            let alpha = AlphaFactory.makeRandomAlpha()
+
             
-            let rect = Rectangle(id: id, origin: point, size: size, backGroundColor: rgb, alpha: alpha)
-            
-            
-        
-        
-            os_log(.default, "\(rect)")
+
     }
     
     private func configureRectangleButton() {
@@ -52,7 +43,8 @@ class ViewController: UIViewController {
         configuration.background.backgroundColor = .secondarySystemBackground
         configuration.background.cornerRadius = 10
         
-        let button = UIButton(configuration: configuration, primaryAction: nil)
+        
+        let button = UIButton(configuration: configuration, primaryAction: makeRectangleAction())
         
         button.tintColor = .black
         button.frame = CGRect(x: x, y: y, width: width, height: height)
@@ -68,5 +60,21 @@ class ViewController: UIViewController {
     }
     
     
+    
+    func makeRectangleAction() -> UIAction {
+        let action = UIAction {_ in
+            let id = IDFactory.makeRandomID()
+            let size = Size(width: 150, height: 120)
+            let point = PointFactory.makeRandomPoint()
+            let rgb = RGBFactory.makeRandomRGB()
+            let alpha = AlphaFactory.makeRandomAlpha()
+            
+            let rect = Rectangle(id: id, origin: point, size: size, backGroundColor: rgb, alpha: alpha)
+            let rectOnView = UIView(rect: rect, rgb: rgb, alpha: alpha)
+            
+            self.view.addSubview(rectOnView)
+        }
+        return action
+    }
 }
 
