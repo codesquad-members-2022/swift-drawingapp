@@ -32,7 +32,7 @@ class ViewController: UIViewController {
         inspectorView.bind(plane: self.plane)
         
         plane.state.drawSquare = { square in
-            let drawView = self.drawingViewFactory.make(type: .square(model: square))
+            let drawView = self.drawingViewFactory.make(square: square)
             self.drawingBoard.addSubview(drawView)
             self.squareViews[square.id] = drawView
         }
