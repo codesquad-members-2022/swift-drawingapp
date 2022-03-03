@@ -38,7 +38,7 @@ class RectangleFactory {
             }
             return Alpha(transparency: randomTransparency)
         }
-        return Rectangle(id: Id(), size: Size(width: 150, height: 120), position: randomPosition, color: randomColor, alpha: randomAlpha)
+        return Rectangle(size: Size(width: 150, height: 120), position: randomPosition, color: randomColor, alpha: randomAlpha)
     }
     
     
