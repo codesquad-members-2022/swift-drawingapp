@@ -5,9 +5,11 @@ class CanvasView: UIView{
     
     private var generatingButton: UIButton = UIButton()
     
-    override init(frame: CGRect) {
+    init(frame: CGRect, backGroundColor: UIColor, buttonActionClosure: @escaping ()->Void) {
         super.init(frame: frame)
+        self.backgroundColor = backGroundColor
         setGeneratingButton()
+        setGeneratingButtonAction(buttonActionClosure: buttonActionClosure)
     }
         
     required init?(coder: NSCoder) {
@@ -31,7 +33,7 @@ class CanvasView: UIView{
         self.addSubview(generatingButton)
     }
     
-    func setGeneratingButtonAction(buttonActionClosure: @escaping ()->Void){
+    private func setGeneratingButtonAction(buttonActionClosure: @escaping ()->Void){
         let buttonAction:UIAction = UIAction(title: ""){ _ in
             buttonActionClosure() }
         self.generatingButton.addAction(buttonAction, for: .touchDown)
