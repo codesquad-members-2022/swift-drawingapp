@@ -9,18 +9,10 @@ import Foundation
 import UIKit
 
 class DrawingViewFactory {
-    func make(type: ViewType) -> SquareView {
-        switch type {
-        case .square(let square):
-            let squareView = SquareView()
-            squareView.update(in: square)
-            return squareView
-        }
-    }
-}
-
-extension DrawingViewFactory {
-    enum ViewType {
-        case square(model: Square)
+    
+    func make(square: Square) -> SquareView {
+        let squareView = SquareView()
+        squareView.update(in: square)
+        return squareView
     }
 }
