@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class PointFactory {
-    func make() -> Point {
+    static func make() -> Point {
         let screenSize = UIScreen.main.bounds.size
         let pointX = Int.random(in: 0..<Int(screenSize.width))
         let pointY = Int.random(in: 0..<Int(screenSize.height))

@@ -9,8 +9,7 @@ import Foundation
 import UIKit
 
 class DrawingViewFactory {
-    
-    func make(square: Square) -> SquareView {
+    static func make(square: Square) -> SquareView {
         let squareView = SquareView()
         squareView.update(in: square)
         return squareView

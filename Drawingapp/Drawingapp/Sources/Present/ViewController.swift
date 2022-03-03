@@ -33,7 +33,6 @@ class ViewController: UIViewController, PlaneOutput {
     }()
     
     let plane = Plane()
-    let drawingViewFactory = DrawingViewFactory()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -87,7 +86,7 @@ class ViewController: UIViewController, PlaneOutput {
     }
     
     func drawSquare(to square: Square) {
-        let drawView = self.drawingViewFactory.make(square: square)
+        let drawView = DrawingViewFactory.make(square: square)
         self.drawingBoard.addSubview(drawView.view)
         self.squareViews[square.id] = drawView
     }
