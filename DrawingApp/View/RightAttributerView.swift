@@ -29,8 +29,9 @@ class RightAttributerView: UIView {
     var blueValue: Double{
         return Double(blueSlider.value)
     }
-    var alphaValue: Double{
-        return Double(alphaSlider.value)
+    var alphaValue: Alpha{
+        let value = Alpha.doubleToAlpha(alpha: Double(alphaSlider.value))
+        return value
     }
     
     override init(frame: CGRect) {
@@ -105,7 +106,7 @@ class RightAttributerView: UIView {
     
     func changeAlphaSliderValue(value: Float){
         self.alphaSlider.value = value
-        self.alphaTitle.text = "투명도 : \(String(format: "%.0f", alphaValue * 10))"
+        self.alphaTitle.text = "투명도 : \(String(format: "%.0f", alphaValue.showValue() * 10))"
     }
     
     func changeRedSliderValue(value: Float){
@@ -124,7 +125,7 @@ class RightAttributerView: UIView {
     }
     
     func changeAllSliderValue(){
-        self.alphaTitle.text = "투명도 : \(String(format: "%.0f", alphaValue * 10))"
+        self.alphaTitle.text = "투명도 : \(String(format: "%.0f", alphaValue.showValue() * 10))"
         self.colorNameRed.text = "Red : \(String(format: "%.0f", redValue))"
         self.colorNameGreen.text = "Green : \(String(format: "%.0f", greenValue))"
         self.colorNameBlue.text = "Blue : \(String(format: "%.0f", blueValue))"

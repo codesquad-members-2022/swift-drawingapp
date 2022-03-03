@@ -17,8 +17,13 @@ struct Plane{
         return rectangles[index]
     }
     
-    mutating func addRectangle(rectangle: Rectangle){
+    mutating func makeRectangle(maxWidth: Double, maxHeight: Double) -> Rectangle{
+        let rectFactory = RectangleFactory()
+        
+        let rectangle = Rectangle(id: IDFactory.makeID(), size: rectFactory.makeSize(), point: rectFactory.makePoint(viewWidth: maxWidth, viewHeight: maxHeight), color: rectFactory.makeColor(), alpha: rectFactory.makeAlpha())
+        
         self.rectangles.append(rectangle)
+        return rectangle
     }
    
     func count() -> Int{
@@ -33,14 +38,10 @@ struct Plane{
         var findedRectangle: Rectangle?
         
         rectangles.forEach{ rectangle in
-            let minX: Double = rectangle.showPoint().xValue()
-            let maxX: Double = minX + rectangle.showSize().widthValue()
-            let minY: Double = rectangle.showPoint().yValue()
-            let maxY: Double = minY + rectangle.showSize().heightValue()
-            
-            if withX >= minX, withX <= maxX, withY >= minY, withY <= maxY{
-                findedRectangle = rectangle
+            guard let inRangeRectangle = rectangle.findLocationRange(xPoint: withX, yPoint: withY) else{
+                return
             }
+            findedRectangle = inRangeRectangle
         }
         
         return findedRectangle

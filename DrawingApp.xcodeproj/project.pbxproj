@@ -10,8 +10,7 @@
 		D255615A27CEFA4700B4F9D7 /* MyPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255615927CEFA4700B4F9D7 /* MyPoint.swift */; };
 		D255615C27CEFA5C00B4F9D7 /* RGBColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255615B27CEFA5C00B4F9D7 /* RGBColor.swift */; };
 		D255615E27CEFA7000B4F9D7 /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255615D27CEFA7000B4F9D7 /* Alpha.swift */; };
-		D255616127CF003000B4F9D7 /* RectangleIDFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255616027CF003000B4F9D7 /* RectangleIDFactory.swift */; };
-		D255616827CF34F800B4F9D7 /* RandomRectangleMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255616727CF34F800B4F9D7 /* RandomRectangleMaker.swift */; };
+		D255616127CF003000B4F9D7 /* IDFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255616027CF003000B4F9D7 /* IDFactory.swift */; };
 		D255617127CF42A000B4F9D7 /* RightAttributerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255617027CF42A000B4F9D7 /* RightAttributerView.swift */; };
 		D255617327CF492F00B4F9D7 /* RandomRectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255617227CF492F00B4F9D7 /* RandomRectangleView.swift */; };
 		D255617A27CFBA2E00B4F9D7 /* RandomRectangleMakerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255617927CFBA2E00B4F9D7 /* RandomRectangleMakerTest.swift */; };
@@ -44,8 +43,7 @@
 		D255615927CEFA4700B4F9D7 /* MyPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPoint.swift; sourceTree = "<group>"; };
 		D255615B27CEFA5C00B4F9D7 /* RGBColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBColor.swift; sourceTree = "<group>"; };
 		D255615D27CEFA7000B4F9D7 /* Alpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alpha.swift; sourceTree = "<group>"; };
-		D255616027CF003000B4F9D7 /* RectangleIDFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleIDFactory.swift; sourceTree = "<group>"; };
-		D255616727CF34F800B4F9D7 /* RandomRectangleMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomRectangleMaker.swift; sourceTree = "<group>"; };
+		D255616027CF003000B4F9D7 /* IDFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDFactory.swift; sourceTree = "<group>"; };
 		D255617027CF42A000B4F9D7 /* RightAttributerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightAttributerView.swift; sourceTree = "<group>"; };
 		D255617227CF492F00B4F9D7 /* RandomRectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomRectangleView.swift; sourceTree = "<group>"; };
 		D255617927CFBA2E00B4F9D7 /* RandomRectangleMakerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomRectangleMakerTest.swift; sourceTree = "<group>"; };
@@ -101,8 +99,6 @@
 			children = (
 				D273EAF227CC5DA000DCDF78 /* Rectangle.swift */,
 				D26D915827CC6D87007507AE /* RectangleFactory.swift */,
-				D255616027CF003000B4F9D7 /* RectangleIDFactory.swift */,
-				D255616727CF34F800B4F9D7 /* RandomRectangleMaker.swift */,
 				D26D915A27CCB8B3007507AE /* Plane.swift */,
 			);
 			path = Rectangle;
@@ -173,10 +169,19 @@
 		D273EAF127CC5D8600DCDF78 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D292CE5E27D0FADA0063658A /* Common */,
 				D255615827CEFA1200B4F9D7 /* Attributes */,
 				D255615F27CF000300B4F9D7 /* Rectangle */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		D292CE5E27D0FADA0063658A /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				D255616027CF003000B4F9D7 /* IDFactory.swift */,
+			);
+			path = Common;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -292,8 +297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D255615C27CEFA5C00B4F9D7 /* RGBColor.swift in Sources */,
-				D255616127CF003000B4F9D7 /* RectangleIDFactory.swift in Sources */,
-				D255616827CF34F800B4F9D7 /* RandomRectangleMaker.swift in Sources */,
+				D255616127CF003000B4F9D7 /* IDFactory.swift in Sources */,
 				D255615A27CEFA4700B4F9D7 /* MyPoint.swift in Sources */,
 				D255617327CF492F00B4F9D7 /* RandomRectangleView.swift in Sources */,
 				D255617127CF42A000B4F9D7 /* RightAttributerView.swift in Sources */,

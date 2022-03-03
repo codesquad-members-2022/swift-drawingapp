@@ -8,27 +8,15 @@
 import Foundation
 
 final class Rectangle: CustomStringConvertible{
-    private let id: String
-    private let size: MySize
-    private let point: MyPoint
+    let id: String
+    let size: MySize
+    let point: MyPoint
     private var color: RGBColor
     private var alpha: Alpha
     
     var description: String{
-        let description = "[\(id)] : (X: \(point.xValue()), Y:\(point.yValue())) / (W: \(size.widthValue()), H:\(size.heightValue())) / (R: \(color.redValue()), G: \(color.greenValue()), B: \(color.blueValue())) / Alpha: \(showAlpha())"
+        let description = "[\(id)] : (X: \(point.x), Y:\(point.y)) / (W: \(size.width), H:\(size.height)) / (R: \(color.red), G: \(color.green), B: \(color.blue)) / Alpha: \(showAlpha())"
         return description
-    }
-    
-    func showId() -> String{
-        return id
-    }
-    
-    func showSize() -> MySize{
-        return size
-    }
-    
-    func showPoint() -> MyPoint{
-        return point
     }
     
     func showColor() -> RGBColor{
@@ -43,28 +31,20 @@ final class Rectangle: CustomStringConvertible{
         self.color = color
     }
     
-    func changeAlpha(alpha: Double){
-        switch alpha{
-        case 0.9..<1:
-            self.alpha = .nine
-        case 0.8..<0.9:
-            self.alpha = .eight
-        case 0.7..<0.8:
-            self.alpha = .seven
-        case 0.6..<0.7:
-            self.alpha = .six
-        case 0.5..<0.6:
-            self.alpha = .five
-        case 0.4..<0.5:
-            self.alpha = .four
-        case 0.3..<0.4:
-            self.alpha = .three
-        case 0.2..<0.3:
-            self.alpha = .two
-        case 0.0..<0.2:
-            self.alpha = .one
-        default:
-            self.alpha = .ten
+    func changeAlpha(alpha: Alpha){
+        self.alpha = alpha
+    }
+    
+    func findLocationRange(xPoint: Double, yPoint: Double) -> Rectangle?{
+        let minX: Double = self.point.x
+        let maxX: Double = minX + self.size.width
+        let minY: Double = self.point.y
+        let maxY: Double = minY + self.size.height
+        
+        if xPoint >= minX, xPoint <= maxX, yPoint >= minY, yPoint <= maxY{
+            return self
+        } else{
+            return nil
         }
     }
     
