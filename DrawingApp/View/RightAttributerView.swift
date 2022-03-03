@@ -34,6 +34,8 @@ class RightAttributerView: UIView {
         return value
     }
     
+    var delegate: RightAttributerViewDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialize()
@@ -46,6 +48,10 @@ class RightAttributerView: UIView {
     
     private func initialize(){
         attribute()
+        redSlider.addTarget(self, action: #selector(self.moveRedSlider), for: .valueChanged)
+        greenSlider.addTarget(self, action: #selector(self.moveGreenSlider), for: .valueChanged)
+        blueSlider.addTarget(self, action: #selector(self.moveBlueSlider), for: .valueChanged)
+        alphaSlider.addTarget(self, action: #selector(self.moveAlphaSlider), for: .valueChanged)
     }
     
     private func attribute(){
@@ -129,5 +135,21 @@ class RightAttributerView: UIView {
         self.colorNameRed.text = "Red : \(String(format: "%.0f", redValue))"
         self.colorNameGreen.text = "Green : \(String(format: "%.0f", greenValue))"
         self.colorNameBlue.text = "Blue : \(String(format: "%.0f", blueValue))"
+    }
+    
+    @objc private func moveAlphaSlider(){
+        self.delegate?.moveAlphaSlider()
+    }
+    
+    @objc private func moveRedSlider(){
+        self.delegate?.moveRedSlider()
+    }
+    
+    @objc private func moveGreenSlider(){
+        self.delegate?.moveGreenSlider()
+    }
+    
+    @objc private func moveBlueSlider(){
+        self.delegate?.moveBlueSlider()
     }
 }

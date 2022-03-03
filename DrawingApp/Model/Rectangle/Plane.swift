@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Plane{
     private var rectangles: [Rectangle] = []
@@ -40,6 +41,18 @@ struct Plane{
         }
         
         return findedRectangle
+    }
+    
+    func findRectangleView(view: UIView, rectangle: Rectangle) -> UIView?{
+        var rectangleView: UIView?
+        
+        view.subviews.forEach{ view in
+            guard view.restorationIdentifier == rectangle.id else{
+                return
+            }
+            rectangleView = view
+        }
+        return rectangleView
     }
     
     func findRectangleIndex(rectangle: Rectangle) -> Int?{

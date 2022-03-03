@@ -8,7 +8,7 @@
 import UIKit
 import os
 
-class MainViewController: UIViewController {
+class MainViewController: UIViewController, RightAttributerViewDelegate {
     private var rectangles = Plane()
     let rectFactory = RectangleFactory()
     let rightAttributerView = RightAttributerView()
@@ -22,30 +22,44 @@ class MainViewController: UIViewController {
         super.viewDidLoad()
         
         rectangleButton.layer.cornerRadius = 15
+        rightAttributerView.delegate = self
         self.view.addSubview(rightAttributerView)
-        
-        rightAttributerView.redSlider.addTarget(self, action: #selector(self.changeRectangleAttribute), for: .valueChanged)
-        rightAttributerView.greenSlider.addTarget(self, action: #selector(self.changeRectangleAttribute), for: .valueChanged)
-        rightAttributerView.blueSlider.addTarget(self, action: #selector(self.changeRectangleAttribute), for: .valueChanged)
-        rightAttributerView.alphaSlider.addTarget(self, action: #selector(self.changeRectangleAttribute), for: .valueChanged)
+        rightAttributerView.layout()
         
         let tapGestureRecognizer = UITapGestureRecognizer()
         tapGestureRecognizer.delegate = self
         self.view.addGestureRecognizer(tapGestureRecognizer)
     }
+    
+    func moveAlphaSlider() {
+        changeRectangleAttribute()
+    }
+    
+    func moveRedSlider() {
+        changeRectangleAttribute()
+    }
+    
+    func moveGreenSlider() {
+        changeRectangleAttribute()
+    }
+    
+    func moveBlueSlider() {
+        changeRectangleAttribute()
+    }
 
     @IBAction func makeRandomRectangle(_ sender: Any) {
-        let uiViewClass = RandomRectangleView()
+        let rectangleView = RandomRectangleView()
         let rectangleValue = Rectangle(id: IDFactory.makeID(), size: rectFactory.makeSize(), point: rectFactory.makePoint(viewWidth: self.rightAttributerView.frame.minX, viewHeight: self.rectangleButton.frame.minY), color: rectFactory.makeColor(), alpha: rectFactory.makeAlpha())
         
         rectangles.addRectangle(rectangle: rectangleValue)
-        let rectangleView = uiViewClass.makeRectangleView(rectangle: rectangleValue)
+        rectangleView.attribute(rectangle: rectangleValue)
+        rectangleView.layout(rectangle: rectangleValue)
 
         os_log("%@", "\(rectangleValue.description)")
         self.view.addSubview(rectangleView)
     }
     
-    @objc func changeRectangleAttribute(){
+    func changeRectangleAttribute(){
         guard let index = selectedRectangleIndex, let rectangle = self.rectangles[index], let rectView = selectedRectangleView else{
             return
         }
@@ -80,16 +94,11 @@ extension MainViewController: UIGestureRecognizerDelegate {
     }
     
     private func findSelectedRectangle(point: CGPoint){
-        guard let rectangleInPlane = rectangles.findRectangle(withX: point.x, withY: point.y) else{
+        guard let rectangleInPlane = rectangles.findRectangle(withX: point.x, withY: point.y), let rectangleView = rectangles.findRectangleView(view: self.view, rectangle: rectangleInPlane) else{
             return
         }
         
-        self.view.subviews.forEach{ rectangle in
-            guard rectangle.restorationIdentifier == rectangleInPlane.id else{
-                return
-            }
-            self.selectedRectangleView = rectangle
-            self.selectedRectangleIndex = rectangles.findRectangleIndex(rectangle: rectangleInPlane)
-        }
+        self.selectedRectangleView = rectangleView
+        self.selectedRectangleIndex = rectangles.findRectangleIndex(rectangle: rectangleInPlane)
     }
 }
