@@ -61,7 +61,8 @@ class ViewController: UIViewController {
                                                 alpha: CGFloat(rectangle.alpha.opacity))
         
         plane.addRectangle(rectangle)
-        canvasView.addSubview(rectangleView)
+        canvasView.insertSubview(rectangleView, belowSubview: canvasView.generatingButton)
+        logger.debug("\(self.plane)")
     }
 
 }
