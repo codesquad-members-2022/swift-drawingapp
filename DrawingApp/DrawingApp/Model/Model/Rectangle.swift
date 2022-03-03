@@ -16,11 +16,13 @@ protocol ViewModel {
 }
 
 protocol ColorMutable {
+    var color: Color { get }
     var uiColor: UIColor { get }
     func transform(to color: Color)
 }
 
 protocol AlphaMutable {
+    var alpha: Alpha { get }
     var cgAlpha: CGFloat { get }
     func transform(to alpha: Alpha)
 }
@@ -29,8 +31,8 @@ class Rectangle: ViewModel {
     private(set) var id: String
     private var origin: Point
     private var size: Size
-    private var color: Color
-    private var alpha: Alpha
+    private(set) var color: Color
+    private(set) var alpha: Alpha
     
     init(id: String, origin: Point, size: Size, color: Color, alpha: Alpha) {
         self.id = id
