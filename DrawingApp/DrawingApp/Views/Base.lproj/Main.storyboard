@@ -163,6 +163,9 @@
                             <constraint firstItem="RCz-wr-TeS" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="siI-c6-zhR"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="screenView" destination="LzV-1y-tOe" id="p84-bH-qj1"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
