@@ -24,7 +24,15 @@ class Rectangle {
     
 }
 
-extension Rectangle : CustomStringConvertible {
+extension Rectangle : CustomStringConvertible, Equatable {
+    static func == (lhs: Rectangle, rhs: Rectangle) -> Bool {
+         return lhs.id === rhs.id &&
+                lhs.size === rhs.size &&
+                lhs.position === rhs.position &&
+                lhs.backGroundColor === rhs.backGroundColor &&
+                lhs.alpha === rhs.alpha
+    }
+    
     var description: String {
         return "(\(self.id)), \(position), \(self.size), \(self.backGroundColor) , \(self.alpha)"
     }
