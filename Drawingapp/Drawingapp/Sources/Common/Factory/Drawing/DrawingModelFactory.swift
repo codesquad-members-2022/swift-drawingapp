@@ -9,15 +9,25 @@ import Foundation
 
 class DrawingModelFactory {
     
-    private let typeDataFactory = TypeDataFactory()
+    private let sizeFactory = SizeFactory()
+    private let pointFactory = PointFactory()
+    private let colorFactory = ColorFactory()
     
     func makeSquare() -> Square {
-        let id = typeDataFactory.makeId()
-        let size = typeDataFactory.makeSize()
-        let point = typeDataFactory.makePoint()
-        let color = typeDataFactory.makeColor()
-        let alpha = typeDataFactory.makeAlpha()
+        let id = makeId()
+        let size = sizeFactory.make()
+        let point = pointFactory.make()
+        let color = colorFactory.maker()
+        let alpha = Alpha.allCases.randomElement() ?? .ten
         
         return Square(id: id, point: point, size: size, color: color, alpha: alpha)
+    }
+    
+    private func makeId() -> String {
+        let chars = "abcdefghijklmnopqrstuvwxyz0123456789"
+        return String((0..<3).reduce(""){ id, _ in
+            let randomId = String((0..<3).compactMap{ _ in chars.randomElement()})
+            return id + randomId + "-"
+        }.dropLast())
     }
 }
