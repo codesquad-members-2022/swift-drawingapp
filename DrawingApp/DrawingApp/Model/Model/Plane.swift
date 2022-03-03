@@ -9,7 +9,6 @@ import Foundation
 
 protocol PlaneDelegate {
     func didAddViewModels(_ new: [ViewModel])
-    func didSelectViewModels(_ selected: ViewModel)
 }
 
 class Plane {

@@ -11,7 +11,5 @@ class PanelViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
     }
 }

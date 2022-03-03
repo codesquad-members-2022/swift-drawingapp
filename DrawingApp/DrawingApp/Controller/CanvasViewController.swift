@@ -16,7 +16,7 @@ class CanvasViewController: UIViewController {
         setUpInitialModels()
     }
     
-    func setUpInitialModels() {
+    private func setUpInitialModels() {
         (0..<4).forEach { _ in plane.addRectangle() }
     }
     
@@ -36,24 +36,24 @@ class CanvasViewController: UIViewController {
         plane.tap(on: Point(cgPoint: location))
     }
     
-    func getMatchedUIView(with viewModel: ViewModel) -> UIView? {
+    private func getMatchedUIView(with viewModel: ViewModel) -> UIView? {
         return view.subviews.first(where: {
             guard let baseView = $0 as? BaseView else { return false }
             return baseView.id == viewModel.id
         })
     }
     
-    func changeBorder(_ view: UIView) {
+    private func changeBorder(_ view: UIView) {
         view.layer.borderWidth = 5
         view.layer.borderColor = UIColor.systemBlue.cgColor
     }
     
-    func clearBorder(_ view: UIView) {
+    private func clearBorder(_ view: UIView) {
         view.layer.borderWidth = 0
         view.layer.borderColor = UIColor.clear.cgColor
     }
 
-    func createBaseView(from viewModel: ViewModel) -> BaseView? {
+    private func createBaseView(from viewModel: ViewModel) -> BaseView? {
         return BaseView(viewModel: viewModel)
     }
 }
@@ -61,15 +61,11 @@ class CanvasViewController: UIViewController {
 extension CanvasViewController: PlaneDelegate {
     func didAddViewModels(_ new: [ViewModel]) {
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
+        
         for newViewModel in new {
             guard let newUIView = createBaseView(from: newViewModel) else { continue }
             view.addSubview(newUIView)
             newUIView.addGestureRecognizer(tap)
         }
     }
-    
-    func didSelectViewModels(_ selected: ViewModel) {
-        
-    }
-    
 }

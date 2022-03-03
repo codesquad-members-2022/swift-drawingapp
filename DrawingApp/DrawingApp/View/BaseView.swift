@@ -1,5 +1,5 @@
 //
-//  RectangleView.swift
+//  BaseView.swift
 //  DrawingApp
 //
 //  Created by Bumgeun Song on 2022/03/03.
@@ -7,8 +7,11 @@
 
 import UIKit
 
-class RectangleView: UIView {
+class BaseView: UIView {
+    let id: String
+    
     init(viewModel: ViewModel) {
+        self.id = viewModel.id
         super.init(frame: viewModel.cgRect)
         
         if let colorMutableViewModel = viewModel as? ColorMutable {
@@ -21,6 +24,8 @@ class RectangleView: UIView {
     }
     
     required init?(coder: NSCoder) {
+        // No id when intialized without ViewModel
+        self.id = ""
         super.init(coder: coder)
     }
 }
