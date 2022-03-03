@@ -2,10 +2,10 @@ import Foundation
 
 class RectangleFactory{
     
-    func createRenctangle()-> Rectangle{
+    func createRenctangle(maxX: Double, maxY: Double, minWidth: Double, minHeight: Double, maxWidth: Double, maxHeight: Double)-> Rectangle{
         let id = createRandomStringId()
-        let point = createRandomPoint()
-        let size = createRandomRectangleSize()
+        let point = createRandomPoint(maxX: maxX, maxY: maxY)
+        let size = createRandomRectangleSize(minWidth: minWidth, minHeight: minHeight, maxWidth: maxWidth, maxHeight: maxHeight)
         let color = createRandomColor()
         let alpha = createRandomAlpha()
         
@@ -16,12 +16,12 @@ class RectangleFactory{
         return Rectangle.Id()
     }
     
-    private func createRandomPoint()-> Rectangle.Point{
-        return Rectangle.Point(x: Double.random(in: 1...100), y: Double.random(in: 1...100))
+    private func createRandomPoint(maxX: Double, maxY: Double)-> Rectangle.Point{
+        return Rectangle.Point(x: Double.random(in: 1...maxX), y: Double.random(in: 1...maxY))
     }
     
-    private func createRandomRectangleSize()-> Rectangle.Size{
-        return Rectangle.Size(width: Double.random(in: 1...100), height: Double.random(in: 1...100))
+    private func createRandomRectangleSize(minWidth: Double, minHeight: Double, maxWidth: Double, maxHeight: Double)-> Rectangle.Size{
+        return Rectangle.Size(width: Double.random(in: minWidth...maxWidth), height: Double.random(in: minHeight...maxHeight))
     }
     
     private func createRandomColor()-> Rectangle.Color{
