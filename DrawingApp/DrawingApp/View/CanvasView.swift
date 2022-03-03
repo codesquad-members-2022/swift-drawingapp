@@ -24,11 +24,11 @@ class CanvasView: UIView{
         
         self.generatingButton.backgroundColor = .white
         self.generatingButton.layer.cornerRadius = 10
-        self.generatingButton.layer.borderWidth = 2
+        self.generatingButton.layer.borderWidth = 1
         
         self.generatingButton.setTitle("사각형🖌", for: .normal)
         self.generatingButton.setTitleColor(.black, for: .normal)
-        self.generatingButton.titleLabel?.font = UIFont.systemFont(ofSize: 30)
+        self.generatingButton.titleLabel?.font = UIFont.systemFont(ofSize: 20)
         
         self.addSubview(generatingButton)
     }
