@@ -22,4 +22,16 @@ enum Alpha: Double, CaseIterable{
     func showValue() -> Double{
         return self.rawValue
     }
+    
+    static func doubleToAlpha(alpha: Double) -> Alpha{
+        var returnAlpha = Alpha.one
+        
+        Alpha.allCases.forEach{ alphaCase in
+            guard alpha >= alphaCase.showValue() else{
+                return
+            }
+            returnAlpha = alphaCase
+        }
+        return returnAlpha
+    }
 }

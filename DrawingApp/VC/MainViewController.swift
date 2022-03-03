@@ -10,7 +10,6 @@ import os
 
 class MainViewController: UIViewController {
     private var rectangles = Plane()
-    private let rectangleMaker = RandomRectangleMaker()
     let rightAttributerView = RightAttributerView()
     
     private var selectedRectangleView: UIView?
@@ -36,20 +35,12 @@ class MainViewController: UIViewController {
     }
 
     @IBAction func makeRandomRectangle(_ sender: Any) {
-        let rectangleView = RandomRectangleView()
-        rectangleView.makeRectangleView(width: self.rightAttributerView.frame.minX, height: self.rectangleButton.frame.minY)
+        let uiViewClass = RandomRectangleView()
+        let rectangleValue = self.rectangles.makeRectangle(maxWidth: self.rightAttributerView.frame.minX, maxHeight: self.rectangleButton.frame.minY)
         
-        guard let rectangle = rectangleView.giveRectangle() else{
-            let alert = UIAlertController(title: "Warning", message: "사각형 생성에 문제가 있습니다.", preferredStyle: .actionSheet)
-            let action = UIAlertAction(title: "Okay", style: .cancel)
-            alert.addAction(action)
-            self.present(alert, animated: false)
-            return
-        }
-        
-        rectangles.addRectangle(rectangle: rectangle)
+        let rectangleView = uiViewClass.makeRectangleView(rectangle: rectangleValue)
 
-        os_log("%@", "\(rectangle.description)")
+        os_log("%@", "\(rectangleValue.description)")
         self.view.addSubview(rectangleView)
     }
     
@@ -57,8 +48,9 @@ class MainViewController: UIViewController {
         guard let index = selectedRectangleIndex, let rectangle = self.rectangles[index], let rectView = selectedRectangleView else{
             return
         }
+        
         let newColor = RGBColor(red: rightAttributerView.redValue, green: rightAttributerView.greenValue, blue: rightAttributerView.blueValue)
-        let newAlpha = rightAttributerView.alphaValue
+        let newAlpha = rightAttributerView.alphaValue 
         
         rectangle.changeAlpha(alpha: newAlpha)
         rectangle.changeColor(color: newColor)
@@ -92,7 +84,7 @@ extension MainViewController: UIGestureRecognizerDelegate {
         }
         
         self.view.subviews.forEach{ rectangle in
-            guard rectangle.restorationIdentifier == rectangleInPlane.showId() else{
+            guard rectangle.restorationIdentifier == rectangleInPlane.id else{
                 return
             }
             self.selectedRectangleView = rectangle

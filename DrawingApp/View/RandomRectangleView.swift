@@ -9,9 +9,6 @@ import UIKit
 import os
 
 class RandomRectangleView: UIView {
-    private let randomRectangle = RandomRectangleMaker()
-    private var rectangle: Rectangle?
-
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -20,31 +17,19 @@ class RandomRectangleView: UIView {
         super.init(coder: coder)
     }
     
-    private func attribute(){
-        guard let rectangle = rectangle else {
-            return
-        }
-        
+    private func attribute(rectangle: Rectangle){
         self.backgroundColor = UIColor(red: rectangle.showColor().redValue(), green: rectangle.showColor().greenValue(), blue: rectangle.showColor().blueValue(), alpha: rectangle.showAlpha().showValue())
-        self.restorationIdentifier = rectangle.showId()
+        self.restorationIdentifier = rectangle.id
     }
     
-    private func layout(){
-        guard let rectangle = rectangle else {
-            return
-        }
+    private func layout(rectangle: Rectangle){
+        self.frame = CGRect(x: rectangle.point.x, y: rectangle.point.y, width: rectangle.size.width, height: rectangle.size.height)
+    }
+    
+    func makeRectangleView(rectangle: Rectangle) -> UIView{
+        layout(rectangle: rectangle)
+        attribute(rectangle: rectangle)
         
-        self.frame = CGRect(x: rectangle.showPoint().xValue(), y: rectangle.showPoint().yValue(), width: rectangle.showSize().widthValue(), height: rectangle.showSize().heightValue())
-    }
-    
-    func makeRectangleView(width: Double, height: Double){
-        self.rectangle = randomRectangle.makeRectangle(viewWidth: width, viewHeight: height)
-        
-        layout()
-        attribute()
-    }
-    
-    func giveRectangle() -> Rectangle?{
-        return rectangle
+        return self
     }
 }
