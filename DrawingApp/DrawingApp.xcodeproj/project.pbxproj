@@ -12,6 +12,7 @@
 		8D1E046A27D0A31B00645A7F /* RGBFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1E046927D0A31B00645A7F /* RGBFactory.swift */; };
 		8D1E046E27D0AE6D00645A7F /* AlphaFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1E046D27D0AE6D00645A7F /* AlphaFactory.swift */; };
 		8D5DF31427D0E9D200F5E9C5 /* UIView++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5DF31327D0E9D200F5E9C5 /* UIView++.swift */; };
+		8D5DF31A27D0F88300F5E9C5 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5DF31927D0F88300F5E9C5 /* Plane.swift */; };
 		8D6907F927CCBEF100F78A51 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6907F827CCBEF100F78A51 /* AppDelegate.swift */; };
 		8D6907FB27CCBEF100F78A51 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6907FA27CCBEF100F78A51 /* SceneDelegate.swift */; };
 		8D6907FD27CCBEF100F78A51 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6907FC27CCBEF100F78A51 /* ViewController.swift */; };
@@ -50,6 +51,7 @@
 		8D1E046927D0A31B00645A7F /* RGBFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBFactory.swift; sourceTree = "<group>"; };
 		8D1E046D27D0AE6D00645A7F /* AlphaFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphaFactory.swift; sourceTree = "<group>"; };
 		8D5DF31327D0E9D200F5E9C5 /* UIView++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView++.swift"; sourceTree = "<group>"; };
+		8D5DF31927D0F88300F5E9C5 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		8D6907F527CCBEF100F78A51 /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D6907F827CCBEF100F78A51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D6907FA27CCBEF100F78A51 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -94,6 +96,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8D5DF31727D0F23E00F5E9C5 /* ++ */ = {
+			isa = PBXGroup;
+			children = (
+				8D5DF31327D0E9D200F5E9C5 /* UIView++.swift */,
+			);
+			path = "++";
+			sourceTree = "<group>";
+		};
+		8D5DF31827D0F24C00F5E9C5 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8D69082D27CDFDFD00F78A51 /* Rectangle.swift */,
+				8D69084E27CF4D9F00F78A51 /* ID.swift */,
+				8D5DF31927D0F88300F5E9C5 /* Plane.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		8D6907EC27CCBEF000F78A51 = {
 			isa = PBXGroup;
 			children = (
@@ -116,11 +136,10 @@
 			isa = PBXGroup;
 			children = (
 				8D6907FC27CCBEF100F78A51 /* ViewController.swift */,
-				8D69082D27CDFDFD00F78A51 /* Rectangle.swift */,
-				8D69084E27CF4D9F00F78A51 /* ID.swift */,
-				8D5DF31327D0E9D200F5E9C5 /* UIView++.swift */,
+				8D5DF31827D0F24C00F5E9C5 /* Model */,
 				8D69084527CE2CBD00F78A51 /* Factory */,
 				8D69084027CE2C9100F78A51 /* ShapeElement */,
+				8D5DF31727D0F23E00F5E9C5 /* ++ */,
 				8D6907FE27CCBEF100F78A51 /* Main.storyboard */,
 				8D69082827CCBF0200F78A51 /* Supporting Files */,
 				8D69080627CCBEF400F78A51 /* Info.plist */,
@@ -299,6 +318,7 @@
 				8D1E046E27D0AE6D00645A7F /* AlphaFactory.swift in Sources */,
 				8D1E046A27D0A31B00645A7F /* RGBFactory.swift in Sources */,
 				8D69083927CE08F000F78A51 /* Point.swift in Sources */,
+				8D5DF31A27D0F88300F5E9C5 /* Plane.swift in Sources */,
 				8D6907F927CCBEF100F78A51 /* AppDelegate.swift in Sources */,
 				8D69084F27CF4D9F00F78A51 /* ID.swift in Sources */,
 				8D6907FB27CCBEF100F78A51 /* SceneDelegate.swift in Sources */,

@@ -10,17 +10,19 @@ import OSLog
 
 class ViewController: UIViewController {
 
-        
+    var plane = Plane()
     
     override func viewDidLoad() {
         super.viewDidLoad()
             
-            configureRectangleButton()
+        configureRectangleButton()
+        let tapGesture = UITapGestureRecognizer()
+        tapGesture.delegate = self
+        self.view.addGestureRecognizer(tapGesture)
         
-
-            
-
     }
+    
+    
     
     private func configureRectangleButton() {
         // 820 X 1180
@@ -43,7 +45,6 @@ class ViewController: UIViewController {
         configuration.background.backgroundColor = .secondarySystemBackground
         configuration.background.cornerRadius = 10
         
-        
         let button = UIButton(configuration: configuration, primaryAction: makeRectangleAction())
         
         button.tintColor = .black
@@ -59,9 +60,7 @@ class ViewController: UIViewController {
         view.addSubview(button)
     }
     
-    
-    
-    func makeRectangleAction() -> UIAction {
+    private func makeRectangleAction() -> UIAction {
         let action = UIAction {_ in
             let id = IDFactory.makeRandomID()
             let size = Size(width: 150, height: 120)
@@ -72,9 +71,27 @@ class ViewController: UIViewController {
             let rect = Rectangle(id: id, origin: point, size: size, backGroundColor: rgb, alpha: alpha)
             let rectOnView = UIView(rect: rect, rgb: rgb, alpha: alpha)
             
+            self.plane.rectangles.append(rectOnView)
             self.view.addSubview(rectOnView)
         }
         return action
+    }
+}
+
+extension ViewController:UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        let locationView = self.view.hitTest(touch.location(in: self.view), with: nil)
+        if locationView?.frame.size == CGSize(width: 150, height: 120) {
+            self.plane.rectangles.map {
+                $0.layer.borderWidth = 0.0
+                $0.layer.borderColor = .none
+            }
+            locationView?.layer.borderWidth = 1.0
+            locationView?.layer.borderColor = UIColor.black.cgColor
+            self.plane.seletedRectangle = locationView ?? UIView()
+        }
+        
+        return true
     }
 }
 
