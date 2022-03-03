@@ -13,10 +13,16 @@ struct Alpha: CustomStringConvertible {
     
     let value: Float
     
-    init?(value: Int) {
-        guard 0 <= Alpha.min, value <= Alpha.max else { return nil }
+    init?(_ value: Int) {
+        guard Alpha.min <= value, value <= Alpha.max else { return nil }
         
         self.value = Float(value) / 10.0
+    }
+    
+    init?(_ value: Float) {
+        guard Float(Alpha.min) <= value, value <= Float(Alpha.max) else { return nil }
+        
+        self.value = value / 10.0
     }
     
     var description: String {

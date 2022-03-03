@@ -96,7 +96,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="2IS-Tl-qfB">
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="2IS-Tl-qfB">
                                 <rect key="frame" x="30" y="252" width="244" height="31"/>
                                 <connections>
                                     <action selector="SliderChanged:" destination="LiX-43-8CF" eventType="valueChanged" id="7ND-sN-b6c"/>
