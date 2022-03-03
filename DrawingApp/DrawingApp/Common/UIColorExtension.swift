@@ -27,6 +27,6 @@ extension UIColor {
         let b = Float(components[2])
         let darkBoundary = Float(1.5)
         
-        return r+g+b >= darkBoundary
+        return r+g+b <= darkBoundary
     }
 }
