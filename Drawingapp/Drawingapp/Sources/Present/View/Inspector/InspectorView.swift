@@ -23,7 +23,8 @@ class InspectorView: BaseView {
         }
         
         alphaSlider.valueChangedHandler = { value in
-            plane.action.changeAlphaSliderEvent(value)
+            let alpha = Alpha.init(rawValue: Int(value))
+            plane.action.changeAlphaSliderEvent(alpha)
         }
     }
     

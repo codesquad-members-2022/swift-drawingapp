@@ -35,13 +35,17 @@ class Square: CustomStringConvertible {
         return false
     }
     
-    func changeRandomColor() {
-        let colorValues = (0..<3).map{ _ in Int.random(in: 0...255) }
-        color = Color(r: colorValues[0], g: colorValues[1], b: colorValues[2])
+    func update(color: Color) {
+        self.color = color
+//        let colorValues = (0..<3).map{ _ in Int.random(in: 0...255) }
+//        color = Color(r: colorValues[0], g: colorValues[1], b: colorValues[2])
     }
     
-    func update(alphaValue: Float) {
-        self.alpha = Alpha(rawValue: Int(alphaValue)) ?? .ten
+    func update(alpha: Alpha?) {
+        guard let alpha = alpha else {
+            return
+        }
+        self.alpha = alpha
     }
 }
 

@@ -13,7 +13,7 @@ class Plane {
         var onScreenTapped: (Point) -> Void = { _ in }
         var makeSquareButtonTapped: () -> Void = { }
         var changeColorButtonTapped: () -> Void = { }
-        var changeAlphaSliderEvent: (Float) -> Void = { _ in }
+        var changeAlphaSliderEvent: (Alpha?) -> Void = { _ in }
     }
     
     struct State {
@@ -27,6 +27,7 @@ class Plane {
     var state = State()
     
     private let drawingModelFactory = DrawingModelFactory()
+    private let colorFactory = ColorFactory()
     private let squares = Squares()
     private var selectedSquare: Square?
     
@@ -47,7 +48,7 @@ class Plane {
             guard let square = self.selectedSquare else {
                 return
             }
-            square.changeRandomColor()
+            square.update(color: self.colorFactory.make())
             self.state.updateSquare(square)
         }
         
@@ -55,7 +56,7 @@ class Plane {
             guard let square = self.selectedSquare else {
                 return
             }
-            square.update(alphaValue: alpha)
+            square.update(alpha: alpha)
             self.state.updateSquare(square)
         }
     }
