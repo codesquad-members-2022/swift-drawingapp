@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 class InspectorItemView: BaseView {
+    let view = UIView()
     let title = UILabel()
     let stackView = UIStackView()
     

@@ -17,15 +17,15 @@ class InspectorView: BaseView {
         [colorButton, alphaSlider]
     }
     
-    func bind(plane: Plane) {        
-        colorButton.buttonEventHandler = {
+    func bind(plane: Plane) {         
+        colorButton.button.addAction(UIAction{ _ in
             plane.action.changeColorButtonTapped()
-        }
-        
-        alphaSlider.valueChangedHandler = { value in
-            let alpha = Alpha.init(rawValue: Int(value))
+            }, for: .touchUpInside)
+        alphaSlider.slider.addAction(UIAction{ _ in
+            let alpha = Alpha.init(rawValue: Int(self.alphaSlider.slider.value))
             plane.action.changeAlphaSliderEvent(alpha)
-        }
+            
+        }, for: .valueChanged)
     }
     
     override func attribute() {
