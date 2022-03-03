@@ -1,10 +1,3 @@
-//
-//  Factory.swift
-//  DrawingApp
-//
-//  Created by YEONGJIN JANG on 2022/02/28.
-//
-
 import Foundation
 
 class Factory {
@@ -30,7 +23,7 @@ class Factory {
             let y: Double
         }
         
-        var  id: String {
+        var  id: String {               // UUID: xxx-xxx-xxx
             var uuid = UUID().uuidString.split(separator: "-").map{String($0)}
             uuid.removeFirst()
             uuid.removeLast()
