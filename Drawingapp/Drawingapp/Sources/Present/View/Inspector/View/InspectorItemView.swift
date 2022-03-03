@@ -43,8 +43,4 @@ class InspectorItemView: UIView {
         
         self.bottomAnchor.constraint(equalTo: stackView.bottomAnchor).isActive = true
     }
-    
-    func setTitle(_ title: String) {
-        self.title.text = title
-    }
 }

@@ -8,30 +8,41 @@
 import Foundation
 import UIKit
 
-class TopMenuBarView: BaseView {
-    let stackView = UIStackView()
-    let makeSquare = TopMenuItemView()
-    
-    func bind(plane: Plane) {
-        makeSquare.button.addAction(UIAction{ _ in
-            plane.action.makeSquareButtonTapped()
-        }, for: .touchUpInside)
-    }
-    
-    override func attribute() {
-        super.attribute()
-        self.backgroundColor = UIColor(red: 200.0 / 255.0, green: 200.0 / 255.0, blue: 1, alpha: 1)
-        self.layer.cornerRadius = 5
-        
+class TopMenuBarView: UIView {
+    let stackView: UIStackView = {
+        let stackView = UIStackView()
         stackView.spacing = 5
-        
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    let makeSquare: TopMenuItemView = {
+        let makeSquare = TopMenuItemView()
+        makeSquare.backgroundColor = .clear
         makeSquare.icon.image = UIImage(named: "ic_square")
+        makeSquare.translatesAutoresizingMaskIntoConstraints = false
+        return makeSquare
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        layout()
     }
     
-    override func layout() {
-        super.layout()
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        layout()
+    }
+    
+//    func bind(plane: Plane) {
+//        makeSquare.button.addAction(UIAction{ _ in
+//            plane.action.makeSquareButtonTapped()
+//        }, for: .touchUpInside)
+//    }
+    
+    
+    private func layout() {
         self.addSubview(stackView)
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
         stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
         stackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true

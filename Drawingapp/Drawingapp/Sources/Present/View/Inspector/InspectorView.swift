@@ -8,47 +8,62 @@
 import Foundation
 import UIKit
 
-class InspectorView: BaseView {
-    private let itemStackView = UIStackView()
-    let colorButton = InspectorItemButtonView()
-    let alphaSlider = InspectorSliderView()
+class InspectorView: UIView {
+    private let itemStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.isHidden = true
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    let colorButton: InspectorItemButtonView = {
+        let instpacorButton = InspectorItemButtonView()
+        instpacorButton.title.text = "배경색"
+        instpacorButton.translatesAutoresizingMaskIntoConstraints = false
+        return instpacorButton
+    }()
+    
+    let alphaSlider: InspectorSliderView = {
+        let instpacorSlider = InspectorSliderView()
+        instpacorSlider.title.text = "Alpha"
+        instpacorSlider.slider.minimumValue = 0
+        instpacorSlider.slider.maximumValue = Float(Alpha.max.index - 1)
+        instpacorSlider.translatesAutoresizingMaskIntoConstraints = false
+        return instpacorSlider
+    }()
     
     private var items: [InspectorItemView] {
         [colorButton, alphaSlider]
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        layout()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        layout()
     }
     
     func bind(plane: Plane) {         
         colorButton.button.addAction(UIAction{ _ in
             plane.action.changeColorButtonTapped()
             }, for: .touchUpInside)
+        
         alphaSlider.slider.addAction(UIAction{ _ in
             let alpha = Alpha.init(rawValue: Int(self.alphaSlider.slider.value))
             plane.action.changeAlphaSliderEvent(alpha)
         }, for: .valueChanged)
     }
     
-    override func attribute() {
-        super.attribute()
-        self.backgroundColor = UIColor(red: 200.0 / 255.0, green: 200.0 / 255.0, blue: 1, alpha: 1)
-        
-        itemStackView.axis = .vertical
-        itemStackView.isHidden = true
-        
-        colorButton.setTitle("배경색")
-        
-        alphaSlider.setTitle("Alpha")
-        alphaSlider.setLimit(min: 0, max: Float(Alpha.max.index - 1))
-    }
-    
-    override func layout() {
-        super.layout()
-        
+    private func layout() {
         self.addSubview(itemStackView)
         items.forEach {
             itemStackView.addArrangedSubview($0)
         }
         
-        itemStackView.translatesAutoresizingMaskIntoConstraints = false
         itemStackView.topAnchor.constraint(equalTo: self.safeAreaLayoutGuide.topAnchor).isActive = true
         itemStackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
         itemStackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
@@ -63,7 +78,7 @@ class InspectorView: BaseView {
         }
         
         let inspectorData = square.inspectorData
-        colorButton.setButtonTitle(inspectorData.hexColor)
+        colorButton.button.setTitle(inspectorData.hexColor, for: .normal)
         alphaSlider.setValue(Float(inspectorData.alpha.index))
     }
 }
