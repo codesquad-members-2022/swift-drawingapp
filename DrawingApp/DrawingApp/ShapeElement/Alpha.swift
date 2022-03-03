@@ -5,7 +5,7 @@
 //  Created by 박진섭 on 2022/03/01.
 //
 
-class Alpha:CustomStringConvertible,Decoable {
+final class Alpha:CustomStringConvertible {
     
     var description: String {
         "Alpha: \(alpha)"
@@ -38,10 +38,18 @@ class Alpha:CustomStringConvertible,Decoable {
         } else {
             return self.inputAlphaValue
         }
-        
     }
     
-    init(alpha:Int) {
+    private static func isValid(_ input:Int) -> Bool {
+        return input > Alpha.minValue && input < Alpha.maxValue ? true : false
+    }
+    
+    init(_ alpha:Int) {
         self.inputAlphaValue = alpha
     }
+
 }
+
+
+
+

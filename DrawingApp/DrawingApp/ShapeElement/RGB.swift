@@ -6,7 +6,7 @@
 //
 
 
-class RGB:CustomStringConvertible,Decoable {
+final class RGB:CustomStringConvertible{
     
     var description: String {
         "R:\(red), G:\(green), B:\(blue)"

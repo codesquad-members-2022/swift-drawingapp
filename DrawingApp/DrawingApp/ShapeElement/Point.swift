@@ -5,10 +5,7 @@
 //  Created by 박진섭 on 2022/03/01.
 //
 
-class Point:CustomStringConvertible,Drawable {
-    func draw() {
-        print("Point Draw x:\(x),y:\(y)")
-    }
+struct Point:CustomStringConvertible {
     
     var description: String {
         "X:\(x), Y:\(y)"
