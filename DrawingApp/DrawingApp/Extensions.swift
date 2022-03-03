@@ -14,3 +14,7 @@ extension Double {
         return (value * divisor).rounded() / divisor
     }
 }
+
+extension String {
+    static let alphanumeric = "abcdefghjklmnpqrstuvwxyz12345789"
+}

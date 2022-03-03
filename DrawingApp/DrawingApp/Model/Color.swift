@@ -8,6 +8,8 @@
 import Foundation
 
 struct Color {
+    static let range = 0.0...255.0
+    
     static let black = Color(red: 0, green: 0, blue: 0)
     static let red = Color(red: 255, green: 0, blue: 0)
     static let green = Color(red: 0, green: 255, blue: 0)
@@ -17,18 +19,16 @@ struct Color {
     let red: Double
     let green: Double
     let blue: Double
-    let alpha: Alpha
     
-    init(red: Double, green: Double, blue: Double, alpha: Alpha = .opaque) {
+    init(red: Double, green: Double, blue: Double) {
         self.red = red
         self.green = green
         self.blue = blue
-        self.alpha = alpha
     }
 }
 
 extension Color: CustomStringConvertible, Equatable {
     var description: String {
-        return "R: \(self.red), G: \(self.green), B: \(self.blue), \(self.alpha)"
+        return "R: \(self.red), G: \(self.green), B: \(self.blue)"
     }
 }
