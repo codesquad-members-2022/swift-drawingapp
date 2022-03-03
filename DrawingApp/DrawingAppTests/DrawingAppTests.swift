@@ -12,8 +12,11 @@ class DrawingAppTests: XCTestCase {
         sut = nil
         try super.tearDownWithError()
     }
-    
-    func testEnumFuncCorrectlyOperate() {
-//        var rectangleView = sut.
+    func testFactoryCanMakeRectangle() {
+        //given
+        var rectangle = Factory.createRandomRectangle()
+        
+        //when
+        print("\(rectangle.description)")
     }
 }
