@@ -113,20 +113,16 @@
 		6F78542B27CF694300C1154D /* DrawingApp */ = {
 			isa = PBXGroup;
 			children = (
+				6F045CFF27CFEDEA00D64C5A /* Log.swift */,
+				6FA5905C27D0A78D00FB2C93 /* Shape */,
+				6FA5905B27D0A6F600FB2C93 /* Model */,
 				6F78542C27CF694300C1154D /* AppDelegate.swift */,
 				6F78542E27CF694300C1154D /* SceneDelegate.swift */,
 				6F78543027CF694300C1154D /* ViewController.swift */,
-				6F045CFF27CFEDEA00D64C5A /* Log.swift */,
-				6F045CFD27CFD91D00D64C5A /* RectangleFactory.swift */,
-				6F045CF727CFB2BC00D64C5A /* Color.swift */,
-				6F045CF927CFB8B000D64C5A /* Rectangle.swift */,
-				6FA5905727D09CBD00FB2C93 /* Size.swift */,
-				6FA5905927D09CCC00FB2C93 /* Point.swift */,
 				6F78543227CF694300C1154D /* Main.storyboard */,
 				6F78543527CF694700C1154D /* Assets.xcassets */,
 				6F78543727CF694700C1154D /* LaunchScreen.storyboard */,
 				6F78543A27CF694700C1154D /* Info.plist */,
-				6F045CFB27CFC83600D64C5A /* UniqueID.swift */,
 			);
 			path = DrawingApp;
 			sourceTree = "<group>";
@@ -147,6 +143,26 @@
 				6F78545027CF694700C1154D /* Info.plist */,
 			);
 			path = DrawingAppUITests;
+			sourceTree = "<group>";
+		};
+		6FA5905B27D0A6F600FB2C93 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				6F045CFB27CFC83600D64C5A /* UniqueID.swift */,
+				6F045CF727CFB2BC00D64C5A /* Color.swift */,
+				6FA5905727D09CBD00FB2C93 /* Size.swift */,
+				6FA5905927D09CCC00FB2C93 /* Point.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		6FA5905C27D0A78D00FB2C93 /* Shape */ = {
+			isa = PBXGroup;
+			children = (
+				6F045CFD27CFD91D00D64C5A /* RectangleFactory.swift */,
+				6F045CF927CFB8B000D64C5A /* Rectangle.swift */,
+			);
+			path = Shape;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
