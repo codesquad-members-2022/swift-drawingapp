@@ -16,6 +16,7 @@ struct Plane {
     
     var delegate : PlaneDelegate?
     
+    
     private var rectangles = [Rectangle]() {
         willSet{
             os_log(.debug, "Plane 에 있는 사각형 정보 : \(newValue)")

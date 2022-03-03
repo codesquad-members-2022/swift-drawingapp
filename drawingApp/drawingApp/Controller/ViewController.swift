@@ -35,9 +35,15 @@ class ViewController: UIViewController {
         let point = sender.location(in: self.view)
         os_log(.debug,"\(point.x),\(point.y)")
         if let rect = plane.detectRect(x: point.x, y: point.y) {
-            os_log(.debug,"사각형 발견 : \(rect.id)")
+            os_log(.debug,"사각형 포착: \(rect)")
+            let detectedView = view.hitTest(sender.location(in: self.view), with: nil) as! RectangleView
+            if detectedView.selected {
+                detectedView.configure(didSelect: false)
+            }else{
+                detectedView.configure(didSelect: true)
+            }
+            detectedView.selected = !detectedView.selected
         }
-        
     }
     
 }
@@ -60,7 +66,7 @@ extension ViewController : GenerateRectangleButtonDelegate {
 extension ViewController : PlaneDelegate {
     func didAppendRect(rect: Rectangle?) {
         if let appendedRect = rect {
-            let rectUI = UIView(frame: CGRect(x: appendedRect.point.x, y: appendedRect.point.y, width: appendedRect.size.width, height: appendedRect.size.height))
+            let rectUI = RectangleView(frame: CGRect(x: appendedRect.point.x, y: appendedRect.point.y, width: appendedRect.size.width, height: appendedRect.size.height))
             rectUI.backgroundColor = UIColor(red: appendedRect.color.red/255, green: appendedRect.color.green/255, blue: appendedRect.color.blue/255, alpha: Double(appendedRect.alpha.rawValue)/10)
             view.addSubview(rectUI)
         }
