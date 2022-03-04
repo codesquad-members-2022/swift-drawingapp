@@ -23,6 +23,12 @@ class StylerView: UIView{
         super.init(coder: coder)
     }
     
+    func clearRectangleInfo(){
+        self.rectangleAlphaSlider.value = 0
+        self.rectangleColorValueField.backgroundColor = .white
+        self.rectangleColorValueField.setTitle("", for: .normal)
+    }
+    
     func updateRectangleInfo(r: Double, g: Double, b: Double, opacity: Float){
         let hexString = "#\(String(Int(r*255), radix: 16))\(String(Int(g*255), radix: 16))\(String(Int(b*255), radix: 16))"
         self.rectangleColorValueField.setTitle(hexString, for: .normal)

@@ -21,6 +21,10 @@ struct Plane:CustomStringConvertible{
         self.selectedRectangleId = id
     }
     
+    mutating func clearModelSelection(){
+        self.selectedRectangleId = nil
+    }
+    
     private func isRectangleInsideTheRange(x: Double, y: Double, rectangle: Rectangle)-> Bool{
         
         let minX = rectangle.point.x

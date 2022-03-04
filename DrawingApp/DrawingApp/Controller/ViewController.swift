@@ -80,9 +80,13 @@ extension ViewController: UIGestureRecognizerDelegate{
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         
         let tappedPoint = touch.location(in: self.canvasView)
-        guard let rectangle = self.plane[tappedPoint.x,tappedPoint.y] else { return false }
         guard let stylerView = self.stylerView else { return false }
         guard let canvasView = self.canvasView else { return false }
+        guard let rectangle = self.plane[tappedPoint.x,tappedPoint.y] else {
+            stylerView.clearRectangleInfo()
+            canvasView.cancelSelection()
+            return false
+        }
         guard let rectangleView = canvasView[tappedPoint.x,tappedPoint.y] else { return false }
         
         let r = rectangle.backgroundColor.r
@@ -125,5 +129,9 @@ extension ViewController: ViewMutable, ModelMutable{
         guard let selectedRectangleId = self.plane.selectedRectangleId else { return }
         guard let rectangle = self.plane[selectedRectangleId] else { return }
         rectangle.backgroundColor = Rectangle.Color(r: rgb[0]*255, g: rgb[1]*255, b: rgb[2]*255)
+    }
+    
+    func clearModelSelection() {
+        self.plane.clearModelSelection()
     }
 }
