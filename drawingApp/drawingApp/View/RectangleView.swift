@@ -19,6 +19,16 @@ class RectangleView: UIView {
         super.init(coder: coder)
     }
     
+    
+    func updateColor(newColor : Color) {
+        self.backgroundColor = UIColor(red: newColor.red, green: newColor.green, blue: newColor.blue, alpha: self.alpha)
+    }
+    
+    func updateAlpha(newAlpha : Alpha) {
+        self.alpha = Double(newAlpha.rawValue)/10.0
+    }
+    
+    
     func configure(didSelect : Bool){
         if didSelect {
 //            self.addDashedBorder()
@@ -29,7 +39,6 @@ class RectangleView: UIView {
             self.layer.borderWidth = 0
             self.layer.borderColor = UIColor.clear.cgColor
         }
-
     }
     
 }

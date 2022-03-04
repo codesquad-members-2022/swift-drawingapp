@@ -10,6 +10,7 @@ import OSLog
 
 protocol PlaneDelegate {
     func didAppendRect(rect: Rectangle?)
+//    func didFindRect(rect: Rectangle)
 }
 
 struct Plane {
@@ -39,7 +40,7 @@ struct Plane {
         self.rectangles.append(rect)
     }
     
-    func detectRect(x: Double, y: Double) -> Rectangle? {
+    func detectRect(x: Double, y: Double) -> Bool {
         for rectangle in rectangles {
             let minX = rectangle.point.x
             let minY = rectangle.point.y
@@ -47,11 +48,10 @@ struct Plane {
             let maxY = rectangle.point.y + rectangle.size.height
             
             if minX <= x, maxX >= x, minY <= y , maxY >= y {
-                return rectangle
+                return true
             }
         }
-        
-        return nil
+        return false
     }
     
  
