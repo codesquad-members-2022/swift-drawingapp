@@ -8,9 +8,9 @@
 import Foundation
 
 struct ColorRGB{
-    private var r: Int
-    private var g: Int
-    private var b: Int
+    private(set) var r: Int
+    private(set) var g: Int
+    private(set) var b: Int
     private var hexRGB: String{
         return String(format:"%02X", r) + String(format:"%02X", g) + String(format:"%02X", b)
     }
@@ -19,18 +19,6 @@ struct ColorRGB{
         self.r = r
         self.g = g
         self.b = b
-    }
-    
-    func rValue() -> Double{
-        return Double(r)
-    }
-    
-    func gValue() -> Double{
-        return Double(g)
-    }
-    
-    func bValue() -> Double{
-        return Double(b)
     }
 }
 

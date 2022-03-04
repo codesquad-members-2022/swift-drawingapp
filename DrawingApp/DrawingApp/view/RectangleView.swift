@@ -28,13 +28,13 @@ class RectangleView: UIView{
     }
     
     func matchProperty(rectangle: Rectangle){
-        self.uniqueId = rectangle.idValue()
-        let point = rectangle.pointValue()
-        let size = rectangle.sizeValue()
-        let rgb = rectangle.colorValue()
-        let alpha = rectangle.alphaValue()
-        frame = CGRect(x: point.xValue(), y: point.yValue(), width: size.widthValue(), height: size.heightValue())
-        backgroundColor = UIColor(cgColor: CGColor(red: rgb.rValue()/255, green: rgb.gValue()/255, blue: rgb.bValue()/255, alpha: 1))
+        self.uniqueId = rectangle.uniqueId
+        let point = rectangle.point
+        let size = rectangle.size
+        let rgb = rectangle.color
+        let alpha = rectangle.alpha
+        frame = CGRect(x: point.x, y: point.y, width: size.width, height: size.height)
+        backgroundColor = UIColor(cgColor: CGColor(red: CGFloat(rgb.r)/255, green: CGFloat(rgb.g)/255, blue: CGFloat(rgb.b)/255, alpha: 1))
         self.alpha = CGFloat(alpha)
     }
     
