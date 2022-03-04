@@ -8,19 +8,13 @@
 import Foundation
 
 class RectangleFactory {
-    private let screenSize: (width: Double, height: Double)
-    var delegate: RectangleDelegate?
     
-    init(screenSize: (width: Double, height: Double)) {
-        self.screenSize = screenSize
-    }
-    
-    public func generateRandomRectangle() -> Rectangle? {
+    public static func generateRandomRectangle(in frame: (Double, Double)) -> Rectangle {
         let size = Size(width: 150, height: 120)
-        let point = generateRandomPoint()
+        let point = generateRandomPoint(in: frame)
         let backgroundColor = generateRandomColor()
         let alpha = generateRandomAlpha()
-        guard let id = generateRandomID() else { return nil }
+        let id = generateRandomID()
         
         let newRectangle = Rectangle(id: id, size: size, point: point, backgroundColor: backgroundColor, alpha: alpha)
         
@@ -29,15 +23,15 @@ class RectangleFactory {
         return newRectangle
     }
     
-    private func generateRandomPoint() -> Point {
-        let maxXPoint = screenSize.width
-        let maxYPoint = screenSize.height
+    private static func generateRandomPoint(in frame: (width: Double, height: Double)) -> Point {
+        let maxXPoint = frame.width
+        let maxYPoint = frame.height
         
         return Point(x: Double.random(in: 0...maxXPoint),
                                 y: Double.random(in: 0...maxYPoint))
     }
     
-    private func generateRandomColor() -> BackgroundColor {
+    private static func generateRandomColor() -> BackgroundColor {
         let minimumColorValue = 0
         let maximumColorValue = 255
         
@@ -49,7 +43,7 @@ class RectangleFactory {
                                min: minimumColorValue, max: maximumColorValue)
     }
     
-    private func generateRandomAlpha() -> Alpha {
+    private static func generateRandomAlpha() -> Alpha {
         let minimumOpacityLevel = 1
         let maximumOpacityLevel = 10
         
@@ -57,7 +51,7 @@ class RectangleFactory {
                      min: minimumOpacityLevel, max: maximumOpacityLevel)
     }
     
-    private func generateRandomID() -> ID? {
+    private static func generateRandomID() -> ID {
         func generateRandomString(length: Int) -> String {
             return String(NSUUID().uuidString.prefix(length))
         }
