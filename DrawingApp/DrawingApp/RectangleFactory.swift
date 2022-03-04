@@ -6,10 +6,13 @@
 //
 
 import Foundation
+import os
 
 class RectangleFactory {
-    func createRectangle() -> Rectangle {
-        return Rectangle(point: createPoint(), size: createSize(), backgroundColor: createColor(), alpha: try! createAlpha())
+    func createRectangle() {
+        let rectangle = Rectangle(point: createPoint(), size: createSize(), backgroundColor: createColor(), alpha: try! createAlpha())
+        let log = Logger()
+        log.info("Rect: \(rectangle)")
     }
     
     
