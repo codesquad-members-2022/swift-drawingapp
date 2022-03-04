@@ -41,11 +41,8 @@ class RectangleFactory {
     }
     
     private static func generateRandomAlpha() -> Alpha {
-        let minimumOpacityLevel = 1
-        let maximumOpacityLevel = 10
-        
-        return Alpha(opacityLevel: (minimumOpacityLevel...maximumOpacityLevel).randomElement() ?? minimumOpacityLevel,
-                     min: minimumOpacityLevel, max: maximumOpacityLevel)
+        let randomOpacityLevel = Alpha.possibleOpacityLevels.randomElement() ?? 10
+        return Alpha(opacityLevel: randomOpacityLevel)
     }
     
 }
