@@ -2,7 +2,7 @@ import Foundation
 
 class Rectangle: CustomStringConvertible{
     
-    struct Id:CustomStringConvertible{
+    struct Id:CustomStringConvertible, Hashable{
         private var idValue: String
         var description: String{
             return self.idValue
