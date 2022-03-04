@@ -101,11 +101,17 @@ extension MainViewController: UIGestureRecognizerDelegate {
     }
     
     private func findSelectedRectangle(point: CGPoint){
-        guard let rectangleInPlane = rectangles.findRectangle(withX: point.x, withY: point.y), let rectangleView = rectangles.findRectangleView(view: self.view, rectangle: rectangleInPlane) else{
+        guard let rectangleInPlane = rectangles.findRectangle(withX: point.x, withY: point.y) else{
             return
         }
         
-        self.selectedRectangleView = rectangleView
-        self.selectedRectangleIndex = rectangles.findRectangleIndex(rectangle: rectangleInPlane)
+        let rectangleView = self.view.hitTest(point, with: nil)
+        
+        if rectangleView?.restorationIdentifier == rectangleInPlane.id{
+            self.selectedRectangleView = rectangleView
+            self.selectedRectangleIndex = rectangles.findRectangleIndex(rectangle: rectangleInPlane)
+        } else{
+            return
+        }
     }
 }
