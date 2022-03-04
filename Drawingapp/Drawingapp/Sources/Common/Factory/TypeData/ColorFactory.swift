@@ -20,11 +20,11 @@ class ColorFactory {
 }
 
 protocol RandomColorValueGenerator {
-    func next() -> [Int]
+    func next() -> [UInt]
 }
 
 fileprivate class RandomColorGenerator: RandomColorValueGenerator {
-    func next() -> [Int] {
-        (0..<3).map{ _ in Int.random(in: 0...255) }
+    func next() -> [UInt] {
+        (0..<3).map{ _ in UInt.random(in: 0...255) }
     }
 }
