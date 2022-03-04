@@ -13,6 +13,11 @@
 		00D94D8727D1B42C004F5DAC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00D94D8527D1B42C004F5DAC /* Main.storyboard */; };
 		00D94D8927D1B42D004F5DAC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 00D94D8827D1B42D004F5DAC /* Assets.xcassets */; };
 		00D94D8C27D1B42D004F5DAC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 00D94D8A27D1B42D004F5DAC /* LaunchScreen.storyboard */; };
+		00D94D9427D233CB004F5DAC /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D94D9327D233CB004F5DAC /* Shape.swift */; };
+		00D94D9627D23426004F5DAC /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D94D9527D23426004F5DAC /* Size.swift */; };
+		00D94D9827D2344A004F5DAC /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D94D9727D2344A004F5DAC /* Point.swift */; };
+		00D94D9A27D2345B004F5DAC /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D94D9927D2345B004F5DAC /* BackgroundColor.swift */; };
+		00D94D9C27D2357D004F5DAC /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D94D9B27D2357D004F5DAC /* Rectangle.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +29,11 @@
 		00D94D8827D1B42D004F5DAC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		00D94D8B27D1B42D004F5DAC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		00D94D8D27D1B42D004F5DAC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		00D94D9327D233CB004F5DAC /* Shape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
+		00D94D9527D23426004F5DAC /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
+		00D94D9727D2344A004F5DAC /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
+		00D94D9927D2345B004F5DAC /* BackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColor.swift; sourceTree = "<group>"; };
+		00D94D9B27D2357D004F5DAC /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -59,6 +69,11 @@
 				00D94D7F27D1B42C004F5DAC /* AppDelegate.swift */,
 				00D94D8127D1B42C004F5DAC /* SceneDelegate.swift */,
 				00D94D8327D1B42C004F5DAC /* ViewController.swift */,
+				00D94D9327D233CB004F5DAC /* Shape.swift */,
+				00D94D9B27D2357D004F5DAC /* Rectangle.swift */,
+				00D94D9527D23426004F5DAC /* Size.swift */,
+				00D94D9727D2344A004F5DAC /* Point.swift */,
+				00D94D9927D2345B004F5DAC /* BackgroundColor.swift */,
 				00D94D8527D1B42C004F5DAC /* Main.storyboard */,
 				00D94D8827D1B42D004F5DAC /* Assets.xcassets */,
 				00D94D8A27D1B42D004F5DAC /* LaunchScreen.storyboard */,
@@ -139,8 +154,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				00D94D8427D1B42C004F5DAC /* ViewController.swift in Sources */,
+				00D94D9627D23426004F5DAC /* Size.swift in Sources */,
+				00D94D9827D2344A004F5DAC /* Point.swift in Sources */,
 				00D94D8027D1B42C004F5DAC /* AppDelegate.swift in Sources */,
 				00D94D8227D1B42C004F5DAC /* SceneDelegate.swift in Sources */,
+				00D94D9427D233CB004F5DAC /* Shape.swift in Sources */,
+				00D94D9A27D2345B004F5DAC /* BackgroundColor.swift in Sources */,
+				00D94D9C27D2357D004F5DAC /* Rectangle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
