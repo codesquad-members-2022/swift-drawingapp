@@ -11,6 +11,7 @@ struct Point : CustomStringConvertible {
     let x : Double
     let y : Double 
     var description: String {
-        return "X:\(x), Y:\(y)"
+        return "X:\(x.trim), Y:\(y.trim)"
     }
 }
+
