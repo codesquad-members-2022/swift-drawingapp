@@ -21,21 +21,22 @@ class DrawingappTests: XCTestCase {
     let plane = Plane()
     
     class TestView: PlaneOutput {
-        var drawSquare: Rectangle?
-        var selectSquare: Rectangle?
+        var drawRectangle: Rectangle?
+        var selectRectangle: Rectangle?
         
-        func didDisSelectedSquare(to square: Rectangle?) {
+        func didDisSelectedRectangle(to id: String) {
+            
         }
         
-        func didSelectedSquare(to square: Rectangle?) {
-            self.selectSquare = square
+        func didSelectedRectangle(to rectangle: Rectangle) {
+            self.selectRectangle = rectangle
         }
         
-        func drawSquare(to square: Rectangle) {
-            self.drawSquare = square
+        func draw(to rectangle: Rectangle) {
+            self.drawRectangle = rectangle
         }
         
-        func updateSquare(to square: Rectangle) {
+        func updateSquare(to rectangle: Rectangle) {
         }
         func update(to id: String, color: Color) {
         }
@@ -72,15 +73,15 @@ class DrawingappTests: XCTestCase {
         let testView = TestView()
         plane.delegate = testView
         
-        plane.makeSquareButtonTapped()
-        XCTAssertTrue(testView.drawSquare != nil, "사각형이 생성되지 않았습니다")
+        plane.makeRectangle()
+        XCTAssertTrue(testView.drawRectangle != nil, "사각형이 생성되지 않았습니다")
         
-        guard let square = testView.drawSquare else {
+        guard let rectangle = testView.drawRectangle else {
             return
         }
         
-        plane.drawingBoardTapped(where: Point(x: square.point.x + 200.0, y: square.point.y))
-        XCTAssertTrue(testView.selectSquare == nil, "사각형이 선택되었습니다")
+        plane.touchPoint(where: Point(x: rectangle.point.x + 200.0, y: rectangle.point.y))
+        XCTAssertTrue(testView.selectRectangle == nil, "사각형이 선택되었습니다")
     }
     
     //사각형을 하나 만들고, 터치 action에 사각형 좌표를 보내 선택되는지 확인
@@ -88,14 +89,14 @@ class DrawingappTests: XCTestCase {
         let testView = TestView()
         plane.delegate = testView
         
-        plane.makeSquareButtonTapped()
-        XCTAssertTrue(testView.drawSquare != nil, "사각형이 생성되지 않았습니다")
+        plane.makeRectangle()
+        XCTAssertTrue(testView.drawRectangle != nil, "사각형이 생성되지 않았습니다")
         
-        guard let square = testView.drawSquare else {
+        guard let rectangle = testView.drawRectangle else {
             return
         }
         
-        plane.drawingBoardTapped(where: Point(x: square.point.x, y: square.point.y))
-        XCTAssertTrue(testView.selectSquare != nil, "사각형이 선택되지 않았습니다")
+        plane.touchPoint(where: Point(x: rectangle.point.x, y: rectangle.point.y))
+        XCTAssertTrue(testView.selectRectangle != nil, "사각형이 선택되지 않았습니다")
     }
 }

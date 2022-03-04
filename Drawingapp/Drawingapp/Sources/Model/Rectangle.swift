@@ -1,5 +1,5 @@
 //
-//  Square.swift
+//  Rectangle.swift
 //  Drawingapp
 //
 //  Created by seongha shin on 2022/02/28.

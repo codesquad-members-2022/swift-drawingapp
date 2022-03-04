@@ -15,7 +15,7 @@ class ViewController: UIViewController, PlaneOutput {
         return view
     }()
     
-    var squareViews: [String:SquareView] = [:]
+    var rectangleViews: [String:RectangleView] = [:]
     
     let topMenuBarView: TopMenuBarView = {
         let topMenuBarView = TopMenuBarView()
@@ -70,38 +70,38 @@ class ViewController: UIViewController, PlaneOutput {
         topMenuBarView.heightAnchor.constraint(equalToConstant: 70).isActive = true
     }
     
-    func didDisSelectedSquare(to id: String) {
-        self.squareViews[id]?.selected(is: false)
+    func didDisSelectedRectangle(to id: String) {
+        self.rectangleViews[id]?.selected(is: false)
         self.inspectorView.isHidden = true
     }
     
-    func didSelectedSquare(to square: Rectangle) {
+    func didSelectedRectangle(to rectangle: Rectangle) {
         self.inspectorView.isHidden = false
-        self.inspectorView.update(square: square)
-        self.squareViews[square.id]?.selected(is: true)
+        self.inspectorView.update(rectangle: rectangle)
+        self.rectangleViews[rectangle.id]?.selected(is: true)
     }
     
-    func drawSquare(to square: Rectangle) {
-        let drawView = DrawingViewFactory.make(square: square)
+    func draw(to rectangle: Rectangle) {
+        let drawView = DrawingViewFactory.make(to: rectangle)
         self.drawingBoard.addSubview(drawView)
-        self.squareViews[square.id] = drawView
+        self.rectangleViews[rectangle.id] = drawView
     }
     
     func update(to id: String, color: Color) {
-        self.squareViews[id]?.update(color: color)
+        self.rectangleViews[id]?.update(color: color)
         self.inspectorView.update(color: color)
     }
     
     func update(to id: String, point: Point) {
-        self.squareViews[id]?.update(point: point)
+        self.rectangleViews[id]?.update(point: point)
     }
     
     func update(to id: String, size: Size) {
-        self.squareViews[id]?.update(size: size)
+        self.rectangleViews[id]?.update(size: size)
     }
     
     func update(to id: String, alpha: Alpha) {
-        self.squareViews[id]?.update(alpha: alpha)
+        self.rectangleViews[id]?.update(alpha: alpha)
         self.inspectorView.update(alpha: alpha)
     }
 }
@@ -119,13 +119,13 @@ extension ViewController: InspectorDelegate {
         self.plane.colorChanged()
     }
     
-    func alphaSliderValueChanged(alpha: Alpha?) {
+    func alphaSliderValueChanged(alpha: Alpha) {
         self.plane.alphaChanged(alpha: alpha)
     }
 }
 
 extension ViewController: TopMenuBarDelegate {
-    func makeSquareButtonTapped() {
-        self.plane.makeSquare()
+    func makeRectangleButtonTapped() {
+        self.plane.makeRectangle()
     }
 }
