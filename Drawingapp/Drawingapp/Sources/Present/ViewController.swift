@@ -70,18 +70,12 @@ class ViewController: UIViewController, PlaneOutput {
         topMenuBarView.heightAnchor.constraint(equalToConstant: 70).isActive = true
     }
     
-    func didDisSelectedSquare(to square: Square?) {
-        guard let square = square else {
-            return
-        }
+    func didDisSelectedSquare(to square: Square) {
         self.squareViews[square.id]?.selected(is: false)
+        self.inspectorView.isHidden = true
     }
     
-    func didSelectedSquare(to square: Square?) {
-        guard let square = square else {
-            self.inspectorView.isHidden = true
-            return
-        }
+    func didSelectedSquare(to square: Square) {
         self.inspectorView.isHidden = false
         self.inspectorView.update(square: square)
         self.squareViews[square.id]?.selected(is: true)
@@ -115,14 +109,14 @@ class ViewController: UIViewController, PlaneOutput {
 extension ViewController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         let location = gestureRecognizer.location(in: gestureRecognizer.view)
-        self.plane.drawingBoardTapped(where: Point(x: location.x, y: location.y))
+        self.plane.touchPoint(where: Point(x: location.x, y: location.y))
         return true
     }
 }
 
 extension ViewController: InspectorDelegate {
     func changeColorButtonTapped() {
-        self.plane.changeColorButtonTapped()
+        self.plane.colorChanged()
     }
     
     func alphaSliderValueChanged(alpha: Alpha?) {
@@ -132,6 +126,6 @@ extension ViewController: InspectorDelegate {
 
 extension ViewController: TopMenuBarDelegate {
     func makeSquareButtonTapped() {
-        self.plane.makeSquareButtonTapped()
+        self.plane.makeSquare()
     }
 }
