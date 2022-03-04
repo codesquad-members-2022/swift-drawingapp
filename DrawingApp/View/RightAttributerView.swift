@@ -30,8 +30,9 @@ class RightAttributerView: UIView {
         return Double(blueSlider.value)
     }
     var alphaValue: Alpha{
-        let value = Alpha.doubleToAlpha(alpha: Double(alphaSlider.value))
-        return value
+        let doubleValue = round(Double(alphaSlider.value) * 10) / 10
+        let value = Alpha.init(rawValue: doubleValue)
+        return value ?? .one
     }
     
     var delegate: RightAttributerViewDelegate?
@@ -48,6 +49,7 @@ class RightAttributerView: UIView {
     
     private func initialize(){
         attribute()
+        layout()
         redSlider.addTarget(self, action: #selector(self.moveRedSlider), for: .valueChanged)
         greenSlider.addTarget(self, action: #selector(self.moveGreenSlider), for: .valueChanged)
         blueSlider.addTarget(self, action: #selector(self.moveBlueSlider), for: .valueChanged)
@@ -86,7 +88,7 @@ class RightAttributerView: UIView {
         alphaSlider.maximumValue = 1.0
     }
     
-    func layout(){
+    private func layout(){
         self.frame = CGRect(x: 1030, y: 0, width: 150, height: 820)
         
         colorTitle.frame = CGRect(x: 15, y: 40, width: 120, height: 30)
@@ -124,14 +126,18 @@ class RightAttributerView: UIView {
         self.colorNameBlue.text = "Blue : \(String(format: "%.0f", blueValue))"
     }
     
-    func changeColorSliderValue(){
-        self.colorNameRed.text = "Red : \(String(format: "%.0f", redValue))"
-        self.colorNameGreen.text = "Green : \(String(format: "%.0f", greenValue))"
-        self.colorNameBlue.text = "Blue : \(String(format: "%.0f", blueValue))"
+    func changeColorSliderValue(text: String){
+        if text.contains("Red"){
+            colorNameRed.text = text
+        } else if text.contains("Green"){
+            colorNameGreen.text = text
+        } else if text.contains("Blue"){
+            colorNameBlue.text = text
+        }
     }
     
-    func changeAlphaSliderView(){
-        self.alphaTitle.text = "투명도 : \(String(format: "%.0f", alphaValue.showValue() * 10))"
+    func changeAlphaSliderView(text: String){
+        alphaTitle.text = text
     }
     
     @objc private func moveAlphaSlider(){

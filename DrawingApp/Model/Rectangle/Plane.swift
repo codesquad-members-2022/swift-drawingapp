@@ -33,11 +33,13 @@ struct Plane{
         
         var findedRectangle: Rectangle?
         
-        rectangles.forEach{ rectangle in
-            guard let inRangeRectangle = rectangle.findLocationRange(xPoint: withX, yPoint: withY) else{
-                return
+        for rectangle in rectangles{
+            guard rectangle.findLocationRange(xPoint: withX, yPoint: withY) else{
+                continue
             }
-            findedRectangle = inRangeRectangle
+
+            findedRectangle = rectangle
+            break
         }
         
         return findedRectangle
