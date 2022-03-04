@@ -8,9 +8,9 @@
 import Foundation
 
 class Color {
-    private var red: Double
-    private var green: Double
-    private var blue: Double
+    private(set) var red: Double
+    private(set) var green: Double
+    private(set) var blue: Double
     
     init(validRed: Double, validGreen: Double, validBlue: Double) {
         self.red = validRed
