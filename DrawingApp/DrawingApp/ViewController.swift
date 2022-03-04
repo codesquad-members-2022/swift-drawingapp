@@ -2,7 +2,7 @@ import UIKit
 import OSLog
 
 class ViewController: UIViewController {
-    var rectangleArray: [Factory.RectangleView] = []
+    var rectangleArray: [RectangleView] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         for index in 1...4 {
