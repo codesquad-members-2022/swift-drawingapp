@@ -47,7 +47,7 @@ class Rectangle: UIView {
     }
     
     func setValue(alpha: Float) {
-        self.alpha = CGFloat(alpha/10)
+        backgroundColor = backgroundColor?.withAlphaComponent((CGFloat(alpha / 10)))
     }
     
     func setBackgroundColor(using model: ViewRandomProperty) {

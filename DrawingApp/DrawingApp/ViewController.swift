@@ -72,6 +72,7 @@ class ViewController: UIViewController {
         
         sender.value = round(sender.value)
         plane.setProperty(at: index, alpha: sender.value)
+        buttonSetRandomColor.backgroundColor = buttonSetRandomColor.backgroundColor?.withAlphaComponent(CGFloat(sender.value/10))
         plane.current?.setValue(alpha: sender.value)
     }
 }
