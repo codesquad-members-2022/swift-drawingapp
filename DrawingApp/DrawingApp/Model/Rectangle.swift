@@ -16,7 +16,7 @@ class Rectangle: Shapable {
     let origin: Point
     
     // MARK: - Initializers
-    init(id: String, origin: Point, size: Size, color: Color = .white, alpha: Alpha) {
+    init(id: String, origin: Point, size: Size, color: Color = .white, alpha: Alpha = .opaque) {
         self.id = id
         self.origin = origin
         self.size = size
@@ -24,7 +24,7 @@ class Rectangle: Shapable {
         self.alpha = alpha
     }
     
-    init(id: String, x: Double, y: Double, width: Double, height: Double, color: Color = .white, alpha: Alpha) {
+    init(id: String, x: Double, y: Double, width: Double, height: Double, color: Color = .white, alpha: Alpha = .opaque) {
         self.id = id
         self.origin = Point(x: x, y: y)
         self.size = Size(width: width, height: height)

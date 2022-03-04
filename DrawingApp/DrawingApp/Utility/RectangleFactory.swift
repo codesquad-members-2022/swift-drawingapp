@@ -20,7 +20,7 @@ enum RectangleFactory: ShapeBuilder {
     static func makeRandomRectangle() -> Rectangle {
         let id = IdentifierFactory.makeTypeRandomly()
         let point = PointFactory.makeTypeRandomly()
-        let size = SizeFactory.makeTypeRandomly()
+        let size = SizeFactory.makeType(width: 150, height: 120)
         let color = ColorFactory.makeTypeRandomly()
         let alpha = Alpha.randomElement()
         

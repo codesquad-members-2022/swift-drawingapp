@@ -17,4 +17,8 @@ enum SizeFactory: TypeBuilder {
         
         return Size(width: width, height: height)
     }
+    
+    static func makeType(width: Int, height: Int) -> Size {
+        return Size(width: width, height: height)
+    }
 }

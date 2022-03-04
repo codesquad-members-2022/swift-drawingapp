@@ -29,7 +29,7 @@ struct Color {
     }
     
     private init(red: Int, green: Int, blue: Int) {
-        if !Self.isValid(value: red) || !Self.isValid(value: green) || !Self.isValid(value: blue) {
+         guard Self.isValid(value: red) && Self.isValid(value: green) && Self.isValid(value: blue) else {
             self = .white
             return
         }
