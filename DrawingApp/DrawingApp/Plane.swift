@@ -16,4 +16,7 @@ struct Plane {
         let rectangle: Rectangle = Factory.createRandomRectangle()
         rectangleArray.append(rectangle)
     }
+    subscript(index: Int) -> Rectangle {
+        return rectangleArray[index]
+    }
 }
