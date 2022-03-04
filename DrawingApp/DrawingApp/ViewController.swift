@@ -10,19 +10,121 @@ import OSLog
 
 class ViewController: UIViewController {
     
+    let rectangleViewBoard = UIView()
+    let rectanglePropertyChangeBoard = UIView()
+    let addRectangleButton = UIButton()
+    let colorLabel = UILabel()
+    let colorChangeButton = UIButton()
+    let alphaLabel = UILabel()
+    let alphaChangeSlider = UISlider()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let screenSize = (Double(self.view.safeAreaLayoutGuide.layoutFrame.size.width), Double(self.view.safeAreaLayoutGuide.layoutFrame.size.height))
-        let rectangleFactory = RectangleFactory(screenSize: screenSize)
-        guard let rect1 = rectangleFactory.makeRandomRectangle() else {return}
-        guard let rect2 = rectangleFactory.makeRandomRectangle() else {return}
-        guard let rect3 = rectangleFactory.makeRandomRectangle() else {return}
-        guard let rect4 = rectangleFactory.makeRandomRectangle() else {return}
-        for rect in [rect1,rect2,rect3,rect4] {
-            os_log("\(rect)")
-        }
+        initialScreenSetUp()
     }
     
+    func initialScreenSetUp() {
+        let safeArea = self.view.safeAreaLayoutGuide
+        
+        func layoutViewBoard() {
+            view.addSubview(rectangleViewBoard)
+            self.rectangleViewBoard.translatesAutoresizingMaskIntoConstraints = false
+            
+            self.rectangleViewBoard.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor).isActive = true
+            self.rectangleViewBoard.topAnchor.constraint(equalTo: safeArea.topAnchor).isActive = true
+            self.rectangleViewBoard.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.9).isActive = true
+            self.rectangleViewBoard.widthAnchor.constraint(equalTo: safeArea.widthAnchor, multiplier: 0.8).isActive = true
+                        
+            self.rectangleViewBoard.clipsToBounds = true
+        }
+        
+        func layoutPropertyBoard() {
+            view.addSubview(rectanglePropertyChangeBoard)
+            self.rectanglePropertyChangeBoard.translatesAutoresizingMaskIntoConstraints = false
+            
+            self.rectanglePropertyChangeBoard.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor).isActive = true
+            self.rectanglePropertyChangeBoard.widthAnchor.constraint(equalTo: safeArea.widthAnchor, multiplier: 0.2).isActive = true
+            self.rectanglePropertyChangeBoard.topAnchor.constraint(equalTo: safeArea.topAnchor).isActive = true
+            self.rectanglePropertyChangeBoard.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor).isActive = true
+            
+        }
+        
+        func layoutColorLabel() {
+            view.addSubview(colorLabel)
+            colorLabel.translatesAutoresizingMaskIntoConstraints = false
+            
+            colorLabel.text = "배경색"
+
+            colorLabel.topAnchor.constraint(equalTo: rectanglePropertyChangeBoard.topAnchor, constant: 40).isActive = true
+            colorLabel.leadingAnchor.constraint(equalTo: rectanglePropertyChangeBoard.leadingAnchor, constant: 30).isActive = true
+            colorLabel.trailingAnchor.constraint(equalTo: rectanglePropertyChangeBoard.trailingAnchor, constant: -30).isActive = true
+            colorLabel.heightAnchor.constraint(equalTo: rectanglePropertyChangeBoard.heightAnchor, multiplier: 0.05).isActive = true
+        }
+        
+        func layoutColorChangeButton() {
+            view.addSubview(colorChangeButton)
+            colorChangeButton.translatesAutoresizingMaskIntoConstraints = false
+            
+            colorChangeButton.layer.borderWidth = 1
+            colorChangeButton.layer.borderColor = UIColor.black.cgColor
+            colorChangeButton.layer.cornerRadius = 10
+            
+            colorChangeButton.topAnchor.constraint(equalTo: colorLabel.bottomAnchor, constant: 10).isActive = true
+            colorChangeButton.heightAnchor.constraint(equalTo: rectanglePropertyChangeBoard.heightAnchor, multiplier: 0.05).isActive = true
+            colorChangeButton.leadingAnchor.constraint(equalTo: colorLabel.leadingAnchor).isActive = true
+            colorChangeButton.trailingAnchor.constraint(equalTo: colorLabel.trailingAnchor).isActive = true
+        }
+        
+        func layoutAlphaLabel() {
+            view.addSubview(alphaLabel)
+            alphaLabel.translatesAutoresizingMaskIntoConstraints = false
+            
+            alphaLabel.text = "투명도"
+            
+            alphaLabel.topAnchor.constraint(equalTo: colorChangeButton.bottomAnchor, constant: 40).isActive = true
+            alphaLabel.heightAnchor.constraint(equalTo: rectanglePropertyChangeBoard.heightAnchor, multiplier: 0.05).isActive = true
+            alphaLabel.leadingAnchor.constraint(equalTo: colorLabel.leadingAnchor).isActive = true
+            alphaLabel.trailingAnchor.constraint(equalTo: colorLabel.trailingAnchor).isActive = true
+        }
+        
+        func layoutAlphaChangeSlider() {
+            view.addSubview(alphaChangeSlider)
+            alphaChangeSlider.translatesAutoresizingMaskIntoConstraints = false
+            
+            alphaChangeSlider.minimumValue = 1
+            alphaChangeSlider.maximumValue = 10
+            
+            alphaChangeSlider.topAnchor.constraint(equalTo: alphaLabel.bottomAnchor, constant: 10).isActive = true
+            alphaChangeSlider.heightAnchor.constraint(equalTo: rectanglePropertyChangeBoard.heightAnchor, multiplier: 0.05).isActive = true
+            alphaChangeSlider.leadingAnchor.constraint(equalTo: colorLabel.leadingAnchor).isActive = true
+            alphaChangeSlider.trailingAnchor.constraint(equalTo: colorLabel.trailingAnchor).isActive = true
+        }
+        
+        func layoutAddRectangleButton() {
+            view.addSubview(addRectangleButton)
+            addRectangleButton.translatesAutoresizingMaskIntoConstraints = false
+            
+            addRectangleButton.setTitle("사각형 추가", for: .normal)
+            addRectangleButton.setTitleColor(.black, for: .normal)
+            
+            addRectangleButton.layer.borderWidth = 1
+            addRectangleButton.layer.borderColor = UIColor.black.cgColor
+            addRectangleButton.layer.cornerRadius = 10
+            
+            addRectangleButton.topAnchor.constraint(equalTo: rectangleViewBoard.bottomAnchor, constant: 10).isActive = true
+            addRectangleButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor).isActive = true
+            addRectangleButton.widthAnchor.constraint(equalTo: rectangleViewBoard.widthAnchor, multiplier: 0.1).isActive = true
+            addRectangleButton.centerXAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: rectangleViewBoard.safeAreaLayoutGuide.layoutFrame.width/2).isActive = true
+        }
+        
+        layoutViewBoard()
+        layoutPropertyBoard()
+        layoutColorLabel()
+        layoutColorChangeButton()
+        layoutAlphaLabel()
+        layoutAlphaChangeSlider()
+        layoutAddRectangleButton()
+    }
     
 }
 
