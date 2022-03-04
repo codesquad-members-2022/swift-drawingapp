@@ -12,10 +12,10 @@ class Color {
     private let green: Int
     private let blue: Int
     
-    init() {
-        self.red = Int.random(in: 0...255)
-        self.green = Int.random(in: 0...255)
-        self.blue = Int.random(in: 0...255)
+    init(red: Int, green: Int, blue: Int) {
+        self.red = red
+        self.green = green
+        self.blue = blue
     }
 }
 
