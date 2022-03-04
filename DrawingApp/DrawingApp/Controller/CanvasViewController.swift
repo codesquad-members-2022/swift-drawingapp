@@ -8,14 +8,28 @@
 import UIKit
 
 class CanvasViewController: UIViewController {
-    private var containerVC: DrawingSplitViewController?
+    private var plane = Plane()
+    private var viewIDMap = [String: UIView]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        containerVC = splitViewController as? DrawingSplitViewController
-        containerVC?.plane.canvasDelegate = self
+        observePlane()
+        observePanel()
+        
         setUpInitialModels()
         setUpRecognizer()
+    }
+    
+    private func observePlane() {
+        NotificationCenter.default.addObserver(self, selector: #selector(didAddViewModel(_:)), name: .addViewModel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didSelectViewModel(_:)), name: .selectViewModel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateColor(_:)), name: .mutateColorViewModel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateAlpha(_:)), name: .mutateAlphaViewModel, object: nil)
+    }
+    
+    private func observePanel() {
+        NotificationCenter.default.addObserver(self, selector: #selector(sliderChanged(_:)), name: .sliderChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(colorButtonPressed(_:)), name: .colorButtonPressed, object: nil)
     }
     
     private func setUpRecognizer() {
@@ -24,24 +38,33 @@ class CanvasViewController: UIViewController {
     }
     
     private func setUpInitialModels() {
-        (0..<4).forEach { _ in containerVC?.plane.addRectangle() }
+        (0..<4).forEach { _ in plane.addRectangle() }
     }
     
     @IBAction func addRectanglePressed(_ sender: UIButton) {
-        containerVC?.plane.addRectangle()
+        plane.addRectangle()
+    }
+    
+    @objc func sliderChanged(_ notification: Notification) {
+        guard let value = notification.object as? Float else { return }
+        
+        if let alpha = Alpha(value) {
+            plane.transform(to: alpha)
+        }
+    }
+    
+    @objc func colorButtonPressed(_ notification: Notification) {
+        plane.transform()
     }
     
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
         let location = gesture.location(in: view)
         let tappedPoint = Point(x: location.x, y: location.y)
-        containerVC?.plane.tap(on: tappedPoint)
+        plane.tap(on: tappedPoint)
     }
     
-    private func getMatchedUIView(with viewModel: ViewModel) -> UIView? {
-        return view.subviews.first(where: {
-            guard let baseView = $0 as? BaseView else { return false }
-            return baseView.id == viewModel.id
-        })
+    private func searchView(for viewModel: ViewModel) -> UIView? {
+        return viewIDMap[viewModel.id]
     }
     
     private func changeBorder(_ view: UIView) {
@@ -57,36 +80,41 @@ class CanvasViewController: UIViewController {
     private func createBaseView(from viewModel: ViewModel) -> BaseView? {
         return BaseView(viewModel: viewModel)
     }
-}
 
-extension CanvasViewController: PlaneCanvasDelegate {
-    func didSelectViewModels(_ new: ViewModel?, _ old: ViewModel?) {
+    @objc func didSelectViewModel(_ notification: Notification) {
+        guard let (old, new) = notification.object as? (old: ViewModel?, new: ViewModel?) else { return }
+        
         if let new = new {
-            guard let newView = getMatchedUIView(with: new) else { return }
+            guard let newView = searchView(for: new) else { return }
             changeBorder(newView)
         }
         
         if let old = old {
-            guard let oldView = getMatchedUIView(with: old) else { return }
+            guard let oldView = searchView(for: old) else { return }
             clearBorder(oldView)
         }
     }
     
-    
-    func didAddViewModels(_ new: [ViewModel]) {
-        for newViewModel in new {
-            guard let newUIView = createBaseView(from: newViewModel) else { continue }
-            view.addSubview(newUIView)
-        }
+    @objc func didAddViewModel(_ notification: Notification) {
+        guard let newViewModel = notification.object as? ViewModel else { return }
+        guard let newBaseView = createBaseView(from: newViewModel) else { return }
+        addViewID(newBaseView)
+        view.addSubview(newBaseView)
     }
     
-    func didMutateColorViewModels(_ mutated: ColorMutable) {
-        let mutatedUIView = getMatchedUIView(with: mutated as! ViewModel)
+    private func addViewID(_ new: BaseView) {
+        viewIDMap[new.id] = new
+    }
+    
+    @objc func didMutateColor(_ notification: Notification) {
+        guard let mutated = notification.object as? ColorMutable else { return }
+        let mutatedUIView = searchView(for: mutated as! ViewModel)
         mutatedUIView?.backgroundColor = Converter.toUIColor(mutated.color)
     }
     
-    func didMutateAlphaViewModels(_ mutated: AlphaMutable) {
-        let mutatedUIView = getMatchedUIView(with: mutated as! ViewModel)
+    @objc func didMutateAlpha(_ notification: Notification) {
+        guard let mutated = notification.object as? AlphaMutable else { return }
+        let mutatedUIView = searchView(for: mutated as! ViewModel)
         mutatedUIView?.alpha = Converter.toCGFloat(mutated.alpha)
     }
 }
