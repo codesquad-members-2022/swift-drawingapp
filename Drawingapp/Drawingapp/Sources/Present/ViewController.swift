@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, PlaneOutput {
+class ViewController: UIViewController {
     let drawingBoard: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -37,15 +37,62 @@ class ViewController: UIViewController, PlaneOutput {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        bind()
         layout()
         
         inspectorView.delegate = self
         topMenuBarView.delegate = self
-        plane.delegate = self
         
         let tapGesture = UITapGestureRecognizer()
         tapGesture.delegate = self
         self.drawingBoard.addGestureRecognizer(tapGesture)
+    }
+    
+    func bind() {
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.didDisSelectedRectangle, object: nil, queue: nil) { notification in
+            guard let id = notification.object as? String else {
+                return
+            }
+            self.inspectorView.isHidden = true
+            self.rectangleViews[id]?.selected(is: false)
+        }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.didSelectedRectangle, object: nil, queue: nil) { notification in
+            guard let rectangle = notification.object as? Rectangle else {
+                return
+            }
+            self.inspectorView.isHidden = false
+            self.inspectorView.update(rectangle: rectangle)
+            self.rectangleViews[rectangle.id]?.selected(is: true)
+        }
+                
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.drawRectangle, object: nil, queue: nil) { notification in
+            guard let rectangle = notification.object as? Rectangle else {
+                return
+            }
+            let drawView = DrawingViewFactory.make(rectangle: rectangle)
+            self.drawingBoard.addSubview(drawView)
+            self.rectangleViews[rectangle.id] = drawView
+        }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name.updateColor, object: nil, queue: nil) { notification in
+            guard let id = notification.object as? String,
+            let color = notification.userInfo?["color"] as? Color else {
+                return
+            }
+            self.rectangleViews[id]?.update(color: color)
+            self.inspectorView.update(color: color)
+        }
+        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name
+                                                .updateAlpha, object: nil, queue: nil) { notification in
+            guard let id = notification.object as? String,
+            let alpha = notification.userInfo?["alpha"] as? Alpha else {
+                return
+            }
+            self.rectangleViews[id]?.update(alpha: alpha)
+            self.inspectorView.update(alpha: alpha)
+        }
     }
     
     func layout() {
@@ -68,41 +115,6 @@ class ViewController: UIViewController, PlaneOutput {
         topMenuBarView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         topMenuBarView.centerXAnchor.constraint(equalTo: self.drawingBoard.centerXAnchor).isActive = true
         topMenuBarView.heightAnchor.constraint(equalToConstant: 70).isActive = true
-    }
-    
-    func didDisSelectedRectangle(to id: String) {
-        self.rectangleViews[id]?.selected(is: false)
-        self.inspectorView.isHidden = true
-    }
-    
-    func didSelectedRectangle(to rectangle: Rectangle) {
-        self.inspectorView.isHidden = false
-        self.inspectorView.update(rectangle: rectangle)
-        self.rectangleViews[rectangle.id]?.selected(is: true)
-    }
-    
-    func draw(to rectangle: Rectangle) {
-        let drawView = DrawingViewFactory.make(rectangle: rectangle)
-        self.drawingBoard.addSubview(drawView)
-        self.rectangleViews[rectangle.id] = drawView
-    }
-    
-    func update(to id: String, color: Color) {
-        self.rectangleViews[id]?.update(color: color)
-        self.inspectorView.update(color: color)
-    }
-    
-    func update(to id: String, point: Point) {
-        self.rectangleViews[id]?.update(point: point)
-    }
-    
-    func update(to id: String, size: Size) {
-        self.rectangleViews[id]?.update(size: size)
-    }
-    
-    func update(to id: String, alpha: Alpha) {
-        self.rectangleViews[id]?.update(alpha: alpha)
-        self.inspectorView.update(alpha: alpha)
     }
 }
 

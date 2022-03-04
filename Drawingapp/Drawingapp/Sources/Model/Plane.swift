@@ -14,19 +14,7 @@ protocol PlaneInput {
     func alphaChanged(alpha: Alpha)
 }
 
-protocol PlaneOutput {
-    func didDisSelectedRectangle(to id: String)
-    func didSelectedRectangle(to rectangle: Rectangle)
-    func draw(to rectangle: Rectangle)
-    func update(to id: String, color: Color)
-    func update(to id: String, point: Point)
-    func update(to id: String, size: Size)
-    func update(to id: String, alpha: Alpha)
-}
-
-class Plane {
-    var delegate: PlaneOutput?
-    
+class Plane {    
     private var rectangles: [Rectangle] = []
     private var selectedRectangle: Rectangle?
     
@@ -49,20 +37,20 @@ class Plane {
 extension Plane: PlaneInput {
     func touchPoint(where point: Point) {
         if let selectedRectangle = self.selectedRectangle {
-            self.delegate?.didDisSelectedRectangle(to: selectedRectangle.id)
+            NotificationCenter.default.post(name: NSNotification.Name.didDisSelectedRectangle, object: selectedRectangle.id)
             self.selectedRectangle = nil
         }
         
         if let selectedRectangle = self.selected(point: point) {
             self.selectedRectangle = selectedRectangle
-            self.delegate?.didSelectedRectangle(to: selectedRectangle)
+            NotificationCenter.default.post(name: NSNotification.Name.didSelectedRectangle, object: selectedRectangle)
         }
     }
     
     func makeRectangle() {
         let rectangle = DrawingModelFactory.makeRectangle()
         self.rectangles.append(rectangle)
-        self.delegate?.draw(to: rectangle)
+        NotificationCenter.default.post(name: NSNotification.Name.drawRectangle, object: rectangle)
     }
     
     func colorChanged() {
@@ -70,7 +58,7 @@ extension Plane: PlaneInput {
             return
         }
         rectangle.update(color: ColorFactory.make())
-        self.delegate?.update(to: rectangle.id, color: rectangle.color)
+        NotificationCenter.default.post(name: NSNotification.Name.updateColor, object: rectangle.id, userInfo: ["color": rectangle.color])
     }
     
     func alphaChanged(alpha: Alpha) {
@@ -78,7 +66,7 @@ extension Plane: PlaneInput {
             return
         }
         rectangle.update(alpha: alpha)
-        self.delegate?.update(to: rectangle.id, alpha: rectangle.alpha)
+        NotificationCenter.default.post(name: NSNotification.Name.updateAlpha, object: rectangle.id, userInfo: ["alpha": rectangle.alpha])
     }
     
 }
