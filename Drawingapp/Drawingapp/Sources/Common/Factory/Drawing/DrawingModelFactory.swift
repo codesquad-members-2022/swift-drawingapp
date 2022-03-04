@@ -8,14 +8,14 @@
 import Foundation
 
 class DrawingModelFactory {    
-    static func makeSquare() -> Square {
+    static func makeSquare() -> Rectangle {
         let id = makeId()
         let size = SizeFactory.make()
         let point = PointFactory.make()
         let color = ColorFactory.make()
         let alpha = Alpha.allCases.randomElement() ?? .transpar10
         
-        return Square(id: id, point: point, size: size, color: color, alpha: alpha)
+        return Rectangle(id: id, point: point, size: size, color: color, alpha: alpha)
     }
     
     private static func makeId() -> String {

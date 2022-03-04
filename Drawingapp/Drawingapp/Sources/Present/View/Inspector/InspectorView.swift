@@ -78,7 +78,7 @@ class InspectorView: UIView {
         itemStackView.bottomAnchor.constraint(equalTo: items[items.count - 1].bottomAnchor).isActive = true
     }
     
-    func update(square: Square) {
+    func update(square: Rectangle) {
         self.update(color: square.color)
         self.update(alpha: square.alpha)
     }

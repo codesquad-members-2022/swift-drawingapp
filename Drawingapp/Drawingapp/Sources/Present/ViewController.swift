@@ -75,13 +75,13 @@ class ViewController: UIViewController, PlaneOutput {
         self.inspectorView.isHidden = true
     }
     
-    func didSelectedSquare(to square: Square) {
+    func didSelectedSquare(to square: Rectangle) {
         self.inspectorView.isHidden = false
         self.inspectorView.update(square: square)
         self.squareViews[square.id]?.selected(is: true)
     }
     
-    func drawSquare(to square: Square) {
+    func drawSquare(to square: Rectangle) {
         let drawView = DrawingViewFactory.make(square: square)
         self.drawingBoard.addSubview(drawView)
         self.squareViews[square.id] = drawView

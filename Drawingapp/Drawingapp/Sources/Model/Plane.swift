@@ -16,8 +16,8 @@ protocol PlaneInput {
 
 protocol PlaneOutput {
     func didDisSelectedSquare(to id: String)
-    func didSelectedSquare(to square: Square)
-    func drawSquare(to square: Square)
+    func didSelectedSquare(to square: Rectangle)
+    func drawSquare(to square: Rectangle)
     func update(to id: String, color: Color)
     func update(to id: String, point: Point)
     func update(to id: String, size: Size)
@@ -26,7 +26,7 @@ protocol PlaneOutput {
 
 class Plane: PlaneInput {
     private let squares = Squares()
-    private var selectedSquare: Square?
+    private var selectedSquare: Rectangle?
     
     var delegate: PlaneOutput?
     

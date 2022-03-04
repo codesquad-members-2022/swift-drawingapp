@@ -8,23 +8,23 @@
 import Foundation
 
 class Squares {
-    private var squares: [Square] = []
+    private var squares: [Rectangle] = []
     
     var count: Int {
         squares.count
     }
     
-    func append(square: Square) {
+    func append(square: Rectangle) {
         self.squares.append(square)
     }
     
-    func selected(point: Point) -> Square? {
+    func selected(point: Point) -> Rectangle? {
         squares.filter{ $0.isSelected(by: point) }.last
     }
 }
 
 extension Squares {
-    subscript(index: Int) -> Square? {
+    subscript(index: Int) -> Rectangle? {
         if index >= 0 && index <= squares.count {
             return squares[index]
         }
