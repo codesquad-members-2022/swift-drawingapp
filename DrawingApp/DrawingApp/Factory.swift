@@ -1,7 +1,7 @@
 import Foundation
 
 class Factory {
-    static func createRandomRectangle(name: String) -> Rectangle {
+    static func createRandomRectangle() -> Rectangle {
         var  id: String {               // UUID: xxx-xxx-xxx
             var uuid = UUID().uuidString.split(separator: "-").map{String($0)}
             uuid.removeFirst()
@@ -18,6 +18,6 @@ class Factory {
         let point : Rectangle.Point = .random()
         let color : Rectangle.BackgroundColor = .random()
         let alpha : Rectangle.Alpha = .random()
-        return Rectangle(name: name, id: id, point: point, size: size, color: color, alpha: alpha)
+        return Rectangle(id: id, point: point, size: size, color: color, alpha: alpha)
     }
 }

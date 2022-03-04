@@ -8,5 +8,11 @@
 import Foundation
 
 struct Plane {
-    
+    var rectangleArray: [Rectangle] = []
+    var rectangleCount: Int {
+        return rectangleArray.count
+    }
+    mutating func addRectangle() {
+        let rectangle: Rectangle = Factory.createRandomRectangle(name: <#T##String#>)
+    }
 }

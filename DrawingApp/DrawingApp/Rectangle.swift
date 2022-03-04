@@ -77,9 +77,9 @@ class Rectangle: CustomStringConvertible {
     }
 
     var description: String {
-        return "\(self.name) (\(self.id)), X:\(self.point.x), Y:\(self.point.y), W\(self.size.width), H\(self.size.height), R\(self.color.R), G\(self.color.G), B\(self.color.B), Alpha: \(self.alpha.rawValue)"
+        return "(\(self.id)), X:\(self.point.x), Y:\(self.point.y), W\(self.size.width), H\(self.size.height), R\(self.color.R), G\(self.color.G), B\(self.color.B), Alpha: \(self.alpha.rawValue)"
     }
-    private let name: String
+    
     private let id: String
     let point: Point
     let size : Size
@@ -87,8 +87,7 @@ class Rectangle: CustomStringConvertible {
     var alpha: Alpha
     
     
-    init(name: String, id: String, point: Point, size: Size, color : BackgroundColor, alpha: Alpha) {
-        self.name = name
+    init(id: String, point: Point, size: Size, color : BackgroundColor, alpha: Alpha) {
         self.id = id
         self.point = point
         self.size = size
