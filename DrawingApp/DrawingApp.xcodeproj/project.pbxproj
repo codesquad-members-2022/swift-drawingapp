@@ -20,7 +20,6 @@
 		BC1806CB27CF51760057679D /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7ECF9427CCB90600BC6AEC /* Factory.swift */; };
 		BC1806CD27CF565D0057679D /* PanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1806CC27CF565D0057679D /* PanelViewController.swift */; };
 		BC1806D127D06DEF0057679D /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1806D027D06DEF0057679D /* BaseView.swift */; };
-		BC1806D527D084200057679D /* DrawingSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1806D427D084200057679D /* DrawingSplitViewController.swift */; };
 		BC1806D727D095E30057679D /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1806D627D095E30057679D /* UIColorExtension.swift */; };
 		BC1806D927D0D3D10057679D /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1806D827D0D3D10057679D /* Converter.swift */; };
 		BC7ECF8E27CCB46A00BC6AEC /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7ECF8D27CCB46A00BC6AEC /* Rectangle.swift */; };
@@ -66,7 +65,6 @@
 		BC1806C427CF49A90057679D /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		BC1806CC27CF565D0057679D /* PanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelViewController.swift; sourceTree = "<group>"; };
 		BC1806D027D06DEF0057679D /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
-		BC1806D427D084200057679D /* DrawingSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingSplitViewController.swift; sourceTree = "<group>"; };
 		BC1806D627D095E30057679D /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		BC1806D827D0D3D10057679D /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
 		BC7ECF8D27CCB46A00BC6AEC /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Rectangle.swift; path = DrawingApp/Model/Model/Rectangle.swift; sourceTree = SOURCE_ROOT; };
@@ -210,7 +208,6 @@
 		BCE3CBB227CC7053004F2AFE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				BC1806D427D084200057679D /* DrawingSplitViewController.swift */,
 				BCE3CB8327CC6D8E004F2AFE /* CanvasViewController.swift */,
 				BC1806CC27CF565D0057679D /* PanelViewController.swift */,
 			);
@@ -371,7 +368,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC7ECF8E27CCB46A00BC6AEC /* Rectangle.swift in Sources */,
-				BC1806D527D084200057679D /* DrawingSplitViewController.swift in Sources */,
 				BC1806D927D0D3D10057679D /* Converter.swift in Sources */,
 				BC1806D727D095E30057679D /* UIColorExtension.swift in Sources */,
 				BC1806BD27CF3E4C0057679D /* Log.swift in Sources */,
