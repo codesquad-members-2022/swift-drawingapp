@@ -53,6 +53,13 @@ struct RectangleView: CustomStringConvertible {
         let R: UInt8
         let G: UInt8
         let B: UInt8
+        
+        static func random() -> Self {
+            let randomR: UInt8 = UInt8.random(in: 0...255)
+            let randomG: UInt8 = UInt8.random(in: 0...255)
+            let randomB: UInt8 = UInt8.random(in: 0...255)
+            return RectangleView.BackgroundColor(R: randomR, G: randomG, B: randomB)
+        }
     }
     struct Size {
         let width: Double = 150.0
@@ -61,6 +68,12 @@ struct RectangleView: CustomStringConvertible {
     struct Point {
         let x: Double
         let y: Double
+        
+        static func random() -> Self {
+            let randomX: Double = Double.random(in: 20...1010)
+            let randomY: Double = Double.random(in: 24...680)
+            return RectangleView.Point(x: randomX, y: randomY)
+        }
     }
 
     var description: String {
