@@ -9,7 +9,7 @@ import Foundation
 
 protocol PlaneDelegate{
     func didChangedColor(id: String, colorRGB: ColorRGB)
-    func didSelectedTarget(id: String, colorRGB: ColorRGB)
+    func didSelectedTarget(id: String, alpha: Double, colorRGB: ColorRGB)
     func deSelectedTarget()
     func didUpdateAlpha(id: String, alpha: Double)
 }

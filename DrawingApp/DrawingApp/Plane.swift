@@ -27,7 +27,7 @@ struct Plane{
     mutating func selectedRectangle(point: ViewPoint){
         self.selectedRectangle = rectangles[point]
         guard let selectedRectangle = selectedRectangle else { return }
-        planeDelegate?.didSelectedTarget(id: selectedRectangle.uniqueId, colorRGB: selectedRectangle.color)
+        planeDelegate?.didSelectedTarget(id: selectedRectangle.uniqueId, alpha: selectedRectangle.alpha, colorRGB: selectedRectangle.color)
     }
     
     mutating func deselectedRectangle(){

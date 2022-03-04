@@ -35,7 +35,6 @@ class PropertySetViewController: UIViewController{
     }
     
     @IBAction func colorChangeTapped(_ sender: UIButton) {
-        sender.setTitle("changed", for: .normal)
         propertyDelegate?.propertyAction(action: .colorChangedTapped)
     }
     
@@ -46,9 +45,24 @@ class PropertySetViewController: UIViewController{
     @IBAction func alphaMinusTapped(_ sender: Any) {
         propertyDelegate?.propertyAction(action: .alphaMinusTapped)
     }
-}
-extension PropertySetViewController: DrawingDelegate{
+    
     func changedColor(rectangleRGB: ColorRGB) {
         colorChangeButton.setTitle(rectangleRGB.description, for: .normal)
+    }
+    
+    func alphaButtonIsHidden(alpha: Double){
+        alpha <= 0.0 ? (minusAlphaButton.isHidden = true) : (minusAlphaButton.isHidden = false)
+        alpha >= 1.0 ? (plusAlphaButton.isHidden = true) : (plusAlphaButton.isHidden = false)
+    }
+    
+    func updateSelectedUI(alpha: Double, rectangleRGB: ColorRGB){
+        alphaButtonIsHidden(alpha: alpha)
+        changedColor(rectangleRGB: rectangleRGB)
+    }
+    
+    func updateDeselectedUI(){
+        plusAlphaButton.isHidden = false
+        minusAlphaButton.isHidden = false
+        colorChangeButton.setTitle("color change", for: .normal)
     }
 }

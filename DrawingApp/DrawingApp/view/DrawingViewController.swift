@@ -80,6 +80,17 @@ class DrawingViewController: UIViewController {
             plane.minusAlpha()
         }
     }
+    
+    func propertyAction(action: PropertyViewAction) {
+        switch action{
+        case .colorChangedTapped:
+            changeViewColorRandomly()
+        case .alphaPlusTapped:
+            plusViewAlpha()
+        case .alphaMinusTapped:
+            minusViewAlpha()
+        }
+    }
 }
 
 extension DrawingViewController: RectangleFactoryResponse{
@@ -97,13 +108,15 @@ extension DrawingViewController: PlaneDelegate{
     func didUpdateAlpha(id: String, alpha: Double) {
         guard let rectangleView = rectangleViews[id] else { return }
         rectangleView.setAlpha(alpha: alpha)
+        drawingDelegate?.updatedAlpha(alpha: alpha)
     }
     
     func deSelectedTarget() {
-        //drawingDelegate.deselectedColor()
+        drawingDelegate?.deselected()
     }
     
-    func didSelectedTarget(id: String, colorRGB: ColorRGB) {
+    func didSelectedTarget(id: String, alpha: Double, colorRGB: ColorRGB) {
+        drawingDelegate?.defaultProperty(alpha: alpha, rectangleRGB: colorRGB)
         drawingDelegate?.changedColor(rectangleRGB: colorRGB)
     }
     
@@ -111,18 +124,5 @@ extension DrawingViewController: PlaneDelegate{
         let rectangleView = rectangleViews[id]
         rectangleView?.setRGBColor(rgb: colorRGB)
         drawingDelegate?.changedColor(rectangleRGB: colorRGB)
-    }
-}
-
-extension DrawingViewController: PropertyDelegate{
-    func propertyAction(action: PropertyViewAction) {
-        switch action{
-        case .colorChangedTapped:
-            changeViewColorRandomly()
-        case .alphaPlusTapped:
-            plusViewAlpha()
-        case .alphaMinusTapped:
-            minusViewAlpha()
-        }
     }
 }
