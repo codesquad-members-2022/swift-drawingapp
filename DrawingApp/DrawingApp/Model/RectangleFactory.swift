@@ -29,15 +29,12 @@ class RectangleFactory {
     }
     
     private static func generateRandomColor() -> BackgroundColor {
-        let minimumColorValue = 0
-        let maximumColorValue = 255
         
-        let red = (minimumColorValue...maximumColorValue).randomElement() ?? minimumColorValue
-        let green = (minimumColorValue...maximumColorValue).randomElement() ?? minimumColorValue
-        let blue = (minimumColorValue...maximumColorValue).randomElement() ?? minimumColorValue
+        let red = BackgroundColor.possibleColorValues.randomElement() ?? 0
+        let green = BackgroundColor.possibleColorValues.randomElement() ?? 0
+        let blue = BackgroundColor.possibleColorValues.randomElement() ?? 0
 
-        return BackgroundColor(r: red, g: green, b: blue,
-                               min: minimumColorValue, max: maximumColorValue)
+        return BackgroundColor(r: red, g: green, b: blue)
     }
     
     private static func generateRandomAlpha() -> Alpha {
