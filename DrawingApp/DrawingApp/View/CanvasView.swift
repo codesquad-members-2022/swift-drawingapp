@@ -19,6 +19,16 @@ class CanvasView: UIView{
         super.init(coder: coder)
     }
     
+    func cancelSelection(){
+        if let selectedRectangleView = self.selectedRectangleView,
+           let viewController = self.viewController {
+            selectedRectangleView.layer.borderWidth = 0
+            self.selectedRectangleView = nil
+            
+            viewController.clearModelSelection()
+        }
+    }
+    
     func selectTappedRectangle(subView: UIView){
         if let selectedRectangleView = self.selectedRectangleView {
             selectedRectangleView.layer.borderWidth = 0
