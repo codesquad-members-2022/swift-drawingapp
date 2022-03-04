@@ -23,7 +23,7 @@ class ViewController: UIViewController {
     }
     
     
-    
+    //버튼 정의
     private func configureRectangleButton() {
         // 820 X 1180
         let width = 150.0
@@ -60,6 +60,7 @@ class ViewController: UIViewController {
         view.addSubview(button)
     }
     
+    //버튼 액션정의
     private func makeRectangleAction() -> UIAction {
         let action = UIAction {_ in
             let id = IDFactory.makeRandomID()
@@ -80,15 +81,19 @@ class ViewController: UIViewController {
 
 extension ViewController:UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        
         let locationView = self.view.hitTest(touch.location(in: self.view), with: nil)
+        
+        //터치한 곳의 View의 크기를 비교해서 직사각형의 유무를 파악합니다.
         if locationView?.frame.size == CGSize(width: 150, height: 120) {
-            self.plane.rectangles.map {
-                $0.layer.borderWidth = 0.0
-                $0.layer.borderColor = .none
-            }
+            self.plane.seletedRectangle.layer.borderWidth = 0.0
+            
             locationView?.layer.borderWidth = 1.0
             locationView?.layer.borderColor = UIColor.black.cgColor
             self.plane.seletedRectangle = locationView ?? UIView()
+        } else {
+            
+            self.plane.seletedRectangle.layer.borderWidth = 0.0
         }
         
         return true
