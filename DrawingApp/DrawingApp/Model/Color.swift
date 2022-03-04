@@ -19,9 +19,9 @@ class Color {
     }
     
     convenience init?(red: Double, green: Double, blue: Double) {
-        if red < Bound.lowwer || red > Bound.upper ||
-            green < Bound.lowwer || green > Bound.upper ||
-            blue < Bound.lowwer || blue > Bound.upper
+        if red < Range.lower || red > Range.upper ||
+            green < Range.lower || green > Range.upper ||
+            blue < Range.lower || blue > Range.upper
         {
             return nil
         }
@@ -31,8 +31,8 @@ class Color {
 }
 
 extension Color {
-    enum Bound {
-        static let lowwer = 0.0
+    enum Range {
+        static let lower = 0.0
         static let upper = 255.0
     }
 }

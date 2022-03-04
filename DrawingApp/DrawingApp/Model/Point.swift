@@ -18,8 +18,8 @@ struct Point {
 }
 
 extension Point {
-    enum Bound {
-        static let lowwer = 0.0
+    enum Range {
+        static let lower = 0.0
         static let upper = 100.0
     }
 }
