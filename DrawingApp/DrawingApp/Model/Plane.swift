@@ -18,8 +18,17 @@ struct Plane {
         return self.items[id]
     }
     
+    /**
+     매개변수 point 를 포함하는 사각형을 찾아 반환합니다.
+     결과값이 없으면 nil 을 리턴, 여러개인 경우에는 첫번째 요소를 반환합니다.
+     */
     func findItemBy(point: Point) -> Rectangle? {
-        // TODO: 해당 point 를 포함하는 사각형을 찾는 로직 구현
+        for rectangle in self.items.values {
+            if rectangle.contains(point: point) {
+                return rectangle
+            }
+        }
+        
         return nil
     }
     
