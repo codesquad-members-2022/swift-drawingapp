@@ -110,31 +110,28 @@ class RightAttributerView: UIView {
         self.addSubview(alphaSlider)
     }
     
-    func changeAlphaSliderValue(value: Float){
-        self.alphaSlider.value = value
+    func originSliderValue(red: Float, green: Float, blue: Float, alpha: Float){
+        self.alphaSlider.value = alpha
         self.alphaTitle.text = "투명도 : \(String(format: "%.0f", alphaValue.showValue() * 10))"
-    }
-    
-    func changeRedSliderValue(value: Float){
-        self.redSlider.value = value
+        
+        self.redSlider.value = red
         self.colorNameRed.text = "Red : \(String(format: "%.0f", redValue))"
-    }
-    
-    func changeGreenSliderValue(value: Float){
-        self.greenSlider.value = value
+        
+        self.greenSlider.value = green
         self.colorNameGreen.text = "Green : \(String(format: "%.0f", greenValue))"
-    }
-    
-    func changeBlueSliderValue(value: Float){
-        self.blueSlider.value = value
+        
+        self.blueSlider.value = blue
         self.colorNameBlue.text = "Blue : \(String(format: "%.0f", blueValue))"
     }
     
-    func changeAllSliderValue(){
-        self.alphaTitle.text = "투명도 : \(String(format: "%.0f", alphaValue.showValue() * 10))"
+    func changeColorSliderValue(){
         self.colorNameRed.text = "Red : \(String(format: "%.0f", redValue))"
         self.colorNameGreen.text = "Green : \(String(format: "%.0f", greenValue))"
         self.colorNameBlue.text = "Blue : \(String(format: "%.0f", blueValue))"
+    }
+    
+    func changeAlphaSliderView(){
+        self.alphaTitle.text = "투명도 : \(String(format: "%.0f", alphaValue.showValue() * 10))"
     }
     
     @objc private func moveAlphaSlider(){

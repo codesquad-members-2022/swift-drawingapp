@@ -32,19 +32,45 @@ class MainViewController: UIViewController, RightAttributerViewDelegate {
     }
     
     func moveAlphaSlider() {
-        changeRectangleAttribute()
+        changeRectangleAlpha()
     }
     
     func moveRedSlider() {
-        changeRectangleAttribute()
+        changeRectangleColor()
     }
     
     func moveGreenSlider() {
-        changeRectangleAttribute()
+        changeRectangleColor()
     }
     
     func moveBlueSlider() {
-        changeRectangleAttribute()
+        changeRectangleColor()
+    }
+    
+    func changeRectangleColor(){
+        guard let index = selectedRectangleIndex, let rectangle = self.rectangles[index], let rectView = selectedRectangleView else{
+            return
+        }
+        
+        let newColor = RGBColor(red: rightAttributerView.redValue, green: rightAttributerView.greenValue, blue: rightAttributerView.blueValue)
+        rectangle.changeColor(color: newColor)
+        
+        rectView.backgroundColor = UIColor(red: rectangle.showColor().redValue(), green: rectangle.showColor().greenValue(), blue: rectangle.showColor().blueValue(), alpha: rectangle.showAlpha().showValue())
+
+        rightAttributerView.changeColorSliderValue()
+    }
+    
+    func changeRectangleAlpha(){
+        guard let index = selectedRectangleIndex, let rectangle = self.rectangles[index], let rectView = selectedRectangleView else{
+            return
+        }
+        
+        let newAlpha = rightAttributerView.alphaValue
+        rectangle.changeAlpha(alpha: newAlpha)
+        
+        rectView.backgroundColor = rectView.backgroundColor?.withAlphaComponent(rectangle.showAlpha().showValue())
+        
+        rightAttributerView.changeAlphaSliderView()
     }
 
     @IBAction func makeRandomRectangle(_ sender: Any) {
@@ -58,22 +84,6 @@ class MainViewController: UIViewController, RightAttributerViewDelegate {
         os_log("%@", "\(rectangleValue.description)")
         self.view.addSubview(rectangleView)
     }
-    
-    func changeRectangleAttribute(){
-        guard let index = selectedRectangleIndex, let rectangle = self.rectangles[index], let rectView = selectedRectangleView else{
-            return
-        }
-        
-        let newColor = RGBColor(red: rightAttributerView.redValue, green: rightAttributerView.greenValue, blue: rightAttributerView.blueValue)
-        let newAlpha = rightAttributerView.alphaValue 
-        
-        rectangle.changeAlpha(alpha: newAlpha)
-        rectangle.changeColor(color: newColor)
-        
-        rectView.backgroundColor = UIColor(red: rectangle.showColor().redValue(), green: rectangle.showColor().greenValue(), blue: rectangle.showColor().blueValue(), alpha: rectangle.showAlpha().showValue())
-        
-        rightAttributerView.changeAllSliderValue()
-    }
 }
 
 extension MainViewController: UIGestureRecognizerDelegate {
@@ -85,10 +95,7 @@ extension MainViewController: UIGestureRecognizerDelegate {
             return true
         }
         
-        rightAttributerView.changeAlphaSliderValue(value: Float(rectangle.showAlpha().showValue()))
-        rightAttributerView.changeRedSliderValue(value: Float(rectangle.showColor().red))
-        rightAttributerView.changeGreenSliderValue(value: Float(rectangle.showColor().green))
-        rightAttributerView.changeBlueSliderValue(value: Float(rectangle.showColor().blue))
+        rightAttributerView.originSliderValue(red: Float(rectangle.showColor().red), green: Float(rectangle.showColor().green), blue: Float(rectangle.showColor().blue), alpha: Float(rectangle.showAlpha().showValue()))
         
         return true
     }
