@@ -15,6 +15,7 @@
 		72400F2C27CC5D1800D24138 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72400F2A27CC5D1800D24138 /* Main.storyboard */; };
 		72400F2E27CC5D1900D24138 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72400F2D27CC5D1900D24138 /* Assets.xcassets */; };
 		72400F3127CC5D1900D24138 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72400F2F27CC5D1900D24138 /* LaunchScreen.storyboard */; };
+		7272910927D1DEB300361536 /* PlaneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7272910827D1DEB300361536 /* PlaneDelegate.swift */; };
 		7295F32D27D1A9C200C1BDFB /* DrawingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7295F32C27D1A9C200C1BDFB /* DrawingDelegate.swift */; };
 		72A40E1627CCB32A002D076C /* RectangleAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1527CCB32A002D076C /* RectangleAddButton.swift */; };
 		72A40E1A27CCBB3F002D076C /* RectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1927CCBB3F002D076C /* RectangleFactory.swift */; };
@@ -40,6 +41,7 @@
 		72400F2D27CC5D1900D24138 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		72400F3027CC5D1900D24138 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		72400F3227CC5D1900D24138 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7272910827D1DEB300361536 /* PlaneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneDelegate.swift; sourceTree = "<group>"; };
 		7295F32C27D1A9C200C1BDFB /* DrawingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingDelegate.swift; sourceTree = "<group>"; };
 		72A40E1527CCB32A002D076C /* RectangleAddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleAddButton.swift; sourceTree = "<group>"; };
 		72A40E1927CCBB3F002D076C /* RectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactory.swift; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				72C0A7C827CF458F00A4035F /* RectangleFactoryResponse.swift */,
 				7207F21027D098D500713C5E /* PropertyDelegate.swift */,
 				7295F32C27D1A9C200C1BDFB /* DrawingDelegate.swift */,
+				7272910827D1DEB300361536 /* PlaneDelegate.swift */,
 			);
 			path = message;
 			sourceTree = "<group>";
@@ -211,6 +214,7 @@
 				72A40E1627CCB32A002D076C /* RectangleAddButton.swift in Sources */,
 				72400F2527CC5D1800D24138 /* AppDelegate.swift in Sources */,
 				7207F21327D0B42600713C5E /* SplitViewController.swift in Sources */,
+				7272910927D1DEB300361536 /* PlaneDelegate.swift in Sources */,
 				72A40E1C27CCBB87002D076C /* Rectangle.swift in Sources */,
 				7295F32D27D1A9C200C1BDFB /* DrawingDelegate.swift in Sources */,
 				72C0A7C527CF386400A4035F /* ViewSize.swift in Sources */,

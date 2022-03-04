@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ViewPoint{
+struct ViewPoint: Hashable{
     let x: Int
     let y: Int
     init(x: Int, y: Int){
