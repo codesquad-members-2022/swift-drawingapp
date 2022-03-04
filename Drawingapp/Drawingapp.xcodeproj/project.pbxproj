@@ -14,7 +14,7 @@
 		E034560B27D0AC310036988A /* PointFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034560A27D0AC310036988A /* PointFactory.swift */; };
 		E034560D27D0AC3A0036988A /* ColorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034560C27D0AC3A0036988A /* ColorFactory.swift */; };
 		E034561427D1ADF30036988A /* Squares.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA2F27CD09F500A56635 /* Squares.swift */; };
-		E034561527D1ADF30036988A /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1327CC5EB000A56635 /* Square.swift */; };
+		E034561527D1ADF30036988A /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1327CC5EB000A56635 /* Rectangle.swift */; };
 		E034561627D1ADF30036988A /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1827CC643000A56635 /* Point.swift */; };
 		E034561727D1ADF30036988A /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1627CC642800A56635 /* Size.swift */; };
 		E034561827D1ADF30036988A /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA2D27CD048C00A56635 /* Plane.swift */; };
@@ -33,7 +33,7 @@
 		E0D7D9F527CC594E00A56635 /* DrawingappTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9F427CC594E00A56635 /* DrawingappTests.swift */; };
 		E0D7D9FF27CC594E00A56635 /* DrawingappUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9FE27CC594E00A56635 /* DrawingappUITests.swift */; };
 		E0D7DA0127CC594E00A56635 /* DrawingappUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA0027CC594E00A56635 /* DrawingappUITestsLaunchTests.swift */; };
-		E0D7DA1427CC5EB000A56635 /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1327CC5EB000A56635 /* Square.swift */; };
+		E0D7DA1427CC5EB000A56635 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1327CC5EB000A56635 /* Rectangle.swift */; };
 		E0D7DA1727CC642800A56635 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1627CC642800A56635 /* Size.swift */; };
 		E0D7DA1927CC643000A56635 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1827CC643000A56635 /* Point.swift */; };
 		E0D7DA2027CC656500A56635 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1F27CC656500A56635 /* Color.swift */; };
@@ -87,7 +87,7 @@
 		E0D7D9FA27CC594E00A56635 /* DrawingappUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingappUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0D7D9FE27CC594E00A56635 /* DrawingappUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingappUITests.swift; sourceTree = "<group>"; };
 		E0D7DA0027CC594E00A56635 /* DrawingappUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingappUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		E0D7DA1327CC5EB000A56635 /* Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
+		E0D7DA1327CC5EB000A56635 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 		E0D7DA1627CC642800A56635 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		E0D7DA1827CC643000A56635 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		E0D7DA1F27CC656500A56635 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -233,7 +233,7 @@
 			children = (
 				E0D7DA2D27CD048C00A56635 /* Plane.swift */,
 				E0D7DA2F27CD09F500A56635 /* Squares.swift */,
-				E0D7DA1327CC5EB000A56635 /* Square.swift */,
+				E0D7DA1327CC5EB000A56635 /* Rectangle.swift */,
 				E0D7DA1827CC643000A56635 /* Point.swift */,
 				E0D7DA1627CC642800A56635 /* Size.swift */,
 				E0D7DA1F27CC656500A56635 /* Color.swift */,
@@ -461,7 +461,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E0D7DA3027CD09F500A56635 /* Squares.swift in Sources */,
-				E0D7DA1427CC5EB000A56635 /* Square.swift in Sources */,
+				E0D7DA1427CC5EB000A56635 /* Rectangle.swift in Sources */,
 				E034560D27D0AC3A0036988A /* ColorFactory.swift in Sources */,
 				E0D7DA4827CDE3C800A56635 /* TopMenuItemView.swift in Sources */,
 				E0D7DA1727CC642800A56635 /* Size.swift in Sources */,
@@ -495,7 +495,7 @@
 				E034561627D1ADF30036988A /* Point.swift in Sources */,
 				E034561727D1ADF30036988A /* Size.swift in Sources */,
 				E034561927D1ADF30036988A /* Alpha.swift in Sources */,
-				E034561527D1ADF30036988A /* Square.swift in Sources */,
+				E034561527D1ADF30036988A /* Rectangle.swift in Sources */,
 				E034561427D1ADF30036988A /* Squares.swift in Sources */,
 				E034561D27D1ADFD0036988A /* PointFactory.swift in Sources */,
 				E034562027D1AE020036988A /* DrawingModelFactory.swift in Sources */,

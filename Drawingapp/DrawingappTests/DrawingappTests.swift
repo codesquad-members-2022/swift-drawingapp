@@ -21,21 +21,21 @@ class DrawingappTests: XCTestCase {
     let plane = Plane()
     
     class TestView: PlaneOutput {
-        var drawSquare: Square?
-        var selectSquare: Square?
+        var drawSquare: Rectangle?
+        var selectSquare: Rectangle?
         
-        func didDisSelectedSquare(to square: Square?) {
+        func didDisSelectedSquare(to square: Rectangle?) {
         }
         
-        func didSelectedSquare(to square: Square?) {
+        func didSelectedSquare(to square: Rectangle?) {
             self.selectSquare = square
         }
         
-        func drawSquare(to square: Square) {
+        func drawSquare(to square: Rectangle) {
             self.drawSquare = square
         }
         
-        func updateSquare(to square: Square) {
+        func updateSquare(to square: Rectangle) {
         }
         func update(to id: String, color: Color) {
         }

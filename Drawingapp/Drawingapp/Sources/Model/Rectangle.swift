@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Square: CustomStringConvertible {
+class Rectangle: CustomStringConvertible {
     let id: String
     let point: Point
     let size: Size
