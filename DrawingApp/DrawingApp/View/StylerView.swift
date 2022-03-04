@@ -3,16 +3,20 @@ import UIKit
 
 class StylerView: UIView{
     
+    private var viewController: ViewMutable?
     private var rectangleColorTextLabel: UILabel = UILabel()
     private var rectangleColorValueField: UILabel = UILabel()
     private var rectangleAlphaTextLabel: UILabel = UILabel()
     private var rectangleAlphaSlider: UISlider = UISlider()
     
-    init(frame: CGRect, backgroundColor: UIColor){
+    init(frame: CGRect, backgroundColor: UIColor, viewController: ViewMutable){
         super.init(frame: frame)
+        self.viewController = viewController
         self.backgroundColor = backgroundColor
         setRectangleColorInformationView()
+        setColorChangeAction()
         setRectangleAlphaInformationView()
+        setAlphaChangeAction()
     }
     
     required init?(coder: NSCoder) {
@@ -20,10 +24,10 @@ class StylerView: UIView{
     }
     
     func updateRectangleInfo(r: Double, g: Double, b: Double, opacity: Float){
-        
         let hexString = "#\(String(Int(r*255), radix: 16))\(String(Int(g*255), radix: 16))\(String(Int(b*255), radix: 16))"
         self.rectangleColorValueField.text = hexString
         self.rectangleColorValueField.textAlignment = .center
+        self.rectangleColorValueField.backgroundColor = UIColor(red: r, green: g, blue: b, alpha: 1)
         self.rectangleAlphaSlider.value = opacity
     }
     
@@ -44,6 +48,9 @@ class StylerView: UIView{
         self.addSubview(self.rectangleColorValueField)
     }
     
+    private func setColorChangeAction(){
+    }
+    
     private func setRectangleAlphaInformationView(){
         self.rectangleAlphaTextLabel.text = "투명도"
         self.rectangleAlphaTextLabel.frame = CGRect(x: self.frame.width*0.1,
@@ -58,6 +65,14 @@ class StylerView: UIView{
                                                  height: 10)
         self.rectangleAlphaSlider.value = 10
         self.addSubview(self.rectangleAlphaSlider)
+    }
+    
+    private func setAlphaChangeAction(){
+        self.rectangleAlphaSlider.addAction(UIAction(title: ""){ _ in
+            if let viewController = self.viewController{
+                viewController.changeSelectedRectangleViewAlpha(opacity: Int(self.rectangleAlphaSlider.value * 10))
+            }
+        }, for: .valueChanged)
     }
     
 }

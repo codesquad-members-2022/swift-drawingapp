@@ -1,7 +1,7 @@
 import UIKit
 import OSLog
 
-class ViewController: UIViewController {
+class ViewController: UIViewController{
     
     private var logger: Logger = Logger()
     private var canvasView: CanvasView?
@@ -34,7 +34,8 @@ class ViewController: UIViewController {
                            height: self.view.frame.height)
         let canvasView = CanvasView(frame: frame,
                                     backGroundColor: .lightGray,
-                                    buttonActionClosure: self.drawRectangle)
+                                    buttonActionClosure: self.drawRectangle,
+                                    viewController: self)
         self.canvasView = canvasView
         self.view.addSubview(canvasView)
     }
@@ -46,7 +47,8 @@ class ViewController: UIViewController {
                            width: self.view.frame.width - canvasView.frame.width,
                            height: self.view.frame.height)
         let stylerView = StylerView(frame: frame,
-                                    backgroundColor: .white)
+                                    backgroundColor: .white,
+                                    viewController: self)
         self.stylerView = stylerView
         self.view.addSubview(stylerView)
     }
@@ -71,7 +73,6 @@ class ViewController: UIViewController {
         plane.addRectangle(rectangle)
         canvasView.insertSubview(rectangleView, belowSubview: canvasView.generatingButton)
     }
-
 }
 
 extension ViewController: UIGestureRecognizerDelegate{
@@ -79,10 +80,10 @@ extension ViewController: UIGestureRecognizerDelegate{
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         
         let tappedPoint = touch.location(in: self.canvasView)
-        guard let rectangle = self.plane[tappedPoint.x,tappedPoint.y] else { return true }
-        guard let stylerView = self.stylerView else { return true }
-        guard let canvasView = self.canvasView else { return true }
-        guard let rectangleView = canvasView[tappedPoint.x,tappedPoint.y] else { return true }
+        guard let rectangle = self.plane[tappedPoint.x,tappedPoint.y] else { return false }
+        guard let stylerView = self.stylerView else { return false }
+        guard let canvasView = self.canvasView else { return false }
+        guard let rectangleView = canvasView[tappedPoint.x,tappedPoint.y] else { return false }
         
         let r = rectangle.backgroundColor.r
         let g = rectangle.backgroundColor.g
@@ -90,8 +91,31 @@ extension ViewController: UIGestureRecognizerDelegate{
         let opacity = rectangle.alpha.opacity
         stylerView.updateRectangleInfo(r: r, g: g, b: b, opacity: opacity)
         canvasView.selectTappedRectangle(subView: rectangleView)
+        self.plane.selectRectangle(id: rectangle.id)
         
         return true
     }
 }
 
+extension ViewController: ViewMutable, ModelMutable{
+    
+    func changeSelectedRectangleViewColor(){
+        
+    }
+    
+    func changeSelectedRectangleViewAlpha(opacity: Int){
+        if let canvasView = self.canvasView{
+            canvasView.changeSelectedRectangleOpacity(opacity: opacity)
+        }
+    }
+    
+    func changeRectangleModelAlpha(opacity: Int) {
+        var opacity = opacity
+        guard let selectedRectangleId = self.plane.selectedRectangleId else { return }
+        guard let rectangle = self.plane[selectedRectangleId] else { return }
+        if(opacity == 10){
+            opacity = opacity - 1
+        }
+        rectangle.alpha = Rectangle.Alpha.allCases[opacity]
+    }
+}
