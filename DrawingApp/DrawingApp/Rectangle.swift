@@ -9,18 +9,50 @@ import Foundation
 
 class Rectangle{
     private var uniqueId: String
-    private var color: RectangleColor
+    private var color: RectangleRGB
     private var point: ViewPoint
+    private var size: ViewSize
+    private var alpha: Double
     
-    init(uniqueId: String, color: RectangleColor, point: ViewPoint){
+    init(uniqueId: String, color: RectangleRGB, point: ViewPoint, size: ViewSize, alpha: Double){
         self.uniqueId = uniqueId
         self.color = color
         self.point = point
+        self.size = size
+        self.alpha = alpha
+    }
+
+    func idValue() -> String{
+        return self.uniqueId
+    }
+    
+    func colorValue() -> RectangleRGB{
+        return color
+    }
+    
+    func pointValue() -> ViewPoint{
+        return point
+    }
+    
+    func sizeValue() -> ViewSize{
+        return size
+    }
+    
+    func alphaValue() -> Double{
+        return alpha
+    }
+    
+    func changeAlphaValue(alpha: Double){
+        self.alpha = alpha
+    }
+    
+    func resetColor(rgbValue: RectangleRGB){
+        self.color = rgbValue
     }
 }
 
 extension Rectangle: CustomStringConvertible{
     var description: String {
-        return "(\(uniqueId)) \(point.description) \(color.description)"
+        return "(\(uniqueId)) \(point.description),\(size.description) \(color.description) alpha:\(alpha)"
     }
 }
