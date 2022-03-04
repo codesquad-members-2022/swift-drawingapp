@@ -10,17 +10,21 @@ import Foundation
 struct ViewPoint{
     private var x: Int
     private var y: Int
-    private var height: Int
-    private var width: Int
-    init(x: Int, y: Int, width: Int, height: Int){
+    init(x: Int, y: Int){
         self.x = x
         self.y = y
-        self.width = width
-        self.height = height
+    }
+    
+    func xValue() -> Int{
+        return x
+    }
+    
+    func yValue() -> Int{
+        return y
     }
 }
 extension ViewPoint: CustomStringConvertible{
     var description: String {
-        return "X:\(x),Y:\(y), W\(width), H\(height)"
+        return "X:\(x),Y:\(y)"
     }
 }
