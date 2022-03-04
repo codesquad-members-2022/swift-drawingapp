@@ -19,11 +19,35 @@ struct Color: CustomStringConvertible{
         blue = B
     }
     
-    init() {
-        red = Int.random(in: 0...255)
-        green = Int.random(in: 0...255)
-        blue = Int.random(in: 0...255)
+    static func randomColor() -> Color {
+        
+        let red = Int.random(in: 0...255)
+        let green = Int.random(in: 0...255)
+        let blue = Int.random(in: 0...255)
+        return Color(R: red, G: green, B: blue)
+
     }
+    
+    static func redColor() -> Color {
+        return Color(R: 255, G: 0, B: 0)
+    }
+    
+    static func greenColor() -> Color {
+        return Color(R: 0, G: 255, B: 0)
+    }
+    
+    static func blueColor() -> Color {
+        return Color(R: 0, G: 0, B: 255)
+    }
+    
+    static func whiteColor() -> Color {
+        return Color(R: 0, G: 0, B: 0)
+    }
+    
+    static func blackColor() -> Color{
+        return Color(R: 255, G: 255, B: 255)
+    }
+    
     
     var description: String {
         return "R : \(red), G: \(green), B: \(blue)"
