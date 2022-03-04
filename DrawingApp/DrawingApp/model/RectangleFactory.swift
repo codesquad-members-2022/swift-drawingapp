@@ -10,6 +10,11 @@ import os
 
 class RectangleFactory{
     
+    private let drawingMessage: RectangleFactoryResponse
+    init(drawingMessage: RectangleFactoryResponse){
+        self.drawingMessage = drawingMessage
+    }
+    
     private func makeUiniqueId() -> String{
         let allString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         let uniqueStrings = (0 ..< 9).map{ _ in allString.randomElement() }
@@ -31,33 +36,31 @@ class RectangleFactory{
     }
     
     func makeRandomRectangle(){
-        let red = randomValue(property: .color)
-        let blue = randomValue(property: .color)
-        let green = randomValue(property: .color)
-        let alpha = randomValue(property: .alpha)
+        let r = randomValue(property: .rgbRange)
+        let b = randomValue(property: .rgbRange)
+        let g = randomValue(property: .rgbRange)
         let x = randomValue(property: .x)
         let y = randomValue(property: .y) + 44
         let uniqueId = makeUiniqueId()
-        let color = RectangleColor(red: red, green: green, blue: blue, alpha: alpha)
-        let point = ViewPoint(x: x, y: y, width: 150, height: 120)
-        let rectangle = Rectangle(uniqueId: uniqueId, color: color, point: point)
-        let logger = Logger()
-        logger.info("Rect : \(rectangle.description)")
+        let color = ColorRGB(r: r, g: g, b: b)
+        let point = ViewPoint(x: x, y: y)
+        let size = ViewSize(width: 150, height: 120)
+        let rectangle = Rectangle(uniqueId: uniqueId, color: color, point: point, size: size, alpha: 1.0)
+        drawingMessage.addRectangleToPlane(rectangle: rectangle)
+    }
+    
+    func makeRandomColor(){
+        let r = randomValue(property: .rgbRange)
+        let b = randomValue(property: .rgbRange)
+        let g = randomValue(property: .rgbRange)
+        drawingMessage.setBackgroundColorRandom(rgb: ColorRGB(r: r, g: g, b: b))
     }
 }
 
-
-enum Color{
-    case Red
-    case Green
-    case Blue
-}
-
 enum RandomMax: Int{
-    case x = 670
+    case x = 470
     case y = 860
-    case alpha = 10
-    case color = 255
+    case rgbRange = 255
     
     var randomValue: Int{
         return Int.random(in: 1 ..< self.rawValue)
