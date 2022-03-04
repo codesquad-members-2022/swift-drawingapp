@@ -23,7 +23,6 @@ class FactoryViewRandomProperty: ViewPropertyCreator {
         guard let delegate = delegate else { return nil }
         let superviewProperties = delegate.getMasterViewProperty()
         
-        
         let randomLocationProperties = getRandomPoint(from: superviewProperties)
         
         

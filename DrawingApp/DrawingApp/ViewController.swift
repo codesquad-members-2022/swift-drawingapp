@@ -12,11 +12,18 @@ protocol RectangleViewTapDelegate {
     func setSelected(_ view: Rectangle)
 }
 
+protocol RectangleViewValueChangeDelegate {
+    func setColor()
+    func setAlpha(as value: CGFloat)
+}
+
 class ViewController: UIViewController {
     
     @IBOutlet weak var screenView: UIView!
+    @IBOutlet weak var setRandomColorButton: UIButton!
+    @IBOutlet weak var setAlphaSlider: UISlider!
     
-    private var selectedView: Rectangle?
+    private var currentSelected: Rectangle?
     
     let factory = FactoryViewRandomProperty()
     let plane = Plane()
@@ -27,29 +34,52 @@ class ViewController: UIViewController {
         
         let tapGesture = UITapGestureRecognizer()
         tapGesture.delegate = self
-        self.screenView.addGestureRecognizer(tapGesture)
+        screenView.addGestureRecognizer(tapGesture)
     }
     
     @IBAction func buttonForAddTouchUpInside(_ sender: UIButton) {
-        if let model = factory.makeRandomView(as: "subview #\(screenView.subviews.count)") {
-            plane.addProperties(model)
-            let rectangle = Rectangle(randomProperty: model)
+        if let property = factory.makeRandomView(as: "subview #\(screenView.subviews.count)") {
+            plane.addProperties(property)
+            
+            let rectangle = Rectangle(model: property)
             rectangle.delegate = self
+            rectangle.index = plane.getRectangleCount()-1
+            
             screenView.addSubview(rectangle)
         }
     }
     
     @IBAction func buttonAdmitColorTouchUpInside(_ sender: UIButton) {
+        guard
+            let current = currentSelected,
+            let property = plane.getRectangleProperty(at: current.index)
+        else {
+            return
+        }
+        
+        let color = property.resetRGBColor()
+        setRandomColorButton.backgroundColor = UIColor(
+            red: color.r/255,
+            green: color.g/255,
+            blue: color.b/255,
+            alpha: property.getAlpha()
+        )
+        currentSelected?.setBackgroundColor(using: property)
     }
     
     @IBAction func sliderAdmitAlphaValueChanged(_ sender: UISlider) {
+        
+        guard let currentSelected = currentSelected else {
+            return
+        }
+        
         sender.value = round(sender.value)
-    }
-    
-    @IBAction func sliderAdmitAlphaEditingChanged(_ sender: UISlider) {
-        // Do Not Execute...
+        plane.setProperty(at: currentSelected.index, alpha: sender.value)
+        currentSelected.setValue(alpha: sender.value)
     }
 }
+
+// MARK: - Custom Protocol Delegate Pattern
 
 extension ViewController: MasterViewDelegate {
     func getMasterViewProperty() -> FactoryProperties {
@@ -66,11 +96,17 @@ extension ViewController: MasterViewDelegate {
 
 extension ViewController: RectangleViewTapDelegate {
     func setSelected(_ view: Rectangle) {
-        selectedView = view
+        currentSelected?.isSelected = false
         
-        screenView.subviews.forEach {
-            ($0 as? Rectangle)?.isSelected = ($0 == selectedView)
+        guard let property = plane.getRectangleProperty(at: view.index) else {
+            return
         }
+        
+        setRandomColorButton.backgroundColor = view.backgroundColor
+        setAlphaSlider.setValue(Float(round(property.getAlpha())), animated: true)
+        
+        view.isSelected = true
+        currentSelected = view
     }
 }
 
@@ -80,11 +116,21 @@ extension ViewController: UIGestureRecognizerDelegate {
         _ gestureRecognizer: UIGestureRecognizer,
         shouldReceive touch: UITouch
     ) -> Bool {
-        selectedView?.isSelected = false
-        selectedView = nil
+        if touch.view == currentSelected {
+            return false
+        }
+        
+        currentSelected?.isSelected = false
+        currentSelected = nil
+        
+        setRandomColorButton.backgroundColor = UIColor.systemFill
+        setAlphaSlider.setValue(0, animated: true)
+        
         return true
     }
 }
+
+// MARK: - UIKit extension types
 
 extension CGRect {
     static func useViewModel(point: RectPoint, size: RectSize) -> CGRect {

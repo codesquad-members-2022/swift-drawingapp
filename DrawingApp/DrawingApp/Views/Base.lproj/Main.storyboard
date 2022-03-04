@@ -78,7 +78,7 @@
                                         </constraints>
                                         <color key="tintColor" systemColor="labelColor"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title=""/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                 <real key="value" value="3"/>
@@ -112,7 +112,6 @@
                                         <color key="maximumTrackTintColor" systemColor="labelColor"/>
                                         <color key="thumbTintColor" systemColor="systemGrayColor"/>
                                         <connections>
-                                            <action selector="sliderAdmitAlphaEditingChanged:" destination="BYZ-38-t0r" eventType="editingChanged" id="oWr-qe-1x7"/>
                                             <action selector="sliderAdmitAlphaValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="SfA-ST-6fI"/>
                                         </connections>
                                     </slider>
@@ -165,6 +164,8 @@
                     </view>
                     <connections>
                         <outlet property="screenView" destination="LzV-1y-tOe" id="p84-bH-qj1"/>
+                        <outlet property="setAlphaSlider" destination="wPH-ZG-4QO" id="Py8-0j-UDb"/>
+                        <outlet property="setRandomColorButton" destination="2ng-xD-0wc" id="m1t-47-bxt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -10,7 +10,7 @@ import UIKit
 
 class Rectangle: UIView {
     
-    private var model: ViewRandomProperty
+    var index: Int = 0
     
     var isSelected = false {
         didSet {
@@ -21,55 +21,44 @@ class Rectangle: UIView {
     
     var delegate: RectangleViewTapDelegate?
     
-    init(randomProperty: ViewRandomProperty) {
-        self.model = randomProperty
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    init(model: ViewRandomProperty) {
         
-        super.init(frame: CGRect(
-            x: model.point.x,
-            y: model.point.y,
-            width: model.size.width,
-            height: model.size.height
-        ))
+        let origin = model.getPoint()
+        let size = model.getSize()
+        
+        super.init(frame: CGRect(x: origin.x, y: origin.y, width: size.width, height: size.height))
         
         let tapGesture = UITapGestureRecognizer()
         tapGesture.delegate = self
         self.addGestureRecognizer(tapGesture)
         
-        let rgbValue = model.rgbValue
+        setBackgroundColor(using: model)
+    }
+    
+    func setModel(_ model: ViewRandomProperty) {
+        let origin = model.getPoint()
+        let size = model.getSize()
+        self.frame = CGRect(x: origin.x, y: origin.y, width: size.width, height: size.height)
+        setBackgroundColor(using: model)
+    }
+    
+    func setValue(alpha: Float) {
+        self.alpha = CGFloat(alpha/10)
+    }
+    
+    func setBackgroundColor(using model: ViewRandomProperty) {
         
-        self.backgroundColor = UIColor(
-            red: rgbValue.r/255,
-            green: rgbValue.g/255,
-            blue: rgbValue.b/255,
-            alpha: CGFloat(randomProperty.alpha / 10)
-        )
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    func setAlpha(_ alpha: Double) {
-        self.alpha = alpha
-    }
-    
-    func setRandomColor() {
-        let color = model.generateRandomRGBColor(maxR: 255, maxG: 255, maxB: 255)
+        let color = model.getRGBColor()
         
-        self.backgroundColor = UIColor(
-            red: color.r,
-            green: color.g,
-            blue: color.b,
-            alpha: CGFloat(model.alpha / 10)
-        )
-    }
-    
-    func getCGRect(from properties: ViewRandomProperty) -> CGRect {
-        return CGRect(
-            x: model.point.x,
-            y: model.point.y,
-            width: model.size.width,
-            height: model.size.height
+        backgroundColor = UIColor(
+            red: color.r/255,
+            green: color.g/255,
+            blue: color.b/255,
+            alpha: model.getAlpha()/10
         )
     }
 }
@@ -80,7 +69,6 @@ extension Rectangle: UIGestureRecognizerDelegate {
         _ gestureRecognizer: UIGestureRecognizer,
         shouldReceive touch: UITouch
     ) -> Bool {
-        
         delegate?.setSelected(self)
         return true
     }

@@ -28,11 +28,11 @@ class ViewRandomProperty: ViewPropertyCreator {
     private let name: String
     private let id: String
     
-    let size: RectSize
-    let point: RectPoint
+    private var size: RectSize
+    private var point: RectPoint
     
-    let rgbValue: RectRGBColor
-    let alpha: Double
+    private var rgbValue: RectRGBColor
+    private(set) var alpha: Double
     
     init(as name: String, using id: String, at point: RectPoint, size: RectSize, color: RectRGBColor, alpha: Double) {
         self.name = name
@@ -50,6 +50,40 @@ class ViewRandomProperty: ViewPropertyCreator {
         self.size = RectSize(width: properties.width, height: properties.height)
         self.rgbValue = color
         self.alpha = alpha
+    }
+    
+    @discardableResult
+    func resetRGBColor() -> RectRGBColor {
+        self.rgbValue = generateRandomRGBColor(maxR: 255, maxG: 255, maxB: 255)
+        return rgbValue
+    }
+    
+    func getRGBColor() -> RectRGBColor {
+        rgbValue
+    }
+    
+    func setAlpha(_ alpha: Double) {
+        self.alpha = alpha
+    }
+    
+    func getAlpha() -> Double {
+        alpha
+    }
+    
+    func setSize(_ size: RectSize) {
+        self.size = size
+    }
+    
+    func getSize() -> RectSize {
+        size
+    }
+    
+    func setPoint(_ point: RectPoint) {
+        self.point = point
+    }
+    
+    func getPoint() -> RectPoint {
+        point
     }
 }
 
