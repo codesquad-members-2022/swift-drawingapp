@@ -2,8 +2,9 @@ import Foundation
 
 struct Plane:CustomStringConvertible{
     
-    private var rectangles:[String:Rectangle] = [:]
-    private var rectangleIndex:[String] = []
+    private var rectangles:[Rectangle.Id:Rectangle] = [:]
+    private var rectangleIndex:[Rectangle.Id] = []
+    private(set) var selectedRectangleId: Rectangle.Id?
     var count: Int{
         return rectangles.count
     }
@@ -12,8 +13,12 @@ struct Plane:CustomStringConvertible{
     }
     
     mutating func addRectangle(_ rectangle: Rectangle){
-        self.rectangles[rectangle.id.description] = rectangle
-        self.rectangleIndex.append(rectangle.id.description)
+        self.rectangles[rectangle.id] = rectangle
+        self.rectangleIndex.append(rectangle.id)
+    }
+    
+    mutating func selectRectangle(id: Rectangle.Id){
+        self.selectedRectangleId = id
     }
     
     private func isRectangleInsideTheRange(x: Double, y: Double, rectangle: Rectangle)-> Bool{
@@ -29,15 +34,24 @@ struct Plane:CustomStringConvertible{
         return false
     }
     
+    subscript(id: Rectangle.Id)-> Rectangle?{
+        if let rectangle = rectangles[id]{
+            return rectangle
+        }
+        return nil
+    }
+    
     subscript(index: Int = 0)-> Rectangle?{
+        
         if(index < 0 || index >= self.rectangleIndex.count){
             return nil
         }
         return self.rectangles[rectangleIndex[index]]
     }
-
+    
     subscript(x: Double = 0, y: Double = 0)-> Rectangle?{
-        for id in rectangles.keys{
+  
+        for id in rectangleIndex.reversed(){
             guard let rectangle = rectangles[id] else { continue }
             if(isRectangleInsideTheRange(x: x, y: y, rectangle: rectangle)){
                 return rectangle
