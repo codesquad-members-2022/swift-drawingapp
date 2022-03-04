@@ -8,19 +8,11 @@
 import Foundation
 
 struct ViewPoint{
-    private var x: Int
-    private var y: Int
+    let x: Int
+    let y: Int
     init(x: Int, y: Int){
         self.x = x
         self.y = y
-    }
-    
-    func xValue() -> Int{
-        return x
-    }
-    
-    func yValue() -> Int{
-        return y
     }
 }
 extension ViewPoint: CustomStringConvertible{

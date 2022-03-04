@@ -38,7 +38,7 @@ class DrawingViewController: UIViewController {
     @objc func rectangleTappedGesture(sender: UITapGestureRecognizer){
         self.targetView = sender.view as? RectangleView
         targetRectangle = plane[targetView?.idValue() ?? ""]
-        guard let color = targetRectangle?.colorValue() else { return }
+        guard let color = targetRectangle?.color else { return }
         drawingDelegate?.changedColor(rectangleRGB: color)
     }
 
@@ -86,7 +86,7 @@ extension DrawingViewController: RectangleFactoryResponse{
         targetRectangle?.resetColor(rgbValue: rgb)
         guard let targetRectangle = targetRectangle else { return }
         targetView?.matchProperty(rectangle: targetRectangle)
-        drawingDelegate?.changedColor(rectangleRGB: targetRectangle.colorValue())
+        drawingDelegate?.changedColor(rectangleRGB: targetRectangle.color)
     }
     
     func addRectangleToPlane(rectangle: Rectangle) {

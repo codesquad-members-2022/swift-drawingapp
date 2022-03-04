@@ -8,20 +8,12 @@
 import Foundation
 
 struct ViewSize{
-    private var width: Int
-    private var height: Int
+    let width: Int
+    let height: Int
 
     init(width: Int, height: Int){
         self.width = width
         self.height = height
-    }
-    
-    func widthValue() -> Int{
-        return width
-    }
-    
-    func heightValue() -> Int{
-        return height
     }
 }
 extension ViewSize: CustomStringConvertible{

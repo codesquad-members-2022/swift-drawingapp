@@ -8,11 +8,11 @@
 import Foundation
 
 class Rectangle{
-    private var uniqueId: String
-    private var color: ColorRGB
-    private var point: ViewPoint
-    private var size: ViewSize
-    private var alpha: Double
+    private(set) var uniqueId: String
+    private(set) var color: ColorRGB
+    private(set) var point: ViewPoint
+    private(set) var size: ViewSize
+    private(set) var alpha: Double
     
     init(uniqueId: String, color: ColorRGB, point: ViewPoint, size: ViewSize, alpha: Double){
         self.uniqueId = uniqueId
@@ -20,26 +20,6 @@ class Rectangle{
         self.point = point
         self.size = size
         self.alpha = alpha
-    }
-
-    func idValue() -> String{
-        return self.uniqueId
-    }
-    
-    func colorValue() -> ColorRGB{
-        return color
-    }
-    
-    func pointValue() -> ViewPoint{
-        return point
-    }
-    
-    func sizeValue() -> ViewSize{
-        return size
-    }
-    
-    func alphaValue() -> Double{
-        return alpha
     }
     
     func changeAlphaValue(alpha: Double){

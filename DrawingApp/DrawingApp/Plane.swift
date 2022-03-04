@@ -13,6 +13,6 @@ struct Plane{
         return rectangles[id]
     }
     mutating func addRectangle(rectangle: Rectangle){
-        rectangles[rectangle.idValue()] = rectangle
+        rectangles[rectangle.uniqueId] = rectangle
     }
 }
