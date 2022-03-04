@@ -8,24 +8,24 @@
 import Foundation
 
 class Color {
-    private var red : Int
-    private var green : Int
-    private var blue : Int
+    var red : Int
+    var green : Int
+    var blue : Int
     
-    init(red: Int, green: Int, blue: Int){
-        let inRange : (Int) -> Int = { (color) in
-            switch color {
-            case ...0:
-                return 0
-            case 255...:
-                return 255
-            default:
-                return color
-            }
+    static let colorRange = 0...255
+    
+    init? (red: Int, green: Int, blue: Int){
+        var isColorAble : Bool {
+            return Color.colorRange ~= red &&
+            Color.colorRange ~= green &&
+            Color.colorRange ~= blue
         }
-        self.red = inRange(red)
-        self.green = inRange(green)
-        self.blue = inRange(blue)
+        guard isColorAble else{
+            return nil
+        }
+        self.red = red
+        self.green = green
+        self.blue = blue
     }
 }
 extension Color : CustomStringConvertible {
