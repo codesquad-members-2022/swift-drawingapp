@@ -87,10 +87,25 @@ class ViewController: UIViewController, PlaneOutput {
     
     func drawSquare(to square: Square) {
         let drawView = DrawingViewFactory.make(square: square)
-        self.drawingBoard.addSubview(drawView.view)
+        self.drawingBoard.addSubview(drawView)
         self.squareViews[square.id] = drawView
     }
     
+    func update(to id: String, color: Color) {
+        self.squareViews[id]?.update(color: color)
+    }
+    
+    func update(to id: String, point: Point) {
+        self.squareViews[id]?.update(point: point)
+    }
+    
+    func update(to id: String, size: Size) {
+        self.squareViews[id]?.update(size: size)
+    }
+    
+    func update(to id: String, alpha: Alpha) {
+        self.squareViews[id]?.update(alpha: alpha)
+    }
     func updateSquare(to square: Square) {
         self.squareViews[square.id]?.update(in: square)
         self.inspectorView.updateInspector(in: square)

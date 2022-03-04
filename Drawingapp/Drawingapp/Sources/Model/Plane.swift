@@ -18,7 +18,10 @@ protocol PlaneOutput {
     func didDisSelectedSquare(to square: Square?)
     func didSelectedSquare(to square: Square?)
     func drawSquare(to square: Square)
-    func updateSquare(to square: Square)
+    func update(to id: String, color: Color)
+    func update(to id: String,point: Point)
+    func update(to id: String,size: Size)
+    func update(to id: String,alpha: Alpha)
 }
 
 class Plane: PlaneInput {
@@ -44,7 +47,7 @@ class Plane: PlaneInput {
             return
         }
         square.update(color: ColorFactory.make())
-        self.delegate?.updateSquare(to: square)
+        self.delegate?.update(to: square.id, color: square.color)
     }
     
     func alphaChanged(alpha: Alpha?) {
@@ -53,7 +56,7 @@ class Plane: PlaneInput {
             return
         }
         square.update(alpha: alpha)
-        self.delegate?.updateSquare(to: square)
+        self.delegate?.update(to: square.id, alpha: square.alpha)
         
     }
 }

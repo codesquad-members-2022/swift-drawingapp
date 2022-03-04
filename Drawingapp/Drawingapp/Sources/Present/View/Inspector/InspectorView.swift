@@ -33,7 +33,7 @@ class InspectorView: UIView {
         let instpacorSlider = InspectorSliderView()
         instpacorSlider.title.text = "Alpha"
         instpacorSlider.slider.minimumValue = 0
-        instpacorSlider.slider.maximumValue = Float(Alpha.max.index - 1)
+        instpacorSlider.slider.maximumValue = Float(Alpha.max.index)
         instpacorSlider.translatesAutoresizingMaskIntoConstraints = false
         return instpacorSlider
     }()
@@ -79,15 +79,16 @@ class InspectorView: UIView {
         itemStackView.bottomAnchor.constraint(equalTo: items[items.count - 1].bottomAnchor).isActive = true
     }
     
-    func updateInspector(in square: Square?) {
-        itemStackView.isHidden = square == nil
-        
-        guard let square = square else {
-            return
-        }
-        
-        let inspectorData = square.inspectorData
-        colorButton.button.setTitle(inspectorData.hexColor, for: .normal)
-        alphaSlider.setValue(Float(inspectorData.alpha.index))
+    func update(square: Square) {
+        self.update(color: square.color)
+        self.update(alpha: square.alpha)
+    }
+    
+    func update(color: Color) {
+        colorButton.button.setTitle(color.hexColor, for: .normal)
+    }
+    
+    func update(alpha: Alpha) {
+        alphaSlider.setValue(Float(alpha.index))
     }
 }

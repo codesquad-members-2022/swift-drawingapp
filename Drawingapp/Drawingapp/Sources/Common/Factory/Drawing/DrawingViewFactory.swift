@@ -11,7 +11,10 @@ import UIKit
 class DrawingViewFactory {
     static func make(square: Square) -> SquareView {
         let squareView = SquareView()
-        squareView.update(in: square)
+        squareView.update(color: square.color)
+        squareView.update(point: square.point)
+        squareView.update(size: square.size)
+        squareView.update(alpha: square.alpha)
         return squareView
     }
 }
