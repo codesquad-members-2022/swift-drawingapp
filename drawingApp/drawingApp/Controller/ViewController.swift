@@ -126,10 +126,10 @@ extension ViewController : PlaneDelegate {
 
 extension ViewController : RectangleViewDelegate {
     func didTouchRectView(rectView: RectangleView) {
-        print("Searching for : \(rectView.frame.minX) , \(rectView.frame.minY)")
+        print("Searching for : \(rectView.frame.minX.trim) , \(rectView.frame.minY.trim)")
         for i in 0..<plane.numberOfRect{
-            print("Trying matching with : \(plane[i]?.point.x) , \(plane[i]?.point.y)")
-            if rectView.frame.minX == plane[i]?.point.x , rectView.frame.minY == plane[i]?.point.y {
+            print("Trying matching with : \(plane[i]?.point.x.trim) , \(plane[i]?.point.y.trim)")
+            if rectView.frame.minX.trim == plane[i]?.point.x.trim , rectView.frame.minY.trim == plane[i]?.point.y.trim {
                 writeInfo(of: plane[i])
             }
         }

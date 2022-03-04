@@ -6,12 +6,18 @@
 //
 
 import Foundation
+import UIKit
+
 extension Double {
     var trim : Double {
-        let formatter = NumberFormatter()
-        formatter.roundingMode = .floor
-        formatter.maximumFractionDigits = 4
-        let str = formatter.string(from: NSNumber(value: self))
-        return Double(str!)!
+        let str = String(format: "%.1f", self)
+        return Double(str)!
+    }
+}
+
+extension CGFloat {
+    var trim : Double {
+        let str = String(format: "%.1f", self)
+        return Double(str)!
     }
 }
