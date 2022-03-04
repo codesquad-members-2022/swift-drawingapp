@@ -9,7 +9,7 @@ import Foundation
 
 class RectangleFactory {
     
-    public static func generateRandomRectangle(in frame: (Double, Double)) -> Rectangle {
+    public static func generateRandomRectangle(in frame: (width: Double, height: Double)) -> Rectangle {
         let size = Size(width: 150, height: 120)
         let point = generateRandomPoint(in: frame)
         let backgroundColor = generateRandomColor()
