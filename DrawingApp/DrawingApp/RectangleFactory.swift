@@ -34,12 +34,13 @@ class RectangleFactory: RectangleCreator {
     
         let stringSet = "abcdefghijklmnopqrstuvwxyz1234567890"
         var randomString = ""
-           for _ in 0..<9 {
-               randomString.append(stringSet.randomElement() ?? " ")
+           for index in 0..<11 {
+               if index == 3 || index == 7 {
+                   randomString.insert("-", at: randomString.index(randomString.startIndex, offsetBy: index))
+               }else {
+                   randomString.append(stringSet.randomElement() ?? " ")
+               }
            }
-  
-        randomString.insert("-", at: randomString.index(randomString.startIndex, offsetBy: 3))
-        randomString.insert("-", at: randomString.index(randomString.startIndex, offsetBy: 7))
 
         return randomString
     }
