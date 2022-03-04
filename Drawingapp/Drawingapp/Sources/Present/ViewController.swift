@@ -27,6 +27,7 @@ class ViewController: UIViewController, PlaneOutput {
     
     let inspectorView: InspectorView = {
         let inspectorView = InspectorView()
+        inspectorView.isHidden = true
         inspectorView.backgroundColor = UIColor(red: 200.0 / 255.0, green: 200.0 / 255.0, blue: 1, alpha: 1)
         inspectorView.translatesAutoresizingMaskIntoConstraints = false
         return inspectorView
@@ -77,11 +78,12 @@ class ViewController: UIViewController, PlaneOutput {
     }
     
     func didSelectedSquare(to square: Square?) {
-        self.inspectorView.updateInspector(in: square)
-        
         guard let square = square else {
+            self.inspectorView.isHidden = true
             return
         }
+        self.inspectorView.isHidden = false
+        self.inspectorView.update(square: square)
         self.squareViews[square.id]?.selected(is: true)
     }
     
@@ -93,6 +95,7 @@ class ViewController: UIViewController, PlaneOutput {
     
     func update(to id: String, color: Color) {
         self.squareViews[id]?.update(color: color)
+        self.inspectorView.update(color: color)
     }
     
     func update(to id: String, point: Point) {
@@ -105,10 +108,7 @@ class ViewController: UIViewController, PlaneOutput {
     
     func update(to id: String, alpha: Alpha) {
         self.squareViews[id]?.update(alpha: alpha)
-    }
-    func updateSquare(to square: Square) {
-        self.squareViews[square.id]?.update(in: square)
-        self.inspectorView.updateInspector(in: square)
+        self.inspectorView.update(alpha: alpha)
     }
 }
 

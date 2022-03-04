@@ -17,7 +17,6 @@ class InspectorView: UIView {
     private let itemStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
-        stackView.isHidden = true
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
