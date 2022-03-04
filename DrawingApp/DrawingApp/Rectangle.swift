@@ -9,12 +9,12 @@ import Foundation
 
 class Rectangle{
     private var uniqueId: String
-    private var color: RectangleRGB
+    private var color: ColorRGB
     private var point: ViewPoint
     private var size: ViewSize
     private var alpha: Double
     
-    init(uniqueId: String, color: RectangleRGB, point: ViewPoint, size: ViewSize, alpha: Double){
+    init(uniqueId: String, color: ColorRGB, point: ViewPoint, size: ViewSize, alpha: Double){
         self.uniqueId = uniqueId
         self.color = color
         self.point = point
@@ -26,7 +26,7 @@ class Rectangle{
         return self.uniqueId
     }
     
-    func colorValue() -> RectangleRGB{
+    func colorValue() -> ColorRGB{
         return color
     }
     
@@ -46,7 +46,7 @@ class Rectangle{
         self.alpha = alpha
     }
     
-    func resetColor(rgbValue: RectangleRGB){
+    func resetColor(rgbValue: ColorRGB){
         self.color = rgbValue
     }
 }
