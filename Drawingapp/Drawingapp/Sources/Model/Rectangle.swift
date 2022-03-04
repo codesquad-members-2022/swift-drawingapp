@@ -11,8 +11,8 @@ class Rectangle: CustomStringConvertible {
     let id: String
     let point: Point
     let size: Size
-    var color: Color
-    var alpha: Alpha
+    public private(set) var color: Color
+    public private(set) var alpha: Alpha
     
     var description: String {
         "id: ( \(id) ), \(point), \(size), \(color), alpha: \(alpha)"
