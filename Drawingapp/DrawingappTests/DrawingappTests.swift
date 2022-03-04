@@ -17,20 +17,85 @@ class DrawingappTests: XCTestCase {
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
-    }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    let plane = Plane()
+    
+    class TestView: PlaneOutput {
+        var drawSquare: Square?
+        var selectSquare: Square?
+        
+        func didDisSelectedSquare(to square: Square?) {
+        }
+        
+        func didSelectedSquare(to square: Square?) {
+            self.selectSquare = square
+        }
+        
+        func drawSquare(to square: Square) {
+            self.drawSquare = square
+        }
+        
+        func updateSquare(to square: Square) {
+        }
+        func update(to id: String, color: Color) {
+        }
+        
+        func update(to id: String, point: Point) {
+        }
+        
+        func update(to id: String, size: Size) {
+        }
+        
+        func update(to id: String, alpha: Alpha) {
         }
     }
-
+    
+    class testRandomColorGenerator: RandomColorValueGenerator {
+        var ramdomValue: [Int] = []
+        func next() -> [Int] {
+            ramdomValue = (0..<3).map{ _ in Int.random(in: 0...255) }
+            return ramdomValue
+        }
+    }
+    
+    func testRandomColor() {
+        let randomGenerator = testRandomColorGenerator()
+        let color = ColorFactory.make(using: randomGenerator)
+        
+        XCTAssertEqual(randomGenerator.ramdomValue[0], color.r)
+        XCTAssertEqual(randomGenerator.ramdomValue[1], color.g)
+        XCTAssertEqual(randomGenerator.ramdomValue[2], color.b)
+    }
+    
+    //사각형을 하나 만들고, 터치 action에 사각형 좌표X에 200을 더해 선택되지 않음을 확인
+    func testNotSelectSquare() {
+        let testView = TestView()
+        plane.delegate = testView
+        
+        plane.makeSquareButtonTapped()
+        XCTAssertTrue(testView.drawSquare != nil, "사각형이 생성되지 않았습니다")
+        
+        guard let square = testView.drawSquare else {
+            return
+        }
+        
+        plane.drawingBoardTapped(where: Point(x: square.point.x + 200.0, y: square.point.y))
+        XCTAssertTrue(testView.selectSquare == nil, "사각형이 선택되었습니다")
+    }
+    
+    //사각형을 하나 만들고, 터치 action에 사각형 좌표를 보내 선택되는지 확인
+    func testSelectSquare() {
+        let testView = TestView()
+        plane.delegate = testView
+        
+        plane.makeSquareButtonTapped()
+        XCTAssertTrue(testView.drawSquare != nil, "사각형이 생성되지 않았습니다")
+        
+        guard let square = testView.drawSquare else {
+            return
+        }
+        
+        plane.drawingBoardTapped(where: Point(x: square.point.x, y: square.point.y))
+        XCTAssertTrue(testView.selectSquare != nil, "사각형이 선택되지 않았습니다")
+    }
 }
