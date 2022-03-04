@@ -7,7 +7,7 @@
 
 import Foundation
 
-class RectangleView: CustomStringConvertible {
+class Rectangle: CustomStringConvertible {
     enum Alpha: Int {
         case one = 1
         case two
@@ -58,7 +58,7 @@ class RectangleView: CustomStringConvertible {
             let randomR: UInt8 = UInt8.random(in: 0...255)
             let randomG: UInt8 = UInt8.random(in: 0...255)
             let randomB: UInt8 = UInt8.random(in: 0...255)
-            return RectangleView.BackgroundColor(R: randomR, G: randomG, B: randomB)
+            return Rectangle.BackgroundColor(R: randomR, G: randomG, B: randomB)
         }
     }
     struct Size {
@@ -72,7 +72,7 @@ class RectangleView: CustomStringConvertible {
         static func random() -> Self {
             let randomX: Double = Double.random(in: 20...1010)
             let randomY: Double = Double.random(in: 24...680)
-            return RectangleView.Point(x: randomX, y: randomY)
+            return Rectangle.Point(x: randomX, y: randomY)
         }
     }
 
@@ -81,10 +81,10 @@ class RectangleView: CustomStringConvertible {
     }
     private let name: String
     private let id: String
-    private let point: Point
-    private let size : Size
-    private var color: BackgroundColor
-    private var alpha: Alpha
+    let point: Point
+    let size : Size
+    var color: BackgroundColor
+    var alpha: Alpha
     
     
     init(name: String, id: String, point: Point, size: Size, color : BackgroundColor, alpha: Alpha) {
