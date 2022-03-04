@@ -8,15 +8,15 @@
 import Foundation
 
 protocol PlaneInput {
-    func drawingBoardTapped(where point: Point)
-    func makeSquareButtonTapped()
-    func changeColorButtonTapped()
+    func touchPoint(where point: Point)
+    func makeSquare()
+    func colorChanged()
     func alphaChanged(alpha: Alpha?)
 }
 
 protocol PlaneOutput {
-    func didDisSelectedSquare(to square: Square?)
-    func didSelectedSquare(to square: Square?)
+    func didDisSelectedSquare(to square: Square)
+    func didSelectedSquare(to square: Square)
     func drawSquare(to square: Square)
     func update(to id: String, color: Color)
     func update(to id: String,point: Point)
@@ -30,19 +30,24 @@ class Plane: PlaneInput {
     
     var delegate: PlaneOutput?
     
-    func drawingBoardTapped(where point: Point) {
-        self.delegate?.didDisSelectedSquare(to: self.selectedSquare)
-        self.selectedSquare = self.squares.selected(point: point)
-        self.delegate?.didSelectedSquare(to: self.selectedSquare)
+    func touchPoint(where point: Point) {
+        if let selectSquare = self.selectedSquare {
+            self.delegate?.didDisSelectedSquare(to: selectSquare)
+        }
+        
+        if let selectSquare = self.squares.selected(point: point) {
+            self.selectedSquare = selectSquare
+            self.delegate?.didSelectedSquare(to: selectSquare)
+        }
     }
     
-    func makeSquareButtonTapped() {
+    func makeSquare() {
         let square = DrawingModelFactory.makeSquare()
         self.squares.append(square: square)
         self.delegate?.drawSquare(to: square)
     }
     
-    func changeColorButtonTapped() {
+    func colorChanged() {
         guard let square = self.selectedSquare else {
             return
         }
