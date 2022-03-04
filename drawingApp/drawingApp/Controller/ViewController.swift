@@ -102,7 +102,7 @@ extension ViewController : PlaneDelegate {
     
     func didAppendRect(rect: Rectangle?) {
         if let appendedRect = rect {
-            let rectUI = RectangleView(frame: CGRect(x: appendedRect.point.x, y: appendedRect.point.y, width: appendedRect.size.width, height: appendedRect.size.height))
+            let rectUI = RectangleView(frame: CGRect(x: appendedRect.point.x.trim, y: appendedRect.point.y.trim, width: appendedRect.size.width, height: appendedRect.size.height))
             rectUI.backgroundColor = UIColor(red: appendedRect.color.red/255, green: appendedRect.color.green/255, blue: appendedRect.color.blue/255, alpha: Double(appendedRect.alpha.rawValue)/10)
             view.addSubview(rectUI)
         }
