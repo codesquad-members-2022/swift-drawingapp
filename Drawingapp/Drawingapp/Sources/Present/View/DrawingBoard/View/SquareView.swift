@@ -8,7 +8,8 @@
 import Foundation
 import UIKit
 
-class SquareView: UIView {    
+class SquareView: UIView {
+    
     func update(color: Color) {
         self.backgroundColor = UIColor(red: CGFloat(color.r) / 255, green: CGFloat(color.g) / 255, blue: CGFloat(color.b / 255), alpha: 1)
     }
