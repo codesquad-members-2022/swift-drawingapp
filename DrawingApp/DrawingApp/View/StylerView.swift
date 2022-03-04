@@ -5,7 +5,7 @@ class StylerView: UIView{
     
     private var viewController: ViewMutable?
     private var rectangleColorTextLabel: UILabel = UILabel()
-    private var rectangleColorValueField: UILabel = UILabel()
+    private var rectangleColorValueField: UIButton = UIButton()
     private var rectangleAlphaTextLabel: UILabel = UILabel()
     private var rectangleAlphaSlider: UISlider = UISlider()
     
@@ -25,8 +25,8 @@ class StylerView: UIView{
     
     func updateRectangleInfo(r: Double, g: Double, b: Double, opacity: Float){
         let hexString = "#\(String(Int(r*255), radix: 16))\(String(Int(g*255), radix: 16))\(String(Int(b*255), radix: 16))"
-        self.rectangleColorValueField.text = hexString
-        self.rectangleColorValueField.textAlignment = .center
+        self.rectangleColorValueField.setTitle(hexString, for: .normal)
+        self.rectangleColorValueField.titleLabel?.textAlignment = .center
         self.rectangleColorValueField.backgroundColor = UIColor(red: r, green: g, blue: b, alpha: 1)
         self.rectangleAlphaSlider.value = opacity
     }
@@ -49,6 +49,18 @@ class StylerView: UIView{
     }
     
     private func setColorChangeAction(){
+        self.rectangleColorValueField.addAction(UIAction(title: ""){_ in
+            let newColor = UIColor(red: CGFloat.random(in: 0...1),
+                                   green: CGFloat.random(in: 0...1),
+                                   blue: CGFloat.random(in: 0...1),
+                                   alpha: 1)
+            guard let rgb = newColor.cgColor.components else { return }
+            guard let viewController = self.viewController else { return }
+            let newHexString = "#\(String(Int(rgb[0]*255), radix: 16))\(String(Int(rgb[1]*255), radix: 16))\(String(Int(rgb[2]*255), radix: 16))"
+            self.rectangleColorValueField.backgroundColor = newColor
+            self.rectangleColorValueField.setTitle(newHexString, for: .normal)
+            viewController.changeSelectedRecntagleViewColor(rgb: rgb.map{Double($0)})
+        }, for: .touchDown)
     }
     
     private func setRectangleAlphaInformationView(){
