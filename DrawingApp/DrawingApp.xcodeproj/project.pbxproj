@@ -30,7 +30,6 @@
 		1BD728AB27CCFB8D008DED9E /* FactoryViewRandomProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD728AA27CCFB8D008DED9E /* FactoryViewRandomProperty.swift */; };
 		1BD728AE27CD0D49008DED9E /* OSLog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BD728AD27CD0D49008DED9E /* OSLog.framework */; };
 		1BD728B027CD0E88008DED9E /* SystemLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD728AF27CD0E88008DED9E /* SystemLog.swift */; };
-		1BF27A6927D0CE73005FAA31 /* Rectangle.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1BF27A6827D0CE73005FAA31 /* Rectangle.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -78,7 +77,6 @@
 		1BD728AA27CCFB8D008DED9E /* FactoryViewRandomProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryViewRandomProperty.swift; sourceTree = "<group>"; };
 		1BD728AD27CD0D49008DED9E /* OSLog.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OSLog.framework; path = System/Library/Frameworks/OSLog.framework; sourceTree = SDKROOT; };
 		1BD728AF27CD0E88008DED9E /* SystemLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemLog.swift; sourceTree = "<group>"; };
-		1BF27A6827D0CE73005FAA31 /* Rectangle.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Rectangle.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -142,7 +140,6 @@
 			children = (
 				1BD7287727CCBC7A008DED9E /* Main.storyboard */,
 				1B54997A27D0B4C00086EC5F /* Rectangle.swift */,
-				1BF27A6827D0CE73005FAA31 /* Rectangle.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -330,7 +327,6 @@
 				1BD7287B27CCBC7C008DED9E /* Assets.xcassets in Resources */,
 				1BD728A527CCC1ED008DED9E /* Model_ViewController.jpg in Resources */,
 				1BD728A227CCBD58008DED9E /* README.md in Resources */,
-				1BF27A6927D0CE73005FAA31 /* Rectangle.xib in Resources */,
 				1BD7287927CCBC7A008DED9E /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
