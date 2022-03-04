@@ -9,9 +9,13 @@ import Foundation
 
 enum Alpha: Int, CustomStringConvertible, CaseIterable{
     
-    case one = 1, two, three, four, five, six, seven, eight, nine, ten
+    case transparent = 1 , two, three, four, five, six, seven, eight, nine, opaque
     
     var description: String {
         return "Alpha : \(self.rawValue)"
+    }
+    
+    static func randomAlpha() -> Alpha {
+        return Alpha.allCases.randomElement()!
     }
 }
