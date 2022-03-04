@@ -9,17 +9,22 @@ import Foundation
 import UIKit
 
 enum Alpha: Int, CaseIterable, CustomStringConvertible {
-    case zero, one, two, three, four, five, six, seven, eight, nine, ten, max
+    case transpar0, transpar1, transpar2, transpar3, transpar4
+    case transpar5, transpar6, transpar7, transpar8, transpar9, transpar10
     
     var description: String {
         "\(self.rawValue)"
     }
     
     var value: CGFloat  {
-        CGFloat(self.rawValue) / CGFloat(Alpha.max.rawValue - 1)
+        CGFloat(self.rawValue) / CGFloat(Alpha.max.rawValue)
     }
     
     var index: Int {
         self.rawValue
+    }
+    
+    static var max: Alpha {
+        .transpar10
     }
 }

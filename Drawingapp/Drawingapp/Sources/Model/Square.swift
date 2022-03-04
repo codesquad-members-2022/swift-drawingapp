@@ -42,14 +42,3 @@ class Square: CustomStringConvertible {
         self.alpha = alpha
     }
 }
-
-extension Square {
-    struct InspectorData {
-        let alpha: Alpha
-        let hexColor: String
-    }
-    
-    var inspectorData: InspectorData {
-        InspectorData(alpha: self.alpha, hexColor: color.hexColor)
-    }
-}

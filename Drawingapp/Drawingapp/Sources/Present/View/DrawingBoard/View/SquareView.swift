@@ -8,22 +8,25 @@
 import Foundation
 import UIKit
 
-class SquareView {
-    let view = UIView()
+class SquareView: UIView {    
+    func update(color: Color) {
+        self.backgroundColor = UIColor(red: CGFloat(color.r) / 255, green: CGFloat(color.g) / 255, blue: CGFloat(color.b / 255), alpha: 1)
+    }
     
-    func update(in model: Square) {
-        let color = model.color
-        view.backgroundColor = UIColor(red: CGFloat(color.r) / 255, green: CGFloat(color.g) / 255, blue: CGFloat(color.b / 255), alpha: 1)
-        
-        let point = model.point
-        let size = model.size
-        let alpha = model.alpha.value
-        view.frame = CGRect(x: point.x, y: point.y, width: size.width, height: size.height)
-        view.alpha = alpha
+    func update(alpha: Alpha) {
+        self.alpha = alpha.value
+    }
+    
+    func update(point: Point) {
+        self.frame = CGRect(x: point.x, y: point.y, width: self.frame.width, height: self.frame.height)
+    }
+    
+    func update(size: Size) {
+        self.frame = CGRect(x: self.frame.minX, y: self.frame.minY, width: size.width, height: size.height)
     }
     
     func selected(is select: Bool) {
-        self.view.layer.borderWidth = select ? 3 : 0
-        self.view.layer.borderColor = select ? UIColor.systemBlue.cgColor : UIColor.clear.cgColor
+        self.layer.borderWidth = select ? 3 : 0
+        self.layer.borderColor = select ? UIColor.systemBlue.cgColor : UIColor.clear.cgColor
     }
 }
