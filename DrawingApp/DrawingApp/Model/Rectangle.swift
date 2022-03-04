@@ -11,14 +11,14 @@ class Rectangle: Shapable {
     // MARK: - Properties
     let id: String
     let backgroundColor: Color
-    let point: Point
     let size: Size
     let alpha: Alpha
+    let origin: Point
     
     // MARK: - Initializers
     init(id: String, origin: Point, size: Size, color: Color = .white, alpha: Alpha) {
         self.id = id
-        self.point = origin
+        self.origin = origin
         self.size = size
         self.backgroundColor = color
         self.alpha = alpha
@@ -26,10 +26,16 @@ class Rectangle: Shapable {
     
     init(id: String, x: Double, y: Double, width: Double, height: Double, color: Color = .white, alpha: Alpha) {
         self.id = id
-        self.point = Point(x: x, y: y)
+        self.origin = Point(x: x, y: y)
         self.size = Size(width: width, height: height)
         self.backgroundColor = color
         self.alpha = alpha
+    }
+    
+    func contains(point: Point) -> Bool {
+        let maxX = self.origin.x + self.size.width
+        let maxY = self.origin.y + self.size.height
+        return point >= self.origin && point <= Point(x: maxX, y: maxY)
     }
 }
 
@@ -40,7 +46,7 @@ extension Rectangle: Equatable {
     
     var description: String {
         return """
-        (\(self.id)), \(self.point), \(self.size), \(self.backgroundColor)
+        (\(self.id)), \(self.origin), \(self.size), \(self.backgroundColor)
         """
     }
 }

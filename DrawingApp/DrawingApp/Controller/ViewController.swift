@@ -22,5 +22,7 @@ class ViewController: UIViewController {
             
             os_log(.default, "Rect \(i+1): \(rect)")
         }
+        
+//        CGRect(.zero)
     }
 }

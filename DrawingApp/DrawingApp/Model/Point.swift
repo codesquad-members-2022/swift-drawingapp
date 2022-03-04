@@ -24,7 +24,11 @@ struct Point {
     }
 }
 
-extension Point: CustomStringConvertible, Equatable {
+extension Point: CustomStringConvertible, Comparable {
+    static func < (lhs: Point, rhs: Point) -> Bool {
+        return lhs.x < rhs.x && lhs.y < rhs.y
+    }
+    
     var description: String {
         return "X: \(self.x), Y: \(self.y)"
     }
