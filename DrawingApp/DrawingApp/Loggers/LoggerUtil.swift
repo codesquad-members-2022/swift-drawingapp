@@ -8,7 +8,7 @@
 import Foundation
 import os.log
 
-// debug를 제외한 로그는 Console.app에 남습니다.
+// debug 외 제외한 로그는 Console 앱에 남습니다.
 class LoggerUtil {
     
     static let subsystem = Bundle.main.bundleIdentifier!

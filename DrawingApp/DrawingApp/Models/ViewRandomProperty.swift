@@ -40,7 +40,7 @@ class ViewRandomProperty: ViewPropertyCreator {
     
     @discardableResult
     func resetRGBColor() -> RectRGBColor {
-        self.rgbValue = generateRandomRGBColor(maxR: 255, maxG: 255, maxB: 255)
+        rgbValue = generateRandomRGBColor(maxR: 255, maxG: 255, maxB: 255)
         return rgbValue
     }
     

@@ -11,8 +11,8 @@ class Plane {
     
     private var properties = [ViewRandomProperty]()
     
-    /// ViewController에 생성된 뷰 중 현재 선택된 뷰를 Plane이 관리할 것입니다.
-    /// 뷰 선택이 가능하도록 하는 이유는 Plane이 저장하는 프로퍼티의 값을 바꾸고
+    /// ViewController 내에 생성된 뷰 중 현재 선택된 뷰를 Plane 객체가 관리할 것입니다.
+    /// 뷰 선택이 가능하도록 하는 이유는 Plane 객체에서 저장된 프로퍼티의 값을 바꾸고
     /// 그에 따라 바뀐 속성을 해당 뷰에 적용하기 위해서입니다.
     var current: Rectangle?
     

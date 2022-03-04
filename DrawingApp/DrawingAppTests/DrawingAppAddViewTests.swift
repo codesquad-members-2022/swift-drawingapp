@@ -21,7 +21,7 @@ class DrawingAppAddViewTests: XCTestCase {
         if let vc = vc as? MasterViewDelegate {
             factory.delegate = vc
         } else {
-            XCTFail("MainViewController not implemeting MasterViewDelegate")
+            XCTFail("MainViewController not implementing MasterViewDelegate")
         }
         
         for i in 1...100 {

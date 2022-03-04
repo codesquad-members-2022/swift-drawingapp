@@ -56,14 +56,14 @@ class FactoryViewRandomProperty: ViewPropertyCreator {
     
     private func getRandomId() -> String {
         var threeAlphabets: String {
-            (0..<3).reduce("") { s, _ in return (s + String.allAlphabet.randomElement()!) }
+            (0..<3).reduce("") { s, _ in (s + String.allAlphabet.randomElement()!) }
         }
         
         return "\(threeAlphabets)-\(threeAlphabets)-\(threeAlphabets)"
     }
     
     private func getRandomAlpha() -> Double {
-        return Double(getIntRandom(from: 1, to: 10))
+        Double(getIntRandom(from: 1, to: 10))
     }
     
     struct ViewProperties {

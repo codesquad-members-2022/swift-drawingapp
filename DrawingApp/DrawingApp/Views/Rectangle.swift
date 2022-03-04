@@ -34,7 +34,7 @@ class Rectangle: UIView {
         
         let tapGesture = UITapGestureRecognizer()
         tapGesture.delegate = self
-        self.addGestureRecognizer(tapGesture)
+        addGestureRecognizer(tapGesture)
         
         setBackgroundColor(using: model)
     }
@@ -42,7 +42,7 @@ class Rectangle: UIView {
     func setModel(_ model: ViewRandomProperty) {
         let origin = model.getPoint()
         let size = model.getSize()
-        self.frame = CGRect(x: origin.x, y: origin.y, width: size.width, height: size.height)
+        frame = CGRect(x: origin.x, y: origin.y, width: size.width, height: size.height)
         setBackgroundColor(using: model)
     }
     
