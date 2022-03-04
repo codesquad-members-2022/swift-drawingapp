@@ -20,30 +20,32 @@ struct RectangleView: CustomStringConvertible {
         case nine
         case ten
         
-        mutating func random() {
+        static func random() -> Self  {
             let randomInt = Int.random(in: 1...10)
+            var alpha: Alpha = .one
             switch randomInt{
             case 1:
-                self = .one
+                alpha = .one
             case 2:
-                self = .two
+                alpha = .two
             case 3:
-                self = .three
+                alpha = .three
             case 4:
-                self = .four
+                alpha = .four
             case 5:
-                self = .five
+                alpha = .five
             case 6:
-                self = .six
+                alpha = .six
             case 7:
-                self = .seven
+                alpha = .seven
             case 8:
-                self = .eight
+                alpha = .eight
             case 9:
-                self = .nine
+                alpha = .nine
             default:
-                self = .ten
+                alpha = .ten
             }
+            return alpha
         }
     }
     
@@ -61,45 +63,23 @@ struct RectangleView: CustomStringConvertible {
         let y: Double
     }
 
-    var  id: String {               // UUID: xxx-xxx-xxx
-        var uuid = UUID().uuidString.split(separator: "-").map{String($0)}
-        uuid.removeFirst()
-        uuid.removeLast()
-        var resultArray: [String] = []
-        for cell in uuid {
-            var temp = cell
-            temp.removeLast()
-            resultArray.append(temp)
-        }
-        return resultArray.joined(separator: "-")
-    }
-    let size = Size()
-    var point: Point {
-        // 아이패드 앱에서 Safe Area 내에서 화면이 짤리지 않고 보이는 4개의 점이 자리할 수 있는 x와 y값의 범위 지정
-        let randomX: Double = Double.random(in: 20...1010)
-        let randomY: Double = Double.random(in: 24...680)
-        return Point(x: randomX, y: randomY)
-    }
-    var color: BackgroundColor {
-        let randomR: UInt8 = UInt8.random(in: 0...255)
-        let randomG: UInt8 = UInt8.random(in: 0...255)
-        let randomB: UInt8 = UInt8.random(in: 0...255)
-        return BackgroundColor(R: randomR, G: randomG, B: randomB)
-    }
-    //TODO: 이 부분 어떻게 하면 더 깔끔하게 할 수 있을지 질문하자.
-    var alpha: Alpha {
-        let randomInt = Int.random(in: 1...10)
-        guard let alpha =  Alpha(rawValue: randomInt) else {
-            return self.alpha
-        }
-        return alpha
-    }
-
     var description: String {
         return "\(self.name) (\(self.id)), X:\(self.point.x), Y:\(self.point.y), W\(self.size.width), H\(self.size.height), R\(self.color.R), G\(self.color.G), B\(self.color.B), Alpha: \(self.alpha.rawValue)"
     }
     private let name: String
-    init(name: String) {
+    private let id: String
+    private let point: Point
+    private let size : Size
+    private var color: BackgroundColor
+    private var alpha: Alpha
+    
+    
+    init(name: String, id: String, point: Point, size: Size, color : BackgroundColor, alpha: Alpha) {
         self.name = name
+        self.id = id
+        self.point = point
+        self.size = size
+        self.color = color
+        self.alpha = alpha
     }
 }
