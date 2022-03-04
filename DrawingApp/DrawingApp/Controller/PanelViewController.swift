@@ -7,32 +7,40 @@
 
 import UIKit
 
+extension Notification.Name {
+    static let sliderChanged = Notification.Name("sliderChanged")
+    static let colorButtonPressed = Notification.Name("colorButtonPressed")
+}
+
 class PanelViewController: UIViewController {
-    private var containerVC: DrawingSplitViewController?
     
     @IBOutlet weak var colorButton: UIButton!
     @IBAction func ColorButtonPressed(_ sender: UIButton) {
-        let randomColor = Factory.createColor()
-        containerVC?.plane.transform(to: randomColor)
+        NotificationCenter.default.post(name: .colorButtonPressed, object: nil)
     }
     
     @IBOutlet weak var AlphaLabel: UILabel!
     @IBOutlet weak var alphaSlider: UISlider!
     @IBAction func SliderChanged(_ sender: UISlider) {
-        if let alpha = Alpha(sender.value) {
-            containerVC?.plane.transform(to: alpha)
-        }
+        NotificationCenter.default.post(name: .sliderChanged, object: sender.value)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        containerVC = splitViewController as? DrawingSplitViewController
-        containerVC?.plane.panelDelgate = self
+        observePlane()
+    }
+    
+    private func observePlane() {
+        NotificationCenter.default.addObserver(self, selector: #selector(didSelectViewModel(_:)), name: .selectViewModel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateColor(_:)), name: .mutateColorViewModel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateAlpha(_:)), name: .mutateAlphaViewModel, object: nil)
     }
 }
 
-extension PanelViewController: PlanePanelDelegate {
-    func didSelectViewModels(_ selected: ViewModel?) {
+extension PanelViewController {
+    @objc func didSelectViewModel(_ notification: Notification) {
+        guard let (_, selected) = notification.object as? (old: ViewModel?, new: ViewModel?) else { return }
+        
         guard let selected = selected else {
             clearPanel()
             return
@@ -79,11 +87,13 @@ extension PanelViewController: PlanePanelDelegate {
         alphaSlider.isEnabled = false
     }
     
-    func didMutateColorViewModels(_ mutated: ColorMutable) {
+    @objc func didMutateColor(_ notification: Notification) {
+        guard let mutated = notification.object as? ColorMutable else { return }
         displayColor(mutated)
     }
     
-    func didMutateAlphaViewModels(_ mutated: AlphaMutable) {
+    @objc func didMutateAlpha(_ notification: Notification) {
+        guard let mutated = notification.object as? AlphaMutable else { return }
         displayAlpha(mutated)
     }
 }
