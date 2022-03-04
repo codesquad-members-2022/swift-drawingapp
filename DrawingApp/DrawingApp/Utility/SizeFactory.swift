@@ -10,7 +10,7 @@ import Foundation
 enum SizeFactory: TypeBuilder {
     typealias T = Size
     
-    static func makeType() -> Size {
+    static func makeTypeRandomly() -> Size {
         let range = Size.range
         let width = Double.random(in: range, digits: 2)
         let height = Double.random(in: range, digits: 2)

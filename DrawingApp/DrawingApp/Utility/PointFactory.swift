@@ -10,7 +10,7 @@ import Foundation
 enum PointFactory: TypeBuilder {
     typealias T = Point
     
-    static func makeType() -> Point {
+    static func makeTypeRandomly() -> Point {
         let range = Point.range
         let x = Double.random(in: range, digits: 2)
         let y = Double.random(in: range, digits: 2)

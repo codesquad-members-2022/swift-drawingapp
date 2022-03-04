@@ -10,7 +10,7 @@ import Foundation
 enum ColorFactory: TypeBuilder {
     typealias T = Color
     
-    static func makeType() -> Color {
+    static func makeTypeRandomly() -> Color {
         let range = Color.range
         let red = Double.random(in: range).rounded()
         let green = Double.random(in: range).rounded()
