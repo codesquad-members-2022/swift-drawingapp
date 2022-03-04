@@ -15,13 +15,13 @@ protocol PlaneInput {
 }
 
 protocol PlaneOutput {
-    func didDisSelectedSquare(to square: Square)
+    func didDisSelectedSquare(to id: String)
     func didSelectedSquare(to square: Square)
     func drawSquare(to square: Square)
     func update(to id: String, color: Color)
-    func update(to id: String,point: Point)
-    func update(to id: String,size: Size)
-    func update(to id: String,alpha: Alpha)
+    func update(to id: String, point: Point)
+    func update(to id: String, size: Size)
+    func update(to id: String, alpha: Alpha)
 }
 
 class Plane: PlaneInput {
@@ -32,7 +32,8 @@ class Plane: PlaneInput {
     
     func touchPoint(where point: Point) {
         if let selectSquare = self.selectedSquare {
-            self.delegate?.didDisSelectedSquare(to: selectSquare)
+            self.delegate?.didDisSelectedSquare(to: selectSquare.id)
+            self.selectedSquare = nil
         }
         
         if let selectSquare = self.squares.selected(point: point) {

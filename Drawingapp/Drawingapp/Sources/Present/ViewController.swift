@@ -58,7 +58,7 @@ class ViewController: UIViewController, PlaneOutput {
         drawingBoard.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         drawingBoard.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         drawingBoard.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        drawingBoard.rightAnchor.constraint(equalTo: self.inspectorView.leftAnchor).isActive = true
+        drawingBoard.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
         
         inspectorView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         inspectorView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
@@ -70,8 +70,8 @@ class ViewController: UIViewController, PlaneOutput {
         topMenuBarView.heightAnchor.constraint(equalToConstant: 70).isActive = true
     }
     
-    func didDisSelectedSquare(to square: Square) {
-        self.squareViews[square.id]?.selected(is: false)
+    func didDisSelectedSquare(to id: String) {
+        self.squareViews[id]?.selected(is: false)
         self.inspectorView.isHidden = true
     }
     
