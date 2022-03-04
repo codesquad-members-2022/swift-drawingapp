@@ -25,6 +25,7 @@ protocol AlphaMutable {
     func transform(to alpha: Alpha)
 }
 
+
 class Rectangle: ViewModel {
     private(set) var id: String
     private(set) var origin: Point
@@ -44,11 +45,7 @@ class Rectangle: ViewModel {
         Point(x: origin.x + (size.width / 2),
               y: origin.y + (size.height / 2))
     }
-//
-//    var cgRect: CGRect {
-//        Converter.toCGRect(origin: <#T##Point#>, size: <#T##Size#>)
-//    }
-//
+
     func contains(_ point: Point) -> Bool {
         return (origin.x...origin.x+size.width).contains(point.x)
         && (origin.y...origin.y+size.height).contains(point.y)
