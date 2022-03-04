@@ -11,7 +11,6 @@ import OSLog
 class ViewController: UIViewController {
     
     let plane = Plane()
-    var rectangleFactory: RectangleFactory?
     weak var generateRectangleButton: UIButton!
     weak var drawableAreaView: UIView!
     @IBOutlet weak var statusView: UIView!
@@ -21,19 +20,15 @@ class ViewController: UIViewController {
         
         addGenerateRectangleButton()
         addDrawableAreaView()
-        
-        let drawableAreaSize = (width: Double(self.drawableAreaView.frame.width),
-                                height: Double(self.drawableAreaView.frame.height))
-        
-        let rectangleFactory = RectangleFactory(screenSize: drawableAreaSize)
-        self.rectangleFactory = rectangleFactory
-        rectangleFactory.delegate = self
+        plane.delegate = self
         
     }
     
     func addGenerateRectangleButton() {
         let buttonUIAction = UIAction { _ in
-            let _ = self.rectangleFactory?.generateRandomRectangle()
+            let pointLimit = (Double(self.drawableAreaView.frame.width),
+                              Double(self.drawableAreaView.frame.height))
+            self.plane.addNewRectangle(in: pointLimit)
         }
         let generateButton = UIButton(type: .custom, primaryAction: buttonUIAction)
         let buttonWidth = 100.0
@@ -63,10 +58,9 @@ class ViewController: UIViewController {
 
 }
 
-extension ViewController: RectangleDelegate {
-    func factoryDidGenerateRandomRectangle(_ rectangle: Rectangle) {
+extension ViewController: PlaneDelegate {
+    func planeDidAddRectangle(_ rectangle: Rectangle) {
         os_log("\(rectangle)")
-        plane.add(rectangle: rectangle)
         
         let newRectangleView = ViewFactory.generateRectangleView(of: rectangle)
         self.drawableAreaView.addSubview(newRectangleView)

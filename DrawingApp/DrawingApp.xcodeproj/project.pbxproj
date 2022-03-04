@@ -10,7 +10,7 @@
 		0200342E27D0837F0032EEA4 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200342D27D0837F0032EEA4 /* Plane.swift */; };
 		0200345227D0A7AB0032EEA4 /* ViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0200345127D0A7AB0032EEA4 /* ViewFactory.swift */; };
 		02A7161C27CCF63C00034A70 /* RectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7161B27CCF63C00034A70 /* RectangleFactory.swift */; };
-		02A7162027CD11C000034A70 /* RectangleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7161F27CD11C000034A70 /* RectangleDelegate.swift */; };
+		02A7162027CD11C000034A70 /* PlaneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7161F27CD11C000034A70 /* PlaneDelegate.swift */; };
 		02B9D29F27CF033B00A7185E /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B9D29E27CF033B00A7185E /* Alpha.swift */; };
 		02B9D2A127CF37E600A7185E /* id.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B9D2A027CF37E600A7185E /* id.swift */; };
 		02D5540227CC5E7D00291B27 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D5540127CC5E7D00291B27 /* AppDelegate.swift */; };
@@ -29,7 +29,7 @@
 		0200342D27D0837F0032EEA4 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		0200345127D0A7AB0032EEA4 /* ViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewFactory.swift; sourceTree = "<group>"; };
 		02A7161B27CCF63C00034A70 /* RectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactory.swift; sourceTree = "<group>"; };
-		02A7161F27CD11C000034A70 /* RectangleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleDelegate.swift; sourceTree = "<group>"; };
+		02A7161F27CD11C000034A70 /* PlaneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneDelegate.swift; sourceTree = "<group>"; };
 		02B9D29E27CF033B00A7185E /* Alpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alpha.swift; sourceTree = "<group>"; };
 		02B9D2A027CF37E600A7185E /* id.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = id.swift; sourceTree = "<group>"; };
 		02D553FE27CC5E7D00291B27 /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,7 +61,7 @@
 			isa = PBXGroup;
 			children = (
 				02A7161B27CCF63C00034A70 /* RectangleFactory.swift */,
-				02A7161F27CD11C000034A70 /* RectangleDelegate.swift */,
+				02A7161F27CD11C000034A70 /* PlaneDelegate.swift */,
 				02D5541527CC5FB000291B27 /* Rectangle.swift */,
 				02B9D2A027CF37E600A7185E /* id.swift */,
 				02D5541B27CC6CE100291B27 /* BackgroundColor.swift */,
@@ -180,7 +180,7 @@
 				02D5541827CC5FF200291B27 /* Size.swift in Sources */,
 				02D5541A27CC606300291B27 /* Point.swift in Sources */,
 				02D5540227CC5E7D00291B27 /* AppDelegate.swift in Sources */,
-				02A7162027CD11C000034A70 /* RectangleDelegate.swift in Sources */,
+				02A7162027CD11C000034A70 /* PlaneDelegate.swift in Sources */,
 				02D5540427CC5E7D00291B27 /* SceneDelegate.swift in Sources */,
 				02B9D29F27CF033B00A7185E /* Alpha.swift in Sources */,
 				02D5541627CC5FB000291B27 /* Rectangle.swift in Sources */,
