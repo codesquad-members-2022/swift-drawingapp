@@ -13,6 +13,7 @@ struct Plane {
         return rectangleArray.count
     }
     mutating func addRectangle() {
-        let rectangle: Rectangle = Factory.createRandomRectangle(name: <#T##String#>)
+        let rectangle: Rectangle = Factory.createRandomRectangle()
+        rectangleArray.append(rectangle)
     }
 }
