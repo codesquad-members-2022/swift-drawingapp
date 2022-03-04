@@ -8,8 +8,8 @@
 import Foundation
 
 class RectangleFactory {
-    func createRectangle() {
-        
+    func createRectangle() -> Rectangle {
+        return Rectangle(point: createPoint(), size: createSize(), backgroundColor: createColor(), alpha: try! createAlpha())
     }
     
     
