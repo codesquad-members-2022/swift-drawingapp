@@ -24,6 +24,7 @@ class ColorRondomizeButton: UIButton {
         self.backgroundColor = .tintColor
         self.layer.cornerRadius = 10
         self.setTitle("", for: .normal)
+        self.tag = 1
     }
     
     @objc func didTouchButton(){
