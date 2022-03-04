@@ -35,16 +35,16 @@ final class Rectangle: CustomStringConvertible{
         self.alpha = alpha
     }
     
-    func findLocationRange(xPoint: Double, yPoint: Double) -> Rectangle?{
+    func findLocationRange(xPoint: Double, yPoint: Double) -> Bool{
         let minX: Double = self.point.x
         let maxX: Double = minX + self.size.width
         let minY: Double = self.point.y
         let maxY: Double = minY + self.size.height
         
         if xPoint >= minX, xPoint <= maxX, yPoint >= minY, yPoint <= maxY{
-            return self
+            return true
         } else{
-            return nil
+            return false
         }
     }
     

@@ -9,20 +9,16 @@ import UIKit
 import os
 
 class RandomRectangleView: UIView {
-    override init(frame: CGRect) {
+    init(id: String, point: MyPoint, size: MySize, color: RGBColor, alpha: Alpha){
+        let frame = CGRect(x: point.x, y: point.y, width: size.width, height: size.height)
         super.init(frame: frame)
+        
+        self.frame = frame
+        self.backgroundColor = UIColor(red: color.redValue(), green: color.greenValue(), blue: color.blueValue(), alpha: alpha.showValue())
+        self.restorationIdentifier = id
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-    }
-    
-    func attribute(rectangle: Rectangle){
-        self.backgroundColor = UIColor(red: rectangle.showColor().redValue(), green: rectangle.showColor().greenValue(), blue: rectangle.showColor().blueValue(), alpha: rectangle.showAlpha().showValue())
-        self.restorationIdentifier = rectangle.id
-    }
-    
-    func layout(rectangle: Rectangle){
-        self.frame = CGRect(x: rectangle.point.x, y: rectangle.point.y, width: rectangle.size.width, height: rectangle.size.height)
     }
 }

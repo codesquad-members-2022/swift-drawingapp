@@ -24,7 +24,6 @@ class MainViewController: UIViewController, RightAttributerViewDelegate {
         rectangleButton.layer.cornerRadius = 15
         rightAttributerView.delegate = self
         self.view.addSubview(rightAttributerView)
-        rightAttributerView.layout()
         
         let tapGestureRecognizer = UITapGestureRecognizer()
         tapGestureRecognizer.delegate = self
@@ -33,18 +32,22 @@ class MainViewController: UIViewController, RightAttributerViewDelegate {
     
     func moveAlphaSlider() {
         changeRectangleAlpha()
+        rightAttributerView.changeAlphaSliderView(text: "투명도 : \(String(format: "%.0f", rightAttributerView.alphaValue.showValue() * 10))")
     }
     
     func moveRedSlider() {
         changeRectangleColor()
+        rightAttributerView.changeColorSliderValue(text: "Red : \(String(format: "%.0f", rightAttributerView.redValue))")
     }
     
     func moveGreenSlider() {
         changeRectangleColor()
+        rightAttributerView.changeColorSliderValue(text: "Green : \(String(format: "%.0f", rightAttributerView.greenValue))")
     }
     
     func moveBlueSlider() {
         changeRectangleColor()
+        rightAttributerView.changeColorSliderValue(text: "Blue : \(String(format: "%.0f", rightAttributerView.blueValue))")
     }
     
     func changeRectangleColor(){
@@ -56,8 +59,6 @@ class MainViewController: UIViewController, RightAttributerViewDelegate {
         rectangle.changeColor(color: newColor)
         
         rectView.backgroundColor = UIColor(red: rectangle.showColor().redValue(), green: rectangle.showColor().greenValue(), blue: rectangle.showColor().blueValue(), alpha: rectangle.showAlpha().showValue())
-
-        rightAttributerView.changeColorSliderValue()
     }
     
     func changeRectangleAlpha(){
@@ -69,17 +70,13 @@ class MainViewController: UIViewController, RightAttributerViewDelegate {
         rectangle.changeAlpha(alpha: newAlpha)
         
         rectView.backgroundColor = rectView.backgroundColor?.withAlphaComponent(rectangle.showAlpha().showValue())
-        
-        rightAttributerView.changeAlphaSliderView()
     }
 
     @IBAction func makeRandomRectangle(_ sender: Any) {
-        let rectangleView = RandomRectangleView()
         let rectangleValue = Rectangle(id: IDFactory.makeID(), size: rectFactory.makeSize(), point: rectFactory.makePoint(viewWidth: self.rightAttributerView.frame.minX, viewHeight: self.rectangleButton.frame.minY), color: rectFactory.makeColor(), alpha: rectFactory.makeAlpha())
+        let rectangleView = RandomRectangleView(id: rectangleValue.id, point: rectangleValue.point, size: rectangleValue.size, color: rectangleValue.showColor(), alpha: rectangleValue.showAlpha())
         
         rectangles.addRectangle(rectangle: rectangleValue)
-        rectangleView.attribute(rectangle: rectangleValue)
-        rectangleView.layout(rectangle: rectangleValue)
 
         os_log("%@", "\(rectangleValue.description)")
         self.view.addSubview(rectangleView)
