@@ -16,7 +16,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         for i in 0..<4 {
-            guard let rect = ShapeFactoryCluster.makeShape(by: .rectangle) as? Rectangle else {
+            guard let rect = ShapeFactoryCluster.makeShape(with: Rectangle.self) as? Rectangle else {
                 return
             }
             
