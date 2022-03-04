@@ -34,7 +34,7 @@ enum IdentifierFactory: TypeBuilder {
         return identifier
     }
     
-    static func makeType() -> T {
+    static func makeTypeRandomly() -> T {
         return self.makeType(length: 9, delimiter: "-")
     }
 }

@@ -9,5 +9,5 @@ import Foundation
 
 protocol TypeBuilder {
     associatedtype T
-    static func makeType() -> T
+    static func makeTypeRandomly() -> T
 }
