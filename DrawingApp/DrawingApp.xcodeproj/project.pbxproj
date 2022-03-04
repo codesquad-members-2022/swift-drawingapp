@@ -30,6 +30,7 @@
 		1BD728AB27CCFB8D008DED9E /* FactoryViewRandomProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD728AA27CCFB8D008DED9E /* FactoryViewRandomProperty.swift */; };
 		1BD728AE27CD0D49008DED9E /* OSLog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BD728AD27CD0D49008DED9E /* OSLog.framework */; };
 		1BD728B027CD0E88008DED9E /* SystemLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD728AF27CD0E88008DED9E /* SystemLog.swift */; };
+		1BF27A6B27D1EEB9005FAA31 /* RandomPropertySubTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF27A6A27D1EEB9005FAA31 /* RandomPropertySubTypes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,6 +78,7 @@
 		1BD728AA27CCFB8D008DED9E /* FactoryViewRandomProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryViewRandomProperty.swift; sourceTree = "<group>"; };
 		1BD728AD27CD0D49008DED9E /* OSLog.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OSLog.framework; path = System/Library/Frameworks/OSLog.framework; sourceTree = SDKROOT; };
 		1BD728AF27CD0E88008DED9E /* SystemLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemLog.swift; sourceTree = "<group>"; };
+		1BF27A6A27D1EEB9005FAA31 /* RandomPropertySubTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomPropertySubTypes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 				1B4A55AB27CD9F96009CDC7B /* ViewPropertyCreator.swift */,
 				1B4A55A927CD99EC009CDC7B /* RandomizeValue.swift */,
 				1BD728A627CCC6B3008DED9E /* ViewRandomProperty.swift */,
+				1BF27A6A27D1EEB9005FAA31 /* RandomPropertySubTypes.swift */,
 				1B54997027D09BE30086EC5F /* Plane.swift */,
 			);
 			path = Models;
@@ -352,6 +355,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BF27A6B27D1EEB9005FAA31 /* RandomPropertySubTypes.swift in Sources */,
 				1BD7287627CCBC7A008DED9E /* ViewController.swift in Sources */,
 				1B811EBB27CF4F3300C3E6BC /* LoggerUtil.swift in Sources */,
 				1BD728A727CCC6B3008DED9E /* ViewRandomProperty.swift in Sources */,
