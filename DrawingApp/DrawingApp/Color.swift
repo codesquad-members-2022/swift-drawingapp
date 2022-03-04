@@ -14,9 +14,9 @@ struct Color: CustomStringConvertible{
     private var blue: Int = 0
     
     init(R: Int, G: Int, B: Int)  {
-        red = R
-        green = G
-        blue = B
+        red = adjustColorValue(value: R)
+        green = adjustColorValue(value: G)
+        blue = adjustColorValue(value: B)
     }
     
     static func randomColor() -> Color {
@@ -46,6 +46,17 @@ struct Color: CustomStringConvertible{
     
     static func blackColor() -> Color{
         return Color(R: 255, G: 255, B: 255)
+    }
+    
+    
+    func adjustColorValue(value: Int) -> Int {
+        if value < 0 {
+            return 0
+        }
+        else if value > 255 {
+            return 255
+        }
+        return value
     }
     
     
