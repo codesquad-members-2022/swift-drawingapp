@@ -1,5 +1,5 @@
 //
-//  SquareView.swift
+//  RectangleView.swift
 //  Drawingapp
 //
 //  Created by seongha shin on 2022/03/01.
@@ -8,8 +8,7 @@
 import Foundation
 import UIKit
 
-class SquareView: UIView {
-    
+class RectangleView: UIView {
     private let drawView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false

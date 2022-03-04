@@ -10,7 +10,7 @@ import UIKit
 
 protocol InspectorDelegate {
     func changeColorButtonTapped()
-    func alphaSliderValueChanged(alpha: Alpha?)
+    func alphaSliderValueChanged(alpha: Alpha)
 }
 
 class InspectorView: UIView {
@@ -61,8 +61,9 @@ class InspectorView: UIView {
             }, for: .touchUpInside)
         
         alphaSlider.slider.addAction(UIAction{ _ in
-            let alpha = Alpha.init(rawValue: Int(self.alphaSlider.slider.value))
-            self.delegate?.alphaSliderValueChanged(alpha: alpha)
+            if let alpha = Alpha.init(rawValue: Int(self.alphaSlider.slider.value)) {
+                self.delegate?.alphaSliderValueChanged(alpha: alpha)                
+            }
         }, for: .valueChanged)
     }
     
@@ -78,9 +79,9 @@ class InspectorView: UIView {
         itemStackView.bottomAnchor.constraint(equalTo: items[items.count - 1].bottomAnchor).isActive = true
     }
     
-    func update(square: Rectangle) {
-        self.update(color: square.color)
-        self.update(alpha: square.alpha)
+    func update(rectangle: Rectangle) {
+        self.update(color: rectangle.color)
+        self.update(alpha: rectangle.alpha)
     }
     
     func update(color: Color) {

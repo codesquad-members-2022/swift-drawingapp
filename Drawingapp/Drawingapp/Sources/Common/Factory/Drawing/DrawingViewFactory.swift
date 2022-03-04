@@ -9,12 +9,12 @@ import Foundation
 import UIKit
 
 class DrawingViewFactory {
-    static func make(square: Rectangle) -> SquareView {
-        let squareView = SquareView()
-        squareView.update(color: square.color)
-        squareView.update(point: square.point)
-        squareView.update(size: square.size)
-        squareView.update(alpha: square.alpha)
-        return squareView
+    static func make(to rectangle: Rectangle) -> RectangleView {
+        let rectangleView = RectangleView()
+        rectangleView.update(color: rectangle.color)
+        rectangleView.update(point: rectangle.point)
+        rectangleView.update(size: rectangle.size)
+        rectangleView.update(alpha: rectangle.alpha)
+        return rectangleView
     }
 }

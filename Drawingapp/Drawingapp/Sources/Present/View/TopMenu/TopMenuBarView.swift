@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol TopMenuBarDelegate {
-    func makeSquareButtonTapped()
+    func makeRectangleButtonTapped()
 }
 
 class TopMenuBarView: UIView {
@@ -20,12 +20,12 @@ class TopMenuBarView: UIView {
         return stackView
     }()
     
-    let makeSquare: TopMenuItemView = {
-        let makeSquare = TopMenuItemView()
-        makeSquare.backgroundColor = .clear
-        makeSquare.icon.image = UIImage(named: "ic_square")
-        makeSquare.translatesAutoresizingMaskIntoConstraints = false
-        return makeSquare
+    let makeRectangle: TopMenuItemView = {
+        let itemView = TopMenuItemView()
+        itemView.backgroundColor = .clear
+        itemView.icon.image = UIImage(named: "ic_square")
+        itemView.translatesAutoresizingMaskIntoConstraints = false
+        return itemView
     }()
     
     var delegate: TopMenuBarDelegate?
@@ -43,8 +43,8 @@ class TopMenuBarView: UIView {
     }
     
     private func bind() {
-        makeSquare.button.addAction(UIAction{ _ in
-            self.delegate?.makeSquareButtonTapped()
+        makeRectangle.button.addAction(UIAction{ _ in
+            self.delegate?.makeRectangleButtonTapped()
         }, for: .touchUpInside)
     }
     
@@ -55,9 +55,9 @@ class TopMenuBarView: UIView {
         stackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
         stackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         
-        stackView.addArrangedSubview(makeSquare)
-        makeSquare.translatesAutoresizingMaskIntoConstraints = false
-        makeSquare.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        makeSquare.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        stackView.addArrangedSubview(makeRectangle)
+        makeRectangle.translatesAutoresizingMaskIntoConstraints = false
+        makeRectangle.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        makeRectangle.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
 }

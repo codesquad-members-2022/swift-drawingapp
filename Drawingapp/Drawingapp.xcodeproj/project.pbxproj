@@ -7,13 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E03455AE27CF24560036988A /* SquareView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03455AD27CF24560036988A /* SquareView.swift */; };
+		E03455AE27CF24560036988A /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03455AD27CF24560036988A /* RectangleView.swift */; };
 		E03455B327CF25520036988A /* InspectorItemButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03455B227CF25520036988A /* InspectorItemButtonView.swift */; };
 		E03455B727CF2A1A0036988A /* DrawingViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03455B627CF2A1A0036988A /* DrawingViewFactory.swift */; };
 		E034560927D0AC2B0036988A /* SizeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034560827D0AC2B0036988A /* SizeFactory.swift */; };
 		E034560B27D0AC310036988A /* PointFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034560A27D0AC310036988A /* PointFactory.swift */; };
 		E034560D27D0AC3A0036988A /* ColorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034560C27D0AC3A0036988A /* ColorFactory.swift */; };
-		E034561427D1ADF30036988A /* Squares.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA2F27CD09F500A56635 /* Squares.swift */; };
 		E034561527D1ADF30036988A /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1327CC5EB000A56635 /* Rectangle.swift */; };
 		E034561627D1ADF30036988A /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1827CC643000A56635 /* Point.swift */; };
 		E034561727D1ADF30036988A /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1627CC642800A56635 /* Size.swift */; };
@@ -41,7 +40,6 @@
 		E0D7DA2927CCDC9200A56635 /* DrawingModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA2827CCDC9200A56635 /* DrawingModelFactory.swift */; };
 		E0D7DA2C27CCF83300A56635 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA2B27CCF83300A56635 /* Log.swift */; };
 		E0D7DA2E27CD048C00A56635 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA2D27CD048C00A56635 /* Plane.swift */; };
-		E0D7DA3027CD09F500A56635 /* Squares.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA2F27CD09F500A56635 /* Squares.swift */; };
 		E0D7DA4527CDE32300A56635 /* TopMenuBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA4427CDE32300A56635 /* TopMenuBarView.swift */; };
 		E0D7DA4827CDE3C800A56635 /* TopMenuItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA4727CDE3C800A56635 /* TopMenuItemView.swift */; };
 		E0D7DA4D27CDF28C00A56635 /* InspectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA4C27CDF28C00A56635 /* InspectorView.swift */; };
@@ -68,7 +66,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		E03455AD27CF24560036988A /* SquareView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SquareView.swift; sourceTree = "<group>"; };
+		E03455AD27CF24560036988A /* RectangleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
 		E03455B227CF25520036988A /* InspectorItemButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectorItemButtonView.swift; sourceTree = "<group>"; };
 		E03455B627CF2A1A0036988A /* DrawingViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingViewFactory.swift; sourceTree = "<group>"; };
 		E034560827D0AC2B0036988A /* SizeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeFactory.swift; sourceTree = "<group>"; };
@@ -95,7 +93,6 @@
 		E0D7DA2827CCDC9200A56635 /* DrawingModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingModelFactory.swift; sourceTree = "<group>"; };
 		E0D7DA2B27CCF83300A56635 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		E0D7DA2D27CD048C00A56635 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
-		E0D7DA2F27CD09F500A56635 /* Squares.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Squares.swift; sourceTree = "<group>"; };
 		E0D7DA4427CDE32300A56635 /* TopMenuBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMenuBarView.swift; sourceTree = "<group>"; };
 		E0D7DA4727CDE3C800A56635 /* TopMenuItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopMenuItemView.swift; sourceTree = "<group>"; };
 		E0D7DA4C27CDF28C00A56635 /* InspectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorView.swift; sourceTree = "<group>"; };
@@ -140,7 +137,7 @@
 		E03455AC27CF24560036988A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E03455AD27CF24560036988A /* SquareView.swift */,
+				E03455AD27CF24560036988A /* RectangleView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -232,7 +229,6 @@
 			isa = PBXGroup;
 			children = (
 				E0D7DA2D27CD048C00A56635 /* Plane.swift */,
-				E0D7DA2F27CD09F500A56635 /* Squares.swift */,
 				E0D7DA1327CC5EB000A56635 /* Rectangle.swift */,
 				E0D7DA1827CC643000A56635 /* Point.swift */,
 				E0D7DA1627CC642800A56635 /* Size.swift */,
@@ -460,7 +456,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E0D7DA3027CD09F500A56635 /* Squares.swift in Sources */,
 				E0D7DA1427CC5EB000A56635 /* Rectangle.swift in Sources */,
 				E034560D27D0AC3A0036988A /* ColorFactory.swift in Sources */,
 				E0D7DA4827CDE3C800A56635 /* TopMenuItemView.swift in Sources */,
@@ -474,7 +469,7 @@
 				E0D7DA4527CDE32300A56635 /* TopMenuBarView.swift in Sources */,
 				E0D7DA1927CC643000A56635 /* Point.swift in Sources */,
 				E034560B27D0AC310036988A /* PointFactory.swift in Sources */,
-				E03455AE27CF24560036988A /* SquareView.swift in Sources */,
+				E03455AE27CF24560036988A /* RectangleView.swift in Sources */,
 				E0D7DA2327CC67DF00A56635 /* Alpha.swift in Sources */,
 				E034560927D0AC2B0036988A /* SizeFactory.swift in Sources */,
 				E03455B327CF25520036988A /* InspectorItemButtonView.swift in Sources */,
@@ -496,7 +491,6 @@
 				E034561727D1ADF30036988A /* Size.swift in Sources */,
 				E034561927D1ADF30036988A /* Alpha.swift in Sources */,
 				E034561527D1ADF30036988A /* Rectangle.swift in Sources */,
-				E034561427D1ADF30036988A /* Squares.swift in Sources */,
 				E034561D27D1ADFD0036988A /* PointFactory.swift in Sources */,
 				E034562027D1AE020036988A /* DrawingModelFactory.swift in Sources */,
 				E034561A27D1ADF30036988A /* Color.swift in Sources */,

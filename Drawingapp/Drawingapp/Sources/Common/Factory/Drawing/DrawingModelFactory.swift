@@ -8,7 +8,7 @@
 import Foundation
 
 class DrawingModelFactory {    
-    static func makeSquare() -> Rectangle {
+    static func makeRectangle() -> Rectangle {
         let id = makeId()
         let size = SizeFactory.make()
         let point = PointFactory.make()
