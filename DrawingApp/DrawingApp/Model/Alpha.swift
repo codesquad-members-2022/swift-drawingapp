@@ -9,17 +9,18 @@ import Foundation
 
 struct Alpha {
     let value: Double
+    static let possibleOpacityLevels = 1...10
     
-    init(opacityLevel: Int, min: Int = 1, max: Int = 10) {
+    init(opacityLevel: Int) {
+        let min = Alpha.possibleOpacityLevels.min() ?? 1
+        let max = Alpha.possibleOpacityLevels.max() ?? 10
+        
         if opacityLevel > max {
             self.value = 1.0
         } else if opacityLevel < min {
             self.value = 0.1
         } else {
-            let possibleAlphaValues = [0] + (min...max).map {
-                Double($0) / Double(max)
-            }
-            self.value = possibleAlphaValues[opacityLevel]
+            self.value = Double(opacityLevel) / Double(10)
         }
 
     }
