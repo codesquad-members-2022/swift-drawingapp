@@ -16,17 +16,17 @@ class RectangleFactory: RectangleCreator {
     }
     
     func createRectangle(size: Size, position: Point) -> Rectangle {
-        return createColoredRectangle(size: size, position: position, color: Color(), alpha: Alpha.allCases.randomElement()!)
+        return createColoredRectangle(size: size, position: position, color: Color.randomColor(), alpha: Alpha.allCases.randomElement()!)
     }
     
     func createRandomRectangle() -> Rectangle{
-        return createColoredRectangle(size: Size(), position: Point(), color: Color(), alpha: Alpha.allCases.randomElement()!)
+        return createColoredRectangle(size: Size.randomSize(), position: Point.randomPoint(), color: Color.randomColor(), alpha: Alpha.allCases.randomElement()!)
     }
     
     func createRectangle(x: Double, y: Double, width: Double, height: Double) -> Rectangle{
         let size =  Size(width: width, height: height)
         let position = Point(x: x, y: y)
-        return createColoredRectangle(size: size, position: position, color: Color(), alpha: Alpha.allCases.randomElement()!)
+        return createColoredRectangle(size: size, position: position, color: Color.randomColor(), alpha: Alpha.allCases.randomElement()!)
     }
     
     
