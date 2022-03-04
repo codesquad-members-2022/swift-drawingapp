@@ -10,12 +10,36 @@ import UIKit
 
 class SquareView: UIView {
     
+    private let drawView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        layout()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        layout()
+    }
+        
+    private func layout() {
+        self.addSubview(drawView)
+        self.drawView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        self.drawView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        self.drawView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        self.drawView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+    }
+    
     func update(color: Color) {
-        self.backgroundColor = UIColor(red: CGFloat(color.r) / 255, green: CGFloat(color.g) / 255, blue: CGFloat(color.b / 255), alpha: 1)
+        drawView.backgroundColor = UIColor(red: CGFloat(color.r) / 255, green: CGFloat(color.g) / 255, blue: CGFloat(color.b / 255), alpha: 1)
     }
     
     func update(alpha: Alpha) {
-        self.alpha = alpha.value
+        drawView.alpha = alpha.value
     }
     
     func update(point: Point) {
