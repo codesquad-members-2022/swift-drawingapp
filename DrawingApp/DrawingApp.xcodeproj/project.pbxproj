@@ -18,6 +18,8 @@
 		00D94D9827D2344A004F5DAC /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D94D9727D2344A004F5DAC /* Point.swift */; };
 		00D94D9A27D2345B004F5DAC /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D94D9927D2345B004F5DAC /* BackgroundColor.swift */; };
 		00D94D9C27D2357D004F5DAC /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D94D9B27D2357D004F5DAC /* Rectangle.swift */; };
+		00D94D9E27D248EF004F5DAC /* ShapeCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D94D9D27D248EF004F5DAC /* ShapeCreator.swift */; };
+		00D94DA027D2495A004F5DAC /* ShapeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D94D9F27D2495A004F5DAC /* ShapeFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +36,8 @@
 		00D94D9727D2344A004F5DAC /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		00D94D9927D2345B004F5DAC /* BackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColor.swift; sourceTree = "<group>"; };
 		00D94D9B27D2357D004F5DAC /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
+		00D94D9D27D248EF004F5DAC /* ShapeCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeCreator.swift; sourceTree = "<group>"; };
+		00D94D9F27D2495A004F5DAC /* ShapeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -70,6 +74,8 @@
 				00D94D8127D1B42C004F5DAC /* SceneDelegate.swift */,
 				00D94D8327D1B42C004F5DAC /* ViewController.swift */,
 				00D94D9327D233CB004F5DAC /* Shape.swift */,
+				00D94D9D27D248EF004F5DAC /* ShapeCreator.swift */,
+				00D94D9F27D2495A004F5DAC /* ShapeFactory.swift */,
 				00D94D9B27D2357D004F5DAC /* Rectangle.swift */,
 				00D94D9527D23426004F5DAC /* Size.swift */,
 				00D94D9727D2344A004F5DAC /* Point.swift */,
@@ -157,6 +163,8 @@
 				00D94D9627D23426004F5DAC /* Size.swift in Sources */,
 				00D94D9827D2344A004F5DAC /* Point.swift in Sources */,
 				00D94D8027D1B42C004F5DAC /* AppDelegate.swift in Sources */,
+				00D94DA027D2495A004F5DAC /* ShapeFactory.swift in Sources */,
+				00D94D9E27D248EF004F5DAC /* ShapeCreator.swift in Sources */,
 				00D94D8227D1B42C004F5DAC /* SceneDelegate.swift in Sources */,
 				00D94D9427D233CB004F5DAC /* Shape.swift in Sources */,
 				00D94D9A27D2345B004F5DAC /* BackgroundColor.swift in Sources */,
