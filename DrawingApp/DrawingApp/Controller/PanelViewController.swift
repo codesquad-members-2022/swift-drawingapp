@@ -15,15 +15,8 @@ extension Notification.Name {
 class PanelViewController: UIViewController {
     
     @IBOutlet weak var colorButton: UIButton!
-    @IBAction func ColorButtonPressed(_ sender: UIButton) {
-        NotificationCenter.default.post(name: .colorButtonPressed, object: nil)
-    }
-    
     @IBOutlet weak var AlphaLabel: UILabel!
     @IBOutlet weak var alphaSlider: UISlider!
-    @IBAction func SliderChanged(_ sender: UISlider) {
-        NotificationCenter.default.post(name: .sliderChanged, object: sender.value)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +29,8 @@ class PanelViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(didMutateAlpha(_:)), name: .mutateAlphaViewModel, object: nil)
     }
 }
+
+// MARK: - Use case: Display properties of selected view
 
 extension PanelViewController {
     @objc func didSelectViewModel(_ notification: Notification) {
@@ -86,10 +81,23 @@ extension PanelViewController {
         alphaSlider.value = 0
         alphaSlider.isEnabled = false
     }
+}
+
+// MARK: - Use case: Mutate View using Controls
+
+extension PanelViewController {
+    
+    @IBAction func ColorButtonPressed(_ sender: UIButton) {
+        NotificationCenter.default.post(name: .colorButtonPressed, object: nil)
+    }
     
     @objc func didMutateColor(_ notification: Notification) {
         guard let mutated = notification.object as? ColorMutable else { return }
         displayColor(mutated)
+    }
+    
+    @IBAction func SliderChanged(_ sender: UISlider) {
+        NotificationCenter.default.post(name: .sliderChanged, object: sender.value)
     }
     
     @objc func didMutateAlpha(_ notification: Notification) {
