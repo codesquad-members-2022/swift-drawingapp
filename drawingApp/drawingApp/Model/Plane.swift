@@ -46,8 +46,8 @@ struct Plane {
             let minY = rectangle.point.y
             let maxX = rectangle.point.x + rectangle.size.width
             let maxY = rectangle.point.y + rectangle.size.height
-            
             if minX <= x, maxX >= x, minY <= y , maxY >= y {
+                os_log(.debug,"모델정보: \(rectangle)")
                 return true
             }
         }

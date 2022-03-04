@@ -6,10 +6,20 @@
 //
 
 import UIKit
-
+protocol RectangleViewDelegate{
+    func didTouchRectView(rectView: RectangleView)
+}
 class RectangleView: UIView {
     
-    var selected = false
+    var selected = false {
+        didSet{
+            print("사각형 뷰 선택됨 :: \(selected)")
+            if selected == true {
+                delegate?.didTouchRectView(rectView: self)
+            }
+        }
+    }
+    var delegate : RectangleViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,7 +41,6 @@ class RectangleView: UIView {
     
     func configure(didSelect : Bool){
         if didSelect {
-//            self.addDashedBorder()
             self.layer.borderWidth = 4
             self.layer.borderColor = UIColor.blue.cgColor
         }else{
@@ -40,6 +49,7 @@ class RectangleView: UIView {
             self.layer.borderColor = UIColor.clear.cgColor
         }
     }
+    
     
 }
 
