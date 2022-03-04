@@ -99,8 +99,10 @@ extension ViewController: UIGestureRecognizerDelegate{
 
 extension ViewController: ViewMutable, ModelMutable{
     
-    func changeSelectedRectangleViewColor(){
-        
+    func changeSelectedRecntagleViewColor(rgb: [Double]){
+        guard let canvasView = self.canvasView else { return }
+        canvasView.changeSelectedRectangleColor(rgb: rgb)
+        changeRectangleModelColor(rgb: rgb)
     }
     
     func changeSelectedRectangleViewAlpha(opacity: Int){
@@ -117,5 +119,11 @@ extension ViewController: ViewMutable, ModelMutable{
             opacity = opacity - 1
         }
         rectangle.alpha = Rectangle.Alpha.allCases[opacity]
+    }
+    
+    func changeRectangleModelColor(rgb: [Double]) {
+        guard let selectedRectangleId = self.plane.selectedRectangleId else { return }
+        guard let rectangle = self.plane[selectedRectangleId] else { return }
+        rectangle.backgroundColor = Rectangle.Color(r: rgb[0]*255, g: rgb[1]*255, b: rgb[2]*255)
     }
 }

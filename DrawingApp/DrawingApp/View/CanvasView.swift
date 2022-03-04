@@ -34,6 +34,11 @@ class CanvasView: UIView{
         viewController.changeRectangleModelAlpha(opacity: opacity)
     }
     
+    func changeSelectedRectangleColor(rgb: [Double]){
+        guard let selectedRectangleView = selectedRectangleView else { return }
+        selectedRectangleView.backgroundColor = UIColor(red: rgb[0], green: rgb[1], blue: rgb[2], alpha: 1)
+    }
+    
     private func setGeneratingButton(){
         let buttonWidth = self.frame.width*0.15
         let buttonHeight = self.frame.height*0.15
