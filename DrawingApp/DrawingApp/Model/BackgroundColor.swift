@@ -11,20 +11,18 @@ struct BackgroundColor {
     let r: Double
     let g: Double
     let b: Double
+    static let possibleColorValues = 0...255
     
-    init(r: Int, g: Int, b: Int, min: Int = 0, max: Int = 255) {
+    init(r: Int, g: Int, b: Int) {
         var colors = [Double(r), Double(g), Double(b)]
-        let scale = Double(255) / Double(max)
-        let possibleColorValues = (min...max).map {
-            Double($0) * scale
-        }
+        let min = BackgroundColor.possibleColorValues.min() ?? 0
+        let max = BackgroundColor.possibleColorValues.max() ?? 255
+        
         colors.enumerated().forEach {
             if $0.element > Double(max) {
                 colors[$0.offset] = 255.0
             } else if $0.element < Double(min) {
                 colors[$0.offset] = 0.0
-            } else {
-                colors[$0.offset] = possibleColorValues[Int($0.element)]
             }
         }
         self.r = colors[0]
