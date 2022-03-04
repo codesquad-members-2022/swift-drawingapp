@@ -20,10 +20,8 @@ protocol RectangleViewValueChangeDelegate {
 class ViewController: UIViewController {
     
     @IBOutlet weak var screenView: UIView!
-    @IBOutlet weak var setRandomColorButton: UIButton!
-    @IBOutlet weak var setAlphaSlider: UISlider!
-    
-    private var currentSelected: Rectangle?
+    @IBOutlet weak var buttonSetRandomColor: UIButton!
+    @IBOutlet weak var sliderSetAlpha: UISlider!
     
     let factory = FactoryViewRandomProperty()
     let plane = Plane()
@@ -51,31 +49,30 @@ class ViewController: UIViewController {
     
     @IBAction func buttonAdmitColorTouchUpInside(_ sender: UIButton) {
         guard
-            let current = currentSelected,
-            let property = plane.getRectangleProperty(at: current.index)
+            let index = plane.current?.index,
+            let property = plane.getRectangleProperty(at: index)
         else {
             return
         }
         
         let color = property.resetRGBColor()
-        setRandomColorButton.backgroundColor = UIColor(
+        buttonSetRandomColor.backgroundColor = UIColor(
             red: color.r/255,
             green: color.g/255,
             blue: color.b/255,
             alpha: property.getAlpha()
         )
-        currentSelected?.setBackgroundColor(using: property)
+        
+        plane.current?.setBackgroundColor(using: property)
     }
     
     @IBAction func sliderAdmitAlphaValueChanged(_ sender: UISlider) {
         
-        guard let currentSelected = currentSelected else {
-            return
-        }
+        guard let index = plane.current?.index else { return }
         
         sender.value = round(sender.value)
-        plane.setProperty(at: currentSelected.index, alpha: sender.value)
-        currentSelected.setValue(alpha: sender.value)
+        plane.setProperty(at: index, alpha: sender.value)
+        plane.current?.setValue(alpha: sender.value)
     }
 }
 
@@ -96,17 +93,17 @@ extension ViewController: MasterViewDelegate {
 
 extension ViewController: RectangleViewTapDelegate {
     func setSelected(_ view: Rectangle) {
-        currentSelected?.isSelected = false
+        plane.current?.isSelected = false
         
         guard let property = plane.getRectangleProperty(at: view.index) else {
             return
         }
         
-        setRandomColorButton.backgroundColor = view.backgroundColor
-        setAlphaSlider.setValue(Float(round(property.getAlpha())), animated: true)
+        buttonSetRandomColor.backgroundColor = view.backgroundColor
+        sliderSetAlpha.setValue(Float(round(property.getAlpha())), animated: true)
         
         view.isSelected = true
-        currentSelected = view
+        plane.current = view
     }
 }
 
@@ -116,15 +113,15 @@ extension ViewController: UIGestureRecognizerDelegate {
         _ gestureRecognizer: UIGestureRecognizer,
         shouldReceive touch: UITouch
     ) -> Bool {
-        if touch.view == currentSelected {
+        if touch.view == plane.current {
             return false
         }
         
-        currentSelected?.isSelected = false
-        currentSelected = nil
+        plane.current?.isSelected = false
+        plane.current = nil
         
-        setRandomColorButton.backgroundColor = UIColor.systemFill
-        setAlphaSlider.setValue(0, animated: true)
+        buttonSetRandomColor.backgroundColor = UIColor.systemFill
+        sliderSetAlpha.setValue(0, animated: true)
         
         return true
     }

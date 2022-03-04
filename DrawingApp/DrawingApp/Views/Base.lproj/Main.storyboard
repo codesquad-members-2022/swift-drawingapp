@@ -163,14 +163,14 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="buttonSetRandomColor" destination="2ng-xD-0wc" id="m1t-47-bxt"/>
                         <outlet property="screenView" destination="LzV-1y-tOe" id="p84-bH-qj1"/>
-                        <outlet property="setAlphaSlider" destination="wPH-ZG-4QO" id="Py8-0j-UDb"/>
-                        <outlet property="setRandomColorButton" destination="2ng-xD-0wc" id="m1t-47-bxt"/>
+                        <outlet property="sliderSetAlpha" destination="wPH-ZG-4QO" id="Py8-0j-UDb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-665" y="147"/>
+            <point key="canvasLocation" x="-665.08474576271192" y="146.34146341463415"/>
         </scene>
     </scenes>
     <resources>
