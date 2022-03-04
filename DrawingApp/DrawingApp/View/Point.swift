@@ -1,5 +1,5 @@
 //
-//  Position.swift
+//  Point.swift
 //  DrawingApp
 //
 //  Created by Selina on 2022/03/04.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Position {
+class Point {
     private let x: Double
     private let y: Double
     
@@ -18,7 +18,7 @@ class Position {
 }
 
 
-extension Position: CustomStringConvertible {
+extension Point: CustomStringConvertible {
     var description: String {
         return "X:\(x), Y:\(y)"
     }
