@@ -8,6 +8,7 @@
 import Foundation
 
 class Plane {
+    
     private var properties = [ViewRandomProperty]()
     
     func addProperties(_ model: ViewRandomProperty) {
@@ -28,10 +29,29 @@ class Plane {
     
     func hasAnyRectangle(in rect: RectPoint) -> Bool {
         properties.contains {
-            $0.point.x >= rect.x
-            && $0.point.y >= rect.y
-            && $0.point.x+$0.size.width <= rect.x
-            && $0.point.y+$0.size.height <= rect.y
+            
+            let point = $0.getPoint()
+            let size = $0.getSize()
+            
+            return point.x >= rect.x
+            && point.y >= rect.y
+            && point.x+size.width <= rect.x
+            && point.y+size.height <= rect.y
         }
+    }
+    
+    func setProperty(at index: Int, alpha: Float) {
+        guard properties.count-1 >= index else { return }
+        properties[index].setAlpha(Double(alpha))
+    }
+    
+    func setProperty(at index: Int, size: RectSize) {
+        guard properties.count-1 >= index else { return }
+        properties[index].setSize(size)
+    }
+    
+    func setProperty(at index: Int, point: RectPoint) {
+        guard properties.count-1 >= index else { return }
+        properties[index].setPoint(point)
     }
 }
