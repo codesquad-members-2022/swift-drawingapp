@@ -10,15 +10,10 @@ import Foundation
 class Alpha {
     private var transparency : Int
     
-    init(transparency : Int) {
-        switch transparency {
-        case ...0 :
-            self.transparency = 0
-        case 10... :
-            self.transparency = 10
-        default:
-            self.transparency = transparency
-        }
+    static let alphaRange = 0...10
+    init? (transparency : Int) {
+        guard Alpha.alphaRange.contains(transparency) else {return nil}
+        self.transparency = transparency
     }
 }
 
