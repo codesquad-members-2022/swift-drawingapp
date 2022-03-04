@@ -56,10 +56,7 @@ class ShapeFactory {
     
     
     func generateRandomColor() -> Color {
-        let red = Double.random(in: 0..<255)
-        let green = Double.random(in: 0..<255)
-        let blue = Double.random(in: 0..<255)
-        return Color(r: red, g: green, b: blue)
+        return Color.getRandomColor()
     }
     
     func generateRandomAlpha() -> Alpha {
@@ -71,7 +68,7 @@ class ShapeFactory {
         if maxX <= minX || maxY <= minY {
             throw Errors.notValidScreenSize
         }
-       return  Rectangle(id: generateRandomId(), size: Size(width: width, height: height), point: generateRandomPoint(), color: generateRandomColor(), alpha: generateRandomAlpha())
+       return  Rectangle(id: generateRandomId(), size: Size(width: width, height: height), point: generateRandomPoint(), color: Color.getRandomColor(), alpha: generateRandomAlpha())
     }
     
     

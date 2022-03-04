@@ -88,7 +88,7 @@ class ViewController: UIViewController {
     func writeInfo(of model: Rectangle?) {
         if let rectModel = model{
             let colorRondomizeButton = panel.viewWithTag(1) as! UIButton
-            colorRondomizeButton.setTitle(rectModel.id, for: .normal)
+            colorRondomizeButton.setTitle(rectModel.color.tohexString, for: .normal)
         }
         
     }
@@ -105,30 +105,23 @@ extension ViewController : GenerateRectangleButtonDelegate {
             os_log(.debug, "\(rect)")
             plane.append(rect)
         }catch{
-            os_log("")
         }
     }
 }
 
 extension ViewController : PlaneDelegate {
-    
     func didAppendRect(rect: Rectangle?) {
         if let appendedRect = rect {
             let rectUI = RectangleView(frame: CGRect(x: appendedRect.point.x.trim, y: appendedRect.point.y.trim, width: appendedRect.size.width, height: appendedRect.size.height))
-            rectUI.backgroundColor = UIColor(red: appendedRect.color.red/255, green: appendedRect.color.green/255, blue: appendedRect.color.blue/255, alpha: Double(appendedRect.alpha.rawValue)/10)
+            rectUI.backgroundColor = UIColor(red: appendedRect.color.red.scaleRGB, green: appendedRect.color.green.scaleRGB, blue: appendedRect.color.blue.scaleRGB, alpha: Double(appendedRect.alpha.rawValue).scaleAlhpa)
             view.addSubview(rectUI)
         }
     }
-    //    func didFindRect(rect: Rectangle) {
-    //        os_log(.debug,"사각형 포착: \(rect)")
-    //    }
 }
 
 extension ViewController : RectangleViewDelegate {
     func didTouchRectView(rectView: RectangleView) {
-        print("Searching for : \(rectView.frame.minX.trim) , \(rectView.frame.minY.trim)")
         for i in 0..<plane.numberOfRect{
-            print("Trying matching with : \(plane[i]?.point.x.trim) , \(plane[i]?.point.y.trim)")
             if rectView.frame.minX.trim == plane[i]?.point.x.trim , rectView.frame.minY.trim == plane[i]?.point.y.trim {
                 writeInfo(of: plane[i])
             }
