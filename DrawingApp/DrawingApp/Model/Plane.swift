@@ -12,4 +12,10 @@ struct Plane {
     var rectangles:[UIView] = []
     var seletedRectangle:UIView = UIView()
     
+    var count:Int {
+        self.rectangles.count
+    }
+    
+    
+    
 }
