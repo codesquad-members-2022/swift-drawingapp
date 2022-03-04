@@ -16,11 +16,11 @@ struct Point: CustomStringConvertible{
         self.x = x
         self.y = y
     }
-    
-    init(){
+
+    static func randomPoint() -> Point {
         let randomX = Double.random(in: 0...900.0)
         let randomY = Double.random(in: 0...650.0)
-        self.init(x: randomX, y: randomY)
+        return Point(x: randomX, y: randomY)
     }
     
     var description: String {
