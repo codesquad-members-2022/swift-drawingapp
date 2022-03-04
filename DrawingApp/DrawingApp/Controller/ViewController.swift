@@ -42,8 +42,27 @@ class ViewController: UIViewController {
     }
     
     @objc
-    func onPressToAddRectangle(_ sender: UIButton) {}
+    func onPressToAddRectangle(_ sender: UIButton) {
+        let rectangle = RectangleFactory.makeRandomRectangle()
+        plane.append(item: rectangle)
+        
+        let rectangleView = UIView(frame: .zero)
+        rectangleView.frame.origin = CGPoint(x: rectangle.origin.x, y: rectangle.origin.y)
+        rectangleView.frame.size.width = CGFloat(rectangle.size.width)
+        rectangleView.frame.size.height = CGFloat(rectangle.size.height)
+        rectangleView.backgroundColor = .orange
+        
+        self.planeView.addSubview(rectangleView)
+        
+        let touchRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.tapRectangle))
+        rectangleView.addGestureRecognizer(touchRecognizer)
+    }
     
     @objc
     func onPressToChangeColor(_ sender: UIButton) {}
+    
+    @objc
+    func tapRectangle(_ sender: UITapGestureRecognizer) {
+        print("Tab")
+    }
 }

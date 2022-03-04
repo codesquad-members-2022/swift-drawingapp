@@ -8,7 +8,7 @@
 import Foundation
 
 struct Point {
-    static let range = 0.0...100.0
+    static let range = 0.0...500.0
     
     let x: Double
     let y: Double
