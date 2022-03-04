@@ -11,10 +11,9 @@ class Shape {
     let id: String = {
         let uuidId = UUID().uuidString.split(separator: "-").joined(separator: "")
         let thirdIndex = uuidId.index(uuidId.startIndex, offsetBy: 3)
-        let sixthIndex = uuidId.index(thirdIndex, offsetBy: 6)
-        let ninethIndex = uuidId.index(sixthIndex, offsetBy: 9)
-        print(uuidId)
-        let result = uuidId[..<thirdIndex] + uuidId[thirdIndex...sixthIndex] + uuidId[sixthIndex...ninethIndex]
+        let sixthIndex = uuidId.index(thirdIndex, offsetBy: 3)
+        let ninethIndex = uuidId.index(sixthIndex, offsetBy: 3)
+        let result = uuidId[..<thirdIndex] + "-" + uuidId[thirdIndex..<sixthIndex] + "-" +  uuidId[sixthIndex..<ninethIndex]
         return String(result)
     }()
     let size: Size
