@@ -41,7 +41,7 @@ class RandomRectangleFactory {
         return Color(validRed: randomRed, validGreen: randomGreen, validBlue: randomBlue)
     }
     
-    func createRandomShape() -> Shapable {
+    func createRandomShape() -> Rectangle {
         return Rectangle(identifier: generateRandomIdentifier(),
                          size: generateRandomSize(),
                          point: generateRandomPoint(),

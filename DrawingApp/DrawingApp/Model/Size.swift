@@ -8,8 +8,8 @@
 import Foundation
 
 struct Size {
-    private var width: Double
-    private var height: Double
+    private(set) var width: Double
+    private(set) var height: Double
     
     init(width: Double, height: Double) {
         self.width = width
