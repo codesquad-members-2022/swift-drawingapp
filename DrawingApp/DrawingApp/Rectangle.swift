@@ -15,10 +15,36 @@ struct RectangleView: CustomStringConvertible {
         case four
         case five
         case six
-        case seve
+        case seven
         case eight
         case nine
         case ten
+        
+        mutating func random() {
+            let randomInt = Int.random(in: 1...10)
+            switch randomInt{
+            case 1:
+                self = .one
+            case 2:
+                self = .two
+            case 3:
+                self = .three
+            case 4:
+                self = .four
+            case 5:
+                self = .five
+            case 6:
+                self = .six
+            case 7:
+                self = .seven
+            case 8:
+                self = .eight
+            case 9:
+                self = .nine
+            default:
+                self = .ten
+            }
+        }
     }
     
     struct BackgroundColor {
