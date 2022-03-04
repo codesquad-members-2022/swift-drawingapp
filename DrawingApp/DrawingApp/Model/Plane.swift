@@ -8,22 +8,22 @@
 import Foundation
 
 struct Plane {
-    private var items: [Rectangle] = []
+    private var items = [String: Rectangle]()
     
     var countItems: Int {
         return self.items.count
     }
     
-    subscript(index: Int) -> Rectangle {
-        return self.items[index]
+    subscript(id id: String) -> Rectangle? {
+        return self.items[id]
     }
     
     func findItemBy(point: Point) -> Rectangle? {
         // TODO: 해당 point 를 포함하는 사각형을 찾는 로직 구현
-        return self.items.first
+        return nil
     }
     
     mutating func append(item: Rectangle) {
-        self.items.append(item)
+        self.items.updateValue(item, forKey: item.id)
     }
 }
