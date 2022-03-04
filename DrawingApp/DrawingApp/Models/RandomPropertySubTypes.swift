@@ -28,13 +28,13 @@ typealias RectPoint = Rect.Point
 
 extension Rect.Size: CustomStringConvertible {
     var description: String {
-        "W\(self.width), H\(self.height)"
+        "W\(width), H\(height)"
     }
 }
 
 extension Rect.Point: CustomStringConvertible {
     var description: String {
-        "X:\(self.x),Y:\(self.y)"
+        "X:\(x),Y:\(y)"
     }
 }
 
@@ -50,6 +50,6 @@ struct RectRGBColor {
 
 extension RectRGBColor: CustomStringConvertible {
     var description: String {
-        "R:\(self.r), G:\(self.g), B:\(self.b)"
+        "R:\(r), G:\(g), B:\(b)"
     }
 }
