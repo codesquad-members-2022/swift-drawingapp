@@ -3,14 +3,16 @@ import UIKit
 
 class CanvasView: UIView{
     
+    private var viewController: ModelMutable?
     private (set) var generatingButton: UIButton = UIButton()
-    private var selectedRectangleView: UIView?
+    private (set) var selectedRectangleView: UIView?
     
-    init(frame: CGRect, backGroundColor: UIColor, buttonActionClosure: @escaping ()->Void) {
+    init(frame: CGRect, backGroundColor: UIColor, buttonActionClosure: @escaping ()->Void, viewController: ModelMutable) {
         super.init(frame: frame)
         self.backgroundColor = backGroundColor
         setGeneratingButton()
         setGeneratingButtonAction(buttonActionClosure: buttonActionClosure)
+        self.viewController = viewController
     }
         
     required init?(coder: NSCoder) {
@@ -23,6 +25,13 @@ class CanvasView: UIView{
         }
         subView.layer.borderWidth = 2
         self.selectedRectangleView = subView
+    }
+    
+    func changeSelectedRectangleOpacity(opacity: Int){
+        guard let viewController = self.viewController else { return }
+        guard let selectedRectangleView = selectedRectangleView else { return }
+        selectedRectangleView.alpha = CGFloat(opacity) / 10
+        viewController.changeRectangleModelAlpha(opacity: opacity)
     }
     
     private func setGeneratingButton(){
