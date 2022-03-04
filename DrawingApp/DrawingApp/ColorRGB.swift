@@ -7,10 +7,13 @@
 
 import Foundation
 
-struct RectangleRGB{
+struct ColorRGB{
     private var r: Int
     private var g: Int
     private var b: Int
+    private var hexRGB: String{
+        return String(format:"%02X", r) + String(format:"%02X", g) + String(format:"%02X", b)
+    }
     
     init(r: Int, g: Int, b: Int) {
         self.r = r
@@ -31,8 +34,8 @@ struct RectangleRGB{
     }
 }
 
-extension RectangleRGB: CustomStringConvertible{
+extension ColorRGB: CustomStringConvertible{
     var description: String {
-        return "R:\(r), G:\(g), B:\(b)"
+        return "#\(hexRGB)"
     }
 }
