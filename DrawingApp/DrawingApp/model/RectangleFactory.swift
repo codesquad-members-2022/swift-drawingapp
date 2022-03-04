@@ -46,14 +46,14 @@ class RectangleFactory{
         let point = ViewPoint(x: x, y: y)
         let size = ViewSize(width: 150, height: 120)
         let rectangle = Rectangle(uniqueId: uniqueId, color: color, point: point, size: size, alpha: 1.0)
-        drawingMessage.addRectangleToPlane(rectangle: rectangle)
+        drawingMessage.randomRectangle(rectangle: rectangle)
     }
     
     func makeRandomColor(){
         let r = randomValue(property: .rgbRange)
         let b = randomValue(property: .rgbRange)
         let g = randomValue(property: .rgbRange)
-        drawingMessage.setBackgroundColorRandom(rgb: ColorRGB(r: r, g: g, b: b))
+        drawingMessage.randomRGBColor(rgb: ColorRGB(r: r, g: g, b: b))
     }
 }
 

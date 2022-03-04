@@ -8,6 +8,6 @@
 import Foundation
 
 protocol RectangleFactoryResponse{
-    func addRectangleToPlane(rectangle: Rectangle)
-    func setBackgroundColorRandom(rgb: ColorRGB)
+    func randomRectangle(rectangle: Rectangle)
+    func randomRGBColor(rgb: ColorRGB)
 }
