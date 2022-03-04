@@ -82,7 +82,7 @@ class ViewController: UIViewController, PlaneOutput {
     }
     
     func draw(to rectangle: Rectangle) {
-        let drawView = DrawingViewFactory.make(to: rectangle)
+        let drawView = DrawingViewFactory.make(rectangle: rectangle)
         self.drawingBoard.addSubview(drawView)
         self.rectangleViews[rectangle.id] = drawView
     }

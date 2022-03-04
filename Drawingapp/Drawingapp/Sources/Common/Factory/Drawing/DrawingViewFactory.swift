@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class DrawingViewFactory {
-    static func make(to rectangle: Rectangle) -> RectangleView {
+    static func make(rectangle: Rectangle) -> RectangleView {
         let rectangleView = RectangleView()
         rectangleView.update(color: rectangle.color)
         rectangleView.update(point: rectangle.point)
