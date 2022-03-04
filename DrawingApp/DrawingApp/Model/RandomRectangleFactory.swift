@@ -14,7 +14,7 @@ class RandomRectangleFactory {
     }
     
     func generateRandomSize() -> Size {
-        let validRange = (Size.Bound.lowwer...Size.Bound.upper)
+        let validRange = (Size.Range.lower...Size.Range.upper)
         
         let randomWidth = round(Double.random(in: validRange))
         let randomHeight = round(Double.random(in: validRange))
@@ -23,7 +23,7 @@ class RandomRectangleFactory {
     }
     
     func generateRandomPoint() -> Point {
-        let validRange = (Point.Bound.lowwer...Point.Bound.upper)
+        let validRange = (Point.Range.lower...Point.Range.upper)
         
         let randomX = round(Double.random(in: validRange))
         let randomY = round(Double.random(in: validRange))
@@ -32,7 +32,7 @@ class RandomRectangleFactory {
     }
     
     func generateRandomColor() -> Color {
-        let validRange = (Color.Bound.lowwer...Color.Bound.upper)
+        let validRange = (Color.Range.lower...Color.Range.upper)
         
         let randomRed = round(Double.random(in: validRange))
         let randomGreen = round(Double.random(in: validRange))
