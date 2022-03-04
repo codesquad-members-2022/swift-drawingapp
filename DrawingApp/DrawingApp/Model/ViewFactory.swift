@@ -13,21 +13,22 @@ class ViewFactory {
         let point = rectangle.point
         let size = rectangle.size
         let backgroundColor = rectangle.backgroundColor
-        let convertedColorValue = ViewFactory.convertColorValueToCGFloat(r: backgroundColor.r, g: backgroundColor.g, b: backgroundColor.b)
+        let convertedColorValue = ViewFactory.convertColorValueToUIColor(r: backgroundColor.r, g: backgroundColor.g, b: backgroundColor.b)
         let alpha = CGFloat(rectangle.alpha.value)
         
         let newView = UIView(frame: CGRect(x: point.x, y: point.y, width: size.width, height: size.height))
-        newView.backgroundColor = UIColor(red: convertedColorValue.r, green: convertedColorValue.g, blue: convertedColorValue.b, alpha: alpha)
+        newView.alpha = alpha
+        newView.backgroundColor = convertedColorValue
         
         return newView
     }
     
-    private static func convertColorValueToCGFloat(r: Double, g: Double, b: Double) -> (r: CGFloat, g: CGFloat, b: CGFloat) {
+    private static func convertColorValueToUIColor(r: Double, g: Double, b: Double) -> UIColor {
         
         let convertedR = r/Double(255)
         let convertedG = g/Double(255)
         let convertedB = b/Double(255)
         
-        return (convertedR, convertedG, convertedB)
+        return UIColor(red: convertedR, green: convertedG, blue: convertedB, alpha: 1.0)
     }
 }
