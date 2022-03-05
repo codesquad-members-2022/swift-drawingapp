@@ -6,9 +6,7 @@ class ViewController: UIViewController{
     private var logger: Logger = Logger()
     private var canvasView: CanvasView?
     private var stylerView: StylerView?
-    private var rectangleFactory: RectangleFactory = RectangleFactory()
     private var plane: Plane = Plane()
-    var gestureRecognizer = UITapGestureRecognizer()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,8 +21,9 @@ class ViewController: UIViewController{
     
     private func setGestureRecognizer(){
         guard let canvasView = self.canvasView else { return }
-        self.gestureRecognizer.delegate = self
-        canvasView.addGestureRecognizer(self.gestureRecognizer)
+        let gestureRecognizer = UITapGestureRecognizer()
+        gestureRecognizer.delegate = self
+        canvasView.addGestureRecognizer(gestureRecognizer)
     }
     
     private func setCanvasView(){
@@ -55,7 +54,7 @@ class ViewController: UIViewController{
     
     func drawRectangle(){
         guard let canvasView = self.canvasView else { return }
-        let rectangle = rectangleFactory.createRenctangle(maxX: canvasView.bounds.maxX - 50,
+        let rectangle = RectangleFactory.createRenctangle(maxX: canvasView.bounds.maxX - 50,
                                                           maxY: canvasView.bounds.maxY - 250,
                                                           minWidth: 150,
                                                           minHeight: 150,
