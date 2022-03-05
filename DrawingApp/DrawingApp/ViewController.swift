@@ -76,19 +76,19 @@ class ViewController: UIViewController {
         guard let touchedRectangle = plane.getRectangle(id: touchedView.id) else {
             return
         }
-        updateBackgroundButton(with: touchedRectangle)
-        updateAlphaSlider(with: touchedRectangle)
+        updateBackgroundButton(color: touchedRectangle.backgroundColor, alpha: touchedRectangle.alpha)
+        updateAlphaSlider(alpha: touchedRectangle.alpha)
         
     }
     
-    private func updateBackgroundButton(with rectangle: Rectangle) {
-        backgroundButton.setTitle(rectangle.backgroundColor.hexCode, for: .normal)
-        let buttonBackgroundColor = UIColor(red: rectangle.backgroundColor.r/255, green: rectangle.backgroundColor.g/255, blue: rectangle.backgroundColor.b/255, alpha: rectangle.alpha.value)
+    private func updateBackgroundButton(color: BackgroundColor, alpha: Alpha) {
+        backgroundButton.setTitle(color.hexCode, for: .normal)
+        let buttonBackgroundColor = UIColor(red: color.r/255, green: color.g/255, blue: color.b/255, alpha: alpha.value)
         backgroundButton.backgroundColor = buttonBackgroundColor
     }
     
-    private func updateAlphaSlider(with rectangle: Rectangle) {
-        alphaSlider.setValue(Float(rectangle.alpha.value), animated: true)
+    private func updateAlphaSlider(alpha: Alpha) {
+        alphaSlider.setValue(Float(alpha.value), animated: true)
     }
 
 }
