@@ -145,8 +145,14 @@ extension MainViewController:UIGestureRecognizerDelegate {
 //슬라이더를 움직일때 마다 현재 클릭한 사각형의 alpha값을 바꾼다.
 extension MainViewController:DetailViewDelgate {
     func sliderViewEndEditing(sender: UISlider) {
-        let currentSliderValue = sender.value
-        self.rectangleView.selectedView.alpha = CGFloat(currentSliderValue)
+        let currentSliderValue = sender.value                                           //silder에서 넘어온 값
+        
+        let currentRectangle = plane.selectedRectangle                                   //현재 선택한 사각형 모델
+        let currentRectangleView = rectangleView.selectedView                            //현재 선택한 사각형 뷰
+        
+        currentRectangle?.alpha = Alpha(sender.value)                                    //모델의 값을 바꾼다
+        currentRectangleView.alpha = CGFloat(currentRectangle?.alpha.value ?? 0.0)       //바꾼 모델의 값을 View에 적용시킨다.
+        
         self.detailView.alphaLabel.text = "투명도 \(currentSliderValue)"
     }
     
