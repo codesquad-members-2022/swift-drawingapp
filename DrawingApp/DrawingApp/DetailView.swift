@@ -19,7 +19,7 @@ class DetailView: UIView {
     }
     
     //배경색 rgb정보
-    var backgroundColorIButton:UIButton {
+    var backgroundColorButton:UIButton {
         let button = UIButton(frame: CGRect(x: 20, y: 70, width: 150, height: 50))
         button.setTitle("########", for: .normal)
         button.layer.cornerRadius = 10
@@ -75,7 +75,7 @@ class DetailView: UIView {
     
     private func setupView() {
         self.backgroundColor = .secondarySystemBackground
-        [backgroundColorLabel, backgroundColorIButton, alphaLabel, alphaSlider].forEach {
+        [backgroundColorLabel, backgroundColorButton, alphaLabel, alphaSlider].forEach {
             self.addSubview($0)
         }
         
