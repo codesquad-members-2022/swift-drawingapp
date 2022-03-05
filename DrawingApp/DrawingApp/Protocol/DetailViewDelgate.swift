@@ -9,5 +9,5 @@ import UIKit
 
 protocol DetailViewDelgate:AnyObject {
     func sliderViewEndEditing(sender:UISlider)
-    func changeColor()
+    func colorButtonTouched(sender:UIButton)
 }

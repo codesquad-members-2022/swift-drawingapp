@@ -8,9 +8,9 @@
 final class RGBFactory {
     
     static func makeRandomRGB() -> RGB {
-        let randomRed = Double.random(in: RGB.minValue...RGB.maxValue)
-        let randomGreen = Double.random(in: RGB.minValue...RGB.maxValue)
-        let randomBlue = Double.random(in: RGB.minValue...RGB.maxValue)
+        let randomRed = Int.random(in: RGB.minValue...RGB.maxValue)
+        let randomGreen = Int.random(in: RGB.minValue...RGB.maxValue)
+        let randomBlue = Int.random(in: RGB.minValue...RGB.maxValue)
         
         return RGB(red: randomRed, green: randomGreen, blue: randomBlue)
     }

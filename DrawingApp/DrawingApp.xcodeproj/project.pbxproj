@@ -142,9 +142,8 @@
 			isa = PBXGroup;
 			children = (
 				8D6907FC27CCBEF100F78A51 /* MainViewController.swift */,
-				8D5DF31B27D1A88900F5E9C5 /* DetailView.swift */,
-				8D5DF31F27D309FB00F5E9C5 /* RectangleView.swift */,
-				8D5DF32127D3107800F5E9C5 /* DetailViewDelgate.swift */,
+				8DBC282927D33CC7007422D6 /* Protocol */,
+				8DBC282827D33CAA007422D6 /* View */,
 				8D5DF31827D0F24C00F5E9C5 /* Model */,
 				8D69084527CE2CBD00F78A51 /* Factory */,
 				8D69084027CE2C9100F78A51 /* ShapeElement */,
@@ -188,6 +187,23 @@
 				8D1E046D27D0AE6D00645A7F /* AlphaFactory.swift */,
 			);
 			path = Factory;
+			sourceTree = "<group>";
+		};
+		8DBC282827D33CAA007422D6 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				8D5DF31B27D1A88900F5E9C5 /* DetailView.swift */,
+				8D5DF31F27D309FB00F5E9C5 /* RectangleView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		8DBC282927D33CC7007422D6 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				8D5DF32127D3107800F5E9C5 /* DetailViewDelgate.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
