@@ -12,13 +12,12 @@ class ViewFactory {
     static func generateRectangleView(of rectangle: Rectangle) -> UIView {
         let point = rectangle.point
         let size = rectangle.size
+        let frame = CGRect(x: point.x, y: point.y, width: size.width, height: size.height)
         let backgroundColor = rectangle.backgroundColor
         let convertedColorValue = ViewFactory.convertColorValueToUIColor(r: backgroundColor.r, g: backgroundColor.g, b: backgroundColor.b)
         let alpha = CGFloat(rectangle.alpha.value)
         
-        let newView = UIView(frame: CGRect(x: point.x, y: point.y, width: size.width, height: size.height))
-        newView.alpha = alpha
-        newView.backgroundColor = convertedColorValue
+        let newView = RectangleView(id: rectangle.id, frame: frame, backgroundColor: convertedColorValue, alpha: alpha)
         
         return newView
     }
