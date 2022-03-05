@@ -76,6 +76,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="alphaSlider" destination="yOx-T9-4KK" id="KfZ-r5-0cc"/>
                         <outlet property="backgroundButton" destination="gRb-3E-jyU" id="OJb-XX-5nK"/>
                         <outlet property="statusView" destination="yWb-7v-xGg" id="DpJ-K5-RVs"/>
                     </connections>
