@@ -9,9 +9,13 @@ import UIKit
 import OSLog
 
 class MainViewController: UIViewController {
-
+    
+    //model
     var plane = Plane()
+    //view
     var detailView = DetailView()
+    var rectangleView = RectangleView()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,8 +95,8 @@ class MainViewController: UIViewController {
             let rect = Rectangle(id: id, origin: point, size: size, backGroundColor: rgb, alpha: alpha)
             let rectView = UIView(rect: rect, rgb: rgb, alpha: alpha)
             
-            self.plane.rectangles.append(rect)
-            self.plane.rectangleViews.append(rectView)
+            self.plane.rectangles.append(rect)                                  //모델에 rectangle을 추가
+            self.rectangleView.views.append(rectView)                           //view에 retangleView를 추가
             
             self.view.addSubview(rectView)
         }
@@ -109,14 +113,19 @@ extension MainViewController:UIGestureRecognizerDelegate {
         
         //터치한 곳의 View의 크기를 비교해서 직사각형의 유무를 파악합니다.
         if touchedView?.frame.size == CGSize(width: 150, height: 120) {
-            self.plane.seletedRectangle.layer.borderWidth = 0.0
+            //기존에 seletedRectanlge이 있다면 테두리를 원상복구 시키고 새롭게 선택된 rectangle의 테두리를 검게 칠합니다.
+            self.rectangleView.selectedView.layer.borderWidth = 0.0
             
             touchedView?.layer.borderWidth = 2.0
             touchedView?.layer.borderColor = UIColor.black.cgColor
-            self.plane.seletedRectangle = touchedView ?? UIView()
+            self.rectangleView.selectedView = touchedView ?? UIView()
+            self.detailView.
+            
+            
+            
         } else {
             
-            self.plane.seletedRectangle.layer.borderWidth = 0.0
+            self.rectangleView.selectedView.layer.borderWidth = 0.0
         }
         
         return true
