@@ -4,8 +4,8 @@ import OSLog
 class ViewController: UIViewController{
     
     private var logger: Logger = Logger()
-    private weak var canvasView: CanvasView?
-    private weak var stylerView: StylerView?
+    private var canvasView: CanvasView?
+    private var stylerView: StylerView?
     private var plane: Plane = Plane()
     
     override func viewDidLoad() {
