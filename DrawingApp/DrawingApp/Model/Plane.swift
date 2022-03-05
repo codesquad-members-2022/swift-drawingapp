@@ -9,13 +9,11 @@ import UIKit
 
 struct Plane {
     
-    var rectangles:[UIView] = []
+    var rectangleViews:[UIView] = []
+    var rectangles:[Rectangle] = []
     var seletedRectangle:UIView = UIView()
     
     var count:Int {
-        self.rectangles.count
+        self.rectangleViews.count
     }
-    
-    
-    
 }
