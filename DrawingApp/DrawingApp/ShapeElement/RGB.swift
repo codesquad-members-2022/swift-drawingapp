@@ -6,27 +6,24 @@
 //
 
 
-final class RGB:CustomStringConvertible{
-    
-    var description: String {
-        "R:\(red), G:\(green), B:\(blue)"
-    }
+final class RGB{
     
     //min과 max는 타입 자체와 관련이 있기 때문에 Static으로 선언했습니다.
-    static let minValue: Double = 0
-    static let maxValue: Double = 255
+    static let minValue: Int = 0
+    static let maxValue: Int = 255
     
-    private var inputRedValue:Double
-    private var inputGreenValue:Double
-    private var inputBlueValue:Double
+    private var inputRedValue:Int
+    private var inputGreenValue:Int
+    private var inputBlueValue:Int
     
-
-    var red:Double { self.translateInputRGBValue(inputValue: inputRedValue) }
-    var green:Double { self.translateInputRGBValue(inputValue: inputGreenValue) }
-    var blue:Double { self.translateInputRGBValue(inputValue: inputBlueValue) }
+    var red:Int { self.translateInputRGBValue(inputValue: inputRedValue) }
+    var green:Int { self.translateInputRGBValue(inputValue: inputGreenValue) }
+    var blue:Int { self.translateInputRGBValue(inputValue: inputBlueValue) }
+    
+    var hexValue:String  { "#" + String(format:"%02X", red) + String(format:"%02X", green) + String(format:"%02X", blue)  }
     
     
-    init(red:Double,green:Double,blue:Double) {
+    init(red:Int,green:Int,blue:Int) {
         self.inputRedValue = red
         self.inputGreenValue = green
         self.inputBlueValue = blue
@@ -34,7 +31,7 @@ final class RGB:CustomStringConvertible{
     
     
     //가장큰값 maxValue보다 크면 maxValue로 가작 작은값 minValue보다 작으면 minValue를 주도록 했습니다.
-    private func translateInputRGBValue(inputValue:Double) -> Double{
+    private func translateInputRGBValue(inputValue:Int) -> Int{
         
         if inputValue < RGB.minValue {
             return RGB.minValue
@@ -45,6 +42,10 @@ final class RGB:CustomStringConvertible{
         }
         
     }
-    
-    
+}
+
+extension RGB:CustomStringConvertible {
+        var description: String {
+            return "#" + String(format:"%02X", red) + String(format:"%02X", green) + String(format:"%02X", blue)
+    }
 }

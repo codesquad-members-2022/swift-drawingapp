@@ -28,6 +28,7 @@ class DetailView: UIView {
         button.layer.borderWidth = 1.0
         button.layer.borderColor = UIColor.black.cgColor
         button.setTitleColor(.black, for: .normal)
+        button.addTarget(self, action: #selector(touchUpButton), for: .touchUpInside)
         return button
     }()
     
@@ -47,19 +48,11 @@ class DetailView: UIView {
         slider.maximumValue = Alpha.maxValue
         slider.isContinuous = false
         slider.tintColor = .black
-        slider.addTarget(
-            self,
-            action: #selector(sliderValueChange(_ :)),
-            for: .valueChanged
-        )
+        slider.addTarget(self,action: #selector(sliderValueChange), for: .valueChanged )
         return slider
     }()
     
-    //TODO: 값이 바뀌었다는 것을 ViewController에게 알려주자.
-    @objc func sliderValueChange(_ sender:UISlider) {
-        delegate?.sliderViewEndEditing(sender: sender)
-     }
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
@@ -78,6 +71,16 @@ class DetailView: UIView {
             self.addSubview($0)
         }
         
+    }
+    
+    
+    //MARK: -- 값이 바뀌었다는 것을 ViewController에게 알려주자.
+    @objc func sliderValueChange(_ sender:UISlider) {
+        delegate?.sliderViewEndEditing(sender: sender)
+     }
+    
+    @objc func touchUpButton(sender:UIButton) {
+        delegate?.colorButtonTouched(sender:sender)
     }
 }
 

@@ -8,8 +8,6 @@
 import UIKit
 
 class RectangleView {
-    
     var selectedView:UIView = UIView()
     var views:[UIView] = []
-    
 }
