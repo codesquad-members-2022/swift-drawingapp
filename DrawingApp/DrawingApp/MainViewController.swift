@@ -8,22 +8,21 @@
 import UIKit
 import OSLog
 
-class MainViewController: UIViewController {
-    
+class MainViewController: UIViewController{
+
     //model
     var plane = Plane()
     //view
     var detailView = DetailView()
     var rectangleView = RectangleView()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        detailView.delegate = self
         
         configureTapGesture()
         configureDeatailView()
         configureRectangleButton()
-        configureSliderAction()
         
     }
     
@@ -102,23 +101,10 @@ class MainViewController: UIViewController {
         return action
     }
     
-    private func configureSliderAction() {
-        detailView.alphaSlider.addTarget(
-            self,
-            action: #selector(sliderValueChange(_ :)),
-            for: .valueChanged
-        )
-    }
-    
-    
-    //TODO: Change Alpha
-     @objc func sliderValueChange(_ sender:UISlider) {
-         print(" sss ")
-     }
-    
 
 }
 
+//MARK: -- UIGesture 처리
 extension MainViewController:UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         
@@ -132,8 +118,9 @@ extension MainViewController:UIGestureRecognizerDelegate {
             touchedView?.layer.borderWidth = 2.0
             touchedView?.layer.borderColor = UIColor.black.cgColor
             self.rectangleView.selectedView = touchedView ?? UIView()
-                            
-        } else {
+            
+            //detailView를 클릭했을시에도 테두리가 사라지지 않게 하기위해 빈화면크기의 View를 클릭했을 시에만 테두리를 없앱니다.
+        } else if touchedView?.frame.size == CGSize(width: 1180, height: 820){
             self.rectangleView.selectedView.layer.borderWidth = 0.0
         }
         
@@ -141,3 +128,17 @@ extension MainViewController:UIGestureRecognizerDelegate {
     }
 }
 
+//MARK: -- Delegate메소드 실제 구현
+
+//슬라이더를 움직일때 마다 현재 클릭한 사각형의 alpha값을 바꾼다.
+extension MainViewController:DetailViewDelgate {
+    func changeAlpha(sender: UISlider) {
+        let currentSliderValue = sender.value
+        self.rectangleView.selectedView.alpha = CGFloat(currentSliderValue)
+        self.detailView.alphaLabel.text = "투명도 \(currentSliderValue)"
+    }
+    
+    func changeColor() {
+        print("Change Color Label!")
+    }
+}

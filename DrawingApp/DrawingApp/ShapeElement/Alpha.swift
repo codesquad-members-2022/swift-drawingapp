@@ -5,11 +5,8 @@
 //  Created by 박진섭 on 2022/03/01.
 //
 
-final class Alpha:CustomStringConvertible {
-    
-    var description: String {
-        "Alpha: \(alpha)"
-    }
+final class Alpha {
+
     
     //최소 최대값은 고정되어 있어야 하기에 let으로 선언했습니다.
     //Alpha의 min과 max는 타입 자체와 관련이 있기 때문에 Static으로 선언했습니다.
@@ -19,7 +16,7 @@ final class Alpha:CustomStringConvertible {
     var inputAlphaValue:Float
     
     //투명도는 0부터 10사이가 들어와야하므로 0보다 작은 수가 들어오면 0으로 10보다 큰 수가 들어오면 10으로 변환한다.
-    var alpha:Float {
+    var value:Float {
         translateInputAlphaValue()
     }
     
