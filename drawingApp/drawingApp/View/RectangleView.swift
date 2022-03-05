@@ -31,11 +31,11 @@ class RectangleView: UIView {
     
     
     func updateColor(newColor : Color) {
-        self.backgroundColor = UIColor(red: newColor.red, green: newColor.green, blue: newColor.blue, alpha: self.alpha)
+        self.backgroundColor = UIColor(red: newColor.red.scaleRGB, green: newColor.green.scaleRGB, blue: newColor.blue.scaleRGB, alpha: self.alpha)
     }
     
     func updateAlpha(newAlpha : Alpha) {
-        self.alpha = Double(newAlpha.rawValue)/10.0
+        self.alpha = Double(newAlpha.rawValue).scaleAlhpa
     }
     
     

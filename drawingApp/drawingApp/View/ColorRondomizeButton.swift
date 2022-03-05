@@ -7,8 +7,14 @@
 
 import UIKit
 
+protocol ColorRondomizeButtonDelegate {
+    func generateRandomColor(sender: ColorRondomizeButton)
+}
+
 class ColorRondomizeButton: UIButton {
 
+    var delegate : ColorRondomizeButtonDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -28,6 +34,6 @@ class ColorRondomizeButton: UIButton {
     }
     
     @objc func didTouchButton(){
-        print("touched !")
+        delegate?.generateRandomColor(sender: self)
     }
 }
