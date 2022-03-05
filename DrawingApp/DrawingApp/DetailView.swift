@@ -9,6 +9,8 @@ import UIKit
 
 class DetailView: UIView {
     
+    weak var delegate:DetailViewDelgate?
+    
     //배경색
     var backgroundColorLabel:UILabel = {
         let lable = UILabel(frame: CGRect(x: 20, y: 20, width: 200, height: 50))
@@ -45,9 +47,18 @@ class DetailView: UIView {
         slider.maximumValue = Alpha.maxValue
         slider.isContinuous = false
         slider.tintColor = .black
-
+        slider.addTarget(
+            self,
+            action: #selector(sliderValueChange(_ :)),
+            for: .valueChanged
+        )
         return slider
     }()
+    
+    //TODO: 값이 바뀌었다는 것을 ViewController에게 알려주자.
+    @objc func sliderValueChange(_ sender:UISlider) {
+        delegate?.changeAlpha(sender: sender)
+     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -69,3 +80,4 @@ class DetailView: UIView {
         
     }
 }
+
