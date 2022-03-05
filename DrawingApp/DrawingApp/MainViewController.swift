@@ -129,9 +129,11 @@ extension MainViewController:UIGestureRecognizerDelegate {
         return true
     }
     
-    
+    //현재 touch된 view의 id를 비교해서 RGB값을 가져온다.
     private func changeBackgroundButtonTitle(view:UIView?) {
-        let currentBackgroundColor = view?.backgroundColor
+        let currentRectangle = plane.rectangles.first { $0.id.description == view?.accessibilityIdentifier }
+        let currentBackgroundColor = currentRectangle?.backGroundColor.hexValue ?? " "
+        
         self.detailView.backgroundColorButton.setTitle("\(currentBackgroundColor)", for: .normal)
     }
 }
@@ -146,7 +148,16 @@ extension MainViewController:DetailViewDelgate {
         self.detailView.alphaLabel.text = "투명도 \(currentSliderValue)"
     }
     
+    
+    //랜덤한 RGB값을 설정하고 현재 선택된 뷰의 배경색을 변경한다
     func colorButtonTouched(sender:UIButton) {
-        print("Change Color Label!\(sender.titleLabel?.text)")
+        let randomRGB = RGBFactory.makeRandomRGB()
+        let currentRectangle = plane.rectangles.first { $0.id.description == view?.accessibilityIdentifier }    //현재 선택한 뷰의 ID를 가진 모델을 찾는다.
+        
+        currentRectangle?.backGroundColor = randomRGB                                                           //모델의 값을 바꾼다.
+        
+        rectangleView.selectedView.backgroundColor = currentRectangle?.backgroundColor()                        //바꾼 모델의 값을 View에 적용한다.
+        
+        sender.setTitle("\(randomRGB.hexValue)", for: .normal)                                                  //text를 바꾼다.
     }
 }

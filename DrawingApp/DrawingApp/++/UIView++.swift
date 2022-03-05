@@ -21,7 +21,7 @@ extension UIView {
         let red = rgb.red
         let green = rgb.green
         let blue = rgb.blue
-
+        
         let alpha = alpha.value
         
         self.init(frame: CGRect(x: x, y: y, width: width, height: height))
