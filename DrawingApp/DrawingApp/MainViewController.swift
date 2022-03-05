@@ -8,7 +8,7 @@
 import UIKit
 import OSLog
 
-class ViewController: UIViewController {
+class MainViewController: UIViewController {
 
     var plane = Plane()
     
@@ -79,7 +79,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController:UIGestureRecognizerDelegate {
+extension MainViewController:UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         
         let locationView = self.view.hitTest(touch.location(in: self.view), with: nil)
