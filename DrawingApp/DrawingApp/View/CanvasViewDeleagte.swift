@@ -1,6 +1,6 @@
 import Foundation
 
-protocol ModelMutable: AnyObject{
+protocol CanvasViewDelegate: AnyObject{
     
     func changeRectangleModelAlpha(opacity: Int)
     func changeRectangleModelColor(rgb: [Double])

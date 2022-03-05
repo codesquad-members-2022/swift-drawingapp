@@ -35,7 +35,7 @@ class ViewController: UIViewController{
         let canvasView = CanvasView(frame: frame,
                                     backGroundColor: .lightGray,
                                     buttonActionClosure: self.createRectangle)
-        canvasView.viewController = self
+        canvasView.delegate = self
         self.canvasView = canvasView
         self.view.addSubview(canvasView)
     }
@@ -47,7 +47,7 @@ class ViewController: UIViewController{
                            width: self.view.frame.width - canvasView.frame.width,
                            height: self.view.frame.height)
         let stylerView = StylerView(frame: frame, backgroundColor: .white)
-        stylerView.viewController = self
+        stylerView.delegate = self
         self.stylerView = stylerView
         self.view.addSubview(stylerView)
     }
@@ -104,7 +104,7 @@ extension ViewController: UIGestureRecognizerDelegate, RectangleFoundDelegate{
     }
 }
 
-extension ViewController: ViewMutable, ModelMutable{
+extension ViewController: CanvasViewDelegate, StylerViewDelegate{
     
     func changeSelectedRecntagleViewColor(rgb: [Double]){
         guard let canvasView = self.canvasView else { return }

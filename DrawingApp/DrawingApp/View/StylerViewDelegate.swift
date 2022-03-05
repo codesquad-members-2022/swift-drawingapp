@@ -1,7 +1,7 @@
 import Foundation
 
 
-protocol ViewMutable: AnyObject{
+protocol StylerViewDelegate: AnyObject{
     func changeSelectedRectangleViewAlpha(opacity: Int)
     func changeSelectedRecntagleViewColor(rgb: [Double])
 }
