@@ -36,14 +36,7 @@ extension Color {
         let rgb:Int = (Int)(self.red)<<16 | (Int)(self.green)<<8 | (Int)(self.blue)<<0
         return String(format:"#%06x", rgb)
     }
-    
-    var randomize : Color {
-        let red = Double.random(in: 0..<255)
-        let green = Double.random(in: 0..<255)
-        let blue = Double.random(in: 0..<255)
-        return Color(r: red, g: green, b: blue)
-    }
-    
+        
    static func getRandomColor() -> Color {
         let red = Double.random(in: 0..<255)
         let green = Double.random(in: 0..<255)

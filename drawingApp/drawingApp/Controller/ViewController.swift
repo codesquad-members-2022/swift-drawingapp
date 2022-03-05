@@ -9,11 +9,14 @@ import UIKit
 import OSLog
 class ViewController: UIViewController {
     
-    
+    //Model
     private var plane = Plane()
+    
+    //Views
     private let rectangleGenerationButton = RectangleGenerationButton()
     private let panel = PanelView()
     
+    //View Constants
     let screenWdith = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
     let buttonWidth: Double = 130
@@ -22,28 +25,41 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(rectangleGenerationButton)
-        view.addSubview(panel)
-        
-        //rectangleGenerationButton 의 delegate 프로퍼티 에서 옵셔녈로 설정했던 프로토콜 타입을 현재 뷰컨트롤러로 설정해준다. (이때 뷰컨트롤러는 해당프로토콜을 채택하고있어야함).
-        rectangleGenerationButton.delegate = self
-        plane.delegate = self
-        //panel 안에 선언되어 있는 버튼의 델리게이트 선언.
-        if let colorRondomizeButton = panel.viewWithTag(1) as? ColorRondomizeButton {
-            colorRondomizeButton.delegate = self
-        }
-        let tapGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapTriggered))
-        tapGuestureRecognizer.numberOfTapsRequired = 1
-        self.view.addGestureRecognizer(tapGuestureRecognizer)
-        
+        setupSubViews()
+        setupGestureRecognizer()
+        setupDelegates()
     }
     
     override func viewWillLayoutSubviews() {
+        setupLayout()
+    }
+    
+    
+    func setupSubViews() {
+        view.addSubview(rectangleGenerationButton)
+        view.addSubview(panel)
+    }
+
+    func setupGestureRecognizer() {
+        let tapGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapTriggered))
+        tapGuestureRecognizer.numberOfTapsRequired = 1
+        self.view.addGestureRecognizer(tapGuestureRecognizer)
+    }
+    
+    func setupDelegates(){
+        rectangleGenerationButton.delegate = self
+        plane.delegate = self
+        if let colorRondomizeButton = panel.viewWithTag(1) as? ColorRondomizeButton {
+            colorRondomizeButton.delegate = self
+        }
+    }
+    
+    func setupLayout(){
         rectangleGenerationButton.frame = CGRect(x: (screenWdith - panelWidth)/2 - (buttonWidth/2), y: screenHeight - buttonHeight, width: buttonWidth, height: buttonHeight)
         panel.frame = CGRect(x: screenWdith - panelWidth, y: view.safeAreaInsets.top, width: panelWidth, height: screenHeight)
     }
     
-    //MARK: 탭한 좌표 에 사각형이 있는지 확인 하고 있을시 사각형 하일라이트. 
+    //MARK: 탭 제스쳐 메소드
     @objc func tapTriggered(sender: UITapGestureRecognizer) {
         let point = sender.location(in: self.view)
         let detectedView = view.hitTest(sender.location(in: self.view), with: nil) as? RectangleView
@@ -58,7 +74,7 @@ class ViewController: UIViewController {
         }
     }
     
-    // MARK: 선택한 사각형뷰에 보더 그려주기.
+    // MARK: 선택한 사각형뷰 Highlight 메소드.
     func selectHighlight(at detectedView: RectangleView?, on presentedRectView : [RectangleView]) {
         if let rectView = detectedView {
             os_log(.debug,"사각형 뷰정보 : \(rectView)")
@@ -98,7 +114,7 @@ class ViewController: UIViewController {
     }
 
 
-    //MARK: Panel 의 colorRondomizeButton 에 선택된 RectangleView 이 무슨색인지 hex-code 로 보여준다.
+    //MARK: Panel 의 colorRondomizeButton 에 선택된 RectangleView 이 무슨색인지 hex-code 로 보여주기.
     func writeColorInfo(condition: (Rectangle?) -> (Bool)) {
         for i in 0..<plane.numberOfRect{
             if condition(plane[i]) {
@@ -109,7 +125,7 @@ class ViewController: UIViewController {
         }
     }
     
-    //MARK: 선택 되어 있는 RectangleView 의 색상을 업데이트한다.
+    //MARK: 선택 되어 있는 RectangleView 의 색상을 업데이트하기.
     func updateRectangleViewColor(to color: Color?) {
         let presentedRectViews = view.subviews.compactMap{$0 as? RectangleView}
         for rectView in presentedRectViews {
@@ -121,7 +137,6 @@ class ViewController: UIViewController {
 }
 
 //MARK: Delegates
-
 extension ViewController : GenerateRectangleButtonDelegate {
     //사각형 생성 버튼이 눌리면 함수 정의
     func didTapGenerateButton() {
