@@ -7,7 +7,6 @@
 
 final class Alpha {
 
-    
     //최소 최대값은 고정되어 있어야 하기에 let으로 선언했습니다.
     //Alpha의 min과 max는 타입 자체와 관련이 있기 때문에 Static으로 선언했습니다.
     static let minValue:Float = 0
