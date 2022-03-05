@@ -53,7 +53,23 @@ class ViewController: UIViewController {
         drawableAreaView.clipsToBounds = true
         
         self.drawableAreaView = drawableAreaView
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewDidTouched(sender:)))
+        drawableAreaView.addGestureRecognizer(tapGesture)
+        
         self.view.addSubview(drawableAreaView)
+    }
+    
+    @objc func viewDidTouched(sender: UITapGestureRecognizer) {
+        drawableAreaView.subviews.forEach { rectangleView in
+            rectangleView.layer.borderWidth = 0
+        }
+        guard let touchedView = self.view.hitTest(sender.location(in: drawableAreaView), with: nil) as? RectangleView else {
+            return
+        }
+        
+        touchedView.layer.borderWidth = 3
+        touchedView.layer.borderColor = UIColor.black.cgColor
     }
 
 }
