@@ -18,10 +18,13 @@ class Plane {
         return rectangles[index]
     }
     
-    public func isRectangleExist(in point: Point) -> Bool {
-        return rectangles.filter { rectangle in
-            rectangle.hasSamePoint(point)
-        }.count != 0
+    public func getRectangle(id: ID) -> Rectangle? {
+        for rectangle in rectangles {
+            if rectangle.id == id {
+                return rectangle
+            }
+        }
+        return nil
     }
     
     public func addNewRectangle(in frame: (Double, Double)) {

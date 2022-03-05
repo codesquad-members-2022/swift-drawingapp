@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ID {
+struct ID: Equatable {
     let description: String
     
     init?(with id: String) {
