@@ -33,7 +33,7 @@ class ViewController: UIViewController{
                            height: self.view.frame.height)
         let canvasView = CanvasView(frame: frame,
                                     backGroundColor: .lightGray,
-                                    buttonActionClosure: self.drawRectangle,
+                                    buttonActionClosure: self.createRectangle,
                                     viewController: self)
         self.canvasView = canvasView
         self.view.addSubview(canvasView)
@@ -52,7 +52,7 @@ class ViewController: UIViewController{
         self.view.addSubview(stylerView)
     }
     
-    func drawRectangle(){
+    func createRectangle(){
         guard let canvasView = self.canvasView else { return }
         let rectangle = RectangleFactory.createRenctangle(maxX: canvasView.bounds.maxX - 50,
                                                           maxY: canvasView.bounds.maxY - 250,
