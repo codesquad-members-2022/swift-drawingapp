@@ -8,6 +8,6 @@
 import UIKit
 
 protocol DetailViewDelgate:AnyObject {
-    func changeAlpha(sender:UISlider)
+    func sliderViewEndEditing(sender:UISlider)
     func changeColor()
 }
