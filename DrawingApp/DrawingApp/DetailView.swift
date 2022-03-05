@@ -57,7 +57,7 @@ class DetailView: UIView {
     
     //TODO: 값이 바뀌었다는 것을 ViewController에게 알려주자.
     @objc func sliderValueChange(_ sender:UISlider) {
-        delegate?.changeAlpha(sender: sender)
+        delegate?.sliderViewEndEditing(sender: sender)
      }
     
     override init(frame: CGRect) {

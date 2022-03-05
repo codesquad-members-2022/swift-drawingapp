@@ -132,7 +132,7 @@ extension MainViewController:UIGestureRecognizerDelegate {
 
 //슬라이더를 움직일때 마다 현재 클릭한 사각형의 alpha값을 바꾼다.
 extension MainViewController:DetailViewDelgate {
-    func changeAlpha(sender: UISlider) {
+    func sliderViewEndEditing(sender: UISlider) {
         let currentSliderValue = sender.value
         self.rectangleView.selectedView.alpha = CGFloat(currentSliderValue)
         self.detailView.alphaLabel.text = "투명도 \(currentSliderValue)"
