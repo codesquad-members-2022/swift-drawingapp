@@ -14,8 +14,10 @@ struct Plane:CustomStringConvertible{
     weak var delegate: PlaneDelegate?
     
     mutating func addRectangle(_ rectangle: Rectangle){
+        guard let delegate = self.delegate else { return }
         self.rectangles[rectangle.id] = rectangle
         self.rectangleIndex.append(rectangle.id)
+        delegate.addingRectangleCompleted(rectangle: rectangle)
     }
     
     mutating func selectRectangle(id: Rectangle.Id){

@@ -7,11 +7,11 @@ class CanvasView: UIView{
     private (set) var generatingButton: UIButton = UIButton()
     private (set) var selectedRectangleView: UIView?
     
-    init(frame: CGRect, backGroundColor: UIColor, buttonActionClosure: @escaping ()->Void) {
+    init(frame: CGRect, backGroundColor: UIColor) {
         super.init(frame: frame)
         self.backgroundColor = backGroundColor
         setGeneratingButton()
-        setGeneratingButtonAction(buttonActionClosure: buttonActionClosure)
+        setGeneratingButtonAction()
     }
         
     required init?(coder: NSCoder) {
@@ -23,7 +23,6 @@ class CanvasView: UIView{
            let viewController = self.delegate {
             selectedRectangleView.layer.borderWidth = 0
             self.selectedRectangleView = nil
-            
             viewController.clearModelSelection()
         }
     }
@@ -65,10 +64,17 @@ class CanvasView: UIView{
         self.addSubview(generatingButton)
     }
     
-    private func setGeneratingButtonAction(buttonActionClosure: @escaping ()->Void){
+    private func setGeneratingButtonAction(){
         let buttonAction:UIAction = UIAction(title: ""){ _ in
-            buttonActionClosure() }
+            self.sendCreatingRectangleRequest()
+        }
         self.generatingButton.addAction(buttonAction, for: .touchDown)
+    }
+    
+    private func sendCreatingRectangleRequest(){
+        if let delegate = self.delegate{
+            delegate.creatingRectangleRequested()
+        }
     }
     
     subscript(x: Double, y: Double)-> UIView?{
