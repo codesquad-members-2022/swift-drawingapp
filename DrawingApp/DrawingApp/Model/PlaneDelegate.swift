@@ -1,5 +1,5 @@
 import Foundation
 
 protocol PlaneDelegate: AnyObject{
-    func rectangleModelFound()
+    func addingRectangleCompleted(rectangle: Rectangle)
 }
