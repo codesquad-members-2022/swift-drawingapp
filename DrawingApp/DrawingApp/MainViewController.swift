@@ -19,14 +19,13 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-            
-        configureRectangleButton()
+        
         configureTapGesture()
         configureDeatailView()
-
+        configureRectangleButton()
+        configureSliderAction()
+        
     }
-    
-    
     
     private func configureTapGesture() {
         let tapGesture = UITapGestureRecognizer()
@@ -103,6 +102,20 @@ class MainViewController: UIViewController {
         return action
     }
     
+    private func configureSliderAction() {
+        detailView.alphaSlider.addTarget(
+            self,
+            action: #selector(sliderValueChange(_ :)),
+            for: .valueChanged
+        )
+    }
+    
+    
+    //TODO: Change Alpha
+     @objc func sliderValueChange(_ sender:UISlider) {
+         print(" sss ")
+     }
+    
 
 }
 
@@ -119,12 +132,8 @@ extension MainViewController:UIGestureRecognizerDelegate {
             touchedView?.layer.borderWidth = 2.0
             touchedView?.layer.borderColor = UIColor.black.cgColor
             self.rectangleView.selectedView = touchedView ?? UIView()
-            self.detailView.
-            
-            
-            
+                            
         } else {
-            
             self.rectangleView.selectedView.layer.borderWidth = 0.0
         }
         

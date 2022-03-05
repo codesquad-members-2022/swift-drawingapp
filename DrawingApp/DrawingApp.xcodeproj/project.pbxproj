@@ -15,6 +15,7 @@
 		8D5DF31A27D0F88300F5E9C5 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5DF31927D0F88300F5E9C5 /* Plane.swift */; };
 		8D5DF31C27D1A88900F5E9C5 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5DF31B27D1A88900F5E9C5 /* DetailView.swift */; };
 		8D5DF32027D309FB00F5E9C5 /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5DF31F27D309FB00F5E9C5 /* RectangleView.swift */; };
+		8D5DF32227D3107800F5E9C5 /* DetailViewDelgate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5DF32127D3107800F5E9C5 /* DetailViewDelgate.swift */; };
 		8D6907F927CCBEF100F78A51 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6907F827CCBEF100F78A51 /* AppDelegate.swift */; };
 		8D6907FB27CCBEF100F78A51 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6907FA27CCBEF100F78A51 /* SceneDelegate.swift */; };
 		8D6907FD27CCBEF100F78A51 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6907FC27CCBEF100F78A51 /* MainViewController.swift */; };
@@ -56,6 +57,7 @@
 		8D5DF31927D0F88300F5E9C5 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		8D5DF31B27D1A88900F5E9C5 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		8D5DF31F27D309FB00F5E9C5 /* RectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
+		8D5DF32127D3107800F5E9C5 /* DetailViewDelgate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewDelgate.swift; sourceTree = "<group>"; };
 		8D6907F527CCBEF100F78A51 /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D6907F827CCBEF100F78A51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D6907FA27CCBEF100F78A51 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				8D6907FC27CCBEF100F78A51 /* MainViewController.swift */,
 				8D5DF31F27D309FB00F5E9C5 /* RectangleView.swift */,
 				8D5DF31B27D1A88900F5E9C5 /* DetailView.swift */,
+				8D5DF32127D3107800F5E9C5 /* DetailViewDelgate.swift */,
 				8D5DF31827D0F24C00F5E9C5 /* Model */,
 				8D69084527CE2CBD00F78A51 /* Factory */,
 				8D69084027CE2C9100F78A51 /* ShapeElement */,
@@ -332,6 +335,7 @@
 				8D69084D27CF4D4200F78A51 /* IDFactory.swift in Sources */,
 				8D1E046627D0A30B00645A7F /* SizeFactory.swift in Sources */,
 				8D69082E27CDFDFD00F78A51 /* Rectangle.swift in Sources */,
+				8D5DF32227D3107800F5E9C5 /* DetailViewDelgate.swift in Sources */,
 				8D5DF32027D309FB00F5E9C5 /* RectangleView.swift in Sources */,
 				8D69083D27CE249900F78A51 /* RGB.swift in Sources */,
 				8D5DF31427D0E9D200F5E9C5 /* UIView++.swift in Sources */,
