@@ -11,15 +11,34 @@ import OSLog
 class MainViewController: UIViewController {
 
     var plane = Plane()
+    var detailView = DetailView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
             
         configureRectangleButton()
+        configureTapGesture()
+        configureDeatailView()
+
+    }
+    
+    
+    
+    private func configureTapGesture() {
         let tapGesture = UITapGestureRecognizer()
         tapGesture.delegate = self
         self.view.addGestureRecognizer(tapGesture)
-        
+    }
+    
+    
+    private func configureDeatailView() {
+        detailView.frame = CGRect(
+            x: self.view.frame.maxX - 200,
+            y: 0,
+            width: 200,
+            height: self.view.frame.height
+        )
+        self.view.addSubview(detailView)
     }
     
     
@@ -50,7 +69,7 @@ class MainViewController: UIViewController {
         button.tintColor = .black
         button.frame = CGRect(x: x, y: y, width: width, height: height)
         
-        //터치시 변화를 보여주기 위해 선언함.
+        //사각형 버튼 터치시 변화를 보여주기 위해 선언함.
         button.configurationUpdateHandler = { button in
             var configuration = button.configuration
             configuration?.image = button.isHighlighted ? highlightedImage : squareImage
@@ -70,27 +89,31 @@ class MainViewController: UIViewController {
             let alpha = AlphaFactory.makeRandomAlpha()
             
             let rect = Rectangle(id: id, origin: point, size: size, backGroundColor: rgb, alpha: alpha)
-            let rectOnView = UIView(rect: rect, rgb: rgb, alpha: alpha)
+            let rectView = UIView(rect: rect, rgb: rgb, alpha: alpha)
             
-            self.plane.rectangles.append(rectOnView)
-            self.view.addSubview(rectOnView)
+            self.plane.rectangles.append(rect)
+            self.plane.rectangleViews.append(rectView)
+            
+            self.view.addSubview(rectView)
         }
         return action
     }
+    
+
 }
 
 extension MainViewController:UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         
-        let locationView = self.view.hitTest(touch.location(in: self.view), with: nil)
+        let touchedView = self.view.hitTest(touch.location(in: self.view), with: nil)
         
         //터치한 곳의 View의 크기를 비교해서 직사각형의 유무를 파악합니다.
-        if locationView?.frame.size == CGSize(width: 150, height: 120) {
+        if touchedView?.frame.size == CGSize(width: 150, height: 120) {
             self.plane.seletedRectangle.layer.borderWidth = 0.0
             
-            locationView?.layer.borderWidth = 1.0
-            locationView?.layer.borderColor = UIColor.black.cgColor
-            self.plane.seletedRectangle = locationView ?? UIView()
+            touchedView?.layer.borderWidth = 2.0
+            touchedView?.layer.borderColor = UIColor.black.cgColor
+            self.plane.seletedRectangle = touchedView ?? UIView()
         } else {
             
             self.plane.seletedRectangle.layer.borderWidth = 0.0
