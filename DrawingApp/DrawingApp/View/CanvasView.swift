@@ -3,16 +3,15 @@ import UIKit
 
 class CanvasView: UIView{
     
-    private var viewController: ModelMutable?
+    weak var viewController: ModelMutable?
     private (set) var generatingButton: UIButton = UIButton()
     private (set) var selectedRectangleView: UIView?
     
-    init(frame: CGRect, backGroundColor: UIColor, buttonActionClosure: @escaping ()->Void, viewController: ModelMutable) {
+    init(frame: CGRect, backGroundColor: UIColor, buttonActionClosure: @escaping ()->Void) {
         super.init(frame: frame)
         self.backgroundColor = backGroundColor
         setGeneratingButton()
         setGeneratingButtonAction(buttonActionClosure: buttonActionClosure)
-        self.viewController = viewController
     }
         
     required init?(coder: NSCoder) {

@@ -4,8 +4,8 @@ import OSLog
 class ViewController: UIViewController{
     
     private var logger: Logger = Logger()
-    private var canvasView: CanvasView?
-    private var stylerView: StylerView?
+    private weak var canvasView: CanvasView?
+    private weak var stylerView: StylerView?
     private var plane: Plane = Plane()
     
     override func viewDidLoad() {
@@ -24,6 +24,7 @@ class ViewController: UIViewController{
         let gestureRecognizer = UITapGestureRecognizer()
         gestureRecognizer.delegate = self
         canvasView.addGestureRecognizer(gestureRecognizer)
+        
     }
     
     private func setCanvasView(){
@@ -33,8 +34,8 @@ class ViewController: UIViewController{
                            height: self.view.frame.height)
         let canvasView = CanvasView(frame: frame,
                                     backGroundColor: .lightGray,
-                                    buttonActionClosure: self.createRectangle,
-                                    viewController: self)
+                                    buttonActionClosure: self.createRectangle)
+        canvasView.viewController = self
         self.canvasView = canvasView
         self.view.addSubview(canvasView)
     }
@@ -45,9 +46,8 @@ class ViewController: UIViewController{
                            y: self.view.frame.minY,
                            width: self.view.frame.width - canvasView.frame.width,
                            height: self.view.frame.height)
-        let stylerView = StylerView(frame: frame,
-                                    backgroundColor: .white,
-                                    viewController: self)
+        let stylerView = StylerView(frame: frame, backgroundColor: .white)
+        stylerView.viewController = self
         self.stylerView = stylerView
         self.view.addSubview(stylerView)
     }
@@ -74,7 +74,7 @@ class ViewController: UIViewController{
     }
 }
 
-extension ViewController: UIGestureRecognizerDelegate{
+extension ViewController: UIGestureRecognizerDelegate, RectangleFoundDelegate{
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         
@@ -97,6 +97,10 @@ extension ViewController: UIGestureRecognizerDelegate{
         self.plane.selectRectangle(id: rectangle.id)
         
         return true
+    }
+    
+    func rectangleModelFound() {
+        
     }
 }
 
