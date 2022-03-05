@@ -25,7 +25,7 @@ extension UIView {
         let alpha = alpha.alpha
         
         self.init(frame: CGRect(x: x, y: y, width: width, height: height))
-        self.backgroundColor = UIColor(red: red / 255, green: green / 255, blue: blue / 255, alpha: alpha)
+        self.backgroundColor = UIColor(red: red / 255, green: green / 255, blue: blue / 255, alpha: CGFloat(alpha))
         self.accessibilityIdentifier = id
         
     }
