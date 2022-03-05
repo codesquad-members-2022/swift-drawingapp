@@ -3,7 +3,7 @@ import UIKit
 
 class CanvasView: UIView{
     
-    weak var viewController: ModelMutable?
+    weak var delegate: CanvasViewDelegate?
     private (set) var generatingButton: UIButton = UIButton()
     private (set) var selectedRectangleView: UIView?
     
@@ -20,7 +20,7 @@ class CanvasView: UIView{
     
     func cancelSelection(){
         if let selectedRectangleView = self.selectedRectangleView,
-           let viewController = self.viewController {
+           let viewController = self.delegate {
             selectedRectangleView.layer.borderWidth = 0
             self.selectedRectangleView = nil
             
@@ -37,7 +37,7 @@ class CanvasView: UIView{
     }
     
     func changeSelectedRectangleOpacity(opacity: Int){
-        guard let viewController = self.viewController else { return }
+        guard let viewController = self.delegate else { return }
         guard let selectedRectangleView = selectedRectangleView else { return }
         selectedRectangleView.alpha = CGFloat(opacity) / 10
         viewController.changeRectangleModelAlpha(opacity: opacity)

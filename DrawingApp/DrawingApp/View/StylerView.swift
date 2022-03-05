@@ -3,7 +3,7 @@ import UIKit
 
 class StylerView: UIView{
     
-    weak var viewController: ViewMutable?
+    weak var delegate: StylerViewDelegate?
     private var rectangleColorTextLabel: UILabel = UILabel()
     private var rectangleColorValueField: UIButton = UIButton()
     private var rectangleAlphaTextLabel: UILabel = UILabel()
@@ -60,7 +60,7 @@ class StylerView: UIView{
                                    blue: CGFloat.random(in: 0...1),
                                    alpha: 1)
             guard let rgb = newColor.cgColor.components else { return }
-            guard let viewController = self.viewController else { return }
+            guard let viewController = self.delegate else { return }
             let newHexString = "#\(String(Int(rgb[0]*255), radix: 16))\(String(Int(rgb[1]*255), radix: 16))\(String(Int(rgb[2]*255), radix: 16))"
             self.rectangleColorValueField.backgroundColor = newColor
             self.rectangleColorValueField.setTitle(newHexString, for: .normal)
@@ -86,7 +86,7 @@ class StylerView: UIView{
     
     private func setAlphaChangeAction(){
         self.rectangleAlphaSlider.addAction(UIAction(title: ""){ _ in
-            if let viewController = self.viewController{
+            if let viewController = self.delegate{
                 viewController.changeSelectedRectangleViewAlpha(opacity: Int(self.rectangleAlphaSlider.value * 10))
             }
         }, for: .valueChanged)
