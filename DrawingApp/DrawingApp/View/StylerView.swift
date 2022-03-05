@@ -3,15 +3,14 @@ import UIKit
 
 class StylerView: UIView{
     
-    private var viewController: ViewMutable?
+    weak var viewController: ViewMutable?
     private var rectangleColorTextLabel: UILabel = UILabel()
     private var rectangleColorValueField: UIButton = UIButton()
     private var rectangleAlphaTextLabel: UILabel = UILabel()
     private var rectangleAlphaSlider: UISlider = UISlider()
     
-    init(frame: CGRect, backgroundColor: UIColor, viewController: ViewMutable){
+    init(frame: CGRect, backgroundColor: UIColor){
         super.init(frame: frame)
-        self.viewController = viewController
         self.backgroundColor = backgroundColor
         setRectangleColorInformationView()
         setColorChangeAction()
