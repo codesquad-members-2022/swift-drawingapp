@@ -12,6 +12,13 @@ struct BackgroundColor {
     let g: Double
     let b: Double
     static let possibleColorValues = 0...255
+    var hexCode: String {
+        let hexR = String(Int(r), radix: 16).uppercased()
+        let hexG = String(Int(g), radix: 16).uppercased()
+        let hexB = String(Int(b), radix: 16).uppercased()
+        
+        return "#\(hexR)\(hexG)\(hexB)"
+    }
     
     init(r: Int, g: Int, b: Int) {
         var colors = [Double(r), Double(g), Double(b)]

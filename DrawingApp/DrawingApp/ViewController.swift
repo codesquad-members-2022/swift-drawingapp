@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     weak var generateRectangleButton: UIButton!
     weak var drawableAreaView: UIView!
     @IBOutlet weak var statusView: UIView!
+    @IBOutlet weak var backgroundButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,6 +71,18 @@ class ViewController: UIViewController {
         
         touchedView.layer.borderWidth = 3
         touchedView.layer.borderColor = UIColor.black.cgColor
+        
+        guard let touchedRectangle = plane.getRectangle(id: touchedView.id) else {
+            return
+        }
+        updateBackgroundButton(with: touchedRectangle)
+        
+    }
+    
+    private func updateBackgroundButton(with rectangle: Rectangle) {
+        backgroundButton.setTitle(rectangle.backgroundColor.hexCode, for: .normal)
+        let buttonBackgroundColor = UIColor(red: rectangle.backgroundColor.r/255, green: rectangle.backgroundColor.g/255, blue: rectangle.backgroundColor.b/255, alpha: rectangle.alpha.value)
+        backgroundButton.backgroundColor = buttonBackgroundColor
     }
 
 }
