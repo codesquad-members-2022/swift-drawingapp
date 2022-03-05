@@ -6,12 +6,19 @@ class ViewController: UIViewController{
     private var logger: Logger = Logger()
     private var canvasView: CanvasView?
     private var stylerView: StylerView?
-    private var plane: Plane = Plane()
+    private var plane: Plane?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        initializePlane()
         initializeAllUIViews()
         setGestureRecognizer()
+    }
+    
+    private func initializePlane(){
+        var plane = Plane()
+        plane.delegate = self
+        self.plane = plane
     }
     
     private func initializeAllUIViews(){
@@ -53,6 +60,7 @@ class ViewController: UIViewController{
     }
     
     func createRectangle(){
+        guard var plane = self.plane else { return }
         guard let canvasView = self.canvasView else { return }
         let rectangle = RectangleFactory.createRenctangle(maxX: canvasView.bounds.maxX - 50,
                                                           maxY: canvasView.bounds.maxY - 250,
@@ -74,14 +82,15 @@ class ViewController: UIViewController{
     }
 }
 
-extension ViewController: UIGestureRecognizerDelegate, RectangleFoundDelegate{
+extension ViewController: UIGestureRecognizerDelegate, PlaneDelegate{
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         
         let tappedPoint = touch.location(in: self.canvasView)
+        guard var plane = self.plane else { return false }
         guard let stylerView = self.stylerView else { return false }
         guard let canvasView = self.canvasView else { return false }
-        guard let rectangle = self.plane[tappedPoint.x,tappedPoint.y] else {
+        guard let rectangle = plane[tappedPoint.x,tappedPoint.y] else {
             stylerView.clearRectangleInfo()
             canvasView.cancelSelection()
             return false
@@ -94,7 +103,7 @@ extension ViewController: UIGestureRecognizerDelegate, RectangleFoundDelegate{
         let opacity = rectangle.alpha.opacity
         stylerView.updateRectangleInfo(r: r, g: g, b: b, opacity: opacity)
         canvasView.selectTappedRectangle(subView: rectangleView)
-        self.plane.selectRectangle(id: rectangle.id)
+        plane.selectRectangle(id: rectangle.id)
         
         return true
     }
@@ -120,8 +129,9 @@ extension ViewController: CanvasViewDelegate, StylerViewDelegate{
     
     func changeRectangleModelAlpha(opacity: Int) {
         var opacity = opacity
-        guard let selectedRectangleId = self.plane.selectedRectangleId else { return }
-        guard let rectangle = self.plane[selectedRectangleId] else { return }
+        guard let plane = self.plane else { return }
+        guard let selectedRectangleId = plane.selectedRectangleId else { return }
+        guard let rectangle = plane[selectedRectangleId] else { return }
         if(opacity == 10){
             opacity = opacity - 1
         }
@@ -129,12 +139,14 @@ extension ViewController: CanvasViewDelegate, StylerViewDelegate{
     }
     
     func changeRectangleModelColor(rgb: [Double]) {
-        guard let selectedRectangleId = self.plane.selectedRectangleId else { return }
-        guard let rectangle = self.plane[selectedRectangleId] else { return }
+        guard let plane = self.plane else { return }
+        guard let selectedRectangleId = plane.selectedRectangleId else { return }
+        guard let rectangle = plane[selectedRectangleId] else { return }
         rectangle.backgroundColor = Rectangle.Color(r: rgb[0]*255, g: rgb[1]*255, b: rgb[2]*255)
     }
     
     func clearModelSelection() {
-        self.plane.clearModelSelection()
+        guard var plane = self.plane else { return }
+        plane.clearModelSelection()
     }
 }
