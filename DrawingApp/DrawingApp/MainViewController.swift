@@ -134,7 +134,7 @@ extension MainViewController:UIGestureRecognizerDelegate {
     //현재 touch된 view의 id를 비교해서 RGB값을 가져오고 hex값으로 변환시켜 버튼title에 넣는다.
     private func changeBackgroundButtonTitle(view:UIView?) {
         let currentRectangle = plane.rectangles.first { $0.id.description == view?.accessibilityIdentifier }
-        let currentBackgroundColor = currentRectangle?.backGroundColor.hexValue ?? " "
+        let currentBackgroundColor = currentRectangle?.rgb.hexValue ?? " "
         
         self.detailView.backgroundColorButton.setTitle("\(currentBackgroundColor)", for: .normal)
     }
@@ -160,12 +160,12 @@ extension MainViewController:DetailViewDelgate {
     //랜덤한 RGB값을 설정하고 현재 선택된 뷰의 배경색을 변경한다
     func colorButtonTouched(sender:UIButton) {
         let randomRGB = RGBFactory.makeRandomRGB()
-        let currentRectangle = plane.selectedRectangle                                                          //현재 선택한 사각형 모델
+        guard let currentRectangle = plane.selectedRectangle  else { return }                                   //현재 선택한 사각형 모델
         let currentRectangleView = rectangleView.selectedView                                                   //현재 선택한 사각형 뷰
         
-        currentRectangle?.backGroundColor = randomRGB                                                           //모델의 값을 바꾼다.
+        currentRectangle.rgb = randomRGB                                                                        //모델의 값을 바꾼다.
         
-        currentRectangleView.backgroundColor = currentRectangle?.backgroundColor()                              //바꾼 모델의 값을 View에 적용한다.
+        currentRectangleView.backgroundColor = UIColor(rgb: currentRectangle.rgb, alpha: currentRectangle.alpha)  //바꾼 모델의 값을 View에 적용한다.
         
         sender.setTitle("\(randomRGB.hexValue)", for: .normal)                                                  //text를 바꾼다.
     }

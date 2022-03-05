@@ -11,7 +11,7 @@ class DetailView: UIView {
     
     weak var delegate:DetailViewDelgate?
     
-    //배경색
+    //배경색 label
     var backgroundColorLabel:UILabel = {
         let lable = UILabel(frame: CGRect(x: 20, y: 20, width: 200, height: 50))
         lable.text = "배경색"
