@@ -109,14 +109,16 @@ extension MainViewController:UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         
         let touchedView = self.view.hitTest(touch.location(in: self.view), with: nil)
-        
-        //터치한 곳의 View의 크기를 비교해서 직사각형의 유무를 파악합니다.
-        if touchedView?.frame.size == CGSize(width: 150, height: 120) {
+        //터치한 곳의 View에 사각형의 id가 있다면 사각형입니다.
+        if touchedView?.accessibilityIdentifier != nil {
             //기존에 seletedRectanlge이 있다면 테두리를 원상복구 시키고 새롭게 선택된 rectangle의 테두리를 검게 칠합니다.
             self.rectangleView.selectedView.layer.borderWidth = 0.0
             
             touchedView?.layer.borderWidth = 2.0
             touchedView?.layer.borderColor = UIColor.black.cgColor
+            
+            changeBackgroundButtonTitle(view: touchedView)
+            
             self.rectangleView.selectedView = touchedView ?? UIView()
             
             //detailView를 클릭했을시에도 테두리가 사라지지 않게 하기위해 빈화면크기의 View를 클릭했을 시에만 테두리를 없앱니다.
@@ -125,6 +127,12 @@ extension MainViewController:UIGestureRecognizerDelegate {
         }
         
         return true
+    }
+    
+    
+    private func changeBackgroundButtonTitle(view:UIView?) {
+        let currentBackgroundColor = view?.backgroundColor
+        self.detailView.backgroundColorButton.setTitle("\(currentBackgroundColor)", for: .normal)
     }
 }
 
@@ -138,7 +146,7 @@ extension MainViewController:DetailViewDelgate {
         self.detailView.alphaLabel.text = "투명도 \(currentSliderValue)"
     }
     
-    func changeColor() {
-        print("Change Color Label!")
+    func colorButtonTouched(sender:UIButton) {
+        print("Change Color Label!\(sender.titleLabel?.text)")
     }
 }
