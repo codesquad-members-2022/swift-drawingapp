@@ -28,6 +28,10 @@ class ViewController: UIViewController {
         //rectangleGenerationButton 의 delegate 프로퍼티 에서 옵셔녈로 설정했던 프로토콜 타입을 현재 뷰컨트롤러로 설정해준다. (이때 뷰컨트롤러는 해당프로토콜을 채택하고있어야함).
         rectangleGenerationButton.delegate = self
         plane.delegate = self
+        //panel 안에 선언되어 있는 버튼의 델리게이트 선언.
+        if let colorRondomizeButton = panel.viewWithTag(1) as? ColorRondomizeButton {
+            colorRondomizeButton.delegate = self
+        }
         let tapGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapTriggered))
         tapGuestureRecognizer.numberOfTapsRequired = 1
         self.view.addGestureRecognizer(tapGuestureRecognizer)
@@ -48,6 +52,7 @@ class ViewController: UIViewController {
         if plane.detectRect(x: point.x, y: point.y) {
             selectHighlight(at: detectedView, on: presentedRectViews)
         }
+        
         else {
             dismissSelectHighlight(on: presentedRectViews)
         }
@@ -71,6 +76,7 @@ class ViewController: UIViewController {
     func invertSelectConfiguration (_ rectView: RectangleView){
         if rectView.selected {
             rectView.configure(didSelect: false)
+            resetPanel()
         }else{
             rectView.configure(didSelect: true)
         }
@@ -82,21 +88,40 @@ class ViewController: UIViewController {
             view.configure(didSelect: false)
             view.selected = false
         }
+        resetPanel()
     }
-    
-    // MARK: Panel 의 colorRondomizeButton 에 무슨색인지 hex-code 로 보여주기.
-    func writeInfo(of model: Rectangle?) {
-        if let rectModel = model{
-            let colorRondomizeButton = panel.viewWithTag(1) as! UIButton
-            colorRondomizeButton.setTitle(rectModel.color.tohexString, for: .normal)
+
+    func resetPanel() {
+        if let colorRondomizeButton = panel.viewWithTag(1) as? UIButton {
+            colorRondomizeButton.setTitle("", for: .normal)
         }
-        
+    }
+
+
+    //MARK: Panel 의 colorRondomizeButton 에 선택된 RectangleView 이 무슨색인지 hex-code 로 보여준다.
+    func writeColorInfo(condition: (Rectangle?) -> (Bool)) {
+        for i in 0..<plane.numberOfRect{
+            if condition(plane[i]) {
+                if let colorRondomizeButton = panel.viewWithTag(1) as? UIButton {
+                    colorRondomizeButton.setTitle(plane[i]?.color.tohexString, for: .normal)
+                }
+            }
+        }
     }
     
+    //MARK: 선택 되어 있는 RectangleView 의 색상을 업데이트한다.
+    func updateRectangleViewColor(to color: Color?) {
+        let presentedRectViews = view.subviews.compactMap{$0 as? RectangleView}
+        for rectView in presentedRectViews {
+            if rectView.selected, let newcolor = color {
+                rectView.updateColor(newColor: newcolor)
+            }
+        }
+    }
 }
 
-//RectableView 에서 정의한 delegate.didTapGenerateButton() 은 viewController 의 didTapGenerateButton() 을 호출하게 되고
-//아래 정의된 함수를 실행하게 된다.
+//MARK: Delegates
+
 extension ViewController : GenerateRectangleButtonDelegate {
     //사각형 생성 버튼이 눌리면 함수 정의
     func didTapGenerateButton() {
@@ -121,11 +146,26 @@ extension ViewController : PlaneDelegate {
 
 extension ViewController : RectangleViewDelegate {
     func didTouchRectView(rectView: RectangleView) {
-        for i in 0..<plane.numberOfRect{
-            if rectView.frame.minX.trim == plane[i]?.point.x.trim , rectView.frame.minY.trim == plane[i]?.point.y.trim {
-                writeInfo(of: plane[i])
+        writeColorInfo(){ (rectangleModel) in
+            if rectView.frame.minX.trim == rectangleModel?.point.x.trim , rectView.frame.minY.trim == rectangleModel?.point.y.trim {
+               return true
             }
+            return false
         }
     }
 }
 
+
+extension ViewController : ColorRondomizeButtonDelegate {
+    func generateRandomColor(sender: ColorRondomizeButton) {
+        let hexColor = sender.currentTitle
+        writeColorInfo(){ (rectangleModel) in
+            if rectangleModel?.color.tohexString == hexColor {
+                rectangleModel?.randomizeColor()
+                updateRectangleViewColor(to:rectangleModel?.color)
+                return true
+            }
+            return false
+        }
+    }
+}

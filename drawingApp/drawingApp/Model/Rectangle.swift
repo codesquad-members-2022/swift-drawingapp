@@ -28,8 +28,8 @@ class Rectangle {
     let `id` : String
     let size : Size
     let point : Point
-    let color : Color
-    let alpha : Alpha
+    var color : Color
+    var alpha : Alpha
     
     
     init (id: String, size:Size , point: Point, color: Color, alpha : Alpha) {
@@ -40,6 +40,9 @@ class Rectangle {
         self.alpha = alpha
     }
     
+    func randomizeColor () {
+        self.color = Color.getRandomColor()
+    }
 }
 
 
