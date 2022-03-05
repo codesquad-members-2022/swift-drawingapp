@@ -119,6 +119,8 @@ extension MainViewController:UIGestureRecognizerDelegate {
             
             changeBackgroundButtonTitle(view: touchedView)
             
+            plane.selectedRectangle = plane.rectangles.first{ $0.id.description == touchedView?.accessibilityIdentifier }
+        
             self.rectangleView.selectedView = touchedView ?? UIView()
             
             //detailView를 클릭했을시에도 테두리가 사라지지 않게 하기위해 빈화면크기의 View를 클릭했을 시에만 테두리를 없앱니다.
@@ -129,7 +131,7 @@ extension MainViewController:UIGestureRecognizerDelegate {
         return true
     }
     
-    //현재 touch된 view의 id를 비교해서 RGB값을 가져온다.
+    //현재 touch된 view의 id를 비교해서 RGB값을 가져오고 hex값으로 변환시켜 버튼title에 넣는다.
     private func changeBackgroundButtonTitle(view:UIView?) {
         let currentRectangle = plane.rectangles.first { $0.id.description == view?.accessibilityIdentifier }
         let currentBackgroundColor = currentRectangle?.backGroundColor.hexValue ?? " "
@@ -152,11 +154,12 @@ extension MainViewController:DetailViewDelgate {
     //랜덤한 RGB값을 설정하고 현재 선택된 뷰의 배경색을 변경한다
     func colorButtonTouched(sender:UIButton) {
         let randomRGB = RGBFactory.makeRandomRGB()
-        let currentRectangle = plane.rectangles.first { $0.id.description == view?.accessibilityIdentifier }    //현재 선택한 뷰의 ID를 가진 모델을 찾는다.
+        let currentRectangle = plane.selectedRectangle                                                          //현재 선택한 사각형 모델
+        let currentRectangleView = rectangleView.selectedView                                                   //현재 선택한 사각형 뷰
         
         currentRectangle?.backGroundColor = randomRGB                                                           //모델의 값을 바꾼다.
         
-        rectangleView.selectedView.backgroundColor = currentRectangle?.backgroundColor()                        //바꾼 모델의 값을 View에 적용한다.
+        currentRectangleView.backgroundColor = currentRectangle?.backgroundColor()                              //바꾼 모델의 값을 View에 적용한다.
         
         sender.setTitle("\(randomRGB.hexValue)", for: .normal)                                                  //text를 바꾼다.
     }
