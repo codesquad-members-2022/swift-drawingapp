@@ -26,10 +26,10 @@ class CanvasViewController: UIViewController {
 extension CanvasViewController {
     
     private func observePlane() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didAddViewModel(_:)), name: .addViewModel, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didSelectViewModel(_:)), name: .selectViewModel, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didMutateColor(_:)), name: .mutateColorViewModel, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didMutateAlpha(_:)), name: .mutateAlphaViewModel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didAddViewModel(_:)), name: .addViewModel, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didSelectViewModel(_:)), name: .selectViewModel, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateColor(_:)), name: .mutateColorViewModel, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateAlpha(_:)), name: .mutateAlphaViewModel, object: plane)
     }
     
     private func observePanel() {
@@ -56,7 +56,7 @@ extension CanvasViewController {
     }
     
     @objc func didAddViewModel(_ notification: Notification) {
-        guard let newViewModel = notification.object as? ViewModel else { return }
+        guard let newViewModel = notification.userInfo?["new"] as? ViewModel else { return }
         guard let newBaseView = createBaseView(from: newViewModel) else { return }
         addViewID(newBaseView)
         view.addSubview(newBaseView)
@@ -83,7 +83,8 @@ extension CanvasViewController {
     
     
     @objc func didSelectViewModel(_ notification: Notification) {
-        guard let (old, new) = notification.object as? (old: ViewModel?, new: ViewModel?) else { return }
+        guard let old = notification.userInfo?["old"] as? ViewModel? else { return }
+        guard let new = notification.userInfo?["new"] as? ViewModel? else { return }
         
         if let new = new {
             guard let newView = searchView(for: new) else { return }
@@ -121,13 +122,14 @@ extension CanvasViewController {
     }
     
     @objc func didMutateColor(_ notification: Notification) {
-        guard let mutated = notification.object as? ColorMutable else { return }
+        guard let plane = notification.object as? Plane else { return }
+        guard let mutated = plane.selected as? ColorMutable else { return }
         let mutatedUIView = searchView(for: mutated as! ViewModel)
         mutatedUIView?.backgroundColor = Converter.toUIColor(mutated.color)
     }
     
     @objc func sliderChanged(_ notification: Notification) {
-        guard let value = notification.object as? Float else { return }
+        guard let value = notification.userInfo?["value"] as? Float else { return }
         
         if let alpha = Alpha(value) {
             plane.transform(to: alpha)
@@ -135,7 +137,8 @@ extension CanvasViewController {
     }
     
     @objc func didMutateAlpha(_ notification: Notification) {
-        guard let mutated = notification.object as? AlphaMutable else { return }
+        guard let plane = notification.object as? Plane else { return }
+        guard let mutated = plane.selected as? AlphaMutable else { return }
         let mutatedUIView = searchView(for: mutated as! ViewModel)
         mutatedUIView?.alpha = Converter.toCGFloat(mutated.alpha)
     }

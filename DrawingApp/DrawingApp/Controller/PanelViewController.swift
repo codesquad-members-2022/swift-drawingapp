@@ -34,7 +34,7 @@ class PanelViewController: UIViewController {
 
 extension PanelViewController {
     @objc func didSelectViewModel(_ notification: Notification) {
-        guard let (_, selected) = notification.object as? (old: ViewModel?, new: ViewModel?) else { return }
+        guard let selected = notification.userInfo?["new"] as? ViewModel? else { return }
         
         guard let selected = selected else {
             clearPanel()
@@ -88,20 +88,22 @@ extension PanelViewController {
 extension PanelViewController {
     
     @IBAction func ColorButtonPressed(_ sender: UIButton) {
-        NotificationCenter.default.post(name: .colorButtonPressed, object: nil)
+        NotificationCenter.default.post(name: .colorButtonPressed, object: self)
     }
     
     @objc func didMutateColor(_ notification: Notification) {
-        guard let mutated = notification.object as? ColorMutable else { return }
+        guard let plane = notification.object as? Plane else { return }
+        guard let mutated = plane.selected as? ColorMutable else { return }
         displayColor(mutated)
     }
     
     @IBAction func SliderChanged(_ sender: UISlider) {
-        NotificationCenter.default.post(name: .sliderChanged, object: sender.value)
+        NotificationCenter.default.post(name: .sliderChanged, object: self, userInfo: ["value": sender.value])
     }
     
     @objc func didMutateAlpha(_ notification: Notification) {
-        guard let mutated = notification.object as? AlphaMutable else { return }
+        guard let plane = notification.object as? Plane else { return }
+        guard let mutated = plane.selected as? AlphaMutable else { return }
         displayAlpha(mutated)
     }
 }
