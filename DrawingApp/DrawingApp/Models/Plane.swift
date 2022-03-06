@@ -35,8 +35,8 @@ class Plane {
     func hasAnyRectangle(in rect: RectOrigin) -> Bool {
         properties.contains {
             
-            let point = $0.getPoint()
-            let size = $0.getSize()
+            let point = $0.point
+            let size = $0.size
             
             return point.x >= rect.x
             && point.y >= rect.y

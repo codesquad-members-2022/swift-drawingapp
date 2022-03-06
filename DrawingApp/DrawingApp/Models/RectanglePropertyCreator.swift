@@ -23,7 +23,7 @@ class RectanglePropertyCreator: RandomizeValue {
         )
     }
     
-    func generateRandomRGBColor(maxR: Double, maxG: Double, maxB: Double) -> RectRGBColor {
+    func generateRandomRGBColor(maxR: Double, maxG: Double, maxB: Double) -> RectRGBColor? {
         RectRGBColor(
             r: getDoubleRandom(from: 0, to: maxR),
             g: getDoubleRandom(from: 0, to: maxG),
