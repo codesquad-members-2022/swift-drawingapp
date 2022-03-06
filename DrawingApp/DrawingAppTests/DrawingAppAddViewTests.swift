@@ -45,6 +45,9 @@ class DrawingAppAddViewTests: XCTestCase {
         XCTAssertFalse(testModel.setAlpha(-1), "Model set alpha negative value not execute intentionally.")
         XCTAssertTrue(testModel.setAlpha(1), "Model set alpha positive value not execute intentionally.")
         
+        XCTAssertNil(RectRGBColor.init(r: 256, g: 256, b: 256))
+        XCTAssertNil(RectRGBColor.init(r: -1, g: -1, b: -1))
+        
         LoggerUtil.debugLog(model: testModel)
     }
 }

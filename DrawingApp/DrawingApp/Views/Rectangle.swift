@@ -8,6 +8,10 @@
 import Foundation
 import UIKit
 
+protocol RectangleViewTapDelegate {
+    func changeCurrentSelected(_ rectangle: Rectangle)
+}
+
 class Rectangle: UIView {
     
     var index: Int = 0
@@ -27,8 +31,8 @@ class Rectangle: UIView {
     
     init(model: RectangleProperty) {
         
-        let origin = model.getPoint()
-        let size = model.getSize()
+        let origin = model.point
+        let size = model.size
         
         super.init(frame: CGRect(x: origin.x, y: origin.y, width: size.width, height: size.height))
         
@@ -40,8 +44,8 @@ class Rectangle: UIView {
     }
     
     func setModel(_ model: RectangleProperty) {
-        let origin = model.getPoint()
-        let size = model.getSize()
+        let origin = model.point
+        let size = model.size
         frame = CGRect(x: origin.x, y: origin.y, width: size.width, height: size.height)
         setBackgroundColor(using: model)
     }
@@ -52,13 +56,13 @@ class Rectangle: UIView {
     
     func setBackgroundColor(using model: RectangleProperty) {
         
-        let color = model.getRGBColor()
+        let color = model.rgbValue
         
         backgroundColor = UIColor(
             red: color.r/255,
             green: color.g/255,
             blue: color.b/255,
-            alpha: model.getAlpha()/10
+            alpha: model.alpha/10
         )
     }
 }

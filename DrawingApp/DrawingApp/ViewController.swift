@@ -8,10 +8,6 @@
 import UIKit
 import os.log
 
-protocol RectangleViewTapDelegate {
-    func changeCurrentSelected(_ rectangle: Rectangle)
-}
-
 class ViewController: UIViewController {
     
     @IBOutlet weak var screenView: UIView!
@@ -45,17 +41,17 @@ class ViewController: UIViewController {
     @IBAction func buttonAdmitColorTouchUpInside(_ sender: UIButton) {
         guard
             let index = plane.current?.index,
-            let property = plane.getRectangleProperty(at: index)
+            let property = plane.getRectangleProperty(at: index),
+            let color = property.resetRGBColor()
         else {
             return
         }
         
-        let color = property.resetRGBColor()
         buttonSetRandomColor.backgroundColor = UIColor(
             red: color.r/255,
             green: color.g/255,
             blue: color.b/255,
-            alpha: property.getAlpha()
+            alpha: property.alpha
         )
         
         plane.current?.setBackgroundColor(using: property)
@@ -96,7 +92,7 @@ extension ViewController: RectangleViewTapDelegate {
         }
         
         buttonSetRandomColor.backgroundColor = rectangle.backgroundColor
-        sliderSetAlpha.setValue(Float(round(property.getAlpha())), animated: true)
+        sliderSetAlpha.setValue(Float(round(property.alpha)), animated: true)
         
         rectangle.isSelected = true
         plane.current = rectangle

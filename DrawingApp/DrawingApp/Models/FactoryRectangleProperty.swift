@@ -51,7 +51,7 @@ class FactoryRectangleProperty: RectanglePropertyCreator {
     }
     
     private func getRandomColor() -> RectRGBColor {
-        generateRandomRGBColor(maxR: 255, maxG: 255, maxB: 255)
+        generateRandomRGBColor(maxR: 255, maxG: 255, maxB: 255)!
     }
     
     private func getRandomId() -> String {

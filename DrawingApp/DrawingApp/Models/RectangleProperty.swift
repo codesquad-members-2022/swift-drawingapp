@@ -12,11 +12,11 @@ class RectangleProperty: RectanglePropertyCreator {
     private let name: String
     private let id: String
     
-    private var size: RectSize
-    private var point: RectOrigin
+    private(set) var size: RectSize
+    private(set) var point: RectOrigin
     
-    private var rgbValue: RectRGBColor
-    private var alpha: Double
+    private(set) var rgbValue: RectRGBColor
+    private(set) var alpha: Double
     
     init(as name: String, using id: String, at point: RectOrigin, size: RectSize, color: RectRGBColor, alpha: Double) {
         self.name = name
@@ -39,13 +39,9 @@ class RectangleProperty: RectanglePropertyCreator {
     // MARK: - Setter/Getter in model
     
     @discardableResult
-    func resetRGBColor() -> RectRGBColor {
-        rgbValue = generateRandomRGBColor(maxR: 255, maxG: 255, maxB: 255)
+    func resetRGBColor() -> RectRGBColor? {
+        guard let rgbValue = generateRandomRGBColor(maxR: 255, maxG: 255, maxB: 255) else { return nil }
         return rgbValue
-    }
-    
-    func getRGBColor() -> RectRGBColor {
-        rgbValue
     }
     
     @discardableResult
@@ -55,10 +51,6 @@ class RectangleProperty: RectanglePropertyCreator {
         return true
     }
     
-    func getAlpha() -> Double {
-        alpha
-    }
-    
     @discardableResult
     func setSize(_ size: RectSize) -> Bool {
         guard size.width >= 0 || size.height >= 0 else { return false }
@@ -66,19 +58,11 @@ class RectangleProperty: RectanglePropertyCreator {
         return true
     }
     
-    func getSize() -> RectSize {
-        size
-    }
-    
     @discardableResult
     func setPoint(_ point: RectOrigin) -> Bool {
         guard point.x >= 0 || point.y >= 0 else { return false }
         self.point = point
         return true
-    }
-    
-    func getPoint() -> RectOrigin {
-        point
     }
 }
 
