@@ -7,6 +7,10 @@
 
 import Foundation
 
+protocol SizeBuilder {
+    init(width: Double, height: Double)
+}
+
 struct Size {
     static let range = 30.0...100.0
     
@@ -21,6 +25,10 @@ struct Size {
     init(width: Double, height: Double) {
         self.width = width
         self.height = height
+    }
+    
+    func convert<T: SizeBuilder>(using Convertor: T.Type) -> T {
+        return Convertor.init(width: self.width, height: self.height)
     }
 }
 

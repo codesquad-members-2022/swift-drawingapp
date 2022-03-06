@@ -9,7 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
     // MARK: - Properties
-    @IBOutlet var addButton: UIButton!
+    @IBOutlet weak var addButton: UIButton!
     @IBOutlet weak var colorButton: UIButton!
     @IBOutlet weak var alphaSlider: UISlider!
     @IBOutlet weak var planeView: UIView!
@@ -24,45 +24,36 @@ class ViewController: UIViewController {
     
     func configureButtons() {
         let fontColor = UIColor(named: "Font")
-        let boderColor = UIColor(named: "Border")
+        let borderColor = UIColor(named: "Border")
         
-        self.addButton.layer.cornerRadius = 10
-        self.addButton.layer.borderWidth = 1
-        self.addButton.layer.cornerCurve = .continuous
-        self.addButton.layer.borderColor = boderColor?.cgColor
         self.addButton.tintColor = fontColor
+        self.addButton.setBorder(width: 1, radius: 10, color: borderColor)
         self.addButton.addTarget(self, action: #selector(self.onPressToAddRectangle), for: .touchUpInside)
         
-        self.colorButton.layer.cornerRadius = 10
-        self.colorButton.layer.borderWidth = 1
-        self.colorButton.layer.cornerCurve = .continuous
-        self.colorButton.layer.borderColor = boderColor?.cgColor
         self.colorButton.tintColor = fontColor
+        self.colorButton.setBorder(width: 1, radius: 10, color: borderColor)
         self.colorButton.addTarget(self, action: #selector(self.onPressToChangeColor), for: .touchUpInside)
     }
     
-    @objc
-    func onPressToAddRectangle(_ sender: UIButton) {
+    // MARK: - Action Methods
+    @objc func onPressToAddRectangle(_ sender: UIButton) {
         let rectangle = RectangleFactory.makeRandomRectangle()
         plane.append(item: rectangle)
         
         let rectangleView = UIView(frame: .zero)
-        rectangleView.frame.origin = CGPoint(x: rectangle.origin.x, y: rectangle.origin.y)
-        rectangleView.frame.size.width = CGFloat(rectangle.size.width)
-        rectangleView.frame.size.height = CGFloat(rectangle.size.height)
+        rectangleView.frame.origin = rectangle.origin.convert(using: CGPoint.self)
+        rectangleView.frame.size = rectangle.size.convert(using: CGSize.self)
         rectangleView.backgroundColor = .orange
-        
-        self.planeView.addSubview(rectangleView)
         
         let touchRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.tapRectangle))
         rectangleView.addGestureRecognizer(touchRecognizer)
+        
+        self.planeView.addSubview(rectangleView)
     }
     
-    @objc
-    func onPressToChangeColor(_ sender: UIButton) {}
+    @objc func onPressToChangeColor(_ sender: UIButton) {}
     
-    @objc
-    func tapRectangle(_ sender: UITapGestureRecognizer) {
+    @objc func tapRectangle(_ sender: UITapGestureRecognizer) {
         print("Tab")
     }
 }
