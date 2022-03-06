@@ -21,19 +21,19 @@ struct BackgroundColor {
     }
     
     init?(r: Int, g: Int, b: Int) {
-        let colors = [Double(r), Double(g), Double(b)]
+        let colorValues = [Double(r), Double(g), Double(b)]
         let min = BackgroundColor.possibleColorValues.min() ?? 0
         let max = BackgroundColor.possibleColorValues.max() ?? 255
         
-        for colorValue in colors {
+        for colorValue in colorValues {
             if colorValue > Double(max) || colorValue < Double(min){
                 return nil
             }
         }
         
-        self.r = colors[0]
-        self.g = colors[1]
-        self.b = colors[2]
+        self.r = colorValues[0]
+        self.g = colorValues[1]
+        self.b = colorValues[2]
     }
 
 }
