@@ -18,33 +18,34 @@ class CanvasView: UIView{
         super.init(coder: coder)
     }
     
-    func cancelSelection(){
-        if let selectedRectangleView = self.selectedRectangleView,
-           let viewController = self.delegate {
+    func clearRectangleViewSelection(){
+        if let selectedRectangleView = self.selectedRectangleView{
             selectedRectangleView.layer.borderWidth = 0
             self.selectedRectangleView = nil
-            viewController.clearModelSelection()
         }
     }
     
-    func selectTappedRectangle(subView: UIView){
-        if let selectedRectangleView = self.selectedRectangleView {
+    func updateSelectedRectangleView(subView: UIView){
+        if let selectedRectangleView = self.selectedRectangleView{
             selectedRectangleView.layer.borderWidth = 0
         }
         subView.layer.borderWidth = 2
         self.selectedRectangleView = subView
     }
     
-    func changeSelectedRectangleOpacity(opacity: Int){
-        guard let viewController = self.delegate else { return }
+    func updateSelectedRectangleOpacity(opacity: Int){
+        guard let delegate = self.delegate else { return }
         guard let selectedRectangleView = selectedRectangleView else { return }
         selectedRectangleView.alpha = CGFloat(opacity) / 10
-        viewController.changeRectangleModelAlpha(opacity: opacity)
+        delegate.updatingSelectedRectangleViewAlphaCompleted(opacity: opacity)
     }
     
-    func changeSelectedRectangleColor(rgb: [Double]){
+    func changeSelectedRectangleViewColor(rgb: [Double]){
         guard let selectedRectangleView = selectedRectangleView else { return }
         selectedRectangleView.backgroundColor = UIColor(red: rgb[0], green: rgb[1], blue: rgb[2], alpha: 1)
+        if let delegate = self.delegate{
+            delegate.updatingSelectedRectangleViewColorCompleted(rgb: rgb)
+        }
     }
     
     private func setGeneratingButton(){
@@ -75,23 +76,6 @@ class CanvasView: UIView{
         if let delegate = self.delegate{
             delegate.creatingRectangleRequested()
         }
-    }
-    
-    subscript(x: Double, y: Double)-> UIView?{
-        func isTappedPointInsideTheRange(view: UIView)-> Bool{
-            if((x <= view.frame.maxX && x >= view.frame.minX) && (y <= view.frame.maxY && y >= view.frame.minY)){
-                return true
-            }
-            return false
-        }
-        
-        for view in self.subviews{
-            if(isTappedPointInsideTheRange(view: view)){
-                return view
-            }
-        }
-        
-        return nil
     }
 
 }

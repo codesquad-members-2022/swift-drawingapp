@@ -13,19 +13,23 @@ struct Plane:CustomStringConvertible{
     }
     weak var delegate: PlaneDelegate?
     
+    mutating func findMatchingRectangleModel(x: Double, y: Double){
+        if let delegate = self.delegate{
+            guard let rectangle = self[x,y] else {
+                delegate.rectangleNotFoundFromPlane()
+                return
+            }
+            self.selectedRectangleId = rectangle.id
+            delegate.rectangleFoundFromPlane(rectangle: rectangle)
+        }
+    }
+    
     mutating func addRectangle(_ rectangle: Rectangle){
-        guard let delegate = self.delegate else { return }
         self.rectangles[rectangle.id] = rectangle
         self.rectangleIndex.append(rectangle.id)
-        delegate.addingRectangleCompleted(rectangle: rectangle)
-    }
-    
-    mutating func selectRectangle(id: Rectangle.Id){
-        self.selectedRectangleId = id
-    }
-    
-    mutating func clearModelSelection(){
-        self.selectedRectangleId = nil
+        if let delegate = self.delegate{
+            delegate.addingRectangleCompleted(rectangle: rectangle)
+        }
     }
     
     private func isRectangleInsideTheRange(x: Double, y: Double, rectangle: Rectangle)-> Bool{

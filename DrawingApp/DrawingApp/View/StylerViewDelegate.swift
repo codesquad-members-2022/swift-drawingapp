@@ -2,6 +2,8 @@ import Foundation
 
 
 protocol StylerViewDelegate: AnyObject{
-    func changeSelectedRectangleViewAlpha(opacity: Int)
-    func changeSelectedRecntagleViewColor(rgb: [Double])
+    func updatingSelectedRectangleViewAlphaRequested(opacity: Int)
+    func updatingSelectedRecntagleViewColorRequested()
+    func updatingSelectedRectangleViewColorInfoCompleted(rgb: [Double])
+    func clearingSelectedRectangleInfoCompleted()
 }
