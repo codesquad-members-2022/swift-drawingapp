@@ -29,10 +29,6 @@ class Rectangle {
         self.backgroundColor = backgroundColor
         self.alpha = alpha
     }
-    
-    public func hasSamePoint(_ point: Point) -> Bool {
-        return self.point == point
-    }
 
 }
 
