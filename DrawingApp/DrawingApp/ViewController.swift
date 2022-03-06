@@ -22,7 +22,7 @@ class ViewController: UIViewController {
         
         addGenerateRectangleButton()
         addDrawableAreaView()
-        plane.delegate = self
+        plane.generateRectangleViewDelegate = self
         
     }
     
@@ -93,7 +93,7 @@ class ViewController: UIViewController {
 
 }
 
-extension ViewController: PlaneDelegate {
+extension ViewController: GenerateRectangleViewDelegate {
     func planeDidAddRectangle(_ rectangle: Rectangle) {
         os_log("\(rectangle)")
         
