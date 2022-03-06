@@ -13,7 +13,7 @@ class RectangleView: UIView {
     
     var selected = false {
         didSet{
-            print("사각형 뷰 선택됨 :: \(selected) with \(self.alpha)")
+//            print("사각형 뷰 선택됨 :: \(selected) with \(self.alpha)")
             if selected == true {
                 delegate?.didTouchRectView(rectView: self)
             }
@@ -34,8 +34,8 @@ class RectangleView: UIView {
         self.backgroundColor = UIColor(red: model.color.red.scaleRGB, green: model.color.green.scaleRGB, blue: model.color.blue.scaleRGB, alpha: model.alpha.value)
     }
     
-    func updateAlpha(newAlpha : Alpha) {
-        self.alpha = newAlpha.value
+    func updateAlpha(newAlpha : Double) {
+        self.alpha = newAlpha
     }
     
     

@@ -15,8 +15,11 @@ class ViewController: UIViewController {
     //Views
     private let rectangleGenerationButton = RectangleGenerationButton()
     private let panel = PanelView()
-    let colorRondomizeButton = ColorRondomizeButton()
-
+    private let colorRondomizeButton = ColorRondomizeButton()
+    private let alphaStepper = AlphaStepper()
+    private let stepperLabel = StepperLabel()
+    
+    
     //View Constants
     let screenWdith = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
@@ -40,7 +43,8 @@ class ViewController: UIViewController {
         view.addSubview(rectangleGenerationButton)
         view.addSubview(panel)
         view.addSubview(colorRondomizeButton)
-
+        view.addSubview(alphaStepper)
+        view.addSubview(stepperLabel)
     }
 
     func setupGestureRecognizer() {
@@ -53,12 +57,15 @@ class ViewController: UIViewController {
         rectangleGenerationButton.delegate = self
         plane.delegate = self
         colorRondomizeButton.delegate = self
+        alphaStepper.delegate = self
     }
     
     func setupLayout(){
         rectangleGenerationButton.frame = CGRect(x: (screenWdith - panelWidth)/2 - (buttonWidth/2), y: screenHeight - buttonHeight, width: buttonWidth, height: buttonHeight)
         panel.frame = CGRect(x: screenWdith - panelWidth, y: view.safeAreaInsets.top, width: panelWidth, height: screenHeight)
         colorRondomizeButton.frame = CGRect(x: (screenWdith - panelWidth) + 20, y: view.safeAreaInsets.top + 70.0, width: 160, height: 50)
+        alphaStepper.frame = CGRect(x: (screenWdith - panelWidth) + 100, y: view.safeAreaInsets.top + 190.0, width: 160, height: 50)
+        stepperLabel.frame = CGRect(x: (screenWdith - panelWidth) + 55, y: view.safeAreaInsets.top + 185.0, width: 160, height: 50)
 
     }
     
@@ -112,14 +119,16 @@ class ViewController: UIViewController {
 
     func resetPanel() {
         colorRondomizeButton.setTitle("", for: .normal)
+        updateStepper(to: 0)
     }
 
 
-    //MARK: Panel 의 colorRondomizeButton 에 선택된 RectangleView 이 무슨색인지 hex-code 로 보여주기.
-    func displayColorInfo(condition: (Rectangle?) -> (Bool)) {
+    //MARK: Panel 에 선택된 RectangleView 의 정보를 보여줌.
+    func displayInfo(condition: (Rectangle?) -> (Bool)) {
         for i in 0..<plane.numberOfRect{
-            if condition(plane[i]) {
-                colorRondomizeButton.setTitle(plane[i]?.color.tohexString, for: .normal)
+            if condition(plane[i]), let model = plane[i] {
+                updateColorRondomizeButton(to : model.color.tohexString)
+                updateStepper(to: (model.alpha.value * 10))
             }
         }
     }
@@ -133,6 +142,27 @@ class ViewController: UIViewController {
             }
         }
     }
+    
+    func updateRectangleViewAlpha(with alpha: Double){
+        let presentedRectViews = view.subviews.compactMap{$0 as? RectangleView}
+        for rectView in presentedRectViews {
+            if rectView.selected{
+                rectView.updateAlpha(newAlpha: alpha)
+            }
+        }
+    }
+    
+    func updateColorRondomizeButton(to str : String?) {
+        if let newString = str {
+            colorRondomizeButton.setTitle(newString, for: .normal)
+        }
+    }
+    
+    func updateStepper(to value : Double) {
+        self.alphaStepper.value = value
+        self.stepperLabel.text = String(value)
+    }
+    
 }
 
 //MARK: Delegates
@@ -160,7 +190,7 @@ extension ViewController : PlaneDelegate {
 
 extension ViewController : RectangleViewDelegate {
     func didTouchRectView(rectView: RectangleView) {
-        displayColorInfo(){ (rectangleModel) in
+        displayInfo(){ (rectangleModel) in
             if rectView.frame.minX.trim == rectangleModel?.point.x.trim , rectView.frame.minY.trim == rectangleModel?.point.y.trim {
                return true
             }
@@ -173,7 +203,7 @@ extension ViewController : RectangleViewDelegate {
 extension ViewController : ColorRondomizeButtonDelegate {
     func generateRandomColor(sender: ColorRondomizeButton) {
         let hexColor = sender.currentTitle
-        displayColorInfo(){ (rectangleModel) in
+        displayInfo(){ (rectangleModel) in
             if rectangleModel?.color.tohexString == hexColor {
                 rectangleModel?.randomizeColor()
                 updateRectangleViewColor(with:rectangleModel)
@@ -183,3 +213,13 @@ extension ViewController : ColorRondomizeButtonDelegate {
         }
     }
 }
+
+extension ViewController : AlphaStepperDelegate {
+    func changeAlpha(sender: AlphaStepper) {
+        
+        updateStepper(to: sender.value)
+    }
+    
+    
+}
+
