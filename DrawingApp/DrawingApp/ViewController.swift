@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     weak var generateRectangleButton: UIButton!
     weak var drawableAreaView: UIView!
     @IBOutlet weak var statusView: UIView!
-    @IBOutlet weak var backgroundButton: UIButton!
+    @IBOutlet weak var backgroundColorButton: UIButton!
     @IBOutlet weak var alphaSlider: UISlider!
     
     override func viewDidLoad() {
@@ -87,9 +87,9 @@ class ViewController: UIViewController {
     }
     
     private func updateBackgroundButton(color: BackgroundColor, alpha: Alpha) {
-        backgroundButton.setTitle(color.hexCode, for: .normal)
+        backgroundColorButton.setTitle(color.hexCode, for: .normal)
         let buttonBackgroundColor = UIColor(red: color.r/255, green: color.g/255, blue: color.b/255, alpha: alpha.value)
-        backgroundButton.backgroundColor = buttonBackgroundColor
+        backgroundColorButton.backgroundColor = buttonBackgroundColor
     }
     
     private func updateAlphaSlider(alpha: Alpha) {
