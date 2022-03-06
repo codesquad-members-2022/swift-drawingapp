@@ -10,6 +10,7 @@ import Foundation
 struct Alpha {
     let value: Double
     static let possibleOpacityLevels = 1...10
+    static let possibleAlphaValues = stride(from: 0.1, to: 1.0, by: 0.01)
     
     init?(opacityLevel: Int) {
         let min = Alpha.possibleOpacityLevels.min() ?? 1
@@ -23,6 +24,19 @@ struct Alpha {
             self.value = Double(opacityLevel) / Double(10)
         }
 
+    }
+    
+    init?(alphaValue: Double) {
+        let min = Alpha.possibleAlphaValues.min() ?? 0.1
+        let max = Alpha.possibleAlphaValues.max() ?? 1.0
+        
+        if alphaValue > max {
+            return nil
+        } else if alphaValue < min {
+            return nil
+        } else {
+            self.value = alphaValue
+        }
     }
 }
 
