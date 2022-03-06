@@ -10,11 +10,6 @@ import os
 
 class RectangleFactory{
     
-    private let drawingMessage: RectangleFactoryResponse
-    init(drawingMessage: RectangleFactoryResponse){
-        self.drawingMessage = drawingMessage
-    }
-    
     private func makeUiniqueId() -> String{
         let allString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         let uniqueStrings = (0 ..< 9).map{ _ in allString.randomElement() }
@@ -35,7 +30,7 @@ class RectangleFactory{
         return property.randomValue
     }
     
-    func makeRandomRectangle(){
+    func makeRandomRectangle() -> Rectangle{
         let r = randomValue(property: .rgbRange)
         let b = randomValue(property: .rgbRange)
         let g = randomValue(property: .rgbRange)
@@ -45,15 +40,14 @@ class RectangleFactory{
         let color = ColorRGB(r: r, g: g, b: b)
         let point = ViewPoint(x: x, y: y)
         let size = ViewSize(width: 150, height: 120)
-        let rectangle = Rectangle(uniqueId: uniqueId, color: color, point: point, size: size, alpha: 1.0)
-        drawingMessage.randomRectangle(rectangle: rectangle)
+        return Rectangle(uniqueId: uniqueId, color: color, point: point, size: size, alpha: 1.0)
     }
     
-    func makeRandomColor(){
+    func makeRandomColor() -> ColorRGB{
         let r = randomValue(property: .rgbRange)
         let b = randomValue(property: .rgbRange)
         let g = randomValue(property: .rgbRange)
-        drawingMessage.randomRGBColor(rgb: ColorRGB(r: r, g: g, b: b))
+        return ColorRGB(r: r, g: g, b: b)
     }
 }
 

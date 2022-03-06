@@ -12,7 +12,6 @@ class DrawingViewController: UIViewController {
     private let logger = Logger()
     private lazy var plane = Plane()
     private lazy var rectangleAddButton = RectangleAddButton(frame: CGRect(x: view.center.x - 50, y: view.frame.maxY - 144.0, width: 100, height: 100))
-    private var rectangleFactory: RectangleFactory?
     private var drawingDelegate: DrawingDelegate?
     private var rectangleViews: [String: RectangleView] = [:]
     
@@ -20,7 +19,6 @@ class DrawingViewController: UIViewController {
         super.viewDidLoad()
         view.addSubview(rectangleAddButton)
         setRectangleButtonEvent()
-        rectangleFactory = RectangleFactory(drawingMessage: self)
         plane.setDelegate(planeDelegate: self)
         let viewTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewTappedGesture))
         view.addGestureRecognizer(viewTapGesture)
@@ -39,13 +37,13 @@ class DrawingViewController: UIViewController {
         let point = ViewPoint(x: Int(touchedView.frame.origin.x), y: Int(touchedView.frame.origin.y))
         plane.selectedRectangle(point: point)
     }
-
+    
     private func setRectangleButtonEvent(){
         rectangleAddButton.addTarget(self, action: #selector(rectangleAddButtonTapped), for: .touchUpInside)
     }
     
     @objc func rectangleAddButtonTapped(sender: Any){
-        rectangleFactory?.makeRandomRectangle()
+        plane.addRectangle()
     }
     
     private func addRectangleView(rectangle: Rectangle){
@@ -60,25 +58,15 @@ class DrawingViewController: UIViewController {
     }
     
     private func changeViewColorRandomly(){
-        rectangleFactory?.makeRandomColor()
+        plane.changeColor()
     }
     
     private func plusViewAlpha(){
-        guard let alpha = plane.selectedRectangleAlpha() else {
-            return
-        }
-        if alpha < 1.1{
-            plane.plusAlpha()
-        }
+        plane.plusAlpha()
     }
     
     private func minusViewAlpha(){
-        guard let alpha = plane.selectedRectangleAlpha() else {
-            return
-        }
-        if alpha > -0.1{
-            plane.minusAlpha()
-        }
+        plane.minusAlpha()
     }
     
     func propertyAction(action: PropertyViewAction) {
@@ -92,19 +80,11 @@ class DrawingViewController: UIViewController {
         }
     }
 }
-
-extension DrawingViewController: RectangleFactoryResponse{
-    func randomRGBColor(rgb: ColorRGB) {
-        plane.changeColor(rgb: rgb)
-    }
-    
-    func randomRectangle(rectangle: Rectangle) {
-        plane.addRectangle(rectangle: rectangle)
+extension DrawingViewController: PlaneDelegate{
+    func didAddRandomRectangle(rectangle: Rectangle) {
         addRectangleView(rectangle: rectangle)
     }
-}
-
-extension DrawingViewController: PlaneDelegate{
+    
     func didUpdateAlpha(id: String, alpha: Double) {
         guard let rectangleView = rectangleViews[id] else { return }
         rectangleView.setAlpha(alpha: alpha)

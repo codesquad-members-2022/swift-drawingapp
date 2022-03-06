@@ -16,6 +16,7 @@
 		72400F2E27CC5D1900D24138 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72400F2D27CC5D1900D24138 /* Assets.xcassets */; };
 		72400F3127CC5D1900D24138 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72400F2F27CC5D1900D24138 /* LaunchScreen.storyboard */; };
 		7272910927D1DEB300361536 /* PlaneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7272910827D1DEB300361536 /* PlaneDelegate.swift */; };
+		7272916F27D2188600361536 /* DrawingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7272916E27D2188600361536 /* DrawingAppTests.swift */; };
 		7295F32D27D1A9C200C1BDFB /* DrawingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7295F32C27D1A9C200C1BDFB /* DrawingDelegate.swift */; };
 		72A40E1627CCB32A002D076C /* RectangleAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1527CCB32A002D076C /* RectangleAddButton.swift */; };
 		72A40E1A27CCBB3F002D076C /* RectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1927CCBB3F002D076C /* RectangleFactory.swift */; };
@@ -30,6 +31,16 @@
 		72C4FDF627CC73EB00CE5D25 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 72C4FDF527CC73EB00CE5D25 /* README.md */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		7272916827D2187200361536 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 72400F1927CC5D1800D24138 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 72400F2027CC5D1800D24138;
+			remoteInfo = DrawingApp;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		7207F20E27D090D100713C5E /* PropertySetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertySetViewController.swift; sourceTree = "<group>"; };
 		7207F21027D098D500713C5E /* PropertyDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyDelegate.swift; sourceTree = "<group>"; };
@@ -42,6 +53,8 @@
 		72400F3027CC5D1900D24138 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		72400F3227CC5D1900D24138 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7272910827D1DEB300361536 /* PlaneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneDelegate.swift; sourceTree = "<group>"; };
+		7272916427D2187200361536 /* DrawingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7272916E27D2188600361536 /* DrawingAppTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingAppTests.swift; sourceTree = "<group>"; };
 		7295F32C27D1A9C200C1BDFB /* DrawingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingDelegate.swift; sourceTree = "<group>"; };
 		72A40E1527CCB32A002D076C /* RectangleAddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleAddButton.swift; sourceTree = "<group>"; };
 		72A40E1927CCBB3F002D076C /* RectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactory.swift; sourceTree = "<group>"; };
@@ -64,6 +77,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7272916127D2187200361536 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -72,6 +92,7 @@
 			children = (
 				72C4FDF527CC73EB00CE5D25 /* README.md */,
 				72400F2327CC5D1800D24138 /* DrawingApp */,
+				7272916527D2187200361536 /* DrawingAppTests */,
 				72400F2227CC5D1800D24138 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -80,6 +101,7 @@
 			isa = PBXGroup;
 			children = (
 				72400F2127CC5D1800D24138 /* DrawingApp.app */,
+				7272916427D2187200361536 /* DrawingAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -91,11 +113,6 @@
 				7295F32A27D1A95B00C1BDFB /* message */,
 				72C4FDF227CC5FA600CE5D25 /* view */,
 				72400F2427CC5D1800D24138 /* AppDelegate.swift */,
-				72C0A7C627CF425500A4035F /* Plane.swift */,
-				72A40E1B27CCBB86002D076C /* Rectangle.swift */,
-				72A40E2127CCDB88002D076C /* ColorRGB.swift */,
-				72A40E2327CCDC48002D076C /* ViewPoint.swift */,
-				72C0A7C427CF386400A4035F /* ViewSize.swift */,
 				72A40E1F27CCD067002D076C /* SceneDelegate.swift */,
 				72400F2A27CC5D1800D24138 /* Main.storyboard */,
 				72400F2D27CC5D1900D24138 /* Assets.xcassets */,
@@ -103,6 +120,14 @@
 				72400F3227CC5D1900D24138 /* Info.plist */,
 			);
 			path = DrawingApp;
+			sourceTree = "<group>";
+		};
+		7272916527D2187200361536 /* DrawingAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				7272916E27D2188600361536 /* DrawingAppTests.swift */,
+			);
+			path = DrawingAppTests;
 			sourceTree = "<group>";
 		};
 		7295F32A27D1A95B00C1BDFB /* message */ = {
@@ -119,7 +144,12 @@
 		7295F32B27D1A97300C1BDFB /* model */ = {
 			isa = PBXGroup;
 			children = (
+				72C0A7C627CF425500A4035F /* Plane.swift */,
 				72A40E1927CCBB3F002D076C /* RectangleFactory.swift */,
+				72A40E1B27CCBB86002D076C /* Rectangle.swift */,
+				72A40E2127CCDB88002D076C /* ColorRGB.swift */,
+				72A40E2327CCDC48002D076C /* ViewPoint.swift */,
+				72C0A7C427CF386400A4035F /* ViewSize.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -156,6 +186,24 @@
 			productReference = 72400F2127CC5D1800D24138 /* DrawingApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		7272916327D2187200361536 /* DrawingAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7272916A27D2187200361536 /* Build configuration list for PBXNativeTarget "DrawingAppTests" */;
+			buildPhases = (
+				7272916027D2187200361536 /* Sources */,
+				7272916127D2187200361536 /* Frameworks */,
+				7272916227D2187200361536 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7272916927D2187200361536 /* PBXTargetDependency */,
+			);
+			name = DrawingAppTests;
+			productName = DrawingAppTests;
+			productReference = 7272916427D2187200361536 /* DrawingAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -168,6 +216,10 @@
 				TargetAttributes = {
 					72400F2027CC5D1800D24138 = {
 						CreatedOnToolsVersion = 13.2.1;
+					};
+					7272916327D2187200361536 = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = 72400F2027CC5D1800D24138;
 					};
 				};
 			};
@@ -185,6 +237,7 @@
 			projectRoot = "";
 			targets = (
 				72400F2027CC5D1800D24138 /* DrawingApp */,
+				7272916327D2187200361536 /* DrawingAppTests */,
 			);
 		};
 /* End PBXProject section */
@@ -198,6 +251,13 @@
 				72400F2E27CC5D1900D24138 /* Assets.xcassets in Resources */,
 				72C4FDF627CC73EB00CE5D25 /* README.md in Resources */,
 				72400F2C27CC5D1800D24138 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		7272916227D2187200361536 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,7 +288,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		7272916027D2187200361536 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7272916F27D2188600361536 /* DrawingAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		7272916927D2187200361536 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 72400F2027CC5D1800D24138 /* DrawingApp */;
+			targetProxy = 7272916827D2187200361536 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		72400F2A27CC5D1800D24138 /* Main.storyboard */ = {
@@ -422,6 +498,42 @@
 			};
 			name = Release;
 		};
+		7272916B27D2187200361536 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LHMNAPQ6N7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = practice.DrawingAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DrawingApp.app/DrawingApp";
+			};
+			name = Debug;
+		};
+		7272916C27D2187200361536 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LHMNAPQ6N7;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = practice.DrawingAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DrawingApp.app/DrawingApp";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -439,6 +551,15 @@
 			buildConfigurations = (
 				72400F3627CC5D1900D24138 /* Debug */,
 				72400F3727CC5D1900D24138 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		7272916A27D2187200361536 /* Build configuration list for PBXNativeTarget "DrawingAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7272916B27D2187200361536 /* Debug */,
+				7272916C27D2187200361536 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

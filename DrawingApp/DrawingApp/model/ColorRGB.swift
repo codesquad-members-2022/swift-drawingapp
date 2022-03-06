@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ColorRGB{
+struct ColorRGB: Equatable{
     private(set) var r: Int
     private(set) var g: Int
     private(set) var b: Int
