@@ -32,10 +32,9 @@ class RightAttributerView: UIView {
     var alphaValue: Alpha{
         let doubleValue = round(Double(alphaSlider.value) * 10) / 10
         let value = Alpha.init(rawValue: doubleValue)
+    
         return value ?? .one
     }
-    
-    var delegate: RightAttributerViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,14 +45,16 @@ class RightAttributerView: UIView {
         super.init(coder: coder)
         initialize()
     }
-    
+}
+
+
+// MARK: - Use case: Make Rectangle with attrbute and layout, delegate
+
+extension RightAttributerView{
     private func initialize(){
         attribute()
         layout()
-        redSlider.addTarget(self, action: #selector(self.moveRedSlider), for: .valueChanged)
-        greenSlider.addTarget(self, action: #selector(self.moveGreenSlider), for: .valueChanged)
-        blueSlider.addTarget(self, action: #selector(self.moveBlueSlider), for: .valueChanged)
-        alphaSlider.addTarget(self, action: #selector(self.moveAlphaSlider), for: .valueChanged)
+        addSliderTargets()
     }
     
     private func attribute(){
@@ -112,6 +113,18 @@ class RightAttributerView: UIView {
         self.addSubview(alphaSlider)
     }
     
+    private func addSliderTargets(){
+        alphaSlider.addTarget(self, action: #selector(notifyAlpha), for: .valueChanged)
+        redSlider.addTarget(self, action: #selector(notifyRed), for: .valueChanged)
+        greenSlider.addTarget(self, action: #selector(notifyGreen), for: .valueChanged)
+        blueSlider.addTarget(self, action: #selector(notifyBlue), for: .valueChanged)
+    }
+}
+
+
+// MARK: - Use case: Change slider value
+
+extension RightAttributerView{
     func originSliderValue(red: Float, green: Float, blue: Float, alpha: Float){
         self.alphaSlider.value = alpha
         self.alphaTitle.text = "투명도 : \(String(format: "%.0f", alphaValue.showValue() * 10))"
@@ -140,19 +153,19 @@ class RightAttributerView: UIView {
         alphaTitle.text = text
     }
     
-    @objc private func moveAlphaSlider(){
-        self.delegate?.moveAlphaSlider()
+    @objc func notifyAlpha(){
+        NotificationCenter.default.post(name: .changeAlpha, object: nil)
     }
     
-    @objc private func moveRedSlider(){
-        self.delegate?.moveRedSlider()
+    @objc func notifyRed(){
+        NotificationCenter.default.post(name: .changeRedColor, object: nil)
     }
     
-    @objc private func moveGreenSlider(){
-        self.delegate?.moveGreenSlider()
+    @objc func notifyGreen(){
+        NotificationCenter.default.post(name: .changeGreenColor, object: nil)
     }
     
-    @objc private func moveBlueSlider(){
-        self.delegate?.moveBlueSlider()
+    @objc func notifyBlue(){
+        NotificationCenter.default.post(name: .changeBlueColor, object: nil)
     }
 }

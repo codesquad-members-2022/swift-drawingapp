@@ -27,7 +27,7 @@
 		D273EAE727CC5C6600DCDF78 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D273EAE627CC5C6600DCDF78 /* Assets.xcassets */; };
 		D273EAEA27CC5C6600DCDF78 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D273EAE827CC5C6600DCDF78 /* LaunchScreen.storyboard */; };
 		D273EAF327CC5DA000DCDF78 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D273EAF227CC5DA000DCDF78 /* Rectangle.swift */; };
-		D292CE6027D10B250063658A /* RightAttributerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D292CE5F27D10B250063658A /* RightAttributerViewDelegate.swift */; };
+		D292CE6027D10B250063658A /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = D292CE5F27D10B250063658A /* NotificationName.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,7 +64,7 @@
 		D273EAE927CC5C6600DCDF78 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D273EAEB27CC5C6600DCDF78 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D273EAF227CC5DA000DCDF78 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
-		D292CE5F27D10B250063658A /* RightAttributerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightAttributerViewDelegate.swift; sourceTree = "<group>"; };
+		D292CE5F27D10B250063658A /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationName.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,7 +111,7 @@
 			children = (
 				D255617027CF42A000B4F9D7 /* RightAttributerView.swift */,
 				D255617227CF492F00B4F9D7 /* RandomRectangleView.swift */,
-				D26F888327D11A0B0099E3A9 /* Delegate */,
+				D26F888327D11A0B0099E3A9 /* Notification */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -135,12 +135,12 @@
 			path = RectangleTest;
 			sourceTree = "<group>";
 		};
-		D26F888327D11A0B0099E3A9 /* Delegate */ = {
+		D26F888327D11A0B0099E3A9 /* Notification */ = {
 			isa = PBXGroup;
 			children = (
-				D292CE5F27D10B250063658A /* RightAttributerViewDelegate.swift */,
+				D292CE5F27D10B250063658A /* NotificationName.swift */,
 			);
-			path = Delegate;
+			path = Notification;
 			sourceTree = "<group>";
 		};
 		D273EAD127CC5C6500DCDF78 = {
@@ -309,7 +309,7 @@
 			files = (
 				D255615C27CEFA5C00B4F9D7 /* RGBColor.swift in Sources */,
 				D255616127CF003000B4F9D7 /* IDFactory.swift in Sources */,
-				D292CE6027D10B250063658A /* RightAttributerViewDelegate.swift in Sources */,
+				D292CE6027D10B250063658A /* NotificationName.swift in Sources */,
 				D255615A27CEFA4700B4F9D7 /* MyPoint.swift in Sources */,
 				D255617327CF492F00B4F9D7 /* RandomRectangleView.swift in Sources */,
 				D255617127CF42A000B4F9D7 /* RightAttributerView.swift in Sources */,
