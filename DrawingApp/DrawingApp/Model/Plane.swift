@@ -9,7 +9,7 @@ import Foundation
 
 class Plane {
     private var rectangles = [Rectangle]()
-    var delegate: PlaneDelegate?
+    var generateRectangleViewDelegate: GenerateRectangleViewDelegate?
     var count: Int {
         return rectangles.count
     }
@@ -30,6 +30,6 @@ class Plane {
     public func addNewRectangle(in frame: (Double, Double)) {
         let newRectangle = RectangleFactory.generateRandomRectangle(in: frame)
         rectangles.append(newRectangle)
-        delegate?.planeDidAddRectangle(newRectangle)
+        generateRectangleViewDelegate?.planeDidAddRectangle(newRectangle)
     }
 }

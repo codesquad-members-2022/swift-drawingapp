@@ -7,6 +7,6 @@
 
 import Foundation
 
-protocol PlaneDelegate {
+protocol GenerateRectangleViewDelegate {
     func planeDidAddRectangle(_ rectangle: Rectangle)
 }
