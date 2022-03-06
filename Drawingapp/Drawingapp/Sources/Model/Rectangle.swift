@@ -36,9 +36,22 @@ class Rectangle: CustomStringConvertible {
     
     func update(color: Color) {
         self.color = color
+        let userInfo: [AnyHashable : Any] = ["color":color]
+        NotificationCenter.default.post(name: EventName.updateColor, object: self, userInfo: userInfo)
     }
     
     func update(alpha: Alpha) {
         self.alpha = alpha
+        let userInfo: [AnyHashable : Any] = ["alpha":alpha]
+        NotificationCenter.default.post(name: EventName.updateAlpha, object: self, userInfo: userInfo)
+    }
+}
+
+extension Rectangle {
+    enum EventName {
+        static let updateColor = NSNotification.Name("updateColor")
+        static let updatePoint = NSNotification.Name("updatePoint")
+        static let updateSize = NSNotification.Name("updateSize")
+        static let updateAlpha = NSNotification.Name("updateAlpha")
     }
 }

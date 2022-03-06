@@ -37,20 +37,23 @@ class Plane {
 extension Plane: PlaneInput {
     func touchPoint(where point: Point) {
         if let selectedRectangle = self.selectedRectangle {
-            NotificationCenter.default.post(name: NSNotification.Name.didDisSelectedRectangle, object: selectedRectangle.id)
             self.selectedRectangle = nil
+            let userInfo: [AnyHashable : Any] = ["rectangle":selectedRectangle]
+            NotificationCenter.default.post(name: Plane.EventName.didDisSelectedRectangle, object: self, userInfo: userInfo)
         }
         
         if let selectedRectangle = self.selected(point: point) {
             self.selectedRectangle = selectedRectangle
-            NotificationCenter.default.post(name: NSNotification.Name.didSelectedRectangle, object: selectedRectangle)
+            let userInfo: [AnyHashable : Any] = ["rectangle":selectedRectangle]
+            NotificationCenter.default.post(name: Plane.EventName.didSelectedRectangle, object: self, userInfo: userInfo)
         }
     }
     
     func makeRectangle() {
         let rectangle = DrawingModelFactory.makeRectangle()
         self.rectangles.append(rectangle)
-        NotificationCenter.default.post(name: NSNotification.Name.drawRectangle, object: rectangle)
+        let userInfo: [AnyHashable : Any] = ["rectangle":rectangle]
+        NotificationCenter.default.post(name: Plane.EventName.makeRectangle, object: self, userInfo: userInfo)
     }
     
     func colorChanged() {
@@ -58,7 +61,6 @@ extension Plane: PlaneInput {
             return
         }
         rectangle.update(color: ColorFactory.make())
-        NotificationCenter.default.post(name: NSNotification.Name.updateColor, object: rectangle.id, userInfo: ["color": rectangle.color])
     }
     
     func alphaChanged(alpha: Alpha) {
@@ -66,7 +68,14 @@ extension Plane: PlaneInput {
             return
         }
         rectangle.update(alpha: alpha)
-        NotificationCenter.default.post(name: NSNotification.Name.updateAlpha, object: rectangle.id, userInfo: ["alpha": rectangle.alpha])
     }
     
+}
+
+extension Plane {
+    enum EventName {
+        static let didDisSelectedRectangle = NSNotification.Name("didDisSelectedRectangle")
+        static let didSelectedRectangle = NSNotification.Name("didSelectedRectangle")
+        static let makeRectangle = NSNotification.Name("makeRectangle")
+    }
 }
