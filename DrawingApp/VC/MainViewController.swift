@@ -31,12 +31,8 @@ class MainViewController: UIViewController{
         addTapGestureObserver()
         addSlidersObserver()
     }
-
-    @IBAction func makeRandomRectangle(_ sender: Any) {
-        NotificationCenter.default.post(name: .makeRectangle, object: nil)
-    }
     
-    @objc func rectangleMaker(){
+    @IBAction func makeRandomRectangle(_ sender: Any) {
         let rectangleValue = Rectangle(id: IDFactory.makeID(), size: rectFactory.makeSize(), point: rectFactory.makePoint(viewWidth: self.rightAttributerView.frame.minX, viewHeight: self.rectangleButton.frame.minY), color: rectFactory.makeColor(), alpha: rectFactory.makeAlpha())
         let rectangleView = RandomRectangleView(id: rectangleValue.id, point: rectangleValue.point, size: rectangleValue.size, color: rectangleValue.showColor(), alpha: rectangleValue.showAlpha())
         
@@ -52,7 +48,7 @@ class MainViewController: UIViewController{
 
 extension MainViewController{
     private func addRectangleMakerButtonObserver(){
-        NotificationCenter.default.addObserver(self, selector: #selector(rectangleMaker), name: .makeRectangle, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(makeRandomRectangle), name: .makeRectangle, object: nil)
     }
     
     private func addTapGestureObserver(){

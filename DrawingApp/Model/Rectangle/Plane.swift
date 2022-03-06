@@ -10,18 +10,23 @@ import UIKit
 
 struct Plane{
     private var rectangles: [Rectangle] = []
+    private var notifyMadeRectangle: Int{
+        NotificationCenter.default.post(name: .makeRectangle, object: nil)
+        return count()
+    }
     
     subscript(index: Int) -> Rectangle?{
         guard rectangles.count > index else{
             return nil
         }
+        
         return rectangles[index]
     }
     
     mutating func addRectangle(rectangle: Rectangle){
         self.rectangles.append(rectangle)
     }
-   
+    
     func count() -> Int{
         return rectangles.count
     }
@@ -51,5 +56,9 @@ struct Plane{
         }
         
         return index
+    }
+    
+    func postMakingRectangle(){
+        NotificationCenter.default.post(name: .makeRectangle, object: nil)
     }
 }
