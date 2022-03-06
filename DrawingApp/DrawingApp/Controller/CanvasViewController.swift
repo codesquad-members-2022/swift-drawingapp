@@ -26,15 +26,15 @@ class CanvasViewController: UIViewController {
 extension CanvasViewController {
     
     private func observePlane() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didAddViewModel(_:)), name: .addViewModel, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(didSelectViewModel(_:)), name: .selectViewModel, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(didMutateColor(_:)), name: .mutateColorViewModel, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(didMutateAlpha(_:)), name: .mutateAlphaViewModel, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didAddViewModel(_:)), name: Plane.addViewModel, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didSelectViewModel(_:)), name: Plane.selectViewModel, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateColor(_:)), name: Plane.mutateColorViewModel, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateAlpha(_:)), name: Plane.mutateAlphaViewModel, object: plane)
     }
     
     private func observePanel() {
-        NotificationCenter.default.addObserver(self, selector: #selector(sliderChanged(_:)), name: .sliderChanged, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(colorButtonPressed(_:)), name: .colorButtonPressed, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(sliderChanged(_:)), name: PanelViewController.sliderChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(colorButtonPressed(_:)), name: PanelViewController.colorButtonPressed, object: nil)
     }
     
     private func setUpRecognizer() {
@@ -83,15 +83,12 @@ extension CanvasViewController {
     
     
     @objc func didSelectViewModel(_ notification: Notification) {
-        guard let old = notification.userInfo?["old"] as? ViewModel? else { return }
-        guard let new = notification.userInfo?["new"] as? ViewModel? else { return }
-        
-        if let new = new {
+        if let new = notification.userInfo?["new"] as? ViewModel {
             guard let newView = searchView(for: new) else { return }
             changeBorder(newView)
         }
         
-        if let old = old {
+        if let old = notification.userInfo?["old"] as? ViewModel {
             guard let oldView = searchView(for: old) else { return }
             clearBorder(oldView)
         }
