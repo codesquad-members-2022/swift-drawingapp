@@ -18,7 +18,7 @@ class Plane {
         return rectangles[index]
     }
     
-    public func getRectangle(id: ID) -> Rectangle? {
+    public func specifyRectangle(id: ID) -> Rectangle? {
         for rectangle in rectangles {
             if rectangle.id == id {
                 return rectangle
