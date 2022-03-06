@@ -23,6 +23,7 @@
 		B5E73BCC27D1340F0016E628 /* StylerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E73BCB27D1340F0016E628 /* StylerViewDelegate.swift */; };
 		B5E73BCE27D138300016E628 /* CanvasViewDeleagte.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E73BCD27D138300016E628 /* CanvasViewDeleagte.swift */; };
 		B5E73BE127D1E5690016E628 /* PlaneTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E73BD227D1E5040016E628 /* PlaneTest.swift */; };
+		B5F1536627D4E16A009CA3DE /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5F1536527D4E16A009CA3DE /* RectangleView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		B5E73BCD27D138300016E628 /* CanvasViewDeleagte.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasViewDeleagte.swift; sourceTree = "<group>"; };
 		B5E73BD227D1E5040016E628 /* PlaneTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneTest.swift; sourceTree = "<group>"; };
 		B5E73BD827D1E5610016E628 /* DrawingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B5F1536527D4E16A009CA3DE /* RectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +147,7 @@
 				B5E73BC727D083750016E628 /* StylerView.swift */,
 				B5E73BCB27D1340F0016E628 /* StylerViewDelegate.swift */,
 				B5E73BCD27D138300016E628 /* CanvasViewDeleagte.swift */,
+				B5F1536527D4E16A009CA3DE /* RectangleView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 			files = (
 				B5E73BB727CDE3910016E628 /* RectangleFactory.swift in Sources */,
 				B5E73BC427D082630016E628 /* CanvasView.swift in Sources */,
+				B5F1536627D4E16A009CA3DE /* RectangleView.swift in Sources */,
 				B5E73BCC27D1340F0016E628 /* StylerViewDelegate.swift in Sources */,
 				B5E73BC827D083750016E628 /* StylerView.swift in Sources */,
 				B5E73BA427CDC29E0016E628 /* ViewController.swift in Sources */,
