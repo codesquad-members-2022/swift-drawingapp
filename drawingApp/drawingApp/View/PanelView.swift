@@ -26,17 +26,14 @@ class PanelView : UIView {
         
         let colorLabel = makeLabel()
         let alphaLabel = makeLabel()
-        let colorRondomizeButton = ColorRondomizeButton()
         
         colorLabel.text = "배경색"
         alphaLabel.text = "투명도"
-        colorRondomizeButton.frame = CGRect(x: self.bounds.minX+20, y: self.bounds.minY+70, width: 160, height: 50)
         colorLabel.frame = CGRect(x: self.bounds.minX+20, y: self.bounds.minY+20, width: 160, height: 50)
         alphaLabel.frame = CGRect(x: self.bounds.minX+20, y: self.bounds.minY+150, width: 160, height: 50)
         
         addSubview(colorLabel)
         addSubview(alphaLabel)
-        addSubview(colorRondomizeButton)
     }
     
     
