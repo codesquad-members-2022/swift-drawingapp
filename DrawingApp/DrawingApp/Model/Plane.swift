@@ -10,6 +10,7 @@ import Foundation
 class Plane {
     private var rectangles = [Rectangle]()
     var generateRectangleViewDelegate: GenerateRectangleViewDelegate?
+    var changeRectangleBackgroundColorDelegate: ChangeRectangleBackgroundColorDelegate?
     var count: Int {
         return rectangles.count
     }
@@ -31,5 +32,15 @@ class Plane {
         guard let newRectangle = RectangleFactory.generateRandomRectangle(in: frame) else { return }
         rectangles.append(newRectangle)
         generateRectangleViewDelegate?.planeDidAddRectangle(newRectangle)
+    }
+    
+    public func changeBackGroundColorOfRectangle(id: ID) {
+        for rectangle in rectangles {
+            if rectangle.id == id {
+                rectangle.changeBackgroundColorRandomly()
+                changeRectangleBackgroundColorDelegate?
+                    .rectangleDidChangeBackgroundColor(to: rectangle.backgroundColor, alpha: rectangle.alpha)
+            }
+        }
     }
 }
