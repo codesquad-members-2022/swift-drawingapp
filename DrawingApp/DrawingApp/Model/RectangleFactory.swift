@@ -9,11 +9,11 @@ import Foundation
 
 class RectangleFactory {
     
-    public static func generateRandomRectangle(in frame: (width: Double, height: Double)) -> Rectangle {
+    public static func generateRandomRectangle(in frame: (width: Double, height: Double)) -> Rectangle? {
         let size = Size(width: 150, height: 120)
         let point = generateRandomPoint(in: frame)
-        let backgroundColor = generateRandomColor()
-        let alpha = generateRandomAlpha()
+        guard let backgroundColor = generateRandomColor() else {return nil}
+        guard let alpha = generateRandomAlpha() else {return nil}
         let id = ID()
         
         let newRectangle = Rectangle(id: id, size: size, point: point, backgroundColor: backgroundColor, alpha: alpha)
@@ -28,7 +28,7 @@ class RectangleFactory {
                                 y: Double.random(in: 0...maxYPoint))
     }
     
-    private static func generateRandomColor() -> BackgroundColor {
+    private static func generateRandomColor() -> BackgroundColor? {
         
         let red = BackgroundColor.possibleColorValues.randomElement() ?? 0
         let green = BackgroundColor.possibleColorValues.randomElement() ?? 0
@@ -37,7 +37,7 @@ class RectangleFactory {
         return BackgroundColor(r: red, g: green, b: blue)
     }
     
-    private static func generateRandomAlpha() -> Alpha {
+    private static func generateRandomAlpha() -> Alpha? {
         let randomOpacityLevel = Alpha.possibleOpacityLevels.randomElement() ?? 10
         return Alpha(opacityLevel: randomOpacityLevel)
     }

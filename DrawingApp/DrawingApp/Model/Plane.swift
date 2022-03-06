@@ -28,7 +28,7 @@ class Plane {
     }
     
     public func addNewRectangle(in frame: (Double, Double)) {
-        let newRectangle = RectangleFactory.generateRandomRectangle(in: frame)
+        guard let newRectangle = RectangleFactory.generateRandomRectangle(in: frame) else { return }
         rectangles.append(newRectangle)
         generateRectangleViewDelegate?.planeDidAddRectangle(newRectangle)
     }
