@@ -38,7 +38,7 @@ extension Plane: PlaneInput {
     func touchPoint(where point: Point) {
         if let selectedRectangle = self.selectedRectangle {
             self.selectedRectangle = nil
-            let userInfo: [AnyHashable : Any] = ["rectangle":selectedRectangle]
+            let userInfo: [AnyHashable : Any] = ["id":selectedRectangle.id]
             NotificationCenter.default.post(name: Plane.EventName.didDisSelectedRectangle, object: self, userInfo: userInfo)
         }
         
@@ -53,7 +53,7 @@ extension Plane: PlaneInput {
         let rectangle = DrawingModelFactory.makeRectangle()
         self.rectangles.append(rectangle)
         let userInfo: [AnyHashable : Any] = ["rectangle":rectangle]
-        NotificationCenter.default.post(name: Plane.EventName.makeRectangle, object: self, userInfo: userInfo)
+        NotificationCenter.default.post(name: Plane.EventName.madeRectangle, object: self, userInfo: userInfo)
     }
     
     func colorChanged() {
@@ -76,6 +76,6 @@ extension Plane {
     enum EventName {
         static let didDisSelectedRectangle = NSNotification.Name("didDisSelectedRectangle")
         static let didSelectedRectangle = NSNotification.Name("didSelectedRectangle")
-        static let makeRectangle = NSNotification.Name("makeRectangle")
+        static let madeRectangle = NSNotification.Name("makeRectangle")
     }
 }

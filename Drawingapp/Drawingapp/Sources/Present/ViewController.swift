@@ -50,7 +50,7 @@ class ViewController: UIViewController {
     
     func bind() {
         NotificationCenter.default.addObserver(forName: Plane.EventName.didDisSelectedRectangle, object: nil, queue: nil) { notification in
-            guard let id = notification.object as? String else {
+            guard let id = notification.userInfo?["id"] as? String else {
                 return
             }
             self.inspectorView.isHidden = true
@@ -66,7 +66,7 @@ class ViewController: UIViewController {
             self.rectangleViews[rectangle.id]?.selected(is: true)
         }
                 
-        NotificationCenter.default.addObserver(forName: Plane.EventName.makeRectangle, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: Plane.EventName.madeRectangle, object: nil, queue: nil) { notification in
             guard let rectangle = notification.userInfo?["rectangle"] as? Rectangle else {
                 return
             }
