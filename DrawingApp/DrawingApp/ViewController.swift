@@ -113,6 +113,17 @@ class ViewController: UIViewController {
         )
         plane.changeBackGroundColorOfRectangle(id: touchedView.id, to: newColor)
     }
+    
+    @IBAction func alphaSliderValueChanged(_ sender: UISlider) {
+        let newAlphaValue = Double(String(format: "%.2f", sender.value)) ?? 0
+        print(newAlphaValue)
+        guard let touchedView = touchedView else {
+            return
+        }
+        touchedView.alpha = CGFloat(newAlphaValue)
+        plane.changeAlphaValueOfRectangle(id: touchedView.id, to: newAlphaValue)
+    }
+    
 }
 
 extension ViewController: GenerateRectangleViewDelegate {

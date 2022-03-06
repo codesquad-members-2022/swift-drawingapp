@@ -41,4 +41,13 @@ class Plane {
             }
         }
     }
+    
+    public func changeAlphaValueOfRectangle(id: ID, to newAlphaValue: Double) {
+        for rectangle in rectangles {
+            if rectangle.id == id {
+                rectangle.changeAlphaValue(to: newAlphaValue)
+                break
+            }
+        }
+    }
 }

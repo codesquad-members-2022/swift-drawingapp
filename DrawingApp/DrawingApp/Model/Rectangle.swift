@@ -34,6 +34,11 @@ class Rectangle {
         guard let newColor = BackgroundColorFactory.generateRandomColor() else {return}
         self.backgroundColor = newColor
     }
+    
+    func changeAlphaValue(to newAlphaValue: Double) {
+        guard let newAlpha = Alpha.init(alphaValue: newAlphaValue) else {return}
+        self.alpha = newAlpha
+    }
 
 }
 
