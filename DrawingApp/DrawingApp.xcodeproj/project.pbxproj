@@ -29,7 +29,6 @@
 /* Begin PBXFileReference section */
 		0200342D27D0837F0032EEA4 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		0200345127D0A7AB0032EEA4 /* ViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewFactory.swift; sourceTree = "<group>"; };
-		023A3A3B27D2109300F56686 /* RectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RectangleView.swift; path = View/RectangleView.swift; sourceTree = "<group>"; };
 		023A3A4027D2F45100F56686 /* RectangleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
 		02A7161B27CCF63C00034A70 /* RectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactory.swift; sourceTree = "<group>"; };
 		02A7161F27CD11C000034A70 /* GenerateRectangleViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateRectangleViewDelegate.swift; sourceTree = "<group>"; };
@@ -108,7 +107,6 @@
 				02D5540127CC5E7D00291B27 /* AppDelegate.swift */,
 				02D5540327CC5E7D00291B27 /* SceneDelegate.swift */,
 				02D5540527CC5E7D00291B27 /* ViewController.swift */,
-				023A3A3B27D2109300F56686 /* RectangleView.swift */,
 				023A3A3D27D210A300F56686 /* View */,
 				02B9D2A227CF4AF600A7185E /* Model */,
 				02D5540727CC5E7D00291B27 /* Main.storyboard */,
