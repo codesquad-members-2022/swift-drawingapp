@@ -20,18 +20,17 @@ struct BackgroundColor {
         return "#\(hexR)\(hexG)\(hexB)"
     }
     
-    init(r: Int, g: Int, b: Int) {
-        var colors = [Double(r), Double(g), Double(b)]
+    init?(r: Int, g: Int, b: Int) {
+        let colors = [Double(r), Double(g), Double(b)]
         let min = BackgroundColor.possibleColorValues.min() ?? 0
         let max = BackgroundColor.possibleColorValues.max() ?? 255
         
-        colors.enumerated().forEach {
-            if $0.element > Double(max) {
-                colors[$0.offset] = 255.0
-            } else if $0.element < Double(min) {
-                colors[$0.offset] = 0.0
+        for colorValue in colors {
+            if colorValue > Double(max) || colorValue < Double(min){
+                return nil
             }
         }
+        
         self.r = colors[0]
         self.g = colors[1]
         self.b = colors[2]

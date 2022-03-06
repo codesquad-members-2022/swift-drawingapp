@@ -11,14 +11,14 @@ struct Alpha {
     let value: Double
     static let possibleOpacityLevels = 1...10
     
-    init(opacityLevel: Int) {
+    init?(opacityLevel: Int) {
         let min = Alpha.possibleOpacityLevels.min() ?? 1
         let max = Alpha.possibleOpacityLevels.max() ?? 10
         
         if opacityLevel > max {
-            self.value = 1.0
+            return nil
         } else if opacityLevel < min {
-            self.value = 0.1
+            return nil
         } else {
             self.value = Double(opacityLevel) / Double(10)
         }
