@@ -13,7 +13,6 @@
 		023A3A4F27D4E2F900F56686 /* PointFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023A3A4E27D4E2F900F56686 /* PointFactory.swift */; };
 		023A3A5127D4E33200F56686 /* BackgroundColorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023A3A5027D4E33200F56686 /* BackgroundColorFactory.swift */; };
 		023A3A5327D4E35C00F56686 /* AlphaFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023A3A5227D4E35C00F56686 /* AlphaFactory.swift */; };
-		023A3A5527D4E58200F56686 /* ChangeRectangleBackgroundColorDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023A3A5427D4E58100F56686 /* ChangeRectangleBackgroundColorDelegate.swift */; };
 		02A7161C27CCF63C00034A70 /* RectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7161B27CCF63C00034A70 /* RectangleFactory.swift */; };
 		02A7162027CD11C000034A70 /* GenerateRectangleViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7161F27CD11C000034A70 /* GenerateRectangleViewDelegate.swift */; };
 		02B9D29F27CF033B00A7185E /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B9D29E27CF033B00A7185E /* Alpha.swift */; };
@@ -37,7 +36,6 @@
 		023A3A4E27D4E2F900F56686 /* PointFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointFactory.swift; sourceTree = "<group>"; };
 		023A3A5027D4E33200F56686 /* BackgroundColorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorFactory.swift; sourceTree = "<group>"; };
 		023A3A5227D4E35C00F56686 /* AlphaFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphaFactory.swift; sourceTree = "<group>"; };
-		023A3A5427D4E58100F56686 /* ChangeRectangleBackgroundColorDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeRectangleBackgroundColorDelegate.swift; sourceTree = "<group>"; };
 		02A7161B27CCF63C00034A70 /* RectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactory.swift; sourceTree = "<group>"; };
 		02A7161F27CD11C000034A70 /* GenerateRectangleViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateRectangleViewDelegate.swift; sourceTree = "<group>"; };
 		02B9D29E27CF033B00A7185E /* Alpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alpha.swift; sourceTree = "<group>"; };
@@ -85,7 +83,6 @@
 				023A3A5027D4E33200F56686 /* BackgroundColorFactory.swift */,
 				023A3A5227D4E35C00F56686 /* AlphaFactory.swift */,
 				02A7161F27CD11C000034A70 /* GenerateRectangleViewDelegate.swift */,
-				023A3A5427D4E58100F56686 /* ChangeRectangleBackgroundColorDelegate.swift */,
 				02D5541527CC5FB000291B27 /* Rectangle.swift */,
 				02B9D2A027CF37E600A7185E /* id.swift */,
 				02D5541B27CC6CE100291B27 /* BackgroundColor.swift */,
@@ -204,7 +201,6 @@
 				02D5541827CC5FF200291B27 /* Size.swift in Sources */,
 				02D5541A27CC606300291B27 /* Point.swift in Sources */,
 				02D5540227CC5E7D00291B27 /* AppDelegate.swift in Sources */,
-				023A3A5527D4E58200F56686 /* ChangeRectangleBackgroundColorDelegate.swift in Sources */,
 				02A7162027CD11C000034A70 /* GenerateRectangleViewDelegate.swift in Sources */,
 				02D5540427CC5E7D00291B27 /* SceneDelegate.swift in Sources */,
 				02B9D29F27CF033B00A7185E /* Alpha.swift in Sources */,
