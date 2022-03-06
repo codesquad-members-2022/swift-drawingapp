@@ -25,22 +25,23 @@ class Rectangle: UIView {
     
     var delegate: RectangleViewTapDelegate?
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    init(model: RectangleProperty) {
-        
+    /// 모델에 따라 뷰를 만들고, 탭 제스쳐를 적용합니다.
+    convenience init(model: RectangleProperty) {
         let origin = model.point
         let size = model.size
-        
-        super.init(frame: CGRect(x: origin.x, y: origin.y, width: size.width, height: size.height))
-        
+        self.init(frame: CGRect(x: origin.x, y: origin.y, width: size.width, height: size.height))
         let tapGesture = UITapGestureRecognizer()
         tapGesture.delegate = self
         addGestureRecognizer(tapGesture)
-        
         setBackgroundColor(using: model)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
     }
     
     func setModel(_ model: RectangleProperty) {
