@@ -17,10 +17,7 @@ extension Double {
     var scaleRGB : Double {
         return self/255.0
     }
-    
-    var scaleAlhpa : Double {
-        return self/10.0
-    }
+
 }
 
 extension CGFloat {

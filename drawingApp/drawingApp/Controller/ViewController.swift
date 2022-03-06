@@ -15,7 +15,8 @@ class ViewController: UIViewController {
     //Views
     private let rectangleGenerationButton = RectangleGenerationButton()
     private let panel = PanelView()
-    
+    let colorRondomizeButton = ColorRondomizeButton()
+
     //View Constants
     let screenWdith = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
@@ -38,6 +39,8 @@ class ViewController: UIViewController {
     func setupSubViews() {
         view.addSubview(rectangleGenerationButton)
         view.addSubview(panel)
+        view.addSubview(colorRondomizeButton)
+
     }
 
     func setupGestureRecognizer() {
@@ -49,14 +52,14 @@ class ViewController: UIViewController {
     func setupDelegates(){
         rectangleGenerationButton.delegate = self
         plane.delegate = self
-        if let colorRondomizeButton = panel.viewWithTag(1) as? ColorRondomizeButton {
-            colorRondomizeButton.delegate = self
-        }
+        colorRondomizeButton.delegate = self
     }
     
     func setupLayout(){
         rectangleGenerationButton.frame = CGRect(x: (screenWdith - panelWidth)/2 - (buttonWidth/2), y: screenHeight - buttonHeight, width: buttonWidth, height: buttonHeight)
         panel.frame = CGRect(x: screenWdith - panelWidth, y: view.safeAreaInsets.top, width: panelWidth, height: screenHeight)
+        colorRondomizeButton.frame = CGRect(x: (screenWdith - panelWidth) + 20, y: view.safeAreaInsets.top + 70.0, width: 160, height: 50)
+
     }
     
     //MARK: 탭 제스쳐 메소드
@@ -108,29 +111,25 @@ class ViewController: UIViewController {
     }
 
     func resetPanel() {
-        if let colorRondomizeButton = panel.viewWithTag(1) as? UIButton {
-            colorRondomizeButton.setTitle("", for: .normal)
-        }
+        colorRondomizeButton.setTitle("", for: .normal)
     }
 
 
     //MARK: Panel 의 colorRondomizeButton 에 선택된 RectangleView 이 무슨색인지 hex-code 로 보여주기.
-    func writeColorInfo(condition: (Rectangle?) -> (Bool)) {
+    func displayColorInfo(condition: (Rectangle?) -> (Bool)) {
         for i in 0..<plane.numberOfRect{
             if condition(plane[i]) {
-                if let colorRondomizeButton = panel.viewWithTag(1) as? UIButton {
-                    colorRondomizeButton.setTitle(plane[i]?.color.tohexString, for: .normal)
-                }
+                colorRondomizeButton.setTitle(plane[i]?.color.tohexString, for: .normal)
             }
         }
     }
     
     //MARK: 선택 되어 있는 RectangleView 의 색상을 업데이트하기.
-    func updateRectangleViewColor(to color: Color?) {
+    func updateRectangleViewColor(with model: Rectangle?) {
         let presentedRectViews = view.subviews.compactMap{$0 as? RectangleView}
         for rectView in presentedRectViews {
-            if rectView.selected, let newcolor = color {
-                rectView.updateColor(newColor: newcolor)
+            if rectView.selected, let rectModel = model {
+                rectView.updateColor(with: rectModel)
             }
         }
     }
@@ -152,16 +151,16 @@ extension ViewController : GenerateRectangleButtonDelegate {
 extension ViewController : PlaneDelegate {
     func didAppendRect(rect: Rectangle?) {
         if let appendedRect = rect {
-            let rectUI = RectangleView(frame: CGRect(x: appendedRect.point.x.trim, y: appendedRect.point.y.trim, width: appendedRect.size.width, height: appendedRect.size.height))
-            rectUI.backgroundColor = UIColor(red: appendedRect.color.red.scaleRGB, green: appendedRect.color.green.scaleRGB, blue: appendedRect.color.blue.scaleRGB, alpha: Double(appendedRect.alpha.rawValue).scaleAlhpa)
-            view.addSubview(rectUI)
+            let rectView = RectangleView(frame: CGRect(x: appendedRect.point.x.trim, y: appendedRect.point.y.trim, width: appendedRect.size.width, height: appendedRect.size.height))
+            rectView.backgroundColor = UIColor(red: appendedRect.color.red.scaleRGB, green: appendedRect.color.green.scaleRGB, blue: appendedRect.color.blue.scaleRGB, alpha: appendedRect.alpha.value)
+            view.addSubview(rectView)
         }
     }
 }
 
 extension ViewController : RectangleViewDelegate {
     func didTouchRectView(rectView: RectangleView) {
-        writeColorInfo(){ (rectangleModel) in
+        displayColorInfo(){ (rectangleModel) in
             if rectView.frame.minX.trim == rectangleModel?.point.x.trim , rectView.frame.minY.trim == rectangleModel?.point.y.trim {
                return true
             }
@@ -174,10 +173,10 @@ extension ViewController : RectangleViewDelegate {
 extension ViewController : ColorRondomizeButtonDelegate {
     func generateRandomColor(sender: ColorRondomizeButton) {
         let hexColor = sender.currentTitle
-        writeColorInfo(){ (rectangleModel) in
+        displayColorInfo(){ (rectangleModel) in
             if rectangleModel?.color.tohexString == hexColor {
                 rectangleModel?.randomizeColor()
-                updateRectangleViewColor(to:rectangleModel?.color)
+                updateRectangleViewColor(with:rectangleModel)
                 return true
             }
             return false

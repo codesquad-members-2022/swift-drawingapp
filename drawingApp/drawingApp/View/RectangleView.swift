@@ -13,7 +13,7 @@ class RectangleView: UIView {
     
     var selected = false {
         didSet{
-            print("사각형 뷰 선택됨 :: \(selected)")
+            print("사각형 뷰 선택됨 :: \(selected) with \(self.alpha)")
             if selected == true {
                 delegate?.didTouchRectView(rectView: self)
             }
@@ -30,12 +30,12 @@ class RectangleView: UIView {
     }
     
     
-    func updateColor(newColor : Color) {
-        self.backgroundColor = UIColor(red: newColor.red.scaleRGB, green: newColor.green.scaleRGB, blue: newColor.blue.scaleRGB, alpha: self.alpha)
+    func updateColor(with model: Rectangle) {
+        self.backgroundColor = UIColor(red: model.color.red.scaleRGB, green: model.color.green.scaleRGB, blue: model.color.blue.scaleRGB, alpha: model.alpha.value)
     }
     
     func updateAlpha(newAlpha : Alpha) {
-        self.alpha = Double(newAlpha.rawValue).scaleAlhpa
+        self.alpha = newAlpha.value
     }
     
     
@@ -44,52 +44,10 @@ class RectangleView: UIView {
             self.layer.borderWidth = 4
             self.layer.borderColor = UIColor.blue.cgColor
         }else{
-//            self.undoDashedBorder()
             self.layer.borderWidth = 0
             self.layer.borderColor = UIColor.clear.cgColor
         }
     }
     
     
-}
-
-
-extension UIView {
-    func addDashedBorder() {
-        let color = UIColor.cyan.cgColor
-        
-        let shapeLayer:CAShapeLayer = CAShapeLayer()
-        let frameSize = self.frame.size
-        let shapeRect = CGRect(x: 0, y: 0, width: frameSize.width, height: frameSize.height)
-        
-        shapeLayer.bounds = shapeRect
-        shapeLayer.position = CGPoint(x: frameSize.width/2, y: frameSize.height/2)
-        shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.strokeColor = color
-        shapeLayer.lineWidth = 5
-        shapeLayer.lineJoin = CAShapeLayerLineJoin.round
-        shapeLayer.lineDashPattern = [10,3]
-        shapeLayer.path = UIBezierPath(roundedRect: shapeRect, cornerRadius: 4).cgPath
-        
-        self.layer.addSublayer(shapeLayer)
-    }
-    
-    func undoDashedBorder() {
-        let color = UIColor.clear.cgColor
-        
-        let shapeLayer:CAShapeLayer = CAShapeLayer()
-        let frameSize = self.frame.size
-        let shapeRect = CGRect(x: 0, y: 0, width: frameSize.width, height: frameSize.height)
-        
-        shapeLayer.bounds = shapeRect
-        shapeLayer.position = CGPoint(x: frameSize.width/2, y: frameSize.height/2)
-        shapeLayer.fillColor = UIColor.clear.cgColor
-        shapeLayer.strokeColor = color
-        shapeLayer.lineWidth = 0
-        shapeLayer.lineJoin = CAShapeLayerLineJoin.round
-        shapeLayer.lineDashPattern = [0,0]
-        shapeLayer.path = UIBezierPath(roundedRect: shapeRect, cornerRadius: 4).cgPath
-        
-        self.layer.addSublayer(shapeLayer)
-    }
 }
