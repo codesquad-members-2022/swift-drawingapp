@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - Rect Size, Point
+// MARK: - Rect Size, Origin
 
 struct Rect {
     struct Size {
@@ -15,14 +15,14 @@ struct Rect {
         var height: Double
     }
 
-    struct Point {
+    struct Origin {
         var x: Double
         var y: Double
     }
 }
 
 typealias RectSize = Rect.Size
-typealias RectPoint = Rect.Point
+typealias RectOrigin = Rect.Origin
 
 // MARK: - CustomStringConvertible
 
@@ -32,7 +32,7 @@ extension Rect.Size: CustomStringConvertible {
     }
 }
 
-extension Rect.Point: CustomStringConvertible {
+extension Rect.Origin: CustomStringConvertible {
     var description: String {
         "X:\(x),Y:\(y)"
     }

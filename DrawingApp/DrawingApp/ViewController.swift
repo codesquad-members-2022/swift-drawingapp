@@ -9,12 +9,7 @@ import UIKit
 import os.log
 
 protocol RectangleViewTapDelegate {
-    func setSelected(_ view: Rectangle)
-}
-
-protocol RectangleViewValueChangeDelegate {
-    func setColor()
-    func setAlpha(as value: CGFloat)
+    func changeCurrentSelected(_ rectangle: Rectangle)
 }
 
 class ViewController: UIViewController {
@@ -23,7 +18,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var buttonSetRandomColor: UIButton!
     @IBOutlet weak var sliderSetAlpha: UISlider!
     
-    let factory = FactoryViewRandomProperty()
+    let factory = FactoryRectangleProperty()
     let plane = Plane()
     
     override func viewDidLoad() {
@@ -93,18 +88,18 @@ extension ViewController: MasterViewDelegate {
 }
 
 extension ViewController: RectangleViewTapDelegate {
-    func setSelected(_ view: Rectangle) {
+    func changeCurrentSelected(_ rectangle: Rectangle) {
         plane.current?.isSelected = false
         
-        guard let property = plane.getRectangleProperty(at: view.index) else {
+        guard let property = plane.getRectangleProperty(at: rectangle.index) else {
             return
         }
         
-        buttonSetRandomColor.backgroundColor = view.backgroundColor
+        buttonSetRandomColor.backgroundColor = rectangle.backgroundColor
         sliderSetAlpha.setValue(Float(round(property.getAlpha())), animated: true)
         
-        view.isSelected = true
-        plane.current = view
+        rectangle.isSelected = true
+        plane.current = rectangle
     }
 }
 
@@ -131,7 +126,7 @@ extension ViewController: UIGestureRecognizerDelegate {
 // MARK: - UIKit extension types
 
 extension CGRect {
-    static func useViewModel(point: RectPoint, size: RectSize) -> CGRect {
+    static func useViewModel(point: RectOrigin, size: RectSize) -> CGRect {
         CGRect(x: point.x, y: point.y, width: size.width, height: size.height)
     }
 }

@@ -25,7 +25,7 @@ class Rectangle: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    init(model: ViewRandomProperty) {
+    init(model: RectangleProperty) {
         
         let origin = model.getPoint()
         let size = model.getSize()
@@ -39,7 +39,7 @@ class Rectangle: UIView {
         setBackgroundColor(using: model)
     }
     
-    func setModel(_ model: ViewRandomProperty) {
+    func setModel(_ model: RectangleProperty) {
         let origin = model.getPoint()
         let size = model.getSize()
         frame = CGRect(x: origin.x, y: origin.y, width: size.width, height: size.height)
@@ -50,7 +50,7 @@ class Rectangle: UIView {
         backgroundColor = backgroundColor?.withAlphaComponent((CGFloat(alpha / 10)))
     }
     
-    func setBackgroundColor(using model: ViewRandomProperty) {
+    func setBackgroundColor(using model: RectangleProperty) {
         
         let color = model.getRGBColor()
         
@@ -69,7 +69,7 @@ extension Rectangle: UIGestureRecognizerDelegate {
         _ gestureRecognizer: UIGestureRecognizer,
         shouldReceive touch: UITouch
     ) -> Bool {
-        delegate?.setSelected(self)
+        delegate?.changeCurrentSelected(self)
         return true
     }
 }

@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		1B4A55AA27CD99EC009CDC7B /* RandomizeValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4A55A927CD99EC009CDC7B /* RandomizeValue.swift */; };
-		1B4A55AC27CD9F96009CDC7B /* ViewPropertyCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4A55AB27CD9F96009CDC7B /* ViewPropertyCreator.swift */; };
+		1B4A55AC27CD9F96009CDC7B /* RectanglePropertyCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4A55AB27CD9F96009CDC7B /* RectanglePropertyCreator.swift */; };
 		1B54997127D09BE30086EC5F /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B54997027D09BE30086EC5F /* Plane.swift */; };
 		1B54997427D0A21F0086EC5F /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B54997327D0A21F0086EC5F /* UIView+Extension.swift */; };
 		1B54997B27D0B4C00086EC5F /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B54997A27D0B4C00086EC5F /* Rectangle.swift */; };
@@ -25,9 +25,9 @@
 		1BD7289527CCBC7C008DED9E /* DrawingAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD7289427CCBC7C008DED9E /* DrawingAppUITestsLaunchTests.swift */; };
 		1BD728A227CCBD58008DED9E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1BD728A127CCBD58008DED9E /* README.md */; };
 		1BD728A527CCC1ED008DED9E /* Model_ViewController.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1BD728A427CCC1ED008DED9E /* Model_ViewController.jpg */; };
-		1BD728A727CCC6B3008DED9E /* ViewRandomProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD728A627CCC6B3008DED9E /* ViewRandomProperty.swift */; };
+		1BD728A727CCC6B3008DED9E /* RectangleProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD728A627CCC6B3008DED9E /* RectangleProperty.swift */; };
 		1BD728A927CCF635008DED9E /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD728A827CCF635008DED9E /* String+Extension.swift */; };
-		1BD728AB27CCFB8D008DED9E /* FactoryViewRandomProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD728AA27CCFB8D008DED9E /* FactoryViewRandomProperty.swift */; };
+		1BD728AB27CCFB8D008DED9E /* FactoryRectangleProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD728AA27CCFB8D008DED9E /* FactoryRectangleProperty.swift */; };
 		1BD728AE27CD0D49008DED9E /* OSLog.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BD728AD27CD0D49008DED9E /* OSLog.framework */; };
 		1BD728B027CD0E88008DED9E /* SystemLog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD728AF27CD0E88008DED9E /* SystemLog.swift */; };
 		1BF27A6B27D1EEB9005FAA31 /* RandomPropertySubTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BF27A6A27D1EEB9005FAA31 /* RandomPropertySubTypes.swift */; };
@@ -52,7 +52,7 @@
 
 /* Begin PBXFileReference section */
 		1B4A55A927CD99EC009CDC7B /* RandomizeValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomizeValue.swift; sourceTree = "<group>"; };
-		1B4A55AB27CD9F96009CDC7B /* ViewPropertyCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPropertyCreator.swift; sourceTree = "<group>"; };
+		1B4A55AB27CD9F96009CDC7B /* RectanglePropertyCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectanglePropertyCreator.swift; sourceTree = "<group>"; };
 		1B54997027D09BE30086EC5F /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		1B54997327D0A21F0086EC5F /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		1B54997A27D0B4C00086EC5F /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
@@ -73,9 +73,9 @@
 		1BD7289427CCBC7C008DED9E /* DrawingAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		1BD728A127CCBD58008DED9E /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		1BD728A427CCC1ED008DED9E /* Model_ViewController.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Model_ViewController.jpg; sourceTree = "<group>"; };
-		1BD728A627CCC6B3008DED9E /* ViewRandomProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewRandomProperty.swift; sourceTree = "<group>"; };
+		1BD728A627CCC6B3008DED9E /* RectangleProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleProperty.swift; sourceTree = "<group>"; };
 		1BD728A827CCF635008DED9E /* String+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		1BD728AA27CCFB8D008DED9E /* FactoryViewRandomProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryViewRandomProperty.swift; sourceTree = "<group>"; };
+		1BD728AA27CCFB8D008DED9E /* FactoryRectangleProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryRectangleProperty.swift; sourceTree = "<group>"; };
 		1BD728AD27CD0D49008DED9E /* OSLog.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OSLog.framework; path = System/Library/Frameworks/OSLog.framework; sourceTree = SDKROOT; };
 		1BD728AF27CD0E88008DED9E /* SystemLog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemLog.swift; sourceTree = "<group>"; };
 		1BF27A6A27D1EEB9005FAA31 /* RandomPropertySubTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomPropertySubTypes.swift; sourceTree = "<group>"; };
@@ -110,10 +110,10 @@
 		1B54996E27D09AE10086EC5F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				1BD728AA27CCFB8D008DED9E /* FactoryViewRandomProperty.swift */,
-				1B4A55AB27CD9F96009CDC7B /* ViewPropertyCreator.swift */,
+				1BD728AA27CCFB8D008DED9E /* FactoryRectangleProperty.swift */,
+				1B4A55AB27CD9F96009CDC7B /* RectanglePropertyCreator.swift */,
 				1B4A55A927CD99EC009CDC7B /* RandomizeValue.swift */,
-				1BD728A627CCC6B3008DED9E /* ViewRandomProperty.swift */,
+				1BD728A627CCC6B3008DED9E /* RectangleProperty.swift */,
 				1BF27A6A27D1EEB9005FAA31 /* RandomPropertySubTypes.swift */,
 				1B54997027D09BE30086EC5F /* Plane.swift */,
 			);
@@ -358,7 +358,7 @@
 				1BF27A6B27D1EEB9005FAA31 /* RandomPropertySubTypes.swift in Sources */,
 				1BD7287627CCBC7A008DED9E /* ViewController.swift in Sources */,
 				1B811EBB27CF4F3300C3E6BC /* LoggerUtil.swift in Sources */,
-				1BD728A727CCC6B3008DED9E /* ViewRandomProperty.swift in Sources */,
+				1BD728A727CCC6B3008DED9E /* RectangleProperty.swift in Sources */,
 				1B54997B27D0B4C00086EC5F /* Rectangle.swift in Sources */,
 				1BD7287227CCBC7A008DED9E /* AppDelegate.swift in Sources */,
 				1BD728A927CCF635008DED9E /* String+Extension.swift in Sources */,
@@ -366,8 +366,8 @@
 				1B54997427D0A21F0086EC5F /* UIView+Extension.swift in Sources */,
 				1B4A55AA27CD99EC009CDC7B /* RandomizeValue.swift in Sources */,
 				1BD728B027CD0E88008DED9E /* SystemLog.swift in Sources */,
-				1BD728AB27CCFB8D008DED9E /* FactoryViewRandomProperty.swift in Sources */,
-				1B4A55AC27CD9F96009CDC7B /* ViewPropertyCreator.swift in Sources */,
+				1BD728AB27CCFB8D008DED9E /* FactoryRectangleProperty.swift in Sources */,
+				1B4A55AC27CD9F96009CDC7B /* RectanglePropertyCreator.swift in Sources */,
 				1B54997127D09BE30086EC5F /* Plane.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -17,7 +17,7 @@ class LoggerUtil {
         Logger(subsystem: subsystem, category: "DrawingApp").debug("\(message)")
     }
     
-    static func debugLog(model: ViewRandomProperty) {
+    static func debugLog(model: RectangleProperty) {
         Logger(subsystem: subsystem, category: "DrawingApp").debug("\(model)")
     }
     
@@ -25,7 +25,7 @@ class LoggerUtil {
         Logger(subsystem: subsystem, category: "DrawingApp").error("\(message)")
     }
     
-    static func errorLog(model: ViewRandomProperty) {
+    static func errorLog(model: RectangleProperty) {
         Logger(subsystem: subsystem, category: "DrawingApp").error("\(model)")
     }
     
@@ -33,7 +33,7 @@ class LoggerUtil {
         Logger(subsystem: subsystem, category: "DrawingApp").fault("\(message)")
     }
     
-    static func faultLog(model: ViewRandomProperty) {
+    static func faultLog(model: RectangleProperty) {
         Logger(subsystem: subsystem, category: "DrawingApp").fault("\(model)")
     }
 }

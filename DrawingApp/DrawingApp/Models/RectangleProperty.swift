@@ -1,5 +1,5 @@
 //
-//  ViewRandomProperty.swift
+//  RectangleProperty.swift
 //  DrawingApp
 //
 //  Created by 백상휘 on 2022/02/28.
@@ -7,18 +7,18 @@
 
 import Foundation
 
-class ViewRandomProperty: ViewPropertyCreator {
+class RectangleProperty: RectanglePropertyCreator {
     
     private let name: String
     private let id: String
     
     private var size: RectSize
-    private var point: RectPoint
+    private var point: RectOrigin
     
     private var rgbValue: RectRGBColor
     private var alpha: Double
     
-    init(as name: String, using id: String, at point: RectPoint, size: RectSize, color: RectRGBColor, alpha: Double) {
+    init(as name: String, using id: String, at point: RectOrigin, size: RectSize, color: RectRGBColor, alpha: Double) {
         self.name = name
         self.id = id
         self.point = point
@@ -30,7 +30,7 @@ class ViewRandomProperty: ViewPropertyCreator {
     init(as name: String, using id: String, from properties: FactoryProperties, color: RectRGBColor, alpha: Double) {
         self.name = name
         self.id = id
-        self.point = RectPoint(x: properties.maxX, y: properties.maxY)
+        self.point = RectOrigin(x: properties.maxX, y: properties.maxY)
         self.size = RectSize(width: properties.width, height: properties.height)
         self.rgbValue = color
         self.alpha = alpha
@@ -71,20 +71,20 @@ class ViewRandomProperty: ViewPropertyCreator {
     }
     
     @discardableResult
-    func setPoint(_ point: RectPoint) -> Bool {
+    func setPoint(_ point: RectOrigin) -> Bool {
         guard point.x >= 0 || point.y >= 0 else { return false }
         self.point = point
         return true
     }
     
-    func getPoint() -> RectPoint {
+    func getPoint() -> RectOrigin {
         point
     }
 }
 
 // MARK: - CustomStringConvertible
 
-extension ViewRandomProperty: CustomStringConvertible {
+extension RectangleProperty: CustomStringConvertible {
     var description: String {
         "\(name) \(id), \(point), \(size), \(rgbValue), Alpha:\(alpha)"
     }

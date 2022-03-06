@@ -1,5 +1,5 @@
 //
-//  FactoryViewRandomProperty.swift
+//  FactoryRectangleProperty.swift
 //  DrawingApp
 //
 //  Created by 백상휘 on 2022/02/28.
@@ -11,14 +11,14 @@ protocol MasterViewDelegate {
     func getMasterViewProperty() -> FactoryProperties
 }
 
-typealias FactoryProperties = FactoryViewRandomProperty.ViewProperties
+typealias FactoryProperties = FactoryRectangleProperty.ViewProperties
 
-class FactoryViewRandomProperty: ViewPropertyCreator {
+class FactoryRectangleProperty: RectanglePropertyCreator {
     
     var delegate: MasterViewDelegate?
     
     // MARK: - Make Model Of View.
-    func makeRandomView(as name: String) -> ViewRandomProperty? {
+    func makeRandomView(as name: String) -> RectangleProperty? {
         
         guard let delegate = delegate else { return nil }
         let superviewProperties = delegate.getMasterViewProperty()
@@ -30,7 +30,7 @@ class FactoryViewRandomProperty: ViewPropertyCreator {
         let randomID = getRandomId()
         let randomAlpha = getRandomAlpha()
         
-        return ViewRandomProperty(
+        return RectangleProperty(
             as: name,
             using: randomID,
             from: randomLocationProperties,

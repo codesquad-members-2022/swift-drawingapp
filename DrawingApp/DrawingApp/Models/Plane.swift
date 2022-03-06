@@ -9,14 +9,14 @@ import Foundation
 
 class Plane {
     
-    private var properties = [ViewRandomProperty]()
+    private var properties = [RectangleProperty]()
     
     /// ViewController 내에 생성된 뷰 중 현재 선택된 뷰를 Plane 객체가 관리할 것입니다.
     /// 뷰 선택이 가능하도록 하는 이유는 Plane 객체에서 저장된 프로퍼티의 값을 바꾸고
     /// 그에 따라 바뀐 속성을 해당 뷰에 적용하기 위해서입니다.
     var current: Rectangle?
     
-    func addProperties(_ model: ViewRandomProperty) {
+    func addProperties(_ model: RectangleProperty) {
         properties.append(model)
     }
     
@@ -24,7 +24,7 @@ class Plane {
         properties.count
     }
     
-    func getRectangleProperty(at index: Int) -> ViewRandomProperty? {
+    func getRectangleProperty(at index: Int) -> RectangleProperty? {
         guard properties.count-1 >= index else {
             return nil
         }
@@ -32,7 +32,7 @@ class Plane {
         return properties[index]
     }
     
-    func hasAnyRectangle(in rect: RectPoint) -> Bool {
+    func hasAnyRectangle(in rect: RectOrigin) -> Bool {
         properties.contains {
             
             let point = $0.getPoint()
@@ -56,7 +56,7 @@ class Plane {
         properties[index].setSize(size)
     }
     
-    func setProperty(at index: Int, point: RectPoint) {
+    func setProperty(at index: Int, point: RectOrigin) {
         guard properties.count-1 >= index else { return }
         properties[index].setPoint(point)
     }

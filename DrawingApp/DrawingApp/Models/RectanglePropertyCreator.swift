@@ -1,5 +1,5 @@
 //
-//  ViewPropertyCreator.swift
+//  RectanglePropertyCreator.swift
 //  DrawingApp
 //
 //  Created by 백상휘 on 2022/03/01.
@@ -7,10 +7,10 @@
 
 import Foundation
 
-class ViewPropertyCreator: RandomizeValue {
+class RectanglePropertyCreator: RandomizeValue {
     
-    func generateRandomPoint(maxPointX: Double, maxPointY: Double) -> RectPoint {
-        RectPoint(
+    func generateRandomPoint(maxPointX: Double, maxPointY: Double) -> RectOrigin {
+        RectOrigin(
             x: getDoubleRandom(from: 0, to: maxPointX),
             y: getDoubleRandom(from: 0, to: maxPointY)
         )
