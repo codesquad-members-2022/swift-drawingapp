@@ -37,6 +37,9 @@ class StylerView: UIView{
         self.rectangleColorValueField.titleLabel?.textAlignment = .center
         self.rectangleColorValueField.backgroundColor = UIColor(red: r, green: g, blue: b, alpha: 1)
         self.rectangleAlphaSlider.value = opacity
+        if let delegate = self.delegate{
+            delegate.updatingRectangleInfoCompleted()
+        }
     }
     
     private func setRectangleColorInformationView(){
