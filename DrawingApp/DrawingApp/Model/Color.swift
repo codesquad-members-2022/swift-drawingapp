@@ -34,9 +34,9 @@ struct Color {
             return
         }
         
-        self.red = Double(red)
-        self.green = Double(green)
-        self.blue = Double(blue)
+        self.red = Double(red) / 255.0
+        self.green = Double(green) / 255.0
+        self.blue = Double(blue) / 255.0
     }
     
     init?(red: Double, green: Double, blue: Double) {
@@ -44,9 +44,9 @@ struct Color {
             return nil
         }
             
-        self.red = red
-        self.green = green
-        self.blue = blue
+        self.red = red / 255.0
+        self.green = green / 255.0
+        self.blue = blue / 255.0
     }
 }
 
