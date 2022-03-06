@@ -60,6 +60,10 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                     </button>
+                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minimumValue="1" maximumValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="cFV-VR-VZk">
+                                        <rect key="frame" x="73" y="292" width="94" height="32"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                    </stepper>
                                 </subviews>
                                 <color key="backgroundColor" name="Background"/>
                             </view>
