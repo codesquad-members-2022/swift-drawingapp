@@ -25,7 +25,6 @@ class ViewController: UIViewController {
         addGenerateRectangleButton()
         addDrawableAreaView()
         plane.generateRectangleViewDelegate = self
-        plane.changeRectangleBackgroundColorDelegate = self
         
     }
     
@@ -104,7 +103,15 @@ class ViewController: UIViewController {
         guard let touchedView = self.touchedView else {
             return
         }
-        plane.changeBackGroundColorOfRectangle(id: touchedView.id)
+        guard let newColor = BackgroundColorFactory.generateRandomColor() else {
+            return
+        }
+        
+        touchedView.backgroundColor = UIColor(red: newColor.r/255, green: newColor.g/255, blue: newColor.b/255, alpha: 1.0)
+        backgroundColorButton.setTitle(newColor.hexCode, for: .normal)
+        backgroundColorButton.backgroundColor = UIColor(red: newColor.r/255, green: newColor.g/255, blue: newColor.b/255, alpha: backgroundColorButton.alpha
+        )
+        plane.changeBackGroundColorOfRectangle(id: touchedView.id, to: newColor)
     }
 }
 
@@ -117,10 +124,3 @@ extension ViewController: GenerateRectangleViewDelegate {
     }
 }
 
-extension ViewController: ChangeRectangleBackgroundColorDelegate {
-    func rectangleDidChangeBackgroundColor(to newColor: BackgroundColor, alpha: Alpha) {
-        backgroundColorButton.setTitle(newColor.hexCode, for: .normal)
-        backgroundColorButton.backgroundColor = UIColor(red: newColor.r/255, green: newColor.g/255, blue: newColor.b/255, alpha: alpha.value)
-        self.touchedView?.backgroundColor = UIColor(red: newColor.r/255, green: newColor.g/255, blue: newColor.b/255, alpha: alpha.value)
-    }
-}

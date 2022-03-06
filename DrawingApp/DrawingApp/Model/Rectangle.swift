@@ -30,7 +30,7 @@ class Rectangle {
         self.alpha = alpha
     }
     
-    func changeBackgroundColorRandomly() {
+    func changeBackgroundColor(to newColor: BackgroundColor) {
         guard let newColor = BackgroundColorFactory.generateRandomColor() else {return}
         self.backgroundColor = newColor
     }
