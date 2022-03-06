@@ -17,12 +17,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var backgroundColorButton: UIButton!
     @IBOutlet weak var alphaSlider: UISlider!
     
+    weak var touchedView: RectangleView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         addGenerateRectangleButton()
         addDrawableAreaView()
         plane.generateRectangleViewDelegate = self
+        plane.changeRectangleBackgroundColorDelegate = self
         
     }
     
@@ -67,6 +70,7 @@ class ViewController: UIViewController {
                                                   with: nil) as? RectangleView
         else { return }
         
+        self.touchedView = touchedView
         updateSelectedView(touchedView)
         
         guard let specifiedRectangle = plane.specifyRectangle(id: touchedView.id) else { return }
@@ -95,7 +99,13 @@ class ViewController: UIViewController {
     private func updateAlphaSlider(alpha: Alpha) {
         alphaSlider.setValue(Float(alpha.value), animated: true)
     }
-
+    
+    @IBAction func backgroundButtonTouched(_ sender: UIButton) {
+        guard let touchedView = self.touchedView else {
+            return
+        }
+        plane.changeBackGroundColorOfRectangle(id: touchedView.id)
+    }
 }
 
 extension ViewController: GenerateRectangleViewDelegate {
@@ -104,5 +114,13 @@ extension ViewController: GenerateRectangleViewDelegate {
         
         let newRectangleView = ViewFactory.generateRectangleView(of: rectangle)
         self.drawableAreaView.addSubview(newRectangleView)
+    }
+}
+
+extension ViewController: ChangeRectangleBackgroundColorDelegate {
+    func rectangleDidChangeBackgroundColor(to newColor: BackgroundColor, alpha: Alpha) {
+        backgroundColorButton.setTitle(newColor.hexCode, for: .normal)
+        backgroundColorButton.backgroundColor = UIColor(red: newColor.r/255, green: newColor.g/255, blue: newColor.b/255, alpha: alpha.value)
+        self.touchedView?.backgroundColor = UIColor(red: newColor.r/255, green: newColor.g/255, blue: newColor.b/255, alpha: alpha.value)
     }
 }
