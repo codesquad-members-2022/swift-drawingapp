@@ -14,7 +14,7 @@ class DrawingAppAddViewTests: XCTestCase {
     
     func testDrawViewExceeded() throws {
         
-        let factory = FactoryViewRandomProperty()
+        let factory = FactoryRectangleProperty()
         let vc = storyboard.instantiateViewController(withIdentifier: "MainViewController")
         vc.loadView()
         
@@ -36,8 +36,8 @@ class DrawingAppAddViewTests: XCTestCase {
             return
         }
         
-        XCTAssertFalse(testModel.setPoint(RectPoint(x: -1, y: -1)), "Model set point negative value not execute intentionally.")
-        XCTAssertTrue(testModel.setPoint(RectPoint(x: 1, y: 1)), "Model set point positive value not execute intentionally.")
+        XCTAssertFalse(testModel.setPoint(RectOrigin(x: -1, y: -1)), "Model set point negative value not execute intentionally.")
+        XCTAssertTrue(testModel.setPoint(RectOrigin(x: 1, y: 1)), "Model set point positive value not execute intentionally.")
         
         XCTAssertFalse(testModel.setSize(RectSize(width: -1, height: -1)), "Model set size negative value not execute intentionally.")
         XCTAssertTrue(testModel.setSize(RectSize(width: 1, height: 1)), "Model set size positive value not execute intentionally.")
