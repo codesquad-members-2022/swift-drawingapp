@@ -57,17 +57,13 @@ class ViewController: UIViewController{
         self.view.addSubview(stylerView)
     }
     
-    private func updateViewWithSelectedRectangleModel(rectangle: Rectangle, rectangleView: UIView?){
-        if let stylerView = self.stylerView, let canvasView = self.canvasView{
-            let r = rectangle.backgroundColor.r
-            let g = rectangle.backgroundColor.g
-            let b = rectangle.backgroundColor.b
-            let opacity = rectangle.alpha.opacity
-            stylerView.updateRectangleInfo(r: r, g: g, b: b, opacity: opacity)
-            if let rectangleView = rectangleView{
-                canvasView.updateSelectedRectangleView(subView: rectangleView)
-            }
-        }
+    private func updateViewWithSelectedRectangleModel(rectangle: Rectangle){
+        guard let stylerView = self.stylerView else { return }
+        let r = rectangle.backgroundColor.r
+        let g = rectangle.backgroundColor.g
+        let b = rectangle.backgroundColor.b
+        let opacity = rectangle.alpha.opacity
+        stylerView.updateRectangleInfo(r: r, g: g, b: b, opacity: opacity)
     }
 
 }
@@ -100,8 +96,7 @@ extension ViewController: PlaneDelegate{
     }
     
     func rectangleFoundFromPlane(rectangle: Rectangle){
-        guard let currentlyTouchedView = self.currentlyTouchedView else { return }
-        self.updateViewWithSelectedRectangleModel(rectangle: rectangle, rectangleView: currentlyTouchedView)
+        self.updateViewWithSelectedRectangleModel(rectangle: rectangle)
     }
     
     func rectangleNotFoundFromPlane(){
@@ -141,6 +136,12 @@ extension ViewController: CanvasViewDelegate{
 }
 
 extension ViewController: StylerViewDelegate{
+    
+    func updatingRectangleInfoCompleted() {
+        guard let canvasView = self.canvasView else { return }
+        guard let rectangleView = self.currentlyTouchedView else { return }
+        canvasView.updateSelectedRectangleView(subView: rectangleView)
+    }
     
     func updatingSelectedRecntagleViewColorRequested(){
         guard let stylerView = self.stylerView else { return }
