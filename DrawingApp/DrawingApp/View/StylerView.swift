@@ -22,10 +22,13 @@ class StylerView: UIView{
         super.init(coder: coder)
     }
     
-    func clearRectangleInfo(){
+    func clearSelectedRectangleInfo(){
         self.rectangleAlphaSlider.value = 0
         self.rectangleColorValueField.backgroundColor = .white
         self.rectangleColorValueField.setTitle("", for: .normal)
+        if let delegate = self.delegate{
+            delegate.clearingSelectedRectangleInfoCompleted()
+        }
     }
     
     func updateRectangleInfo(r: Double, g: Double, b: Double, opacity: Float){
@@ -55,16 +58,9 @@ class StylerView: UIView{
     
     private func setColorChangeAction(){
         self.rectangleColorValueField.addAction(UIAction(title: ""){_ in
-            let newColor = UIColor(red: CGFloat.random(in: 0...1),
-                                   green: CGFloat.random(in: 0...1),
-                                   blue: CGFloat.random(in: 0...1),
-                                   alpha: 1)
-            guard let rgb = newColor.cgColor.components else { return }
-            guard let viewController = self.delegate else { return }
-            let newHexString = "#\(String(Int(rgb[0]*255), radix: 16))\(String(Int(rgb[1]*255), radix: 16))\(String(Int(rgb[2]*255), radix: 16))"
-            self.rectangleColorValueField.backgroundColor = newColor
-            self.rectangleColorValueField.setTitle(newHexString, for: .normal)
-            viewController.changeSelectedRecntagleViewColor(rgb: rgb.map{Double($0)})
+            if let delegate = self.delegate{
+                delegate.updatingSelectedRecntagleViewColorRequessted()
+            }
         }, for: .touchDown)
     }
     
@@ -86,10 +82,23 @@ class StylerView: UIView{
     
     private func setAlphaChangeAction(){
         self.rectangleAlphaSlider.addAction(UIAction(title: ""){ _ in
-            if let viewController = self.delegate{
-                viewController.changeSelectedRectangleViewAlpha(opacity: Int(self.rectangleAlphaSlider.value * 10))
+            if let delegate = self.delegate{
+                delegate.updatingSelectedRectangleViewAlphaRequested(opacity: Int(self.rectangleAlphaSlider.value * 10))
             }
         }, for: .valueChanged)
+    }
+    
+    func updateSelectedRectangleViewColorInfo(rgb: [Double]){
+        let newHexString = "#\(String(Int(rgb[0]*255), radix: 16))\(String(Int(rgb[1]*255), radix: 16))\(String(Int(rgb[2]*255), radix: 16))"
+        self.rectangleColorValueField.backgroundColor = UIColor(red: rgb[0],
+                                                                green: rgb[1],
+                                                                blue: rgb[2],
+                                                                alpha: 1)
+        self.rectangleColorValueField.setTitle(newHexString, for: .normal)
+        if let delegate = self.delegate{
+            delegate.updatingSelectedRectangleViewColorInfoCompleted(rgb: rgb)
+        }
+
     }
     
 }

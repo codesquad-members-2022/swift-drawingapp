@@ -7,6 +7,7 @@ class ViewController: UIViewController{
     private var canvasView: CanvasView?
     private var stylerView: StylerView?
     private var plane: Plane = Plane()
+    private var currentlyTouchedView: RectangleView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,49 +56,61 @@ class ViewController: UIViewController{
         self.stylerView = stylerView
         self.view.addSubview(stylerView)
     }
-}
-
-extension ViewController: UIGestureRecognizerDelegate, PlaneDelegate{
     
-    func addingRectangleCompleted(rectangle: Rectangle) {
-        if let canvasView = self.canvasView{
-            let rectangleView = UIView(frame: CGRect(x: rectangle.point.x,
-                                                     y: rectangle.point.y,
-                                                     width: rectangle.size.width,
-                                                     height: rectangle.size.height))
-            rectangleView.backgroundColor = UIColor(red: rectangle.backgroundColor.r,
-                                                    green: rectangle.backgroundColor.g,
-                                                    blue: rectangle.backgroundColor.b,
-                                                    alpha: CGFloat(rectangle.alpha.opacity))
-            canvasView.insertSubview(rectangleView, belowSubview: canvasView.generatingButton)
+    private func updateViewWithSelectedRectangleModel(rectangle: Rectangle, rectangleView: UIView?){
+        if let stylerView = self.stylerView, let canvasView = self.canvasView{
+            let r = rectangle.backgroundColor.r
+            let g = rectangle.backgroundColor.g
+            let b = rectangle.backgroundColor.b
+            let opacity = rectangle.alpha.opacity
+            stylerView.updateRectangleInfo(r: r, g: g, b: b, opacity: opacity)
+            if let rectangleView = rectangleView{
+                canvasView.updateSelectedRectangleView(subView: rectangleView)
+            }
         }
     }
+
+}
+
+extension ViewController: UIGestureRecognizerDelegate{
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        
-        let tappedPoint = touch.location(in: self.canvasView)
-        guard let stylerView = self.stylerView else { return false }
-        guard let canvasView = self.canvasView else { return false }
-        guard let rectangle = plane[tappedPoint.x,tappedPoint.y] else {
-            stylerView.clearRectangleInfo()
-            canvasView.cancelSelection()
-            return false
+        if let touchedView = touch.view as? RectangleView{
+            self.currentlyTouchedView = touchedView
         }
-        guard let rectangleView = canvasView[tappedPoint.x,tappedPoint.y] else { return false }
-
-        let r = rectangle.backgroundColor.r
-        let g = rectangle.backgroundColor.g
-        let b = rectangle.backgroundColor.b
-        let opacity = rectangle.alpha.opacity
-        stylerView.updateRectangleInfo(r: r, g: g, b: b, opacity: opacity)
-        canvasView.selectTappedRectangle(subView: rectangleView)
-        plane.selectRectangle(id: rectangle.id)
-        
+        let touchedPoint = touch.location(in: self.canvasView)
+        self.plane.findMatchingRectangleModel(x: touchedPoint.x, y: touchedPoint.y)
         return true
     }
 }
 
-extension ViewController: CanvasViewDelegate, StylerViewDelegate{
+extension ViewController: PlaneDelegate{
+    
+    func addingRectangleCompleted(rectangle: Rectangle) {
+        guard let canvasView = self.canvasView else { return }
+        let rectangleView = RectangleView(frame: CGRect(x: rectangle.point.x,
+                                                 y: rectangle.point.y,
+                                                 width: rectangle.size.width,
+                                                 height: rectangle.size.height))
+        rectangleView.backgroundColor = UIColor(red: rectangle.backgroundColor.r,
+                                                green: rectangle.backgroundColor.g,
+                                                blue: rectangle.backgroundColor.b,
+                                                alpha: CGFloat(rectangle.alpha.opacity))
+        canvasView.insertSubview(rectangleView, belowSubview: canvasView.generatingButton)
+    }
+    
+    func rectangleFoundFromPlane(rectangle: Rectangle){
+        guard let currentlyTouchedView = self.currentlyTouchedView else { return }
+        self.updateViewWithSelectedRectangleModel(rectangle: rectangle, rectangleView: currentlyTouchedView)
+    }
+    
+    func rectangleNotFoundFromPlane(){
+        guard let stylerView = self.stylerView else { return }
+        stylerView.clearSelectedRectangleInfo()
+    }
+}
+
+extension ViewController: CanvasViewDelegate{
     
     func creatingRectangleRequested(){
         guard let canvasView = self.canvasView else { return }
@@ -110,19 +123,7 @@ extension ViewController: CanvasViewDelegate, StylerViewDelegate{
         plane.addRectangle(rectangle)
     }
     
-    func changeSelectedRecntagleViewColor(rgb: [Double]){
-        guard let canvasView = self.canvasView else { return }
-        canvasView.changeSelectedRectangleColor(rgb: rgb)
-        changeRectangleModelColor(rgb: rgb)
-    }
-    
-    func changeSelectedRectangleViewAlpha(opacity: Int){
-        if let canvasView = self.canvasView{
-            canvasView.changeSelectedRectangleOpacity(opacity: opacity)
-        }
-    }
-    
-    func changeRectangleModelAlpha(opacity: Int) {
+    func updatingSelectedRectangleViewAlphaCompleted(opacity: Int) {
         var opacity = opacity
         guard let selectedRectangleId = plane.selectedRectangleId else { return }
         guard let rectangle = plane[selectedRectangleId] else { return }
@@ -132,13 +133,46 @@ extension ViewController: CanvasViewDelegate, StylerViewDelegate{
         rectangle.alpha = Rectangle.Alpha.allCases[opacity]
     }
     
-    func changeRectangleModelColor(rgb: [Double]) {
+    func updatingSelectedRectangleViewColorCompleted(rgb: [Double]) {
         guard let selectedRectangleId = plane.selectedRectangleId else { return }
         guard let rectangle = plane[selectedRectangleId] else { return }
         rectangle.backgroundColor = Rectangle.Color(r: rgb[0]*255, g: rgb[1]*255, b: rgb[2]*255)
     }
+}
+
+extension ViewController: StylerViewDelegate{
     
-    func clearModelSelection() {
-        plane.clearModelSelection()
+    func updatingSelectedRecntagleViewColorRequested(){
+        guard let stylerView = self.stylerView else { return }
+        guard let rgb = generateNewColor() else { return }
+        stylerView.updateSelectedRectangleViewColorInfo(rgb: rgb)
     }
+    
+    private func generateNewColor()-> [Double]?{
+        let newColor = UIColor(red: CGFloat.random(in: 0...1),
+                               green: CGFloat.random(in: 0...1),
+                               blue: CGFloat.random(in: 0...1),
+                               alpha: 1)
+        var rgb:[Double]?
+        if let components = newColor.cgColor.components{
+            rgb = components.map{ Double($0) }
+        }
+        return rgb
+    }
+    
+    func updatingSelectedRectangleViewColorInfoCompleted(rgb: [Double]) {
+        guard let canvasView = self.canvasView else { return }
+        canvasView.changeSelectedRectangleViewColor(rgb: rgb)
+    }
+    
+    func updatingSelectedRectangleViewAlphaRequested(opacity: Int){
+        guard let canvasView = self.canvasView else { return }
+        canvasView.updateSelectedRectangleOpacity(opacity: opacity)
+    }
+
+    func clearingSelectedRectangleInfoCompleted() {
+        guard let canvasView = self.canvasView else { return }
+        canvasView.clearRectangleViewSelection()
+    }
+
 }
