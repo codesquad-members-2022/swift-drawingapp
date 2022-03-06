@@ -7,16 +7,14 @@
 
 import UIKit
 
-extension Notification.Name {
-    static let sliderChanged = Notification.Name("sliderChanged")
-    static let colorButtonPressed = Notification.Name("colorButtonPressed")
-}
-
 class PanelViewController: UIViewController {
     
     @IBOutlet weak var colorButton: UIButton!
     @IBOutlet weak var AlphaLabel: UILabel!
     @IBOutlet weak var alphaSlider: UISlider!
+    
+    static let sliderChanged = Notification.Name("sliderChanged")
+    static let colorButtonPressed = Notification.Name("colorButtonPressed")
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,9 +22,9 @@ class PanelViewController: UIViewController {
     }
     
     private func observePlane() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didSelectViewModel(_:)), name: .selectViewModel, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didMutateColor(_:)), name: .mutateColorViewModel, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didMutateAlpha(_:)), name: .mutateAlphaViewModel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didSelectViewModel(_:)), name: Plane.selectViewModel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateColor(_:)), name: Plane.mutateColorViewModel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateAlpha(_:)), name: Plane.mutateAlphaViewModel, object: nil)
     }
 }
 
@@ -87,8 +85,9 @@ extension PanelViewController {
 
 extension PanelViewController {
     
+    
     @IBAction func ColorButtonPressed(_ sender: UIButton) {
-        NotificationCenter.default.post(name: .colorButtonPressed, object: self)
+        NotificationCenter.default.post(name: PanelViewController.colorButtonPressed, object: self)
     }
     
     @objc func didMutateColor(_ notification: Notification) {
@@ -98,7 +97,7 @@ extension PanelViewController {
     }
     
     @IBAction func SliderChanged(_ sender: UISlider) {
-        NotificationCenter.default.post(name: .sliderChanged, object: self, userInfo: ["value": sender.value])
+        NotificationCenter.default.post(name: PanelViewController.sliderChanged, object: self, userInfo: ["value": sender.value])
     }
     
     @objc func didMutateAlpha(_ notification: Notification) {

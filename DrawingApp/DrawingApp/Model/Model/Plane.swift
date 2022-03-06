@@ -7,14 +7,12 @@
 
 import Foundation
 
-extension Notification.Name {
+class Plane {
     static let addViewModel = Notification.Name("addViewModel")
     static let selectViewModel = Notification.Name("selectViewModel")
     static let mutateColorViewModel = Notification.Name("mutateColorViewModel")
     static let mutateAlphaViewModel = Notification.Name("mutateAlphaViewModel")
-}
-
-class Plane {
+    
     var viewModels: [ViewModel] = [] {
         didSet {
             guard let newModel = viewModels.last else { return }
@@ -35,7 +33,7 @@ class Plane {
     func addRectangle() {
         let newRectangle = Factory.createRectangle()
         viewModels.append(newRectangle)
-        NotificationCenter.default.post(name: .addViewModel, object: self, userInfo: ["new": newRectangle])
+        NotificationCenter.default.post(name: Plane.addViewModel, object: self, userInfo: ["new": newRectangle])
     }
     
     func tap(on point: Point) {
@@ -43,18 +41,18 @@ class Plane {
         self.selected = viewModels.last(where: { viewModel in
             viewModel.contains(point)
         })
-        NotificationCenter.default.post(name: .selectViewModel, object: self, userInfo: ["old": oldSelected, "new": selected])
+        NotificationCenter.default.post(name: Plane.selectViewModel, object: self, userInfo: ["old": oldSelected as Any, "new": selected as Any])
     }
     
     func transform(to color: Color = Factory.createColor()) {
         guard let mutableViewModel = selected as? ColorMutable else { return }
         mutableViewModel.transform(to: color)
-        NotificationCenter.default.post(name: .mutateColorViewModel, object: self)
+        NotificationCenter.default.post(name: Plane.mutateColorViewModel, object: self)
     }
     
     func transform(to alpha: Alpha) {
         guard let mutableViewModel = selected as? AlphaMutable else { return }
         mutableViewModel.transform(to: alpha)
-        NotificationCenter.default.post(name: .mutateAlphaViewModel, object: self)
+        NotificationCenter.default.post(name: Plane.mutateAlphaViewModel, object: self)
     }
 }
