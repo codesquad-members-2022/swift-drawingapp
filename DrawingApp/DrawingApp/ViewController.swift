@@ -63,21 +63,26 @@ class ViewController: UIViewController {
     }
     
     @objc func viewDidTouched(sender: UITapGestureRecognizer) {
+        guard let touchedView = self.view.hitTest(sender.location(in: drawableAreaView),
+                                                  with: nil) as? RectangleView
+        else { return }
+        
+        updateSelectedView(touchedView)
+        
+        guard let specifiedRectangle = plane.specifyRectangle(id: touchedView.id) else { return }
+        
+        updateBackgroundButton(color: specifiedRectangle.backgroundColor, alpha: specifiedRectangle.alpha)
+        updateAlphaSlider(alpha: specifiedRectangle.alpha)
+        
+    }
+    
+    func updateSelectedView(_ selectedView: RectangleView) {
         drawableAreaView.subviews.forEach { rectangleView in
             rectangleView.layer.borderWidth = 0
         }
-        guard let touchedView = self.view.hitTest(sender.location(in: drawableAreaView), with: nil) as? RectangleView else {
-            return
-        }
         
-        touchedView.layer.borderWidth = 3
-        touchedView.layer.borderColor = UIColor.black.cgColor
-        
-        guard let touchedRectangle = plane.getRectangle(id: touchedView.id) else {
-            return
-        }
-        updateBackgroundButton(color: touchedRectangle.backgroundColor, alpha: touchedRectangle.alpha)
-        updateAlphaSlider(alpha: touchedRectangle.alpha)
+        selectedView.layer.borderWidth = 3
+        selectedView.layer.borderColor = UIColor.black.cgColor
         
     }
     
