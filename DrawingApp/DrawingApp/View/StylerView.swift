@@ -59,7 +59,7 @@ class StylerView: UIView{
     private func setColorChangeAction(){
         self.rectangleColorValueField.addAction(UIAction(title: ""){_ in
             if let delegate = self.delegate{
-                delegate.updatingSelectedRecntagleViewColorRequessted()
+                delegate.updatingSelectedRecntagleViewColorRequested()
             }
         }, for: .touchDown)
     }
