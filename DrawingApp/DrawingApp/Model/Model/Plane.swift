@@ -35,7 +35,7 @@ class Plane {
     func addRectangle() {
         let newRectangle = Factory.createRectangle()
         viewModels.append(newRectangle)
-        NotificationCenter.default.post(name: .addViewModel, object: newRectangle)
+        NotificationCenter.default.post(name: .addViewModel, object: self, userInfo: ["new": newRectangle])
     }
     
     func tap(on point: Point) {
@@ -43,18 +43,18 @@ class Plane {
         self.selected = viewModels.last(where: { viewModel in
             viewModel.contains(point)
         })
-        NotificationCenter.default.post(name: .selectViewModel, object: (old: oldSelected, new: selected))
+        NotificationCenter.default.post(name: .selectViewModel, object: self, userInfo: ["old": oldSelected, "new": selected])
     }
     
     func transform(to color: Color = Factory.createColor()) {
         guard let mutableViewModel = selected as? ColorMutable else { return }
         mutableViewModel.transform(to: color)
-        NotificationCenter.default.post(name: .mutateColorViewModel, object: mutableViewModel)
+        NotificationCenter.default.post(name: .mutateColorViewModel, object: self)
     }
     
     func transform(to alpha: Alpha) {
         guard let mutableViewModel = selected as? AlphaMutable else { return }
         mutableViewModel.transform(to: alpha)
-        NotificationCenter.default.post(name: .mutateAlphaViewModel, object: mutableViewModel)
+        NotificationCenter.default.post(name: .mutateAlphaViewModel, object: self)
     }
 }
