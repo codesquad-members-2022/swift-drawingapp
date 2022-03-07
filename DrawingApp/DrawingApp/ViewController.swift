@@ -10,7 +10,7 @@ import OSLog
 
 class ViewController: UIViewController {
     
-    let plane = Plane()
+    var plane = Plane()
     weak var generateRectangleButton: UIButton!
     weak var drawableAreaView: UIView!
     @IBOutlet weak var statusView: UIView!
