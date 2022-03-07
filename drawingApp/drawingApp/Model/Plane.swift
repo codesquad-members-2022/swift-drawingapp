@@ -12,7 +12,7 @@ protocol PlaneDelegate {
     func didAppendRect(rect: Rectangle?)
 }
 
-struct Plane {
+struct Plane{
     
     var delegate : PlaneDelegate?
     

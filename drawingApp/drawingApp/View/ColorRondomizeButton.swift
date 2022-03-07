@@ -11,6 +11,7 @@ protocol ColorRondomizeButtonDelegate {
     func generateRandomColor(sender: ColorRondomizeButton)
 }
 
+
 class ColorRondomizeButton: UIButton {
 
     var delegate : ColorRondomizeButtonDelegate?
@@ -18,7 +19,7 @@ class ColorRondomizeButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
-        self.addTarget(self, action: #selector(didTouchButton), for: .touchUpInside)
+        self.addTarget(self, action: #selector(didTapButton), for: .touchUpInside)
     }
     
     required init?(coder: NSCoder) {
@@ -33,7 +34,7 @@ class ColorRondomizeButton: UIButton {
         self.tag = 1
     }
     
-    @objc func didTouchButton(){
+    @objc func didTapButton(){
         delegate?.generateRandomColor(sender: self)
     }
 }

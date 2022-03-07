@@ -37,9 +37,6 @@ class ViewController: UIViewController {
         setupSubViews()
         setupGestureRecognizer()
         setupDelegates()
-    }
-    
-    override func viewWillLayoutSubviews() {
         setupLayout()
     }
     
@@ -71,7 +68,6 @@ class ViewController: UIViewController {
         colorRondomizeButton.frame = CGRect(x: (screenWdith - panelWidth) + 20, y: view.safeAreaInsets.top + 70.0, width: 160, height: 50)
         alphaStepper.frame = CGRect(x: (screenWdith - panelWidth) + 100, y: view.safeAreaInsets.top + 190.0, width: 160, height: 50)
         stepperLabel.frame = CGRect(x: (screenWdith - panelWidth) + 55, y: view.safeAreaInsets.top + 185.0, width: 160, height: 50)
-
     }
     
     //MARK: Event 2.0 : 사용자가 RectangleView 를 터치했을때 해당 사각형 뷰를 highlight 해준다
