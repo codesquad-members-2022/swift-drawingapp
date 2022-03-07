@@ -8,7 +8,7 @@
 import Foundation
 
 struct Plane{
-    private var rectangleFactory = RectangleFactory()
+    private var rectangleFactory: RectangleFactoryResponse
     private var rectangles: [ViewPoint: Rectangle] = [:]
     private var planeDelegate: PlaneDelegate?
     private var selectedRectangle: Rectangle?
@@ -17,12 +17,16 @@ struct Plane{
         return rectangles[point]
     }
     
+    init(){
+        rectangleFactory = RectangleFactory()
+    }
+    
     mutating func setDelegate(planeDelegate: PlaneDelegate){
         self.planeDelegate = planeDelegate
     }
     
     mutating func addRectangle(){
-        let rectangle = rectangleFactory.makeRandomRectangle()
+        let rectangle = rectangleFactory.randomRectangle()
         rectangles[rectangle.point] = rectangle
         self.selectedRectangle = rectangle
         planeDelegate?.didAddRandomRectangle(rectangle: rectangle)
@@ -42,7 +46,7 @@ struct Plane{
     
     mutating func changeColor(){
         guard let selectedRectangle = selectedRectangle else { return }
-        selectedRectangle.resetColor(rgbValue: rectangleFactory.makeRandomColor())
+        selectedRectangle.resetColor(rgbValue: rectangleFactory.randomRGBColor())
         planeDelegate?.didChangedColor(id: selectedRectangle.uniqueId, colorRGB: selectedRectangle.color)
     }
     

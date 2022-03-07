@@ -51,6 +51,16 @@ class RectangleFactory{
     }
 }
 
+extension RectangleFactory: RectangleFactoryResponse{
+    func randomRectangle() -> Rectangle {
+        return makeRandomRectangle()
+    }
+    
+    func randomRGBColor() -> ColorRGB {
+        return randomRGBColor()
+    }
+}
+
 enum RandomMax: Int{
     case x = 470
     case y = 860

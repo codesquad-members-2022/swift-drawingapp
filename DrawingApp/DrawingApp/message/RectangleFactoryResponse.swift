@@ -8,6 +8,6 @@
 import Foundation
 
 protocol RectangleFactoryResponse{
-    func randomRectangle(rectangle: Rectangle)
-    func randomRGBColor(rgb: ColorRGB)
+    func randomRectangle() -> Rectangle
+    func randomRGBColor() -> ColorRGB
 }
