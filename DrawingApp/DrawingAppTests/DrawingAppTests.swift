@@ -10,18 +10,8 @@ import XCTest
 
 class DrawingAppTests: XCTestCase {
     
-    func testId() {
-        let factory = Factory()
-        let id = factory.createId().count
-        
-        XCTAssertEqual(11, 11)
+    func createID() {
+        let count = ID.createId().count
+        XCTAssertEqual(count, 11)
     }
-    
-    func testFactoryArray() {
-        let factoryArray = FactoryArray()
-        let array = factoryArray.createRectanleArray().count
-        
-        XCTAssertEqual(4, 4)
-    }
-    
 }
