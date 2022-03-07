@@ -9,8 +9,8 @@ import Foundation
 
 struct Size: CustomStringConvertible{
 
-    private var width: Double
-    private var height: Double
+    var width: Double
+    var height: Double
     
     init(width: Double, height: Double){
         self.width = width
