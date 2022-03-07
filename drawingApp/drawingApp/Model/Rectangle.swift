@@ -21,16 +21,25 @@
 */
 
 import Foundation
-
+import OSLog
+protocol RectangleDelegate {
+    func didChangeAlpha(sender : Rectangle)
+}
 //뷰에 나타날 사각형의 데이터.
 class Rectangle {
+    var delegate : RectangleDelegate?
+    
     //사각형에 대한 모든 속성을 가지고 있다
     let `id` : String
     let size : Size
     let point : Point
     var color : Color
-    var alpha : Alpha
-    
+    var alpha : Alpha {
+        didSet {
+            os_log(.debug, "사각형 알파 변경감지: \(oldValue) -> \(self.alpha)")
+            delegate?.didChangeAlpha(sender: self)
+        }
+    }
     
     init (id: String, size:Size , point: Point, color: Color, alpha : Alpha) {
         self.id = id
@@ -43,6 +52,11 @@ class Rectangle {
     func randomizeColor () {
         self.color = Color.getRandomColor()
     }
+    
+    func updateAlpha (_ alpha: Alpha) {
+        self.alpha = alpha
+    }
+    
 }
 
 

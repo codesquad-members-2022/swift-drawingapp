@@ -27,6 +27,11 @@ class ViewController: UIViewController {
     let buttonHeight: Double = 100
     let panelWidth : Double = 200
     
+    
+    //Targets
+    private var targetModel : Rectangle?
+    private var targetView : RectangleView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSubViews()
@@ -72,23 +77,27 @@ class ViewController: UIViewController {
     //MARK: 탭 제스쳐 메소드
     @objc func tapTriggered(sender: UITapGestureRecognizer) {
         let point = sender.location(in: self.view)
-        let detectedView = view.hitTest(sender.location(in: self.view), with: nil) as? RectangleView
         let presentedRectViews = view.subviews.compactMap{$0 as? RectangleView}
-        detectedView?.delegate = self
-        if plane.detectRect(x: point.x, y: point.y) {
-            selectHighlight(at: detectedView, on: presentedRectViews)
-        }
         
+        if let detectedMoodel = plane.detectRect(x: point.x, y: point.y) {
+            targetModel = detectedMoodel
+            targetModel?.delegate = self
+            targetView = view.hitTest(sender.location(in: self.view), with: nil) as? RectangleView
+            targetView?.delegate = self
+            selectHighlight(at: targetView, on: presentedRectViews)
+        }
         else {
+            targetView = nil
+            targetModel = nil
             dismissSelectHighlight(on: presentedRectViews)
         }
     }
     
     // MARK: 선택한 사각형뷰 Highlight 메소드.
-    func selectHighlight(at detectedView: RectangleView?, on presentedRectView : [RectangleView]) {
+    func selectHighlight(at detectedView: RectangleView?, on presentedRectViews : [RectangleView]) {
         if let rectView = detectedView {
             os_log(.debug,"사각형 뷰정보 : \(rectView)")
-            for view in presentedRectView{
+            for view in presentedRectViews {
                 if rectView == view {
                     invertSelectConfiguration(rectView)
                 }else{
@@ -123,23 +132,12 @@ class ViewController: UIViewController {
     }
 
 
-    //MARK: Panel 에 선택된 RectangleView 의 정보를 보여줌.
-    func displayInfo(condition: (Rectangle?) -> (Bool)) {
-        for i in 0..<plane.numberOfRect{
-            if condition(plane[i]), let model = plane[i] {
-                updateColorRondomizeButton(to : model.color.tohexString)
-                updateStepper(to: (model.alpha.value * 10))
-            }
-        }
-    }
     
     //MARK: 선택 되어 있는 RectangleView 의 색상을 업데이트하기.
-    func updateRectangleViewColor(with model: Rectangle?) {
-        let presentedRectViews = view.subviews.compactMap{$0 as? RectangleView}
-        for rectView in presentedRectViews {
-            if rectView.selected, let rectModel = model {
-                rectView.updateColor(with: rectModel)
-            }
+    func updateRectangleView(at view : RectangleView? , with model: Rectangle?) {
+        if let rectView = view, let rectModel = model {
+            rectView.updateColor(with: rectModel)
+            rectView.updateAlpha(newAlpha: rectModel.alpha.value)
         }
     }
     
@@ -152,6 +150,13 @@ class ViewController: UIViewController {
         }
     }
     
+    func updatePanel(with model : Rectangle?) {
+        if let rectModel = model {
+            updateColorRondomizeButton(to : rectModel.color.tohexString)
+            updateStepper(to: (rectModel.alpha.value * 10))
+        }
+    }
+    
     func updateColorRondomizeButton(to str : String?) {
         if let newString = str {
             colorRondomizeButton.setTitle(newString, for: .normal)
@@ -159,8 +164,8 @@ class ViewController: UIViewController {
     }
     
     func updateStepper(to value : Double) {
-        self.alphaStepper.value = value
-        self.stepperLabel.text = String(value)
+        self.alphaStepper.updateValue(value)
+        self.stepperLabel.updateText(String(value))
     }
     
 }
@@ -190,12 +195,7 @@ extension ViewController : PlaneDelegate {
 
 extension ViewController : RectangleViewDelegate {
     func didTouchRectView(rectView: RectangleView) {
-        displayInfo(){ (rectangleModel) in
-            if rectView.frame.minX.trim == rectangleModel?.point.x.trim , rectView.frame.minY.trim == rectangleModel?.point.y.trim {
-               return true
-            }
-            return false
-        }
+        updatePanel(with: targetModel)
     }
 }
 
@@ -203,23 +203,27 @@ extension ViewController : RectangleViewDelegate {
 extension ViewController : ColorRondomizeButtonDelegate {
     func generateRandomColor(sender: ColorRondomizeButton) {
         let hexColor = sender.currentTitle
-        displayInfo(){ (rectangleModel) in
-            if rectangleModel?.color.tohexString == hexColor {
-                rectangleModel?.randomizeColor()
-                updateRectangleViewColor(with:rectangleModel)
-                return true
-            }
-            return false
+        if targetModel?.color.tohexString == hexColor {
+            targetModel?.randomizeColor()
+            updatePanel(with: targetModel)
+            updateRectangleView(at: targetView, with: targetModel)
         }
     }
 }
 
 extension ViewController : AlphaStepperDelegate {
     func changeAlpha(sender: AlphaStepper) {
-        
-        updateStepper(to: sender.value)
+        //사각형 모델 알파 값 변경.
+        if let alpha = Alpha(rawValue: Int(sender.value)) {
+            targetModel?.updateAlpha(alpha)
+            
+        }
     }
-    
-    
 }
 
+extension ViewController: RectangleDelegate {
+    func didChangeAlpha(sender: Rectangle) {
+        updatePanel(with: targetModel)
+        updateRectangleView(at: targetView, with: targetModel)
+    }
+}

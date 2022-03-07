@@ -7,8 +7,8 @@
 
 import Foundation
 //값이 낮을수록 투명함.
-enum Alpha : String , CustomStringConvertible , CaseIterable{
-    case One = "Clear"
+enum Alpha : Int , CustomStringConvertible , CaseIterable{
+    case One = 1
     case Two
     case Three
     case Four
@@ -17,12 +17,16 @@ enum Alpha : String , CustomStringConvertible , CaseIterable{
     case Seven
     case Eight
     case Nine
-    case Ten = "Opaque"
+    case Ten
+    case Opaque
+    case Clear
     var description: String {
         "Alpha : \(self.rawValue)"
     }
     var value : Double {
         switch self {
+        case .Clear :
+            return 0.1
         case .One :
             return 0.1
         case .Two :
@@ -42,6 +46,8 @@ enum Alpha : String , CustomStringConvertible , CaseIterable{
         case .Nine :
             return 0.9
         case .Ten :
+            return 1.0
+        case .Opaque :
             return 1.0
         }
     }

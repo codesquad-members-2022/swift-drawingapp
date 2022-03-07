@@ -40,7 +40,7 @@ struct Plane {
         self.rectangles.append(rect)
     }
     
-    func detectRect(x: Double, y: Double) -> Bool {
+    func detectRect(x: Double, y: Double) -> Rectangle? {
         for rectangle in rectangles {
             let minX = rectangle.point.x
             let minY = rectangle.point.y
@@ -48,10 +48,10 @@ struct Plane {
             let maxY = rectangle.point.y + rectangle.size.height
             if minX <= x, maxX >= x, minY <= y , maxY >= y {
                 os_log(.debug,"모델정보: \(rectangle)")
-                return true
+                return rectangle
             }
         }
-        return false
+        return nil
     }
     
  

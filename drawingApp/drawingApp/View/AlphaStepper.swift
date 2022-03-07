@@ -30,6 +30,12 @@ class AlphaStepper: UIStepper {
         self.stepValue = 1
     }
     
+
+    
+    func updateValue(_ value: Double) {
+        self.value = value
+    }
+    
     @objc func didTabStepper(){
         delegate?.changeAlpha(sender: self)
     }
