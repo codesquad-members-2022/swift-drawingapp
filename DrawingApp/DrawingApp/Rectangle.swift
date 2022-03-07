@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Rectangle: CustomStringConvertible {
+struct Rectangle: CustomStringConvertible {
     enum Alpha: Int {
         case one = 1
         case two
