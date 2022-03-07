@@ -13,17 +13,27 @@ struct Color: CustomStringConvertible {
     let b: UInt
     
     var hexColor: String {
-        "#\(String(r, radix: 16))\(String(g, radix: 16))\(String(b, radix: 16))"
+        "#\(hexaFromDecimal(r))\(hexaFromDecimal(g))\(hexaFromDecimal(b))"
     }
     
     var description: String {
         "R: \(r), G: \(g), B: \(b)"
     }
     
-    init(r: UInt, g: UInt, b: UInt) {
-        self.r = r < 0 ? 0 : r > 255 ? 255 : r
-        self.g = g < 0 ? 0 : g > 255 ? 255 : g
-        self.b = b < 0 ? 0 : b > 255 ? 255 : b
+    init?(r: UInt, g: UInt, b: UInt) {
+        guard r <= 255, g <= 255, b <= 255 else {
+            return nil
+        }
+        self.r = r
+        self.g = g
+        self.b = b
+
+    }
+    
+    private func hexaFromDecimal(_ value: UInt) -> String {
+        var hex = String(value, radix: 16)
+        hex = hex.count == 1 ? "0" + hex : hex
+        return hex
     }
 }
 

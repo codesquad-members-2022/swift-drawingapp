@@ -174,7 +174,7 @@ extension ViewController: PHPickerViewControllerDelegate {
             itemProvider.loadInPlaceFileRepresentation(forTypeIdentifier: representation) { (originalUrl, _, _) in
                 if let url = originalUrl {
                     DispatchQueue.main.async {
-                        self.plane.makePhotoRectangle(url: url)                        
+                        self.plane.makePhotoRectangle(url: url)                       
                     }
                 }
             }
