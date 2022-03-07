@@ -24,4 +24,8 @@ class PhotoRectangle: Rectangle {
     func update(url: URL) {
         self.imageUrl = url
     }
+    
+    override func update(color: Color) {
+        return
+    }
 }
