@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PhotosUI
 
 class ViewController: UIViewController {
     let drawingBoard: UIView = {
@@ -14,8 +15,6 @@ class ViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-    
-    var rectangleViews: [String:RectangleView] = [:]
     
     let topMenuBarView: TopMenuBarView = {
         let topMenuBarView = TopMenuBarView()
@@ -34,6 +33,7 @@ class ViewController: UIViewController {
     }()
     
     let plane = Plane()
+    var rectangleViews: [String:RectangleView] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -139,4 +139,33 @@ extension ViewController: TopMenuBarDelegate {
     func makeRectangleButtonTapped() {
         self.plane.makeRectangle()
     }
+    
+    func makePhotoButtonTapped() {
+        var config = PHPickerConfiguration()
+        config.selectionLimit = 1
+        config.filter = .any(of: [.images])
+        let phpPicker = PHPickerViewController(configuration: config)
+        phpPicker.delegate = self
+        
+        self.present(phpPicker, animated: true)
+    }
+}
+
+extension ViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true)
+        
+        guard let itemProvider = results.first?.itemProvider,
+              itemProvider.canLoadObject(ofClass: UIImage.self) else {
+            return
+        }
+        
+        itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+            DispatchQueue.main.async {
+//                self.photoImageView.image = image as? UIImage
+            }
+        }
+    }
+    
+    
 }
