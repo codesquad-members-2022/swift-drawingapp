@@ -8,12 +8,12 @@
 import Foundation
 
 class Alpha {
-    var transparency : Int
+    var transparency : Double
     
-    static let alphaRange = 0...10
+    static let alphaRange = 1...10
     init? (transparency : Int) {
         guard Alpha.alphaRange.contains(transparency) else {return nil}
-        self.transparency = transparency
+        self.transparency = Double(transparency)
     }
 }
 

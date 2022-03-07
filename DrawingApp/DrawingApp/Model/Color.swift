@@ -8,17 +8,17 @@
 import Foundation
 
 class Color {
-    var red : Int
-    var green : Int
-    var blue : Int
+    var red : Double
+    var green : Double
+    var blue : Double
     
     static let colorRange = 0...255
     
     init? (red: Int, green: Int, blue: Int){
         guard Color.colorRange ~= red && Color.colorRange ~= green && Color.colorRange ~= blue else {return nil}
-        self.red = red
-        self.green = green
-        self.blue = blue
+        self.red = Double(red)
+        self.green = Double(green)
+        self.blue = Double(blue)
     }
 }
 extension Color : CustomStringConvertible {
