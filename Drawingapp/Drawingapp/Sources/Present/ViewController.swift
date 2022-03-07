@@ -164,9 +164,29 @@ extension ViewController: TopMenuBarDelegate {
 extension ViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
+        
         guard let itemProvider = results.first?.itemProvider else {
             return
         }
-        self.plane.makeRectangle(itemProvider: itemProvider)
+        
+        itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.image.identifier) { url, error in
+            guard let url = url else {
+                return
+            }
+            
+            let fileManager = FileManager.default
+            let destination = fileManager.temporaryDirectory.appendingPathComponent(url.lastPathComponent)
+            do {
+                if fileManager.fileExists(atPath: destination.path) {
+                    try? fileManager.removeItem(at: destination)
+                }
+                try? fileManager.copyItem(at: url, to: destination)
+                DispatchQueue.main.async {
+                    self.plane.makeRectangle(url: destination)
+                }
+            } catch {
+                Log.error("image Load Fail: \(url)")
+            }
+        }
     }
 }

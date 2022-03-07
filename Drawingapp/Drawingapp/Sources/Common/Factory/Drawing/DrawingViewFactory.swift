@@ -23,13 +23,7 @@ class DrawingViewFactory {
         photoView.update(point: rectangle.point)
         photoView.update(size: rectangle.size)
         photoView.update(alpha: rectangle.alpha)
-        if let url = rectangle.imageUrl {
-            photoView.update(imageURL: url)
-        }
-        
-        if let itemProvider = rectangle.itemProvider {
-            photoView.update(itemProvider: itemProvider)
-        }
+        photoView.update(imageURL: rectangle.imageUrl)        
         return photoView
     }
 }
