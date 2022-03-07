@@ -104,7 +104,7 @@ class ViewController: UIViewController {
         }
         
         plane.changeBackGroundColorOfRectangle(id: touchedView.id, to: newColor)
-        touchedView.backgroundColor = UIColor(red: newColor.r/255, green: newColor.g/255, blue: newColor.b/255, alpha: 1.0)
+        touchedView.backgroundColor = Converter.convertToUIColor(backgroundColor: newColor)
         let previousBackgroundButtonAlpha = backgroundColorButton.backgroundColor?.cgColor.alpha ?? 1.0
         let convertedOpacityLevel = Int(previousBackgroundButtonAlpha * 10)
         guard let convertedAlpha = Alpha(opacityLevel: convertedOpacityLevel) else {
@@ -145,7 +145,6 @@ class ViewController: UIViewController {
         }
         
         let newAlphaValue = Double(String(format: "%.1f",(touchedView.alpha + 0.1))) ?? 1.0
-        print(newAlphaValue)
         plusAlphaValueButton.isEnabled = true
         plusAlphaValueButton.backgroundColor = .white
         
@@ -229,7 +228,7 @@ extension ViewController: UpdateViewMatchedRectangleDelegate {
     private func updateBackgroundButton(color: BackgroundColor, alpha: Alpha) {
         backgroundColorButton.isEnabled = true
         backgroundColorButton.setTitle(color.hexCode, for: .normal)
-        let buttonBackgroundColor = UIColor(red: color.r/255, green: color.g/255, blue: color.b/255, alpha: alpha.value)
+        let buttonBackgroundColor = Converter.convertToUIColor(backgroundColor: color, alpha: alpha.value)
         backgroundColorButton.backgroundColor = buttonBackgroundColor
     }
     
