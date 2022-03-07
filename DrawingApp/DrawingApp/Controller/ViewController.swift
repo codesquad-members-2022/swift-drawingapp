@@ -9,11 +9,30 @@ import UIKit
 import OSLog
 
 class ViewController: UIViewController {
-    private let rectangleFactory = RandomRectangleFactory()
+    lazy var rectangleViewXBound = self.presentRectangleView.frame.width - Size.Range.width
+    lazy var rectangleViewYBound = self.presentRectangleView.frame.height - Size.Range.height
+    lazy var rectangleFactory = RandomRectangleFactory()
+    lazy var plane = Plane()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
+        
+        self.addRectangleButton.addTarget(self, action: #selector(addRectangleButtonTouched), for: .touchUpInside)
+    }
+    
+    //MARK: Set Up Views
+    
+    func setUpViews() {
+        view.addSubview(addRectangleButton)
+        view.addSubview(sideInspectorView)
+        view.addSubview(presentRectangleView)
+        
+        layoutAddRectangleButton()
+        layoutSideInspectorView()
+        layoutPresentRectangleView()
+        layoutBackgroundMenuStackView()
+        layoutAlphaMenuStackView()
     }
     
     //MARK: Configure Components
@@ -94,22 +113,27 @@ class ViewController: UIViewController {
         let slider = UISlider()
         return slider
     }()
-    
-    //MARK: Layout Components
+}
+
+
+//TODO: 사각형 선택시 배경색 정보 띄우기 (16진수), 버튼 누를 때 마다 랜덤하게 색 변경
+//TODO: 사각형 선택시 알파 띄우기 + 조절 기능
+
+
+//MARK: Add Constraints
+
+extension ViewController {
     
     func layoutPresentRectangleView() {
         presentRectangleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         presentRectangleView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         presentRectangleView.trailingAnchor.constraint(equalTo: sideInspectorView.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        presentRectangleView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        
-        presentRectangleView.addSubview(addRectangleButton)
-        layoutAddRectangleButton()
+        presentRectangleView.bottomAnchor.constraint(equalTo: addRectangleButton.topAnchor).isActive = true
     }
     
     func layoutAddRectangleButton() {
         addRectangleButton.centerXAnchor.constraint(equalTo: presentRectangleView.centerXAnchor).isActive = true
-        addRectangleButton.bottomAnchor.constraint(equalTo: presentRectangleView.bottomAnchor).isActive = true
+        addRectangleButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         addRectangleButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
         addRectangleButton.heightAnchor.constraint(equalToConstant: 100).isActive = true
     }
@@ -157,16 +181,26 @@ class ViewController: UIViewController {
         alphaMenuStackView.addArrangedSubview(alphaSlider)
         layoutAlphaSlider()
     }
-    
-    //MARK: Set Up Views
-    
-    func setUpViews() {
-        view.addSubview(sideInspectorView)
-        view.addSubview(presentRectangleView)
+}
+
+//MARK: Actions
+
+extension ViewController {
+    @objc func addRectangleButtonTouched() {
+        plane.delegate = self
+        let newRectangle = rectangleFactory.createRandomRectangle(xBound: rectangleViewXBound,
+                                                                  yBound: rectangleViewYBound)
+        plane.append(newRectangle: newRectangle)
+    }
+}
+
+//MARK: Delegates
+
+extension ViewController: PlaneDelegate {
+    func rectangleDidCreated(_ rectangle: Rectangle) {
+        let rectangleView = RectangleViewFactory.createRectangleView(by: rectangle)
         
-        layoutPresentRectangleView()
-        layoutSideInspectorView()
-        layoutBackgroundMenuStackView()
-        layoutAlphaMenuStackView()
+        rectangleView.translatesAutoresizingMaskIntoConstraints = false
+        self.presentRectangleView.addSubview(rectangleView)
     }
 }
