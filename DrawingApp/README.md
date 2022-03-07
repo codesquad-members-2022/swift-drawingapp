@@ -4,7 +4,7 @@ by Eddy
 ## Step 1. 사각형 객체 설계
 
 **Screenshot**
-![step1_1](/DrawingApp/DrawingApp/Resource/Screenshots/step1_1.png)
+![step1_1](https://user-images.githubusercontent.com/17468015/156973068-df1d1ae6-10c4-4a2b-b10a-c9123a0aa4ab.png)
 
 **주요 기능**
 - 팩토리에서 Rectangle 객체 를 생성하고, 시스템 로그 함수로 출력한다.
@@ -45,4 +45,29 @@ by Eddy
 **완료 일자**
 2022.03.04
 
+## Step 4. 사진 추가 기능 & Photo 모델 추가
 
+**Screenshot**
+
+![step4](https://user-images.githubusercontent.com/17468015/156972996-d4d6341f-b954-4b31-be7f-6d33b9a04f73.gif)
+
+**주요 기능**
+- 사진 추가 버튼을 누르면 Image Picker가 등장
+- 사진을 선택하면 Photo Model을 생성하고 변화를 Canvas에 업데이트
+- Photo의 경우, Color 속성이 없기 때문에 Panel에서 Color가 Disabled.
+
+**완료 일자**
+2022.03.07
+
+
+## Step 5. 드래그 기능
+
+![step5](https://user-images.githubusercontent.com/17468015/157000787-c752f420-b6d7-4f26-bf3d-17f9a0e108c8.gif)
+
+**주요 기능**
+- 손가락을 터치하면 사각형, 사진 모두 드래그가 가능하다.
+- 드래그 하는 동안 투명도와 그림자가 들어간 임시 뷰를 표시한다.
+- 드래그가 끝나면 임시 뷰는 사라지고 선택 뷰가 해당 위치로 이동한다.
+
+**완료 일자**
+2022.03.07
