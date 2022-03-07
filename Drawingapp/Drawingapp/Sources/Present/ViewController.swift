@@ -163,7 +163,6 @@ extension ViewController: TopMenuBarDelegate {
 
 extension ViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        
         picker.dismiss(animated: true)
         guard let itemProvider = results.first?.itemProvider else {
             return
