@@ -74,27 +74,34 @@ final class Plane: RectangleViewTapDelegate {
     // MARK: - MainScreenDelegate implementation
     
     func addRectangle() {
-        guard let factoryProperty = screenDelegate?.getScreenViewProperty(), let property = factory.makeRandomView(as: "Subview #\(properties.count)", property: factoryProperty) else {
-            return
+        guard
+            let factoryProperty = screenDelegate?.getScreenViewProperty(),
+            let property = factory.makeRandomView(as: "Subview #\(properties.count)", property: factoryProperty) else {
+                return
         }
         properties.append(property)
         screenDelegate?.addRectangle(using: property, index: properties.endIndex-1)
     }
     
     func setRandomColor() -> RectRGBColor? {
-        guard let current = current, let color = factory.generateRandomRGBColor() else { return nil }
+        guard let current = current, properties.count-1 >= current.index else {
+            return nil
+        }
         
-        screenDelegate?.admitColor(
-            to: current,
-            using: color,
-            alpha: properties[current.index].alpha
-        )
+        let model = properties[current.index]
+        
+        guard let color = model.resetRGBColor() else {
+            return nil
+        }
+        
+        screenDelegate?.admitColor(to: current, using: color, alpha: model.alpha)
         return color
     }
     
     func setAlpha(value: Float) {
         guard let current = current, properties.count-1 >= current.index else { return }
-        properties[current.index].setAlpha(Double(value))
+        let model = properties[current.index]
+        model.setAlpha(Double(value))
         screenDelegate?.admitAlpha(to: current, using: value)
     }
     

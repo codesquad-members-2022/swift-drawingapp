@@ -41,13 +41,14 @@ extension Rect.Origin: CustomStringConvertible {
 struct RectRGBColor {
     var allValues: [Double] { [r, g, b] }
     static var maxValue: Double = 255
+    static var maxAlpha: Double = 10
     private var _r: Double
     var r: Double {
         get {
             _r
         }
         set {
-            if 0...255 ~= newValue {
+            if 0...RectRGBColor.maxValue ~= newValue {
                 _r = newValue
             }
         }
@@ -59,7 +60,7 @@ struct RectRGBColor {
             _g
         }
         set {
-            if 0...255 ~= newValue {
+            if 0...RectRGBColor.maxValue ~= newValue {
                 _g = newValue
             }
         }
@@ -71,14 +72,14 @@ struct RectRGBColor {
             _b
         }
         set {
-            if 0...255 ~= newValue {
+            if 0...RectRGBColor.maxValue ~= newValue {
                 _b = newValue
             }
         }
     }
     
     init?(r: Double, g: Double, b: Double) {
-        if !(0...255 ~= r) || !(0...255 ~= g) || !(0...255 ~= b) {
+        if !(0...RectRGBColor.maxValue ~= r) || !(0...RectRGBColor.maxValue ~= g) || !(0...RectRGBColor.maxValue ~= b) {
             return nil
         }
         

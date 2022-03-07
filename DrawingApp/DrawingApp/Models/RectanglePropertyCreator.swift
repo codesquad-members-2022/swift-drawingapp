@@ -19,14 +19,21 @@ class RectanglePropertyCreator: RandomizeValue {
         )
     }
     
-    func generateRandomSize(maxWidth: Double, maxHeight: Double) -> RectSize {
+    func generateRandomSize(
+        maxWidth: Double = RectangleDefaultSize.width.rawValue,
+        maxHeight: Double = RectangleDefaultSize.height.rawValue) -> RectSize {
+        
         RectSize(
             width: getDoubleRandom(from: 0, to: maxWidth),
             height: getDoubleRandom(from: 0, to: maxHeight)
         )
     }
     
-    func generateRandomRGBColor(maxR: Double = 255, maxG: Double = 255, maxB: Double = 255) -> RectRGBColor? {
+    func generateRandomRGBColor(
+        maxR: Double = RectRGBColor.maxValue,
+        maxG: Double = RectRGBColor.maxValue,
+        maxB: Double = RectRGBColor.maxValue) -> RectRGBColor? {
+        
         RectRGBColor(
             r: getDoubleRandom(from: 0, to: maxR),
             g: getDoubleRandom(from: 0, to: maxG),
