@@ -17,6 +17,7 @@ class Plane {
     private var viewModels: [ViewModel] = [] {
         didSet {
             guard let newModel = viewModels.last else { return }
+            viewModelIDMap[newModel.id] = newModel
             Log.info("Added: \(newModel)")
         }
     }
