@@ -24,10 +24,12 @@ class Plane {
         self.rectangles.append(rectangle)
     }
     
-    func isRectangle(at position : Position) -> Bool {
-        return !rectangles.filter{
-            ($0.position.x...($0.position.x + $0.size.width)).contains(position.x) &&
-            ($0.position.y...($0.position.y + $0.size.height)).contains(position.y)
-        }.isEmpty
+    func searchRectangle(at position : Position) -> Rectangle? {
+        for rectangle in rectangles {
+            if (rectangle.position.x...(rectangle.position.x + rectangle.size.width)).contains(position.x) && (rectangle.position.y...(rectangle.position.y + rectangle.size.height)).contains(position.y) {
+                return rectangle
+            }
+        }
+        return nil
     }
 }
