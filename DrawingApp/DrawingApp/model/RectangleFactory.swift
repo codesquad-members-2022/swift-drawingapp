@@ -57,7 +57,7 @@ extension RectangleFactory: RectangleFactoryResponse{
     }
     
     func randomRGBColor() -> ColorRGB {
-        return randomRGBColor()
+        return makeRandomColor()
     }
 }
 

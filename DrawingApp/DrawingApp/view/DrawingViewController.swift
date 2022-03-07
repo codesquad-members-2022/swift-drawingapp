@@ -10,7 +10,7 @@ import os
 
 class DrawingViewController: UIViewController {
     private let logger = Logger()
-    private lazy var plane = Plane()
+    private var plane: PlaneDelegate?
     private lazy var rectangleAddButton = RectangleAddButton(frame: CGRect(x: view.center.x - 50, y: view.frame.maxY - 144.0, width: 100, height: 100))
     private var drawingDelegate: DrawingDelegate?
     private var rectangleViews: [String: RectangleView] = [:]
@@ -19,7 +19,7 @@ class DrawingViewController: UIViewController {
         super.viewDidLoad()
         view.addSubview(rectangleAddButton)
         setRectangleButtonEvent()
-        plane.setDelegate(planeDelegate: self)
+        plane = Plane()
         let viewTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewTappedGesture))
         view.addGestureRecognizer(viewTapGesture)
     }
@@ -29,13 +29,14 @@ class DrawingViewController: UIViewController {
     }
     
     @objc func viewTappedGesture(){
-        plane.deselectedRectangle()
+        plane?.deSelectedTarget()
     }
     
     @objc func rectangleTappedGesture(sender: UITapGestureRecognizer){
         guard let touchedView = sender.view as? RectangleView else { return }
         let point = ViewPoint(x: Int(touchedView.frame.origin.x), y: Int(touchedView.frame.origin.y))
-        plane.selectedRectangle(point: point)
+        guard let rectangle = plane?.didSelectedTarget(point: point) else { return }
+        drawingDelegate?.defaultProperty(alpha: rectangle.alpha, rectangleRGB: rectangle.color)
     }
     
     private func setRectangleButtonEvent(){
@@ -43,7 +44,8 @@ class DrawingViewController: UIViewController {
     }
     
     @objc func rectangleAddButtonTapped(sender: Any){
-        plane.addRectangle()
+        guard let rectangle = plane?.didAddRandomRectangle() else { return }
+        addRectangleView(rectangle: rectangle)
     }
     
     private func addRectangleView(rectangle: Rectangle){
@@ -58,15 +60,21 @@ class DrawingViewController: UIViewController {
     }
     
     private func changeViewColorRandomly(){
-        plane.changeColor()
+        guard let rectangle = plane?.didChangedColor() else { return }
+        rectangleViews[rectangle.uniqueId]?.setRGBColor(rgb: rectangle.color)
+        drawingDelegate?.changedColor(rectangleRGB: rectangle.color)
     }
     
     private func plusViewAlpha(){
-        plane.plusAlpha()
+        guard let rectangle = plane?.didUpdateAlpha(changed: .plus) else { return }
+        rectangleViews[rectangle.uniqueId]?.setAlpha(alpha: rectangle.alpha)
+        drawingDelegate?.updatedAlpha(alpha: rectangle.alpha)
     }
     
     private func minusViewAlpha(){
-        plane.minusAlpha()
+        guard let rectangle = plane?.didUpdateAlpha(changed: .minus) else { return }
+        rectangleViews[rectangle.uniqueId]?.setAlpha(alpha: rectangle.alpha)
+        drawingDelegate?.updatedAlpha(alpha: rectangle.alpha)
     }
     
     func propertyAction(action: PropertyViewAction) {
@@ -78,31 +86,5 @@ class DrawingViewController: UIViewController {
         case .alphaMinusTapped:
             minusViewAlpha()
         }
-    }
-}
-extension DrawingViewController: PlaneDelegate{
-    func didAddRandomRectangle(rectangle: Rectangle) {
-        addRectangleView(rectangle: rectangle)
-    }
-    
-    func didUpdateAlpha(id: String, alpha: Double) {
-        guard let rectangleView = rectangleViews[id] else { return }
-        rectangleView.setAlpha(alpha: alpha)
-        drawingDelegate?.updatedAlpha(alpha: alpha)
-    }
-    
-    func deSelectedTarget() {
-        drawingDelegate?.deselected()
-    }
-    
-    func didSelectedTarget(id: String, alpha: Double, colorRGB: ColorRGB) {
-        drawingDelegate?.defaultProperty(alpha: alpha, rectangleRGB: colorRGB)
-        drawingDelegate?.changedColor(rectangleRGB: colorRGB)
-    }
-    
-    func didChangedColor(id: String, colorRGB: ColorRGB) {
-        let rectangleView = rectangleViews[id]
-        rectangleView?.setRGBColor(rgb: colorRGB)
-        drawingDelegate?.changedColor(rectangleRGB: colorRGB)
     }
 }
