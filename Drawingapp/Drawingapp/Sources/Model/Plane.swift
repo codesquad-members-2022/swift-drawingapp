@@ -17,7 +17,6 @@ protocol PlaneAction {
 protocol MakeDrawingItem {
     func makeRectangle()
     func makeRectangle(url: URL)
-    func makeRectangle(itemProvider: NSItemProvider)
 }
 
 class Plane {    
@@ -54,11 +53,6 @@ extension Plane: MakeDrawingItem {
     
     func makeRectangle(url: URL) {
         let rectangle = DrawingModelFactory.makePhotoRectangle(url: url)
-        didMakeRectangle(rectangle: rectangle)
-    }
-    
-    func makeRectangle(itemProvider: NSItemProvider) {
-        let rectangle = DrawingModelFactory.makePhotoRectangle(itemProvider: itemProvider)
         didMakeRectangle(rectangle: rectangle)
     }
     

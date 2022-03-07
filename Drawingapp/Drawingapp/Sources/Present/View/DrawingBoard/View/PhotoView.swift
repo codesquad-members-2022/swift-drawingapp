@@ -27,21 +27,7 @@ class PhotoView: DrawingView {
     }
     
     func update(imageURL: URL) {
-        let data = try? Data(contentsOf: imageURL)
-        guard let data = data,
-            let image = UIImage(data: data) else {
-            return
-        }
-        self.photoView.image = image
-    }
-    
-    func update(itemProvider: NSItemProvider) {
-        if itemProvider.canLoadObject(ofClass: UIImage.self) {
-            itemProvider.loadObject(ofClass: UIImage.self) { (image, error) in
-                DispatchQueue.main.async {
-                    self.photoView.image = image as? UIImage
-                }
-            }
-        }
+        print(imageURL)
+        self.photoView.image = UIImage(contentsOfFile: imageURL.path)
     }
 }
