@@ -56,3 +56,10 @@ extension Rectangle: CustomStringConvertible {
         return "\(id) Rectangle, \(point), \(size), \(backgroundColor), \(alpha)"
     }
 }
+
+extension Rectangle: Equatable {
+    static func == (lhs: Rectangle, rhs: Rectangle) -> Bool {
+        return (lhs.id == rhs.id) && (lhs.size == rhs.size) && (lhs.point == rhs.point) &&
+        (lhs.backgroundColor == rhs.backgroundColor) && (lhs.alpha == rhs.alpha)
+    }
+}

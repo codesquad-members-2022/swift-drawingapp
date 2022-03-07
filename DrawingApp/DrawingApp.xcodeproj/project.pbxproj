@@ -15,6 +15,7 @@
 		023A3A5327D4E35C00F56686 /* AlphaFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 023A3A5227D4E35C00F56686 /* AlphaFactory.swift */; };
 		0256EE2C27D5A6B000003FEB /* UpdateViewMatchedRectangleDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0256EE2B27D5A6B000003FEB /* UpdateViewMatchedRectangleDelegate.swift */; };
 		0256EE2E27D5F17A00003FEB /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0256EE2D27D5F17A00003FEB /* Converter.swift */; };
+		0256EE3627D5F63D00003FEB /* PlaneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0256EE3527D5F63D00003FEB /* PlaneTests.swift */; };
 		02A7161C27CCF63C00034A70 /* RectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7161B27CCF63C00034A70 /* RectangleFactory.swift */; };
 		02A7162027CD11C000034A70 /* GenerateRectangleViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02A7161F27CD11C000034A70 /* GenerateRectangleViewDelegate.swift */; };
 		02B9D29F27CF033B00A7185E /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B9D29E27CF033B00A7185E /* Alpha.swift */; };
@@ -31,6 +32,16 @@
 		02D5541C27CC6CE100291B27 /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D5541B27CC6CE100291B27 /* BackgroundColor.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		0256EE3727D5F63D00003FEB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 02D553F627CC5E7C00291B27 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 02D553FD27CC5E7C00291B27;
+			remoteInfo = DrawingApp;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		0200342D27D0837F0032EEA4 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		0200345127D0A7AB0032EEA4 /* ViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewFactory.swift; sourceTree = "<group>"; };
@@ -40,6 +51,8 @@
 		023A3A5227D4E35C00F56686 /* AlphaFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphaFactory.swift; sourceTree = "<group>"; };
 		0256EE2B27D5A6B000003FEB /* UpdateViewMatchedRectangleDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateViewMatchedRectangleDelegate.swift; sourceTree = "<group>"; };
 		0256EE2D27D5F17A00003FEB /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; sourceTree = "<group>"; };
+		0256EE3327D5F63D00003FEB /* DrawingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		0256EE3527D5F63D00003FEB /* PlaneTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneTests.swift; sourceTree = "<group>"; };
 		02A7161B27CCF63C00034A70 /* RectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactory.swift; sourceTree = "<group>"; };
 		02A7161F27CD11C000034A70 /* GenerateRectangleViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenerateRectangleViewDelegate.swift; sourceTree = "<group>"; };
 		02B9D29E27CF033B00A7185E /* Alpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alpha.swift; sourceTree = "<group>"; };
@@ -59,6 +72,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		0256EE3027D5F63D00003FEB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		02D553FB27CC5E7C00291B27 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -77,6 +97,14 @@
 			name = View;
 			path = DrawingApp/View;
 			sourceTree = SOURCE_ROOT;
+		};
+		0256EE3427D5F63D00003FEB /* DrawingAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				0256EE3527D5F63D00003FEB /* PlaneTests.swift */,
+			);
+			path = DrawingAppTests;
+			sourceTree = "<group>";
 		};
 		02B9D2A227CF4AF600A7185E /* Model */ = {
 			isa = PBXGroup;
@@ -104,6 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				02D5540027CC5E7D00291B27 /* DrawingApp */,
+				0256EE3427D5F63D00003FEB /* DrawingAppTests */,
 				02D553FF27CC5E7D00291B27 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -112,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				02D553FE27CC5E7D00291B27 /* DrawingApp.app */,
+				0256EE3327D5F63D00003FEB /* DrawingAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -135,6 +165,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		0256EE3227D5F63D00003FEB /* DrawingAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 0256EE3927D5F63D00003FEB /* Build configuration list for PBXNativeTarget "DrawingAppTests" */;
+			buildPhases = (
+				0256EE2F27D5F63D00003FEB /* Sources */,
+				0256EE3027D5F63D00003FEB /* Frameworks */,
+				0256EE3127D5F63D00003FEB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0256EE3827D5F63D00003FEB /* PBXTargetDependency */,
+			);
+			name = DrawingAppTests;
+			productName = DrawingAppTests;
+			productReference = 0256EE3327D5F63D00003FEB /* DrawingAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		02D553FD27CC5E7C00291B27 /* DrawingApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 02D5541227CC5E7F00291B27 /* Build configuration list for PBXNativeTarget "DrawingApp" */;
@@ -162,6 +210,10 @@
 				LastSwiftUpdateCheck = 1320;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
+					0256EE3227D5F63D00003FEB = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = 02D553FD27CC5E7C00291B27;
+					};
 					02D553FD27CC5E7C00291B27 = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
@@ -181,11 +233,19 @@
 			projectRoot = "";
 			targets = (
 				02D553FD27CC5E7C00291B27 /* DrawingApp */,
+				0256EE3227D5F63D00003FEB /* DrawingAppTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		0256EE3127D5F63D00003FEB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		02D553FC27CC5E7C00291B27 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -199,6 +259,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0256EE2F27D5F63D00003FEB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0256EE3627D5F63D00003FEB /* PlaneTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		02D553FA27CC5E7C00291B27 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -227,6 +295,14 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		0256EE3827D5F63D00003FEB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 02D553FD27CC5E7C00291B27 /* DrawingApp */;
+			targetProxy = 0256EE3727D5F63D00003FEB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin PBXVariantGroup section */
 		02D5540727CC5E7D00291B27 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -247,6 +323,40 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		0256EE3A27D5F63D00003FEB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Sol.DrawingAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DrawingApp.app/DrawingApp";
+			};
+			name = Debug;
+		};
+		0256EE3B27D5F63D00003FEB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.Sol.DrawingAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DrawingApp.app/DrawingApp";
+			};
+			name = Release;
+		};
 		02D5541027CC5E7F00291B27 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -420,6 +530,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		0256EE3927D5F63D00003FEB /* Build configuration list for PBXNativeTarget "DrawingAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				0256EE3A27D5F63D00003FEB /* Debug */,
+				0256EE3B27D5F63D00003FEB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		02D553F927CC5E7C00291B27 /* Build configuration list for PBXProject "DrawingApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
