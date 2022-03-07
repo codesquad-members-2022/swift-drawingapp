@@ -8,7 +8,7 @@
 import Foundation
 
 typealias FactoryProperties = FactoryRectangleProperty.ViewProperties
-typealias FactoryRectangleDefaultSize = FactoryRectangleProperty.DefaultSize
+typealias RectangleDefaultSize = FactoryRectangleProperty.DefaultSize
 
 /// Rectangle 객체를 생성하는 인터페이스를 제공하는 클래스입니다.
 final class FactoryRectangleProperty: RectanglePropertyCreator {
@@ -33,16 +33,17 @@ final class FactoryRectangleProperty: RectanglePropertyCreator {
     // MARK: - Private generator
     
     private func getRandomPoint(from properties: FactoryProperties) -> ViewProperties {
+        let maxSize = (width: RectangleDefaultSize.width.rawValue, height: RectangleDefaultSize.height.rawValue)
         let randomPoint = generateRandomPoint(
-            maxPointX: properties.maxX - Double(150),
-            maxPointY: (properties.maxY - Double(130 * 2))
+            maxPointX: properties.maxX - maxSize.width,
+            maxPointY: properties.maxY - maxSize.height
         )
         
-        return ViewProperties(maxX: randomPoint.x, maxY: randomPoint.y, width: 150, height: 120)
+        return ViewProperties(maxX: randomPoint.x, maxY: randomPoint.y, width: maxSize.width, height: maxSize.height)
     }
     
     private func getRandomColor() -> RectRGBColor {
-        generateRandomRGBColor(maxR: 255, maxG: 255, maxB: 255)!
+        generateRandomRGBColor(maxR: RectRGBColor.maxValue, maxG: RectRGBColor.maxValue, maxB: RectRGBColor.maxValue)!
     }
     
     private func getRandomId() -> String {

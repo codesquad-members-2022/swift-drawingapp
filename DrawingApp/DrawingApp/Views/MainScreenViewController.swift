@@ -36,9 +36,11 @@ final class MainScreenViewController: UIViewController, MainScreenDelegate, UIGe
     // MARK: - MainScreenDelegate implementations
     func addRectangle(using property: RectangleProperty, index: Int) {
         let rect = Rectangle(model: property, index: index)
+        
         let rectTapGesture = UITapGestureRecognizer()
         rect.addGestureRecognizer(rectTapGesture)
         rectTapGesture.delegate = self
+        
         view.addSubview(rect)
     }
     
@@ -54,7 +56,7 @@ final class MainScreenViewController: UIViewController, MainScreenDelegate, UIGe
     
     func getScreenViewProperty() -> FactoryProperties {
         let frame = view.frame
-        let defaultSize = (FactoryRectangleDefaultSize.width.rawValue, FactoryRectangleDefaultSize.height.rawValue)
+        let defaultSize = (RectangleDefaultSize.width.rawValue, RectangleDefaultSize.height.rawValue)
         return FactoryProperties(
             maxX: (frame.width - defaultSize.0),
             maxY: (frame.height - defaultSize.1),
@@ -65,11 +67,10 @@ final class MainScreenViewController: UIViewController, MainScreenDelegate, UIGe
     
     // MARK: - UIGestureRecognizerDelegate implementation
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if let rect = touches.first?.view as? Rectangle {
-            rect.isSelected = true
-            delegate?.changeCurrentSelected(rect, parent: parent)
-        } else {
-            delegate?.changeCurrentSelected(nil, parent: parent)
-        }
+        let touchedView = touches.first?.view as? Rectangle
+        
+        touchedView?.isSelected = true
+        // touchedView is nil when touched background
+        delegate?.changeCurrentSelected(touchedView, parent: parent)
     }
 }

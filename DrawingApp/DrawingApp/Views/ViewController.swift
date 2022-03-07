@@ -40,16 +40,18 @@ final class ViewController: UIViewController, PlaneAdmitDelegate {
         }
         
         buttonSetRandomColor.backgroundColor = UIColor(
-            red: color.r/255,
-            green: color.g/255,
-            blue: color.b/255,
-            alpha: CGFloat(sliderSetAlpha.value)
+            red: color.r/RectRGBColor.maxValue,
+            green: color.g/RectRGBColor.maxValue,
+            blue: color.b/RectRGBColor.maxValue,
+            alpha: (Double(sliderSetAlpha.value)/RectRGBColor.maxAlpha)
         )
     }
     
     @IBAction func sliderAdmitAlphaValueChanged(_ sender: UISlider) {
         sender.value = round(sender.value)
         plane.setAlpha(value: sender.value)
+        buttonSetRandomColor.backgroundColor =
+            buttonSetRandomColor.backgroundColor?.withAlphaComponent(Double(sender.value)/RectRGBColor.maxAlpha)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -64,10 +66,10 @@ final class ViewController: UIViewController, PlaneAdmitDelegate {
         let color = property.rgbValue
         let alpha = property.alpha
         buttonSetRandomColor.backgroundColor = UIColor(
-            red: color.r/255,
-            green: color.g/255,
-            blue: color.b/255,
-            alpha: alpha/10
+            red: color.r/RectRGBColor.maxValue,
+            green: color.g/RectRGBColor.maxValue,
+            blue: color.b/RectRGBColor.maxValue,
+            alpha: alpha/RectRGBColor.maxAlpha
         )
         sliderSetAlpha.setValue(Float(alpha), animated: true)
     }
