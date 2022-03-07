@@ -48,18 +48,18 @@ class MainViewController: UIViewController{
 
 extension MainViewController{
     private func addRectangleMakerButtonObserver(){
-        NotificationCenter.default.addObserver(self, selector: #selector(makeRandomRectangle), name: .makeRectangle, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(makeRandomRectangle), name: .makeRectangle, object: rectangles)
     }
     
     private func addTapGestureObserver(){
-        NotificationCenter.default.addObserver(self, selector: #selector(showOriginSliderValue), name: .tapGesture, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showOriginSliderValue), name: .tapGesture, object: self)
     }
     
     private func addSlidersObserver(){
-        NotificationCenter.default.addObserver(self, selector: #selector(moveAlphaSlider), name: .changeAlpha, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(moveRedSlider), name: .changeRedColor, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(moveGreenSlider), name: .changeGreenColor, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(moveBlueSlider), name: .changeBlueColor, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(moveAlphaSlider), name: .changeAlpha, object: rightAttributerView)
+        NotificationCenter.default.addObserver(self, selector: #selector(moveRedSlider), name: .changeRedColor, object: rightAttributerView)
+        NotificationCenter.default.addObserver(self, selector: #selector(moveGreenSlider), name: .changeGreenColor, object: rightAttributerView)
+        NotificationCenter.default.addObserver(self, selector: #selector(moveBlueSlider), name: .changeBlueColor, object: rightAttributerView)
     }
 }
 
@@ -84,7 +84,7 @@ extension MainViewController {
         if rectangleView?.restorationIdentifier == rectangleInPlane.id{
             self.selectedRectangleView = rectangleView
             self.selectedRectangleIndex = rectangles.findRectangleIndex(rectangle: rectangleInPlane)
-            NotificationCenter.default.post(name: .tapGesture, object: nil)
+            NotificationCenter.default.post(name: .tapGesture, object: self)
         } else{
             return
         }

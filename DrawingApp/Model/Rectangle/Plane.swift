@@ -11,7 +11,7 @@ import UIKit
 struct Plane{
     private var rectangles: [Rectangle] = []
     private var notifyMadeRectangle: Int{
-        NotificationCenter.default.post(name: .makeRectangle, object: nil)
+        NotificationCenter.default.post(name: .makeRectangle, object: self)
         return count()
     }
     
