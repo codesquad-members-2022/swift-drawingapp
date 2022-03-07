@@ -18,11 +18,8 @@ class Factory {
             return resultArray.joined(separator: "-")
         }
         let size = Rectangle.Size()
-        var point : Rectangle.Point {
-            var point = Rectangle.Point(x: 0, y: 0)
-            return point.random()
-        }
-        let color : Rectangle.BackgroundColor = .random()
+        let point : Rectangle.Point = Rectangle.Point()
+        let color : Rectangle.BackgroundColor = Rectangle.BackgroundColor()
         let alpha : Rectangle.Alpha = .random()
         return Rectangle(id: id, point: point, size: size, color: color, alpha: alpha)
     }
