@@ -56,7 +56,6 @@ extension Rectangle: CustomStringConvertible {
 
 extension Rectangle: Equatable {
     static func == (lhs: Rectangle, rhs: Rectangle) -> Bool {
-        return (lhs.id == rhs.id) && (lhs.size == rhs.size) && (lhs.point == rhs.point) &&
-        (lhs.backgroundColor == rhs.backgroundColor) && (lhs.alpha == rhs.alpha)
+        return lhs.id == rhs.id
     }
 }
