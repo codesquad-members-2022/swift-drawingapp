@@ -7,25 +7,14 @@
 
 import Foundation
 
-protocol MasterViewDelegate {
-    func getMasterViewProperty() -> FactoryProperties
-}
-
 typealias FactoryProperties = FactoryRectangleProperty.ViewProperties
 
 class FactoryRectangleProperty: RectanglePropertyCreator {
     
-    var delegate: MasterViewDelegate?
-    
     // MARK: - Make Model Of View.
-    func makeRandomView(as name: String) -> RectangleProperty? {
+    func makeRandomView(as name: String, property: FactoryProperties) -> RectangleProperty? {
         
-        guard let delegate = delegate else { return nil }
-        let superviewProperties = delegate.getMasterViewProperty()
-        
-        let randomLocationProperties = getRandomPoint(from: superviewProperties)
-        
-        
+        let randomLocationProperties = getRandomPoint(from: property)
         let randomColor = getRandomColor()
         let randomID = getRandomId()
         let randomAlpha = getRandomAlpha()
@@ -41,7 +30,7 @@ class FactoryRectangleProperty: RectanglePropertyCreator {
     
     // MARK: - Private generator
     
-    private func getRandomPoint(from properties: ViewProperties) -> ViewProperties {
+    private func getRandomPoint(from properties: FactoryProperties) -> ViewProperties {
         let randomPoint = generateRandomPoint(
             maxPointX: properties.maxX - Double(150),
             maxPointY: (properties.maxY - Double(130 * 2))

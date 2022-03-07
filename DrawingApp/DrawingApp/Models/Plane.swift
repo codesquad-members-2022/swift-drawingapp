@@ -6,8 +6,17 @@
 //
 
 import Foundation
+import UIKit
 
-class Plane {
+protocol RectangleViewTapDelegate {
+    func changeCurrentSelected(_ rectangle: Rectangle?, parent: UIViewController?, typeOf tap: MainScreenTapType)
+}
+
+class Plane: RectangleViewTapDelegate {
+    
+    let factory = FactoryRectangleProperty()
+    var screenDelegate: MainScreenDelegate?
+    var planeDelegate: PlaneAdmitDelegate?
     
     private var properties = [RectangleProperty]()
     
@@ -46,6 +55,7 @@ class Plane {
     }
     
     // MARK: - Edit properties (ViewContoller use properties)
+    
     func setProperty(at index: Int, alpha: Float) {
         guard properties.count-1 >= index else { return }
         properties[index].setAlpha(Double(alpha))
@@ -59,5 +69,47 @@ class Plane {
     func setProperty(at index: Int, point: RectOrigin) {
         guard properties.count-1 >= index else { return }
         properties[index].setPoint(point)
+    }
+    
+    // MARK: - MainScreenDelegate implementation
+    
+    func addRectangle() {
+        guard let factoryProperty = screenDelegate?.getScreenViewProperty(), let property = factory.makeRandomView(as: "Subview #\(properties.count)", property: factoryProperty) else {
+            return
+        }
+        properties.append(property)
+        screenDelegate?.addRectangle(using: property, index: properties.endIndex-1)
+    }
+    
+    func setRandomColor() -> RectRGBColor? {
+        guard let current = current, let color = factory.generateRandomRGBColor() else { return nil }
+        
+        screenDelegate?.admitColor(
+            to: current,
+            using: color,
+            alpha: properties[current.index].alpha
+        )
+        return color
+    }
+    
+    func setAlpha(value: Float) {
+        guard let current = current else { return }
+        screenDelegate?.admitAlpha(to: current, using: value)
+    }
+    
+    // MARK: - RectangleViewTapDelegate implementation
+    func changeCurrentSelected(_ rectangle: Rectangle?, parent: UIViewController?, typeOf tap: MainScreenTapType) {
+        
+        current?.isSelected = false
+        current = rectangle
+        
+        switch tap {
+        case .rectangle:
+            if let rect = rectangle, properties.count >= rect.index+1 {
+                planeDelegate?.admitPlane(property: properties[rect.index])
+            }
+        case .background:
+            planeDelegate?.admitDefault()
+        }
     }
 }

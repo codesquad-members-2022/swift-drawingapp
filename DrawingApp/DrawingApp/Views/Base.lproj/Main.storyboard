@@ -144,33 +144,49 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LzV-1y-tOe" userLabel="ScreenView">
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qJX-fT-cUA">
                                 <rect key="frame" x="0.0" y="0.0" width="940" height="680"/>
-                            </view>
+                                <connections>
+                                    <segue destination="ukX-Qd-IgE" kind="embed" id="kM0-Is-eqH"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="LzV-1y-tOe" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="F7e-6x-Q2Y"/>
+                            <constraint firstItem="qJX-fT-cUA" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="01y-Id-zyZ"/>
+                            <constraint firstItem="RCz-wr-TeS" firstAttribute="top" secondItem="qJX-fT-cUA" secondAttribute="bottom" id="5wj-z1-TCt"/>
                             <constraint firstItem="xbT-UA-4L1" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="Guq-1w-o1J"/>
-                            <constraint firstItem="LzV-1y-tOe" firstAttribute="bottom" secondItem="RCz-wr-TeS" secondAttribute="top" id="IlW-mt-CHi"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="xbT-UA-4L1" secondAttribute="trailing" id="SRj-VU-Wdu"/>
-                            <constraint firstItem="LzV-1y-tOe" firstAttribute="trailing" secondItem="xbT-UA-4L1" secondAttribute="leading" id="TRz-ZP-eJu"/>
                             <constraint firstItem="RCz-wr-TeS" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YPc-HJ-QRV"/>
-                            <constraint firstItem="LzV-1y-tOe" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="kmf-Q1-5Bx"/>
+                            <constraint firstItem="qJX-fT-cUA" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="cCm-0u-7fj"/>
+                            <constraint firstItem="xbT-UA-4L1" firstAttribute="leading" secondItem="qJX-fT-cUA" secondAttribute="trailing" id="oJ3-QL-Zrm"/>
                             <constraint firstAttribute="bottom" secondItem="xbT-UA-4L1" secondAttribute="bottom" id="pQi-lS-O8a"/>
                             <constraint firstItem="RCz-wr-TeS" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="siI-c6-zhR"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="buttonSetRandomColor" destination="2ng-xD-0wc" id="m1t-47-bxt"/>
-                        <outlet property="screenView" destination="LzV-1y-tOe" id="p84-bH-qj1"/>
                         <outlet property="sliderSetAlpha" destination="wPH-ZG-4QO" id="Py8-0j-UDb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-665.08474576271192" y="146.34146341463415"/>
+        </scene>
+        <!--Main Screen View Controller-->
+        <scene sceneID="jbf-gs-Asa">
+            <objects>
+                <viewController storyboardIdentifier="MainScreenViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ukX-Qd-IgE" customClass="MainScreenViewController" customModule="DrawingApp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mMi-uD-Q6q">
+                        <rect key="frame" x="0.0" y="0.0" width="940" height="680"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5vn-HN-Bl0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-665" y="853"/>
         </scene>
     </scenes>
     <resources>
