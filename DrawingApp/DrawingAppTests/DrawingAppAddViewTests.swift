@@ -10,29 +10,13 @@ import XCTest
 
 class DrawingAppAddViewTests: XCTestCase {
     
-    let storyboard = UIStoryboard.init(name: "Main", bundle: Bundle.main)
-    
-    func testDrawViewExceeded() throws {
+    func testRectangleProperty() throws {
         
         let factory = FactoryRectangleProperty()
-        let vc = storyboard.instantiateViewController(withIdentifier: "MainViewController")
-        vc.loadView()
+        let factoryProperties = FactoryProperties.init(maxX: 300, maxY: 300, width: FactoryRectangleDefaultSize.width.rawValue, height: FactoryRectangleDefaultSize.height.rawValue)
         
-        if let vc = vc as? MasterViewDelegate {
-            factory.delegate = vc
-        } else {
-            XCTFail("MainViewController not implementing MasterViewDelegate")
-        }
-        
-        for i in 1...100 {
-            if factory.makeRandomView(as: "RandomView #\(i)") == nil {
-                XCTFail()
-                break
-            }
-        }
-        
-        guard let testModel = factory.makeRandomView(as: "Test") else {
-            XCTFail()
+        guard let testModel = factory.makeRandomView(as: "TestView", property: factoryProperties) else {
+            XCTFail("[ERROR] Make testModel failed.")
             return
         }
         
@@ -48,6 +32,21 @@ class DrawingAppAddViewTests: XCTestCase {
         XCTAssertNil(RectRGBColor.init(r: 256, g: 256, b: 256))
         XCTAssertNil(RectRGBColor.init(r: -1, g: -1, b: -1))
         
+        for _ in 1...100 {
+            guard let rgbValue = testModel.resetRGBColor() else {
+                XCTFail("[ERROR] Reset rgb color failed.")
+                return
+            }
+            
+            for v in rgbValue.allValues {
+                if v < 0 || v > 255 {
+                    XCTFail("[ERROR] RGBValue Number Excceded. \(rgbValue)")
+                }
+            }
+        }
+        
         LoggerUtil.debugLog(model: testModel)
     }
+    
+    
 }

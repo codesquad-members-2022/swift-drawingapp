@@ -39,6 +39,7 @@ extension Rect.Origin: CustomStringConvertible {
 // MARK: - RectRGBColor
 /// Rectangle 객체의 색상을 표현하는 타입입니다.
 struct RectRGBColor {
+    var allValues: [Double] { [r, g, b] }
     static var maxValue: Double = 255
     private var _r: Double
     var r: Double {

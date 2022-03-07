@@ -41,7 +41,7 @@ final class RectangleProperty: RectanglePropertyCreator {
     
     @discardableResult
     func resetRGBColor() -> RectRGBColor? {
-        guard let rgbValue = generateRandomRGBColor(maxR: 255, maxG: 255, maxB: 255) else { return nil }
+        guard let rgbValue = generateRandomRGBColor(maxR: RectRGBColor.maxValue, maxG: RectRGBColor.maxValue, maxB: RectRGBColor.maxValue) else { return nil }
         return rgbValue
     }
     
