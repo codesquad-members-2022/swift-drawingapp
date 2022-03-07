@@ -104,13 +104,6 @@ class ViewController: UIViewController {
         }
         
         plane.changeBackGroundColorOfRectangle(id: touchedView.id, to: newColor)
-        touchedView.backgroundColor = Converter.convertToUIColor(backgroundColor: newColor)
-        let previousBackgroundButtonAlpha = backgroundColorButton.backgroundColor?.cgColor.alpha ?? 1.0
-        let convertedOpacityLevel = Int(previousBackgroundButtonAlpha * 10)
-        guard let convertedAlpha = Alpha(opacityLevel: convertedOpacityLevel) else {
-            return
-        }
-        updateBackgroundButton(color: newColor, alpha: convertedAlpha)
     }
     
     @IBAction func alphaSliderValueChanged(_ sender: UISlider) {
@@ -123,9 +116,6 @@ class ViewController: UIViewController {
             return
         }
         plane.changeAlphaValueOfRectangle(id: touchedView.id, to: newAlpha)
-        
-        touchedView.alpha = CGFloat(newAlphaValue)
-        updateStatusViewElement(with: touchedView.alpha)
         
     }
     
@@ -143,9 +133,6 @@ class ViewController: UIViewController {
             return
         }
         plane.changeAlphaValueOfRectangle(id: touchedView.id, to: newAlpha)
-        
-        touchedView.alpha = newAlphaValue
-        updateStatusViewElement(with: touchedView.alpha)
     }
     @IBAction func plusAlphaValueButtonTouched(_ sender: UIButton) {
         guard let touchedView = touchedView else {
@@ -161,9 +148,6 @@ class ViewController: UIViewController {
             return
         }
         plane.changeAlphaValueOfRectangle(id: touchedView.id, to: newAlpha)
-        
-        touchedView.alpha = newAlphaValue
-        updateStatusViewElement(with: newAlphaValue)
     }
     
     private func updateStatusViewElement(with alpha: Double) {
@@ -211,13 +195,10 @@ extension ViewController: GenerateRectangleViewDelegate {
 
 extension ViewController: UpdateViewMatchedRectangleDelegate {
     func rectangleDidSpecified(_ specifiedRectangle: Rectangle) {
-        for rectangleView in drawableAreaView.subviews {
-            let rectangleView = rectangleView as? RectangleView
-            if rectangleView?.id == specifiedRectangle.id {
-                self.touchedView = rectangleView
-                break
-            }
+        guard let matchedView = findMatchedView(has: specifiedRectangle.id) else {
+            return
         }
+        self.touchedView = matchedView
         
         if let specifiedRectangleView = self.touchedView {
             updateSelectedView(specifiedRectangleView)
@@ -226,6 +207,33 @@ extension ViewController: UpdateViewMatchedRectangleDelegate {
             updateMinusAlphaValueButton(with: specifiedRectangleView.alpha)
             updatePlusAlphaValueButton(with: specifiedRectangleView.alpha)
         }
+    }
+    
+    func rectangleBackgroundColorDidChanged(_ backgroundColorChangedRectangle: Rectangle) {
+        guard let matchedView = findMatchedView(has: backgroundColorChangedRectangle.id) else {
+            return
+        }
+        self.touchedView = matchedView
+        
+        let newBackgroundColor = backgroundColorChangedRectangle.backgroundColor
+        touchedView?.backgroundColor = Converter.convertToUIColor(backgroundColor: newBackgroundColor)
+        let previousBackgroundButtonAlpha = touchedView?.backgroundColor?.cgColor.alpha ?? 1.0
+        let convertedOpacityLevel = Int(previousBackgroundButtonAlpha * 10)
+        guard let convertedAlpha = Alpha(opacityLevel: convertedOpacityLevel) else {
+            return
+        }
+        updateBackgroundButton(color: newBackgroundColor, alpha: convertedAlpha)
+    }
+    
+    func rectangleAlphaDidChanged(_ alphaChangedRectangle: Rectangle) {
+        guard let matchedView = findMatchedView(has: alphaChangedRectangle.id) else {
+            return
+        }
+        self.touchedView = matchedView
+        
+        let newAlphaValue = alphaChangedRectangle.alpha.value
+        touchedView?.alpha = CGFloat(newAlphaValue)
+        updateStatusViewElement(with: newAlphaValue)
     }
     
     private func updateSelectedView(_ selectedView: RectangleView) {
@@ -247,5 +255,15 @@ extension ViewController: UpdateViewMatchedRectangleDelegate {
     private func updateAlphaSlider(alpha: Double) {
         alphaSlider.isEnabled = true
         alphaSlider.setValue(Float(alpha), animated: true)
+    }
+    
+    private func findMatchedView(has id: ID) -> RectangleView? {
+        for rectangleView in drawableAreaView.subviews {
+            let rectangleView = rectangleView as? RectangleView
+            if rectangleView?.id == id {
+                return rectangleView
+            }
+        }
+        return nil
     }
 }
