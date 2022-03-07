@@ -19,8 +19,8 @@ struct Size {
 
 extension Size {
     enum Range {
-        static let lower = 0.0
-        static let upper = 100.0
+        static let width = 150.0
+        static let height = 120.0
     }
 }
 
