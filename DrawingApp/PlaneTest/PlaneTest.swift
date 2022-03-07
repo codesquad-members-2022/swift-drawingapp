@@ -36,26 +36,18 @@ class PlaneTest: XCTestCase {
     }
     
     
-    func testCGPointToDoublePoint() throws {
-        let cgpoint = CGPoint(x: 100.0, y: 100.0)
-        CGPointToDoublePoint(cgpoint)
-        XCTAssertFalse(CGPointToDoublePoint(cgpoint), Point(x: 100.0, y: 100.0))
-    }
-    
     func testisExsit() throws{
         // 특정 좌표를 받아 Double로 변환 -> 따로 구현
         // plane.Rectangles 안에 포함되는 좌표가 있는지 확인 -> 따로 구현
         // XCTassetTrue
-        let point = CGPoint(x: 100.0, y: 100.0)
+        let point = Point(x: 100.0,y: 100.0)
 //        let point: Point = CGPointToDoublePoint(point: CGPoint(x: 100.0, y: 100.0))
         let existTestRectangle = factory.createRectangle(size: Size(width: 100.0, height: 100.0), position: Point(x: 100.0, y: 100.0))
         plane.add(rectangle: existTestRectangle)
-        XCTAssertFalse(isExist(point, in plane.rectangles), "\(point)을 포함하는 사각형이 존재하지 않음")
+        XCTAssertFalse(plane.isExist(point), "\(point)을 포함하는 사각형이 존재하지 않음")
     }
     
-    
-    
-    
+
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
