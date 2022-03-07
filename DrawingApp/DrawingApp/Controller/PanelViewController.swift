@@ -33,7 +33,7 @@ class PanelViewController: UIViewController {
 extension PanelViewController {
     @objc func didSelectViewModel(_ notification: Notification) {
 
-        guard let selected = notification.userInfo?["new"] as? ViewModel else {
+        guard let selected = notification.userInfo?[Plane.newViewModelKey] as? ViewModel else {
             clearColorButton()
             clearAlphaSlider()
             return
