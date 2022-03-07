@@ -8,9 +8,9 @@
 import Foundation
 
 protocol PlaneDelegate{
-    func didAddRandomRectangle(rectangle: Rectangle)
-    func didChangedColor(id: String, colorRGB: ColorRGB)
-    func didSelectedTarget(id: String, alpha: Double, colorRGB: ColorRGB)
-    func deSelectedTarget()
-    func didUpdateAlpha(id: String, alpha: Double)
+    mutating func didAddRandomRectangle() -> Rectangle
+    func didChangedColor() -> Rectangle?
+    mutating func didSelectedTarget(point: ViewPoint)-> Rectangle?
+    mutating func deSelectedTarget()
+    func didUpdateAlpha(changed: RectangleAlphaChange) -> Rectangle?
 }
