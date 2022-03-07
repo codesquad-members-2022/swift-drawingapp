@@ -57,8 +57,8 @@ struct Plane{
         
         return index
     }
-    
-    func postMakingRectangle(){
-        NotificationCenter.default.post(name: .makeRectangle, object: nil)
-    }
+}
+
+extension Notification.Name{
+    static let makeRectangle = Notification.Name("makeRectangle")
 }

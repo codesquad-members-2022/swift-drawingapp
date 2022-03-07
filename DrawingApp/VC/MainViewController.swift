@@ -71,8 +71,6 @@ extension MainViewController {
         let touchPoint = gesture.location(in: self.view)
         findSelectedRectangle(point: touchPoint)
         
-        NotificationCenter.default.post(name: .tapGesture, object: nil)
-        
         return
     }
     
@@ -86,6 +84,7 @@ extension MainViewController {
         if rectangleView?.restorationIdentifier == rectangleInPlane.id{
             self.selectedRectangleView = rectangleView
             self.selectedRectangleIndex = rectangles.findRectangleIndex(rectangle: rectangleInPlane)
+            NotificationCenter.default.post(name: .tapGesture, object: nil)
         } else{
             return
         }
@@ -98,6 +97,10 @@ extension MainViewController {
         
         rightAttributerView.originSliderValue(red: Float(rectangle.showColor().red), green: Float(rectangle.showColor().green), blue: Float(rectangle.showColor().blue), alpha: Float(rectangle.showAlpha().showValue()))
     }
+}
+
+extension Notification.Name{
+    static let tapGesture = Notification.Name("tapGesture")
 }
 
 
