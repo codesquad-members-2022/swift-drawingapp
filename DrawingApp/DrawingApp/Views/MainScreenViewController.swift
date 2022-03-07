@@ -23,14 +23,11 @@ protocol MainScreenDelegate {
 
 final class MainScreenViewController: UIViewController, MainScreenDelegate, UIGestureRecognizerDelegate {
     
-    var delegate: RectangleViewTapDelegate?
-    private var tapGesture: UITapGestureRecognizer!
+    @IBOutlet var tapGesture: UITapGestureRecognizer!
     
+    var delegate: RectangleViewTapDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
-        tapGesture = UITapGestureRecognizer()
-        view.addGestureRecognizer(tapGesture)
-        tapGesture.delegate = self
     }
     
     // MARK: - MainScreenDelegate implementations
