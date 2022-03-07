@@ -9,4 +9,6 @@ import Foundation
 
 protocol UpdateViewMatchedRectangleDelegate {
     func rectangleDidSpecified(_ rectangle: Rectangle)
+    func rectangleBackgroundColorDidChanged(_ rectangle: Rectangle)
+    func rectangleAlphaDidChanged(_ rectangle: Rectangle)
 }

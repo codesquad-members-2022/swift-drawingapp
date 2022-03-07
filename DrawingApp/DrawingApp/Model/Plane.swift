@@ -39,6 +39,7 @@ struct Plane {
         for rectangle in rectangles {
             if rectangle.id == id {
                 rectangle.changeBackgroundColor(to: newColor)
+                updateViewMatchedRectangleDelegate?.rectangleBackgroundColorDidChanged(rectangle)
                 return rectangle
             }
         }
@@ -49,6 +50,7 @@ struct Plane {
         for rectangle in rectangles {
             if rectangle.id == id {
                 rectangle.changeAlphaValue(to: newAlpha)
+                updateViewMatchedRectangleDelegate?.rectangleAlphaDidChanged(rectangle)
                 return rectangle
             }
         }
