@@ -62,11 +62,11 @@ extension CanvasViewController {
         view.addSubview(newBaseView)
     }
     
-    private func createBaseView(from viewModel: ViewModel) -> BaseView? {
-        return BaseView(viewModel: viewModel)
+    private func createBaseView(from viewModel: ViewModel) -> CanvasView? {
+        return CanvasView(viewModel: viewModel)
     }
     
-    private func addViewID(_ new: BaseView) {
+    private func addViewID(_ new: CanvasView) {
         viewIDMap[new.id] = new
     }
 }
