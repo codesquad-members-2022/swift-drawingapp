@@ -10,6 +10,7 @@ import Foundation
 class Plane {
     private var rectangles = [Rectangle]()
     var generateRectangleViewDelegate: GenerateRectangleViewDelegate?
+    var updateViewMatchedRectangleDelegate: UpdateViewMatchedRectangleDelegate?
     var count: Int {
         return rectangles.count
     }
@@ -18,13 +19,13 @@ class Plane {
         return rectangles[index]
     }
     
-    public func specifyRectangle(id: ID) -> Rectangle? {
-        for rectangle in rectangles {
-            if rectangle.id == id {
-                return rectangle
+    public func specifyRectangle(point: Point) {
+        for rectangle in rectangles.reversed() {
+            if rectangle.isPointInArea(point) {
+                updateViewMatchedRectangleDelegate?.rectangleDidSpecified(rectangle)
+                break
             }
         }
-        return nil
     }
     
     public func addNewRectangle(in frame: (Double, Double)) {
