@@ -18,3 +18,10 @@ class BackgroundColor {
         self.blue = B
     }
 }
+
+extension BackgroundColor: CustomStringConvertible {
+    var description: String {
+        return "R:\(self.red), G:\(self.green), B:\(self.blue)"
+    }
+}
+

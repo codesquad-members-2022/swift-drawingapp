@@ -26,3 +26,9 @@ class Rectangle: Shape {
         self.alpha = alpha
     }
 }
+
+extension Rectangle: CustomStringConvertible {
+    var description: String {
+        return "\(self) (\(self.id)), \(self.point), \(self.size), \(self.backgroundColor), \(self.alpha)"
+    }
+}

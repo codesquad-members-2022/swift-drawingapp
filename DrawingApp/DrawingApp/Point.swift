@@ -16,3 +16,9 @@ class Point {
         self.y = y
     }
 }
+
+extension Point: CustomStringConvertible {
+    var description: String {
+        return "X:\(self.x), Y:\(self.y)"
+    }
+}
