@@ -50,7 +50,4 @@ final class Rectangle: UIView {
             alpha: alpha/10
         )
     }
-    
-    /// no use
-    @objc func rectTapHandler(_ recognizer: UITapGestureRecognizer) { }
 }
