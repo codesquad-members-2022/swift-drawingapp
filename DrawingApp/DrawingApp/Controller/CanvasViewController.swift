@@ -7,9 +7,13 @@
 
 import UIKit
 
-class CanvasViewController: UIViewController {
+class CanvasViewController: UIViewController,
+                            UIImagePickerControllerDelegate,
+                            UINavigationControllerDelegate {
+    
     private var plane = Plane()
-    private var viewIDMap = [String: UIView]()
+    private var viewIDMap = [String: CanvasView]()
+    private let photoPicker = UIImagePickerController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -17,9 +21,12 @@ class CanvasViewController: UIViewController {
         observePanel()
         
         setUpInitialModels()
-        setUpRecognizer()
+        setUpTapRecognizer()
+        
+        photoPicker.delegate = self
     }
 }
+
 
 // MARK: - Use case: Launch App
 
@@ -44,6 +51,11 @@ extension CanvasViewController {
     
     private func setUpInitialModels() {
         (0..<4).forEach { _ in plane.addRectangle() }
+    }
+    
+    private func setUpTapRecognizer() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
+        view.addGestureRecognizer(tap)
     }
 }
 
@@ -71,7 +83,25 @@ extension CanvasViewController {
     }
 }
 
-// MARK: - Use Case: Select Rectangle
+// MARK: - Use Case: Add New Photo
+
+extension CanvasViewController {
+    
+    @IBAction func addPhotoPressed(_ sender: UIButton) {
+        present(photoPicker, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        guard let image = info[.originalImage] as? UIImage else { return }
+        guard let imageData = image.pngData() else { return }
+        
+        plane.addPhoto(data: imageData)
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - Use Case: Select CanvasView
 
 extension CanvasViewController {
     
@@ -80,7 +110,6 @@ extension CanvasViewController {
         let tappedPoint = Point(x: location.x, y: location.y)
         plane.tap(on: tappedPoint)
     }
-    
     
     @objc func didSelectViewModel(_ notification: Notification) {
         if let new = notification.userInfo?["new"] as? ViewModel {
@@ -94,20 +123,19 @@ extension CanvasViewController {
         }
     }
     
-    private func searchView(for viewModel: ViewModel) -> UIView? {
+    private func searchView(for viewModel: ViewModel) -> CanvasView? {
         return viewIDMap[viewModel.id]
     }
     
-    private func changeBorder(_ view: UIView) {
+    private func changeBorder(_ view: CanvasView) {
         view.layer.borderWidth = 5
         view.layer.borderColor = UIColor.systemBlue.cgColor
     }
     
-    private func clearBorder(_ view: UIView) {
+    private func clearBorder(_ view: CanvasView) {
         view.layer.borderWidth = 0
         view.layer.borderColor = UIColor.clear.cgColor
     }
-    
 }
 
 // MARK: - Use Case: Transform Rectangle
