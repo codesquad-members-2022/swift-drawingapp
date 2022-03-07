@@ -6,12 +6,13 @@
 //
 
 import Foundation
-import UIKit
 
 /// MainScreenViewController의 탭 신호를 Plane객체가 받기 위해 선언하는 Protocol입니다.
 protocol RectangleViewTapDelegate {
     /// 해당 메소드를 구현하여, 터치된 뷰에 해당하는 모델을 parentViewController에 전달합니다.
-    func changeCurrentSelected(_ rectangle: Rectangle?, parent: UIViewController?)
+    ///
+    /// parentViewController에 전달을 위해 PlaneAdmitDelegate 를 호출하게 됩니다.
+    func changeCurrentSelected(_ rectangle: Rectangle?)
 }
 
 /// ViewController와 MainScreenViewController 사이를 잇고, 생성된 사각형의 모델들을 저장하는 모델입니다.
@@ -106,7 +107,7 @@ final class Plane: RectangleViewTapDelegate {
     }
     
     // MARK: - RectangleViewTapDelegate implementation
-    func changeCurrentSelected(_ rectangle: Rectangle?, parent: UIViewController?) {
+    func changeCurrentSelected(_ rectangle: Rectangle?) {
         
         current?.isSelected = false
         current = rectangle

@@ -71,6 +71,6 @@ final class MainScreenViewController: UIViewController, MainScreenDelegate, UIGe
         
         touchedView?.isSelected = true
         // touchedView is nil when touched background
-        delegate?.changeCurrentSelected(touchedView, parent: parent)
+        delegate?.changeCurrentSelected(touchedView)
     }
 }
