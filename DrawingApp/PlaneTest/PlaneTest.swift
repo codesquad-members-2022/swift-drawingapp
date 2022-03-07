@@ -15,11 +15,11 @@ class PlaneTest: XCTestCase {
         XCTAssertEqual(plane.rectangleCount, 0)
     }
     
-    func testPlaneAddAndCountRectangle() {
+    func testPlaneCountRectangle() {
         let plane = Plane()
         var number = 0
         let screenSize = (Double(ViewController().view.safeAreaLayoutGuide.layoutFrame.size.width), Double(ViewController().view.safeAreaLayoutGuide.layoutFrame.size.height))
-        let rect1 = RectangleFactory(screenSize: screenSize).makeRandomRectangle()
+        guard let rect1 = RectangleFactory(screenSize: screenSize).makeRandomRectangle() else {return}
         XCTAssertEqual(plane.rectangleCount, number)
         plane.addRectangle(rectangle: rect1)
         number += 1
@@ -30,7 +30,7 @@ class PlaneTest: XCTestCase {
         let plane = Plane()
         XCTAssertNil(plane[0])
         let screenSize = (Double(ViewController().view.safeAreaLayoutGuide.layoutFrame.size.width), Double(ViewController().view.safeAreaLayoutGuide.layoutFrame.size.height))
-        let rect1 = RectangleFactory(screenSize: screenSize).makeRandomRectangle()
+        guard let rect1 = RectangleFactory(screenSize: screenSize).makeRandomRectangle() else {return}
         plane.addRectangle(rectangle: rect1)
         guard let indexedRectangle = plane[0] else {return}
         XCTAssertEqual(indexedRectangle, rect1)
@@ -38,7 +38,11 @@ class PlaneTest: XCTestCase {
     
     func testPlaneIsRectangleAtPosition() {
         let plane = Plane()
-        let rectangle = Rectangle(size: Size(width: 150, height: 120), position: Position(x: 300, y: 300), color: Color(red: 255, green: 255, blue: 255), alpha: Alpha(transparency: 10))
+        let rectangleSize = Size(width: 150, height: 120)
+        let rectanglePosition = Position(x: 300, y: 300)
+        guard let rectangleColor = Color(red: 255, green: 255, blue: 255) else {return}
+        guard let rectangleAlpha = Alpha(transparency: 10) else  {return}
+        let rectangle = Rectangle(size: rectangleSize, position: rectanglePosition, color: rectangleColor, alpha: rectangleAlpha )
         plane.addRectangle(rectangle: rectangle)
         XCTAssertEqual(plane[0], rectangle)
         XCTAssertEqual(plane.isRectangle(at: Position(x: 400, y: 400)), true)
