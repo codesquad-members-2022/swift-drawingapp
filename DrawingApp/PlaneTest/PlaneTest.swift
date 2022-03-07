@@ -45,6 +45,6 @@ class PlaneTest: XCTestCase {
         let rectangle = Rectangle(size: rectangleSize, position: rectanglePosition, color: rectangleColor, alpha: rectangleAlpha )
         plane.addRectangle(rectangle: rectangle)
         XCTAssertEqual(plane[0], rectangle)
-        XCTAssertEqual(plane.isRectangle(at: Position(x: 400, y: 400)), true)
+        XCTAssertEqual(plane.isRectangle(at: Position(x: 400, y: 400)), rectangle)
     }
 }
