@@ -22,6 +22,9 @@ class ViewController: UIViewController {
     let rectangleViewFactory = RectangleViewFactory()
     let plane = Plane()
     
+    var selectedRectangle : Rectangle? = nil
+    var selectedRectangleView : UIView? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initialScreenSetUp()
@@ -134,10 +137,19 @@ class ViewController: UIViewController {
     @objc func addNewRectangle() {
         guard let newRectangle = rectangleFactory.makeRandomRectangle() else {return}
         let newRectangleView = rectangleViewFactory.makeNewRectangleView(rectangle: newRectangle)
-        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(ViewController.tap(_:)))
         plane.addRectangle(rectangle: newRectangle)
+        newRectangleView.addGestureRecognizer(tap)
         self.rectangleViewBoard.addSubview(newRectangleView)
     }
     
+    @objc func tap(_ gestureRecognizer: UITapGestureRecognizer) {
+        if self.selectedRectangleView != nil {
+            self.selectedRectangleView?.layer.borderWidth = 0
+        }
+        self.selectedRectangleView = gestureRecognizer.view
+        self.selectedRectangleView?.layer.borderWidth = 2
+        self.selectedRectangleView?.layer.borderColor = UIColor.blue.cgColor
+    }
 }
 
