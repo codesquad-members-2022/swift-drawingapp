@@ -14,6 +14,7 @@ class CanvasViewController: UIViewController,
     private var plane = Plane()
     private var viewIDMap = [String: CanvasView]()
     private let photoPicker = UIImagePickerController()
+    private var temporaryView: UIImageView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +38,7 @@ extension CanvasViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(didSelectViewModel(_:)), name: Plane.selectViewModel, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(didMutateColor(_:)), name: Plane.mutateColorViewModel, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(didMutateAlpha(_:)), name: Plane.mutateAlphaViewModel, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateOrigin(_:)), name: Plane.mutateOriginViewModel, object: plane)
     }
     
     private func observePanel() {
@@ -69,12 +71,14 @@ extension CanvasViewController {
     
     @objc func didAddViewModel(_ notification: Notification) {
         guard let newViewModel = notification.userInfo?["new"] as? ViewModel else { return }
-        guard let newBaseView = createBaseView(from: newViewModel) else { return }
-        addViewID(newBaseView)
-        view.addSubview(newBaseView)
+        guard let newCanvasView = createView(from: newViewModel) else { return }
+        addViewID(newCanvasView)
+        
+        view.addSubview(newCanvasView)
+        setupPanRecognizer(newCanvasView)
     }
     
-    private func createBaseView(from viewModel: ViewModel) -> CanvasView? {
+    private func createView(from viewModel: ViewModel) -> CanvasView? {
         return CanvasView(viewModel: viewModel)
     }
     
@@ -138,7 +142,7 @@ extension CanvasViewController {
     }
 }
 
-// MARK: - Use Case: Transform Rectangle
+// MARK: - Use Case: Transform CanvasView
 
 extension CanvasViewController {
     
@@ -166,5 +170,60 @@ extension CanvasViewController {
         guard let mutated = plane.selected as? AlphaMutable else { return }
         let mutatedUIView = searchView(for: mutated as! ViewModel)
         mutatedUIView?.alpha = Converter.toCGFloat(mutated.alpha)
+    }
+}
+
+// MARK: - Use Case: Drag CanvasView
+
+extension CanvasViewController {
+    
+    private func setupPanRecognizer(_ canvasView: CanvasView) {
+        let pan = UIPanGestureRecognizer(target: self, action: #selector(self.handlePan(_:)))
+        canvasView.isUserInteractionEnabled = true
+        canvasView.addGestureRecognizer(pan)
+    }
+    
+    @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
+        startPan(gesture)
+        drag(gesture)
+        endPan(gesture)
+    }
+    
+    private func startPan(_ gesture: UIPanGestureRecognizer) {
+        guard let gestureView = gesture.view as? CanvasView else { return }
+        guard gesture.state == .began else { return }
+        
+        let temporaryView = gestureView.createTemporary()
+        self.temporaryView = temporaryView
+        view.addSubview(temporaryView)
+    }
+    
+    private func drag(_ gesture: UIPanGestureRecognizer) {
+        guard let temporaryView = temporaryView else { return }
+        
+        let translation = gesture.translation(in: view)
+        temporaryView.center = CGPoint(
+            x: temporaryView.center.x + translation.x,
+            y: temporaryView.center.y + translation.y
+        )
+        gesture.setTranslation(.zero, in: view)
+    }
+    
+    private func endPan(_ gesture: UIPanGestureRecognizer) {
+        guard let gestureView = gesture.view as? CanvasView else { return }
+        guard let temporaryView = temporaryView else { return }
+        guard gesture.state == .ended else { return }
+        
+        let lastOrigin = Point(x: temporaryView.frame.origin.x,
+                               y: temporaryView.frame.origin.y)
+        plane.transform(gestureView.id, to: lastOrigin)
+        temporaryView.removeFromSuperview()
+    }
+    
+    @objc func didMutateOrigin(_ notification: Notification) {
+        guard let mutated = notification.userInfo?["mutated"] as? OriginMutable else { return }
+        
+        let mutatedCavnasView = searchView(for: mutated as! ViewModel)
+        mutatedCavnasView?.frame.origin = Converter.toCGPoint(mutated.origin)
     }
 }
