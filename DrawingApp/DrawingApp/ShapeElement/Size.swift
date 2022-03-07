@@ -18,6 +18,14 @@ struct Size:CustomStringConvertible{
     static let maxWidth:Double = 1180.0
     static let maxHeight:Double = 820.0
     
+    static func random() -> Size {
+        let randomWidth = Double.random(in: 0.0...Size.maxWidth)
+        let randomHeight = Double.random(in: 0.0...Size.maxHeight)
+        
+        return Size(width: randomWidth, height: randomHeight)
+    }
+    
+    
     init(width:Double, height:Double) {
         self.width = width
         self.height = height

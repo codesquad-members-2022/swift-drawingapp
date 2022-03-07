@@ -86,9 +86,9 @@ class MainViewController: UIViewController{
         let action = UIAction {_ in
             let id = IDFactory.makeRandomID()
             let size = Size(width: 150, height: 120)
-            let point = PointFactory.makeRandomPoint()
-            let rgb = RGBFactory.makeRandomRGB()
-            let alpha = AlphaFactory.makeRandomAlpha()
+            let point = Point.random()
+            let rgb = RGB.random()
+            let alpha = Alpha.random()
             
             let rect = Rectangle(id: id, origin: point, size: size, backGroundColor: rgb, alpha: alpha)
             let rectView = UIView(rect: rect, rgb: rgb, alpha: alpha)
@@ -159,7 +159,7 @@ extension MainViewController:DetailViewDelgate {
     
     //랜덤한 RGB값을 설정하고 현재 선택된 뷰의 배경색을 변경한다
     func colorButtonTouched(sender:UIButton) {
-        let randomRGB = RGBFactory.makeRandomRGB()
+        let randomRGB = RGB.random()
         guard let currentRectangle = plane.selectedRectangle  else { return }                                   //현재 선택한 사각형 모델
         let currentRectangleView = rectangleView.selectedView                                                   //현재 선택한 사각형 뷰
         

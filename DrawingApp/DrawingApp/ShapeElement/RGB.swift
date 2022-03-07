@@ -29,6 +29,15 @@ final class RGB{
         self.inputBlueValue = blue
     }
     
+    static func random() -> RGB {
+        let randomRed = Int.random(in: RGB.minValue...RGB.maxValue)
+        let randomGreen = Int.random(in: RGB.minValue...RGB.maxValue)
+        let randomBlue = Int.random(in: RGB.minValue...RGB.maxValue)
+        
+        return RGB(red: randomRed, green: randomGreen, blue: randomBlue)
+    }
+    
+    
     
     //가장큰값 maxValue보다 크면 maxValue로 가작 작은값 minValue보다 작으면 minValue를 주도록 했습니다.
     private func translateInputRGBValue(inputValue:Int) -> Int{

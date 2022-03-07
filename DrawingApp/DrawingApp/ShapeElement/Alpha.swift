@@ -24,6 +24,11 @@ final class Alpha {
         self.inputAlphaValue = newValue
     }
     
+    static func random() -> Alpha {
+        let randomAlpha = Float.random(in:Alpha.minValue...Alpha.maxValue)
+        return Alpha(randomAlpha)
+    }
+    
     //가장큰값 maxValue보다 크면 maxValue로 가작 작은값 minValue보다 작으면 minValue를 주도록 했습니다.
     private func translateInputAlphaValue() -> Float{
         
