@@ -47,12 +47,22 @@ struct Rectangle: CustomStringConvertible {
             }
             return alpha
         }
+        mutating func goVivid() {
+            //TODO: enum "Comparable" 프로토콜 조사
+        }
+        mutating func goMuddy() {
+            //TODO: enum "Comparable" 프로토콜 조사
+        }
     }
     
     struct BackgroundColor {
         var R: UInt8 = 0
         var G: UInt8 = 0
         var B: UInt8 = 0
+        
+        init() {
+            random()
+        }
         
         mutating func random()  {
             let randomR: UInt8 = UInt8.random(in: 0...255)
@@ -62,9 +72,14 @@ struct Rectangle: CustomStringConvertible {
             self.G = randomG
             self.B = randomB
         }
-        init() {
-            random()
+        
+        func showRGBVlaue() -> String {
+            let hexaR = String(format: "%02X", R)
+            let hexaG = String(format: "%02X", G)
+            let hexaB = String(format: "%02X", B)
+            return "\(hexaR)\(hexaG)\(hexaB)"
         }
+        
     }
     struct Size {
         let width: Double = 150.0
