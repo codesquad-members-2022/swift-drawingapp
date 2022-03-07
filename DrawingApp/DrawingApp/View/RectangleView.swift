@@ -21,4 +21,18 @@ class RectangleView: UIView {
     func setAlpha(alpha: Alpha) {
         self.alpha = alpha.convert(using: CGFloat.self) / 10
     }
+    
+    func setBorder(width: Int, radius: Int = 0, color: UIColor?) {
+        self.layer.cornerCurve = .continuous
+        self.layer.cornerRadius = CGFloat(radius)
+        self.layer.borderWidth = CGFloat(width)
+        self.layer.borderColor = color?.cgColor
+    }
+    
+    func removeBorder() {
+        self.layer.cornerCurve = .circular
+        self.layer.cornerRadius = 0
+        self.layer.borderWidth = 0
+        self.layer.borderColor = .none
+    }
 }

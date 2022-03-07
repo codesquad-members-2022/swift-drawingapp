@@ -23,15 +23,6 @@ enum Alpha: Int {
     case nine
     case opaque
     
-    init?(rawValue: Float) {
-        let value = Int(rawValue)
-        guard let alpha = Self.init(rawValue: value) else {
-            return nil
-        }
-        
-        self = alpha
-    }
-    
     func convert<T: AlphaBuilder>(using Convertor: T.Type) -> T {
         return Convertor.init(self.rawValue)
     }

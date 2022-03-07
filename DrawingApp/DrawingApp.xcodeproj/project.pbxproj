@@ -10,12 +10,16 @@
 		E4002E9627D5B00300F14AFD /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4002E9527D5B00300F14AFD /* RectangleView.swift */; };
 		E4630C2727CDD2BC00644B70 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4630C2627CDD2BC00644B70 /* SceneDelegate.swift */; };
 		E4641B4927D09C0000815795 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4641B4827D09C0000815795 /* Plane.swift */; };
-		E4641B4A27D09E1800815795 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D3DFAF27CF42560096810A /* Extensions.swift */; };
+		E4641B4A27D09E1800815795 /* CGTypes+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D3DFAF27CF42560096810A /* CGTypes+Extensions.swift */; };
 		E4641B4B27D09E1B00815795 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4641B4827D09C0000815795 /* Plane.swift */; };
 		E4641B4D27D0A00F00815795 /* Shapable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4641B4C27D0A00F00815795 /* Shapable.swift */; };
 		E4641B4E27D0A0FE00815795 /* Shapable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4641B4C27D0A00F00815795 /* Shapable.swift */; };
 		E4641B5027D0A80200815795 /* IdentifierFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4641B4F27D0A80200815795 /* IdentifierFactory.swift */; };
 		E4641B5227D0A8BA00815795 /* IdentifierFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4641B4F27D0A80200815795 /* IdentifierFactory.swift */; };
+		E48109E427D61E11007B0E3F /* String+Alphanumeric.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48109E327D61E11007B0E3F /* String+Alphanumeric.swift */; };
+		E48109E627D61E2F007B0E3F /* Double+Random.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48109E527D61E2F007B0E3F /* Double+Random.swift */; };
+		E48109E927D61E93007B0E3F /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48109E827D61E93007B0E3F /* UIColor+Extensions.swift */; };
+		E48109EF27D6204A007B0E3F /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E48109EE27D6204A007B0E3F /* RoundedButton.swift */; };
 		E481266227CCF8E000A3FFF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E481266127CCF8E000A3FFF6 /* AppDelegate.swift */; };
 		E481266627CCF8E000A3FFF6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E481266527CCF8E000A3FFF6 /* ViewController.swift */; };
 		E481266927CCF8E000A3FFF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E481266727CCF8E000A3FFF6 /* Main.storyboard */; };
@@ -29,7 +33,7 @@
 		E4D3DFAA27CF18740096810A /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D3DFA327CEFE7C0096810A /* Size.swift */; };
 		E4D3DFAB27CF18740096810A /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D3DFA527CEFE7F0096810A /* Color.swift */; };
 		E4D3DFAC27CF18740096810A /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D3DFA727CEFEB90096810A /* Alpha.swift */; };
-		E4D3DFB027CF42560096810A /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D3DFAF27CF42560096810A /* Extensions.swift */; };
+		E4D3DFB027CF42560096810A /* CGTypes+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D3DFAF27CF42560096810A /* CGTypes+Extensions.swift */; };
 		E4E637AD27D1E6D300B90B24 /* SizeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E637AC27D1E6D300B90B24 /* SizeFactory.swift */; };
 		E4E637AF27D1E6EE00B90B24 /* ColorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E637AE27D1E6EE00B90B24 /* ColorFactory.swift */; };
 		E4E637B127D1E70500B90B24 /* PointFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4E637B027D1E70500B90B24 /* PointFactory.swift */; };
@@ -58,6 +62,10 @@
 		E4641B4827D09C0000815795 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		E4641B4C27D0A00F00815795 /* Shapable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shapable.swift; sourceTree = "<group>"; };
 		E4641B4F27D0A80200815795 /* IdentifierFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentifierFactory.swift; sourceTree = "<group>"; };
+		E48109E327D61E11007B0E3F /* String+Alphanumeric.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Alphanumeric.swift"; sourceTree = "<group>"; };
+		E48109E527D61E2F007B0E3F /* Double+Random.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Random.swift"; sourceTree = "<group>"; };
+		E48109E827D61E93007B0E3F /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
+		E48109EE27D6204A007B0E3F /* RoundedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		E481265E27CCF8E000A3FFF6 /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E481266127CCF8E000A3FFF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E481266527CCF8E000A3FFF6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -69,7 +77,7 @@
 		E4D3DFA327CEFE7C0096810A /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		E4D3DFA527CEFE7F0096810A /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		E4D3DFA727CEFEB90096810A /* Alpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alpha.swift; sourceTree = "<group>"; };
-		E4D3DFAF27CF42560096810A /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		E4D3DFAF27CF42560096810A /* CGTypes+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGTypes+Extensions.swift"; sourceTree = "<group>"; };
 		E4E637AC27D1E6D300B90B24 /* SizeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeFactory.swift; sourceTree = "<group>"; };
 		E4E637AE27D1E6EE00B90B24 /* ColorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorFactory.swift; sourceTree = "<group>"; };
 		E4E637B027D1E70500B90B24 /* PointFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointFactory.swift; sourceTree = "<group>"; };
@@ -117,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				E4002E9527D5B00300F14AFD /* RectangleView.swift */,
+				E48109EE27D6204A007B0E3F /* RoundedButton.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -142,6 +151,7 @@
 		E4641B5127D0A82200815795 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				E48109E727D61E68007B0E3F /* Extensions */,
 				E4E8083027CE062600F4C062 /* ShapeFactoryCluster.swift */,
 				E4E637B227D1EAC300B90B24 /* RectangleFactory.swift */,
 				E4641B4F27D0A80200815795 /* IdentifierFactory.swift */,
@@ -149,9 +159,19 @@
 				E4E637AC27D1E6D300B90B24 /* SizeFactory.swift */,
 				E4E637AE27D1E6EE00B90B24 /* ColorFactory.swift */,
 				E4E637B427D1EC4F00B90B24 /* TypeBuilder.swift */,
-				E4D3DFAF27CF42560096810A /* Extensions.swift */,
 			);
 			path = Utility;
+			sourceTree = "<group>";
+		};
+		E48109E727D61E68007B0E3F /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E4D3DFAF27CF42560096810A /* CGTypes+Extensions.swift */,
+				E48109E827D61E93007B0E3F /* UIColor+Extensions.swift */,
+				E48109E527D61E2F007B0E3F /* Double+Random.swift */,
+				E48109E327D61E11007B0E3F /* String+Alphanumeric.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		E481265527CCF8E000A3FFF6 = {
@@ -303,17 +323,21 @@
 				E4E637AF27D1E6EE00B90B24 /* ColorFactory.swift in Sources */,
 				E4641B5027D0A80200815795 /* IdentifierFactory.swift in Sources */,
 				E4D3DFA627CEFE7F0096810A /* Color.swift in Sources */,
+				E48109E927D61E93007B0E3F /* UIColor+Extensions.swift in Sources */,
 				E4D3DFA827CEFEB90096810A /* Alpha.swift in Sources */,
+				E48109E627D61E2F007B0E3F /* Double+Random.swift in Sources */,
 				E4E8083127CE062600F4C062 /* ShapeFactoryCluster.swift in Sources */,
 				E481266627CCF8E000A3FFF6 /* ViewController.swift in Sources */,
 				E4002E9627D5B00300F14AFD /* RectangleView.swift in Sources */,
 				E4E637AD27D1E6D300B90B24 /* SizeFactory.swift in Sources */,
 				E481266227CCF8E000A3FFF6 /* AppDelegate.swift in Sources */,
-				E4D3DFB027CF42560096810A /* Extensions.swift in Sources */,
+				E4D3DFB027CF42560096810A /* CGTypes+Extensions.swift in Sources */,
 				E4E637B327D1EAC300B90B24 /* RectangleFactory.swift in Sources */,
+				E48109EF27D6204A007B0E3F /* RoundedButton.swift in Sources */,
 				E4630C2727CDD2BC00644B70 /* SceneDelegate.swift in Sources */,
 				E4641B4927D09C0000815795 /* Plane.swift in Sources */,
 				E4E637B127D1E70500B90B24 /* PointFactory.swift in Sources */,
+				E48109E427D61E11007B0E3F /* String+Alphanumeric.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -324,7 +348,7 @@
 				E4641B5227D0A8BA00815795 /* IdentifierFactory.swift in Sources */,
 				E4641B4E27D0A0FE00815795 /* Shapable.swift in Sources */,
 				E4641B4B27D09E1B00815795 /* Plane.swift in Sources */,
-				E4641B4A27D09E1800815795 /* Extensions.swift in Sources */,
+				E4641B4A27D09E1800815795 /* CGTypes+Extensions.swift in Sources */,
 				E4D3DFA927CF18740096810A /* Point.swift in Sources */,
 				E4D3DFAA27CF18740096810A /* Size.swift in Sources */,
 				E4D3DFAB27CF18740096810A /* Color.swift in Sources */,
