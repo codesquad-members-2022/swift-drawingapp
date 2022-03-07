@@ -93,7 +93,8 @@ final class Plane: RectangleViewTapDelegate {
     }
     
     func setAlpha(value: Float) {
-        guard let current = current else { return }
+        guard let current = current, properties.count-1 >= current.index else { return }
+        properties[current.index].setAlpha(Double(value))
         screenDelegate?.admitAlpha(to: current, using: value)
     }
     
