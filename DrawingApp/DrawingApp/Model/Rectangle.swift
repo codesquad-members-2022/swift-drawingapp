@@ -7,18 +7,13 @@
 
 import Foundation
 
-class Rectangle: Factory {
+class Rectangle {
     
     private let id: String
     private let size: Size
     private let point: Point
     private let backGroundColor: BackgroundColor
     private let alpha: Alpha
-    
-    func RequestCreateRectangle() -> Rectangle {
-        let ractangle = self.createRectangle()
-        return ractangle
-    }
     
     init(id: String, size: Size, point: Point, backGroundColor: BackgroundColor, alpha: Alpha) {
         self.id = id
@@ -29,3 +24,8 @@ class Rectangle: Factory {
     }
 }
 
+extension Rectangle: CustomStringConvertible {
+    var description: String {
+        return "(\(id)), \(point), \(point), \(backGroundColor), \(alpha)"
+    }
+}

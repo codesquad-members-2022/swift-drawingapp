@@ -9,7 +9,7 @@ import Foundation
 
 class BackgroundColor {
     
-    private let r: Int
+    private var r: Int
     private let g: Int
     private let b: Int
     
@@ -18,7 +18,6 @@ class BackgroundColor {
         self.g = g
         self.b = b
     }
-    
 }
 
 extension BackgroundColor: CustomStringConvertible {

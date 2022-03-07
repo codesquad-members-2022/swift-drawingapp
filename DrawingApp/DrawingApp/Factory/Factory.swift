@@ -6,56 +6,24 @@
 //
 
 import Foundation
+import UIKit
 
 class Factory {
-    
-    func createId() -> String {
-        let id = "abcdefghijklmnopqrstuvwxyz0123456789"
-        let length = 9
-        var count = 0
-        var newId = ""
 
-        for i in 0..<length {
-            newId += String(id.shuffled()[i])
-            count += 1
-            if count % 3 == 0 {
-                newId += "-"
-            }
-        }
-        newId.removeLast()
-        
-        return newId
-    }
-    
-    func createSize() -> Size {
-        let size = Size(width: 150, height: 120)
-        return size
-    }
-    
-    func createPoint() -> Point {
-        let point = Point(x: 0, y: 0)
-        return point
-    }
-    
-    func createColor() -> BackgroundColor {
-        let color = BackgroundColor(r: Int.random(in: 0...255), g: Int.random(in: 0...255), b: Int.random(in: 0...255))
-        return color
-    }
-    
-    func createAlpha() -> Alpha {
-        let alpha = Alpha.allCases.shuffled()[0]
-        return alpha
-    }
-    
     func createRectangle() -> Rectangle {
-        let ractangle = Rectangle(id: createId(), size: createSize(), point: createPoint(), backGroundColor: createColor(), alpha: createAlpha())
-        return ractangle
+        
+        let DeviceWidth = UIScreen.main.bounds.size.width
+        let DeviceHeight = UIScreen.main.bounds.size.height
+
+        let size = Size(width: 150, height: 120)
+        let point = Point(x: Double(Int.random(in: 0..<Int(DeviceWidth))),
+                          y: Double(Int.random(in: 0..<Int(DeviceHeight))))
+        let color = BackgroundColor(r: Int.random(in: 0...255),
+                                    g: Int.random(in: 0...255),
+                                    b: Int.random(in: 0...255))
+        let alpha = Alpha.allCases[Int.random(in: 0..<10)]
+        
+        return Rectangle(id: ID.createId(), size: size, point: point, backGroundColor: color, alpha: alpha)
     }
     
-}
-
-extension Factory: CustomStringConvertible {
-    var description: String {
-        return "(\(createId())), \(createPoint()), \(createSize()), \(createColor()), Alpha: \(createAlpha())"
-    }
 }

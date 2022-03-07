@@ -16,9 +16,11 @@ class ViewController: UIViewController {
 
     @IBAction func createRectangle(_ sender: UIButton) {
         let logger = Logger()
-        let factory = FactoryArray()
+        let factory = Factory()
         
-        logger.info("\(factory.createRectanleArray())")
+        for makeCount in 1...4 {
+            logger.info("Rect\(makeCount) \(factory.createRectangle())")
+        }
     }
     
 }
