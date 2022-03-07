@@ -6,12 +6,18 @@
 //
 
 import Foundation
+import UIKit
 
 protocol PlaneInput {
     func touchPoint(where point: Point)
-    func makeRectangle()
     func colorChanged()
     func alphaChanged(alpha: Alpha)
+}
+
+protocol MakeDrawingItem {
+    func makeRectangle()
+    func makePhotoRectangle(url: URL)
+    
 }
 
 class Plane {    
@@ -34,9 +40,30 @@ class Plane {
     }
 }
 
+extension Plane: MakeDrawingItem {
+    func makeRectangle() {
+        let rectangle = DrawingModelFactory.makeRectangle()
+        self.rectangles.append(rectangle)
+        let userInfo: [AnyHashable : Any] = ["rectangle":rectangle]
+        NotificationCenter.default.post(name: NSNotification.Name.drawRectangle, object: nil, userInfo: userInfo)
+    }
+    
+    func makePhotoRectangle(url: URL) {
+        let rectangle = DrawingModelFactory.makePhotoRectangle(url: url)
+        self.rectangles.append(rectangle)
+        let userInfo: [AnyHashable : Any] = ["rectangle":rectangle]
+        NotificationCenter.default.post(name: NSNotification.Name.drawRectangle, object: nil, userInfo: userInfo)
+    }
+}
+
 extension Plane: PlaneInput {
     func touchPoint(where point: Point) {
         if let selectedRectangle = self.selectedRectangle {
+<<<<<<< HEAD
+=======
+            let userInfo: [AnyHashable : Any] = ["id":selectedRectangle.id]
+            NotificationCenter.default.post(name: NSNotification.Name.didDisSelectedRectangle, object: nil, userInfo: userInfo)
+>>>>>>> 86d216a ([feature] 사진첩에서 사진 선택하면 포토 뷰 생김)
             self.selectedRectangle = nil
             let userInfo: [AnyHashable : Any] = ["id":selectedRectangle.id]
             NotificationCenter.default.post(name: Plane.EventName.didDisSelectedRectangle, object: self, userInfo: userInfo)
@@ -45,6 +72,7 @@ extension Plane: PlaneInput {
         if let selectedRectangle = self.selected(point: point) {
             self.selectedRectangle = selectedRectangle
             let userInfo: [AnyHashable : Any] = ["rectangle":selectedRectangle]
+<<<<<<< HEAD
             NotificationCenter.default.post(name: Plane.EventName.didSelectedRectangle, object: self, userInfo: userInfo)
         }
     }
@@ -56,11 +84,22 @@ extension Plane: PlaneInput {
         NotificationCenter.default.post(name: Plane.EventName.madeRectangle, object: self, userInfo: userInfo)
     }
     
+=======
+            NotificationCenter.default.post(name: NSNotification.Name.didSelectedRectangle, object: nil, userInfo: userInfo)
+        }
+    }
+    
+>>>>>>> 86d216a ([feature] 사진첩에서 사진 선택하면 포토 뷰 생김)
     func colorChanged() {
         guard let rectangle = self.selectedRectangle else {
             return
         }
         rectangle.update(color: ColorFactory.make())
+<<<<<<< HEAD
+=======
+        let userInfo: [AnyHashable : Any] = ["id":rectangle.id, "color":rectangle.color]
+        NotificationCenter.default.post(name: NSNotification.Name.updateColor, object: nil, userInfo: userInfo)
+>>>>>>> 86d216a ([feature] 사진첩에서 사진 선택하면 포토 뷰 생김)
     }
     
     func alphaChanged(alpha: Alpha) {
@@ -68,6 +107,11 @@ extension Plane: PlaneInput {
             return
         }
         rectangle.update(alpha: alpha)
+<<<<<<< HEAD
+=======
+        let userInfo: [AnyHashable : Any] = ["id":rectangle.id, "alpha":rectangle.alpha]
+        NotificationCenter.default.post(name: NSNotification.Name.updateAlpha, object: nil, userInfo: userInfo)
+>>>>>>> 86d216a ([feature] 사진첩에서 사진 선택하면 포토 뷰 생김)
     }
     
 }

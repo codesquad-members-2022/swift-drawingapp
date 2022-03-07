@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 
-class RectangleView: UIView {
-    private let drawView: UIView = {
+class DrawingView: UIView {
+    let canvasView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -25,20 +25,24 @@ class RectangleView: UIView {
         layout()
     }
         
-    private func layout() {
-        self.addSubview(drawView)
-        self.drawView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        self.drawView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        self.drawView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
-        self.drawView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+    func layout() {
+        self.addSubview(canvasView)
+        self.canvasView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        self.canvasView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        self.canvasView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        self.canvasView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
     }
     
-    func update(color: Color) {
-        drawView.backgroundColor = UIColor(red: CGFloat(color.r) / 255, green: CGFloat(color.g) / 255, blue: CGFloat(color.b / 255), alpha: 1)
+    func update(color: Color?) {
+        if let color = color {
+            canvasView.backgroundColor = UIColor(red: CGFloat(color.r) / 255, green: CGFloat(color.g) / 255, blue: CGFloat(color.b / 255), alpha: 1)
+        } else {
+            canvasView.backgroundColor = .clear
+        }
     }
     
     func update(alpha: Alpha) {
-        drawView.alpha = alpha.value
+        canvasView.alpha = alpha.value
     }
     
     func update(point: Point) {

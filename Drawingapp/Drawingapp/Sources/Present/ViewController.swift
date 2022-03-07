@@ -33,7 +33,7 @@ class ViewController: UIViewController {
     }()
     
     let plane = Plane()
-    var rectangleViews: [String:RectangleView] = [:]
+    var rectangleViews: [String:DrawingView] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -70,7 +70,16 @@ class ViewController: UIViewController {
             guard let rectangle = notification.userInfo?["rectangle"] as? Rectangle else {
                 return
             }
-            let drawView = DrawingViewFactory.make(rectangle: rectangle)
+            
+            var drawView: DrawingView
+            
+            switch rectangle {
+            case let rectangle as PhotoRectangle:
+                drawView = DrawingViewFactory.make(photoRectangle: rectangle)
+            default:
+                drawView = DrawingViewFactory.make(rectangle: rectangle)
+            }
+            
             self.drawingBoard.addSubview(drawView)
             self.rectangleViews[rectangle.id] = drawView
         }
@@ -155,17 +164,20 @@ extension ViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
         
-        guard let itemProvider = results.first?.itemProvider,
-              itemProvider.canLoadObject(ofClass: UIImage.self) else {
+        guard let itemProvider = results.first?.itemProvider else {
             return
         }
         
-        itemProvider.loadObject(ofClass: UIImage.self) { image, error in
-            DispatchQueue.main.async {
-//                self.photoImageView.image = image as? UIImage
+        let representation = UTType.image.identifier
+        
+        if itemProvider.hasRepresentationConforming(toTypeIdentifier: representation, fileOptions: .init()) {
+            itemProvider.loadInPlaceFileRepresentation(forTypeIdentifier: representation) { (originalUrl, _, _) in
+                if let url = originalUrl {
+                    DispatchQueue.main.async {
+                        self.plane.makePhotoRectangle(url: url)                        
+                    }
+                }
             }
         }
     }
-    
-    
 }
