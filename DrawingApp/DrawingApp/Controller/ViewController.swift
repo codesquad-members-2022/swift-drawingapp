@@ -40,14 +40,13 @@ class ViewController: UIViewController {
     private let presentRectangleView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemGray5
         return view
     }()
     
     private let addRectangleButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .lightGray
+        button.backgroundColor = .systemGray6
         button.setTitle("사각형", for: .normal)
         button.setTitleColor(.gray, for: .normal)
         button.layer.cornerRadius = 10
@@ -70,7 +69,6 @@ class ViewController: UIViewController {
         stackView.alignment = .leading
         stackView.distribution = .equalSpacing
         stackView.spacing = 10
-        stackView.backgroundColor = .cyan
         return stackView
     }()
     
@@ -81,7 +79,6 @@ class ViewController: UIViewController {
         stackView.alignment = .leading
         stackView.distribution = .equalSpacing
         stackView.spacing = 10
-        stackView.backgroundColor = .cyan
         return stackView
     }()
     
