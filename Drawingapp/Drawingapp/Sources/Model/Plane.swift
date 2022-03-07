@@ -63,6 +63,7 @@ extension Plane: MakeDrawingItem {
     }
     
     private func didMakeRectangle(rectangle: Rectangle) {
+        self.rectangles.append(rectangle)
         let userInfo: [AnyHashable : Any] = [ParamKey.rectangle:rectangle]
         NotificationCenter.default.post(name: Plane.EventName.didmakeRectangle, object: nil, userInfo: userInfo)
         
