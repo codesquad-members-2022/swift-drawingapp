@@ -24,7 +24,7 @@ class PropertyChangeBoard : UIView {
         initialSetUp()
     }
     
-    func initialSetUp() {
+    private func initialSetUp() {
         self.addSubview(colorLabel)
         self.addSubview(colorChangeButton)
         self.addSubview(alphaLabel)

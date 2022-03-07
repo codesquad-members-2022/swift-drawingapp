@@ -52,10 +52,7 @@ class ViewController: UIViewController {
             self.rectanglePropertyChangeBoard.widthAnchor.constraint(equalTo: safeArea.widthAnchor, multiplier: 0.2).isActive = true
             self.rectanglePropertyChangeBoard.topAnchor.constraint(equalTo: safeArea.topAnchor).isActive = true
             self.rectanglePropertyChangeBoard.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor).isActive = true
-            
         }
-        
-        
         
         func layoutAddRectangleButton() {
             view.addSubview(addRectangleButton)
