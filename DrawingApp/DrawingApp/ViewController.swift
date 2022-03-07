@@ -115,6 +115,8 @@ class ViewController: UIViewController {
             addRectangleButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor).isActive = true
             addRectangleButton.widthAnchor.constraint(equalTo: rectangleViewBoard.widthAnchor, multiplier: 0.1).isActive = true
             addRectangleButton.centerXAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: rectangleViewBoard.safeAreaLayoutGuide.layoutFrame.width/2).isActive = true
+            
+            addRectangleButton.addTarget(self, action: #selector(addNewRectangle), for: .touchUpInside)
         }
         
         layoutViewBoard()
@@ -124,6 +126,9 @@ class ViewController: UIViewController {
         layoutAlphaLabel()
         layoutAlphaChangeSlider()
         layoutAddRectangleButton()
+    }
+    @objc func addNewRectangle() {
+        
     }
     
 }
