@@ -10,6 +10,7 @@ import UIKit
 
 protocol TopMenuBarDelegate {
     func makeRectangleButtonTapped()
+    func makePhotoButtonTapped()
 }
 
 class TopMenuBarView: UIView {
@@ -27,6 +28,18 @@ class TopMenuBarView: UIView {
         itemView.translatesAutoresizingMaskIntoConstraints = false
         return itemView
     }()
+    
+    let makePhoto: TopMenuItemView = {
+        let itemView = TopMenuItemView()
+        itemView.backgroundColor = .clear
+        itemView.icon.image = UIImage(named: "ic_photo")
+        itemView.translatesAutoresizingMaskIntoConstraints = false
+        return itemView
+    }()
+    
+    private var items: [TopMenuItemView] {
+        [makeRectangle, makePhoto]
+    }
     
     var delegate: TopMenuBarDelegate?
     
@@ -46,6 +59,10 @@ class TopMenuBarView: UIView {
         makeRectangle.button.addAction(UIAction{ _ in
             self.delegate?.makeRectangleButtonTapped()
         }, for: .touchUpInside)
+        
+        makePhoto.button.addAction(UIAction{ _ in
+            self.delegate?.makePhotoButtonTapped()
+        }, for: .touchUpInside)
     }
     
     private func layout() {
@@ -55,9 +72,10 @@ class TopMenuBarView: UIView {
         stackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
         stackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         
-        stackView.addArrangedSubview(makeRectangle)
-        makeRectangle.translatesAutoresizingMaskIntoConstraints = false
-        makeRectangle.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        makeRectangle.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        items.forEach {
+            stackView.addArrangedSubview($0)
+            $0.widthAnchor.constraint(equalToConstant: 50).isActive = true
+            $0.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        }
     }
 }
