@@ -41,11 +41,7 @@ final class Rectangle: CustomStringConvertible{
         let minY: Double = self.point.y
         let maxY: Double = minY + self.size.height
         
-        if xPoint >= minX, xPoint <= maxX, yPoint >= minY, yPoint <= maxY{
-            return true
-        } else{
-            return false
-        }
+        return xPoint >= minX && xPoint <= maxX && yPoint >= minY && yPoint <= maxY
     }
     
     init(id: String, size: MySize, point: MyPoint, color: RGBColor, alpha: Alpha){

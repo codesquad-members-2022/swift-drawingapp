@@ -11,6 +11,11 @@ final class RectangleFactory{
     private let width: Double = 150
     private let height: Double = 120
     
+    func makeRectangle(viewWidth: Double, viewHeight: Double) -> Rectangle{
+        let rectangle = Rectangle(id: IDFactory.makeID(), size: makeSize(), point: makePoint(viewWidth: viewWidth, viewHeight: viewHeight), color: makeColor(), alpha: makeAlpha())
+        return rectangle
+    }
+    
     func makeSize() -> MySize{
         let size = MySize(width: self.width, height: self.height)
         return size

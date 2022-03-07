@@ -9,31 +9,32 @@ import Foundation
 import UIKit
 
 struct Plane{
+    static let makeRectangle = Notification.Name("makeRectangle")
+    static let selectRectangle = Notification.Name("selectRectangle")
     private var rectangles: [Rectangle] = []
-    private var notifyMadeRectangle: Int{
-        NotificationCenter.default.post(name: .makeRectangle, object: self)
-        return count()
-    }
     
-    subscript(index: Int) -> Rectangle?{
-        guard rectangles.count > index else{
-            return nil
+    subscript(uiView: UIView) -> Rectangle?{
+        for rectangle in rectangles {
+            guard rectangle.id == uiView.restorationIdentifier else{
+                continue
+            }
+            return rectangle
         }
-        
-        return rectangles[index]
+        return nil
     }
     
     mutating func addRectangle(rectangle: Rectangle){
         self.rectangles.append(rectangle)
+        NotificationCenter.default.post(name: Plane.makeRectangle, object: self, userInfo: ["rectangle" : rectangle])
     }
     
     func count() -> Int{
         return rectangles.count
     }
     
-    func findRectangle(withX: Double, withY: Double) -> Rectangle?{
+    func findRectangle(withX: Double, withY: Double){
         guard !rectangles.isEmpty else{
-            return nil
+            return
         }
         
         var findedRectangle: Rectangle?
@@ -47,18 +48,6 @@ struct Plane{
             break
         }
         
-        return findedRectangle
+        NotificationCenter.default.post(name: Plane.selectRectangle, object: self, userInfo: ["rectangle" : findedRectangle as Any])
     }
-    
-    func findRectangleIndex(rectangle: Rectangle) -> Int?{
-        guard let index = rectangles.firstIndex(where: { $0 === rectangle }) else{
-            return nil
-        }
-        
-        return index
-    }
-}
-
-extension Notification.Name{
-    static let makeRectangle = Notification.Name("makeRectangle")
 }

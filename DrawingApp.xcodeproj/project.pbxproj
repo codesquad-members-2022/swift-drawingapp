@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D24BDFF727D6567B006FB721 /* RightAttributerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24BDFF627D6567B006FB721 /* RightAttributerViewDelegate.swift */; };
 		D255615A27CEFA4700B4F9D7 /* MyPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255615927CEFA4700B4F9D7 /* MyPoint.swift */; };
 		D255615C27CEFA5C00B4F9D7 /* RGBColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255615B27CEFA5C00B4F9D7 /* RGBColor.swift */; };
 		D255615E27CEFA7000B4F9D7 /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255615D27CEFA7000B4F9D7 /* Alpha.swift */; };
@@ -40,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D24BDFF627D6567B006FB721 /* RightAttributerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightAttributerViewDelegate.swift; sourceTree = "<group>"; };
 		D255615927CEFA4700B4F9D7 /* MyPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPoint.swift; sourceTree = "<group>"; };
 		D255615B27CEFA5C00B4F9D7 /* RGBColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBColor.swift; sourceTree = "<group>"; };
 		D255615D27CEFA7000B4F9D7 /* Alpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alpha.swift; sourceTree = "<group>"; };
@@ -83,6 +85,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D24BDFF527D65669006FB721 /* Delegate */ = {
+			isa = PBXGroup;
+			children = (
+				D24BDFF627D6567B006FB721 /* RightAttributerViewDelegate.swift */,
+			);
+			path = Delegate;
+			sourceTree = "<group>";
+		};
 		D255615827CEFA1200B4F9D7 /* Attributes */ = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +119,7 @@
 			children = (
 				D255617027CF42A000B4F9D7 /* RightAttributerView.swift */,
 				D255617227CF492F00B4F9D7 /* RandomRectangleView.swift */,
+				D24BDFF527D65669006FB721 /* Delegate */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -298,6 +309,7 @@
 			files = (
 				D255615C27CEFA5C00B4F9D7 /* RGBColor.swift in Sources */,
 				D255616127CF003000B4F9D7 /* IDFactory.swift in Sources */,
+				D24BDFF727D6567B006FB721 /* RightAttributerViewDelegate.swift in Sources */,
 				D255615A27CEFA4700B4F9D7 /* MyPoint.swift in Sources */,
 				D255617327CF492F00B4F9D7 /* RandomRectangleView.swift in Sources */,
 				D255617127CF42A000B4F9D7 /* RightAttributerView.swift in Sources */,

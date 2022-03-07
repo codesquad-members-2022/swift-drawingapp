@@ -36,6 +36,8 @@ class RightAttributerView: UIView {
         return value ?? .one
     }
     
+    var delegate: RightAttributerViewDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialize()
@@ -114,10 +116,26 @@ extension RightAttributerView{
     }
     
     private func addSliderTargets(){
-        alphaSlider.addTarget(self, action: #selector(notifyAlpha), for: .valueChanged)
-        redSlider.addTarget(self, action: #selector(notifyRed), for: .valueChanged)
-        greenSlider.addTarget(self, action: #selector(notifyGreen), for: .valueChanged)
-        blueSlider.addTarget(self, action: #selector(notifyBlue), for: .valueChanged)
+        alphaSlider.addTarget(self, action: #selector(moveAlphaSlider), for: .valueChanged)
+        redSlider.addTarget(self, action: #selector(moveRedSlider), for: .valueChanged)
+        greenSlider.addTarget(self, action: #selector(moveGreenSlider), for: .valueChanged)
+        blueSlider.addTarget(self, action: #selector(moveBlueSlider), for: .valueChanged)
+    }
+    
+    @objc private func moveAlphaSlider(){
+        self.delegate?.moveAlphaSlider()
+    }
+    
+    @objc private func moveRedSlider(){
+        self.delegate?.moveRedSlider()
+    }
+    
+    @objc private func moveGreenSlider(){
+        self.delegate?.moveGreenSlider()
+    }
+    
+    @objc private func moveBlueSlider(){
+        self.delegate?.moveBlueSlider()
     }
 }
 
@@ -152,27 +170,4 @@ extension RightAttributerView{
     func changeAlphaSliderView(text: String){
         alphaTitle.text = text
     }
-    
-    @objc func notifyAlpha(){
-        NotificationCenter.default.post(name: .changeAlpha, object: self)
-    }
-    
-    @objc func notifyRed(){
-        NotificationCenter.default.post(name: .changeRedColor, object: self)
-    }
-    
-    @objc func notifyGreen(){
-        NotificationCenter.default.post(name: .changeGreenColor, object: self)
-    }
-    
-    @objc func notifyBlue(){
-        NotificationCenter.default.post(name: .changeBlueColor, object: self)
-    }
-}
-
-extension Notification.Name{
-    static let changeAlpha = Notification.Name("changeAlpha")
-    static let changeRedColor = Notification.Name("changeRedColor")
-    static let changeGreenColor = Notification.Name("changeGreenColor")
-    static let changeBlueColor = Notification.Name("changeBlueColor")
 }
