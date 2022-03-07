@@ -74,7 +74,7 @@ class ViewController: UIViewController {
 
     }
     
-    //MARK: 탭 제스쳐 메소드
+    //MARK: Event 2.0 : 사용자가 RectangleView 를 터치했을때 해당 사각형 뷰를 highlight 해준다
     @objc func tapTriggered(sender: UITapGestureRecognizer) {
         let point = sender.location(in: self.view)
         let presentedRectViews = view.subviews.compactMap{$0 as? RectangleView}
@@ -141,14 +141,6 @@ class ViewController: UIViewController {
         }
     }
     
-    func updateRectangleViewAlpha(with alpha: Double){
-        let presentedRectViews = view.subviews.compactMap{$0 as? RectangleView}
-        for rectView in presentedRectViews {
-            if rectView.selected{
-                rectView.updateAlpha(newAlpha: alpha)
-            }
-        }
-    }
     
     func updatePanel(with model : Rectangle?) {
         if let rectModel = model {
@@ -170,19 +162,20 @@ class ViewController: UIViewController {
     
 }
 
-//MARK: Delegates
+//MARK: Event 1.0 사용자가 “사각형” 버튼을 누를시 “RectangleView” 를 생성한다 (1/2)
 extension ViewController : GenerateRectangleButtonDelegate {
     //사각형 생성 버튼이 눌리면 함수 정의
     func didTapGenerateButton() {
         do {
-            let rect = try ShapeFactory(planeWidth: screenWdith - panelWidth, planeHeight: screenHeight - buttonHeight, shapeSize: Size(width: 130, height: 120)).makeRect()
-            os_log(.debug, "\(rect)")
-            plane.append(rect)
+            let rectModel = try ShapeFactory(planeWidth: screenWdith - panelWidth, planeHeight: screenHeight - buttonHeight, shapeSize: Size(width: 130, height: 120)).makeRect()
+            os_log(.debug, "\(rectModel)")
+            plane.append(rectModel)
         }catch{
         }
     }
 }
 
+//MARK: Event 1.0 사용자가 “사각형” 버튼을 누를시 “RectangleView” 를 생성한다 (2/2)
 extension ViewController : PlaneDelegate {
     func didAppendRect(rect: Rectangle?) {
         if let appendedRect = rect {
@@ -193,36 +186,38 @@ extension ViewController : PlaneDelegate {
     }
 }
 
+//MARK: Event 3.0 : 사용자가 RectangleView 를 터치했을때 그 사각형에 대한 정보를 패널에 정보를 표시한다.
 extension ViewController : RectangleViewDelegate {
     func didTouchRectView(rectView: RectangleView) {
         updatePanel(with: targetModel)
     }
 }
 
-
+//MARK: Event 4.0 : 사용자가 ColorRondomizeButton 를 터치했을때 그 사각형에 대한 정보를 패널에 정보를 표시한다. (1/2)
 extension ViewController : ColorRondomizeButtonDelegate {
     func generateRandomColor(sender: ColorRondomizeButton) {
         let hexColor = sender.currentTitle
         if targetModel?.color.tohexString == hexColor {
             targetModel?.randomizeColor()
-            updatePanel(with: targetModel)
-            updateRectangleView(at: targetView, with: targetModel)
         }
     }
 }
 
+
+//MARK: Event 5.0 : 사용자가 AlphaStepper 를 터치했을때 그 사각형에 대한 정보를 패널에 정보를 표시한다. (1/2)
 extension ViewController : AlphaStepperDelegate {
     func changeAlpha(sender: AlphaStepper) {
         //사각형 모델 알파 값 변경.
         if let alpha = Alpha(rawValue: Int(sender.value)) {
             targetModel?.updateAlpha(alpha)
-            
         }
     }
 }
 
+//MARK: Event 4.0 : 사용자가 ColorRondomizeButton 를 터치했을때 그 사각형에 대한 정보를 패널에 정보를 표시한다. (2/2)
+//MARK: Event 5.0 : 사용자가 AlphaStepper 를 터치했을때 그 사각형에 대한 정보를 패널에 정보를 표시한다. (2/2)
 extension ViewController: RectangleDelegate {
-    func didChangeAlpha(sender: Rectangle) {
+    func didChangeProperty(sender: Rectangle) {
         updatePanel(with: targetModel)
         updateRectangleView(at: targetView, with: targetModel)
     }

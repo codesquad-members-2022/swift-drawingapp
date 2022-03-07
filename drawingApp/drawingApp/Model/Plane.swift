@@ -10,7 +10,6 @@ import OSLog
 
 protocol PlaneDelegate {
     func didAppendRect(rect: Rectangle?)
-//    func didFindRect(rect: Rectangle)
 }
 
 struct Plane {

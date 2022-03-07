@@ -23,7 +23,7 @@
 import Foundation
 import OSLog
 protocol RectangleDelegate {
-    func didChangeAlpha(sender : Rectangle)
+    func didChangeProperty(sender : Rectangle)
 }
 //뷰에 나타날 사각형의 데이터.
 class Rectangle {
@@ -33,11 +33,16 @@ class Rectangle {
     let `id` : String
     let size : Size
     let point : Point
-    var color : Color
+    var color : Color {
+        didSet {
+            os_log(.debug, "사각형 색상 변경감지: \(oldValue) -> \(self.color)")
+            delegate?.didChangeProperty(sender: self)
+        }
+    }
     var alpha : Alpha {
         didSet {
             os_log(.debug, "사각형 알파 변경감지: \(oldValue) -> \(self.alpha)")
-            delegate?.didChangeAlpha(sender: self)
+            delegate?.didChangeProperty(sender: self)
         }
     }
     
