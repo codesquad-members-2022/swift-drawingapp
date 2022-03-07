@@ -15,12 +15,6 @@ class Id: CustomStringConvertible {
     }
     
     private static func makeRandomId() -> String {
-        var randomId = ""
-        for _ in 0..<3 {
-            randomId += UUID().uuidString.prefix(3)
-            randomId += "-"
-        }
-        randomId.removeLast()
-        return randomId
+        return UUID().uuidString.prefix(3) + "-" + UUID().uuidString.prefix(3) + "-" + UUID().uuidString.prefix(3)
     }
 }
