@@ -51,12 +51,37 @@
                                             <action selector="backgroundButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7as-sp-c0m"/>
                                         </connections>
                                     </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="0.80000000000000004" translatesAutoresizingMaskIntoConstraints="NO" id="a5u-01-Wcr">
+                                        <rect key="frame" x="73" y="103" width="88" height="31"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TB9-KY-pVk" userLabel="minusAlphaValue">
+                                                <rect key="frame" x="0.0" y="0.0" width="43.5" height="31"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="minus" catalog="system"/>
+                                                <connections>
+                                                    <action selector="minusAlphaValueButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Rdf-gP-IAG"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9jV-SM-Q6f">
+                                                <rect key="frame" x="44.5" y="0.0" width="43.5" height="31"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="plus" catalog="system"/>
+                                                <connections>
+                                                    <action selector="plusAlphaValueButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="QWN-D9-urF"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="820" id="2yc-rn-ztR"/>
                                     <constraint firstItem="NWS-3Q-B9K" firstAttribute="height" secondItem="wnh-sU-0ew" secondAttribute="height" id="7lK-lq-FwV"/>
                                     <constraint firstItem="NWS-3Q-B9K" firstAttribute="width" secondItem="wnh-sU-0ew" secondAttribute="width" id="91d-rZ-bga"/>
+                                    <constraint firstAttribute="trailing" secondItem="a5u-01-Wcr" secondAttribute="trailing" constant="37" id="9TD-9F-FS1"/>
                                     <constraint firstItem="yOx-T9-4KK" firstAttribute="top" secondItem="NWS-3Q-B9K" secondAttribute="bottom" constant="22" id="B4Y-97-7e5"/>
                                     <constraint firstItem="gRb-3E-jyU" firstAttribute="top" secondItem="wnh-sU-0ew" secondAttribute="bottom" constant="8" symbolic="YES" id="EQa-ZT-IUg"/>
                                     <constraint firstItem="yOx-T9-4KK" firstAttribute="leading" secondItem="gRb-3E-jyU" secondAttribute="leading" id="Iob-wp-OC3"/>
@@ -65,6 +90,9 @@
                                     <constraint firstAttribute="width" constant="198" id="Onz-ew-bPf"/>
                                     <constraint firstItem="yOx-T9-4KK" firstAttribute="trailing" secondItem="gRb-3E-jyU" secondAttribute="trailing" id="Q0N-RR-CLR"/>
                                     <constraint firstItem="NWS-3Q-B9K" firstAttribute="top" secondItem="gRb-3E-jyU" secondAttribute="bottom" constant="28" id="RoE-rR-uC6"/>
+                                    <constraint firstItem="yOx-T9-4KK" firstAttribute="top" secondItem="a5u-01-Wcr" secondAttribute="bottom" constant="17" id="VyH-eg-IJ1"/>
+                                    <constraint firstItem="a5u-01-Wcr" firstAttribute="leading" secondItem="NWS-3Q-B9K" secondAttribute="trailing" constant="8" symbolic="YES" id="e6F-8H-1eR"/>
+                                    <constraint firstItem="a5u-01-Wcr" firstAttribute="top" secondItem="gRb-3E-jyU" secondAttribute="bottom" constant="23" id="e6F-sa-mMm"/>
                                     <constraint firstAttribute="trailing" secondItem="gRb-3E-jyU" secondAttribute="trailing" constant="20" id="h8r-BE-dbt"/>
                                     <constraint firstItem="NWS-3Q-B9K" firstAttribute="leading" secondItem="wnh-sU-0ew" secondAttribute="leading" id="m6f-6L-LAh"/>
                                     <constraint firstItem="gRb-3E-jyU" firstAttribute="leading" secondItem="wnh-sU-0ew" secondAttribute="leading" id="sqt-jT-d3U"/>
@@ -84,6 +112,8 @@
                     <connections>
                         <outlet property="alphaSlider" destination="yOx-T9-4KK" id="KfZ-r5-0cc"/>
                         <outlet property="backgroundColorButton" destination="gRb-3E-jyU" id="OJb-XX-5nK"/>
+                        <outlet property="minusAlphaValueButton" destination="TB9-KY-pVk" id="gdH-cm-Nwf"/>
+                        <outlet property="plusAlphaValueButton" destination="9jV-SM-Q6f" id="Ult-t7-b0t"/>
                         <outlet property="statusView" destination="yWb-7v-xGg" id="DpJ-K5-RVs"/>
                     </connections>
                 </viewController>
@@ -93,6 +123,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="minus" catalog="system" width="128" height="24"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
