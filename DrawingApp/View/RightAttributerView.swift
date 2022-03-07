@@ -154,19 +154,19 @@ extension RightAttributerView{
     }
     
     @objc func notifyAlpha(){
-        NotificationCenter.default.post(name: .changeAlpha, object: nil)
+        NotificationCenter.default.post(name: .changeAlpha, object: self)
     }
     
     @objc func notifyRed(){
-        NotificationCenter.default.post(name: .changeRedColor, object: nil)
+        NotificationCenter.default.post(name: .changeRedColor, object: self)
     }
     
     @objc func notifyGreen(){
-        NotificationCenter.default.post(name: .changeGreenColor, object: nil)
+        NotificationCenter.default.post(name: .changeGreenColor, object: self)
     }
     
     @objc func notifyBlue(){
-        NotificationCenter.default.post(name: .changeBlueColor, object: nil)
+        NotificationCenter.default.post(name: .changeBlueColor, object: self)
     }
 }
 
