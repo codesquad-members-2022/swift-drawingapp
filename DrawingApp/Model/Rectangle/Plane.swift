@@ -13,14 +13,11 @@ struct Plane{
     static let selectRectangle = Notification.Name("selectRectangle")
     private var rectangles: [Rectangle] = []
     
-    subscript(uiView: UIView) -> Rectangle?{
-        for rectangle in rectangles {
-            guard rectangle.id == uiView.restorationIdentifier else{
-                continue
-            }
-            return rectangle
+    subscript(index: Int) -> Rectangle?{
+        guard rectangles.count > index && index >= 0 else{
+            return nil
         }
-        return nil
+        return rectangles[index]
     }
     
     mutating func addRectangle(rectangle: Rectangle){
