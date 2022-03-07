@@ -28,7 +28,7 @@ final class MainScreenViewController: UIViewController, MainScreenDelegate, UIGe
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tapGesture = UITapGestureRecognizer(target: self, action: #selector(backgroundTapHandler(_:)))
+        tapGesture = UITapGestureRecognizer()
         view.addGestureRecognizer(tapGesture)
         tapGesture.delegate = self
     }
@@ -36,7 +36,7 @@ final class MainScreenViewController: UIViewController, MainScreenDelegate, UIGe
     // MARK: - MainScreenDelegate implementations
     func addRectangle(using property: RectangleProperty, index: Int) {
         let rect = Rectangle(model: property, index: index)
-        let rectTapGesture = UITapGestureRecognizer(target: rect, action: #selector(rect.rectTapHandler(_:)))
+        let rectTapGesture = UITapGestureRecognizer()
         rect.addGestureRecognizer(rectTapGesture)
         rectTapGesture.delegate = self
         view.addSubview(rect)
@@ -62,9 +62,6 @@ final class MainScreenViewController: UIViewController, MainScreenDelegate, UIGe
             height: defaultSize.1
         )
     }
-    
-    /// no use
-    @objc func backgroundTapHandler(_ recognizer: UITapGestureRecognizer) { }
     
     // MARK: - UIGestureRecognizerDelegate implementation
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
