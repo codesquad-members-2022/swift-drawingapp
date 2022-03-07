@@ -91,10 +91,10 @@ class Rectangle: CustomStringConvertible {
     }
     
     private let id: String
-    let point: Point
-    let size : Size
-    var color: BackgroundColor
-    var alpha: Alpha
+    private let point: Point
+    private let size : Size
+    private var color: BackgroundColor
+    private var alpha: Alpha
     
     
     init(id: String, point: Point, size: Size, color : BackgroundColor, alpha: Alpha) {
