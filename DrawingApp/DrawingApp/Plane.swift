@@ -22,4 +22,8 @@ class Plane {
     subscript(index: Int) -> Rectangle {
         return rectangleArray[index]
     }
+    
+    func isTouched() -> Rectangle {
+        return rectangleArray[0]
+    }
 }

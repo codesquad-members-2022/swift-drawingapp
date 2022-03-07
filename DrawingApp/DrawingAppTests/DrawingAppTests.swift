@@ -4,10 +4,10 @@ import OSLog
 @testable import DrawingApp
 
 class DrawingAppTests: XCTestCase {
-    var sut: Factory!
+    var sut: Rectangle!
     override func setUpWithError() throws {
         try super.setUpWithError()
-        sut = Factory()
+        sut = Factory.createRandomRectangle()
     }
 
     override func tearDownWithError() throws {
