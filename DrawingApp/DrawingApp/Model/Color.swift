@@ -16,9 +16,9 @@ class Color {
     
     init? (red: Int, green: Int, blue: Int){
         guard Color.colorRange ~= red && Color.colorRange ~= green && Color.colorRange ~= blue else {return nil}
-        self.red = Double(red)
-        self.green = Double(green)
-        self.blue = Double(blue)
+        self.red = Double(red)/255
+        self.green = Double(green)/255
+        self.blue = Double(blue)/255
     }
 }
 extension Color : CustomStringConvertible {

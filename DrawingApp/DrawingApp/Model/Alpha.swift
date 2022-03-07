@@ -13,7 +13,7 @@ class Alpha {
     static let alphaRange = 1...10
     init? (transparency : Int) {
         guard Alpha.alphaRange.contains(transparency) else {return nil}
-        self.transparency = Double(transparency)
+        self.transparency = Double(transparency)/10
     }
 }
 

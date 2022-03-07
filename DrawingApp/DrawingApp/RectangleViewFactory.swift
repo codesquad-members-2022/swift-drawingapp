@@ -16,7 +16,7 @@ struct RectangleViewFactory {
             let color = rectangle.backGroundColor
             let alpha = rectangle.alpha
             let view = UIView(frame: CGRect(x: position.x , y: position.y, width: size.width, height: size.height))
-            view.backgroundColor = UIColor(red: color.red/255, green: color.green/255, blue: color.blue/255, alpha: alpha.transparency/10)
+            view.backgroundColor = UIColor(red: color.red, green: color.green, blue: color.blue, alpha: alpha.transparency)
             return view
         }
         return rectangleView
