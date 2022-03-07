@@ -8,7 +8,7 @@
 import Foundation
 
 class Alpha {
-    private var transparency : Int
+    var transparency : Int
     
     static let alphaRange = 0...10
     init? (transparency : Int) {
