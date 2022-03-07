@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Plane {
+struct Plane {
     private var rectangles = [Rectangle]()
     var generateRectangleViewDelegate: GenerateRectangleViewDelegate?
     var updateViewMatchedRectangleDelegate: UpdateViewMatchedRectangleDelegate?
@@ -29,7 +29,7 @@ class Plane {
         return nil
     }
     
-    public func addNewRectangle(in frame: (width: Double, height: Double)) {
+    mutating public func addNewRectangle(in frame: (width: Double, height: Double)) {
         guard let newRectangle = RectangleFactory.generateRandomRectangle(in: frame) else { return }
         rectangles.append(newRectangle)
         generateRectangleViewDelegate?.planeDidAddRectangle(newRectangle)
@@ -55,7 +55,7 @@ class Plane {
         return nil
     }
     
-    public func addSpecificRectangle(_ rectangle: Rectangle) { // 테스트용 메서드
+    mutating public func addSpecificRectangle(_ rectangle: Rectangle) { // 테스트용 메서드
         self.rectangles.append(rectangle)
     }
 }
