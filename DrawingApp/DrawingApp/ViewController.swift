@@ -105,7 +105,10 @@ class ViewController: UIViewController {
         plane.changeBackGroundColorOfRectangle(id: touchedView.id, to: newColor)
         touchedView.backgroundColor = UIColor(red: newColor.r/255, green: newColor.g/255, blue: newColor.b/255, alpha: 1.0)
         let previousBackgroundButtonAlpha = backgroundColorButton.backgroundColor?.cgColor.alpha ?? 1.0
-        let convertedAlpha = Alpha(alphaValue: previousBackgroundButtonAlpha) ?? Alpha(alphaValue: 1.0)!
+        let convertedOpacityLevel = Int(previousBackgroundButtonAlpha * 10)
+        guard let convertedAlpha = Alpha(opacityLevel: convertedOpacityLevel) else {
+            return
+        }
         updateBackgroundButton(color: newColor, alpha: convertedAlpha)
     }
     
