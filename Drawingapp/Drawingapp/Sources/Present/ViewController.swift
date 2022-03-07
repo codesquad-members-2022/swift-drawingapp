@@ -75,7 +75,7 @@ class ViewController: UIViewController {
             
             switch rectangle {
             case let rectangle as PhotoRectangle:
-                drawView = DrawingViewFactory.make(photoRectangle: rectangle)
+                drawView = DrawingViewFactory.makePhoto(rectangle: rectangle)
             default:
                 drawView = DrawingViewFactory.make(rectangle: rectangle)
             }
@@ -155,29 +155,17 @@ extension ViewController: TopMenuBarDelegate {
         config.filter = .any(of: [.images])
         let phpPicker = PHPickerViewController(configuration: config)
         phpPicker.delegate = self
-        
         self.present(phpPicker, animated: true)
     }
 }
 
 extension ViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        picker.dismiss(animated: true)
         
+        picker.dismiss(animated: true)
         guard let itemProvider = results.first?.itemProvider else {
             return
         }
-        
-        let representation = UTType.image.identifier
-        
-        if itemProvider.hasRepresentationConforming(toTypeIdentifier: representation, fileOptions: .init()) {
-            itemProvider.loadInPlaceFileRepresentation(forTypeIdentifier: representation) { (originalUrl, _, _) in
-                if let url = originalUrl {
-                    DispatchQueue.main.async {
-                        self.plane.makePhotoRectangle(url: url)                       
-                    }
-                }
-            }
-        }
+        self.plane.makePhotoRectangle(itemProvider: itemProvider)
     }
 }

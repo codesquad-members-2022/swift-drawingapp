@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-protocol PlaneInput {
+protocol PlaneAction {
     func touchPoint(where point: Point)
     func colorChanged()
     func alphaChanged(alpha: Alpha)
@@ -17,7 +17,7 @@ protocol PlaneInput {
 protocol MakeDrawingItem {
     func makeRectangle()
     func makePhotoRectangle(url: URL)
-    
+    func makePhotoRectangle(itemProvider: NSItemProvider)
 }
 
 class Plane {    
@@ -60,9 +60,16 @@ extension Plane: MakeDrawingItem {
         let userInfo: [AnyHashable : Any] = ["rectangle":rectangle]
         NotificationCenter.default.post(name: Plane.EventName.madeRectangle, object: nil, userInfo: userInfo)
     }
+    
+    func makePhotoRectangle(itemProvider: NSItemProvider) {
+        let rectangle = DrawingModelFactory.makePhotoRectangle(itemProvider: itemProvider)
+        self.rectangles.append(rectangle)
+        let userInfo: [AnyHashable : Any] = ["rectangle":rectangle]
+        NotificationCenter.default.post(name: Plane.EventName.madeRectangle, object: nil, userInfo: userInfo)
+    }
 }
 
-extension Plane: PlaneInput {
+extension Plane: PlaneAction {
     func touchPoint(where point: Point) {
         if let selectedRectangle = self.selectedRectangle {
             self.selectedRectangle = nil
