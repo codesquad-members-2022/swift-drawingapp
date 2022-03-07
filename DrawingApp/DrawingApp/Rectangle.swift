@@ -26,6 +26,13 @@ class Rectangle: CustomStringConvertible{
     private var backgroundColor: Color
     private var alpha: Alpha
     
+    var leftTopPoint: Point {
+        return position
+    }
+    var rightBottomPoint: Point {
+        return Point(x: Double(position.x + size.width) , y: Double(position.y + size.width))
+    }
+    
     required init(ID: String, size: Size, position: Point, backgroundColor: Color, alpha: Alpha) {
         self.ID = ID
         self.size = size
