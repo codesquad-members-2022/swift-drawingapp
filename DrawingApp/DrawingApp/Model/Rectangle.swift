@@ -8,7 +8,7 @@
 import Foundation
 
 class Rectangle {
-    private let id: String
+    private let id: Id
     private let point: Point
     private let size: Size
     private let backgroundColor: Color
@@ -16,7 +16,7 @@ class Rectangle {
     
     
     init(point: Point, size: Size, backgroundColor: Color, alpha: Alpha) {
-        self.id = UUID().uuidString.prefix(3) + "-" + UUID().uuidString.prefix(3) + "-" + UUID().uuidString.prefix(3)
+        self.id = Id.init()
         self.point = point
         self.size = size
         self.backgroundColor = backgroundColor
