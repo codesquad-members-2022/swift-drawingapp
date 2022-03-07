@@ -15,30 +15,10 @@ class Color {
     init(red: Int, green: Int, blue: Int) {
         let minValue = 0
         let maxValue = 255
-
-        if red < minValue {
-            self.red = minValue
-        } else if red > maxValue {
-            self.red = maxValue
-        } else {
-            self.red = red
-        }
         
-        if green < minValue {
-            self.green = minValue
-        } else if green > maxValue {
-            self.green = maxValue
-        } else {
-            self.green = green
-        }
-        
-        if blue < minValue {
-            self.blue = minValue
-        } else if blue > maxValue {
-            self.blue = maxValue
-        } else {
-            self.blue = blue
-        }
+        self.red = red < minValue ? minValue : (red > maxValue ? maxValue : red)
+        self.green = green < minValue ? minValue : (green > maxValue ? maxValue : green)
+        self.blue = blue < minValue ? minValue : (blue > maxValue ? maxValue : blue)
     }
 }
 
