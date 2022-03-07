@@ -7,7 +7,7 @@
 
 import UIKit
 
-// MARK: - Foundation Data Types
+// MARK: - Foundation
 extension Double {
     static func random(in range: ClosedRange<Double>, digits: Int) -> Double {
         let value = Double.random(in: range)
@@ -20,7 +20,7 @@ extension String {
     static let alphanumeric = "abcdefghjklmnpqrstuvwxyz12345789"
 }
 
-// MARK: - Core Graphic Data Type
+// MARK: - Core Graphic
 extension CGSize: SizeBuilder {}
 extension CGPoint: PointBuilder {}
 extension CGFloat: AlphaBuilder {}
@@ -36,23 +36,10 @@ extension UIView {
     }
     
     func removeBorder() {
+        self.layer.cornerCurve = .circular
         self.layer.cornerRadius = 0
         self.layer.borderWidth = 0
         self.layer.borderColor = .none
-    }
-    
-    func setBackgroundColor(color: Color, alpha: Alpha = .opaque) {
-        let alphaValue = alpha.convert(using: CGFloat.self) / 10
-        self.backgroundColor = UIColor(red: color.red, green: color.green, blue: color.blue, alpha: alphaValue)
-    }
-    
-    func setBackgroundColor(with alpha: CGFloat) {
-        let color = self.backgroundColor?.withAlphaComponent(alpha)
-        self.backgroundColor = color
-    }
-    
-    func setAlpha(alpha: Alpha) {
-        self.alpha = alpha.convert(using: CGFloat.self) / 10
     }
 }
 
