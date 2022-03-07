@@ -10,14 +10,14 @@ import UIKit
 
 protocol PlaneAction {
     func touchPoint(where point: Point)
-    func colorChanged()
-    func alphaChanged(alpha: Alpha)
+    func colorChanged(_ color: Color)
+    func alphaChanged(_ alpha: Alpha)
 }
 
 protocol MakeDrawingItem {
     func makeRectangle()
-    func makePhotoRectangle(url: URL)
-    func makePhotoRectangle(itemProvider: NSItemProvider)
+    func makeRectangle(url: URL)
+    func makeRectangle(itemProvider: NSItemProvider)
 }
 
 class Plane {    
@@ -49,23 +49,23 @@ class Plane {
 extension Plane: MakeDrawingItem {
     func makeRectangle() {
         let rectangle = DrawingModelFactory.makeRectangle()
-        self.rectangles.append(rectangle)
-        let userInfo: [AnyHashable : Any] = ["rectangle":rectangle]
-        NotificationCenter.default.post(name: Plane.EventName.madeRectangle, object: self, userInfo: userInfo)
+        makeRectangleProcess(rectangle: rectangle)
     }
     
-    func makePhotoRectangle(url: URL) {
+    func makeRectangle(url: URL) {
         let rectangle = DrawingModelFactory.makePhotoRectangle(url: url)
-        self.rectangles.append(rectangle)
-        let userInfo: [AnyHashable : Any] = ["rectangle":rectangle]
-        NotificationCenter.default.post(name: Plane.EventName.madeRectangle, object: nil, userInfo: userInfo)
+        makeRectangleProcess(rectangle: rectangle)
     }
     
-    func makePhotoRectangle(itemProvider: NSItemProvider) {
+    func makeRectangle(itemProvider: NSItemProvider) {
         let rectangle = DrawingModelFactory.makePhotoRectangle(itemProvider: itemProvider)
-        self.rectangles.append(rectangle)
+        makeRectangleProcess(rectangle: rectangle)
+    }
+    
+    private func makeRectangleProcess(rectangle: Rectangle) {
         let userInfo: [AnyHashable : Any] = ["rectangle":rectangle]
         NotificationCenter.default.post(name: Plane.EventName.madeRectangle, object: nil, userInfo: userInfo)
+        
     }
 }
 
@@ -84,15 +84,14 @@ extension Plane: PlaneAction {
         }
     }
     
-    func colorChanged() {
-        guard let rectangle = self.selectedRectangle,
-              let color = ColorFactory.make() else {
+    func colorChanged(_ color: Color) {
+        guard let rectangle = self.selectedRectangle else {
             return
         }
         rectangle.update(color: color)
     }
     
-    func alphaChanged(alpha: Alpha) {
+    func alphaChanged(_ alpha: Alpha) {
         guard let rectangle = self.selectedRectangle else {
             return
         }

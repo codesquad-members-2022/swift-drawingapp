@@ -136,11 +136,13 @@ extension ViewController: UIGestureRecognizerDelegate {
 
 extension ViewController: InspectorDelegate {
     func changeColorButtonTapped() {
-        self.plane.colorChanged()
+        if let color = ColorFactory.make() {
+            self.plane.colorChanged(color)
+        }
     }
     
     func alphaSliderValueChanged(alpha: Alpha) {
-        self.plane.alphaChanged(alpha: alpha)
+        self.plane.alphaChanged(alpha)
     }
 }
 
@@ -166,6 +168,6 @@ extension ViewController: PHPickerViewControllerDelegate {
         guard let itemProvider = results.first?.itemProvider else {
             return
         }
-        self.plane.makePhotoRectangle(itemProvider: itemProvider)
+        self.plane.makeRectangle(itemProvider: itemProvider)
     }
 }
