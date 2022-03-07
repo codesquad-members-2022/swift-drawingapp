@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct BackgroundColor {
+struct BackgroundColor: Equatable {
     let r: Double
     let g: Double
     let b: Double

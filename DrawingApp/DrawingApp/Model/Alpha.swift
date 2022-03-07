@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Alpha {
+struct Alpha: Equatable {
     let value: Double
     static let possibleOpacityLevels = 1...10
     static let possibleAlphaValues = stride(from: 0.1, to: 1.0, by: 0.01)
