@@ -50,15 +50,15 @@ class ViewController: UIViewController {
     
     func bind() {
         NotificationCenter.default.addObserver(forName: Plane.EventName.didDisSelectedRectangle, object: nil, queue: nil) { notification in
-            guard let id = notification.userInfo?["id"] as? String else {
+            guard let rectangle = notification.userInfo?[Plane.ParamKey.rectangle] as? Rectangle else {
                 return
             }
             self.inspectorView.isHidden = true
-            self.rectangleViews[id]?.selected(is: false)
+            self.rectangleViews[rectangle.id]?.selected(is: false)
         }
         
         NotificationCenter.default.addObserver(forName: Plane.EventName.didSelectedRectangle, object: nil, queue: nil) { notification in
-            guard let rectangle = notification.userInfo?["rectangle"] as? Rectangle else {
+            guard let rectangle = notification.userInfo?[Plane.ParamKey.rectangle] as? Rectangle else {
                 return
             }
             self.inspectorView.isHidden = false
@@ -66,8 +66,8 @@ class ViewController: UIViewController {
             self.rectangleViews[rectangle.id]?.selected(is: true)
         }
                 
-        NotificationCenter.default.addObserver(forName: Plane.EventName.madeRectangle, object: nil, queue: nil) { notification in
-            guard let rectangle = notification.userInfo?["rectangle"] as? Rectangle else {
+        NotificationCenter.default.addObserver(forName: Plane.EventName.didmakeRectangle, object: nil, queue: nil) { notification in
+            guard let rectangle = notification.userInfo?[Plane.ParamKey.rectangle] as? Rectangle else {
                 return
             }
             
@@ -86,7 +86,7 @@ class ViewController: UIViewController {
         
         NotificationCenter.default.addObserver(forName: Rectangle.EventName.updateColor, object: nil, queue: nil) { notification in
             guard let rectangle = notification.object as? Rectangle,
-            let color = notification.userInfo?["color"] as? Color else {
+                  let color = notification.userInfo?[Rectangle.ParamKey.color] as? Color else {
                 return
             }
             self.rectangleViews[rectangle.id]?.update(color: color)
@@ -95,7 +95,7 @@ class ViewController: UIViewController {
         
         NotificationCenter.default.addObserver(forName: Rectangle.EventName.updateAlpha, object: nil, queue: nil) { notification in
             guard let rectangle = notification.object as? Rectangle,
-            let alpha = notification.userInfo?["alpha"] as? Alpha else {
+                  let alpha = notification.userInfo?[Rectangle.ParamKey.alpha] as? Alpha else {
                 return
             }
             self.rectangleViews[rectangle.id]?.update(alpha: alpha)
