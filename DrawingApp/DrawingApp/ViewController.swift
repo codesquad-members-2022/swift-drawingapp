@@ -54,7 +54,7 @@ class ViewController: UIViewController {
         }
         
         func layoutColorLabel() {
-            view.addSubview(colorLabel)
+            rectanglePropertyChangeBoard.addSubview(colorLabel)
             colorLabel.translatesAutoresizingMaskIntoConstraints = false
             
             colorLabel.text = "배경색"
@@ -66,7 +66,7 @@ class ViewController: UIViewController {
         }
         
         func layoutColorChangeButton() {
-            view.addSubview(colorChangeButton)
+            rectanglePropertyChangeBoard.addSubview(colorChangeButton)
             colorChangeButton.translatesAutoresizingMaskIntoConstraints = false
             
             colorChangeButton.layer.borderWidth = 1
@@ -80,7 +80,7 @@ class ViewController: UIViewController {
         }
         
         func layoutAlphaLabel() {
-            view.addSubview(alphaLabel)
+            rectanglePropertyChangeBoard.addSubview(alphaLabel)
             alphaLabel.translatesAutoresizingMaskIntoConstraints = false
             
             alphaLabel.text = "투명도"
@@ -92,7 +92,7 @@ class ViewController: UIViewController {
         }
         
         func layoutAlphaChangeSlider() {
-            view.addSubview(alphaChangeSlider)
+            rectanglePropertyChangeBoard.addSubview(alphaChangeSlider)
             alphaChangeSlider.translatesAutoresizingMaskIntoConstraints = false
             
             alphaChangeSlider.minimumValue = 1
@@ -136,7 +136,7 @@ class ViewController: UIViewController {
         let newRectangleView = rectangleViewFactory.makeNewRectangleView(rectangle: newRectangle)
         
         plane.addRectangle(rectangle: newRectangle)
-        self.view.addSubview(newRectangleView)
+        self.rectangleViewBoard.addSubview(newRectangleView)
     }
     
 }
