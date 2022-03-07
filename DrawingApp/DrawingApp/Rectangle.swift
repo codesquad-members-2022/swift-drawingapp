@@ -50,15 +50,20 @@ class Rectangle: CustomStringConvertible {
     }
     
     struct BackgroundColor {
-        let R: UInt8
-        let G: UInt8
-        let B: UInt8
+        var R: UInt8 = 0
+        var G: UInt8 = 0
+        var B: UInt8 = 0
         
-        static func random() -> Self {
+        mutating func random()  {
             let randomR: UInt8 = UInt8.random(in: 0...255)
             let randomG: UInt8 = UInt8.random(in: 0...255)
             let randomB: UInt8 = UInt8.random(in: 0...255)
-            return Rectangle.BackgroundColor(R: randomR, G: randomG, B: randomB)
+            self.R = randomR
+            self.G = randomG
+            self.B = randomB
+        }
+        init() {
+            random()
         }
     }
     struct Size {
@@ -66,13 +71,18 @@ class Rectangle: CustomStringConvertible {
         let height: Double = 120.0
     }
     struct Point {
-        let x: Double
-        let y: Double
+        var x: Double = 0.0
+        var y: Double = 0.0
         
-        static func random() -> Self {
+        mutating func random() {
             let randomX: Double = Double.random(in: 20...1010)
             let randomY: Double = Double.random(in: 24...680)
-            return Rectangle.Point(x: randomX, y: randomY)
+            self.x = randomX
+            self.y = randomY
+        }
+        
+        init() {
+            random()
         }
     }
 
