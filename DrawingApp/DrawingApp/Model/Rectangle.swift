@@ -44,7 +44,8 @@ class Rectangle {
     }
     
     func changeAlphaValue(to newAlphaValue: Double) {
-        guard let newAlpha = Alpha.init(alphaValue: newAlphaValue) else {return}
+        let convertedOpacityLevel = Int(newAlphaValue * 10)
+        guard let newAlpha = Alpha.init(opacityLevel: convertedOpacityLevel) else {return}
         self.alpha = newAlpha
     }
 

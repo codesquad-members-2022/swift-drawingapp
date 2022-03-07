@@ -25,19 +25,6 @@ struct Alpha {
         }
 
     }
-    
-    init?(alphaValue: Double) {
-        let min = Alpha.possibleAlphaValues.min() ?? 0.1
-        let max = Alpha.possibleAlphaValues.max() ?? 1.0
-        
-        if alphaValue > max {
-            return nil
-        } else if alphaValue < min {
-            return nil
-        } else {
-            self.value = alphaValue
-        }
-    }
 }
 
 extension Alpha: CustomStringConvertible {
