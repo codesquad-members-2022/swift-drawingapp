@@ -29,6 +29,8 @@
 		BC7ECF9A27CCCB3300BC6AEC /* step1_1.png in Resources */ = {isa = PBXBuildFile; fileRef = BC7ECF9827CCCB3300BC6AEC /* step1_1.png */; };
 		BC802D5B27D5F96F002BD536 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC802D5A27D5F96F002BD536 /* ViewModel.swift */; };
 		BC802D5D27D5FA29002BD536 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC802D5C27D5FA29002BD536 /* Photo.swift */; };
+		BC802D5E27D60092002BD536 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC802D5A27D5F96F002BD536 /* ViewModel.swift */; };
+		BC802D5F27D60095002BD536 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC802D5C27D5FA29002BD536 /* Photo.swift */; };
 		BCE3CB8027CC6D8E004F2AFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE3CB7F27CC6D8E004F2AFE /* AppDelegate.swift */; };
 		BCE3CB8227CC6D8E004F2AFE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE3CB8127CC6D8E004F2AFE /* SceneDelegate.swift */; };
 		BCE3CB8427CC6D8E004F2AFE /* CanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE3CB8327CC6D8E004F2AFE /* CanvasViewController.swift */; };
@@ -393,8 +395,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC1806C627CF51600057679D /* Point.swift in Sources */,
+				BC802D5E27D60092002BD536 /* ViewModel.swift in Sources */,
 				BC1806C727CF51620057679D /* Size.swift in Sources */,
 				BC1806C827CF51650057679D /* Alpha.swift in Sources */,
+				BC802D5F27D60095002BD536 /* Photo.swift in Sources */,
 				BC7ECF8F27CCB46A00BC6AEC /* Rectangle.swift in Sources */,
 				BCE3CB9727CC6D90004F2AFE /* PlaneTests.swift in Sources */,
 				BC7ECF9327CCB8CA00BC6AEC /* Color.swift in Sources */,
