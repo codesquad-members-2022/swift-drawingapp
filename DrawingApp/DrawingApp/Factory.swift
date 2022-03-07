@@ -1,5 +1,8 @@
 import Foundation
 
+
+// 어느것을 class로 할지 struct로 할지 나름의 기준:  속성이 안바뀌는 객체들은 struct로 선언
+// class는 내부속성이 바뀌거나, 자신만의 아이덴티티가 있어야하면 선언
 class Factory {
     static func createRandomRectangle() -> Rectangle {
         var  id: String {               // UUID: xxx-xxx-xxx
@@ -15,7 +18,10 @@ class Factory {
             return resultArray.joined(separator: "-")
         }
         let size = Rectangle.Size()
-        let point : Rectangle.Point = .random()
+        var point : Rectangle.Point {
+            var point = Rectangle.Point(x: 0, y: 0)
+            return point.random()
+        }
         let color : Rectangle.BackgroundColor = .random()
         let alpha : Rectangle.Alpha = .random()
         return Rectangle(id: id, point: point, size: size, color: color, alpha: alpha)
