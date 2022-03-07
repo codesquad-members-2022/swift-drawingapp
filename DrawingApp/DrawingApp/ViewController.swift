@@ -18,6 +18,10 @@ class ViewController: UIViewController {
     let alphaLabel = UILabel()
     let alphaChangeSlider = UISlider()
     
+    let rectangleFactory = RectangleFactory(screenSize: (800, 570))
+    let rectangleViewFactory = RectangleViewFactory()
+    let plane = Plane()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         initialScreenSetUp()
@@ -128,7 +132,11 @@ class ViewController: UIViewController {
         layoutAddRectangleButton()
     }
     @objc func addNewRectangle() {
+        guard let newRectangle = rectangleFactory.makeRandomRectangle() else {return}
+        let newRectangleView = rectangleViewFactory.makeNewRectangleView(rectangle: newRectangle)
         
+        plane.addRectangle(rectangle: newRectangle)
+        self.view.addSubview(newRectangleView)
     }
     
 }
