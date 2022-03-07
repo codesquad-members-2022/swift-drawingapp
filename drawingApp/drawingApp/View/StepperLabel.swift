@@ -18,6 +18,10 @@ class StepperLabel: UILabel {
         super.init(coder: coder)
     }
     
+    func updateText(_ str : String) {
+        self.text = str
+    }
+    
     func setup () {
         self.text = "0"
     }
