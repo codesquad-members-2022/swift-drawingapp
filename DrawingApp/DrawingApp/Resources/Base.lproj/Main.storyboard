@@ -17,11 +17,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rYR-Ii-0uF" userLabel="Plane">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rYR-Ii-0uF" userLabel="Plane" customClass="PlaneView" customModule="DrawingApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="941" height="820"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDw-Em-7Iz">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDw-Em-7Iz" customClass="RoundedButton" customModule="DrawingApp" customModuleProvider="target">
                                         <rect key="frame" x="410" y="712" width="120" height="80"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" name="Background"/>
@@ -54,7 +54,7 @@
                                         <rect key="frame" x="20" y="242" width="200" height="30"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                     </slider>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1BJ-LG-X29">
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1BJ-LG-X29" customClass="RoundedButton" customModule="DrawingApp" customModuleProvider="target">
                                         <rect key="frame" x="20" y="131" width="200" height="50"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" name="Background"/>
@@ -77,6 +77,7 @@
                         <outlet property="alphaSlider" destination="sSB-vG-WUe" id="6vq-w3-dKO"/>
                         <outlet property="colorButton" destination="1BJ-LG-X29" id="oBk-rM-OsP"/>
                         <outlet property="planeView" destination="rYR-Ii-0uF" id="zOz-bf-HpF"/>
+                        <outlet property="planevv" destination="rYR-Ii-0uF" id="2ZU-yi-1u8"/>
                         <outlet property="stepper" destination="cFV-VR-VZk" id="hlS-RE-TMU"/>
                     </connections>
                 </viewController>
