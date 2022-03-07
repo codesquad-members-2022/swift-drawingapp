@@ -181,10 +181,19 @@
                     <view key="view" contentMode="scaleToFill" id="mMi-uD-Q6q">
                         <rect key="frame" x="0.0" y="0.0" width="940" height="680"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="2m4-7r-jvv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <connections>
+                        <outlet property="tapGesture" destination="yTy-GT-aHK" id="8IT-V5-1gu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5vn-HN-Bl0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="yTy-GT-aHK">
+                    <connections>
+                        <outlet property="delegate" destination="mMi-uD-Q6q" id="dxq-PD-xax"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="-665" y="853"/>
         </scene>
