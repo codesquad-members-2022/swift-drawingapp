@@ -20,13 +20,13 @@ enum Alpha: Int, CaseIterable {
     case ten = 10
     
     var opacity: Double {
-        return Double(Double(rawValue) * 0.1)
+        return Double(rawValue) / 10
     }
 }
 
 
 extension Alpha: CustomStringConvertible {
     var description: String {
-        return "\(self.rawValue) Opacity: \(self.opacity)"
+        return "\(self.rawValue), Opacity: \(self.opacity)"
     }
 }
