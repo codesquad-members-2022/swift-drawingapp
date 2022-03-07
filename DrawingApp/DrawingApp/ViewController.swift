@@ -11,12 +11,9 @@ import OSLog
 class ViewController: UIViewController {
     
     let rectangleViewBoard = UIView()
-    let rectanglePropertyChangeBoard = UIView()
+    let rectanglePropertyChangeBoard = PropertyChangeBoard()
     let addRectangleButton = UIButton()
-    let colorLabel = UILabel()
-    let colorChangeButton = UIButton()
-    let alphaLabel = UILabel()
-    let alphaChangeSlider = UISlider()
+   
     
     let rectangleFactory = RectangleFactory(screenSize: (800, 570))
     let rectangleViewFactory = RectangleViewFactory()
@@ -58,57 +55,7 @@ class ViewController: UIViewController {
             
         }
         
-        func layoutColorLabel() {
-            rectanglePropertyChangeBoard.addSubview(colorLabel)
-            colorLabel.translatesAutoresizingMaskIntoConstraints = false
-            
-            colorLabel.text = "배경색"
-
-            colorLabel.topAnchor.constraint(equalTo: rectanglePropertyChangeBoard.topAnchor, constant: 40).isActive = true
-            colorLabel.leadingAnchor.constraint(equalTo: rectanglePropertyChangeBoard.leadingAnchor, constant: 30).isActive = true
-            colorLabel.trailingAnchor.constraint(equalTo: rectanglePropertyChangeBoard.trailingAnchor, constant: -30).isActive = true
-            colorLabel.heightAnchor.constraint(equalTo: rectanglePropertyChangeBoard.heightAnchor, multiplier: 0.05).isActive = true
-        }
         
-        func layoutColorChangeButton() {
-            rectanglePropertyChangeBoard.addSubview(colorChangeButton)
-            colorChangeButton.translatesAutoresizingMaskIntoConstraints = false
-            
-            colorChangeButton.layer.borderWidth = 1
-            colorChangeButton.layer.borderColor = UIColor.black.cgColor
-            colorChangeButton.layer.cornerRadius = 10
-            colorChangeButton.setTitleColor(.black, for: .normal)
-            
-            colorChangeButton.topAnchor.constraint(equalTo: colorLabel.bottomAnchor, constant: 10).isActive = true
-            colorChangeButton.heightAnchor.constraint(equalTo: rectanglePropertyChangeBoard.heightAnchor, multiplier: 0.05).isActive = true
-            colorChangeButton.leadingAnchor.constraint(equalTo: colorLabel.leadingAnchor).isActive = true
-            colorChangeButton.trailingAnchor.constraint(equalTo: colorLabel.trailingAnchor).isActive = true
-        }
-        
-        func layoutAlphaLabel() {
-            rectanglePropertyChangeBoard.addSubview(alphaLabel)
-            alphaLabel.translatesAutoresizingMaskIntoConstraints = false
-            
-            alphaLabel.text = "투명도"
-            
-            alphaLabel.topAnchor.constraint(equalTo: colorChangeButton.bottomAnchor, constant: 40).isActive = true
-            alphaLabel.heightAnchor.constraint(equalTo: rectanglePropertyChangeBoard.heightAnchor, multiplier: 0.05).isActive = true
-            alphaLabel.leadingAnchor.constraint(equalTo: colorLabel.leadingAnchor).isActive = true
-            alphaLabel.trailingAnchor.constraint(equalTo: colorLabel.trailingAnchor).isActive = true
-        }
-        
-        func layoutAlphaChangeSlider() {
-            rectanglePropertyChangeBoard.addSubview(alphaChangeSlider)
-            alphaChangeSlider.translatesAutoresizingMaskIntoConstraints = false
-            
-            alphaChangeSlider.minimumValue = 1
-            alphaChangeSlider.maximumValue = 10
-            
-            alphaChangeSlider.topAnchor.constraint(equalTo: alphaLabel.bottomAnchor, constant: 10).isActive = true
-            alphaChangeSlider.heightAnchor.constraint(equalTo: rectanglePropertyChangeBoard.heightAnchor, multiplier: 0.05).isActive = true
-            alphaChangeSlider.leadingAnchor.constraint(equalTo: colorLabel.leadingAnchor).isActive = true
-            alphaChangeSlider.trailingAnchor.constraint(equalTo: colorLabel.trailingAnchor).isActive = true
-        }
         
         func layoutAddRectangleButton() {
             view.addSubview(addRectangleButton)
@@ -131,10 +78,6 @@ class ViewController: UIViewController {
         
         layoutViewBoard()
         layoutPropertyBoard()
-        layoutColorLabel()
-        layoutColorChangeButton()
-        layoutAlphaLabel()
-        layoutAlphaChangeSlider()
         layoutAddRectangleButton()
     }
     
@@ -159,8 +102,8 @@ class ViewController: UIViewController {
         }
         
         guard let color = self.selectedRectangleView?.backgroundColor?.cgColor.components else {
-            self.colorChangeButton.setTitle("", for: .normal)
-            self.alphaChangeSlider.value = 0
+            self.rectanglePropertyChangeBoard.colorChangeButton.setTitle("", for: .normal)
+            self.rectanglePropertyChangeBoard.alphaChangeSlider.value = 0
             return
         }
         let red = Int(color[0] * 255)
@@ -168,8 +111,8 @@ class ViewController: UIViewController {
         let blue = Int(color[2] * 255)
         let alpha = Float(color[3] * 10)
         
-        self.colorChangeButton.setTitle("\(String(format: "#%02X%02X%02x", red, green, blue))", for: .normal)
-        self.alphaChangeSlider.value = alpha
+        self.rectanglePropertyChangeBoard.colorChangeButton.setTitle("\(String(format: "#%02X%02X%02x", red, green, blue))", for: .normal)
+        self.rectanglePropertyChangeBoard.alphaChangeSlider.value = alpha
     }
 }
 
