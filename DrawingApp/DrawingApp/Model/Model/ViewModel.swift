@@ -32,7 +32,7 @@ extension ViewModel {
     
     static func createPoint() -> Point {
         let randomX = Double(Int.random(in: 10...700))
-        let randomY = Double(Int.random(in: 10...700))
+        let randomY = Double(Int.random(in: 10...500))
         return Point(x: randomX, y: randomY)
     }
     
