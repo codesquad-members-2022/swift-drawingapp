@@ -7,7 +7,8 @@
 
 import Foundation
 
-class RectangleProperty: RectanglePropertyCreator {
+/// Rectangle 클래스가 구현하는 View 객체의 Model을 표현합니다.
+final class RectangleProperty: RectanglePropertyCreator {
     
     private let name: String
     private let id: String
@@ -66,8 +67,7 @@ class RectangleProperty: RectanglePropertyCreator {
     }
 }
 
-// MARK: - CustomStringConvertible
-
+// MARK: - CustomStringConvertible for RectangleProperty
 extension RectangleProperty: CustomStringConvertible {
     var description: String {
         "\(name) \(id), \(point), \(size), \(rgbValue), Alpha:\(alpha)"

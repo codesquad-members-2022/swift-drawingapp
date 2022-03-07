@@ -8,8 +8,10 @@
 import Foundation
 
 typealias FactoryProperties = FactoryRectangleProperty.ViewProperties
+typealias FactoryRectangleDefaultSize = FactoryRectangleProperty.DefaultSize
 
-class FactoryRectangleProperty: RectanglePropertyCreator {
+/// Rectangle 객체를 생성하는 인터페이스를 제공하는 클래스입니다.
+final class FactoryRectangleProperty: RectanglePropertyCreator {
     
     // MARK: - Make Model Of View.
     func makeRandomView(as name: String, property: FactoryProperties) -> RectangleProperty? {
@@ -60,6 +62,11 @@ class FactoryRectangleProperty: RectanglePropertyCreator {
         var maxY: Double
         var width: Double
         var height: Double
+    }
+    
+    enum DefaultSize: Double {
+        case width = 150
+        case height = 120
     }
 }
 

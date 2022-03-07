@@ -8,7 +8,8 @@
 import Foundation
 import UIKit
 
-class Rectangle: UIView {
+/// 실제 MainScreenViewController.view에 생성될 뷰 클래스입니다.
+final class Rectangle: UIView {
     
     private(set) var index: Int = 0
     
@@ -19,15 +20,12 @@ class Rectangle: UIView {
         }
     }
     
-    var model: RectangleProperty?
-    
-    /// 모델에 따라 뷰를 만들고, 탭 제스쳐를 적용합니다.
+    /// 모델에 따라 뷰를 만듭니다.
     convenience init(model: RectangleProperty, index: Int) {
-        let origin = model.point
-        let size = model.size
-        self.init(frame: CGRect(x: origin.x, y: origin.y, width: size.width, height: size.height))
+        let origin = CGPoint(x: model.point.x, y: model.point.y)
+        let size = CGSize(width: model.size.width, height: model.size.height)
+        self.init(frame: CGRect(origin: origin, size: size))
         self.index = index
-        self.model = model
         setBackgroundColor(using: model.rgbValue, alpha: model.alpha)
     }
     
@@ -39,13 +37,20 @@ class Rectangle: UIView {
         super.init(frame: frame)
     }
     
+    // MARK: - Methods Property Change
     func setValue(alpha: Float) {
         backgroundColor = backgroundColor?.withAlphaComponent((CGFloat(alpha / 10)))
     }
     
     func setBackgroundColor(using color: RectRGBColor, alpha: Double) {
-        backgroundColor = UIColor(red: color.r/255, green: color.g/255, blue: color.b/255, alpha: alpha/10)
+        backgroundColor = UIColor(
+            red: color.r/RectRGBColor.maxValue,
+            green: color.g/RectRGBColor.maxValue,
+            blue: color.b/RectRGBColor.maxValue,
+            alpha: alpha/10
+        )
     }
     
+    /// no use
     @objc func rectTapHandler(_ recognizer: UITapGestureRecognizer) { }
 }

@@ -7,12 +7,15 @@
 
 import UIKit
 
+/// Plane 객체의 값을 ViewController의 요소들에 적용하기 위한 Protocol입니다.
 protocol PlaneAdmitDelegate {
+    /// Plane객체의 값이 있을 경우 ViewController에 신호를 보냅니다.
     func admitPlane(property: RectangleProperty)
+    /// ViewController에 저장된 기본 값(혹은 0 등)으로 뷰를 지정하도록 신호를 보냅니다.
     func admitDefault()
 }
 
-class ViewController: UIViewController, PlaneAdmitDelegate {
+final class ViewController: UIViewController, PlaneAdmitDelegate {
     
     @IBOutlet weak var buttonSetRandomColor: UIButton!
     @IBOutlet weak var sliderSetAlpha: UISlider!
