@@ -49,22 +49,22 @@ class Plane {
 extension Plane: MakeDrawingItem {
     func makeRectangle() {
         let rectangle = DrawingModelFactory.makeRectangle()
-        makeRectangleProcess(rectangle: rectangle)
+        didMakeRectangle(rectangle: rectangle)
     }
     
     func makeRectangle(url: URL) {
         let rectangle = DrawingModelFactory.makePhotoRectangle(url: url)
-        makeRectangleProcess(rectangle: rectangle)
+        didMakeRectangle(rectangle: rectangle)
     }
     
     func makeRectangle(itemProvider: NSItemProvider) {
         let rectangle = DrawingModelFactory.makePhotoRectangle(itemProvider: itemProvider)
-        makeRectangleProcess(rectangle: rectangle)
+        didMakeRectangle(rectangle: rectangle)
     }
     
-    private func makeRectangleProcess(rectangle: Rectangle) {
-        let userInfo: [AnyHashable : Any] = ["rectangle":rectangle]
-        NotificationCenter.default.post(name: Plane.EventName.madeRectangle, object: nil, userInfo: userInfo)
+    private func didMakeRectangle(rectangle: Rectangle) {
+        let userInfo: [AnyHashable : Any] = [ParamKey.rectangle:rectangle]
+        NotificationCenter.default.post(name: Plane.EventName.didmakeRectangle, object: nil, userInfo: userInfo)
         
     }
 }
@@ -73,13 +73,13 @@ extension Plane: PlaneAction {
     func touchPoint(where point: Point) {
         if let selectedRectangle = self.selectedRectangle {
             self.selectedRectangle = nil
-            let userInfo: [AnyHashable : Any] = ["id":selectedRectangle.id]
+            let userInfo: [AnyHashable : Any] = [ParamKey.rectangle:selectedRectangle]
             NotificationCenter.default.post(name: Plane.EventName.didDisSelectedRectangle, object: self, userInfo: userInfo)
         }
         
         if let selectedRectangle = self.selected(point: point) {
             self.selectedRectangle = selectedRectangle
-            let userInfo: [AnyHashable : Any] = ["rectangle":selectedRectangle]
+            let userInfo: [AnyHashable : Any] = [ParamKey.rectangle:selectedRectangle]
             NotificationCenter.default.post(name: Plane.EventName.didSelectedRectangle, object: self, userInfo: userInfo)
         }
     }
@@ -104,6 +104,10 @@ extension Plane {
     enum EventName {
         static let didDisSelectedRectangle = NSNotification.Name("didDisSelectedRectangle")
         static let didSelectedRectangle = NSNotification.Name("didSelectedRectangle")
-        static let madeRectangle = NSNotification.Name("makeRectangle")
+        static let didmakeRectangle = NSNotification.Name("didmakeRectangle")
+    }
+    
+    enum ParamKey {
+        static let rectangle = "rectangle"
     }
 }

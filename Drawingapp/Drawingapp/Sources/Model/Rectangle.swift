@@ -36,13 +36,13 @@ class Rectangle: CustomStringConvertible {
     
     func update(color: Color) {
         self.color = color
-        let userInfo: [AnyHashable : Any] = ["color":color]
+        let userInfo: [AnyHashable : Any] = [ParamKey.color:color]
         NotificationCenter.default.post(name: EventName.updateColor, object: self, userInfo: userInfo)
     }
     
     func update(alpha: Alpha) {
         self.alpha = alpha
-        let userInfo: [AnyHashable : Any] = ["alpha":alpha]
+        let userInfo: [AnyHashable : Any] = [ParamKey.alpha:alpha]
         NotificationCenter.default.post(name: EventName.updateAlpha, object: self, userInfo: userInfo)
     }
 }
@@ -53,5 +53,11 @@ extension Rectangle {
         static let updatePoint = NSNotification.Name("updatePoint")
         static let updateSize = NSNotification.Name("updateSize")
         static let updateAlpha = NSNotification.Name("updateAlpha")
+    }
+    
+    enum ParamKey {
+        static let id = "id"
+        static let color = "color"
+        static let alpha = "alpha"
     }
 }
