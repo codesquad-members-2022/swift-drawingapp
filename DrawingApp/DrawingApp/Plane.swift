@@ -7,13 +7,14 @@
 
 import Foundation
 
-struct Plane {
-    var rectangleArray: [Rectangle] = []
+class Plane {
+    private var rectangleArray: [Rectangle] = []
+    
     var rectangleCount: Int {
         return rectangleArray.count
     }
     
-    mutating func addRectangle() {
+    func addRectangle() {
         let rectangle: Rectangle = Factory.createRandomRectangle()
         rectangleArray.append(rectangle)
     }
