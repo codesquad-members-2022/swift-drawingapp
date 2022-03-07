@@ -7,6 +7,9 @@
 
 import Foundation
 
+/// Rectangle, Plane 클래스에서 사용될 프로퍼티 객체들을 만드는 클래스입니다.
+///
+/// 랜덤 값 추출이 필요하기 때문에 RandomizeValue 서브클래싱을 진행합니다.
 class RectanglePropertyCreator: RandomizeValue {
     
     func generateRandomPoint(maxPointX: Double, maxPointY: Double) -> RectOrigin {

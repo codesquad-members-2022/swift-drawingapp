@@ -8,21 +8,21 @@
 import Foundation
 import UIKit
 
+/// MainScreenViewController의 탭 신호를 Plane객체가 받기 위해 선언하는 Protocol입니다.
 protocol RectangleViewTapDelegate {
-    func changeCurrentSelected(_ rectangle: Rectangle?, parent: UIViewController?, typeOf tap: MainScreenTapType)
+    /// 해당 메소드를 구현하여, 터치된 뷰에 해당하는 모델을 parentViewController에 전달합니다.
+    func changeCurrentSelected(_ rectangle: Rectangle?, parent: UIViewController?)
 }
 
-class Plane: RectangleViewTapDelegate {
+/// ViewController와 MainScreenViewController 사이를 잇고, 생성된 사각형의 모델들을 저장하는 모델입니다.
+final class Plane: RectangleViewTapDelegate {
     
     let factory = FactoryRectangleProperty()
     var screenDelegate: MainScreenDelegate?
     var planeDelegate: PlaneAdmitDelegate?
     
     private var properties = [RectangleProperty]()
-    
-    /// ViewController 내에 생성된 뷰 중 현재 선택된 뷰를 Plane 객체가 관리할 것입니다.
-    /// 뷰 선택이 가능하도록 하는 이유는 Plane 객체에서 저장된 프로퍼티의 값을 바꾸고
-    /// 그에 따라 바뀐 속성을 해당 뷰에 적용하기 위해서입니다.
+    /// Plane객체는 해당 변수를 이용해 선택된 뷰, 선택이 해제될 뷰를 관리합니다.
     var current: Rectangle?
     
     func addProperties(_ model: RectangleProperty) {
@@ -98,17 +98,14 @@ class Plane: RectangleViewTapDelegate {
     }
     
     // MARK: - RectangleViewTapDelegate implementation
-    func changeCurrentSelected(_ rectangle: Rectangle?, parent: UIViewController?, typeOf tap: MainScreenTapType) {
+    func changeCurrentSelected(_ rectangle: Rectangle?, parent: UIViewController?) {
         
         current?.isSelected = false
         current = rectangle
         
-        switch tap {
-        case .rectangle:
-            if let rect = rectangle, properties.count >= rect.index+1 {
-                planeDelegate?.admitPlane(property: properties[rect.index])
-            }
-        case .background:
+        if let rect = rectangle, properties.count >= rect.index+1 {
+            planeDelegate?.admitPlane(property: properties[rect.index])
+        } else {
             planeDelegate?.admitDefault()
         }
     }

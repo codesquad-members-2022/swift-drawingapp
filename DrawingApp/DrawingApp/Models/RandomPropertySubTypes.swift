@@ -8,7 +8,7 @@
 import Foundation
 
 // MARK: - Rect Size, Origin
-
+/// Rectangle 객체의 위치, 크기를 프로퍼티를 표현하는 타입입니다.
 struct Rect {
     struct Size {
         var width: Double
@@ -24,14 +24,12 @@ struct Rect {
 typealias RectSize = Rect.Size
 typealias RectOrigin = Rect.Origin
 
-// MARK: - CustomStringConvertible
-
+// MARK: - CustomStringConvertible for Rect
 extension Rect.Size: CustomStringConvertible {
     var description: String {
         "W\(width), H\(height)"
     }
 }
-
 extension Rect.Origin: CustomStringConvertible {
     var description: String {
         "X:\(x),Y:\(y)"
@@ -39,8 +37,9 @@ extension Rect.Origin: CustomStringConvertible {
 }
 
 // MARK: - RectRGBColor
-
+/// Rectangle 객체의 색상을 표현하는 타입입니다.
 struct RectRGBColor {
+    static var maxValue: Double = 255
     private var _r: Double
     var r: Double {
         get {
@@ -88,8 +87,7 @@ struct RectRGBColor {
     }
 }
 
-// MARK: - CustomStringConvertible
-
+// MARK: - CustomStringConvertible for RectRGBColor
 extension RectRGBColor: CustomStringConvertible {
     var description: String {
         "R:\(r), G:\(g), B:\(b)"
