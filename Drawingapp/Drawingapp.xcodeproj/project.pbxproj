@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E03455AE27CF24560036988A /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03455AD27CF24560036988A /* RectangleView.swift */; };
+		E03455AE27CF24560036988A /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03455AD27CF24560036988A /* DrawingView.swift */; };
 		E03455B327CF25520036988A /* InspectorItemButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03455B227CF25520036988A /* InspectorItemButtonView.swift */; };
 		E03455B727CF2A1A0036988A /* DrawingViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03455B627CF2A1A0036988A /* DrawingViewFactory.swift */; };
 		E034560927D0AC2B0036988A /* SizeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034560827D0AC2B0036988A /* SizeFactory.swift */; };
@@ -23,6 +23,9 @@
 		E034561C27D1ADFD0036988A /* ColorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034560C27D0AC3A0036988A /* ColorFactory.swift */; };
 		E034561D27D1ADFD0036988A /* PointFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034560A27D0AC310036988A /* PointFactory.swift */; };
 		E034562027D1AE020036988A /* DrawingModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA2827CCDC9200A56635 /* DrawingModelFactory.swift */; };
+		E034562627D1E4470036988A /* NSNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034562527D1E4470036988A /* NSNotification.swift */; };
+		E034562B27D222230036988A /* PhotoRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034562A27D222230036988A /* PhotoRectangle.swift */; };
+		E034562D27D22FB60036988A /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034562C27D22FB60036988A /* PhotoView.swift */; };
 		E0D7D9DE27CC594D00A56635 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9DD27CC594D00A56635 /* AppDelegate.swift */; };
 		E0D7D9E027CC594D00A56635 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9DF27CC594D00A56635 /* SceneDelegate.swift */; };
 		E0D7D9E227CC594D00A56635 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9E127CC594D00A56635 /* ViewController.swift */; };
@@ -66,12 +69,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		E03455AD27CF24560036988A /* RectangleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
+		E03455AD27CF24560036988A /* DrawingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingView.swift; sourceTree = "<group>"; };
 		E03455B227CF25520036988A /* InspectorItemButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectorItemButtonView.swift; sourceTree = "<group>"; };
 		E03455B627CF2A1A0036988A /* DrawingViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingViewFactory.swift; sourceTree = "<group>"; };
 		E034560827D0AC2B0036988A /* SizeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeFactory.swift; sourceTree = "<group>"; };
 		E034560A27D0AC310036988A /* PointFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointFactory.swift; sourceTree = "<group>"; };
 		E034560C27D0AC3A0036988A /* ColorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorFactory.swift; sourceTree = "<group>"; };
+		E034562527D1E4470036988A /* NSNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotification.swift; sourceTree = "<group>"; };
+		E034562A27D222230036988A /* PhotoRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoRectangle.swift; sourceTree = "<group>"; };
+		E034562C27D22FB60036988A /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		E0D7D9DA27CC594D00A56635 /* Drawingapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drawingapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0D7D9DD27CC594D00A56635 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0D7D9DF27CC594D00A56635 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -137,7 +143,8 @@
 		E03455AC27CF24560036988A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E03455AD27CF24560036988A /* RectangleView.swift */,
+				E03455AD27CF24560036988A /* DrawingView.swift */,
+				E034562C27D22FB60036988A /* PhotoView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -176,6 +183,14 @@
 				E0D7DA4727CDE3C800A56635 /* TopMenuItemView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		E034562727D1FF2A0036988A /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				E034562527D1E4470036988A /* NSNotification.swift */,
+			);
+			path = Extension;
 			sourceTree = "<group>";
 		};
 		E0D7D9D127CC594D00A56635 = {
@@ -230,6 +245,7 @@
 			children = (
 				E0D7DA2D27CD048C00A56635 /* Plane.swift */,
 				E0D7DA1327CC5EB000A56635 /* Rectangle.swift */,
+				E034562A27D222230036988A /* PhotoRectangle.swift */,
 				E0D7DA1827CC643000A56635 /* Point.swift */,
 				E0D7DA1627CC642800A56635 /* Size.swift */,
 				E0D7DA1F27CC656500A56635 /* Color.swift */,
@@ -244,6 +260,7 @@
 				E0D7DA0D27CC5A4100A56635 /* Model */,
 				E0D7DA1027CC5A6E00A56635 /* Present */,
 				E0D7DA2727CCDC7900A56635 /* Common */,
+				E034562727D1FF2A0036988A /* Extension */,
 				E0D7D9DD27CC594D00A56635 /* AppDelegate.swift */,
 				E0D7D9DF27CC594D00A56635 /* SceneDelegate.swift */,
 			);
@@ -463,20 +480,23 @@
 				E0D7DA4D27CDF28C00A56635 /* InspectorView.swift in Sources */,
 				E0D7DA5127CDF6FE00A56635 /* InspectorSliderView.swift in Sources */,
 				E0D7DA2C27CCF83300A56635 /* Log.swift in Sources */,
+				E034562D27D22FB60036988A /* PhotoView.swift in Sources */,
 				E0D7DA2027CC656500A56635 /* Color.swift in Sources */,
 				E0D7DA4F27CDF65D00A56635 /* InspectorItemLabelView.swift in Sources */,
 				E03455B727CF2A1A0036988A /* DrawingViewFactory.swift in Sources */,
 				E0D7DA4527CDE32300A56635 /* TopMenuBarView.swift in Sources */,
 				E0D7DA1927CC643000A56635 /* Point.swift in Sources */,
 				E034560B27D0AC310036988A /* PointFactory.swift in Sources */,
-				E03455AE27CF24560036988A /* RectangleView.swift in Sources */,
+				E03455AE27CF24560036988A /* DrawingView.swift in Sources */,
 				E0D7DA2327CC67DF00A56635 /* Alpha.swift in Sources */,
 				E034560927D0AC2B0036988A /* SizeFactory.swift in Sources */,
 				E03455B327CF25520036988A /* InspectorItemButtonView.swift in Sources */,
 				E0D7DA2927CCDC9200A56635 /* DrawingModelFactory.swift in Sources */,
 				E0D7D9E227CC594D00A56635 /* ViewController.swift in Sources */,
+				E034562627D1E4470036988A /* NSNotification.swift in Sources */,
 				E0D7D9DE27CC594D00A56635 /* AppDelegate.swift in Sources */,
 				E0D7DA5327CDF70D00A56635 /* InspectorItemView.swift in Sources */,
+				E034562B27D222230036988A /* PhotoRectangle.swift in Sources */,
 				E0D7D9E027CC594D00A56635 /* SceneDelegate.swift in Sources */,
 				E0D7DA2E27CD048C00A56635 /* Plane.swift in Sources */,
 			);
