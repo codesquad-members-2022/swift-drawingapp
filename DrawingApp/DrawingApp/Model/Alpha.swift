@@ -18,11 +18,15 @@ enum Alpha: Int, CaseIterable {
     case eight = 8
     case nine = 9
     case ten = 10
+    
+    var opacity: Double {
+        return Double(Double(rawValue) * 0.1)
+    }
 }
 
 
 extension Alpha: CustomStringConvertible {
     var description: String {
-        return "\(self.rawValue)"
+        return "\(self.rawValue) Opacity: \(self.opacity)"
     }
 }
