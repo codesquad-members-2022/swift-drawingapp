@@ -21,7 +21,7 @@ class ViewController: UIViewController {
      선택된 View 에 변화를 주는 것은 컨트롤러의 역할이므로 해당 View 의 참조를 컨트롤러의 속성으로 저장하였습니다.
      선택된 View 객체 정보는 컨트롤러의 상태정보에 해당한다고 생각하였기 때문입니다.
      */
-    private weak var selectedRectangleView: UIView?
+    private weak var selectedRectangleView: RectangleView?
     
     // MARK: - View Life Cycle Methods
     override func viewDidLoad() {
@@ -83,7 +83,7 @@ class ViewController: UIViewController {
         plane.append(item: rectangle)
         
         let frame = rectangle.convert(using: CGRect.self)
-        let rectangleView = UIView(frame: frame)
+        let rectangleView = RectangleView(frame: frame)
 
         rectangleView.setBackgroundColor(color: rectangle.backgroundColor, alpha: rectangle.alpha)
         rectangleView.accessibilityIdentifier = rectangle.id
@@ -98,7 +98,7 @@ class ViewController: UIViewController {
         self.stepper.isEnabled = true
         self.revertRectangleChange()
         
-        guard let rectangleView = sender.view else { return }
+        guard let rectangleView = sender.view as? RectangleView else { return }
         
         rectangleView.setBorder(width: 2, color: .blue)
         rectangleView.setBackgroundColor(with: CGFloat(self.alphaSlider.value) / 10)
