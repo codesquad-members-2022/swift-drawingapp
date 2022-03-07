@@ -20,7 +20,19 @@
 		B37F41CB27CF5354001F6115 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37F41CA27CF5354001F6115 /* Color.swift */; };
 		B37F41CF27D08DBF001F6115 /* RectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37F41CE27D08DBF001F6115 /* RectangleFactory.swift */; };
 		B37F41D127D0A09B001F6115 /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37F41D027D0A09B001F6115 /* Alpha.swift */; };
+		B38C974227D5AC8F00A5B44A /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38C974127D5AC8E00A5B44A /* Plane.swift */; };
+		B38C974A27D5FB9E00A5B44A /* PlaneTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38C974927D5FB9E00A5B44A /* PlaneTest.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B38C974B27D5FB9E00A5B44A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B37F41A227CF4E05001F6115 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B37F41A927CF4E05001F6115;
+			remoteInfo = DrawingApp;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		B37F41AA27CF4E05001F6115 /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -38,10 +50,20 @@
 		B37F41CA27CF5354001F6115 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		B37F41CE27D08DBF001F6115 /* RectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactory.swift; sourceTree = "<group>"; };
 		B37F41D027D0A09B001F6115 /* Alpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alpha.swift; sourceTree = "<group>"; };
+		B38C974127D5AC8E00A5B44A /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
+		B38C974727D5FB9E00A5B44A /* PlaneTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaneTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B38C974927D5FB9E00A5B44A /* PlaneTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		B37F41A727CF4E05001F6115 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B38C974427D5FB9E00A5B44A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -55,6 +77,7 @@
 			isa = PBXGroup;
 			children = (
 				B37F41AC27CF4E05001F6115 /* DrawingApp */,
+				B38C974827D5FB9E00A5B44A /* PlaneTest */,
 				B37F41AB27CF4E05001F6115 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -63,6 +86,7 @@
 			isa = PBXGroup;
 			children = (
 				B37F41AA27CF4E05001F6115 /* DrawingApp.app */,
+				B38C974727D5FB9E00A5B44A /* PlaneTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -73,6 +97,7 @@
 				B37F41AD27CF4E05001F6115 /* AppDelegate.swift */,
 				B37F41AF27CF4E05001F6115 /* SceneDelegate.swift */,
 				B37F41B127CF4E05001F6115 /* ViewController.swift */,
+				B38C974127D5AC8E00A5B44A /* Plane.swift */,
 				B37F41B327CF4E05001F6115 /* Main.storyboard */,
 				B37F41B927CF4E0B001F6115 /* Assets.xcassets */,
 				B37F41BB27CF4E0B001F6115 /* LaunchScreen.storyboard */,
@@ -86,6 +111,14 @@
 				B37F41D027D0A09B001F6115 /* Alpha.swift */,
 			);
 			path = DrawingApp;
+			sourceTree = "<group>";
+		};
+		B38C974827D5FB9E00A5B44A /* PlaneTest */ = {
+			isa = PBXGroup;
+			children = (
+				B38C974927D5FB9E00A5B44A /* PlaneTest.swift */,
+			);
+			path = PlaneTest;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -108,6 +141,24 @@
 			productReference = B37F41AA27CF4E05001F6115 /* DrawingApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		B38C974627D5FB9E00A5B44A /* PlaneTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B38C974D27D5FB9E00A5B44A /* Build configuration list for PBXNativeTarget "PlaneTest" */;
+			buildPhases = (
+				B38C974327D5FB9E00A5B44A /* Sources */,
+				B38C974427D5FB9E00A5B44A /* Frameworks */,
+				B38C974527D5FB9E00A5B44A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B38C974C27D5FB9E00A5B44A /* PBXTargetDependency */,
+			);
+			name = PlaneTest;
+			productName = PlaneTest;
+			productReference = B38C974727D5FB9E00A5B44A /* PlaneTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -120,6 +171,10 @@
 				TargetAttributes = {
 					B37F41A927CF4E05001F6115 = {
 						CreatedOnToolsVersion = 13.2.1;
+					};
+					B38C974627D5FB9E00A5B44A = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = B37F41A927CF4E05001F6115;
 					};
 				};
 			};
@@ -137,6 +192,7 @@
 			projectRoot = "";
 			targets = (
 				B37F41A927CF4E05001F6115 /* DrawingApp */,
+				B38C974627D5FB9E00A5B44A /* PlaneTest */,
 			);
 		};
 /* End PBXProject section */
@@ -149,6 +205,13 @@
 				B37F41BD27CF4E0B001F6115 /* LaunchScreen.storyboard in Resources */,
 				B37F41BA27CF4E0B001F6115 /* Assets.xcassets in Resources */,
 				B37F41B527CF4E05001F6115 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B38C974527D5FB9E00A5B44A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -169,10 +232,27 @@
 				B37F41CB27CF5354001F6115 /* Color.swift in Sources */,
 				B37F41C727CF526A001F6115 /* Size.swift in Sources */,
 				B37F41B027CF4E05001F6115 /* SceneDelegate.swift in Sources */,
+				B38C974227D5AC8F00A5B44A /* Plane.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B38C974327D5FB9E00A5B44A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B38C974A27D5FB9E00A5B44A /* PlaneTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B38C974C27D5FB9E00A5B44A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B37F41A927CF4E05001F6115 /* DrawingApp */;
+			targetProxy = B38C974B27D5FB9E00A5B44A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		B37F41B327CF4E05001F6115 /* Main.storyboard */ = {
@@ -366,6 +446,42 @@
 			};
 			name = Release;
 		};
+		B38C974E27D5FB9E00A5B44A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9FL2F2U32R;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = yeaju.PlaneTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DrawingApp.app/DrawingApp";
+			};
+			name = Debug;
+		};
+		B38C974F27D5FB9E00A5B44A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 9FL2F2U32R;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = yeaju.PlaneTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DrawingApp.app/DrawingApp";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -383,6 +499,15 @@
 			buildConfigurations = (
 				B37F41C227CF4E0B001F6115 /* Debug */,
 				B37F41C327CF4E0B001F6115 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B38C974D27D5FB9E00A5B44A /* Build configuration list for PBXNativeTarget "PlaneTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B38C974E27D5FB9E00A5B44A /* Debug */,
+				B38C974F27D5FB9E00A5B44A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

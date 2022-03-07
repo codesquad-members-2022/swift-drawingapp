@@ -35,13 +35,8 @@ class PlaneTest: XCTestCase {
         XCTAssertTrue(plane.getRectangle(index: 0) === rect, "getRectangle error")
     }
     
-    
     func testisExsit() throws{
-        // 특정 좌표를 받아 Double로 변환 -> 따로 구현
-        // plane.Rectangles 안에 포함되는 좌표가 있는지 확인 -> 따로 구현
-        // XCTassetTrue
         let point = Point(x: 100.0,y: 100.0)
-//        let point: Point = CGPointToDoublePoint(point: CGPoint(x: 100.0, y: 100.0))
         let existTestRectangle = factory.createRectangle(size: Size(width: 100.0, height: 100.0), position: Point(x: 100.0, y: 100.0))
         plane.add(rectangle: existTestRectangle)
         XCTAssertFalse(plane.isExist(point), "\(point)을 포함하는 사각형이 존재하지 않음")
