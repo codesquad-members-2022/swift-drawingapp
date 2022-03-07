@@ -39,13 +39,10 @@ class Rectangle {
     }
     
     func changeBackgroundColor(to newColor: BackgroundColor) {
-        guard let newColor = BackgroundColorFactory.generateRandomColor() else {return}
         self.backgroundColor = newColor
     }
     
-    func changeAlphaValue(to newAlphaValue: Double) {
-        let convertedOpacityLevel = Int(newAlphaValue * 10)
-        guard let newAlpha = Alpha.init(opacityLevel: convertedOpacityLevel) else {return}
+    func changeAlphaValue(to newAlpha: Alpha) {
         self.alpha = newAlpha
     }
 

@@ -115,10 +115,14 @@ class ViewController: UIViewController {
     
     @IBAction func alphaSliderValueChanged(_ sender: UISlider) {
         let newAlphaValue = Double(String(format: "%.1f", sender.value)) ?? 0
+        let convertedOpacityLevel = Int(10 * newAlphaValue)
+        guard let newAlpha = Alpha(opacityLevel: convertedOpacityLevel) else {
+            return
+        }
         guard let touchedView = touchedView else {
             return
         }
-        plane.changeAlphaValueOfRectangle(id: touchedView.id, to: newAlphaValue)
+        plane.changeAlphaValueOfRectangle(id: touchedView.id, to: newAlpha)
         
         touchedView.alpha = CGFloat(newAlphaValue)
         updateStatusViewElement(with: touchedView.alpha)
@@ -130,11 +134,15 @@ class ViewController: UIViewController {
             return
         }
         
-        let newAlphaValue = Double(String(format: "%.1f",touchedView.alpha - 0.1)) ?? 0.1
         minusAlphaValueButton.isEnabled = true
         minusAlphaValueButton.backgroundColor = .white
         
-        plane.changeAlphaValueOfRectangle(id: touchedView.id, to: newAlphaValue)
+        let newAlphaValue = Double(String(format: "%.1f",touchedView.alpha - 0.1)) ?? 0.1
+        let convertedOpacityLevel = Int(10 * newAlphaValue)
+        guard let newAlpha = Alpha(opacityLevel: convertedOpacityLevel) else {
+            return
+        }
+        plane.changeAlphaValueOfRectangle(id: touchedView.id, to: newAlpha)
         
         touchedView.alpha = newAlphaValue
         updateStatusViewElement(with: touchedView.alpha)
@@ -144,11 +152,15 @@ class ViewController: UIViewController {
             return
         }
         
-        let newAlphaValue = Double(String(format: "%.1f",(touchedView.alpha + 0.1))) ?? 1.0
         plusAlphaValueButton.isEnabled = true
         plusAlphaValueButton.backgroundColor = .white
         
-        plane.changeAlphaValueOfRectangle(id: touchedView.id, to: newAlphaValue)
+        let newAlphaValue = Double(String(format: "%.1f",(touchedView.alpha + 0.1))) ?? 1.0
+        let convertedOpacityLevel = Int(10 * newAlphaValue)
+        guard let newAlpha = Alpha(opacityLevel: convertedOpacityLevel) else {
+            return
+        }
+        plane.changeAlphaValueOfRectangle(id: touchedView.id, to: newAlpha)
         
         touchedView.alpha = newAlphaValue
         updateStatusViewElement(with: newAlphaValue)
