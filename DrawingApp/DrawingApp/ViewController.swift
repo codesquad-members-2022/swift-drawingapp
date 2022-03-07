@@ -87,7 +87,8 @@ class ViewController: UIViewController {
         backgroundColorButton.isEnabled = false
         backgroundColorButton.backgroundColor = .clear
         alphaSlider.isEnabled = false
-        alphaSlider.setValue(0.55, animated: true)
+        let alphaSliderCenterValue = (alphaSlider.minimumValue + alphaSlider.maximumValue) / 2
+        alphaSlider.setValue(alphaSliderCenterValue, animated: true)
         minusAlphaValueButton.isEnabled = false
         minusAlphaValueButton.backgroundColor = .systemGray6
         plusAlphaValueButton.isEnabled = false
@@ -113,7 +114,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func alphaSliderValueChanged(_ sender: UISlider) {
-        let newAlphaValue = Double(String(format: "%.2f", sender.value)) ?? 0
+        let newAlphaValue = Double(String(format: "%.1f", sender.value)) ?? 0
         guard let touchedView = touchedView else {
             return
         }
