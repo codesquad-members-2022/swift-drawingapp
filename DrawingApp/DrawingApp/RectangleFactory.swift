@@ -10,9 +10,14 @@ import os
 
 class RectangleFactory {
     func createRectangle() {
-        let rectangle = Rectangle(point: createPoint(), size: createSize(), backgroundColor: createColor(), alpha: try! createAlpha())
+        let rectangle = Rectangle(id: createId(), point: createPoint(), size: createSize(), backgroundColor: createColor(), alpha: try! createAlpha())
         let log = Logger()
         log.info("Rect: \(rectangle)")
+    }
+    
+    
+    func createId() -> Id {
+        return Id()
     }
     
     

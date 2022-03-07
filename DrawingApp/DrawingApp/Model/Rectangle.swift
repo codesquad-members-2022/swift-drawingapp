@@ -15,8 +15,8 @@ class Rectangle {
     private let alpha: Alpha
     
     
-    init(point: Point, size: Size, backgroundColor: Color, alpha: Alpha) {
-        self.id = Id.init()
+    init(id: Id, point: Point, size: Size, backgroundColor: Color, alpha: Alpha) {
+        self.id = id
         self.point = point
         self.size = size
         self.backgroundColor = backgroundColor
