@@ -96,6 +96,7 @@ ViewController : viewDidLoad 에서 4개의 사각형을 만든다.
     
 - iOS13+ 이상에서 적용가능한 시스템 로그 함수를 학습한다.
 ### [OSLog]
+
     - `OSLog` 프레임워크 는 IOS14+ 적용가능한 통합 로킹 시스템이다. 
     - 통합 로깅 시스템은 데이터를 텍스트 기반 로그 파일에 쓰지 않고 메모리 및 디스크에 로그 데이터를 중앙 집중식으로 저장하는 방법인데, 이는 시스템의 모든 수준에서 원격 측정을 캡쳐할 수 있는 포괄적이고 성능이 뛰어난 API를 제공한다. 
     
@@ -123,7 +124,65 @@ ViewController : viewDidLoad 에서 4개의 사각형을 만든다.
 </details>
 
 
+<details>
+<summary> STEP2 : 속성 변경 동작 </summary>
 
+## [작업 목록]
+
+- [X] 특정한 속성이 바뀌면 화면에 다시 그리는 데이터 흐름과 과정을 설계하고 구현한다
+- [X] struct와 class 차이를 활용해서 필요한 것을 구현할 수 있다
+- [X] 터치 이벤트 동작을 이해하고 원하는 곳에서 처리할 수 있다
+- [X] 뷰 속성 중에 배경색과 투명도를 바꿔서 다시 그릴 수 있다
+
+
+## [작업 기록]
+
+- 화면 구성도
+
+  <p align="center">
+   <img src="https://user-images.githubusercontent.com/36659877/157063481-c699d8e8-3d3d-495e-92f9-6054356aec46.png" width="550" height="500"> 
+   </p>
+
+- 사용자의 요청을 처리하기 위해 프로토콜을 이용한 델리게이션 패턴을 중심적으로 공부하여 MVC 패턴에 적용 하였다.
+- 사용자의에 의해 발생할 이벤트 목록 및 데이터의 흐름. 
+1. Event 1.0 : 사용자가 `사각형` 버튼을 누를시 `RectangleView` 를 생성한다
+    - 새로배운 하위 모듈
+        - UITapGestureRecognizer : 손가락의 탭 제스처에 반응한다. 
+        - HitTest : 매개 값으로 들어온 좌표값을 기준으로 가장 가까운 하위 뷰를 반환해준다. 
+2. Event 2.0 : 사용자가 `RectangleView` 를 터치했을때 해당 사각형 뷰를 `highlight` 해준다 
+3. Event 3.0 : 사용자가 `RectangleView` 을 누를시, `Panel` 에 선택된 모델의 정보를 시각화 
+3. Event 4.0 : 사용자가 `randomColorGenerationButton` 을 누를시, 랜덤한 색을 뷰에 업데이트 
+4. Event 5.0 : 사용자가 `AlphaStepper` 을 누를시, 알파 값을 변경 하여 `RectangleView`  
+    - 새로배운 하위 모듈
+        - UIStepper 
+        
+        
+  <p align="center">
+   <img src="https://user-images.githubusercontent.com/36659877/157057930-71c98f93-5b2d-484d-8670-11f460d6bea5.png" width="450" height="350"> 
+   </p>
+   
+  <p align="center">
+   <img src="https://user-images.githubusercontent.com/36659877/157058502-9cec2248-a0ba-4414-a26b-6a8a558ae62c.png" width="450" height="350"> 
+   </p>
+
+  <p align="center">
+   <img src="https://user-images.githubusercontent.com/36659877/157058638-43afff5a-439b-49b0-ac5b-5093f868ad0f.png" width="450" height="350"> 
+   </p>
+   
+  <p align="center">
+   <img src="https://user-images.githubusercontent.com/36659877/157059088-b23427cf-1fae-4253-9874-4cf593b7e858.png" width="450" height="350"> 
+   </p>
+   
+  <p align="center">
+   <img src="https://user-images.githubusercontent.com/36659877/157059228-ef44380d-e30a-4c82-99d5-5bd1bdac0c20.png" width="450" height="350"> 
+   </p>
+   
+
+### [결과 화면]
+![Mar-08-2022 00-18-22](https://user-images.githubusercontent.com/36659877/157062719-474b8ebf-5d62-477a-9984-2b18a432b7cb.gif)
+
+
+</details>
 
 
 

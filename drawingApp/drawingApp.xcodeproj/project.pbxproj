@@ -157,8 +157,8 @@
 			isa = PBXGroup;
 			children = (
 				B74322C527D0CB8400445645 /* RectangleView.swift */,
-				B74322C727D0DA7500445645 /* RectangleGenerationButton.swift */,
 				B74322CB27D1B91C00445645 /* PanelView.swift */,
+				B74322C727D0DA7500445645 /* RectangleGenerationButton.swift */,
 				B74322CD27D1D6F100445645 /* ColorRondomizeButton.swift */,
 				B74322DB27D5124300445645 /* AlphaStepper.swift */,
 				B74322DD27D5157600445645 /* StepperLabel.swift */,
