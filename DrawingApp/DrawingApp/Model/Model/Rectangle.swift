@@ -7,25 +7,6 @@
 
 import Foundation
 
-protocol ViewModel {
-    var id: String { get }
-    var center: Point { get }
-    var origin: Point { get }
-    var size: Size { get }
-    func contains(_ point: Point) -> Bool
-}
-
-protocol ColorMutable {
-    var color: Color { get }
-    func transform(to color: Color)
-}
-
-protocol AlphaMutable {
-    var alpha: Alpha { get }
-    func transform(to alpha: Alpha)
-}
-
-
 class Rectangle: ViewModel {
     private(set) var id: String
     private(set) var origin: Point
@@ -39,6 +20,16 @@ class Rectangle: ViewModel {
         self.size = size
         self.color = color
         self.alpha = alpha
+    }
+    
+    static func createRectangle() -> Rectangle {
+        let rectangleID = createID()
+        let origin = createPoint()
+        let size = createSize()
+        let color = createColor()
+        let alpha = createAlpha()
+        
+        return Rectangle(id: rectangleID, origin: origin, size: size, color: color, alpha: alpha)
     }
     
     var center: Point {

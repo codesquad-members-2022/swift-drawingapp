@@ -31,7 +31,7 @@ class Plane {
     }
     
     func addRectangle() {
-        let newRectangle = Factory.createRectangle()
+        let newRectangle = Rectangle.createRectangle()
         viewModels.append(newRectangle)
         NotificationCenter.default.post(name: Plane.addViewModel, object: self, userInfo: ["new": newRectangle])
     }
@@ -44,7 +44,7 @@ class Plane {
         NotificationCenter.default.post(name: Plane.selectViewModel, object: self, userInfo: ["old": oldSelected as Any, "new": selected as Any])
     }
     
-    func transform(to color: Color = Factory.createColor()) {
+    func transform(to color: Color = Rectangle.createColor()) {
         guard let mutableViewModel = selected as? ColorMutable else { return }
         mutableViewModel.transform(to: color)
         NotificationCenter.default.post(name: Plane.mutateColorViewModel, object: self)
