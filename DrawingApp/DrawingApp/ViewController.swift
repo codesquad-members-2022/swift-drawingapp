@@ -95,7 +95,7 @@ class ViewController: UIViewController {
         
         touchedView.backgroundColor = UIColor(red: newColor.r/255, green: newColor.g/255, blue: newColor.b/255, alpha: 1.0)
         backgroundColorButton.setTitle(newColor.hexCode, for: .normal)
-        backgroundColorButton.backgroundColor = UIColor(red: newColor.r/255, green: newColor.g/255, blue: newColor.b/255, alpha: backgroundColorButton.alpha
+        backgroundColorButton.backgroundColor = UIColor(red: newColor.r/255, green: newColor.g/255, blue: newColor.b/255, alpha: backgroundColorButton.backgroundColor?.cgColor.alpha ?? 1.0
         )
         plane.changeBackGroundColorOfRectangle(id: touchedView.id, to: newColor)
     }
@@ -106,6 +106,8 @@ class ViewController: UIViewController {
             return
         }
         touchedView.alpha = CGFloat(newAlphaValue)
+        let previousBackgroundColorButtonColor = backgroundColorButton.backgroundColor ?? UIColor()
+        self.backgroundColorButton.backgroundColor = previousBackgroundColorButtonColor.withAlphaComponent(touchedView.alpha)
         plane.changeAlphaValueOfRectangle(id: touchedView.id, to: newAlphaValue)
     }
     
