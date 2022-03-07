@@ -60,3 +60,8 @@ protocol AlphaMutable {
     var alpha: Alpha { get }
     func transform(to alpha: Alpha)
 }
+
+protocol OriginMutable {
+    var origin: Point { get }
+    func transform(to origin: Point)
+}

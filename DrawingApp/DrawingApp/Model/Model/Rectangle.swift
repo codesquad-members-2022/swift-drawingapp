@@ -55,6 +55,12 @@ extension Rectangle: AlphaMutable {
     }
 }
 
+extension Rectangle: OriginMutable {
+    func transform(to origin: Point) {
+        self.origin = origin
+    }
+}
+
 extension Rectangle: CustomStringConvertible {
     var description: String {
         return "(\(id)), \(origin), \(size), \(color), \(alpha)"
