@@ -23,7 +23,6 @@
 		E034561C27D1ADFD0036988A /* ColorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034560C27D0AC3A0036988A /* ColorFactory.swift */; };
 		E034561D27D1ADFD0036988A /* PointFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034560A27D0AC310036988A /* PointFactory.swift */; };
 		E034562027D1AE020036988A /* DrawingModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA2827CCDC9200A56635 /* DrawingModelFactory.swift */; };
-		E034562627D1E4470036988A /* NSNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034562527D1E4470036988A /* NSNotification.swift */; };
 		E034562B27D222230036988A /* PhotoRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034562A27D222230036988A /* PhotoRectangle.swift */; };
 		E034562D27D22FB60036988A /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034562C27D22FB60036988A /* PhotoView.swift */; };
 		E0D7D9DE27CC594D00A56635 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9DD27CC594D00A56635 /* AppDelegate.swift */; };
@@ -75,7 +74,6 @@
 		E034560827D0AC2B0036988A /* SizeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SizeFactory.swift; sourceTree = "<group>"; };
 		E034560A27D0AC310036988A /* PointFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointFactory.swift; sourceTree = "<group>"; };
 		E034560C27D0AC3A0036988A /* ColorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorFactory.swift; sourceTree = "<group>"; };
-		E034562527D1E4470036988A /* NSNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSNotification.swift; sourceTree = "<group>"; };
 		E034562A27D222230036988A /* PhotoRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoRectangle.swift; sourceTree = "<group>"; };
 		E034562C27D22FB60036988A /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		E0D7D9DA27CC594D00A56635 /* Drawingapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drawingapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,14 +183,6 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		E034562727D1FF2A0036988A /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				E034562527D1E4470036988A /* NSNotification.swift */,
-			);
-			path = Extension;
-			sourceTree = "<group>";
-		};
 		E0D7D9D127CC594D00A56635 = {
 			isa = PBXGroup;
 			children = (
@@ -260,7 +250,6 @@
 				E0D7DA0D27CC5A4100A56635 /* Model */,
 				E0D7DA1027CC5A6E00A56635 /* Present */,
 				E0D7DA2727CCDC7900A56635 /* Common */,
-				E034562727D1FF2A0036988A /* Extension */,
 				E0D7D9DD27CC594D00A56635 /* AppDelegate.swift */,
 				E0D7D9DF27CC594D00A56635 /* SceneDelegate.swift */,
 			);
@@ -493,7 +482,6 @@
 				E03455B327CF25520036988A /* InspectorItemButtonView.swift in Sources */,
 				E0D7DA2927CCDC9200A56635 /* DrawingModelFactory.swift in Sources */,
 				E0D7D9E227CC594D00A56635 /* ViewController.swift in Sources */,
-				E034562627D1E4470036988A /* NSNotification.swift in Sources */,
 				E0D7D9DE27CC594D00A56635 /* AppDelegate.swift in Sources */,
 				E0D7DA5327CDF70D00A56635 /* InspectorItemView.swift in Sources */,
 				E034562B27D222230036988A /* PhotoRectangle.swift in Sources */,
