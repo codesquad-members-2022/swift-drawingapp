@@ -14,6 +14,7 @@ class PanelViewController: UIViewController {
     @IBOutlet weak var alphaSlider: UISlider!
     
     static let sliderChanged = Notification.Name("sliderChanged")
+    static let sliderValueKey = "value"
     static let colorButtonPressed = Notification.Name("colorButtonPressed")
     
     override func viewDidLoad() {
@@ -102,7 +103,7 @@ extension PanelViewController {
     }
     
     @IBAction func SliderChanged(_ sender: UISlider) {
-        NotificationCenter.default.post(name: PanelViewController.sliderChanged, object: self, userInfo: ["value": sender.value])
+        NotificationCenter.default.post(name: PanelViewController.sliderChanged, object: self, userInfo: [PanelViewController.sliderValueKey: sender.value])
     }
     
     @objc func didMutateAlpha(_ notification: Notification) {

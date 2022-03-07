@@ -70,7 +70,7 @@ extension CanvasViewController {
     }
     
     @objc func didAddViewModel(_ notification: Notification) {
-        guard let newViewModel = notification.userInfo?["new"] as? ViewModel else { return }
+        guard let newViewModel = notification.userInfo?[Plane.newViewModelKey] as? ViewModel else { return }
         guard let newCanvasView = createView(from: newViewModel) else { return }
         addViewID(newCanvasView)
         
@@ -116,12 +116,12 @@ extension CanvasViewController {
     }
     
     @objc func didSelectViewModel(_ notification: Notification) {
-        if let new = notification.userInfo?["new"] as? ViewModel {
+        if let new = notification.userInfo?[Plane.newViewModelKey] as? ViewModel {
             guard let newView = searchView(for: new) else { return }
             changeBorder(newView)
         }
         
-        if let old = notification.userInfo?["old"] as? ViewModel {
+        if let old = notification.userInfo?[Plane.oldViewModelKey] as? ViewModel {
             guard let oldView = searchView(for: old) else { return }
             clearBorder(oldView)
         }
@@ -158,7 +158,7 @@ extension CanvasViewController {
     }
     
     @objc func sliderChanged(_ notification: Notification) {
-        guard let value = notification.userInfo?["value"] as? Float else { return }
+        guard let value = notification.userInfo?[PanelViewController.sliderValueKey] as? Float else { return }
         
         if let alpha = Alpha(value) {
             plane.transform(to: alpha)
@@ -221,7 +221,7 @@ extension CanvasViewController {
     }
     
     @objc func didMutateOrigin(_ notification: Notification) {
-        guard let mutated = notification.userInfo?["mutated"] as? OriginMutable else { return }
+        guard let mutated = notification.userInfo?[Plane.mutatedViewModelKey] as? OriginMutable else { return }
         
         let mutatedCavnasView = searchView(for: mutated as! ViewModel)
         mutatedCavnasView?.frame.origin = Converter.toCGPoint(mutated.origin)
