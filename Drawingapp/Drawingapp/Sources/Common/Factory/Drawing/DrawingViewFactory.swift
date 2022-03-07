@@ -18,12 +18,18 @@ class DrawingViewFactory {
         return rectangleView
     }
     
-    static func make(photoRectangle: PhotoRectangle) -> PhotoView {
+    static func makePhoto(rectangle: PhotoRectangle) -> PhotoView {
         let photoView = PhotoView()
-        photoView.update(point: photoRectangle.point)
-        photoView.update(size: photoRectangle.size)
-        photoView.update(alpha: photoRectangle.alpha)
-        photoView.update(imageURL: photoRectangle.imageUrl)
+        photoView.update(point: rectangle.point)
+        photoView.update(size: rectangle.size)
+        photoView.update(alpha: rectangle.alpha)
+        if let url = rectangle.imageUrl {
+            photoView.update(imageURL: url)
+        }
+        
+        if let itemProvider = rectangle.itemProvider {
+            photoView.update(itemProvider: itemProvider)
+        }
         return photoView
     }
 }
