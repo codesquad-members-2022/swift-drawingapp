@@ -30,6 +30,7 @@
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="tintColor" red="0.59215686274509804" green="0.3411764705882353" blue="0.63921568627450975" alpha="0.5" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KGN-Mg-bHZ">
                                 <rect key="frame" x="940" y="0.0" width="240" height="820"/>
@@ -60,8 +61,8 @@
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                     </button>
-                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="10" minimumValue="1" maximumValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="cFV-VR-VZk">
-                                        <rect key="frame" x="73" y="292" width="94" height="32"/>
+                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="3" minimumValue="1" maximumValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="cFV-VR-VZk">
+                                        <rect key="frame" x="73" y="291" width="94" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinY="YES" flexibleMaxY="YES"/>
                                     </stepper>
                                 </subviews>
@@ -76,6 +77,7 @@
                         <outlet property="alphaSlider" destination="sSB-vG-WUe" id="6vq-w3-dKO"/>
                         <outlet property="colorButton" destination="1BJ-LG-X29" id="oBk-rM-OsP"/>
                         <outlet property="planeView" destination="rYR-Ii-0uF" id="zOz-bf-HpF"/>
+                        <outlet property="stepper" destination="cFV-VR-VZk" id="hlS-RE-TMU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
