@@ -15,14 +15,7 @@ class Color {
     static let colorRange = 0...255
     
     init? (red: Int, green: Int, blue: Int){
-        var isColorAble : Bool {
-            return Color.colorRange ~= red &&
-            Color.colorRange ~= green &&
-            Color.colorRange ~= blue
-        }
-        guard isColorAble else{
-            return nil
-        }
+        guard Color.colorRange ~= red && Color.colorRange ~= green && Color.colorRange ~= blue else {return nil}
         self.red = red
         self.green = green
         self.blue = blue
