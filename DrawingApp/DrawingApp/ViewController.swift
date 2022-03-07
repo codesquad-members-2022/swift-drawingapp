@@ -42,6 +42,8 @@ class ViewController: UIViewController {
             self.rectangleViewBoard.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.9).isActive = true
             self.rectangleViewBoard.widthAnchor.constraint(equalTo: safeArea.widthAnchor, multiplier: 0.8).isActive = true
                         
+            let tap = UITapGestureRecognizer(target: self, action: #selector(ViewController.tap(_:)))
+            self.rectangleViewBoard.addGestureRecognizer(tap)
             self.rectangleViewBoard.clipsToBounds = true
         }
         
@@ -75,6 +77,7 @@ class ViewController: UIViewController {
             colorChangeButton.layer.borderWidth = 1
             colorChangeButton.layer.borderColor = UIColor.black.cgColor
             colorChangeButton.layer.cornerRadius = 10
+            colorChangeButton.setTitleColor(.black, for: .normal)
             
             colorChangeButton.topAnchor.constraint(equalTo: colorLabel.bottomAnchor, constant: 10).isActive = true
             colorChangeButton.heightAnchor.constraint(equalTo: rectanglePropertyChangeBoard.heightAnchor, multiplier: 0.05).isActive = true
@@ -134,6 +137,7 @@ class ViewController: UIViewController {
         layoutAlphaChangeSlider()
         layoutAddRectangleButton()
     }
+    
     @objc func addNewRectangle() {
         guard let newRectangle = rectangleFactory.makeRandomRectangle() else {return}
         let newRectangleView = rectangleViewFactory.makeNewRectangleView(rectangle: newRectangle)
@@ -146,10 +150,26 @@ class ViewController: UIViewController {
     @objc func tap(_ gestureRecognizer: UITapGestureRecognizer) {
         if self.selectedRectangleView != nil {
             self.selectedRectangleView?.layer.borderWidth = 0
+            self.selectedRectangleView = nil
         }
-        self.selectedRectangleView = gestureRecognizer.view
-        self.selectedRectangleView?.layer.borderWidth = 2
-        self.selectedRectangleView?.layer.borderColor = UIColor.blue.cgColor
+        if gestureRecognizer.view != self.rectangleViewBoard {
+            self.selectedRectangleView = gestureRecognizer.view
+            self.selectedRectangleView?.layer.borderWidth = 2
+            self.selectedRectangleView?.layer.borderColor = UIColor.blue.cgColor
+        }
+        
+        guard let color = self.selectedRectangleView?.backgroundColor?.cgColor.components else {
+            self.colorChangeButton.setTitle("", for: .normal)
+            self.alphaChangeSlider.value = 0
+            return
+        }
+        let red = Int(color[0] * 255)
+        let green = Int(color[1] * 255)
+        let blue = Int(color[2] * 255)
+        let alpha = Float(color[3] * 10)
+        
+        self.colorChangeButton.setTitle("\(String(format: "#%02X%02X%02x", red, green, blue))", for: .normal)
+        self.alphaChangeSlider.value = alpha
     }
 }
 
