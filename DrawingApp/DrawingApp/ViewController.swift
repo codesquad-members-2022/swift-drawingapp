@@ -27,6 +27,7 @@ class ViewController: UIViewController {
         addGenerateRectangleButton()
         addDrawableAreaView()
         plane.generateRectangleViewDelegate = self
+        plane.updateViewMatchedRectangleDelegate = self
         
     }
     
@@ -67,47 +68,21 @@ class ViewController: UIViewController {
     }
     
     @objc func viewDidTouched(sender: UITapGestureRecognizer) {
-        if let touchedView = self.view.hitTest(sender.location(in: drawableAreaView),
-                                               with: nil) as? RectangleView {
-            self.touchedView = touchedView
-            updateSelectedView(touchedView)
-            
-            guard let specifiedRectangle = plane.specifyRectangle(id: touchedView.id) else { return }
-            
-            updateBackgroundButton(color: specifiedRectangle.backgroundColor, alpha: specifiedRectangle.alpha)
-            updateAlphaSlider(alpha: specifiedRectangle.alpha)
-        }
-        else {
-            backgroundColorButton.isEnabled = false
-            backgroundColorButton.backgroundColor = .clear
-            alphaSlider.isEnabled = false
-            alphaSlider.setValue(0.55, animated: true)
-        }
+        initializeViewsInTouchedEmptySpaceCondition()
         
+        let touchedLocation = sender.location(in: drawableAreaView)
+        let touchedPoint = Point(x: touchedLocation.x, y: touchedLocation.y)
         
-        
+        plane.specifyRectangle(point: touchedPoint)
     }
     
-    private func updateSelectedView(_ selectedView: RectangleView) {
-        drawableAreaView.subviews.forEach { rectangleView in
-            rectangleView.layer.borderWidth = 0
-        }
-        
-        selectedView.layer.borderWidth = 3
-        selectedView.layer.borderColor = UIColor.black.cgColor
-        
-    }
-    
-    private func updateBackgroundButton(color: BackgroundColor, alpha: Alpha) {
-        backgroundColorButton.isEnabled = true
-        backgroundColorButton.setTitle(color.hexCode, for: .normal)
-        let buttonBackgroundColor = UIColor(red: color.r/255, green: color.g/255, blue: color.b/255, alpha: alpha.value)
-        backgroundColorButton.backgroundColor = buttonBackgroundColor
-    }
-    
-    private func updateAlphaSlider(alpha: Alpha) {
-        alphaSlider.isEnabled = true
-        alphaSlider.setValue(Float(alpha.value), animated: true)
+    private func initializeViewsInTouchedEmptySpaceCondition() {
+        self.touchedView?.layer.borderWidth = 0
+        self.touchedView = nil
+        backgroundColorButton.isEnabled = false
+        backgroundColorButton.backgroundColor = .clear
+        alphaSlider.isEnabled = false
+        alphaSlider.setValue(0.55, animated: true)
     }
     
     @IBAction func backgroundButtonTouched(_ sender: UIButton) {
@@ -145,3 +120,41 @@ extension ViewController: GenerateRectangleViewDelegate {
     }
 }
 
+extension ViewController: UpdateViewMatchedRectangleDelegate {
+    func rectangleDidSpecified(_ specifiedRectangle: Rectangle) {
+        for rectangleView in drawableAreaView.subviews {
+            let rectangleView = rectangleView as? RectangleView
+            if rectangleView?.id == specifiedRectangle.id {
+                self.touchedView = rectangleView
+                break
+            }
+        }
+        
+        if let specifiedRectangleView = self.touchedView {
+            updateSelectedView(specifiedRectangleView)
+            updateBackgroundButton(color: specifiedRectangle.backgroundColor, alpha: specifiedRectangle.alpha)
+            updateAlphaSlider(alpha: specifiedRectangle.alpha)
+        }
+    }
+    
+    private func updateSelectedView(_ selectedView: RectangleView) {
+        drawableAreaView.subviews.forEach { rectangleView in
+            rectangleView.layer.borderWidth = 0
+        }
+        
+        selectedView.layer.borderWidth = 3
+        selectedView.layer.borderColor = UIColor.black.cgColor
+    }
+    
+    private func updateBackgroundButton(color: BackgroundColor, alpha: Alpha) {
+        backgroundColorButton.isEnabled = true
+        backgroundColorButton.setTitle(color.hexCode, for: .normal)
+        let buttonBackgroundColor = UIColor(red: color.r/255, green: color.g/255, blue: color.b/255, alpha: alpha.value)
+        backgroundColorButton.backgroundColor = buttonBackgroundColor
+    }
+    
+    private func updateAlphaSlider(alpha: Alpha) {
+        alphaSlider.isEnabled = true
+        alphaSlider.setValue(Float(alpha.value), animated: true)
+    }
+}

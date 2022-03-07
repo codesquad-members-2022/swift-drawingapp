@@ -30,6 +30,14 @@ class Rectangle {
         self.alpha = alpha
     }
     
+    func isPointInArea(_ point: Point) -> Bool {
+        if point.x >= self.point.x && point.x <= self.point.x + self.size.width &&
+            point.y >= self.point.y && point.y <= self.point.y + self.size.height {
+            return true
+        }
+        return false
+    }
+    
     func changeBackgroundColor(to newColor: BackgroundColor) {
         guard let newColor = BackgroundColorFactory.generateRandomColor() else {return}
         self.backgroundColor = newColor
