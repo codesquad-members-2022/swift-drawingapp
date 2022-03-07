@@ -73,9 +73,11 @@ class ViewController: UIViewController {
         rectangleView.setBackgroundColor(with: CGFloat(self.alphaSlider.value) / 10)
     }
     
-    @objc func clearSelectedRectangle() {
-        self.stepper.isEnabled = false
-        self.revertRectangleChange()
+    @objc func clearSelectedRectangle(_ sender: UITapGestureRecognizer) {
+        if sender.state == .ended {
+            self.stepper.isEnabled = false
+            self.revertRectangleChange()
+        }
     }
     
     @objc func handleOnPressAddButton(_ sender: UIButton) {
@@ -95,16 +97,18 @@ class ViewController: UIViewController {
     }
     
     @objc func tapRectangle(_ sender: UITapGestureRecognizer) {
-        self.stepper.isEnabled = true
-        self.revertRectangleChange()
-        
-        guard let rectangleView = sender.view as? RectangleView else { return }
-        
-        rectangleView.setBorder(width: 2, color: .blue)
-        rectangleView.setBackgroundColor(with: CGFloat(self.alphaSlider.value) / 10)
-        
-        self.planeView.bringSubviewToFront(rectangleView)
-        self.selectedRectangleView = rectangleView
+        if sender.state == .ended {
+            self.stepper.isEnabled = true
+            self.revertRectangleChange()
+            
+            guard let rectangleView = sender.view as? RectangleView else { return }
+            
+            rectangleView.setBorder(width: 2, color: .blue)
+            rectangleView.setBackgroundColor(with: CGFloat(self.alphaSlider.value) / 10)
+            
+            self.planeView.bringSubviewToFront(rectangleView)
+            self.selectedRectangleView = rectangleView
+        }
     }
     
     @objc func handleOnPressColorButton(_ sender: UIButton) {
