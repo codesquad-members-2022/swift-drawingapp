@@ -12,9 +12,17 @@ class Factory {
     func createId() -> String {
         let id = "abcdefghijklmnopqrstuvwxyz0123456789"
         let length = 9
-        var newId = id.createRandomString(length: length)
-        newId.insert("-", at: id.index(id.startIndex, offsetBy: 3))
-        newId.insert("-", at: id.index(id.startIndex, offsetBy: 6))
+        var count = 0
+        var newId = ""
+
+        for i in 0..<length {
+            newId += String(id.shuffled()[i])
+            count += 1
+            if count % 3 == 0 {
+                newId += "-"
+            }
+        }
+        newId.removeLast()
         
         return newId
     }
@@ -44,14 +52,6 @@ class Factory {
         return ractangle
     }
     
-}
-
-extension String {
-    func createRandomString(length: Int) -> String {
-        let string = (0..<length).map { _ in self.randomElement()! }
-        
-        return String(string)
-    }
 }
 
 extension Factory: CustomStringConvertible {
