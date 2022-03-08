@@ -8,32 +8,35 @@
 import UIKit
 
 class CanvasView: UIImageView {
-    let id: String
     
     override init(frame: CGRect) {
-        // No id when initialized without ViewModel
-        self.id = ""
         super.init(frame: frame)
     }
     
-    init(viewModel: ViewModel) {
-        self.id = viewModel.id
-        
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    // Factory method using ViewModel
+    static func create(from viewModel: ViewModel) -> CanvasView {
         let frame = Converter.toCGRect(origin: viewModel.origin, size: viewModel.size)
-        super.init(frame: frame)
+        let canvasView = CanvasView(frame: frame)
         
         if let photo = viewModel as? Photo {
-            self.image = UIImage(data: photo.data)
+            canvasView.image = UIImage(data: photo.data)
         }
         
         if let colorMutableViewModel = viewModel as? ColorMutable {
-            backgroundColor = Converter.toUIColor(colorMutableViewModel.color)
+            canvasView.backgroundColor = Converter.toUIColor(colorMutableViewModel.color)
         }
         
         if let alphaMutableViewModel = viewModel as? AlphaMutable {
-            alpha = Converter.toCGFloat(alphaMutableViewModel.alpha)
+            canvasView.alpha = Converter.toCGFloat(alphaMutableViewModel.alpha)
         }
+        
+        return canvasView
     }
+    
     
     func createTemporary() -> CanvasView {
         let temporaryView = CanvasView(frame: self.frame)
@@ -55,8 +58,5 @@ class CanvasView: UIImageView {
         return temporaryView
     }
     
-    required init?(coder: NSCoder) {
-        self.id = ""
-        super.init(coder: coder)
-    }
+    
 }

@@ -71,15 +71,15 @@ extension CanvasViewController {
     
     @objc func didAddViewModel(_ notification: Notification) {
         guard let newViewModel = notification.userInfo?[Plane.newViewModelKey] as? ViewModel else { return }
-        guard let newCanvasView = createView(from: newViewModel) else { return }
+        let newCanvasView = createView(from: newViewModel)
         addViewID(newCanvasView)
         
         view.addSubview(newCanvasView)
         setupPanRecognizer(newCanvasView)
     }
     
-    private func createView(from viewModel: ViewModel) -> CanvasView? {
-        return CanvasView(viewModel: viewModel)
+    private func createView(from viewModel: ViewModel) -> CanvasView {
+        return CanvasView.create(from: viewModel)
     }
     
     private func addViewID(_ new: CanvasView) {
