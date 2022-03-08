@@ -13,105 +13,32 @@ class ViewController: UIViewController {
     lazy var rectangleViewYBound = self.presentRectangleView.frame.height - Size.Range.height
     lazy var rectangleFactory = RandomRectangleFactory()
     lazy var plane = Plane()
+    var rectangleViewTabGesture: UITapGestureRecognizer?
 
+
+    private var presentRectangleView = PresentRectangleView()
+    private var sideInspectorView = SideInspectorView()
+    private var addRectangleButton = AddRectangleButton()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViews()
         
-        self.addRectangleButton.addTarget(self, action: #selector(addRectangleButtonTouched), for: .touchUpInside)
     }
     
     //MARK: Set Up Views
     
     func setUpViews() {
-        view.addSubview(addRectangleButton)
-        view.addSubview(sideInspectorView)
-        view.addSubview(presentRectangleView)
         
-        layoutAddRectangleButton()
-        layoutSideInspectorView()
+        view.addSubview(presentRectangleView)
+        view.addSubview(sideInspectorView)
+        view.addSubview(addRectangleButton)
+        
         layoutPresentRectangleView()
-        layoutBackgroundMenuStackView()
-        layoutAlphaMenuStackView()
+        layoutSideInspectorView()
+        layoutAddRectangleButton()
     }
-    
-    //MARK: Configure Components
-    
-    private let presentRectangleView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
-    private let addRectangleButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .systemGray6
-        button.setTitle("사각형", for: .normal)
-        button.setTitleColor(.gray, for: .normal)
-        button.layer.cornerRadius = 10
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.systemGray6.cgColor
-        return button
-    }()
-    
-    private let sideInspectorView: UIView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.backgroundColor = .systemGray6
-        return stackView
-    }()
-    
-    private let backgroundMenuStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.alignment = .leading
-        stackView.distribution = .equalSpacing
-        stackView.spacing = 10
-        return stackView
-    }()
-    
-    private let alphaMenuStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.alignment = .leading
-        stackView.distribution = .equalSpacing
-        stackView.spacing = 10
-        return stackView
-    }()
-    
-    private let backgroundColorLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "배경색"
-        return label
-    }()
-    
-    private let backgroundColorValueButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("#000000", for: .normal)
-        button.backgroundColor = .systemGray2
-        button.layer.cornerRadius = 10
-        button.layer.borderWidth = 1
-        button.layer.borderColor = UIColor.systemGray3.cgColor
-        return button
-    }()
-    
-    private let alphaLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "투명도"
-        return label
-    }()
-    
-    private let alphaSlider: UISlider = {
-        let slider = UISlider()
-        return slider
-    }()
 }
-
 
 //TODO: 사각형 선택시 배경색 정보 띄우기 (16진수), 버튼 누를 때 마다 랜덤하게 색 변경
 //TODO: 사각형 선택시 알파 띄우기 + 조절 기능
@@ -135,48 +62,11 @@ extension ViewController {
         addRectangleButton.heightAnchor.constraint(equalToConstant: 100).isActive = true
     }
     
-    func layoutBackgroundColorValueButton() {
-        backgroundColorValueButton.leadingAnchor.constraint(equalTo: backgroundMenuStackView.leadingAnchor).isActive = true
-        backgroundColorValueButton.trailingAnchor.constraint(equalTo: backgroundMenuStackView.trailingAnchor).isActive = true
-        backgroundColorValueButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
-    }
-    
-    func layoutAlphaSlider() {
-        alphaSlider.leadingAnchor.constraint(equalTo: alphaMenuStackView.leadingAnchor).isActive = true
-        alphaSlider.trailingAnchor.constraint(equalTo: alphaMenuStackView.trailingAnchor).isActive = true
-    }
-    
     func layoutSideInspectorView() {
         sideInspectorView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         sideInspectorView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         sideInspectorView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         sideInspectorView.widthAnchor.constraint(equalToConstant: 200).isActive = true
-    }
-    
-    func layoutBackgroundMenuStackView() {
-        sideInspectorView.addSubview(backgroundMenuStackView)
-        
-        backgroundMenuStackView.topAnchor.constraint(equalTo: sideInspectorView.topAnchor, constant: 30).isActive = true
-        backgroundMenuStackView.leadingAnchor.constraint(equalTo: sideInspectorView.leadingAnchor, constant: 30).isActive = true
-        backgroundMenuStackView.trailingAnchor.constraint(equalTo: sideInspectorView.trailingAnchor, constant: -30).isActive = true
-        
-        backgroundMenuStackView.addArrangedSubview(backgroundColorLabel)
-        
-        backgroundMenuStackView.addArrangedSubview(backgroundColorValueButton)
-        layoutBackgroundColorValueButton()
-    }
-    
-    func layoutAlphaMenuStackView() {
-        sideInspectorView.addSubview(alphaMenuStackView)
-        
-        alphaMenuStackView.topAnchor.constraint(equalTo: backgroundMenuStackView.bottomAnchor, constant: 30).isActive = true
-        alphaMenuStackView.leadingAnchor.constraint(equalTo: sideInspectorView.leadingAnchor, constant: 30).isActive = true
-        alphaMenuStackView.trailingAnchor.constraint(equalTo: sideInspectorView.trailingAnchor, constant: -30).isActive = true
-        
-        alphaMenuStackView.addArrangedSubview(alphaLabel)
-        
-        alphaMenuStackView.addArrangedSubview(alphaSlider)
-        layoutAlphaSlider()
     }
 }
 
@@ -189,15 +79,24 @@ extension ViewController {
                                                                   yBound: rectangleViewYBound)
         plane.append(newRectangle: newRectangle)
     }
+
+    @objc func handleRectangleViewTap(_ tap: UITapGestureRecognizer) {
+        guard tap.state == .ended else { return }
+        //TODO: 제스처 액션 추가하기
+    }
 }
 
 //MARK: Delegates
 
 extension ViewController: PlaneDelegate {
     func rectangleDidCreated(_ rectangle: Rectangle) {
+        //Create Rectangle View & Add Subview
         let rectangleView = RectangleViewFactory.createRectangleView(by: rectangle)
-        
         rectangleView.translatesAutoresizingMaskIntoConstraints = false
         self.presentRectangleView.addSubview(rectangleView)
+
+        //Add Gesture Recognizer
+        rectangleViewTabGesture = UITapGestureRecognizer(target: self, action: #selector(handleRectangleViewTap(_:)))
+        rectangleView.addGestureRecognizer(rectangleViewTabGesture!)
     }
 }
