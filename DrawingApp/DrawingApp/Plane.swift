@@ -10,7 +10,7 @@ import Foundation
 
 struct Plane{
     
-    var rectangles: [Rectangle] = []
+    private var rectangles: [Rectangle] = []
     
     func count() -> Int{
         return rectangles.count
@@ -24,7 +24,7 @@ struct Plane{
         rectangles.append(rectangle)
     }
     
-    func isExist(_ point: Point) -> Bool{
+    func isExistRectangle(_ point: Point) -> Bool{
         
         for rect in rectangles {
             if (rect.leftTopPoint.x >= point.x && rect.leftTopPoint.y >= point.y) && (rect.rightBottomPoint.x <= point.x && rect.rightBottomPoint.y <= point.y) {

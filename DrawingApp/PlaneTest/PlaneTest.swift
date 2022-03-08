@@ -39,7 +39,7 @@ class PlaneTest: XCTestCase {
         let point = Point(x: 100.0,y: 100.0)
         let existTestRectangle = factory.createRectangle(size: Size(width: 100.0, height: 100.0), position: Point(x: 100.0, y: 100.0))
         plane.add(rectangle: existTestRectangle)
-        XCTAssertFalse(plane.isExist(point), "\(point)을 포함하는 사각형이 존재하지 않음")
+        XCTAssertFalse(plane.isExistRectangle(point), "\(point)을 포함하는 사각형이 존재하지 않음")
     }
     
 
