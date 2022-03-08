@@ -9,7 +9,7 @@ import Foundation
 
 struct Plane {
     private var rectangles = [Rectangle]()
-    private var rectangleCount: Int {
+    var rectangleCount: Int {
         return rectangles.count
     }
     
