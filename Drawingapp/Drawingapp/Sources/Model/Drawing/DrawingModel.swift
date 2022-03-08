@@ -7,13 +7,6 @@
 
 import Foundation
 
-//protocol DrawingProperty: Hashable {
-//    var id: String { get }
-//    var point: Point { get }
-//    var size: Size { get }
-//    var alpha: Alpha { get }
-//}
-
 protocol Colorable {
     func update(color: Color)
 }
@@ -28,8 +21,8 @@ class DrawingModel: CustomStringConvertible, Equatable, Hashable {
     let size: Size
     public private(set) var alpha: Alpha
     
-    var hashValue: Int {
-        id.hashValue
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
     
     var description: String {
