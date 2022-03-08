@@ -1,5 +1,6 @@
 import Foundation
 
+
 class Plane {
     private var rectangleArray: [Rectangle] = []
     
@@ -16,7 +17,8 @@ class Plane {
         return rectangleArray[index]
     }
     
-    func isTouched() -> Rectangle {
+    func isTouched(at point: Rectangle.Point) -> Rectangle {
+        
         return rectangleArray[0]
     }
 }

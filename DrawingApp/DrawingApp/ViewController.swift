@@ -6,7 +6,11 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
     
 //    탭되었을 때 실행할 메서드
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
-        print(sender.location(in: self.view))
+        let viewPoint: CGPoint = sender.location(in: self.view)
+        let rectPoint: Rectangle.Point = Rectangle.Point(x: viewPoint.x, y: viewPoint.y)
+        print("지정된 포인트 \(rectPoint.x), \(rectPoint.y)")
+        
+        
     }
     
 //    배경 뷰가 터치되도록 기능을 추가하는 메서드
