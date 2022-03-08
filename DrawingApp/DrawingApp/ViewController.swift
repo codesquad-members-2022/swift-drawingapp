@@ -16,7 +16,6 @@ class ViewController: UIViewController {
    
     
     let rectangleFactory = RectangleFactory(screenSize: (800, 570))
-    let rectangleViewFactory = RectangleViewFactory()
     let plane = Plane()
     
     var selectedRectangle : Rectangle? = nil
@@ -80,9 +79,9 @@ class ViewController: UIViewController {
     
     @objc func addNewRectangle() {
         guard let newRectangle = rectangleFactory.makeRandomRectangle() else {return}
-        let newRectangleView = rectangleViewFactory.makeNewRectangleView(rectangle: newRectangle)
-        let tap = UITapGestureRecognizer(target: self, action: #selector(ViewController.tap(_:)))
         plane.addRectangle(rectangle: newRectangle)
+        let newRectangleView = RectangleView(from: newRectangle)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(ViewController.tap(_:)))
         newRectangleView.addGestureRecognizer(tap)
         self.rectangleViewBoard.addSubview(newRectangleView)
     }
