@@ -10,28 +10,28 @@ import os
 
 class RectangleFactory {
     func createRectangle() {
-        let rectangle = Rectangle(id: createId(), point: createPoint(), size: createSize(), backgroundColor: createColor(), alpha: try! createAlpha())
+        let rectangle = Rectangle(id: createRandomId(), point: createRandomPoint(), size: createRandomSize(), backgroundColor: createRandomColor(), alpha: try! createRandomAlpha())
         let log = Logger()
         log.info("Rect: \(rectangle)")
     }
     
     
-    func createId() -> Id {
+    func createRandomId() -> Id {
         return Id()
     }
     
     
-    func createPoint() -> Point {
+    func createRandomPoint() -> Point {
         return Point(x: 10, y: 200)
     }
     
     
-    func createSize() -> Size {
+    func createRandomSize() -> Size {
         return Size(width: 150, height: 120)
     }
     
     
-    func createColor() -> Color {
+    func createRandomColor() -> Color {
         let red = Int.random(in: 0...255)
         let green = Int.random(in: 0...255)
         let blue = Int.random(in: 0...255)
@@ -39,7 +39,7 @@ class RectangleFactory {
     }
     
     
-    func createAlpha() throws -> Alpha {
+    func createRandomAlpha() throws -> Alpha {
         guard let alphaValue = Alpha.allCases.randomElement() else {
             throw RectangleError.invalidAlphaValue
         }
