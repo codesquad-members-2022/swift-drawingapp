@@ -7,17 +7,14 @@
 
 import Foundation
 
-struct ViewSize{
+class ViewSize: NSObject{
     let width: Int
     let height: Int
-
+    override var description: String {
+        return "W\(width), H\(height)"
+    }
     init(width: Int, height: Int){
         self.width = width
         self.height = height
-    }
-}
-extension ViewSize: CustomStringConvertible{
-    var description: String {
-        return "W\(width), H\(height)"
     }
 }

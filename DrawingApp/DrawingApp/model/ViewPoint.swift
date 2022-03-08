@@ -7,9 +7,10 @@
 
 import Foundation
 
-struct ViewPoint: Hashable{
+struct ViewPoint: Equatable, Hashable{
     let x: Int
     let y: Int
+
     init(x: Int, y: Int){
         self.x = x
         self.y = y
@@ -17,6 +18,6 @@ struct ViewPoint: Hashable{
 }
 extension ViewPoint: CustomStringConvertible{
     var description: String {
-        return "X:\(x),Y:\(y)"
+        return "x:\(x), y:\(y)"
     }
 }

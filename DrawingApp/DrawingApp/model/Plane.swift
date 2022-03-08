@@ -11,7 +11,7 @@ struct Plane{
     private var rectangleFactory: RectangleFactoryResponse
     private var rectangles: [ViewPoint: Rectangle] = [:]
     private var selectedRectangle: Rectangle?
-
+    
     subscript(point: ViewPoint) -> Rectangle?{
         return rectangles[point]
     }
@@ -20,82 +20,74 @@ struct Plane{
         rectangleFactory = RectangleFactory()
     }
     
-    mutating func addRectangle(){
-        let rectangle = rectangleFactory.randomRectangle()
-        rectangles[rectangle.point] = rectangle
-        self.selectedRectangle = rectangle
-    }
-    
     mutating func selectedRectangle(point: ViewPoint){
         self.selectedRectangle = rectangles[point]
-        guard let selectedRectangle = selectedRectangle else { return }
     }
     
     mutating func deselectedRectangle(){
         self.selectedRectangle = nil
     }
     
-    mutating func changeColor(){
+    func changeColor(){
         guard let selectedRectangle = selectedRectangle else { return }
         selectedRectangle.resetColor(rgbValue: rectangleFactory.randomRGBColor())
     }
     
-    mutating func plusAlpha(){
+    func plusAlpha(){
         guard let selectedRectangle = selectedRectangle else { return }
         selectedRectangle.changeAlphaValue(alpha: selectedRectangle.alpha + 0.1)
     }
     
-    mutating func minusAlpha(){
+    func minusAlpha(){
         guard let selectedRectangle = selectedRectangle else { return }
         selectedRectangle.changeAlphaValue(alpha: selectedRectangle.alpha - 0.1)
     }
     
-    
-    mutating func selectedRectangleAlpha() -> Double?{
+    func selectedRectangleAlpha() -> Double?{
         return selectedRectangle?.alpha
     }
     
-    mutating func selectedRectangleColor() -> ColorRGB?{
+    func selectedRectangleColor() -> ColorRGB?{
         return selectedRectangle?.color
     }
     
-    mutating func rectangleCount() -> Int{
+    func rectangleCount() -> Int{
         return rectangles.count
     }
 }
 extension Plane: PlaneDelegate{
-    mutating func didAddRandomRectangle() -> Rectangle {
+    mutating func didAddRandomRectangle(){
         let rectangle = rectangleFactory.randomRectangle()
         self.rectangles[rectangle.point] = rectangle
         self.selectedRectangle = rectangle
-        return rectangle
+        NotificationCenter.default.post(name: .addedRectangle, object: rectangle)
     }
     
-    func didChangedColor() -> Rectangle? {
-        guard let selectedRectangle = selectedRectangle else { return nil }
+    func didChangedColor(){
+        guard let selectedRectangle = selectedRectangle else { return }
         selectedRectangle.resetColor(rgbValue: rectangleFactory.randomRGBColor())
-        return selectedRectangle
+        NotificationCenter.default.post(name: .changedRectangleColor, object: selectedRectangle)
     }
     
-    mutating func didSelectedTarget(point: ViewPoint)-> Rectangle? {
+    mutating func didSelectedTarget(point: ViewPoint){
         self.selectedRectangle = rectangles[point]
-        guard let selectedRectangle = selectedRectangle else { return nil }
-        return selectedRectangle
+        guard let selectedRectangle = selectedRectangle else { return }
+        NotificationCenter.default.post(name: .selectedRectangle, object: selectedRectangle)
     }
     
-    mutating func deSelectedTarget() {
+    mutating func deSelectedTarget(){
         self.selectedRectangle = nil
+        NotificationCenter.default.post(name: .deselectedRectangle, object: nil)
     }
     
-    func didUpdateAlpha(changed: RectangleAlphaChange) -> Rectangle? {
-        guard let selectedRectangle = selectedRectangle else { return nil }
+    func didUpdateAlpha(changed: RectangleAlphaChange){
+        guard let selectedRectangle = selectedRectangle else { return }
         switch changed{
         case .plus: selectedRectangle.changeAlphaValue(alpha: selectedRectangle.alpha + 0.1)
         case .minus: selectedRectangle.changeAlphaValue(alpha: selectedRectangle.alpha - 0.1)
         case .none: break
-        default: break
         }
-        return selectedRectangle
+        NotificationCenter.default.post(name: .updateRectangleAlpha, object: selectedRectangle)
     }
 }
 
