@@ -12,8 +12,13 @@ class ViewController: UIViewController {
     let x = UIScreen.main.bounds.width
     let y = UIScreen.main.bounds.height
     let button = UIButton(type: .system) as UIButton
-    
+    let factory = RectangleFactory()
+    var plane = Plane()
+
+
     @objc func createRectangleButtonTapped(_ sender: UIButton) {
+        let rectangle = factory.createRectangle()
+        plane.rectangleDidCreated(rectangle: rectangle)
     }
     
     
@@ -31,10 +36,5 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         createRectangleButton()
-        
-        let factory = RectangleFactory()
-        let rectangle = factory.createRectangle()
-        var plane = Plane()
-        plane.rectangleDidCreated(rectangle: rectangle)
     }
 }
