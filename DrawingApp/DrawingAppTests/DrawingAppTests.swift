@@ -42,4 +42,12 @@ class DrawingAppTests: XCTestCase {
         XCTAssertEqual(separatedUID.count, splitDash)
         XCTAssertEqual(separatedUID[0].count, 4)
     }
+    
+    // MARK:- Plane
+    func testPlane_createRectangleCount() throws {
+        let plane = Plane()
+        plane.createRect()
+        let count = plane.countRect()
+        XCTAssertEqual(count, 1)
+    }
 }

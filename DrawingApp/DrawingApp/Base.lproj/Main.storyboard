@@ -27,6 +27,9 @@
                                                 <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <color key="tintColor" systemColor="systemGray5Color"/>
                                                 <state key="normal" title="사각형 만들기"/>
+                                                <connections>
+                                                    <action selector="touchedCreateRect:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wkj-mK-0KO"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemYellowColor"/>
