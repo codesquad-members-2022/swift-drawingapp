@@ -22,7 +22,6 @@
 		B74322C127CF35F000445645 /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322C027CF35F000445645 /* Alpha.swift */; };
 		B74322C327CF5A0700445645 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322C227CF5A0700445645 /* Plane.swift */; };
 		B74322C627D0CB8400445645 /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322C527D0CB8400445645 /* RectangleView.swift */; };
-		B74322C827D0DA7500445645 /* RectangleGenerationButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322C727D0DA7500445645 /* RectangleGenerationButton.swift */; };
 		B74322CA27D0F5EE00445645 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322C927D0F5EE00445645 /* Protocols.swift */; };
 		B74322CC27D1B91C00445645 /* PanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322CB27D1B91C00445645 /* PanelView.swift */; };
 		B74322CE27D1D6F100445645 /* ColorRondomizeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322CD27D1D6F100445645 /* ColorRondomizeButton.swift */; };
@@ -60,7 +59,6 @@
 		B74322C027CF35F000445645 /* Alpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alpha.swift; sourceTree = "<group>"; };
 		B74322C227CF5A0700445645 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		B74322C527D0CB8400445645 /* RectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
-		B74322C727D0DA7500445645 /* RectangleGenerationButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleGenerationButton.swift; sourceTree = "<group>"; };
 		B74322C927D0F5EE00445645 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		B74322CB27D1B91C00445645 /* PanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelView.swift; sourceTree = "<group>"; };
 		B74322CD27D1D6F100445645 /* ColorRondomizeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRondomizeButton.swift; sourceTree = "<group>"; };
@@ -158,7 +156,6 @@
 			children = (
 				B74322C527D0CB8400445645 /* RectangleView.swift */,
 				B74322CB27D1B91C00445645 /* PanelView.swift */,
-				B74322C727D0DA7500445645 /* RectangleGenerationButton.swift */,
 				B74322CD27D1D6F100445645 /* ColorRondomizeButton.swift */,
 				B74322DB27D5124300445645 /* AlphaStepper.swift */,
 				B74322DD27D5157600445645 /* StepperLabel.swift */,
@@ -292,7 +289,6 @@
 				B74322B927CF0C0500445645 /* Color.swift in Sources */,
 				B74322C127CF35F000445645 /* Alpha.swift in Sources */,
 				B74322DE27D5157600445645 /* StepperLabel.swift in Sources */,
-				B74322C827D0DA7500445645 /* RectangleGenerationButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
