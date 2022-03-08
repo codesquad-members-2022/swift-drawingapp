@@ -9,6 +9,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         let viewPoint: CGPoint = sender.location(in: self.view)
         let rectPoint: Rectangle.Point = Rectangle.Point(x: viewPoint.x, y: viewPoint.y)
         print("지정된 포인트 \(rectPoint.x), \(rectPoint.y)")
+        print("터치 되었는가? : \(plane.isTouchedOnRectangle(at: rectPoint))")
     }
     
 //    배경 뷰가 터치되도록 기능을 추가하는 메서드
