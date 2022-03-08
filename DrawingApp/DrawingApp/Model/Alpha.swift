@@ -8,27 +8,25 @@
 import Foundation
 
 struct Alpha: Equatable {
+    enum OpacityLevel: Double, CaseIterable {
+        case one = 0.1, two = 0.2, three = 0.3, four = 0.4, five = 0.5
+        case six = 0.6, seven = 0.7, eight = 0.8, nine = 0.9, ten = 1.0
+    }
+    let opacityLevel: OpacityLevel
     let value: Double
-    static let possibleOpacityLevels = 1...10
-    static let possibleAlphaValues = stride(from: 0.1, to: 1.0, by: 0.01)
     
-    init?(opacityLevel: Int) {
-        let min = Alpha.possibleOpacityLevels.min() ?? 1
-        let max = Alpha.possibleOpacityLevels.max() ?? 10
-        
-        if opacityLevel > max {
-            return nil
-        } else if opacityLevel < min {
-            return nil
-        } else {
-            self.value = Double(opacityLevel) / Double(10)
-        }
-
+    init(opacityLevel: OpacityLevel) {
+        self.opacityLevel = opacityLevel
+        self.value = opacityLevel.rawValue
+    }
+    
+    static func == (lhs: Alpha, rhs: Alpha) -> Bool {
+        lhs.opacityLevel.rawValue == rhs.opacityLevel.rawValue
     }
 }
 
 extension Alpha: CustomStringConvertible {
     var description: String {
-        return "Alpha: \(value)"
+        return "Alpha: \(value)/ OpacityLevel: \(opacityLevel)"
     }
 }
