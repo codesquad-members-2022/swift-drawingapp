@@ -8,24 +8,32 @@
 import Foundation
 import UIKit
 
-enum Converter {
-    static func toUIColor(_ color: Color) -> UIColor {
-        return UIColor(red: CGFloat(color.red), green: CGFloat(color.green), blue: CGFloat(color.blue), alpha: CGFloat(color.alpha))
+extension CGFloat {
+    init(with alpha: Alpha) {
+        self.init(alpha.value)
     }
-    
-    static func toCGPoint(_ point: Point) -> CGPoint {
-        return CGPoint(x: point.x, y: point.y)
+}
+
+extension CGPoint {
+    init(with point: Point) {
+        self.init(x: point.x, y: point.y)
     }
-    
-    static func toCGFloat(_ alpha: Alpha) -> CGFloat {
-        return CGFloat(alpha.value)
+}
+
+extension CGSize {
+    init(with size: Size) {
+        self.init(width: size.width, height: size.height)
     }
-    
-    static func toCGSize(_ size: Size) -> CGSize {
-        return CGSize(width: size.width, height: size.height)
+}
+
+extension CGRect {
+    init(origin: Point, size: Size) {
+        self.init(origin: CGPoint(with: origin), size: CGSize(with: size))
     }
-    
-    static func toCGRect(origin: Point, size: Size) -> CGRect {
-        return CGRect(origin: toCGPoint(origin), size: toCGSize(size))
+}
+
+extension UIColor {
+    convenience init(with color: Color) {
+        self.init(red: CGFloat(color.red), green: CGFloat(color.green), blue: CGFloat(color.blue), alpha: CGFloat(color.alpha))
     }
 }
