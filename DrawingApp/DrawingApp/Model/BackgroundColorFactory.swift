@@ -8,12 +8,11 @@
 import Foundation
 
 class BackgroundColorFactory {
-    public static func generateRandomColor() -> BackgroundColor? {
-        
-        let red = BackgroundColor.possibleColorValues.randomElement() ?? 0
-        let green = BackgroundColor.possibleColorValues.randomElement() ?? 0
-        let blue = BackgroundColor.possibleColorValues.randomElement() ?? 0
+    public static func makeRandomBackgroundColor() -> BackgroundColor {
+        let red = Int.random(in: BackgroundColor.possibleColorValues)
+        let green = Int.random(in: BackgroundColor.possibleColorValues)
+        let blue = Int.random(in: BackgroundColor.possibleColorValues)
 
-        return BackgroundColor(r: red, g: green, b: blue)
+        return BackgroundColor(r: red, g: green, b: blue) ?? BackgroundColor(r: 0, g: 0, b: 0)!
     }
 }

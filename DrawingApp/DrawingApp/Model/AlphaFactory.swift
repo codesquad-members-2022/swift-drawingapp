@@ -8,8 +8,8 @@
 import Foundation
 
 class AlphaFactory {
-    public static func generateRandomAlpha() -> Alpha? {
-        let randomOpacityLevel = OpacityLevel.possibleOpacityLevels.randomElement() ?? OpacityLevel.ten
+    public static func makeRandomAlpha() -> Alpha {
+        let randomOpacityLevel = Alpha.OpacityLevel.allCases.randomElement() ?? Alpha.OpacityLevel.ten
         return Alpha(opacityLevel: randomOpacityLevel)
     }
 }

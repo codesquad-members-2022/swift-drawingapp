@@ -99,9 +99,7 @@ class ViewController: UIViewController {
         guard let touchedView = self.touchedView else {
             return
         }
-        guard let newColor = BackgroundColorFactory.generateRandomColor() else {
-            return
-        }
+        let newColor = BackgroundColorFactory.makeRandomBackgroundColor()
         
         plane.changeBackGroundColorOfRectangle(id: touchedView.id, to: newColor)
     }
