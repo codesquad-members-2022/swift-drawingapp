@@ -15,6 +15,13 @@ class DrawingView: UIView {
         return view
     }()
     
+    init(point: Point, size: Size, color: Color?, alpha: Alpha) {
+        super.init(frame: CGRect(x: point.x, y: point.y, width: size.width, height: size.height))
+        self.update(color: color)
+        self.update(alpha: alpha)
+        layout()
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         layout()

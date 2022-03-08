@@ -10,8 +10,8 @@ import UIKit
 
 protocol PlaneAction {
     func touchPoint(where point: Point)
-    func colorChanged(_ color: Color)
-    func alphaChanged(_ alpha: Alpha)
+    func changeColor(_ color: Color)
+    func changeAlpha(_ alpha: Alpha)
 }
 
 protocol MakeModelAction {
@@ -19,7 +19,8 @@ protocol MakeModelAction {
     func makeDrawingModel(url: URL)
 }
 
-class Plane {    
+class Plane {
+    private let drawingModelFactory: DrawingModelFactory
     private var drawingModels: [DrawingModel] = []
     private var selectedModel: DrawingModel?
     
@@ -32,6 +33,10 @@ class Plane {
             return drawingModels[index]
         }
         return nil
+    }
+    
+    init(drawingModelFactory: DrawingModelFactory) {
+        self.drawingModelFactory = drawingModelFactory
     }
     
     private func selected(point: Point) -> DrawingModel? {
@@ -47,46 +52,66 @@ class Plane {
 
 extension Plane: MakeModelAction {
     func makeDrawingModel() {
-        let model = DrawingModelFactory.makeModel()
+        let model = drawingModelFactory.makeModel()
         didMakeDrawingModel(model: model)
     }
     
     func makeDrawingModel(url: URL) {
-        let model = DrawingModelFactory.makeModel(url: url)
+        let model = drawingModelFactory.makeModel(url: url)
         didMakeDrawingModel(model: model)
     }
     
     private func didMakeDrawingModel(model: DrawingModel) {
         self.drawingModels.append(model)
         let userInfo: [AnyHashable : Any] = [ParamKey.drawingModel:model]
-        NotificationCenter.default.post(name: Plane.EventName.didMakeDrawingModel, object: nil, userInfo: userInfo)
+        NotificationCenter.default.post(name: Plane.NotifiName.didMakeDrawingModel, object: self, userInfo: userInfo)
         
     }
 }
 
 extension Plane: PlaneAction {
+    
+    private func sendDidDisSelectModel(_ model: DrawingModel?) {
+        guard let model = model else {
+            return
+        }
+        let userInfo: [AnyHashable : Any] = [ParamKey.drawingModel:model]
+        NotificationCenter.default.post(name: Plane.NotifiName.didDisSelectedDrawingModel, object: self, userInfo: userInfo)
+    }
+    
+    private func sendDidSelectModel(_ model: DrawingModel) {
+        let userInfo: [AnyHashable : Any] = [ParamKey.drawingModel:model]
+        NotificationCenter.default.post(name: Plane.NotifiName.didSelectedDrawingModel, object: self, userInfo: userInfo)
+    }
+    
     func touchPoint(where point: Point) {
-        if let model = self.selectedModel {
+        guard let selectModel = self.selected(point: point) else {
+            sendDidDisSelectModel(self.selectedModel)
             self.selectedModel = nil
-            let userInfo: [AnyHashable : Any] = [ParamKey.drawingModel:model]
-            NotificationCenter.default.post(name: Plane.EventName.didDisSelectedDrawingModel, object: self, userInfo: userInfo)
+            return
         }
         
-        if let model = self.selected(point: point) {
-            self.selectedModel = model
-            let userInfo: [AnyHashable : Any] = [ParamKey.drawingModel:model]
-            NotificationCenter.default.post(name: Plane.EventName.didSelectedDrawingModel, object: self, userInfo: userInfo)
+        guard let prevSelectModel = self.selectedModel else {
+            sendDidSelectModel(selectModel)
+            self.selectedModel = selectModel
+            return
+        }
+        
+        if selectModel != prevSelectModel {
+            sendDidDisSelectModel(prevSelectModel)
+            sendDidSelectModel(selectModel)
+            self.selectedModel = selectModel
         }
     }
     
-    func colorChanged(_ color: Color) {
+    func changeColor(_ color: Color) {
         guard let model = self.selectedModel else {
             return
         }
         model.update(color: color)
     }
     
-    func alphaChanged(_ alpha: Alpha) {
+    func changeAlpha(_ alpha: Alpha) {
         guard let model = self.selectedModel else {
             return
         }
@@ -96,7 +121,7 @@ extension Plane: PlaneAction {
 }
 
 extension Plane {
-    enum EventName {
+    enum NotifiName {
         static let didDisSelectedDrawingModel = NSNotification.Name("didDisSelectedDrawingModel")
         static let didSelectedDrawingModel = NSNotification.Name("didSelectedDrawingModel")
         static let didMakeDrawingModel = NSNotification.Name("didMakeDrawingModel")

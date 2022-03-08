@@ -22,7 +22,7 @@ class PhotoModel: DrawingModel {
     func update(url: URL) {
         self.imageUrl = url
         let userInfo: [AnyHashable : Any] = [ParamKey.imageUrl:url]
-        NotificationCenter.default.post(name: EventName.updateImageUrl, object: self, userInfo: userInfo)
+        NotificationCenter.default.post(name: NotifiName.updateImageUrl, object: self, userInfo: userInfo)
     }
     
     override func update(color: Color) {
