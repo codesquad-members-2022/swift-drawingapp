@@ -11,8 +11,7 @@ import UIKit
 class RectangleView: DrawingView, Colorable {
     
     init(point: Point, size: Size, alpha: Alpha, color: Color) {
-        super.init(frame: CGRect(x: point.x, y: point.y, width: size.width, height: size.height))
-        self.update(alpha: alpha)
+        super.init(point: point, size: size, alpha: alpha)
         self.update(color: color)
     }
     
