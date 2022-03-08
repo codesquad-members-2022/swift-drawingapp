@@ -90,6 +90,13 @@ extension Plane: PlaneDelegate{
         NotificationCenter.default.post(name: .updateRectangleAlpha, object: selectedRectangle)
     }
 }
+extension Notification.Name{
+    static let addedRectangle = Notification.Name.init("addedRectangle")
+    static let selectedRectangle = Notification.Name.init("selectedRectangle")
+    static let deselectedRectangle = Notification.Name.init("deselectedRectangle")
+    static let changedRectangleColor = Notification.Name.init("changedRectangleColor")
+    static let updateRectangleAlpha = Notification.Name.init("updateRectangleAlpha")
+}
 
 enum RectangleAlphaChange{
     case plus
