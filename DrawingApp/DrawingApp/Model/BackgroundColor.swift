@@ -8,9 +8,9 @@
 import Foundation
 
 struct BackgroundColor: Equatable {
-    let r: Double
-    let g: Double
-    let b: Double
+    let r: Int
+    let g: Int
+    let b: Int
     static let possibleColorValues = 0...255
     var hexCode: String {
         let hexR = String(Int(r), radix: 16).uppercased()
@@ -21,12 +21,12 @@ struct BackgroundColor: Equatable {
     }
     
     init?(r: Int, g: Int, b: Int) {
-        let colorValues = [Double(r), Double(g), Double(b)]
+        let colorValues = [r, g, b]
         let min = BackgroundColor.possibleColorValues.min() ?? 0
         let max = BackgroundColor.possibleColorValues.max() ?? 255
         
         for colorValue in colorValues {
-            if colorValue > Double(max) || colorValue < Double(min){
+            if colorValue > max || colorValue < min {
                 return nil
             }
         }
