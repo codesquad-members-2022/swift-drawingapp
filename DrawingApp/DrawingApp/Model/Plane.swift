@@ -9,7 +9,6 @@ import Foundation
 
 struct Plane {
     private var rectangles = [Rectangle]()
-    
     private var rectangleCount: Int {
         return rectangles.count
     }
@@ -17,10 +16,7 @@ struct Plane {
     subscript(index: Int) -> Rectangle {
         return rectangles[index]
     }
-}
-
-
-extension Plane: PlaneDelegate {
+    
     mutating func rectangleDidCreated(rectangle: Rectangle) {
         rectangles.append(rectangle)
     }

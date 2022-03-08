@@ -9,21 +9,12 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    var delegate: PlaneDelegate?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let plane = Plane()
+        
         let factory = RectangleFactory()
-        for _ in 0..<4 {
-            let rectangle = factory.createRectangle()
-            delegate?.rectangleDidCreated(rectangle: rectangle)
-        }
-        print(plane)
+        let rectangle = factory.createRectangle()
+        var plane = Plane()
+        plane.rectangleDidCreated(rectangle: rectangle)
     }
-}
-
-
-protocol PlaneDelegate {
-    mutating func rectangleDidCreated(rectangle: Rectangle)
 }
