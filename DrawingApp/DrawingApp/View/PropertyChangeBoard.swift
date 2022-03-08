@@ -99,13 +99,7 @@ class PropertyChangeBoard : UIView {
     }
     
     func setPropertyBoard(with rectangleView: RectangleView?) {
-        if self.selectedRectangleView != nil {
-            self.selectedRectangleView?.layer.borderWidth = 0
-            self.selectedRectangleView = nil
-        }
         self.selectedRectangleView = rectangleView
-        self.selectedRectangleView?.layer.borderWidth = 2
-        self.selectedRectangleView?.layer.borderColor = UIColor.blue.cgColor
         guard let alpha = self.selectedRectangleView?.alpha else {return}
         self.alphaChangeSlider.value = Float(Int(alpha * 10))
         updateColorButton()

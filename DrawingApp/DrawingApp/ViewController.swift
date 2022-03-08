@@ -121,7 +121,7 @@ extension ViewController: PlaneDelegate {
     
     func didSearchRectangle(index: Int) {
         let selectedRectangleView = self.rectangleViewBoard.subviews[index]
-        self.rectangleViewBoard.selectedRectangleView = selectedRectangleView as? RectangleView
+        self.rectangleViewBoard.setSelectedRectangleView(rectangleView: selectedRectangleView as? RectangleView)
         self.rectanglePropertyChangeBoard.setPropertyBoard(with: selectedRectangleView as? RectangleView)
     }
     
