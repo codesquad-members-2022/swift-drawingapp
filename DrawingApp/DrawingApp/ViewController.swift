@@ -36,7 +36,8 @@ class ViewController: UIViewController {
     
     // MARK:- Actions
     @IBAction func touchedCreateRect(_ sender: Any) {
-        model.createRect()
+        let size = Size(width: Int(canvas.frame.size.width), height: Int(canvas.frame.size.height))
+        model.createRect(in: size)
     }
     
     @objc func didTap(_ gesture: UITapGestureRecognizer) { }
@@ -46,6 +47,7 @@ class ViewController: UIViewController {
 extension ViewController: PlaneDelegate {
     func didSelected(rect: Rectangle?) {
         informationView.loadView(with: rect)
+        // TODO: 선택한 사각형의 테두리 그리기
     }
     
     func didCreate(rect: Rectangle) {

@@ -29,3 +29,9 @@ struct UniqueID {
         return alphabet
     }
 }
+
+struct RandomGenerator {
+    static func make(min: Int, max: Int) -> Int {
+        return Int.random(in: min...max)
+    }
+}
