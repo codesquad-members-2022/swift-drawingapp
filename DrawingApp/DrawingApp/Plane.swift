@@ -6,12 +6,12 @@ class Plane {
     var rectangleCount: Int {
         return rectangleArray.count
     }
-    var rangeOfRectangles: [Rectangle.Point] {
-        var ranges: [Rectangle.Point] = []
+    var boundsOfRectangles: [Rectangle.Bound] {
+        var bounds: [Rectangle.Bound] = []
         for rectangle in rectangleArray {
-            ranges.append(rectangle.getPoint())
+            bounds.append(rectangle.rangeOfPoint())
         }
-        return ranges
+        return bounds
     }
     
     func addRectangle() {
@@ -23,7 +23,7 @@ class Plane {
         return rectangleArray[index]
     }
     
-    func isTouched(at point: Rectangle.Point) -> Rectangle {
+    func TouchedRectangle(at point: Rectangle.Point) -> Rectangle? {
         
         return rectangleArray[0]
     }
