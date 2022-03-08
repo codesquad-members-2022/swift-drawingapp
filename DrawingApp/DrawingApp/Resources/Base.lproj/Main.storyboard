@@ -20,19 +20,9 @@
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rYR-Ii-0uF" userLabel="Plane" customClass="PlaneView" customModule="DrawingApp" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="941" height="820"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hDw-Em-7Iz" customClass="RoundedButton" customModule="DrawingApp" customModuleProvider="target">
-                                        <rect key="frame" x="410" y="712" width="120" height="80"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" name="Background"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="사각형 추가"/>
-                                    </button>
-                                </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <color key="tintColor" red="0.59215686274509804" green="0.3411764705882353" blue="0.63921568627450975" alpha="0.5" colorSpace="calibratedRGB"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KGN-Mg-bHZ">
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="KGN-Mg-bHZ" customClass="ControlPanelView" customModule="DrawingApp" customModuleProvider="target">
                                 <rect key="frame" x="940" y="0.0" width="240" height="820"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
                                 <subviews>
@@ -73,11 +63,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
-                        <outlet property="addButton" destination="hDw-Em-7Iz" id="0nv-s4-JwQ"/>
                         <outlet property="alphaSlider" destination="sSB-vG-WUe" id="6vq-w3-dKO"/>
                         <outlet property="colorButton" destination="1BJ-LG-X29" id="oBk-rM-OsP"/>
                         <outlet property="planeView" destination="rYR-Ii-0uF" id="zOz-bf-HpF"/>
-                        <outlet property="planevv" destination="rYR-Ii-0uF" id="2ZU-yi-1u8"/>
                         <outlet property="stepper" destination="cFV-VR-VZk" id="hlS-RE-TMU"/>
                     </connections>
                 </viewController>

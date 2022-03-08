@@ -10,19 +10,22 @@ import UIKit
 class RoundedButton: UIButton {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-        let fontColor = UIColor(named: "Font")
-        let borderColor = UIColor(named: "Border")
-        self.tintColor = fontColor
-        self.setBorder(width: 1, radius: 10, color: borderColor)
+        self.setDefaultConfiguration()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        
+        self.setDefaultConfiguration()
+    }
+    
+    func setDefaultConfiguration() {
         let fontColor = UIColor(named: "Font")
         let borderColor = UIColor(named: "Border")
+        let backgroundColor = UIColor(named: "Background")
+        
         self.tintColor = fontColor
+        self.backgroundColor = backgroundColor
+        self.setTitle("Button", for: .normal)
         self.setBorder(width: 1, radius: 10, color: borderColor)
     }
     
