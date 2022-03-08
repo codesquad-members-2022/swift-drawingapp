@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RightAttributerView: UIView {
+final class RightAttributerView: UIView {
     private let colorTitle = UILabel()
     private let alphaTitle = UILabel()
     

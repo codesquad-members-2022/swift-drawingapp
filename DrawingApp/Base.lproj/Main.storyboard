@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h4c-DZ-FXx">
-                                <rect key="frame" x="550" y="720" width="80" height="80"/>
+                                <rect key="frame" x="506" y="720" width="80" height="80"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                 <buttonConfiguration key="configuration" style="plain" title="사각형">
@@ -27,11 +27,23 @@
                                     <action selector="makeRandomRectangle:" destination="BYZ-38-t0r" eventType="touchUpInside" id="fPb-je-QJv"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ge6-M5-RHa">
+                                <rect key="frame" x="594" y="720" width="80" height="80"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
+                                <buttonConfiguration key="configuration" style="plain" title="사진">
+                                    <color key="baseForegroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="makeImage:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cSH-AE-yhj"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
+                        <outlet property="albumButton" destination="ge6-M5-RHa" id="8BS-RD-PZR"/>
                         <outlet property="rectangleButton" destination="h4c-DZ-FXx" id="4dj-Kh-Ojy"/>
                     </connections>
                 </viewController>

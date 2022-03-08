@@ -17,6 +17,10 @@ class RectangleFactoryTest: XCTestCase {
     }
 
     func testExample() throws {
+        guard let namedImage = UIImage(named: "010") else{
+            return
+        }
+        
         let rectangleFactory = RectangleFactory()
         
         let randomSize = rectangleFactory.makeSize()
@@ -25,6 +29,8 @@ class RectangleFactoryTest: XCTestCase {
         let randomAlpha = rectangleFactory.makeAlpha()
         
         let wrongRandomPoint = rectangleFactory.makePoint(viewWidth: 100, viewHeight: 100)
+        let rectangle = rectangleFactory.makeRandomRectangle(viewWidth: 200, viewHeight: 200)
+        let imageRectangle = rectangleFactory.makeRandomImageRectangle(image: MyImage(image: namedImage), viewWidth: 100, viewHeight: 100)
     }
 
     func testPerformanceExample() throws {

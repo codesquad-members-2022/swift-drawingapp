@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class RectangleFactory{
     private let width: Double = 150
@@ -14,6 +15,11 @@ final class RectangleFactory{
     func makeRandomRectangle(viewWidth: Double, viewHeight: Double) -> Rectangle{
         let rectangle = Rectangle(id: IDFactory.makeID(), size: makeSize(), point: makePoint(viewWidth: viewWidth, viewHeight: viewHeight), color: makeColor(), alpha: makeAlpha())
         return rectangle
+    }
+    
+    func makeRandomImageRectangle(image: MyImage, viewWidth: Double, viewHeight: Double) -> Image{
+        let imageRectangle = Image(image: image, size: makeSize(), point: makePoint(viewWidth: viewWidth, viewHeight: viewHeight), alpha: makeAlpha())
+        return imageRectangle
     }
     
     func makeSize() -> MySize{
