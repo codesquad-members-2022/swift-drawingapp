@@ -53,6 +53,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0048DEDE27D73DCE00262A8E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				00D94D9327D233CB004F5DAC /* Shape.swift */,
+				00D94D9D27D248EF004F5DAC /* ShapeCreator.swift */,
+				00D94D9F27D2495A004F5DAC /* ShapeFactory.swift */,
+				0048DEDC27D73A9E00262A8E /* Alpha.swift */,
+				00D94D9B27D2357D004F5DAC /* Rectangle.swift */,
+				00D94D9527D23426004F5DAC /* Size.swift */,
+				00D94D9727D2344A004F5DAC /* Point.swift */,
+				00D94D9927D2345B004F5DAC /* Color.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		00D94D7327D1B42C004F5DAC = {
 			isa = PBXGroup;
 			children = (
@@ -75,14 +90,7 @@
 				00D94D7F27D1B42C004F5DAC /* AppDelegate.swift */,
 				00D94D8127D1B42C004F5DAC /* SceneDelegate.swift */,
 				00D94D8327D1B42C004F5DAC /* ViewController.swift */,
-				00D94D9327D233CB004F5DAC /* Shape.swift */,
-				00D94D9D27D248EF004F5DAC /* ShapeCreator.swift */,
-				00D94D9F27D2495A004F5DAC /* ShapeFactory.swift */,
-				0048DEDC27D73A9E00262A8E /* Alpha.swift */,
-				00D94D9B27D2357D004F5DAC /* Rectangle.swift */,
-				00D94D9527D23426004F5DAC /* Size.swift */,
-				00D94D9727D2344A004F5DAC /* Point.swift */,
-				00D94D9927D2345B004F5DAC /* Color.swift */,
+				0048DEDE27D73DCE00262A8E /* Model */,
 				00D94D8527D1B42C004F5DAC /* Main.storyboard */,
 				00D94D8827D1B42D004F5DAC /* Assets.xcassets */,
 				00D94D8A27D1B42D004F5DAC /* LaunchScreen.storyboard */,
