@@ -18,10 +18,10 @@ class Rectangle: Shape {
     
     var alpha: Int
     
-    required init(id: String, size: Size, point: Point, backgroundColor: BackgroundColor, alpha: Int) {
+    required init(id: String, point: Point, size: Size, backgroundColor: BackgroundColor, alpha: Int) {
         self.id = id
-        self.size = size
         self.point = point
+        self.size = size
         self.backgroundColor = backgroundColor
         self.alpha = alpha
     }

@@ -8,11 +8,11 @@
 import Foundation
 
 class ShapeFactory: ShapeCreator {
-    func createShape(shapeType: ShapeType, size: Size, point: Point, color: BackgroundColor, alpha: Int) -> Shape {
+    func createShape(shapeType: ShapeType, point: Point, size: Size, color: BackgroundColor, alpha: Int) -> Shape {
         let id = generateId()
         switch shapeType {
         case .rectangle:
-            return Rectangle(id: id, size: size, point: point, backgroundColor: color, alpha: alpha)
+            return Rectangle(id: id, point: point, size: size, backgroundColor: color, alpha: alpha)
         }
     }
     
