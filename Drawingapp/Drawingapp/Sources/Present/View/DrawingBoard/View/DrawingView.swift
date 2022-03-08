@@ -15,9 +15,8 @@ class DrawingView: UIView {
         return view
     }()
     
-    init(point: Point, size: Size, color: Color?, alpha: Alpha) {
+    init(point: Point, size: Size, alpha: Alpha) {
         super.init(frame: CGRect(x: point.x, y: point.y, width: size.width, height: size.height))
-        self.update(color: color)
         self.update(alpha: alpha)
         layout()
     }
@@ -38,14 +37,6 @@ class DrawingView: UIView {
         self.canvasView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         self.canvasView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         self.canvasView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
-    }
-    
-    func update(color: Color?) {
-        if let color = color {
-            canvasView.backgroundColor = UIColor(red: CGFloat(color.r) / 255, green: CGFloat(color.g) / 255, blue: CGFloat(color.b / 255), alpha: 1)
-        } else {
-            canvasView.backgroundColor = .clear
-        }
     }
     
     func update(alpha: Alpha) {

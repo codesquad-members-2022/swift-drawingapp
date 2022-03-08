@@ -58,7 +58,7 @@ class InspectorView: UIView {
     
     private func bind() {
         colorButton.button.addAction(UIAction{ _ in
-            guard let color = self.delegate?.usingColorFactory().make() else {
+            guard let color = self.delegate?.usingColorFactory().makeRandomColor() else {
                 return
             }
             self.delegate?.changeColorButtonTapped(color: color)
@@ -84,8 +84,16 @@ class InspectorView: UIView {
     }
     
     func update(model: DrawingModel) {
-        self.update(color: model.color)
         self.update(alpha: model.alpha)
+        
+        switch model {
+        case let model as RectangleModel:
+            self.update(color: model.color)
+        case model as PhotoModel:
+            self.update(color: nil)
+        default:
+            break
+        }
     }
     
     func update(color: Color?) {

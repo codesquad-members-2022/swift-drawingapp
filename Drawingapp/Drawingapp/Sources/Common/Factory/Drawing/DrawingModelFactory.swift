@@ -19,17 +19,16 @@ class DrawingModelFactory {
         self.colorFactory = colorFactory
     }
     
-    func makeModel() -> DrawingModel {
+    func makeRectangleModel() -> RectangleModel {
         let id = makeId()
         let size = sizeFactory.make()
         let point = pointFactory.make()
-        let color = colorFactory.make()
+        let color = colorFactory.makeRandomColor()
         let alpha = Alpha.allCases.randomElement() ?? .transpar10
-        
-        return DrawingModel(id: id, point: point, size: size, color: color, alpha: alpha)
+        return RectangleModel(id: id, point: point, size: size, color: color, alpha: alpha)
     }
     
-    func makeModel(url: URL) -> PhotoModel {
+    func makePhotoModel(url: URL) -> PhotoModel {
         let id = makeId()
         let size = sizeFactory.make()
         let point = pointFactory.make()
