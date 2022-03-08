@@ -42,50 +42,35 @@ struct RectRGBColor {
     var allValues: [Double] { [r, g, b] }
     static var maxValue: Double = 255
     static var maxAlpha: Double = 10
-    private var _r: Double
-    var r: Double {
-        get {
-            _r
-        }
-        set {
-            if 0...RectRGBColor.maxValue ~= newValue {
-                _r = newValue
-            }
-        }
-    }
     
-    private var _g: Double
-    var g: Double {
-        get {
-            _g
-        }
-        set {
-            if 0...RectRGBColor.maxValue ~= newValue {
-                _g = newValue
-            }
-        }
-    }
-    
-    private var _b: Double
-    var b: Double {
-        get {
-            _b
-        }
-        set {
-            if 0...RectRGBColor.maxValue ~= newValue {
-                _b = newValue
-            }
-        }
-    }
+    @ColorValue var r: Double
+    @ColorValue var g: Double
+    @ColorValue var b: Double
     
     init?(r: Double, g: Double, b: Double) {
         if !(0...RectRGBColor.maxValue ~= r) || !(0...RectRGBColor.maxValue ~= g) || !(0...RectRGBColor.maxValue ~= b) {
             return nil
         }
         
-        self._r = r
-        self._g = g
-        self._b = b
+        self.r = r
+        self.g = g
+        self.b = b
+    }
+}
+
+@propertyWrapper
+struct ColorValue {
+    private var _value: Double = 0
+    
+    var wrappedValue: Double {
+        get {
+            self._value
+        }
+        set {
+            if newValue >= 0 {
+                self._value = min(RectRGBColor.maxValue, newValue)
+            }
+        }
     }
 }
 
