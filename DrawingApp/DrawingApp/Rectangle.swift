@@ -150,9 +150,3 @@ struct Rectangle: CustomStringConvertible {
         self.alpha = alpha
     }
 }
-
-//extension UIColor {
-//    convenience init(red: Int, green: Int, blue: Int) {
-//        assert(
-//    }
-//}
