@@ -19,7 +19,7 @@ class CanvasView: UIImageView {
     
     // Factory method using ViewModel
     static func create(from viewModel: ViewModel) -> CanvasView {
-        let frame = Converter.toCGRect(origin: viewModel.origin, size: viewModel.size)
+        let frame = CGRect(origin: viewModel.origin, size: viewModel.size)
         let canvasView = CanvasView(frame: frame)
         
         if let photo = viewModel as? Photo {
@@ -27,11 +27,11 @@ class CanvasView: UIImageView {
         }
         
         if let colorMutableViewModel = viewModel as? ColorMutable {
-            canvasView.backgroundColor = Converter.toUIColor(colorMutableViewModel.color)
+            canvasView.backgroundColor = UIColor(with: colorMutableViewModel.color)
         }
         
         if let alphaMutableViewModel = viewModel as? AlphaMutable {
-            canvasView.alpha = Converter.toCGFloat(alphaMutableViewModel.alpha)
+            canvasView.alpha = CGFloat(with: alphaMutableViewModel.alpha)
         }
         
         return canvasView

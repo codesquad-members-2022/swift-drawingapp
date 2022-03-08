@@ -13,9 +13,14 @@ class PanelViewController: UIViewController {
     @IBOutlet weak var AlphaLabel: UILabel!
     @IBOutlet weak var alphaSlider: UISlider!
     
-    static let sliderChanged = Notification.Name("sliderChanged")
-    static let sliderValueKey = "value"
-    static let colorButtonPressed = Notification.Name("colorButtonPressed")
+    enum event {
+        static let sliderChanged = Notification.Name("sliderChanged")
+        static let colorButtonPressed = Notification.Name("colorButtonPressed")
+    }
+    
+    enum InfoKey {
+        static let sliderValue = "value"
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,9 +28,9 @@ class PanelViewController: UIViewController {
     }
     
     private func observePlane() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didSelectViewModel(_:)), name: Plane.selectViewModel, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didMutateColor(_:)), name: Plane.mutateColorViewModel, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didMutateAlpha(_:)), name: Plane.mutateAlphaViewModel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didSelectViewModel(_:)), name: Plane.event.selectViewModel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateColor(_:)), name: Plane.event.mutateColorViewModel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateAlpha(_:)), name: Plane.event.mutateAlphaViewModel, object: nil)
     }
 }
 
@@ -33,7 +38,7 @@ class PanelViewController: UIViewController {
 extension PanelViewController {
     @objc func didSelectViewModel(_ notification: Notification) {
 
-        guard let selected = notification.userInfo?[Plane.newViewModelKey] as? ViewModel else {
+        guard let selected = notification.userInfo?[Plane.InfoKey.new] as? ViewModel else {
             clearColorButton()
             clearAlphaSlider()
             return
@@ -55,7 +60,7 @@ extension PanelViewController {
     private func displayColor(_ selected: ColorMutable) {
         colorButton.isEnabled = true
         
-        let selectedColor = Converter.toUIColor(selected.color)
+        let selectedColor = UIColor(with: selected.color)
         colorButton.tintColor = selectedColor
         
         let selectedColorHex = selectedColor.toHex() ?? ""
@@ -93,7 +98,7 @@ extension PanelViewController {
 extension PanelViewController {
     
     @IBAction func ColorButtonPressed(_ sender: UIButton) {
-        NotificationCenter.default.post(name: PanelViewController.colorButtonPressed, object: self)
+        NotificationCenter.default.post(name: PanelViewController.event.colorButtonPressed, object: self)
     }
     
     @objc func didMutateColor(_ notification: Notification) {
@@ -103,7 +108,7 @@ extension PanelViewController {
     }
     
     @IBAction func SliderChanged(_ sender: UISlider) {
-        NotificationCenter.default.post(name: PanelViewController.sliderChanged, object: self, userInfo: [PanelViewController.sliderValueKey: sender.value])
+        NotificationCenter.default.post(name: PanelViewController.event.sliderChanged, object: self, userInfo: [PanelViewController.InfoKey.sliderValue: sender.value])
     }
     
     @objc func didMutateAlpha(_ notification: Notification) {
