@@ -27,6 +27,9 @@
 		E081806027D71A9C000633E1 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E081805F27D71A9C000633E1 /* PhotoModel.swift */; };
 		E081806327D7393C000633E1 /* RectangleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E081806227D7393C000633E1 /* RectangleModel.swift */; };
 		E081806527D73B03000633E1 /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E081806427D73B03000633E1 /* RectangleView.swift */; };
+		E081806927D75324000633E1 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E081805F27D71A9C000633E1 /* PhotoModel.swift */; };
+		E081806A27D75324000633E1 /* DrawingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E081805A27D719A8000633E1 /* DrawingModel.swift */; };
+		E081806B27D75324000633E1 /* RectangleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E081806227D7393C000633E1 /* RectangleModel.swift */; };
 		E0D7D9DE27CC594D00A56635 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9DD27CC594D00A56635 /* AppDelegate.swift */; };
 		E0D7D9E027CC594D00A56635 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9DF27CC594D00A56635 /* SceneDelegate.swift */; };
 		E0D7D9E227CC594D00A56635 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9E127CC594D00A56635 /* ViewController.swift */; };
@@ -519,13 +522,16 @@
 			files = (
 				E034561C27D1ADFD0036988A /* ColorFactory.swift in Sources */,
 				E034561627D1ADF30036988A /* Point.swift in Sources */,
+				E081806B27D75324000633E1 /* RectangleModel.swift in Sources */,
 				E034561727D1ADF30036988A /* Size.swift in Sources */,
 				E034561927D1ADF30036988A /* Alpha.swift in Sources */,
 				E034561D27D1ADFD0036988A /* PointFactory.swift in Sources */,
 				E034562027D1AE020036988A /* DrawingModelFactory.swift in Sources */,
 				E034561A27D1ADF30036988A /* Color.swift in Sources */,
 				E034561B27D1ADFD0036988A /* SizeFactory.swift in Sources */,
+				E081806927D75324000633E1 /* PhotoModel.swift in Sources */,
 				E034561827D1ADF30036988A /* Plane.swift in Sources */,
+				E081806A27D75324000633E1 /* DrawingModel.swift in Sources */,
 				E0D7D9F527CC594E00A56635 /* DrawingappTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
