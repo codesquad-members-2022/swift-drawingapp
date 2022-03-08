@@ -88,8 +88,8 @@ struct Rectangle: CustomStringConvertible {
     }
     
     struct Bound {
-        let xBound: ClosedRange<Double>
-        let yBound: ClosedRange<Double>
+        let rangeOfX: ClosedRange<Double>
+        let rangeOfY: ClosedRange<Double>
     }
     
     struct Point {
@@ -139,7 +139,7 @@ struct Rectangle: CustomStringConvertible {
     func rangeOfPoint() -> Bound {
         let boundOfX = point.x...(point.x + size.width)
         let boundOfY = point.y...(point.y + size.height)
-        return Bound(xBound: boundOfX, yBound: boundOfY)
+        return Bound(rangeOfX: boundOfX, rangeOfY: boundOfY)
     }
     
     init(id: String, point: Point, size: Size, color : BackgroundColor, alpha: Alpha) {
