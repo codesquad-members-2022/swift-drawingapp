@@ -14,8 +14,23 @@ class DrawingAppTests: XCTestCase {
         sut = nil
         try super.tearDownWithError()
     }
-    func testRectangleColor() {
-        //given
+    
+    class TestViewController: PlaneDelegate {
+        var rectangle: Rectangle?
+        func didMakeRectangle(rectangle: Rectangle) {
+            self.rectangle = rectangle
+        }
+    }
+    
+    let testViewController = TestViewController()
+    let model = Plane() // 쉬이이잉 3번
+    
+    func testMakeRectangle() {
         
+        model.delegate = testViewController
+        
+        //1번,2번 : 이벤트가 발생 + 모델 만들어
+        self.model.addRectangle()
+        XCTAssertTrue(testViewController.rectangle != nil)
     }
 }
