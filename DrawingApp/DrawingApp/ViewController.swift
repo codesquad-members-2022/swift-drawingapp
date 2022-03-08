@@ -6,9 +6,14 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        showRectangleViews()
+    }
+    
+    func showRectangleViews() {
         for _ in 0..<4 {
             self.plane.addRectangle()
         }
+        
         for index in 0..<plane.rectangleCount {
             let rectangle = plane[index]
             let rectView = UIView(frame: CGRect(x: rectangle.getPoint().x, y: rectangle.getPoint().y, width: rectangle.getSize().width, height: rectangle.getSize().height))
