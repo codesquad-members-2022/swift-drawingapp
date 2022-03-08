@@ -108,10 +108,8 @@ class ViewController: UIViewController {
     
     @IBAction func alphaSliderValueChanged(_ sender: UISlider) {
         let newAlphaValue = Double(String(format: "%.1f", sender.value)) ?? 0
-        let convertedOpacityLevel = Int(10 * newAlphaValue)
-        guard let newAlpha = Alpha(opacityLevel: convertedOpacityLevel) else {
-            return
-        }
+        guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: newAlphaValue) else {return}
+        let newAlpha = Alpha(opacityLevel: convertedOpacityLevel)
         guard let touchedView = touchedView else {
             return
         }
@@ -128,10 +126,8 @@ class ViewController: UIViewController {
         minusAlphaValueButton.backgroundColor = .white
         
         let newAlphaValue = Double(String(format: "%.1f",touchedView.alpha - 0.1)) ?? 0.1
-        let convertedOpacityLevel = Int(10 * newAlphaValue)
-        guard let newAlpha = Alpha(opacityLevel: convertedOpacityLevel) else {
-            return
-        }
+        guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: newAlphaValue) else {return}
+        let newAlpha = Alpha(opacityLevel: convertedOpacityLevel)
         plane.changeAlphaValueOfRectangle(id: touchedView.id, to: newAlpha)
     }
     @IBAction func plusAlphaValueButtonTouched(_ sender: UIButton) {
@@ -143,10 +139,8 @@ class ViewController: UIViewController {
         plusAlphaValueButton.backgroundColor = .white
         
         let newAlphaValue = Double(String(format: "%.1f",(touchedView.alpha + 0.1))) ?? 1.0
-        let convertedOpacityLevel = Int(10 * newAlphaValue)
-        guard let newAlpha = Alpha(opacityLevel: convertedOpacityLevel) else {
-            return
-        }
+        guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: newAlphaValue) else {return}
+        let newAlpha = Alpha(opacityLevel: convertedOpacityLevel)
         plane.changeAlphaValueOfRectangle(id: touchedView.id, to: newAlpha)
     }
     

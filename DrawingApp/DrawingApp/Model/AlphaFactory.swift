@@ -9,7 +9,7 @@ import Foundation
 
 class AlphaFactory {
     public static func generateRandomAlpha() -> Alpha? {
-        let randomOpacityLevel = Alpha.possibleOpacityLevels.randomElement() ?? 10
+        let randomOpacityLevel = OpacityLevel.possibleOpacityLevels.randomElement() ?? OpacityLevel.ten
         return Alpha(opacityLevel: randomOpacityLevel)
     }
 }
