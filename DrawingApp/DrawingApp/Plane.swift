@@ -9,6 +9,7 @@ import Foundation
 
 protocol PlaneDelegate: AnyObject {
     func didCreate(rect: Rectangle)
+    func didSelected(rect: Rectangle?)
 }
 
 
@@ -25,5 +26,16 @@ class Plane {
     
     func countRect() -> Int {
         return rectangles.count
+    }
+    
+    func selectRect(inside point: Point) {
+        var selectedRect: Rectangle?
+        for rect in rectangles {
+            if rect.contain(inside: point) {
+                selectedRect = rect
+                break
+            }
+        }
+        self.delegate?.didSelected(rect: selectedRect)
     }
 }
