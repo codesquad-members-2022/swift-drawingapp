@@ -27,6 +27,7 @@ class RoundedButton: UIButton {
         self.backgroundColor = backgroundColor
         self.setTitle("Button", for: .normal)
         self.setBorder(width: 1, radius: 10, color: borderColor)
+        self.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleTopMargin, .flexibleLeftMargin, .flexibleBottomMargin, .flexibleRightMargin]
     }
     
     func setBorder(width: Int, radius: Int = 0, color: UIColor?) {

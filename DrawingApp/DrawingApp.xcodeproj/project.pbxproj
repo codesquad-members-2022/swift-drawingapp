@@ -27,6 +27,9 @@
 		E481266927CCF8E000A3FFF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E481266727CCF8E000A3FFF6 /* Main.storyboard */; };
 		E481266B27CCF8E100A3FFF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E481266A27CCF8E100A3FFF6 /* Assets.xcassets */; };
 		E481266E27CCF8E100A3FFF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E481266C27CCF8E100A3FFF6 /* LaunchScreen.storyboard */; };
+		E49679E827D71AF900A9BA27 /* AutoresizingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49679E727D71AF900A9BA27 /* AutoresizingLabel.swift */; };
+		E49679EA27D7288000A9BA27 /* AlphaSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49679E927D7288000A9BA27 /* AlphaSlider.swift */; };
+		E49679EC27D7291500A9BA27 /* AlphaStepper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E49679EB27D7291500A9BA27 /* AlphaStepper.swift */; };
 		E4D3DFA227CEFE490096810A /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D3DFA127CEFE490096810A /* Point.swift */; };
 		E4D3DFA427CEFE7C0096810A /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D3DFA327CEFE7C0096810A /* Size.swift */; };
 		E4D3DFA627CEFE7F0096810A /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D3DFA527CEFE7F0096810A /* Color.swift */; };
@@ -77,6 +80,9 @@
 		E481266A27CCF8E100A3FFF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E481266D27CCF8E100A3FFF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E481266F27CCF8E100A3FFF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E49679E727D71AF900A9BA27 /* AutoresizingLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoresizingLabel.swift; sourceTree = "<group>"; };
+		E49679E927D7288000A9BA27 /* AlphaSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphaSlider.swift; sourceTree = "<group>"; };
+		E49679EB27D7291500A9BA27 /* AlphaStepper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphaStepper.swift; sourceTree = "<group>"; };
 		E4D3DFA127CEFE490096810A /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		E4D3DFA327CEFE7C0096810A /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		E4D3DFA527CEFE7F0096810A /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -132,6 +138,9 @@
 				E4002E9527D5B00300F14AFD /* RectangleView.swift */,
 				E41EE3AE27D6EAA7007C7595 /* PlaneView.swift */,
 				E41EE3B027D6F478007C7595 /* ControlPanelView.swift */,
+				E49679EB27D7291500A9BA27 /* AlphaStepper.swift */,
+				E49679E927D7288000A9BA27 /* AlphaSlider.swift */,
+				E49679E727D71AF900A9BA27 /* AutoresizingLabel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -327,10 +336,13 @@
 				E4E8082F27CDF0C100F4C062 /* Rectangle.swift in Sources */,
 				E4D3DFA227CEFE490096810A /* Point.swift in Sources */,
 				E4E637AF27D1E6EE00B90B24 /* ColorFactory.swift in Sources */,
+				E49679EC27D7291500A9BA27 /* AlphaStepper.swift in Sources */,
 				E4641B5027D0A80200815795 /* IdentifierFactory.swift in Sources */,
+				E49679EA27D7288000A9BA27 /* AlphaSlider.swift in Sources */,
 				E4D3DFA627CEFE7F0096810A /* Color.swift in Sources */,
 				E48109E927D61E93007B0E3F /* UIColor+Extensions.swift in Sources */,
 				E4D3DFA827CEFEB90096810A /* Alpha.swift in Sources */,
+				E49679E827D71AF900A9BA27 /* AutoresizingLabel.swift in Sources */,
 				E48109E627D61E2F007B0E3F /* Double+Random.swift in Sources */,
 				E4E8083127CE062600F4C062 /* ShapeFactoryCluster.swift in Sources */,
 				E481266627CCF8E000A3FFF6 /* ViewController.swift in Sources */,
