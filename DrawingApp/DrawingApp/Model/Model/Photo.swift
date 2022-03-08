@@ -9,13 +9,13 @@ import Foundation
 
 class Photo: ViewModel {
     
-    private(set) var id: String
+    private(set) var id: ID
     private(set) var origin: Point
     private(set) var size: Size
     private(set) var data: Data
     private(set) var alpha: Alpha
 
-    init(id: String, origin: Point, size: Size, photo: Data, alpha: Alpha) {
+    init(id: ID, origin: Point, size: Size, photo: Data, alpha: Alpha) {
         self.id = id
         self.origin = origin
         self.size = size
@@ -24,10 +24,10 @@ class Photo: ViewModel {
     }
     
     static func create(from data: Data) -> Photo {
-        let photoID = Photo.createID()
-        let origin = Photo.createPoint()
-        let size = Photo.createSize()
-        let alpha = Photo.createAlpha()
+        let photoID = ID.random()
+        let origin = Point.random()
+        let size = Size.standard()
+        let alpha = Alpha.random()
         
         return Photo(id: photoID, origin: origin, size: size, photo: data, alpha: alpha)
     }

@@ -31,6 +31,7 @@
 		BC802D5D27D5FA29002BD536 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC802D5C27D5FA29002BD536 /* Photo.swift */; };
 		BC802D5E27D60092002BD536 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC802D5A27D5F96F002BD536 /* ViewModel.swift */; };
 		BC802D5F27D60095002BD536 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC802D5C27D5FA29002BD536 /* Photo.swift */; };
+		BC802D6127D72C10002BD536 /* ID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC802D6027D72C10002BD536 /* ID.swift */; };
 		BCE3CB8027CC6D8E004F2AFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE3CB7F27CC6D8E004F2AFE /* AppDelegate.swift */; };
 		BCE3CB8227CC6D8E004F2AFE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE3CB8127CC6D8E004F2AFE /* SceneDelegate.swift */; };
 		BCE3CB8427CC6D8E004F2AFE /* CanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE3CB8327CC6D8E004F2AFE /* CanvasViewController.swift */; };
@@ -74,6 +75,7 @@
 		BC7ECF9827CCCB3300BC6AEC /* step1_1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = step1_1.png; sourceTree = "<group>"; };
 		BC802D5A27D5F96F002BD536 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		BC802D5C27D5FA29002BD536 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		BC802D6027D72C10002BD536 /* ID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ID.swift; sourceTree = "<group>"; };
 		BCE3CB7C27CC6D8E004F2AFE /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCE3CB7F27CC6D8E004F2AFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCE3CB8127CC6D8E004F2AFE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 			children = (
 				BC1806C427CF49A90057679D /* Plane.swift */,
 				BC802D5A27D5F96F002BD536 /* ViewModel.swift */,
+				BC802D6027D72C10002BD536 /* ID.swift */,
 				BC802D5C27D5FA29002BD536 /* Photo.swift */,
 				BC7ECF8D27CCB46A00BC6AEC /* Rectangle.swift */,
 				BC7ECF9127CCB8CA00BC6AEC /* Color.swift */,
@@ -382,6 +385,7 @@
 				BC1806BF27CF40970057679D /* Alpha.swift in Sources */,
 				BC1806C327CF41C30057679D /* Point.swift in Sources */,
 				BCE3CB8027CC6D8E004F2AFE /* AppDelegate.swift in Sources */,
+				BC802D6127D72C10002BD536 /* ID.swift in Sources */,
 				BC7ECF9227CCB8CA00BC6AEC /* Color.swift in Sources */,
 				BCE3CB8227CC6D8E004F2AFE /* SceneDelegate.swift in Sources */,
 				BC1806D127D06DEF0057679D /* CanvasView.swift in Sources */,

@@ -14,4 +14,8 @@ struct Size: CustomStringConvertible {
     var description: String {
         "W\(width), H\(height)"
     }
+    
+    static func standard() -> Size {
+        return Size(width: 150.0, height: 120.0)
+    }
 }

@@ -16,6 +16,12 @@ struct Point: CustomStringConvertible {
         self.y = y
     }
     
+    static func random() -> Point {
+        let randomX = Double(Int.random(in: 10...700))
+        let randomY = Double(Int.random(in: 10...500))
+        return Point(x: randomX, y: randomY)
+    }
+    
     var description: String {
         "X:\(x), Y:\(y)"
     }

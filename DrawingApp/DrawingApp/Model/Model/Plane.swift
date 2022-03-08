@@ -65,7 +65,7 @@ class Plane {
         NotificationCenter.default.post(name: Plane.selectViewModel, object: self, userInfo: [Plane.oldViewModelKey: oldSelected as Any, Plane.newViewModelKey: selected as Any])
     }
     
-    func transform(to color: Color = Rectangle.createColor()) {
+    func transform(to color: Color = Color.random()) {
         guard let mutableViewModel = selected as? ColorMutable else { return }
         mutableViewModel.transform(to: color)
         NotificationCenter.default.post(name: Plane.mutateColorViewModel, object: self)

@@ -21,6 +21,12 @@ struct Color: CustomStringConvertible {
         self.blue = blue / 255
     }
     
+    static func random() -> Color {
+        return Color(r: Float.random(in: 0...255),
+                     g: Float.random(in: 0...255),
+                     b: Float.random(in: 0...255))!
+    }
+    
     var description: String {
         "R:\(red), G:\(green), B:\(blue)"
     }
