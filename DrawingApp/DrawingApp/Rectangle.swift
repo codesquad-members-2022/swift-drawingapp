@@ -99,6 +99,11 @@ struct Rectangle: CustomStringConvertible {
         init() {
             random()
         }
+        
+        init(x: Double, y: Double) {
+            self.x = x
+            self.y = y
+        }
     }
 
     var description: String {
