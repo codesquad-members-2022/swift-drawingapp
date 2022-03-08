@@ -7,7 +7,31 @@
 
 import UIKit
 
+protocol RectangleViewDelegate {
+    func rectangleViewDidTap()
+}
+
 class RectangleView: UIView {
+    var delegate: RectangleViewDelegate?
+    
+    // MARK: - Initialisers
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.configureTapGesture()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        self.configureTapGesture()
+    }
+    
+    // MARK: - Configuration
+    func configureTapGesture() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
+        self.addGestureRecognizer(tap)
+    }
+    
+    // MARK: - UI changing methods
     func setBackgroundColor(color: Color, alpha: Alpha = .opaque) {
         let alphaValue = alpha.convert(using: CGFloat.self) / 10
         self.backgroundColor = UIColor(red: color.red, green: color.green, blue: color.blue, alpha: alphaValue)
@@ -34,5 +58,10 @@ class RectangleView: UIView {
         self.layer.cornerRadius = 0
         self.layer.borderWidth = 0
         self.layer.borderColor = .none
+    }
+    
+    @objc func handleTap(_ sender: UITapGestureRecognizer) {
+        guard sender.state == .ended else { return }
+        self.delegate?.rectangleViewDidTap()
     }
 }

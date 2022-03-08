@@ -13,8 +13,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var alphaSlider: UISlider!
     @IBOutlet weak var stepper: UIStepper!
     
-    @IBOutlet weak var addButton: RoundedButton!
-    @IBOutlet weak var planeView: UIView!
+    @IBOutlet weak var planeView: PlaneView!
     
     /**
      선택된 View 에 변화를 주는 것은 컨트롤러의 역할이므로 해당 View 의 참조를 컨트롤러의 속성으로 저장하였습니다.
@@ -28,12 +27,16 @@ class ViewController: UIViewController {
     // MARK: - View Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.configureDelegate()
         self.configureUI()
     }
     
     // MARK: - UI Configuration Methods
+    func configureDelegate() {
+        self.planeView.delegate = self
+    }
+    
     func configureUI() {
-        self.configurePlane()
         self.configureButtons()
         self.configureStepper()
         self.alphaSlider.isEnabled = false
@@ -45,13 +48,7 @@ class ViewController: UIViewController {
         self.stepper.addTarget(self, action: #selector(self.handleOnChangeAlphaStep), for: .valueChanged)
     }
     
-    func configurePlane() {
-        let touchRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.clearSelectedRectangle))
-        self.planeView.addGestureRecognizer(touchRecognizer)
-    }
-    
     func configureButtons() {
-        self.addButton.addTarget(self, action: #selector(self.handleOnPressAddRectangle), for: .touchUpInside)
         self.colorButton.addTarget(self, action: #selector(self.handleOnPressColorButton), for: .touchUpInside)
         
         let color = UIColor.random()
@@ -65,29 +62,6 @@ class ViewController: UIViewController {
         guard let rectangleView = self.selectedRectangleView else { return }
         
         rectangleView.setBackgroundColor(with: CGFloat(self.alphaSlider.value) / 10)
-    }
-    
-    @objc func clearSelectedRectangle(_ sender: UITapGestureRecognizer) {
-        guard sender.state == .ended else { return }
-        
-        self.stepper.isEnabled = false
-        self.revertRectangleChange()
-    }
-    
-    @objc func handleOnPressAddRectangle(_ sender: UIButton) {
-        let rectangle = RectangleFactory.makeRandomRectangle()
-        plane.append(item: rectangle)
-        
-        let frame = rectangle.convert(using: CGRect.self)
-        let rectangleView = RectangleView(frame: frame)
-        
-        rectangleView.setBackgroundColor(color: rectangle.backgroundColor, alpha: rectangle.alpha)
-        rectangleView.accessibilityIdentifier = rectangle.id
-        
-        let touchRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.tapRectangle))
-        rectangleView.addGestureRecognizer(touchRecognizer)
-        
-        self.planeView.addSubview(rectangleView)
     }
     
     @objc func tapRectangle(_ sender: UITapGestureRecognizer) {
@@ -125,5 +99,32 @@ class ViewController: UIViewController {
         rectangleView.removeBorder()
         rectangleView.setBackgroundColor(color: rectangle.backgroundColor, alpha: rectangle.alpha)
         
+    }
+}
+
+extension ViewController: PlaneViewDelegate {
+    func planeViewDidTapRectangleView() {
+        
+    }
+    
+    func planeViewDidTapped() {
+        self.stepper.isEnabled = false
+        self.revertRectangleChange()
+    }
+    
+    func planeViewDidPressRectangleAddButton() {
+        let rectangle = RectangleFactory.makeRandomRectangle()
+        plane.append(item: rectangle)
+        
+        let frame = rectangle.convert(using: CGRect.self)
+        let rectangleView = RectangleView(frame: frame)
+        
+        rectangleView.setBackgroundColor(color: rectangle.backgroundColor, alpha: rectangle.alpha)
+        rectangleView.accessibilityIdentifier = rectangle.id
+        
+        let touchRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.tapRectangle))
+        rectangleView.addGestureRecognizer(touchRecognizer)
+        
+        self.planeView.addSubview(rectangleView)
     }
 }
