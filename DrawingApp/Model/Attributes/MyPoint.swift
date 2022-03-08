@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MyPoint{
+struct MyPoint: Equatable{
     let x: Double
     let y: Double
     

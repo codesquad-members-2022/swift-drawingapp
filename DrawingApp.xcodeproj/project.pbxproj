@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D24BDFF727D6567B006FB721 /* RightAttributerViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24BDFF627D6567B006FB721 /* RightAttributerViewDelegate.swift */; };
+		D24BDFF727D6567B006FB721 /* UIColorSilderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D24BDFF627D6567B006FB721 /* UIColorSilderDelegate.swift */; };
 		D255615A27CEFA4700B4F9D7 /* MyPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255615927CEFA4700B4F9D7 /* MyPoint.swift */; };
 		D255615C27CEFA5C00B4F9D7 /* RGBColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255615B27CEFA5C00B4F9D7 /* RGBColor.swift */; };
 		D255615E27CEFA7000B4F9D7 /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255615D27CEFA7000B4F9D7 /* Alpha.swift */; };
 		D255616127CF003000B4F9D7 /* IDFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255616027CF003000B4F9D7 /* IDFactory.swift */; };
 		D255617127CF42A000B4F9D7 /* RightAttributerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255617027CF42A000B4F9D7 /* RightAttributerView.swift */; };
-		D255617327CF492F00B4F9D7 /* RandomRectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255617227CF492F00B4F9D7 /* RandomRectangleView.swift */; };
+		D255617327CF492F00B4F9D7 /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255617227CF492F00B4F9D7 /* RectangleView.swift */; };
 		D255617A27CFBA2E00B4F9D7 /* RandomRectangleMakerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255617927CFBA2E00B4F9D7 /* RandomRectangleMakerTest.swift */; };
 		D255617C27CFBB8F00B4F9D7 /* PlaneTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255617B27CFBB8F00B4F9D7 /* PlaneTest.swift */; };
 		D26D915727CC67E8007507AE /* MySize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26D915627CC67E8007507AE /* MySize.swift */; };
@@ -41,13 +41,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D24BDFF627D6567B006FB721 /* RightAttributerViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightAttributerViewDelegate.swift; sourceTree = "<group>"; };
+		D24BDFF627D6567B006FB721 /* UIColorSilderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorSilderDelegate.swift; sourceTree = "<group>"; };
 		D255615927CEFA4700B4F9D7 /* MyPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPoint.swift; sourceTree = "<group>"; };
 		D255615B27CEFA5C00B4F9D7 /* RGBColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RGBColor.swift; sourceTree = "<group>"; };
 		D255615D27CEFA7000B4F9D7 /* Alpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alpha.swift; sourceTree = "<group>"; };
 		D255616027CF003000B4F9D7 /* IDFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IDFactory.swift; sourceTree = "<group>"; };
 		D255617027CF42A000B4F9D7 /* RightAttributerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightAttributerView.swift; sourceTree = "<group>"; };
-		D255617227CF492F00B4F9D7 /* RandomRectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomRectangleView.swift; sourceTree = "<group>"; };
+		D255617227CF492F00B4F9D7 /* RectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
 		D255617927CFBA2E00B4F9D7 /* RandomRectangleMakerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomRectangleMakerTest.swift; sourceTree = "<group>"; };
 		D255617B27CFBB8F00B4F9D7 /* PlaneTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneTest.swift; sourceTree = "<group>"; };
 		D26D915627CC67E8007507AE /* MySize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySize.swift; sourceTree = "<group>"; };
@@ -88,7 +88,7 @@
 		D24BDFF527D65669006FB721 /* Delegate */ = {
 			isa = PBXGroup;
 			children = (
-				D24BDFF627D6567B006FB721 /* RightAttributerViewDelegate.swift */,
+				D24BDFF627D6567B006FB721 /* UIColorSilderDelegate.swift */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";
@@ -118,7 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				D255617027CF42A000B4F9D7 /* RightAttributerView.swift */,
-				D255617227CF492F00B4F9D7 /* RandomRectangleView.swift */,
+				D255617227CF492F00B4F9D7 /* RectangleView.swift */,
 				D24BDFF527D65669006FB721 /* Delegate */,
 			);
 			path = View;
@@ -309,9 +309,9 @@
 			files = (
 				D255615C27CEFA5C00B4F9D7 /* RGBColor.swift in Sources */,
 				D255616127CF003000B4F9D7 /* IDFactory.swift in Sources */,
-				D24BDFF727D6567B006FB721 /* RightAttributerViewDelegate.swift in Sources */,
+				D24BDFF727D6567B006FB721 /* UIColorSilderDelegate.swift in Sources */,
 				D255615A27CEFA4700B4F9D7 /* MyPoint.swift in Sources */,
-				D255617327CF492F00B4F9D7 /* RandomRectangleView.swift in Sources */,
+				D255617327CF492F00B4F9D7 /* RectangleView.swift in Sources */,
 				D255617127CF42A000B4F9D7 /* RightAttributerView.swift in Sources */,
 				D273EAE227CC5C6500DCDF78 /* MainViewController.swift in Sources */,
 				D26D915B27CCB8B3007507AE /* Plane.swift in Sources */,

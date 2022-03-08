@@ -8,7 +8,7 @@
 import UIKit
 import os
 
-class RandomRectangleView: UIView {
+class RectangleView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
     }

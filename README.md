@@ -3,8 +3,27 @@
 
 | 날짜       | 번호   | 내용                             | 비고                                             |
 | ---------- | :----- | ------------------------------| ---------------------------------------------- |
+| 2022.03.08 | Step03 | 관찰자(Observer) 패턴 적용        | Step02 단계에서 구현한 기능 Observer패턴과 결합         |
 | 2022.03.04 | Step02 | 속성 변경 동작                   | 사각형 속성 조정 컨트롤 뷰 및 관련 기능 구현              |
 | 2022.02.28 | Step01 | 아이패드 앱 프로젝트               | 사각형 View 랜덤 생성 관련 Model, VC 구현             |
+
+------
+## [Step03] 
+### Description
+- 기존 기능들을 유지하며 Observer 패턴 적용
+
+### Task
+- [x] Observer 패턴 적용
+    - [x] Model - VC 간에 NotificationCenter를 활용하여 패턴 적용
+    - [x] Notification.Name 설정 및 userInfo 활용
+    - [x] View - VC는 Delegate 패턴 유지
+- [x] extension을 활용하여 기능 별로 분할 정리
+- [x] 전반적인 로직 개선
+    
+### 결과 화면
+- 정상 작동.gif
+<img src = "https://user-images.githubusercontent.com/44107696/156959735-2c319771-b731-44ad-be14-ce12e09642a0.gif" width="710" height="570">
+
 
 ------
 ## [Step02] 
