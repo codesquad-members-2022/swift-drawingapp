@@ -29,6 +29,15 @@ class RectangleView: UIView {
         let color = rectangle.backGroundColor
         let alpha = rectangle.alpha
         self.frame = CGRect(x: position.x , y: position.y, width: size.width, height: size.height)
-        self.backgroundColor = UIColor(red: color.red, green: color.green, blue: color.blue, alpha: alpha.transparency)
+        setBackgroundColor(color: color)
+        self.alpha = alpha.transparency
+    }
+    
+    func setAlpha(alpha: Alpha) {
+        self.alpha = alpha.transparency
+    }
+    
+    func setBackgroundColor(color : Color) {
+        self.backgroundColor = UIColor(red: color.red, green: color.green, blue: color.blue, alpha: 1)
     }
 }

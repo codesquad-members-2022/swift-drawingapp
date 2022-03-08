@@ -10,19 +10,19 @@ import OSLog
 
 class ViewController: UIViewController {
     
-    let rectangleViewBoard = UIView()
+    let rectangleViewBoard = RectangleViewBoard()
     let rectanglePropertyChangeBoard = PropertyChangeBoard()
     let addRectangleButton = UIButton()
    
-    
     let rectangleFactory = RectangleFactory(screenSize: (800, 570))
     let plane = Plane()
     
-    var selectedRectangle : Rectangle? = nil
-    var selectedRectangleView : UIView? = nil
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        rectangleFactory.delegate = self
+        rectanglePropertyChangeBoard.delegate = self
+        plane.delegate = self
+        rectangleViewBoard.delegate = self
         initialScreenSetUp()
     }
     
@@ -38,7 +38,7 @@ class ViewController: UIViewController {
             self.rectangleViewBoard.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.9).isActive = true
             self.rectangleViewBoard.widthAnchor.constraint(equalTo: safeArea.widthAnchor, multiplier: 0.8).isActive = true
                         
-            let tap = UITapGestureRecognizer(target: self, action: #selector(ViewController.tap(_:)))
+            let tap = UITapGestureRecognizer(target: self, action: #selector(ViewController.tapRectangleViewBoard(_:)))
             self.rectangleViewBoard.addGestureRecognizer(tap)
             self.rectangleViewBoard.clipsToBounds = true
         }
@@ -78,37 +78,58 @@ class ViewController: UIViewController {
     }
     
     @objc func addNewRectangle() {
-        guard let newRectangle = rectangleFactory.makeRandomRectangle() else {return}
-        plane.addRectangle(rectangle: newRectangle)
-        let newRectangleView = RectangleView(from: newRectangle)
-        let tap = UITapGestureRecognizer(target: self, action: #selector(ViewController.tap(_:)))
-        newRectangleView.addGestureRecognizer(tap)
-        self.rectangleViewBoard.addSubview(newRectangleView)
+        rectangleFactory.makeRandomRectangle()
     }
     
-    @objc func tap(_ gestureRecognizer: UITapGestureRecognizer) {
-        if self.selectedRectangleView != nil {
-            self.selectedRectangleView?.layer.borderWidth = 0
-            self.selectedRectangleView = nil
-        }
-        if gestureRecognizer.view != self.rectangleViewBoard {
-            self.selectedRectangleView = gestureRecognizer.view
-            self.selectedRectangleView?.layer.borderWidth = 2
-            self.selectedRectangleView?.layer.borderColor = UIColor.blue.cgColor
-        }
-        
-        guard let color = self.selectedRectangleView?.backgroundColor?.cgColor.components else {
-            self.rectanglePropertyChangeBoard.colorChangeButton.setTitle("", for: .normal)
-            self.rectanglePropertyChangeBoard.alphaChangeSlider.value = 0
-            return
-        }
-        let red = Int(color[0] * 255)
-        let green = Int(color[1] * 255)
-        let blue = Int(color[2] * 255)
-        let alpha = Float(color[3] * 10)
-        
-        self.rectanglePropertyChangeBoard.colorChangeButton.setTitle("\(String(format: "#%02X%02X%02x", red, green, blue))", for: .normal)
-        self.rectanglePropertyChangeBoard.alphaChangeSlider.value = alpha
+    @objc func tapRectangleViewBoard(_ gestureRecognizer: UITapGestureRecognizer) {
+        let touchedLocation = gestureRecognizer.location(in: gestureRecognizer.view)
+        let touchedPosition = Position(x: touchedLocation.x, y: touchedLocation.y)
+        plane.searchRectangle(at: touchedPosition)
     }
 }
 
+extension ViewController: PropertyChangeBoardDelegate {
+    func didTouchedColorButton() {
+        plane.changeRandomColor()
+    }
+    
+    func didUpateAlpha(alpha: Alpha) {
+        plane.updateAlphaValue(with: alpha)
+    }
+}
+
+extension ViewController: RectangleFactoryDelegate {
+    func didMadeRectangle(rectangle : Rectangle) {
+        plane.addRectangle(rectangle: rectangle)
+        
+    }
+}
+
+extension ViewController: PlaneDelegate {
+    func didChangedColor(color: Color) {
+        rectangleViewBoard.updateColor(color: color)
+    }
+    
+    func didUpdatedAlpha(alpha: Alpha) {
+        self.rectangleViewBoard.updateAlpha(alpha: alpha)
+    }
+    
+    func didAddRectangle(rectangle: Rectangle) {
+        let rectangleView = RectangleView(from: rectangle)
+        self.rectangleViewBoard.addSubview(rectangleView)
+    }
+    
+    func didSearchRectangle(index: Int) {
+        let selectedRectangleView = self.rectangleViewBoard.subviews[index]
+        self.rectangleViewBoard.selectedRectangleView = selectedRectangleView as? RectangleView
+        self.rectanglePropertyChangeBoard.setPropertyBoard(with: selectedRectangleView as? RectangleView)
+    }
+    
+}
+
+extension ViewController: RectangleViewBoardDelegate {
+    func didUpdatedColor() {
+        rectanglePropertyChangeBoard.updateColorButton()
+    }
+
+}

@@ -8,11 +8,19 @@
 import Foundation
 import UIKit
 
+protocol PropertyChangeBoardDelegate {
+    func didUpdatedAlpha(alpha: Alpha)
+    func didTouchedColorButton()
+}
+
 class PropertyChangeBoard : UIView {
     private let colorLabel = UILabel()
-    let colorChangeButton = UIButton()
+    private let colorChangeButton = UIButton()
     private let alphaLabel = UILabel()
-    let alphaChangeSlider = UISlider()
+    private let alphaChangeSlider = UISlider()
+    var delegate : PropertyChangeBoardDelegate?
+    
+    var selectedRectangleView : RectangleView?
      
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -53,6 +61,8 @@ class PropertyChangeBoard : UIView {
             self.colorChangeButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.05).isActive = true
             self.colorChangeButton.leadingAnchor.constraint(equalTo: self.colorLabel.leadingAnchor).isActive = true
             self.colorChangeButton.trailingAnchor.constraint(equalTo: self.colorLabel.trailingAnchor).isActive = true
+            
+            self.colorChangeButton.addTarget(self, action: #selector(self.touchButton), for: .touchUpInside)
         }
         
         let layoutAlphaLabel = {
@@ -88,11 +98,35 @@ class PropertyChangeBoard : UIView {
         layoutAlphaChangeSlider()
     }
     
-    @objc func moveSlider() {
-        print(self.alphaChangeSlider.value)
+    func setPropertyBoard(with rectangleView: RectangleView?) {
+        if self.selectedRectangleView != nil {
+            self.selectedRectangleView?.layer.borderWidth = 0
+            self.selectedRectangleView = nil
+        }
+        self.selectedRectangleView = rectangleView
+        self.selectedRectangleView?.layer.borderWidth = 2
+        self.selectedRectangleView?.layer.borderColor = UIColor.blue.cgColor
+        guard let alpha = self.selectedRectangleView?.alpha else {return}
+        self.alphaChangeSlider.value = Float(Int(alpha * 10))
+        updateColorButton()
     }
     
-    func presentSelectedRectangleAttribute(color: Color, alpha: Alpha) {
-        
+    func updateColorButton() {
+        guard let color = self.selectedRectangleView?.backgroundColor?.cgColor.components else {
+            return
+        }
+        let red = Int(color[0] * 255)
+        let green = Int(color[1] * 255)
+        let blue = Int(color[2] * 255)
+        self.colorChangeButton.setTitle("\(String(format: "#%02X%02X%02x", red, green, blue))", for: .normal)
+    }
+    
+    @objc func moveSlider() {
+        guard let updatedAlpha = Alpha(transparency: Double(self.alphaChangeSlider.value/10)) else {return}
+        delegate?.didUpdatedAlpha(alpha: updatedAlpha)
+    }
+    
+    @objc func touchButton() {
+        delegate?.didTouchedColorButton()
     }
 }

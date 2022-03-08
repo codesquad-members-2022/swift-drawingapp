@@ -10,10 +10,10 @@ import Foundation
 class Alpha {
     var transparency : Double
     
-    static let alphaRange = 1...10
-    init? (transparency : Int) {
+    static let alphaRange = 0.1...1
+    init? (transparency : Double) {
         guard Alpha.alphaRange.contains(transparency) else {return nil}
-        self.transparency = Double(transparency)/10
+        self.transparency = transparency
     }
 }
 
