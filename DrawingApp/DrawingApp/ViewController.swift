@@ -10,7 +10,7 @@ import UIKit
 class ViewController: UIViewController {
 
     private let model = Plane()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -32,8 +32,7 @@ class ViewController: UIViewController {
     
     // MARK:- Outlets
     @IBOutlet weak var canvas: UIView!
-    @IBOutlet weak var backgroundColorView: UIView!
-    @IBOutlet weak var alphaTextField: UITextField!
+    @IBOutlet weak var informationView: InputView!
     
     // MARK:- Actions
     @IBAction func touchedCreateRect(_ sender: Any) {
@@ -46,13 +45,7 @@ class ViewController: UIViewController {
 // MARK:- PlaneDelegate
 extension ViewController: PlaneDelegate {
     func didSelected(rect: Rectangle?) {
-        guard let selectedRect = rect else {
-            self.backgroundColorView.backgroundColor = .white
-            self.alphaTextField.text = nil
-            return
-        }
-        self.backgroundColorView.backgroundColor = UIColor(color: selectedRect.color)
-        self.alphaTextField.text = "\(selectedRect.alpha)"
+        informationView.loadView(with: rect)
     }
     
     func didCreate(rect: Rectangle) {
