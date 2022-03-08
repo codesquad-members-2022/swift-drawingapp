@@ -11,6 +11,8 @@ import UIKit
 struct Plane{
     static let makeRectangle = Notification.Name("makeRectangle")
     static let selectRectangle = Notification.Name("selectRectangle")
+    static let userInfoKey: String = "rectangle"
+    
     private var rectangles: [Rectangle] = []
     
     subscript(index: Int) -> Rectangle?{
@@ -22,7 +24,7 @@ struct Plane{
     
     mutating func addRectangle(rectangle: Rectangle){
         self.rectangles.append(rectangle)
-        NotificationCenter.default.post(name: Plane.makeRectangle, object: self, userInfo: ["rectangle" : rectangle])
+        NotificationCenter.default.post(name: Plane.makeRectangle, object: self, userInfo: [Plane.userInfoKey : rectangle])
     }
     
     func count() -> Int{
@@ -45,6 +47,6 @@ struct Plane{
             break
         }
         
-        NotificationCenter.default.post(name: Plane.selectRectangle, object: self, userInfo: ["rectangle" : findedRectangle as Any])
+        NotificationCenter.default.post(name: Plane.selectRectangle, object: self, userInfo: [Plane.userInfoKey : findedRectangle as Any])
     }
 }

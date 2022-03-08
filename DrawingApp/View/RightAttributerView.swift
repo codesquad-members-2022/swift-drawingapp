@@ -36,7 +36,7 @@ class RightAttributerView: UIView {
         return value ?? .one
     }
     
-    var delegate: RightAttributerViewDelegate?
+    var delegate: UIColorSliderDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -123,19 +123,19 @@ extension RightAttributerView{
     }
     
     @objc private func moveAlphaSlider(){
-        self.delegate?.moveAlphaSlider()
+        self.delegate?.alphaSliderDidMove()
     }
     
     @objc private func moveRedSlider(){
-        self.delegate?.moveRedSlider()
+        self.delegate?.redSliderDidMove()
     }
     
     @objc private func moveGreenSlider(){
-        self.delegate?.moveGreenSlider()
+        self.delegate?.greenSliderDidMove()
     }
     
     @objc private func moveBlueSlider(){
-        self.delegate?.moveBlueSlider()
+        self.delegate?.blueSliderDidMove()
     }
 }
 

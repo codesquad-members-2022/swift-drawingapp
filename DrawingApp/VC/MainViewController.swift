@@ -8,12 +8,12 @@
 import UIKit
 import os
 
-class MainViewController: UIViewController, RightAttributerViewDelegate{
+class MainViewController: UIViewController, UIColorSliderDelegate{
     private var plane = Plane()
     let rectFactory = RectangleFactory()
     let rightAttributerView = RightAttributerView()
     
-    private var rectangleUIViews = [String : UIView]()
+    private var rectangleUIViews = [Rectangle : UIView]()
     private var selectedRectangle: Rectangle?
     
     @IBOutlet weak var rectangleButton: UIButton!
@@ -38,14 +38,14 @@ class MainViewController: UIViewController, RightAttributerViewDelegate{
     }
     
     @objc func addRectangleView(_ notification: Notification){
-        guard let rectangleValue = notification.userInfo?["rectangle"] as? Rectangle else { return }
+        guard let rectangleValue = notification.userInfo?[Plane.userInfoKey] as? Rectangle else { return }
         
-        let rectangleView = RandomRectangleView(frame: CGRect(x: rectangleValue.point.x, y: rectangleValue.point.y, width: rectangleValue.size.width, height: rectangleValue.size.height))
+        let rectangleView = RectangleView(frame: CGRect(x: rectangleValue.point.x, y: rectangleValue.point.y, width: rectangleValue.size.width, height: rectangleValue.size.height))
         rectangleView.backgroundColor = UIColor(red: rectangleValue.showColor().redValue(), green: rectangleValue.showColor().blueValue(), blue: rectangleValue.showColor().greenValue(), alpha: rectangleValue.showAlpha().showValue())
         rectangleView.restorationIdentifier = rectangleValue.id
         
         self.view.addSubview(rectangleView)
-        rectangleUIViews[rectangleValue.id] = rectangleView
+        rectangleUIViews[rectangleValue] = rectangleView
         
         os_log("%@", "\(rectangleValue.description)")
     }
@@ -60,7 +60,7 @@ extension MainViewController{
     }
     
     private func addGestureRecognizerObserver(){
-        NotificationCenter.default.addObserver(self, selector: #selector(assignSelectRectangle(_:)), name: Plane.selectRectangle, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(displaySliderValue(_:)), name: Plane.selectRectangle, object: nil)
     }
 }
 
@@ -71,23 +71,16 @@ extension MainViewController {
     @objc func tapGesture(_ gesture: UITapGestureRecognizer){
         let touchPoint = gesture.location(in: self.view)
         plane.findRectangle(withX: touchPoint.x, withY: touchPoint.y)
-        displaySliderValue()
         
         return
     }
     
-    @objc func assignSelectRectangle(_ notification: Notification){
-        guard let rectangle = notification.userInfo?["rectangle"] as? Rectangle, let _ = rectangleUIViews[rectangle.id] else{
+    @objc func displaySliderValue(_ notification: Notification){
+        guard let rectangle = notification.userInfo?[Plane.userInfoKey] as? Rectangle, let _ = rectangleUIViews[rectangle] else{
             return
         }
         
         selectedRectangle = rectangle
-    }
-    
-    private func displaySliderValue(){
-        guard let rectangle = selectedRectangle else{
-            return
-        }
         
         rightAttributerView.originSliderValue(red: Float(rectangle.showColor().red), green: Float(rectangle.showColor().green), blue: Float(rectangle.showColor().blue), alpha: Float(rectangle.showAlpha().showValue()))
     }
@@ -96,28 +89,28 @@ extension MainViewController {
 // MARK: - Use case: Control RigthAttributerView's sliders
 
 extension MainViewController{
-    func moveAlphaSlider() {
+    func alphaSliderDidMove() {
         changeRectangleAlpha()
         rightAttributerView.changeAlphaSliderView(text: "투명도 : \(String(format: "%.0f", rightAttributerView.alphaValue.showValue() * 10))")
     }
     
-    func moveRedSlider() {
+    func redSliderDidMove() {
         changeRectangleColor()
         rightAttributerView.changeColorSliderValue(text: "Red : \(String(format: "%.0f", rightAttributerView.redValue))")
     }
     
-    func moveGreenSlider() {
+    func greenSliderDidMove() {
         changeRectangleColor()
         rightAttributerView.changeColorSliderValue(text: "Green : \(String(format: "%.0f", rightAttributerView.greenValue))")
     }
     
-    func moveBlueSlider() {
+    func blueSliderDidMove() {
         changeRectangleColor()
         rightAttributerView.changeColorSliderValue(text: "Blue : \(String(format: "%.0f", rightAttributerView.blueValue))")
     }
     
     func changeRectangleColor(){
-        guard let rectangle = selectedRectangle, let rectView = rectangleUIViews[rectangle.id] else{
+        guard let rectangle = selectedRectangle, let rectView = rectangleUIViews[rectangle] else{
             return
         }
         
@@ -128,7 +121,7 @@ extension MainViewController{
     }
     
     func changeRectangleAlpha(){
-        guard let rectangle = selectedRectangle, let rectView = rectangleUIViews[rectangle.id] else{
+        guard let rectangle = selectedRectangle, let rectView = rectangleUIViews[rectangle] else{
             return
         }
         
