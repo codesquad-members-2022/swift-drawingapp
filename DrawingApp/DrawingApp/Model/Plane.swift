@@ -9,8 +9,7 @@ import Foundation
 
 struct Plane {
     private var rectangles = [Rectangle]()
-    var generateRectangleViewDelegate: GenerateRectangleViewDelegate?
-    var updateViewMatchedRectangleDelegate: UpdateViewMatchedRectangleDelegate?
+    var delegate: PlaneDelegate?
     var count: Int {
         return rectangles.count
     }
@@ -22,7 +21,7 @@ struct Plane {
     public func specifyRectangle(point: Point) -> Rectangle? {
         for rectangle in rectangles.reversed() {
             if rectangle.isPointInArea(point) {
-                updateViewMatchedRectangleDelegate?.rectangleDidSpecified(rectangle)
+                delegate?.rectangleDidSpecified(rectangle)
                 return rectangle
             }
         }
@@ -32,14 +31,14 @@ struct Plane {
     mutating public func addNewRectangle(in frame: (width: Double, height: Double)) {
         let newRectangle = RectangleFactory.makeRandomRectangle(in: frame)
         rectangles.append(newRectangle)
-        generateRectangleViewDelegate?.planeDidAddRectangle(newRectangle)
+        delegate?.rectangleDidAdded(newRectangle)
     }
     
     public func changeBackGroundColorOfRectangle(id: ID, to newColor: BackgroundColor) -> Rectangle? {
         for rectangle in rectangles {
             if rectangle.id == id {
                 rectangle.changeBackgroundColor(to: newColor)
-                updateViewMatchedRectangleDelegate?.rectangleBackgroundColorDidChanged(rectangle)
+                delegate?.rectangleBackgroundColorDidChanged(rectangle)
                 return rectangle
             }
         }
@@ -50,7 +49,7 @@ struct Plane {
         for rectangle in rectangles {
             if rectangle.id == id {
                 rectangle.changeAlphaValue(to: newAlpha)
-                updateViewMatchedRectangleDelegate?.rectangleAlphaDidChanged(rectangle)
+                delegate?.rectangleAlphaDidChanged(rectangle)
                 return rectangle
             }
         }
