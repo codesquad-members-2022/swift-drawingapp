@@ -12,10 +12,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let factory = RectangleFactory()
-        for _ in 0..<4 {
-            factory.createRectangle()
-        }
+//        let factory = RectangleFactory()
+//        for _ in 0..<4 {
+//            factory.createRectangle()
+//        }
     }
 }
 
