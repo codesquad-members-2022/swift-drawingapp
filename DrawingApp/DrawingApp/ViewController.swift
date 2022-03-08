@@ -208,7 +208,7 @@ extension ViewController: UpdateViewMatchedRectangleDelegate {
         self.touchedView = matchedView
         
         let newBackgroundColor = backgroundColorChangedRectangle.backgroundColor
-        touchedView?.backgroundColor = Converter.convertToUIColor(backgroundColor: newBackgroundColor)
+        touchedView?.backgroundColor = newBackgroundColor.convertToUIColor()
         let previousnAlpha = backgroundColorChangedRectangle.alpha
         updateBackgroundButton(color: newBackgroundColor, alpha: previousnAlpha)
     }
@@ -236,7 +236,7 @@ extension ViewController: UpdateViewMatchedRectangleDelegate {
     private func updateBackgroundButton(color: BackgroundColor, alpha: Alpha) {
         backgroundColorButton.isEnabled = true
         backgroundColorButton.setTitle(color.hexCode, for: .normal)
-        let buttonBackgroundColor = Converter.convertToUIColor(backgroundColor: color, alpha: alpha.value)
+        let buttonBackgroundColor = color.convertToUIColor(with: alpha.value)
         backgroundColorButton.backgroundColor = buttonBackgroundColor
     }
     
@@ -253,5 +253,15 @@ extension ViewController: UpdateViewMatchedRectangleDelegate {
             }
         }
         return nil
+    }
+}
+
+extension BackgroundColor {
+    fileprivate func convertToUIColor(with alphaValue: Double = 1.0) -> UIColor {
+        let convertedRed = Double(self.r) / 255.0
+        let convertedGreen = Double(self.g) / 255.0
+        let convertedBlue = Double(self.b) / 255.0
+        
+        return UIColor(red: convertedRed, green: convertedGreen, blue: convertedBlue, alpha: alphaValue)
     }
 }
