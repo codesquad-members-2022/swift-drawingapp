@@ -12,7 +12,7 @@ protocol RectangleViewTapDelegate {
     /// 해당 메소드를 구현하여, 터치된 뷰에 해당하는 모델을 parentViewController에 전달합니다.
     ///
     /// parentViewController에 전달을 위해 PlaneAdmitDelegate 를 호출하게 됩니다.
-    func changeCurrentSelected(_ rectangle: Rectangle?)
+    func changeCurrentSelected(at index: Int?)
 }
 
 /// ViewController와 MainScreenViewController 사이를 잇고, 생성된 사각형의 모델들을 저장하는 모델입니다.
@@ -24,7 +24,6 @@ final class Plane: RectangleViewTapDelegate {
     
     private var properties = [RectangleProperty]()
     /// Plane객체는 해당 변수를 이용해 선택된 뷰, 선택이 해제될 뷰를 관리합니다.
-    var current: Rectangle?
     
     func addProperties(_ model: RectangleProperty) {
         properties.append(model)
@@ -81,41 +80,39 @@ final class Plane: RectangleViewTapDelegate {
                 return
         }
         properties.append(property)
-        screenDelegate?.addRectangle(using: property, index: properties.endIndex-1)
+        screenDelegate?.addRectangle(at: properties.endIndex-1, using: property)
     }
     
-    func setRandomColor() -> RectRGBColor? {
-        guard let current = current, properties.count-1 >= current.index else {
+    func setRandomColor(at index: Int) -> RectRGBColor? {
+        guard properties.count-1 >= index else {
             return nil
         }
         
-        let model = properties[current.index]
+        let model = properties[index]
         
         guard let color = model.resetRGBColor() else {
             return nil
         }
         
-        screenDelegate?.admitColor(to: current, using: color, alpha: model.alpha)
+        screenDelegate?.admitColor(at: index, using: color, alpha: model.alpha)
         return color
     }
     
-    func setAlpha(value: Float) {
-        guard let current = current, properties.count-1 >= current.index else { return }
-        let model = properties[current.index]
+    func setAlpha(value: Float, at index: Int) {
+        guard properties.count-1 >= index else { return }
+        let model = properties[index]
         model.setAlpha(Double(value))
-        screenDelegate?.admitAlpha(to: current, using: value)
+        screenDelegate?.admitAlpha(at: index, using: value)
     }
     
     // MARK: - RectangleViewTapDelegate implementation
-    func changeCurrentSelected(_ rectangle: Rectangle?) {
+    func changeCurrentSelected(at index: Int?) {
         
-        current?.isSelected = false
-        current = rectangle
-        
-        if let rect = rectangle, properties.count >= rect.index+1 {
-            planeDelegate?.admitPlane(property: properties[rect.index])
-        } else {
+        guard let inx = index else {
             planeDelegate?.admitDefault()
+            return
         }
+        
+        planeDelegate?.admitPlane(property: properties[inx], at: inx)
     }
 }

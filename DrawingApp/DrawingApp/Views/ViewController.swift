@@ -10,7 +10,7 @@ import UIKit
 /// Plane 객체의 값을 ViewController의 요소들에 적용하기 위한 Protocol입니다.
 protocol PlaneAdmitDelegate {
     /// Plane객체의 값이 있을 경우 ViewController에 신호를 보냅니다.
-    func admitPlane(property: RectangleProperty)
+    func admitPlane(property: RectangleProperty, at index: Int)
     /// ViewController에 저장된 기본 값(혹은 0 등)으로 뷰를 지정하도록 신호를 보냅니다.
     func admitDefault()
 }
@@ -22,6 +22,7 @@ final class ViewController: UIViewController, PlaneAdmitDelegate {
     var defaultButtonColor: UIColor!
     
     let plane = Plane()
+    var currentIndex: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +36,7 @@ final class ViewController: UIViewController, PlaneAdmitDelegate {
     }
     
     @IBAction func buttonAdmitColorTouchUpInside(_ sender: UIButton) {
-        guard let color = plane.setRandomColor() else {
+        guard let index = currentIndex, let color = plane.setRandomColor(at: index) else {
             return
         }
         
@@ -48,8 +49,11 @@ final class ViewController: UIViewController, PlaneAdmitDelegate {
     }
     
     @IBAction func sliderAdmitAlphaValueChanged(_ sender: UISlider) {
+        
+        guard let index = currentIndex else { return }
+        
         sender.value = round(sender.value)
-        plane.setAlpha(value: sender.value)
+        plane.setAlpha(value: sender.value, at: index)
         buttonSetRandomColor.backgroundColor =
             buttonSetRandomColor.backgroundColor?.withAlphaComponent(Double(sender.value)/RectRGBColor.maxAlpha)
     }
@@ -62,7 +66,9 @@ final class ViewController: UIViewController, PlaneAdmitDelegate {
     }
     
     // MARK: - PlaneAdmitDelegate implementation
-    func admitPlane(property: RectangleProperty) {
+    func admitPlane(property: RectangleProperty, at index: Int) {
+        currentIndex = index
+        
         let color = property.rgbValue
         let alpha = property.alpha
         buttonSetRandomColor.backgroundColor = UIColor(
@@ -75,6 +81,8 @@ final class ViewController: UIViewController, PlaneAdmitDelegate {
     }
     
     func admitDefault() {
+        currentIndex = nil
+        
         buttonSetRandomColor.backgroundColor = defaultButtonColor
         sliderSetAlpha.setValue(0, animated: true)
     }
