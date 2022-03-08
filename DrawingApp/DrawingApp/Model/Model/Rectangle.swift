@@ -8,13 +8,14 @@
 import Foundation
 
 class Rectangle: ViewModel {
-    private(set) var id: String
+
+    private(set) var id: ID
     private(set) var origin: Point
     private(set) var size: Size
     private(set) var color: Color
     private(set) var alpha: Alpha
     
-    init(id: String, origin: Point, size: Size, color: Color, alpha: Alpha) {
+    init(id: ID, origin: Point, size: Size, color: Color, alpha: Alpha) {
         self.id = id
         self.origin = origin
         self.size = size
@@ -23,11 +24,11 @@ class Rectangle: ViewModel {
     }
     
     static func createRectangle() -> Rectangle {
-        let rectangleID = createID()
-        let origin = createPoint()
-        let size = createSize()
-        let color = createColor()
-        let alpha = createAlpha()
+        let rectangleID = ID.random()
+        let origin = Point.random()
+        let size = Size.standard()
+        let color = Color.random()
+        let alpha = Alpha.random()
         
         return Rectangle(id: rectangleID, origin: origin, size: size, color: color, alpha: alpha)
     }

@@ -25,6 +25,10 @@ struct Alpha: CustomStringConvertible {
         self.value = value / 10.0
     }
     
+    static func random() -> Alpha {
+        return Alpha(Int.random(in: 3...10))!
+    }
+    
     var description: String {
         "Alpha: \(value)"
     }
