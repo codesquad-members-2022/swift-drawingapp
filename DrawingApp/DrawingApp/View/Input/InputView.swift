@@ -13,6 +13,10 @@ class InputView: UIView {
     @IBOutlet weak var backgroundColorHexTextField: UITextField!
     @IBOutlet weak var backgroundColorRGBTextField: UITextField!
     @IBOutlet weak var alphaTextField: UITextField!
+   
+    @IBOutlet weak var decreaseButton: UIButton!
+    @IBOutlet weak var increaseButton: UIButton!
+    
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -35,6 +39,16 @@ class InputView: UIView {
         self.backgroundColorRGBTextField.text = "rgb(\(selectedRect.color.red),\(selectedRect.color.green),\(selectedRect.color.blue))"
         let hexString = UIColor(color: selectedRect.color).toHexString()
         self.backgroundColorHexTextField.text = hexString
+    }
+    
+    // MARK:- IBActions
+    @IBAction func touchedIncreaseAlpha(_ sender: Any) {
+        print("+")
+    }
+    
+    @IBAction func touchedDecreaseAlpha(_ sender: Any) {
+        print("-")
+        
     }
     
     private func loadXib() {
