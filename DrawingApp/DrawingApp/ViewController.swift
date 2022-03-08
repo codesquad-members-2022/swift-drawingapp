@@ -10,6 +10,7 @@ import UIKit
 class ViewController: UIViewController {
 
     private let model = Plane()
+    private var previousSelectedRectView: RectangleView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +26,7 @@ class ViewController: UIViewController {
         
         model.delegate = self
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTap(_:)))
+        let tapGesture = UITapGestureRecognizer(target: self, action: nil)
         tapGesture.delegate = self
         self.canvas.addGestureRecognizer(tapGesture)
     }
@@ -40,26 +41,44 @@ class ViewController: UIViewController {
         model.createRect(in: size)
     }
     
-    @objc func didTap(_ gesture: UITapGestureRecognizer) { }
+    @objc func didTapRectView(_ gesture: UITapGestureRecognizer) {
+        if let previousView = previousSelectedRectView {
+            previousView.toggleHighlight()
+        }
+        guard let touchedView = gesture.view as? RectangleView else {
+            return
+        }
+        self.previousSelectedRectView = touchedView
+        touchedView.toggleHighlight()
+    }
 }
 
 // MARK:- PlaneDelegate
 extension ViewController: PlaneDelegate {
     func didSelected(rect: Rectangle?) {
+        if rect == nil {
+            self.previousSelectedRectView?.deHighlight()
+            self.previousSelectedRectView = nil
+        }
         informationView.loadView(with: rect)
-        // TODO: 선택한 사각형의 테두리 그리기
     }
     
     func didCreate(rect: Rectangle) {
         let rectView = RectangleView(rect: rect)
         canvas.addSubview(rectView)
+        
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapRectView(_:)))
+        rectView.addGestureRecognizer(tapGesture)
     }
 }
 
 // MARK:- UIGestureRecognizerDelegate
 extension ViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        let touchedPoint = touch.location(in: gestureRecognizer.view)
+        guard let touchedView = gestureRecognizer.view else {
+            return false
+        }
+        let touchedPoint = touch.location(in: touchedView)
         let point = Point(x: Double(touchedPoint.x), y: Double(touchedPoint.y))
         model.selectRect(inside: point)
         return true
