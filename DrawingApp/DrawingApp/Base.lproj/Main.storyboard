@@ -135,6 +135,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="alphaTextField" destination="GoR-mS-AFM" id="1P8-75-CLc"/>
+                        <outlet property="backgroundColorView" destination="n01-TR-G3Y" id="GHG-Ji-fqe"/>
                         <outlet property="canvas" destination="RFE-pd-gbZ" id="0dS-vZ-7Cz"/>
                     </connections>
                 </viewController>

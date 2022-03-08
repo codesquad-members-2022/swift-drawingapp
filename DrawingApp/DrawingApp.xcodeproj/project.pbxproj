@@ -23,6 +23,7 @@
 		6FA5905827D09CBD00FB2C93 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA5905727D09CBD00FB2C93 /* Size.swift */; };
 		6FA5905A27D09CCC00FB2C93 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FA5905927D09CCC00FB2C93 /* Point.swift */; };
 		6FCE420827D72E8200C0B803 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE420727D72E8200C0B803 /* Plane.swift */; };
+		6FCE420A27D75E2100C0B803 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6FCE420927D75E2100C0B803 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,7 @@
 		6FA5905727D09CBD00FB2C93 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		6FA5905927D09CCC00FB2C93 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		6FCE420727D72E8200C0B803 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
+		6FCE420927D75E2100C0B803 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 		6F78542B27CF694300C1154D /* DrawingApp */ = {
 			isa = PBXGroup;
 			children = (
+				6FCE420927D75E2100C0B803 /* Extensions.swift */,
 				6F045CFF27CFEDEA00D64C5A /* Log.swift */,
 				6FA5905C27D0A78D00FB2C93 /* Shape */,
 				6FA5905B27D0A6F600FB2C93 /* Model */,
@@ -305,6 +308,7 @@
 				6FA5905827D09CBD00FB2C93 /* Size.swift in Sources */,
 				6F045CFC27CFC83600D64C5A /* UniqueID.swift in Sources */,
 				6FA5905A27D09CCC00FB2C93 /* Point.swift in Sources */,
+				6FCE420A27D75E2100C0B803 /* Extensions.swift in Sources */,
 				6F78542D27CF694300C1154D /* AppDelegate.swift in Sources */,
 				6F045D0027CFEDEA00D64C5A /* Log.swift in Sources */,
 				6F78542F27CF694300C1154D /* SceneDelegate.swift in Sources */,
