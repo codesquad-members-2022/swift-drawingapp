@@ -51,5 +51,5 @@ struct Color: CustomStringConvertible {
 }
 
 extension Color {
-    static var black = Color(r: 256, g: 0, b: 0)
+    static var black = Color(r: 0, g: 0, b: 0)
 }
