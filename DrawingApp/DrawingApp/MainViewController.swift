@@ -16,13 +16,41 @@ class MainViewController: UIViewController{
     var detailView = DetailView()
     var rectangleView = RectangleView()
     
+    //버튼 외형 설정
+    var button:UIButton = {
+        let button = UIButton()
+        
+        let width = 150.0
+        let height = 100.0
+        let x = (Point.maxX / 2) - (width / 2)
+        let y = (Point.maxY - height) - 30
+        
+        button.frame = CGRect(x: x, y: y, width: width, height: height)
+        button.tintColor = .black
+        
+        var configuration = UIButton.Configuration.plain()
+        configuration.title = "사각형"
+        
+        configuration.imagePlacement = .top
+        configuration.imagePadding = 20
+        
+        configuration.background.backgroundColor = .secondarySystemBackground
+        configuration.background.cornerRadius = 10
+        
+        button.configuration = configuration
+        
+        return button
+    }()
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         detailView.delegate = self
         
+        setupViews()
         configureTapGesture()
         configureDeatailView()
-        configureRectangleButton()
+        configureRectangleButtonTapped()
         
     }
     
@@ -40,36 +68,15 @@ class MainViewController: UIViewController{
             width: 200,
             height: self.view.frame.height
         )
-        self.view.addSubview(detailView)
     }
     
     
-    //버튼 정의
-    private func configureRectangleButton() {
-        // 820 X 1180
-        let width = 150.0
-        let height = 100.0
-        let x = (Point.maxX / 2) - (width / 2)
-        let y = (Point.maxY - height) - 30
-        
+    //버튼에 액션 추가
+    private func configureRectangleButtonTapped() {
         let squareImage = UIImage(systemName: "square")
         let highlightedImage = UIImage(systemName: "square.fill")
         
-        var configuration = UIButton.Configuration.plain()
-        configuration.title = "사각형"
-        
-        configuration.image = squareImage
-        
-        configuration.imagePlacement = .top
-        configuration.imagePadding = 20
-        
-        configuration.background.backgroundColor = .secondarySystemBackground
-        configuration.background.cornerRadius = 10
-        
-        let button = UIButton(configuration: configuration, primaryAction: makeRectangleAction())
-        
-        button.tintColor = .black
-        button.frame = CGRect(x: x, y: y, width: width, height: height)
+        button.addAction(makeRectangleAction(), for: .touchUpInside)
         
         //사각형 버튼 터치시 변화를 보여주기 위해 선언함.
         button.configurationUpdateHandler = { button in
@@ -77,13 +84,12 @@ class MainViewController: UIViewController{
             configuration?.image = button.isHighlighted ? highlightedImage : squareImage
             button.configuration = configuration
         }
-        
-        view.addSubview(button)
     }
     
     //버튼 액션정의
     private func makeRectangleAction() -> UIAction {
         let action = UIAction {_ in
+            
             let id = IDFactory.makeRandomID()
             let size = Size(width: 150, height: 120)
             let point = Point.random()
@@ -93,15 +99,20 @@ class MainViewController: UIViewController{
             let rect = Rectangle(id: id, origin: point, size: size, backGroundColor: rgb, alpha: alpha)
             let rectView = UIView(rect: rect, rgb: rgb, alpha: alpha)
             
+            rectView.clipsToBounds = true
             self.plane.rectangles.append(rect)                                  //모델에 rectangle을 추가
             self.rectangleView.views.append(rectView)                           //view에 retangleView를 추가
+            
             
             self.view.addSubview(rectView)
         }
         return action
     }
     
-
+    private func setupViews() {
+        view.addSubview(button)
+        view.addSubview(detailView)
+    }
 }
 
 //MARK: -- UIGesture 처리
