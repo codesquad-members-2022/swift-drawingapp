@@ -23,23 +23,23 @@ class SplitViewController: UISplitViewController{
 }
 extension SplitViewController: DrawingDelegate{
     func deselected() {
-        propertySetViewController?.updateDeselectedUI()
+        NotificationCenter.default.post(name: .updateDeselectedUI, object: nil)
     }
     
-    func defaultProperty(alpha: Double, rectangleRGB: ColorRGB) {
-        propertySetViewController?.updateSelectedUI(alpha: alpha, rectangleRGB: rectangleRGB)
+    func defaultProperty(rectangle: Rectangle) {
+        NotificationCenter.default.post(name: .updateSelectedUI, object: rectangle)
     }
     
     func updatedAlpha(alpha: Double) {
-        propertySetViewController?.alphaButtonIsHidden(alpha: alpha)
+        NotificationCenter.default.post(name: .alphaButtonHidden, object: alpha)
     }
     
     func changedColor(rectangleRGB: ColorRGB) {
-        propertySetViewController?.changedColor(rectangleRGB: rectangleRGB)
+        NotificationCenter.default.post(name: .changedColorText, object: rectangleRGB)
     }
 }
 extension SplitViewController: PropertyDelegate{
     func propertyAction(action: PropertyViewAction) {
-        drawingViewController?.propertyAction(action: action)
+        NotificationCenter.default.post(name: .propertyAction, object: action)
     }
 }

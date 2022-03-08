@@ -38,6 +38,7 @@ class DrawingViewController: UIViewController {
         notificationCenter.addObserver(self, selector: #selector(touchedRectangleView), name: .selectedRectangle, object: nil)
         notificationCenter.addObserver(self, selector: #selector(deSelectedRectangle), name: .deselectedRectangle, object: nil)
         notificationCenter.addObserver(self, selector: #selector(updateRectangleAlpha), name: .updateRectangleAlpha, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(propertyAction), name: .propertyAction, object: nil)
     }
     
     @objc private func viewTappedGesture(){
@@ -78,7 +79,7 @@ class DrawingViewController: UIViewController {
     
     @objc private func touchedRectangleView(_ notification: Notification){
         guard let rectangle = notification.object as? Rectangle else { return }
-        drawingDelegate?.defaultProperty(alpha: rectangle.alpha, rectangleRGB: rectangle.color)
+        drawingDelegate?.defaultProperty(rectangle: rectangle)
     }
     
     @objc private func changeViewColorRandomly(_ notification: Notification){
@@ -101,7 +102,8 @@ class DrawingViewController: UIViewController {
         plane?.didUpdateAlpha(changed: .minus)
     }
     
-    func propertyAction(action: PropertyViewAction) {
+    @objc private func propertyAction(_ notification: Notification) {
+        guard let action = notification.object as? PropertyViewAction else { return }
         switch action{
         case .colorChangedTapped:
             plane?.didChangedColor()
@@ -112,12 +114,6 @@ class DrawingViewController: UIViewController {
         }
     }
 }
-
 extension Notification.Name{
-    static let addedRectangle = Notification.Name.init("addedRectangle")
-    static let selectedRectangle = Notification.Name.init("selectedRectangle")
-    static let deselectedRectangle = Notification.Name.init("deselectedRectangle")
-    static let changedRectangleColor = Notification.Name.init("changedRectangleColor")
-    static let updateRectangleAlpha = Notification.Name.init("updateRectangleAlpha")
+    static let propertyAction = Notification.Name.init("addedRectangle")
 }
-
