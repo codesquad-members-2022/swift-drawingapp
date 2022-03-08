@@ -10,6 +10,7 @@ import UIKit
 
 class RectangleView: UIView {
     private var rectData: Rectangle?
+    private var isHighlight: Bool = false
     
     convenience init(rect: Rectangle) {
         let origin = CGPoint(x: rect.point.x, y: rect.point.y)
@@ -26,5 +27,21 @@ class RectangleView: UIView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func toggleHighlight() {
+        self.isHighlight = !isHighlight
+        self.isHighlight ? highlight() : deHighlight()
+    }
+    
+    func deHighlight() {
+        isHighlight = false
+        self.layer.borderColor = .none
+        self.layer.borderWidth = 0
+    }
+    
+    private func highlight() {
+        self.layer.borderColor = UIColor.red.cgColor
+        self.layer.borderWidth = 10
     }
 }
