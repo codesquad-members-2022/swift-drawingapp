@@ -6,9 +6,8 @@
 //
 
 import Foundation
-import UIKit
 
-class Plane{
+final class RectanglePlane{
     static let makeRectangle = Notification.Name("makeRectangle")
     static let selectRectangle = Notification.Name("selectRectangle")
     static let noneSelectRectangle = Notification.Name("noneSelectRectangle")
@@ -25,7 +24,7 @@ class Plane{
     
     func addRectangle(rectangle: Rectangle){
         self.rectangles.append(rectangle)
-        NotificationCenter.default.post(name: Plane.makeRectangle, object: self, userInfo: [Plane.userInfoKey : rectangle])
+        NotificationCenter.default.post(name: RectanglePlane.makeRectangle, object: self, userInfo: [RectanglePlane.userInfoKey : rectangle])
     }
     
     func count() -> Int{
@@ -49,9 +48,9 @@ class Plane{
         }
         
         if let rectangle = findedRectangle{
-            NotificationCenter.default.post(name: Plane.selectRectangle, object: self, userInfo: [Plane.userInfoKey : rectangle as Any])
+            NotificationCenter.default.post(name: RectanglePlane.selectRectangle, object: self, userInfo: [RectanglePlane.userInfoKey : rectangle as Any])
         } else{
-            NotificationCenter.default.post(name: Plane.noneSelectRectangle, object: self)
+            NotificationCenter.default.post(name: RectanglePlane.noneSelectRectangle, object: self)
         }
     }
 }
