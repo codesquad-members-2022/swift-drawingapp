@@ -129,6 +129,12 @@ struct Rectangle: CustomStringConvertible {
         return alpha
     }
     
+    func rangeOfPoint() -> (x: ClosedRange<Double>, y: ClosedRange<Double>) {
+        let boundOfX = point.x...(point.x + size.width)
+        let boundOfY = point.y...(point.y + size.height)
+        return (boundOfX, boundOfY)
+    }
+    
     init(id: String, point: Point, size: Size, color : BackgroundColor, alpha: Alpha) {
         self.id = id
         self.point = point

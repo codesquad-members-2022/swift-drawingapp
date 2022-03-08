@@ -9,8 +9,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         let viewPoint: CGPoint = sender.location(in: self.view)
         let rectPoint: Rectangle.Point = Rectangle.Point(x: viewPoint.x, y: viewPoint.y)
         print("지정된 포인트 \(rectPoint.x), \(rectPoint.y)")
-        
-        
     }
     
 //    배경 뷰가 터치되도록 기능을 추가하는 메서드
@@ -31,7 +29,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             let rectangle = plane[index]
             let rectView = UIView(frame: CGRect(x: rectangle.getPoint().x, y: rectangle.getPoint().y, width: rectangle.getSize().width, height: rectangle.getSize().height))
             rectView.backgroundColor = UIColor(red: CGFloat(rectangle.getColor().R)/255.0, green: CGFloat(rectangle.getColor().G)/255.0, blue: CGFloat(rectangle.getColor().B)/255.0, alpha: CGFloat(rectangle.getAlpha().rawValue)/10.0)
-            print(rectangle.getAlpha().rawValue)
+            print(rectangle.description)
             self.view.addSubview(rectView)
         }
     }
