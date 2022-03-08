@@ -20,7 +20,7 @@ struct Plane {
 }
 
 
-extension Plane: RectangleDelegate {
+extension Plane: PlaneDelegate {
     mutating func rectangleDidCreated(rectangle: Rectangle) {
         rectangles.append(rectangle)
     }
