@@ -18,7 +18,7 @@ class ViewController: UIViewController {
 
     @objc func createRectangleButtonTapped(_ sender: UIButton) {
         let rectangle = factory.createRectangle()
-        plane.rectangleDidCreated(rectangle: rectangle)
+        plane.addRectangle(rectangle)
     }
     
     
