@@ -15,10 +15,14 @@ class ViewController: UIViewController {
     let factory = RectangleFactory()
     var plane = Plane()
 
-
+    
     @objc func createRectangleButtonTapped(_ sender: UIButton) {
         let rectangle = factory.createRectangle()
         plane.addRectangle(rectangle)
+        
+        let myView = UIView(frame: CGRect(x: rectangle.point.x, y: rectangle.point.y, width: rectangle.size.width, height: rectangle.size.height))
+        myView.backgroundColor = .yellow
+        view.addSubview(myView)
     }
     
     
