@@ -56,18 +56,18 @@ struct Rectangle: CustomStringConvertible {
     }
     
     struct BackgroundColor {
-        var R: UInt8 = 0
-        var G: UInt8 = 0
-        var B: UInt8 = 0
+        var R: Int = 0
+        var G: Int = 0
+        var B: Int = 0
         
         init() {
             random()
         }
         
         mutating func random()  {
-            let randomR: UInt8 = UInt8.random(in: 0...255)
-            let randomG: UInt8 = UInt8.random(in: 0...255)
-            let randomB: UInt8 = UInt8.random(in: 0...255)
+            let randomR: Int = Int.random(in: 0...255)
+            let randomG: Int = Int.random(in: 0...255)
+            let randomB: Int = Int.random(in: 0...255)
             self.R = randomR
             self.G = randomG
             self.B = randomB
@@ -111,6 +111,18 @@ struct Rectangle: CustomStringConvertible {
     private var color: BackgroundColor
     private var alpha: Alpha
     
+    func getPoint() -> Point {
+        return point
+    }
+    func getSize() -> Size {
+        return size
+    }
+    func getColor() -> BackgroundColor {
+        return color
+    }
+    func getAlpha() -> Alpha {
+        return alpha
+    }
     
     init(id: String, point: Point, size: Size, color : BackgroundColor, alpha: Alpha) {
         self.id = id
@@ -120,3 +132,9 @@ struct Rectangle: CustomStringConvertible {
         self.alpha = alpha
     }
 }
+
+//extension UIColor {
+//    convenience init(red: Int, green: Int, blue: Int) {
+//        assert(
+//    }
+//}
