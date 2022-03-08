@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D031063727D5A84300FCAEA7 /* Id.swift in Sources */ = {isa = PBXBuildFile; fileRef = D031063627D5A84300FCAEA7 /* Id.swift */; };
+		D06D5D6F27D6E8060031D3BF /* DrawingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D5D6E27D6E8060031D3BF /* DrawingAppTests.swift */; };
 		D0872B8027D1A41200085C86 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0872B7F27D1A41200085C86 /* Rectangle.swift */; };
 		D0872B8227D1AF6C00085C86 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0872B8127D1AF6C00085C86 /* Point.swift */; };
 		D0872B8427D1AFEE00085C86 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0872B8327D1AFEE00085C86 /* Size.swift */; };
@@ -23,8 +24,20 @@
 		D0A18DB727CF489C003ADC8A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D0A18DB527CF489C003ADC8A /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		D06D5D7027D6E8060031D3BF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D0A18D9F27CF489B003ADC8A /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D0A18DA627CF489B003ADC8A;
+			remoteInfo = DrawingApp;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		D031063627D5A84300FCAEA7 /* Id.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Id.swift; sourceTree = "<group>"; };
+		D06D5D6C27D6E8060031D3BF /* DrawingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		D06D5D6E27D6E8060031D3BF /* DrawingAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingAppTests.swift; sourceTree = "<group>"; };
 		D0872B7F27D1A41200085C86 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 		D0872B8127D1AF6C00085C86 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		D0872B8327D1AFEE00085C86 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
@@ -43,6 +56,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		D06D5D6927D6E8060031D3BF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0A18DA427CF489B003ADC8A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -53,10 +73,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		D06D5D6D27D6E8060031D3BF /* DrawingAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				D06D5D6E27D6E8060031D3BF /* DrawingAppTests.swift */,
+			);
+			path = DrawingAppTests;
+			sourceTree = "<group>";
+		};
 		D0A18D9E27CF489B003ADC8A = {
 			isa = PBXGroup;
 			children = (
 				D0A18DA927CF489B003ADC8A /* DrawingApp */,
+				D06D5D6D27D6E8060031D3BF /* DrawingAppTests */,
 				D0A18DA827CF489B003ADC8A /* Products */,
 			);
 			sourceTree = "<group>";
@@ -65,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				D0A18DA727CF489B003ADC8A /* DrawingApp.app */,
+				D06D5D6C27D6E8060031D3BF /* DrawingAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -118,6 +148,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		D06D5D6B27D6E8060031D3BF /* DrawingAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D06D5D7227D6E8060031D3BF /* Build configuration list for PBXNativeTarget "DrawingAppTests" */;
+			buildPhases = (
+				D06D5D6827D6E8060031D3BF /* Sources */,
+				D06D5D6927D6E8060031D3BF /* Frameworks */,
+				D06D5D6A27D6E8060031D3BF /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				D06D5D7127D6E8060031D3BF /* PBXTargetDependency */,
+			);
+			name = DrawingAppTests;
+			productName = DrawingAppTests;
+			productReference = D06D5D6C27D6E8060031D3BF /* DrawingAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		D0A18DA627CF489B003ADC8A /* DrawingApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = D0A18DBB27CF489C003ADC8A /* Build configuration list for PBXNativeTarget "DrawingApp" */;
@@ -145,6 +193,10 @@
 				LastSwiftUpdateCheck = 1320;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
+					D06D5D6B27D6E8060031D3BF = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = D0A18DA627CF489B003ADC8A;
+					};
 					D0A18DA627CF489B003ADC8A = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
@@ -164,11 +216,19 @@
 			projectRoot = "";
 			targets = (
 				D0A18DA627CF489B003ADC8A /* DrawingApp */,
+				D06D5D6B27D6E8060031D3BF /* DrawingAppTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		D06D5D6A27D6E8060031D3BF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0A18DA527CF489B003ADC8A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -182,6 +242,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		D06D5D6827D6E8060031D3BF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D06D5D6F27D6E8060031D3BF /* DrawingAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		D0A18DA327CF489B003ADC8A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -201,6 +269,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		D06D5D7127D6E8060031D3BF /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D0A18DA627CF489B003ADC8A /* DrawingApp */;
+			targetProxy = D06D5D7027D6E8060031D3BF /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		D0A18DB027CF489B003ADC8A /* Main.storyboard */ = {
@@ -222,6 +298,42 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		D06D5D7327D6E8060031D3BF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P9G6PC5FMA;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sanghee.DrawingAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DrawingApp.app/DrawingApp";
+			};
+			name = Debug;
+		};
+		D06D5D7427D6E8060031D3BF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P9G6PC5FMA;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sanghee.DrawingAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DrawingApp.app/DrawingApp";
+			};
+			name = Release;
+		};
 		D0A18DB927CF489C003ADC8A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -397,6 +509,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		D06D5D7227D6E8060031D3BF /* Build configuration list for PBXNativeTarget "DrawingAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D06D5D7327D6E8060031D3BF /* Debug */,
+				D06D5D7427D6E8060031D3BF /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		D0A18DA227CF489B003ADC8A /* Build configuration list for PBXProject "DrawingApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
