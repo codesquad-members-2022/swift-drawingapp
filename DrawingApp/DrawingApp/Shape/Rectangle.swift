@@ -13,7 +13,7 @@ class Rectangle {
     var size: Size
     var color: Color
     var point: Point
-    private(set) var alpha: Int = 0 {
+    private(set) var alpha: Int = 1 {
         didSet {
             alpha = adjustRange(opacity: oldValue)
         }

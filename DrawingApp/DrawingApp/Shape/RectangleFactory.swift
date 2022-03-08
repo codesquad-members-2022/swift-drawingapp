@@ -37,7 +37,8 @@ final class RectangleFactory {
         let randomPointX = RandomGenerator.make(min: 0, max: Int(areaSize.width - size.width))
         let randomPointY = RandomGenerator.make(min: 0, max: Int(areaSize.height - size.height))
         let point = Point(x: randomPointX, y: randomPointY)
+        let alpha = RandomGenerator.make(min: 1, max: 10)
         let uid = UniqueID.generate()
-        return Rectangle(uid: uid, point: point, size: size, color: color, alpha: 1)
+        return Rectangle(uid: uid, point: point, size: size, color: color, alpha: alpha)
     }
 }
