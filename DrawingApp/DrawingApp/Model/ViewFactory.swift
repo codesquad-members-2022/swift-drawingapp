@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class ViewFactory {
-    static func generateRectangleView(of rectangle: Rectangle) -> UIView {
+    static func generateRectangleView(of rectangle: Rectangle) -> RectangleView {
         let point = rectangle.point
         let size = rectangle.size
         let frame = CGRect(x: point.x, y: point.y, width: size.width, height: size.height)
@@ -17,7 +17,7 @@ class ViewFactory {
         let convertedColor = backgroundColor.convertToUIColor()
         let alpha = CGFloat(rectangle.alpha.value)
         
-        let newView = RectangleView(id: rectangle.id, frame: frame, backgroundColor: convertedColor, alpha: alpha)
+        let newView = RectangleView(frame: frame, backgroundColor: convertedColor, alpha: alpha)
         
         return newView
     }

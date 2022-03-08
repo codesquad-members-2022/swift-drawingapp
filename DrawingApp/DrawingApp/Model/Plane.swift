@@ -34,29 +34,13 @@ struct Plane {
         delegate?.rectangleDidAdded(newRectangle)
     }
     
-    public func changeBackGroundColorOfRectangle(id: ID, to newColor: BackgroundColor) -> Rectangle? {
-        for rectangle in rectangles {
-            if rectangle.id == id {
-                rectangle.changeBackgroundColor(to: newColor)
-                delegate?.rectangleBackgroundColorDidChanged(rectangle)
-                return rectangle
-            }
-        }
-        return nil
+    public func changeBackGroundColor(of rectangle: Rectangle, to newColor: BackgroundColor) {
+        rectangle.changeBackgroundColor(to: newColor)
+        delegate?.rectangleBackgroundColorDidChanged(rectangle)
     }
-    
-    public func changeAlphaValueOfRectangle(id: ID, to newAlpha: Alpha) -> Rectangle? {
-        for rectangle in rectangles {
-            if rectangle.id == id {
-                rectangle.changeAlphaValue(to: newAlpha)
-                delegate?.rectangleAlphaDidChanged(rectangle)
-                return rectangle
-            }
-        }
-        return nil
-    }
-    
-    mutating public func addSpecificRectangle(_ rectangle: Rectangle) { // 테스트용 메서드
-        self.rectangles.append(rectangle)
+
+    public func changeAlphaValue(of rectangle: Rectangle, to newAlpha: Alpha) {
+        rectangle.changeAlphaValue(to: newAlpha)
+        delegate?.rectangleAlphaDidChanged(rectangle)
     }
 }
