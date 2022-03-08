@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class PhotoView: DrawingView {
+class PhotoView: DrawingView, Imageable {
     private let photoView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
@@ -19,13 +19,11 @@ class PhotoView: DrawingView {
     init(point: Point, size: Size, alpha: Alpha, imageUrl: URL?) {
         super.init(frame: CGRect(x: point.x, y: point.y, width: size.width, height: size.height))
         self.update(alpha: alpha)
-        self.update(imageURL: imageUrl)
-        layout()
+        self.update(imageUrl: imageUrl)
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        layout()
     }
     
     override func layout() {
@@ -37,8 +35,8 @@ class PhotoView: DrawingView {
         self.photoView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
     }
     
-    func update(imageURL: URL?) {
-        guard let url = imageURL else {
+    func update(imageUrl : URL?) {
+        guard let url = imageUrl else {
             return
         }
         self.photoView.image = UIImage(contentsOfFile: url.path)

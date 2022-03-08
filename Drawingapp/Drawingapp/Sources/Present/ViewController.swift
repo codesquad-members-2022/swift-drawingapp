@@ -33,7 +33,7 @@ class ViewController: UIViewController {
     }()
     
     let plane = Plane(drawingModelFactory: DrawingModelFactory(sizeFactory: SizeFactory(), pointFactory: PointFactory(), colorFactory: ColorFactory()))
-    var drawingViews: [String:DrawingView] = [:]
+    var drawingViews: [DrawingModel:DrawingView] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,7 +54,7 @@ class ViewController: UIViewController {
                 return
             }
             self.inspectorView.isHidden = true
-            self.drawingViews[model.id]?.selected(is: false)
+            self.drawingViews[model]?.selected(is: false)
         }
         
         NotificationCenter.default.addObserver(forName: Plane.NotifiName.didSelectedDrawingModel, object: nil, queue: nil) { notification in
@@ -63,25 +63,27 @@ class ViewController: UIViewController {
             }
             self.inspectorView.isHidden = false
             self.inspectorView.update(model: model)
-            self.drawingViews[model.id]?.selected(is: true)
+            self.drawingViews[model]?.selected(is: true)
         }
                 
         NotificationCenter.default.addObserver(forName: Plane.NotifiName.didMakeDrawingModel, object: nil, queue: nil) { notification in
             guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
                 return
             }
-            
-            let drawView = DrawingViewFactory.make(model: model)            
-            self.drawingBoard.addSubview(drawView)
-            self.drawingViews[model.id] = drawView
+            DispatchQueue.main.async {
+                let drawView = DrawingViewFactory.make(model: model)
+                self.drawingBoard.addSubview(drawView)
+                self.drawingViews[model] = drawView                
+            }
         }
         
         NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updateColor, object: nil, queue: nil) { notification in
             guard let model = notification.object as? DrawingModel,
+                  let view = self.drawingViews[model] as? Colorable,
                   let color = notification.userInfo?[DrawingModel.ParamKey.color] as? Color else {
                 return
             }
-            self.drawingViews[model.id]?.update(color: color)
+            view.update(color: color)
             self.inspectorView.update(color: color)
         }
         
@@ -90,7 +92,7 @@ class ViewController: UIViewController {
                   let alpha = notification.userInfo?[DrawingModel.ParamKey.alpha] as? Alpha else {
                 return
             }
-            self.drawingViews[model.id]?.update(alpha: alpha)
+            self.drawingViews[model]?.update(alpha: alpha)
             self.inspectorView.update(alpha: alpha)
         }
     }
@@ -142,7 +144,7 @@ extension ViewController: InspectorDelegate {
 
 extension ViewController: TopMenuBarDelegate {
     func makeRectangleButtonTapped() {
-        self.plane.makeDrawingModel()
+        self.plane.makeRectangleModel()
     }
     
     func makePhotoButtonTapped() {
@@ -175,9 +177,7 @@ extension ViewController: PHPickerViewControllerDelegate {
                     try? fileManager.removeItem(at: destination)
                 }
                 try? fileManager.copyItem(at: url, to: destination)
-                DispatchQueue.main.async {
-                    self.plane.makeDrawingModel(url: destination)
-                }
+                self.plane.makePhotoModel(url: destination)
             } catch {
                 Log.error("image Load Fail: \(url)")
             }

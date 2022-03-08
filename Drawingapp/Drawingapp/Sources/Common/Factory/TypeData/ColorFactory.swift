@@ -8,12 +8,12 @@
 import Foundation
 
 class ColorFactory {
-    func make<T: ColorValueGenerator>(using generator: T) -> Color? {
+    func make<T: ColorValueGenerator>(using generator: T) -> Color {
         let colorValues = generator.next()
         return Color(r: colorValues[0], g: colorValues[1], b: colorValues[2])
     }
     
-    func make() -> Color? {
+    func makeRandomColor() -> Color {
         let ramdomGenerator = RandomColorGenerator()
         return self.make(using: ramdomGenerator)
     }

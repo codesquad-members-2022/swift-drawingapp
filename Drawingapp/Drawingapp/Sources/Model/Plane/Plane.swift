@@ -15,8 +15,8 @@ protocol PlaneAction {
 }
 
 protocol MakeModelAction {
-    func makeDrawingModel()
-    func makeDrawingModel(url: URL)
+    func makeRectangleModel()
+    func makePhotoModel(url: URL)
 }
 
 class Plane {
@@ -51,13 +51,13 @@ class Plane {
 }
 
 extension Plane: MakeModelAction {
-    func makeDrawingModel() {
-        let model = drawingModelFactory.makeModel()
+    func makeRectangleModel() {
+        let model = drawingModelFactory.makeRectangleModel()
         didMakeDrawingModel(model: model)
     }
     
-    func makeDrawingModel(url: URL) {
-        let model = drawingModelFactory.makeModel(url: url)
+    func makePhotoModel(url: URL) {
+        let model = drawingModelFactory.makePhotoModel(url: url)
         didMakeDrawingModel(model: model)
     }
     
@@ -105,7 +105,7 @@ extension Plane: PlaneAction {
     }
     
     func changeColor(_ color: Color) {
-        guard let model = self.selectedModel else {
+        guard let model = self.selectedModel as? RectangleModel else {
             return
         }
         model.update(color: color)

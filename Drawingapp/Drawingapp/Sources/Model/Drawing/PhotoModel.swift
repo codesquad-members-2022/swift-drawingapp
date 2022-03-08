@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PhotoModel: DrawingModel {
+class PhotoModel: DrawingModel, Imageable {
     public private(set) var imageUrl: URL?
     
     override var description: String {
@@ -16,16 +16,16 @@ class PhotoModel: DrawingModel {
     
     init(id: String, point: Point, size: Size, alpha: Alpha, url: URL) {
         self.imageUrl = url
-        super.init(id: id, point: point, size: size, color: nil, alpha: alpha)
+        super.init(id: id, point: point, size: size, alpha: alpha)
     }
     
-    func update(url: URL) {
-        self.imageUrl = url
-        let userInfo: [AnyHashable : Any] = [ParamKey.imageUrl:url]
+    func update(imageUrl: URL?) {
+        guard let imageUrl = imageUrl else {
+            return
+        }
+        
+        self.imageUrl = imageUrl
+        let userInfo: [AnyHashable : Any] = [ParamKey.imageUrl:imageUrl]
         NotificationCenter.default.post(name: NotifiName.updateImageUrl, object: self, userInfo: userInfo)
-    }
-    
-    override func update(color: Color) {
-        return
     }
 }

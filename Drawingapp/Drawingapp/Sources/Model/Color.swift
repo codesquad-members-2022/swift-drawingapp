@@ -20,14 +20,16 @@ struct Color: CustomStringConvertible {
         "R: \(r), G: \(g), B: \(b)"
     }
     
-    init?(r: UInt, g: UInt, b: UInt) {
-        guard r <= 255, g <= 255, b <= 255 else {
-            return nil
+    init(r: UInt, g: UInt, b: UInt) {
+        if r > 255, g > 255, b > 255 {
+            self.r = 0
+            self.g = 0
+            self.b = 0
+            return
         }
         self.r = r
         self.g = g
         self.b = b
-
     }
     
     private func hexaFromDecimal(_ value: UInt) -> String {

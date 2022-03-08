@@ -7,27 +7,43 @@
 
 import Foundation
 
-class DrawingModel: CustomStringConvertible, Equatable {
-    
+//protocol DrawingProperty: Hashable {
+//    var id: String { get }
+//    var point: Point { get }
+//    var size: Size { get }
+//    var alpha: Alpha { get }
+//}
+
+protocol Colorable {
+    func update(color: Color)
+}
+
+protocol Imageable {
+    func update(imageUrl: URL?)
+}
+
+class DrawingModel: CustomStringConvertible, Equatable, Hashable {
     let id: String
     let point: Point
     let size: Size
-    public private(set) var color: Color?
     public private(set) var alpha: Alpha
     
+    var hashValue: Int {
+        id.hashValue
+    }
+    
     var description: String {
-        "id: ( \(id) ), \(point), \(size), \(color), alpha: \(alpha)"
+        "id: ( \(id) ), \(point), \(size), alpha: \(alpha)"
     }
     
     static func == (lhs: DrawingModel, rhs: DrawingModel) -> Bool {
         lhs.id == rhs.id
     }
         
-    init(id: String, point: Point, size: Size, color: Color?, alpha: Alpha) {
+    init(id: String, point: Point, size: Size, alpha: Alpha) {
         self.id = id
         self.point = point
         self.size = size
-        self.color = color
         self.alpha = alpha
     }
     
@@ -37,12 +53,6 @@ class DrawingModel: CustomStringConvertible, Equatable {
             return true
         }
         return false
-    }
-    
-    func update(color: Color) {
-        self.color = color
-        let userInfo: [AnyHashable : Any] = [ParamKey.color:color]
-        NotificationCenter.default.post(name: NotifiName.updateColor, object: self, userInfo: userInfo)
     }
     
     func update(alpha: Alpha) {
