@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ColorRGB: NSObject{
+struct ColorRGB{
     private(set) var r: Int{
         didSet{
             if 0 > r && r > 255{
@@ -32,12 +32,15 @@ class ColorRGB: NSObject{
     private var hexRGB: String{
         return String(format:"%02X", r) + String(format:"%02X", g) + String(format:"%02X", b)
     }
-    override var description: String {
-        return "#\(hexRGB)"
-    }
+    
     init(r: Int, g: Int, b: Int) {
         self.r = r
         self.g = g
         self.b = b
+    }
+}
+extension ColorRGB: CustomStringConvertible{
+    var description: String {
+        return "#\(hexRGB)"
     }
 }
