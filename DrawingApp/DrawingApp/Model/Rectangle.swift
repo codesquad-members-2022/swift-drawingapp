@@ -8,7 +8,7 @@
 import Foundation
 
 class Rectangle {
-    private(set) var id: ID
+    private let id: ID
     private(set) var size: Size
     private(set) var point: Point
     private(set) var backgroundColor: BackgroundColor
