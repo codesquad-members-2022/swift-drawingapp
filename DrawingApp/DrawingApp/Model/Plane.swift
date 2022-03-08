@@ -17,7 +17,7 @@ struct Plane {
         return rectangles[index]
     }
     
-    mutating func rectangleDidCreated(rectangle: Rectangle) {
+    mutating func addRectangle(_ rectangle: Rectangle) {
         rectangles.append(rectangle)
     }
 }
