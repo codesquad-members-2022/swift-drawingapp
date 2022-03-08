@@ -9,10 +9,10 @@ import Foundation
 
 
 class Rectangle {
-    private let uniqueID: String
-    private let size: Size
-    private let color: Color
-    private let point: Point
+    let uniqueID: String
+    var size: Size
+    var color: Color
+    var point: Point
     private(set) var alpha: Int = 0 {
         didSet {
             alpha = adjustRange(opacity: oldValue)

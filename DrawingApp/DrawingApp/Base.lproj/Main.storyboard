@@ -138,6 +138,9 @@
                             <constraint firstItem="HCu-nX-wP6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="y8t-YP-WvA"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="canvas" destination="RFE-pd-gbZ" id="0dS-vZ-7Cz"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
