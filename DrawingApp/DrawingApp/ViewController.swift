@@ -15,13 +15,6 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        addRectangles()
-        showRectangleViews()
-        shouldRectanglesBeTouched()
-    }
-    
     func addRectangles() {
         for _ in 0..<4 {
             self.plane.addRectangle()
@@ -36,5 +29,12 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
             print(rectangle.getAlpha().rawValue)
             self.view.addSubview(rectView)
         }
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        addRectangles()
+        showRectangleViews()
+        shouldRectanglesBeTouched()
     }
 }
