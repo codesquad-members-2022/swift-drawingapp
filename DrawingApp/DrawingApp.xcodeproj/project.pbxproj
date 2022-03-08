@@ -123,16 +123,13 @@
 		6F78542B27CF694300C1154D /* DrawingApp */ = {
 			isa = PBXGroup;
 			children = (
-				6FCE420727D72E8200C0B803 /* Plane.swift */,
-				6FCE420D27D7610E00C0B803 /* Input */,
-				6FCE420927D75E2100C0B803 /* Extensions.swift */,
-				6F045CFF27CFEDEA00D64C5A /* Log.swift */,
+				6FCE421327D79F8700C0B803 /* Utils */,
+				6FCE421227D79F4E00C0B803 /* View */,
 				6FA5905C27D0A78D00FB2C93 /* Shape */,
 				6FA5905B27D0A6F600FB2C93 /* Model */,
 				6F78542C27CF694300C1154D /* AppDelegate.swift */,
 				6F78542E27CF694300C1154D /* SceneDelegate.swift */,
 				6F78543027CF694300C1154D /* ViewController.swift */,
-				6FCE421027D7905B00C0B803 /* RectangleView.swift */,
 				6F78543227CF694300C1154D /* Main.storyboard */,
 				6F78543527CF694700C1154D /* Assets.xcassets */,
 				6F78543727CF694700C1154D /* LaunchScreen.storyboard */,
@@ -162,6 +159,7 @@
 		6FA5905B27D0A6F600FB2C93 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				6FCE420727D72E8200C0B803 /* Plane.swift */,
 				6F045CFB27CFC83600D64C5A /* UniqueID.swift */,
 				6F045CF727CFB2BC00D64C5A /* Color.swift */,
 				6FA5905727D09CBD00FB2C93 /* Size.swift */,
@@ -186,6 +184,24 @@
 				6FCE420E27D7613000C0B803 /* InputView.xib */,
 			);
 			path = Input;
+			sourceTree = "<group>";
+		};
+		6FCE421227D79F4E00C0B803 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6FCE420D27D7610E00C0B803 /* Input */,
+				6FCE421027D7905B00C0B803 /* RectangleView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6FCE421327D79F8700C0B803 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				6FCE420927D75E2100C0B803 /* Extensions.swift */,
+				6F045CFF27CFEDEA00D64C5A /* Log.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
