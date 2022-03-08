@@ -7,12 +7,15 @@
 
 import Foundation
 
-class Rectangle{
+class Rectangle: NSObject{
     private(set) var uniqueId: String
     private(set) var color: ColorRGB
     private(set) var point: ViewPoint
     private(set) var size: ViewSize
     private(set) var alpha: Double
+    override var description: String {
+        return "(\(uniqueId)) \(point.description),\(size.description) \(color.description) alpha:\(alpha)"
+    }
     
     init(uniqueId: String, color: ColorRGB, point: ViewPoint, size: ViewSize, alpha: Double){
         self.uniqueId = uniqueId
@@ -28,11 +31,5 @@ class Rectangle{
     
     func resetColor(rgbValue: ColorRGB){
         self.color = rgbValue
-    }
-}
-
-extension Rectangle: CustomStringConvertible{
-    var description: String {
-        return "(\(uniqueId)) \(point.description),\(size.description) \(color.description) alpha:\(alpha)"
     }
 }
