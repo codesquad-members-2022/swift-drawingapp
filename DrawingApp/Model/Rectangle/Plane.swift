@@ -8,9 +8,10 @@
 import Foundation
 import UIKit
 
-struct Plane{
+class Plane{
     static let makeRectangle = Notification.Name("makeRectangle")
     static let selectRectangle = Notification.Name("selectRectangle")
+    static let noneSelectRectangle = Notification.Name("noneSelectRectangle")
     static let userInfoKey: String = "rectangle"
     
     private var rectangles: [Rectangle] = []
@@ -22,7 +23,7 @@ struct Plane{
         return rectangles[index]
     }
     
-    mutating func addRectangle(rectangle: Rectangle){
+    func addRectangle(rectangle: Rectangle){
         self.rectangles.append(rectangle)
         NotificationCenter.default.post(name: Plane.makeRectangle, object: self, userInfo: [Plane.userInfoKey : rectangle])
     }
@@ -47,6 +48,10 @@ struct Plane{
             break
         }
         
-        NotificationCenter.default.post(name: Plane.selectRectangle, object: self, userInfo: [Plane.userInfoKey : findedRectangle as Any])
+        if let rectangle = findedRectangle{
+            NotificationCenter.default.post(name: Plane.selectRectangle, object: self, userInfo: [Plane.userInfoKey : rectangle as Any])
+        } else{
+            NotificationCenter.default.post(name: Plane.noneSelectRectangle, object: self)
+        }
     }
 }

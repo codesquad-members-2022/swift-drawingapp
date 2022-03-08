@@ -69,26 +69,31 @@ extension RightAttributerView{
         colorTitle.text = "배경색"
         alphaTitle.textColor = .black
         alphaTitle.font = .systemFont(ofSize: 17)
-        alphaTitle.text = "투명도"
+        alphaTitle.text = "투명도 : 10"
         
         colorNameRed.textColor = .red
         colorNameRed.font = .systemFont(ofSize: 15)
-        colorNameRed.text = "Red"
+        colorNameRed.text = "Red : 0"
         colorNameGreen.textColor = .green
         colorNameGreen.font = .systemFont(ofSize: 15)
-        colorNameGreen.text = "Green"
+        colorNameGreen.text = "Green : 0"
         colorNameBlue.textColor = .blue
         colorNameBlue.font = .systemFont(ofSize: 15)
-        colorNameBlue.text = "Blue"
+        colorNameBlue.text = "Blue : 0"
         
         redSlider.minimumValue = 0
         redSlider.maximumValue = 255
+        redSlider.isContinuous = false
         greenSlider.minimumValue = 0
         greenSlider.maximumValue = 255
+        greenSlider.isContinuous = false
         blueSlider.minimumValue = 0
         blueSlider.maximumValue = 255
+        blueSlider.isContinuous = false
         alphaSlider.minimumValue = 0.1
         alphaSlider.maximumValue = 1.0
+        alphaSlider.value = 1.0
+        alphaSlider.isContinuous = false
     }
     
     private func layout(){
