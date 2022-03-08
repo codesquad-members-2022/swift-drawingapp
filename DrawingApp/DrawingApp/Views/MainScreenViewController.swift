@@ -12,11 +12,11 @@ protocol MainScreenDelegate {
     /// Plane이 만든 랜덤으로 생성된 Model을 반영한 Rectangle 객체를 MainScreenViewController의 뷰에 추가합니다.
     ///
     /// 생성된 Rectangle은 MainScreenViewController가 확장한 UIGestureRecognizerDelegate의 영향을 받습니다.
-    func addRectangle(using property: RectangleProperty, index: Int)
+    func addRectangle(at index: Int, using property: RectangleProperty)
     /// Plane으로부터 전달된 RectRGBColor와 Alpha 값을 이용하여 자신의 뷰 중 하나에 색상을 반영합니다.
-    func admitColor(to view: Rectangle, using color: RectRGBColor, alpha: Double)
+    func admitColor(at index: Int, using color: RectRGBColor, alpha: Double)
     /// Plane으로부터 전달된 Alpha 값을 이용하여 자신의 뷰 중 하나에 Alpha값을 변경합니다.
-    func admitAlpha(to view: Rectangle, using value: Float)
+    func admitAlpha(at index: Int, using value: Float)
     /// Plane이 모델을 생성할 때 최대 X, Y 값을 참고하기 MainScreenViewController.view의 프로퍼티를 요청할 시 사용합니다.
     func getScreenViewProperty() -> FactoryProperties
 }
@@ -24,6 +24,7 @@ protocol MainScreenDelegate {
 final class MainScreenViewController: UIViewController, MainScreenDelegate, UIGestureRecognizerDelegate {
     
     @IBOutlet var tapGesture: UITapGestureRecognizer!
+    var current: Rectangle?
     
     var delegate: RectangleViewTapDelegate?
     override func viewDidLoad() {
@@ -31,7 +32,7 @@ final class MainScreenViewController: UIViewController, MainScreenDelegate, UIGe
     }
     
     // MARK: - MainScreenDelegate implementations
-    func addRectangle(using property: RectangleProperty, index: Int) {
+    func addRectangle(at index: Int, using property: RectangleProperty) {
         let rect = Rectangle(model: property, index: index)
         
         let rectTapGesture = UITapGestureRecognizer()
@@ -41,13 +42,13 @@ final class MainScreenViewController: UIViewController, MainScreenDelegate, UIGe
         view.addSubview(rect)
     }
     
-    func admitColor(to rect: Rectangle, using color: RectRGBColor, alpha: Double) {
-        guard view.subviews.contains(where: {($0 as? Rectangle) == rect}) else { return }
+    func admitColor(at index: Int, using color: RectRGBColor, alpha: Double) {
+        guard let rect = view.subviews.filter({($0 as? Rectangle)?.index == index}).first as? Rectangle else { return }
         rect.setBackgroundColor(using: color, alpha: alpha)
     }
     
-    func admitAlpha(to rect: Rectangle, using value: Float) {
-        guard view.subviews.contains(where: {($0 as? Rectangle) == rect}) else { return }
+    func admitAlpha(at index: Int, using value: Float) {
+        guard let rect = view.subviews.filter({($0 as? Rectangle)?.index == index}).first as? Rectangle else { return }
         rect.setValue(alpha: value)
     }
     
@@ -65,9 +66,11 @@ final class MainScreenViewController: UIViewController, MainScreenDelegate, UIGe
     // MARK: - UIGestureRecognizerDelegate implementation
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touchedView = touches.first?.view as? Rectangle
+        current?.isSelected = false
+        current = touchedView
+        current?.isSelected = true
         
-        touchedView?.isSelected = true
         // touchedView is nil when touched background
-        delegate?.changeCurrentSelected(touchedView)
+        delegate?.changeCurrentSelected(at: touchedView?.index)
     }
 }
