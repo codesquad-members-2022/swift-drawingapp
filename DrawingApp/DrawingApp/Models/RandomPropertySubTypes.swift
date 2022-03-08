@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 // MARK: - Rect Size, Origin
 /// Rectangle 객체의 위치, 크기를 프로퍼티를 표현하는 타입입니다.
@@ -71,6 +72,20 @@ struct ColorValue {
                 self._value = min(RectRGBColor.maxValue, newValue)
             }
         }
+    }
+}
+
+extension RectRGBColor {
+    /// Convert RectRGBColor to UIColor
+    ///
+    /// r,g,b,alpha all property divided by their own maxValue
+    func getColor(alpha: Double) -> UIColor {
+        UIColor(
+            red: r/RectRGBColor.maxValue,
+            green: g/RectRGBColor.maxValue,
+            blue: b/RectRGBColor.maxValue,
+            alpha: alpha/RectRGBColor.maxAlpha
+        )
     }
 }
 

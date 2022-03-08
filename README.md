@@ -259,3 +259,20 @@ view들의 border에 정의하였습니다.
   * root view의 subviews index를 넘기면 사각형 모델을 반환하는 함수
   * 사각형 전체 개수를 알려주는 메소드
   * root view의 좌표를 넘기면 해당 위치에 사각형이 있는지 판단하는 함수
+
+---
+
+## Step 3 - Oberserver Pattern
+
+* iOS MVC Pattern에서 Observer Pattern을 이용해 각 요소들끼리의 응집도를 향상시킨다.
+* NotificationCenter에 대해 알아본다.
+
+### 제약사항
+
+* 생성된 사각형의 모델이 변할 때 NotificationCenter에 post하는 것은 Plane 모델이 한다.
+* 모든 동작이 이전 스텝과 동일해야 한다.
+
+### 고민해 볼 사항
+
+1. ```Notification.Name``` 이것을 어떤 방식으로 설정해놓고 사용하면 좀 더 명확한 코드 작성이 가능할까?
+2. Notification 객체를 만들 때 objecbt(Any), userInfo([AnyHashable:Any]) 두 개를 넣을 수 있다. object로도 다 할수 있는데 userInfo는 지양해야 하는가? 아니면 object를 지양하는 편이 좀 더 좋은가?

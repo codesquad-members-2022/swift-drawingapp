@@ -43,11 +43,6 @@ final class Rectangle: UIView {
     }
     
     func setBackgroundColor(using color: RectRGBColor, alpha: Double) {
-        backgroundColor = UIColor(
-            red: color.r/RectRGBColor.maxValue,
-            green: color.g/RectRGBColor.maxValue,
-            blue: color.b/RectRGBColor.maxValue,
-            alpha: alpha/10
-        )
+        backgroundColor = color.getColor(alpha: alpha)
     }
 }
