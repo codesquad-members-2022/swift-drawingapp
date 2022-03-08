@@ -32,6 +32,9 @@ class InputView: UIView {
         }
         self.backgroundColorView.backgroundColor = UIColor(color: selectedRect.color)
         self.alphaTextField.text = "\(selectedRect.alpha)"
+        self.backgroundColorRGBTextField.text = "rgb(\(selectedRect.color.red),\(selectedRect.color.green),\(selectedRect.color.blue))"
+        let hexString = UIColor(color: selectedRect.color).toHexString()
+        self.backgroundColorHexTextField.text = hexString
     }
     
     private func loadXib() {
