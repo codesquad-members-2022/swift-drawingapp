@@ -23,3 +23,9 @@ class Alpha {
         self.value = adjustedValue
     }
 }
+
+extension Alpha: CustomStringConvertible {
+    var description: String {
+        return "Alpha:\(self.value)"
+    }
+}
