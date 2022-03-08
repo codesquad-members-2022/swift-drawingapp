@@ -18,13 +18,62 @@ protocol RectangleViewTapDelegate {
 /// ViewController와 MainScreenViewController 사이를 잇고, 생성된 사각형의 모델들을 저장하는 모델입니다.
 final class Plane: RectangleViewTapDelegate {
     
-    let factory = FactoryRectangleProperty()
-    var screenDelegate: MainScreenDelegate?
-    var planeDelegate: PlaneAdmitDelegate?
-    
+    private let factory = FactoryRectangleProperty()
     private var properties = [RectangleProperty]()
-    /// Plane객체는 해당 변수를 이용해 선택된 뷰, 선택이 해제될 뷰를 관리합니다.
     
+    var screenDelegate: MainScreenDelegate?
+    
+    private func sendNotification(_ model: RectangleProperty, at index: Int, as type: MainScreenAction) {
+        NotificationCenter.default.post(name: .MainScreenAction, object: model, userInfo: ["index": index, "type": type])
+    }
+    
+    // MARK: - MainScreenDelegate implementation
+    func addRectangle() {
+        guard
+            let factoryProperty = screenDelegate?.getScreenViewProperty(),
+            let property = factory.makeRandomView(as: "Subview #\(properties.count)", property: factoryProperty)
+        else {
+                return
+        }
+        properties.append(property)
+        
+        sendNotification(property, at: properties.endIndex-1, as: .AddButtonPushed)
+    }
+    
+    func setRandomColor(at index: Int) -> RectRGBColor? {
+        guard
+            properties.count-1 >= index,
+            let color = properties[index].resetRGBColor()
+        else {
+            return nil
+        }
+        
+        sendNotification(properties[index], at: index, as: .ColorButtonPushed)
+        
+        return color
+    }
+    
+    func setAlpha(value: Float, at index: Int) {
+        guard properties.count-1 >= index else { return }
+        let model = properties[index]
+        model.setAlpha(Double(value))
+        
+        sendNotification(model, at: index, as: .SliderMoved)
+    }
+    
+    // MARK: - RectangleViewTapDelegate implementation
+    func changeCurrentSelected(at index: Int?) {
+        
+        guard let index = index else {
+            NotificationCenter.default.post(name: .MainScreenTouched, object: nil, userInfo: nil)
+            return
+        }
+        let model = properties.count-1 >= index ? properties[index] : nil
+        
+        NotificationCenter.default.post(name: .MainScreenTouched, object: model, userInfo: ["index": index as Any])
+    }
+    
+    // MARK: - Plane no using Interface
     func addProperties(_ model: RectangleProperty) {
         properties.append(model)
     }
@@ -54,65 +103,15 @@ final class Plane: RectangleViewTapDelegate {
         }
     }
     
-    // MARK: - Edit properties (ViewContoller use properties)
-    
-    func setProperty(at index: Int, alpha: Float) {
-        guard properties.count-1 >= index else { return }
-        properties[index].setAlpha(Double(alpha))
-    }
-    
-    func setProperty(at index: Int, size: RectSize) {
-        guard properties.count-1 >= index else { return }
-        properties[index].setSize(size)
-    }
-    
-    func setProperty(at index: Int, point: RectOrigin) {
-        guard properties.count-1 >= index else { return }
-        properties[index].setPoint(point)
-    }
-    
-    // MARK: - MainScreenDelegate implementation
-    
-    func addRectangle() {
-        guard
-            let factoryProperty = screenDelegate?.getScreenViewProperty(),
-            let property = factory.makeRandomView(as: "Subview #\(properties.count)", property: factoryProperty) else {
-                return
-        }
-        properties.append(property)
-        screenDelegate?.addRectangle(at: properties.endIndex-1, using: property)
-    }
-    
-    func setRandomColor(at index: Int) -> RectRGBColor? {
-        guard properties.count-1 >= index else {
-            return nil
-        }
-        
-        let model = properties[index]
-        
-        guard let color = model.resetRGBColor() else {
-            return nil
-        }
-        
-        screenDelegate?.admitColor(at: index, using: color, alpha: model.alpha)
-        return color
-    }
-    
-    func setAlpha(value: Float, at index: Int) {
-        guard properties.count-1 >= index else { return }
-        let model = properties[index]
-        model.setAlpha(Double(value))
-        screenDelegate?.admitAlpha(at: index, using: value)
-    }
-    
-    // MARK: - RectangleViewTapDelegate implementation
-    func changeCurrentSelected(at index: Int?) {
-        
-        guard let inx = index else {
-            planeDelegate?.admitDefault()
-            return
-        }
-        
-        planeDelegate?.admitPlane(property: properties[inx], at: inx)
+    /// root view의 액션 타입
+    ///
+    /// ViewController -> Plane -> MainScreenViewController
+    enum MainScreenAction {
+        /// 무작위 색상 버튼을 선택
+        case ColorButtonPushed
+        /// 투명도 슬라이더 움직임
+        case SliderMoved
+        /// 사각형 추가 버튼을 선택
+        case AddButtonPushed
     }
 }

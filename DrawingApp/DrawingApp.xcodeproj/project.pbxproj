@@ -13,6 +13,7 @@
 		1B54997427D0A21F0086EC5F /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B54997327D0A21F0086EC5F /* UIView+Extension.swift */; };
 		1B54997B27D0B4C00086EC5F /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B54997A27D0B4C00086EC5F /* Rectangle.swift */; };
 		1B5668A927D4B6C30060FD59 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5668A827D4B6C30060FD59 /* MainScreenViewController.swift */; };
+		1B5668AB27D7399C0060FD59 /* Notification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5668AA27D7399C0060FD59 /* Notification+Extension.swift */; };
 		1B79C92D27CE3B6000D7D60B /* Add_OSLog_Framework.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B79C92C27CE3B5F00D7D60B /* Add_OSLog_Framework.png */; };
 		1B811EBB27CF4F3300C3E6BC /* LoggerUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B811EBA27CF4F3300C3E6BC /* LoggerUtil.swift */; };
 		1BD7287227CCBC7A008DED9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD7287127CCBC7A008DED9E /* AppDelegate.swift */; };
@@ -58,6 +59,7 @@
 		1B54997327D0A21F0086EC5F /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		1B54997A27D0B4C00086EC5F /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 		1B5668A827D4B6C30060FD59 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
+		1B5668AA27D7399C0060FD59 /* Notification+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Extension.swift"; sourceTree = "<group>"; };
 		1B79C92C27CE3B5F00D7D60B /* Add_OSLog_Framework.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Add_OSLog_Framework.png; sourceTree = "<group>"; };
 		1B811EBA27CF4F3300C3E6BC /* LoggerUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerUtil.swift; sourceTree = "<group>"; };
 		1BD7286E27CCBC7A008DED9E /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -136,6 +138,7 @@
 			children = (
 				1BD728A827CCF635008DED9E /* String+Extension.swift */,
 				1B54997327D0A21F0086EC5F /* UIView+Extension.swift */,
+				1B5668AA27D7399C0060FD59 /* Notification+Extension.swift */,
 			);
 			path = TypeExtensions;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 				1BD728A727CCC6B3008DED9E /* RectangleProperty.swift in Sources */,
 				1B54997B27D0B4C00086EC5F /* Rectangle.swift in Sources */,
 				1B5668A927D4B6C30060FD59 /* MainScreenViewController.swift in Sources */,
+				1B5668AB27D7399C0060FD59 /* Notification+Extension.swift in Sources */,
 				1BD7287227CCBC7A008DED9E /* AppDelegate.swift in Sources */,
 				1BD728A927CCF635008DED9E /* String+Extension.swift in Sources */,
 				1BD7287427CCBC7A008DED9E /* SceneDelegate.swift in Sources */,
