@@ -9,7 +9,7 @@ import UIKit
 
 protocol PlaneViewDelegate {
     func planeViewDidTapped()
-    func planeViewDidTapRectangleView()
+    func planeViewDidTapRectangleView(_ sender: UITapGestureRecognizer)
     func planeViewDidPressRectangleAddButton()
 }
 
@@ -19,7 +19,6 @@ class PlaneView: UIView {
     let rectangleAddButton: RoundedButton = {
         let button = RoundedButton(type: .system)
         button.frame.size = CGSize(width: 120, height: 80)
-        button.autoresizingMask = [ .flexibleWidth, .flexibleHeight, .flexibleTopMargin, .flexibleLeftMargin, .flexibleBottomMargin, .flexibleRightMargin]
         button.setTitle("사각형 추가", for: .normal)
         button.addTarget(self, action: #selector(PlaneView.handleOnPressAddRectangle), for: .touchUpInside)
         
@@ -66,6 +65,6 @@ class PlaneView: UIView {
     
     @objc func handleOnTapRectangleView(_ sender: UITapGestureRecognizer) {
         guard sender.state == .ended else { return }
-        self.delegate?.planeViewDidTapRectangleView()
+        self.delegate?.planeViewDidTapRectangleView(sender)
     }
 }
