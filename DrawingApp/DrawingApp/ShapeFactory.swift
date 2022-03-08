@@ -8,7 +8,7 @@
 import Foundation
 
 class ShapeFactory: ShapeCreator {
-    func createShape(shapeType: ShapeType, point: Point, size: Size, color: Color, alpha: Int) -> Shape {
+    func createShape(shapeType: ShapeType, point: Point, size: Size, color: Color, alpha: Alpha) -> Shape {
         let id = generateId()
         switch shapeType {
         case .rectangle:

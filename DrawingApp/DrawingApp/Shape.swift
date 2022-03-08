@@ -12,7 +12,7 @@ protocol Shape {
     var point: Point { get set }
     var size: Size { get set }
     var color: Color { get set }
-    var alpha: Int { get set } // 1-10 사이값
+    var alpha: Alpha { get set } // 1-10 사이값
     
-    init(id: String, point: Point, size: Size, color: Color, alpha: Int)
+    init(id: String, point: Point, size: Size, color: Color, alpha: Alpha)
 }
