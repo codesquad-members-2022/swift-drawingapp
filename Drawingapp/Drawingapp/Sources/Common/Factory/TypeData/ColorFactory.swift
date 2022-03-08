@@ -9,8 +9,7 @@ import Foundation
 
 class ColorFactory {
     func make<T: ColorValueGenerator>(using generator: T) -> Color {
-        let colorValues = generator.next()
-        return Color(r: colorValues[0], g: colorValues[1], b: colorValues[2])
+        return Color(using: generator)
     }
     
     func makeRandomColor() -> Color {
@@ -20,11 +19,21 @@ class ColorFactory {
 }
 
 protocol ColorValueGenerator {
-    func next() -> [UInt]
+    var colorR: UInt { get }
+    var colorG: UInt { get }
+    var colorB: UInt { get }
 }
 
-fileprivate class RandomColorGenerator: ColorValueGenerator {
-    func next() -> [UInt] {
-        (0..<3).map{ _ in UInt.random(in: 0...255) }
+class RandomColorGenerator: ColorValueGenerator {
+    var colorR: UInt {
+        UInt.random(in: 0...255)
+    }
+    
+    var colorG: UInt {
+        UInt.random(in: 0...255)
+    }
+    
+    var colorB: UInt {
+        UInt.random(in: 0...255)
     }
 }

@@ -20,13 +20,24 @@ struct Color: CustomStringConvertible {
         "R: \(r), G: \(g), B: \(b)"
     }
     
-    init(r: UInt, g: UInt, b: UInt) {
-        if r > 255, g > 255, b > 255 {
-            self.r = 0
-            self.g = 0
-            self.b = 0
-            return
-        }
+    init<T: ColorValueGenerator>(using generator: T) {
+        let colorR = generator.colorR
+        let colorG = generator.colorG
+        let colorB = generator.colorB
+        
+        assert(colorR > 0 && colorR < 255 )
+        assert(colorG > 0 && colorG < 255 )
+        assert(colorB > 0 && colorB < 255 )
+        
+        self.r = colorR
+        self.g = colorG
+        self.b = colorB
+    }
+    
+    private init(r: UInt, g: UInt, b: UInt) {
+        assert(r > 0 && r < 255 )
+        assert(g > 0 && g < 255 )
+        assert(b > 0 && b < 255 )
         self.r = r
         self.g = g
         self.b = b
@@ -40,5 +51,5 @@ struct Color: CustomStringConvertible {
 }
 
 extension Color {
-    static var black = Color(r: 0, g: 0, b: 0)
+    static var black = Color(r: 256, g: 0, b: 0)
 }
