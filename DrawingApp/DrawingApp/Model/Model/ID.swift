@@ -7,11 +7,19 @@
 
 import Foundation
 
-struct ID: CustomStringConvertible {
+struct ID: Hashable, CustomStringConvertible {
     var uuid = UUID()
     
     static func random() -> ID {
         return ID()
+    }
+    
+    static func == (lhs: ID, rhs: ID) -> Bool {
+        lhs.uuid == rhs.uuid
+    }
+    
+    func hash(into hasher: inout Hasher) {
+      hasher.combine(uuid)
     }
     
     var description: String {
