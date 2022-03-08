@@ -29,8 +29,7 @@ class ViewController: UIViewController {
         
         addGenerateRectangleButton()
         addDrawableAreaView()
-        plane.generateRectangleViewDelegate = self
-        plane.updateViewMatchedRectangleDelegate = self
+        plane.delegate = self
         
         initializeViewsInTouchedEmptySpaceCondition()
         
@@ -176,16 +175,14 @@ class ViewController: UIViewController {
     
 }
 
-extension ViewController: GenerateRectangleViewDelegate {
-    func planeDidAddRectangle(_ rectangle: Rectangle) {
+extension ViewController: PlaneDelegate {
+    func rectangleDidAdded(_ rectangle: Rectangle) {
         os_log("\(rectangle)")
         
         let newRectangleView = ViewFactory.generateRectangleView(of: rectangle)
         self.drawableAreaView.addSubview(newRectangleView)
     }
-}
 
-extension ViewController: UpdateViewMatchedRectangleDelegate {
     func rectangleDidSpecified(_ specifiedRectangle: Rectangle) {
         guard let matchedView = findMatchedView(has: specifiedRectangle.id) else {
             return
