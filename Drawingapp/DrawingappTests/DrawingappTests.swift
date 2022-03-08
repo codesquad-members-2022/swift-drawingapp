@@ -18,85 +18,62 @@ class DrawingappTests: XCTestCase {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
     
-    let plane = Plane()
+    let plane = Plane(drawingModelFactory: DrawingModelFactory(sizeFactory: SizeFactory(), pointFactory: PointFactory(), colorFactory: ColorFactory()))
+    var drawingModel: DrawingModel?
     
-    class TestView: PlaneOutput {
-        var drawRectangle: Rectangle?
-        var selectRectangle: Rectangle?
+    class RandomColorGenerator: ColorValueGenerator {
+        var colorR: UInt {
+            UInt.random(in: 0...255)
+        }
         
-        func didDisSelectedRectangle(to id: String) {
+        var colorG: UInt {
+            UInt.random(in: 0...255)
+        }
+        
+        var colorB: UInt {
+            UInt.random(in: 0...255)
+        }
+    }
+    
+    func testColor() {
+        Color(using: RandomColorGenerator())
+    }
+    
+    func testSelectTest() {
+        NotificationCenter.default.addObserver(forName: Plane.NotifiName.didMakeDrawingModel, object: nil, queue: nil) { notification in
             
+            guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
+                return
+            }
+            self.drawingModel = model
         }
         
-        func didSelectedRectangle(to rectangle: Rectangle) {
-            self.selectRectangle = rectangle
+        NotificationCenter.default.addObserver(forName: Plane.NotifiName.didSelectedDrawingModel, object: nil, queue: nil) { notification in
+            guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
+                XCTFail("사각형이 선택되지 않았습니다")
+                return
+            }
+            XCTAssertTrue(true)
         }
         
-        func draw(to rectangle: Rectangle) {
-            self.drawRectangle = rectangle
-        }
+        plane.makeRectangleModel()
         
-        func updateSquare(to rectangle: Rectangle) {
-        }
-        func update(to id: String, color: Color) {
-        }
-        
-        func update(to id: String, point: Point) {
-        }
-        
-        func update(to id: String, size: Size) {
-        }
-        
-        func update(to id: String, alpha: Alpha) {
-        }
-    }
-    
-    class testRandomColorGenerator: RandomColorValueGenerator {
-        var ramdomValue: [Int] = []
-        func next() -> [Int] {
-            ramdomValue = (0..<3).map{ _ in Int.random(in: 0...255) }
-            return ramdomValue
-        }
-    }
-    
-    func testRandomColor() {
-        let randomGenerator = testRandomColorGenerator()
-        let color = ColorFactory.make(using: randomGenerator)
-        
-        XCTAssertEqual(randomGenerator.ramdomValue[0], color.r)
-        XCTAssertEqual(randomGenerator.ramdomValue[1], color.g)
-        XCTAssertEqual(randomGenerator.ramdomValue[2], color.b)
-    }
-    
-    //사각형을 하나 만들고, 터치 action에 사각형 좌표X에 200을 더해 선택되지 않음을 확인
-    func testNotSelectSquare() {
-        let testView = TestView()
-        plane.delegate = testView
-        
-        plane.makeRectangle()
-        XCTAssertTrue(testView.drawRectangle != nil, "사각형이 생성되지 않았습니다")
-        
-        guard let rectangle = testView.drawRectangle else {
+        guard let model = self.drawingModel else {
+            XCTFail("사각형이 생성되지 않았습니다")
             return
         }
         
-        plane.touchPoint(where: Point(x: rectangle.point.x + 200.0, y: rectangle.point.y))
-        XCTAssertTrue(testView.selectRectangle == nil, "사각형이 선택되었습니다")
+        self.plane.touchPoint(where: Point(x: model.point.x, y: model.point.y))
     }
     
-    //사각형을 하나 만들고, 터치 action에 사각형 좌표를 보내 선택되는지 확인
-    func testSelectSquare() {
-        let testView = TestView()
-        plane.delegate = testView
-        
-        plane.makeRectangle()
-        XCTAssertTrue(testView.drawRectangle != nil, "사각형이 생성되지 않았습니다")
-        
-        guard let rectangle = testView.drawRectangle else {
-            return
+    //사각형 뷰 생성 테스트
+    func testMakeRectangleModel() {
+        NotificationCenter.default.addObserver(forName: Plane.NotifiName.didMakeDrawingModel, object: nil, queue: nil) { notification in
+            
+            let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel
+            XCTAssertTrue(model != nil, "사각형이 생성되지 않았습니다")
         }
         
-        plane.touchPoint(where: Point(x: rectangle.point.x, y: rectangle.point.y))
-        XCTAssertTrue(testView.selectRectangle != nil, "사각형이 선택되지 않았습니다")
+        plane.makeRectangleModel()
     }
 }
