@@ -9,21 +9,21 @@ import Foundation
 import UIKit
 
 class DrawingViewFactory {
-    static func make(rectangle: Rectangle) -> DrawingView {
-        let rectangleView = DrawingView()
-        rectangleView.update(color: rectangle.color)
-        rectangleView.update(point: rectangle.point)
-        rectangleView.update(size: rectangle.size)
-        rectangleView.update(alpha: rectangle.alpha)
-        return rectangleView
+    static func make(model: DrawingModel) -> DrawingView {
+        let drawingView = DrawingView()
+        drawingView.update(color: model.color)
+        drawingView.update(point: model.point)
+        drawingView.update(size: model.size)
+        drawingView.update(alpha: model.alpha)
+        return drawingView
     }
     
-    static func makePhoto(rectangle: PhotoRectangle) -> PhotoView {
+    static func make(photoModel: PhotoModel) -> PhotoView {
         let photoView = PhotoView()
-        photoView.update(point: rectangle.point)
-        photoView.update(size: rectangle.size)
-        photoView.update(alpha: rectangle.alpha)
-        photoView.update(imageURL: rectangle.imageUrl)        
+        photoView.update(point: photoModel.point)
+        photoView.update(size: photoModel.size)
+        photoView.update(alpha: photoModel.alpha)
+        photoView.update(imageURL: photoModel.imageUrl)        
         return photoView
     }
 }

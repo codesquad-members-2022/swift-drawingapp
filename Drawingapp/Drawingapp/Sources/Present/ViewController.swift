@@ -33,7 +33,7 @@ class ViewController: UIViewController {
     }()
     
     let plane = Plane()
-    var rectangleViews: [String:DrawingView] = [:]
+    var drawingViews: [String:DrawingView] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,56 +49,56 @@ class ViewController: UIViewController {
     }
     
     func bind() {
-        NotificationCenter.default.addObserver(forName: Plane.EventName.didDisSelectedRectangle, object: nil, queue: nil) { notification in
-            guard let rectangle = notification.userInfo?[Plane.ParamKey.rectangle] as? Rectangle else {
+        NotificationCenter.default.addObserver(forName: Plane.EventName.didDisSelectedDrawingModel, object: nil, queue: nil) { notification in
+            guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
                 return
             }
             self.inspectorView.isHidden = true
-            self.rectangleViews[rectangle.id]?.selected(is: false)
+            self.drawingViews[model.id]?.selected(is: false)
         }
         
-        NotificationCenter.default.addObserver(forName: Plane.EventName.didSelectedRectangle, object: nil, queue: nil) { notification in
-            guard let rectangle = notification.userInfo?[Plane.ParamKey.rectangle] as? Rectangle else {
+        NotificationCenter.default.addObserver(forName: Plane.EventName.didSelectedDrawingModel, object: nil, queue: nil) { notification in
+            guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
                 return
             }
             self.inspectorView.isHidden = false
-            self.inspectorView.update(rectangle: rectangle)
-            self.rectangleViews[rectangle.id]?.selected(is: true)
+            self.inspectorView.update(model: model)
+            self.drawingViews[model.id]?.selected(is: true)
         }
                 
-        NotificationCenter.default.addObserver(forName: Plane.EventName.didmakeRectangle, object: nil, queue: nil) { notification in
-            guard let rectangle = notification.userInfo?[Plane.ParamKey.rectangle] as? Rectangle else {
+        NotificationCenter.default.addObserver(forName: Plane.EventName.didMakeDrawingModel, object: nil, queue: nil) { notification in
+            guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
                 return
             }
             
             var drawView: DrawingView
             
-            switch rectangle {
-            case let rectangle as PhotoRectangle:
-                drawView = DrawingViewFactory.makePhoto(rectangle: rectangle)
+            switch model {
+            case let model as PhotoModel:
+                drawView = DrawingViewFactory.make(photoModel: model)
             default:
-                drawView = DrawingViewFactory.make(rectangle: rectangle)
+                drawView = DrawingViewFactory.make(model: model)
             }
             
             self.drawingBoard.addSubview(drawView)
-            self.rectangleViews[rectangle.id] = drawView
+            self.drawingViews[model.id] = drawView
         }
         
-        NotificationCenter.default.addObserver(forName: Rectangle.EventName.updateColor, object: nil, queue: nil) { notification in
-            guard let rectangle = notification.object as? Rectangle,
-                  let color = notification.userInfo?[Rectangle.ParamKey.color] as? Color else {
+        NotificationCenter.default.addObserver(forName: DrawingModel.EventName.updateColor, object: nil, queue: nil) { notification in
+            guard let model = notification.object as? DrawingModel,
+                  let color = notification.userInfo?[DrawingModel.ParamKey.color] as? Color else {
                 return
             }
-            self.rectangleViews[rectangle.id]?.update(color: color)
+            self.drawingViews[model.id]?.update(color: color)
             self.inspectorView.update(color: color)
         }
         
-        NotificationCenter.default.addObserver(forName: Rectangle.EventName.updateAlpha, object: nil, queue: nil) { notification in
-            guard let rectangle = notification.object as? Rectangle,
-                  let alpha = notification.userInfo?[Rectangle.ParamKey.alpha] as? Alpha else {
+        NotificationCenter.default.addObserver(forName: DrawingModel.EventName.updateAlpha, object: nil, queue: nil) { notification in
+            guard let model = notification.object as? DrawingModel,
+                  let alpha = notification.userInfo?[DrawingModel.ParamKey.alpha] as? Alpha else {
                 return
             }
-            self.rectangleViews[rectangle.id]?.update(alpha: alpha)
+            self.drawingViews[model.id]?.update(alpha: alpha)
             self.inspectorView.update(alpha: alpha)
         }
     }
@@ -148,7 +148,7 @@ extension ViewController: InspectorDelegate {
 
 extension ViewController: TopMenuBarDelegate {
     func makeRectangleButtonTapped() {
-        self.plane.makeRectangle()
+        self.plane.makeDrawingModel()
     }
     
     func makePhotoButtonTapped() {
@@ -182,7 +182,7 @@ extension ViewController: PHPickerViewControllerDelegate {
                 }
                 try? fileManager.copyItem(at: url, to: destination)
                 DispatchQueue.main.async {
-                    self.plane.makeRectangle(url: destination)
+                    self.plane.makeDrawingModel(url: destination)
                 }
             } catch {
                 Log.error("image Load Fail: \(url)")

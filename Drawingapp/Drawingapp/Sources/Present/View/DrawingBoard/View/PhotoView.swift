@@ -1,5 +1,5 @@
 //
-//  PhotoRectangleView.swift
+//  PhotoView.swift
 //  Drawingapp
 //
 //  Created by seongha shin on 2022/03/04.
@@ -16,7 +16,6 @@ class PhotoView: DrawingView {
         return imageView
     }()
     
-    
     override func layout() {
         super.layout()
         self.canvasView.addSubview(photoView)
@@ -26,8 +25,10 @@ class PhotoView: DrawingView {
         self.photoView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
     }
     
-    func update(imageURL: URL) {
-        print(imageURL)
-        self.photoView.image = UIImage(contentsOfFile: imageURL.path)
+    func update(imageURL: URL?) {
+        guard let url = imageURL else {
+            return
+        }
+        self.photoView.image = UIImage(contentsOfFile: url.path)
     }
 }
