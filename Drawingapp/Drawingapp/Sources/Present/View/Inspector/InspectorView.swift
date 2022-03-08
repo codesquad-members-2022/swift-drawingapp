@@ -9,7 +9,8 @@ import Foundation
 import UIKit
 
 protocol InspectorDelegate {
-    func changeColorButtonTapped()
+    func usingColorFactory() -> ColorFactory
+    func changeColorButtonTapped(color: Color)
     func alphaSliderValueChanged(alpha: Alpha)
 }
 
@@ -57,8 +58,11 @@ class InspectorView: UIView {
     
     private func bind() {
         colorButton.button.addAction(UIAction{ _ in
-            self.delegate?.changeColorButtonTapped()
-            }, for: .touchUpInside)
+            guard let color = self.delegate?.usingColorFactory().make() else {
+                return
+            }
+            self.delegate?.changeColorButtonTapped(color: color)
+        }, for: .touchUpInside)
         
         alphaSlider.slider.addAction(UIAction{ _ in
             if let alpha = Alpha.init(rawValue: Int(self.alphaSlider.slider.value)) {

@@ -10,20 +10,19 @@ import UIKit
 
 class DrawingViewFactory {
     static func make(model: DrawingModel) -> DrawingView {
-        let drawingView = DrawingView()
-        drawingView.update(color: model.color)
-        drawingView.update(point: model.point)
-        drawingView.update(size: model.size)
-        drawingView.update(alpha: model.alpha)
-        return drawingView
+        switch model {
+        case let model as PhotoModel:
+            return makePhotoModel(model: model)
+        default:
+            return makeDrawingModel(model: model)
+        }
     }
     
-    static func make(photoModel: PhotoModel) -> PhotoView {
-        let photoView = PhotoView()
-        photoView.update(point: photoModel.point)
-        photoView.update(size: photoModel.size)
-        photoView.update(alpha: photoModel.alpha)
-        photoView.update(imageURL: photoModel.imageUrl)        
-        return photoView
+    static func makeDrawingModel(model: DrawingModel) -> DrawingView {
+        DrawingView(point: model.point, size: model.size, color: model.color, alpha: model.alpha)
+    }
+    
+    static func makePhotoModel(model: PhotoModel) -> PhotoView {
+        PhotoView(point: model.point, size: model.size, alpha: model.alpha, imageUrl: model.imageUrl)
     }
 }

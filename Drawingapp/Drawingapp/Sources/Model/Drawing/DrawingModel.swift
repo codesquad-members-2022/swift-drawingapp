@@ -7,7 +7,8 @@
 
 import Foundation
 
-class DrawingModel: CustomStringConvertible {
+class DrawingModel: CustomStringConvertible, Equatable {
+    
     let id: String
     let point: Point
     let size: Size
@@ -16,6 +17,10 @@ class DrawingModel: CustomStringConvertible {
     
     var description: String {
         "id: ( \(id) ), \(point), \(size), \(color), alpha: \(alpha)"
+    }
+    
+    static func == (lhs: DrawingModel, rhs: DrawingModel) -> Bool {
+        lhs.id == rhs.id
     }
         
     init(id: String, point: Point, size: Size, color: Color?, alpha: Alpha) {
@@ -37,18 +42,18 @@ class DrawingModel: CustomStringConvertible {
     func update(color: Color) {
         self.color = color
         let userInfo: [AnyHashable : Any] = [ParamKey.color:color]
-        NotificationCenter.default.post(name: EventName.updateColor, object: self, userInfo: userInfo)
+        NotificationCenter.default.post(name: NotifiName.updateColor, object: self, userInfo: userInfo)
     }
     
     func update(alpha: Alpha) {
         self.alpha = alpha
         let userInfo: [AnyHashable : Any] = [ParamKey.alpha:alpha]
-        NotificationCenter.default.post(name: EventName.updateAlpha, object: self, userInfo: userInfo)
+        NotificationCenter.default.post(name: NotifiName.updateAlpha, object: self, userInfo: userInfo)
     }
 }
 
 extension DrawingModel {
-    enum EventName {
+    enum NotifiName {
         static let updateColor = NSNotification.Name("updateColor")
         static let updatePoint = NSNotification.Name("updatePoint")
         static let updateSize = NSNotification.Name("updateSize")

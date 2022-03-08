@@ -32,7 +32,7 @@ class ViewController: UIViewController {
         return inspectorView
     }()
     
-    let plane = Plane()
+    let plane = Plane(drawingModelFactory: DrawingModelFactory(sizeFactory: SizeFactory(), pointFactory: PointFactory(), colorFactory: ColorFactory()))
     var drawingViews: [String:DrawingView] = [:]
     
     override func viewDidLoad() {
@@ -49,7 +49,7 @@ class ViewController: UIViewController {
     }
     
     func bind() {
-        NotificationCenter.default.addObserver(forName: Plane.EventName.didDisSelectedDrawingModel, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: Plane.NotifiName.didDisSelectedDrawingModel, object: nil, queue: nil) { notification in
             guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
                 return
             }
@@ -57,7 +57,7 @@ class ViewController: UIViewController {
             self.drawingViews[model.id]?.selected(is: false)
         }
         
-        NotificationCenter.default.addObserver(forName: Plane.EventName.didSelectedDrawingModel, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: Plane.NotifiName.didSelectedDrawingModel, object: nil, queue: nil) { notification in
             guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
                 return
             }
@@ -66,25 +66,17 @@ class ViewController: UIViewController {
             self.drawingViews[model.id]?.selected(is: true)
         }
                 
-        NotificationCenter.default.addObserver(forName: Plane.EventName.didMakeDrawingModel, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: Plane.NotifiName.didMakeDrawingModel, object: nil, queue: nil) { notification in
             guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
                 return
             }
             
-            var drawView: DrawingView
-            
-            switch model {
-            case let model as PhotoModel:
-                drawView = DrawingViewFactory.make(photoModel: model)
-            default:
-                drawView = DrawingViewFactory.make(model: model)
-            }
-            
+            let drawView = DrawingViewFactory.make(model: model)            
             self.drawingBoard.addSubview(drawView)
             self.drawingViews[model.id] = drawView
         }
         
-        NotificationCenter.default.addObserver(forName: DrawingModel.EventName.updateColor, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updateColor, object: nil, queue: nil) { notification in
             guard let model = notification.object as? DrawingModel,
                   let color = notification.userInfo?[DrawingModel.ParamKey.color] as? Color else {
                 return
@@ -93,7 +85,7 @@ class ViewController: UIViewController {
             self.inspectorView.update(color: color)
         }
         
-        NotificationCenter.default.addObserver(forName: DrawingModel.EventName.updateAlpha, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updateAlpha, object: nil, queue: nil) { notification in
             guard let model = notification.object as? DrawingModel,
                   let alpha = notification.userInfo?[DrawingModel.ParamKey.alpha] as? Alpha else {
                 return
@@ -135,14 +127,16 @@ extension ViewController: UIGestureRecognizerDelegate {
 }
 
 extension ViewController: InspectorDelegate {
-    func changeColorButtonTapped() {
-        if let color = ColorFactory.make() {
-            self.plane.colorChanged(color)
-        }
+    func usingColorFactory() -> ColorFactory {
+        ColorFactory()
+    }
+    
+    func changeColorButtonTapped(color: Color) {
+        self.plane.changeColor(color)
     }
     
     func alphaSliderValueChanged(alpha: Alpha) {
-        self.plane.alphaChanged(alpha)
+        self.plane.changeAlpha(alpha)
     }
 }
 

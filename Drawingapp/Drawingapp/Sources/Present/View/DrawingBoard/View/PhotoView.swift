@@ -16,6 +16,18 @@ class PhotoView: DrawingView {
         return imageView
     }()
     
+    init(point: Point, size: Size, alpha: Alpha, imageUrl: URL?) {
+        super.init(frame: CGRect(x: point.x, y: point.y, width: size.width, height: size.height))
+        self.update(alpha: alpha)
+        self.update(imageURL: imageUrl)
+        layout()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        layout()
+    }
+    
     override func layout() {
         super.layout()
         self.canvasView.addSubview(photoView)

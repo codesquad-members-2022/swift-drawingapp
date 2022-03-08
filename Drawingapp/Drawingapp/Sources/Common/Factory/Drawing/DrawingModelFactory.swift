@@ -7,26 +7,37 @@
 
 import Foundation
 
-class DrawingModelFactory {    
-    static func makeModel() -> DrawingModel {
+class DrawingModelFactory {
+    
+    private let sizeFactory: SizeFactory
+    private let pointFactory: PointFactory
+    private let colorFactory: ColorFactory
+    
+    init(sizeFactory: SizeFactory, pointFactory: PointFactory, colorFactory: ColorFactory) {
+        self.sizeFactory = sizeFactory
+        self.pointFactory = pointFactory
+        self.colorFactory = colorFactory
+    }
+    
+    func makeModel() -> DrawingModel {
         let id = makeId()
-        let size = SizeFactory.make()
-        let point = PointFactory.make()
-        let color = ColorFactory.make()
+        let size = sizeFactory.make()
+        let point = pointFactory.make()
+        let color = colorFactory.make()
         let alpha = Alpha.allCases.randomElement() ?? .transpar10
         
         return DrawingModel(id: id, point: point, size: size, color: color, alpha: alpha)
     }
     
-    static func makeModel(url: URL) -> PhotoModel {
+    func makeModel(url: URL) -> PhotoModel {
         let id = makeId()
-        let size = SizeFactory.make()
-        let point = PointFactory.make()
+        let size = sizeFactory.make()
+        let point = pointFactory.make()
         let alpha = Alpha.transpar10
         return PhotoModel(id: id, point: point, size: size, alpha: alpha, url: url)
     }
     
-    private static func makeId() -> String {
+    func makeId() -> String {
         let chars = "abcdefghijklmnopqrstuvwxyz0123456789"
         return String((0..<3).reduce(""){ id, _ in
             let randomId = String((0..<3).compactMap{ _ in chars.randomElement()})

@@ -8,7 +8,7 @@
 import Foundation
 
 class SizeFactory {
-    static func make() -> Size{
+    func make() -> Size{
         Size(width: 150, height: 120)
     }
 }
