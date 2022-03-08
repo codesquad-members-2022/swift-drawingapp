@@ -95,6 +95,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		6C0A105227D6F11600AC3272 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				6C0A105027D60B4600AC3272 /* PropertyChangeBoard.swift */,
+				6C0A104527D59FD600AC3272 /* RectangleViewFactory.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		6C373A0B27D0989700F29699 /* PlaneTest */ = {
 			isa = PBXGroup;
 			children = (
@@ -136,8 +145,7 @@
 				6CD0B2DF27CC610E009F5E9E /* AppDelegate.swift */,
 				6CD0B2E127CC610E009F5E9E /* SceneDelegate.swift */,
 				6CD0B2E327CC610E009F5E9E /* ViewController.swift */,
-				6C0A105027D60B4600AC3272 /* PropertyChangeBoard.swift */,
-				6C0A104527D59FD600AC3272 /* RectangleViewFactory.swift */,
+				6C0A105227D6F11600AC3272 /* View */,
 				6CD0B2E527CC610E009F5E9E /* Main.storyboard */,
 				6C0A104727D59FE700AC3272 /* Model */,
 				6CD0B2E827CC610F009F5E9E /* Assets.xcassets */,

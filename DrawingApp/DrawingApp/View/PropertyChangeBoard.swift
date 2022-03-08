@@ -13,7 +13,7 @@ class PropertyChangeBoard : UIView {
     let colorChangeButton = UIButton()
     private let alphaLabel = UILabel()
     let alphaChangeSlider = UISlider()
-    
+     
     override init(frame: CGRect) {
         super.init(frame: frame)
         initialSetUp()
@@ -32,9 +32,9 @@ class PropertyChangeBoard : UIView {
         
         let layoutColorLabel = {
             self.colorLabel.translatesAutoresizingMaskIntoConstraints = false
-            
+
             self.colorLabel.text = "배경색"
-            
+
             self.colorLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 40).isActive = true
             self.colorLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30).isActive = true
             self.colorLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30).isActive = true
@@ -78,11 +78,21 @@ class PropertyChangeBoard : UIView {
             self.alphaChangeSlider.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.05).isActive = true
             self.alphaChangeSlider.leadingAnchor.constraint(equalTo: self.colorLabel.leadingAnchor).isActive = true
             self.alphaChangeSlider.trailingAnchor.constraint(equalTo: self.colorLabel.trailingAnchor).isActive = true
+            
+            self.alphaChangeSlider.addTarget(self, action: #selector(self.moveSlider), for: .valueChanged)
         }
         
         layoutColorLabel()
         layoutColorChangeButton()
         layoutAlphaLabel()
         layoutAlphaChangeSlider()
+    }
+    
+    @objc func moveSlider() {
+        print(self.alphaChangeSlider.value)
+    }
+    
+    func presentSelectedRectangleAttribute(color: Color, alpha: Alpha) {
+        
     }
 }
