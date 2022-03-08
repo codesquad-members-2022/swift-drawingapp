@@ -217,12 +217,8 @@ extension ViewController: UpdateViewMatchedRectangleDelegate {
         
         let newBackgroundColor = backgroundColorChangedRectangle.backgroundColor
         touchedView?.backgroundColor = Converter.convertToUIColor(backgroundColor: newBackgroundColor)
-        let previousBackgroundButtonAlpha = touchedView?.backgroundColor?.cgColor.alpha ?? 1.0
-        let convertedOpacityLevel = Int(previousBackgroundButtonAlpha * 10)
-        guard let convertedAlpha = Alpha(opacityLevel: convertedOpacityLevel) else {
-            return
-        }
-        updateBackgroundButton(color: newBackgroundColor, alpha: convertedAlpha)
+        let previousnAlpha = backgroundColorChangedRectangle.alpha
+        updateBackgroundButton(color: newBackgroundColor, alpha: previousnAlpha)
     }
     
     func rectangleAlphaDidChanged(_ alphaChangedRectangle: Rectangle) {
