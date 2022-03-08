@@ -14,21 +14,21 @@ class Rectangle: Shape {
     
     var point: Point
     
-    var backgroundColor: BackgroundColor
+    var color: Color
     
     var alpha: Int
     
-    required init(id: String, point: Point, size: Size, backgroundColor: BackgroundColor, alpha: Int) {
+    required init(id: String, point: Point, size: Size, color: Color, alpha: Int) {
         self.id = id
         self.point = point
         self.size = size
-        self.backgroundColor = backgroundColor
+        self.color = color
         self.alpha = alpha
     }
 }
 
 extension Rectangle: CustomStringConvertible {
     var description: String {
-        return "Rectangle(\(self.id)) : \(self.point), \(self.size), \(self.backgroundColor), \(self.alpha)"
+        return "Rectangle(\(self.id)) : \(self.point), \(self.size), \(self.color), \(self.alpha)"
     }
 }
