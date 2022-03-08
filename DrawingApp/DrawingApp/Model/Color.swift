@@ -30,8 +30,6 @@ class Color {
         self.green = rgbArray[1]
         self.blue = rgbArray[2]
     }
-    
-    
 }
 
 extension Color: CustomStringConvertible {

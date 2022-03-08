@@ -24,7 +24,4 @@ class ViewController: UIViewController {
         logger.info("\(rectangle3 as! Rectangle)")
         logger.info("\(rectangle4 as! Rectangle)")
     }
-
-
 }
-
