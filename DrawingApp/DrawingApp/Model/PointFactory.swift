@@ -8,7 +8,7 @@
 import Foundation
 
 class PointFactory {
-    public static func generateRandomPoint(in frame: (width: Double, height: Double)) -> Point {
+    public static func makeRandomPoint(in frame: (width: Double, height: Double)) -> Point {
         let maxXPoint = frame.width
         let maxYPoint = frame.height
         

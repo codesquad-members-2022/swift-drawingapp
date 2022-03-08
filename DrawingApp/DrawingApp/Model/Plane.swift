@@ -30,7 +30,7 @@ struct Plane {
     }
     
     mutating public func addNewRectangle(in frame: (width: Double, height: Double)) {
-        guard let newRectangle = RectangleFactory.generateRandomRectangle(in: frame) else { return }
+        let newRectangle = RectangleFactory.makeRandomRectangle(in: frame)
         rectangles.append(newRectangle)
         generateRectangleViewDelegate?.planeDidAddRectangle(newRectangle)
     }
