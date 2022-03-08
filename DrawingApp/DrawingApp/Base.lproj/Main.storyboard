@@ -21,22 +21,7 @@
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RFE-pd-gbZ">
                                         <rect key="frame" x="0.0" y="0.0" width="880" height="800"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="El2-SM-BSk">
-                                                <rect key="frame" x="399" y="756" width="82" height="30"/>
-                                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <color key="tintColor" systemColor="systemGray5Color"/>
-                                                <state key="normal" title="사각형 만들기"/>
-                                                <connections>
-                                                    <action selector="touchedCreateRect:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wkj-mK-0KO"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
                                         <color key="backgroundColor" systemColor="systemYellowColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="El2-SM-BSk" secondAttribute="bottom" constant="14" id="gxJ-P2-91J"/>
-                                            <constraint firstItem="El2-SM-BSk" firstAttribute="centerX" secondItem="RFE-pd-gbZ" secondAttribute="centerX" id="rmW-xa-FHY"/>
-                                        </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dX8-eV-gQ8">
                                         <rect key="frame" x="880" y="0.0" width="300" height="800"/>
@@ -128,11 +113,22 @@
                                     </view>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="El2-SM-BSk">
+                                <rect key="frame" x="399" y="750" width="82" height="30"/>
+                                <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="tintColor" systemColor="systemGray5Color"/>
+                                <state key="normal" title="사각형 만들기"/>
+                                <connections>
+                                    <action selector="touchedCreateRect:" destination="BYZ-38-t0r" eventType="touchUpInside" id="wkj-mK-0KO"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="HCu-nX-wP6" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="26Z-n1-gaP"/>
+                            <constraint firstItem="El2-SM-BSk" firstAttribute="bottom" secondItem="RFE-pd-gbZ" secondAttribute="bottom" constant="-20" id="A8X-ge-XgT"/>
+                            <constraint firstItem="El2-SM-BSk" firstAttribute="centerX" secondItem="RFE-pd-gbZ" secondAttribute="centerX" id="JVa-xq-CNo"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="HCu-nX-wP6" secondAttribute="bottom" id="ea3-ve-kIc"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="HCu-nX-wP6" secondAttribute="trailing" id="jYD-Xi-YtA"/>
                             <constraint firstItem="HCu-nX-wP6" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="y8t-YP-WvA"/>

@@ -30,6 +30,14 @@ class Rectangle {
     convenience init(uid: String, point: Point = .zero, size: Size, colorType: Color.Standard = .white) {
         self.init(uid: uid, point: point, size: size, color: colorType.rgb, alpha: 1)
     }
+    
+    func contain(inside targetPoint: Point) -> Bool {
+        if (targetPoint.x >= self.point.x && targetPoint.x <= self.point.x + self.size.width)
+        && (targetPoint.y >= self.point.y && targetPoint.y <= self.point.y + self.size.height) {
+            return true
+        }
+        return false
+    }
 }
 
 extension Rectangle {
