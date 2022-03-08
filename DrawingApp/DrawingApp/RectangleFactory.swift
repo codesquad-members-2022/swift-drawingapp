@@ -9,10 +9,11 @@ import Foundation
 import os
 
 class RectangleFactory {
-    func createRectangle() {
+    func createRectangle() -> Rectangle {
         let rectangle = Rectangle(id: createRandomId(), point: createRandomPoint(), size: createRandomSize(), backgroundColor: createRandomColor(), alpha: try! createRandomAlpha())
         let log = Logger()
         log.info("Rect: \(rectangle)")
+        return rectangle
     }
     
     
@@ -22,12 +23,16 @@ class RectangleFactory {
     
     
     func createRandomPoint() -> Point {
-        return Point(x: 10, y: 200)
+        let x = Double.random(in: 0...200)
+        let y = Double.random(in: 0...200)
+        return Point(x: x, y: y)
     }
     
     
     func createRandomSize() -> Size {
-        return Size(width: 150, height: 120)
+        let width = Double.random(in: 100.0...200.0)
+        let height = Double.random(in: 100.0...200.0)
+        return Size(width: width, height: height)
     }
     
     
