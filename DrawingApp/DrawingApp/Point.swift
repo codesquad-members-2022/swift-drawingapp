@@ -9,8 +9,8 @@ import Foundation
 
 struct Point: CustomStringConvertible{
     
-    var x: Double
-    var y: Double
+    let x: Double
+    let y: Double
     
     init(x: Double, y: Double){
         self.x = x
