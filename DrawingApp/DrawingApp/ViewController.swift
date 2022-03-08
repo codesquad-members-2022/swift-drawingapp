@@ -97,7 +97,7 @@ class ViewController: UIViewController {
     
     @IBAction func backgroundButtonTouched(_ sender: UIButton) {
         guard let touchedView = self.touchedView,
-        let matchedRectangle = self.viewRectangleMap[touchedView]
+              let matchedRectangle = self.viewRectangleMap[touchedView]
         else {
             return
         }
@@ -111,7 +111,7 @@ class ViewController: UIViewController {
         guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: newAlphaValue) else {return}
         let newAlpha = Alpha(opacityLevel: convertedOpacityLevel)
         guard let touchedView = self.touchedView,
-        let matchedRectangle = self.viewRectangleMap[touchedView]
+              let matchedRectangle = self.viewRectangleMap[touchedView]
         else {
             return
         }
@@ -122,7 +122,7 @@ class ViewController: UIViewController {
     
     @IBAction func minusAlphaValueButtonTouched(_ sender: UIButton) {
         guard let touchedView = self.touchedView,
-        let matchedRectangle = self.viewRectangleMap[touchedView]
+              let matchedRectangle = self.viewRectangleMap[touchedView]
         else {
             return
         }
@@ -137,7 +137,7 @@ class ViewController: UIViewController {
     }
     @IBAction func plusAlphaValueButtonTouched(_ sender: UIButton) {
         guard let touchedView = self.touchedView,
-        let matchedRectangle = self.viewRectangleMap[touchedView]
+              let matchedRectangle = self.viewRectangleMap[touchedView]
         else {
             return
         }
@@ -204,11 +204,11 @@ extension ViewController: PlaneDelegate {
         }
         self.touchedView = matchedView
         
-            updateSelectedView(matchedView)
-            updateBackgroundButton(color: specifiedRectangle.backgroundColor, alpha: specifiedRectangle.alpha)
-            updateAlphaSlider(alpha: matchedView.alpha)
-            updateMinusAlphaValueButton(with: matchedView.alpha)
-            updatePlusAlphaValueButton(with: matchedView.alpha)
+        updateSelectedView(matchedView)
+        updateBackgroundButton(color: specifiedRectangle.backgroundColor, alpha: specifiedRectangle.alpha)
+        updateAlphaSlider(alpha: matchedView.alpha)
+        updateMinusAlphaValueButton(with: matchedView.alpha)
+        updatePlusAlphaValueButton(with: matchedView.alpha)
     }
     
     func rectangleBackgroundColorDidChanged(_ backgroundColorChangedRectangle: Rectangle) {
