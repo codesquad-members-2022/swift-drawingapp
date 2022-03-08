@@ -24,5 +24,5 @@ class ViewController: UIViewController {
 
 
 protocol RectangleDelegate {
-    func rectangleDidCreated(rectangle: Rectangle)
+    mutating func rectangleDidCreated(rectangle: Rectangle)
 }
