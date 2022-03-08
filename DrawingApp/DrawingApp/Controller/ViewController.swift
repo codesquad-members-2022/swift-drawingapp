@@ -21,7 +21,7 @@ class ViewController: UIViewController {
         plane.addRectangle(rectangle)
         
         let myView = UIView(frame: CGRect(x: rectangle.point.x, y: rectangle.point.y, width: rectangle.size.width, height: rectangle.size.height))
-        myView.backgroundColor = .yellow
+        myView.backgroundColor = UIColor(hex: rectangle.backgroundColor.hexValue)
         view.addSubview(myView)
     }
     

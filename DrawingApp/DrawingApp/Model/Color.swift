@@ -11,7 +11,7 @@ class Color {
     private let red: Int
     private let green: Int
     private let blue: Int
-    private let hexValue: String
+    private(set) var hexValue: String
     
     init(red: Int, green: Int, blue: Int) {
         let minValue = 0
@@ -21,10 +21,23 @@ class Color {
         self.green = green < minValue ? minValue : (green > maxValue ? maxValue : green)
         self.blue = blue < minValue ? minValue : (blue > maxValue ? maxValue : blue)
         
-        let hexRed = String(red, radix: 16)
-        let hexGreen = String(green, radix: 16)
-        let hexBlue = String(blue, radix: 16)
-        self.hexValue = hexRed + hexGreen + hexBlue
+        var hexRed = String(red, radix: 16)
+        var hexGreen = String(green, radix: 16)
+        var hexBlue = String(blue, radix: 16)
+        
+        if hexRed.count == 1 {
+            hexRed = "0" + hexRed
+        }
+        
+        if hexGreen.count == 1 {
+            hexGreen = "0" + hexGreen
+        }
+        
+        if hexBlue.count == 1 {
+            hexBlue = "0" + hexBlue
+        }
+        
+        self.hexValue = "0x" + hexRed + hexGreen + hexBlue
     }
 }
 
