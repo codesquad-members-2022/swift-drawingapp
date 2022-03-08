@@ -24,7 +24,6 @@ class PresentRectangleView: UIView {
     //MARK: Configure Components
     
     func configureView() {
-        self.backgroundColor = .red
         self.translatesAutoresizingMaskIntoConstraints = false
     }
 
