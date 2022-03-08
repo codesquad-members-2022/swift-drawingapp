@@ -79,9 +79,9 @@ class InspectorView: UIView {
         itemStackView.bottomAnchor.constraint(equalTo: items[items.count - 1].bottomAnchor).isActive = true
     }
     
-    func update(rectangle: Rectangle) {
-        self.update(color: rectangle.color)
-        self.update(alpha: rectangle.alpha)
+    func update(model: DrawingModel) {
+        self.update(color: model.color)
+        self.update(alpha: model.alpha)
     }
     
     func update(color: Color?) {

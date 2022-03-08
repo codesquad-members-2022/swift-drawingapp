@@ -1,13 +1,13 @@
 //
-//  Rectangle.swift
+//  DrawingModel.swift
 //  Drawingapp
 //
-//  Created by seongha shin on 2022/02/28.
+//  Created by seongha shin on 2022/03/08.
 //
 
 import Foundation
 
-class Rectangle: CustomStringConvertible {
+class DrawingModel: CustomStringConvertible {
     let id: String
     let point: Point
     let size: Size
@@ -17,7 +17,7 @@ class Rectangle: CustomStringConvertible {
     var description: String {
         "id: ( \(id) ), \(point), \(size), \(color), alpha: \(alpha)"
     }
-    
+        
     init(id: String, point: Point, size: Size, color: Color?, alpha: Alpha) {
         self.id = id
         self.point = point
@@ -47,17 +47,19 @@ class Rectangle: CustomStringConvertible {
     }
 }
 
-extension Rectangle {
+extension DrawingModel {
     enum EventName {
         static let updateColor = NSNotification.Name("updateColor")
         static let updatePoint = NSNotification.Name("updatePoint")
         static let updateSize = NSNotification.Name("updateSize")
         static let updateAlpha = NSNotification.Name("updateAlpha")
+        static let updateImageUrl = NSNotification.Name("updateImageUrl")
     }
     
     enum ParamKey {
         static let id = "id"
         static let color = "color"
         static let alpha = "alpha"
+        static let imageUrl = "imageUrl"
     }
 }

@@ -8,22 +8,22 @@
 import Foundation
 
 class DrawingModelFactory {    
-    static func makeRectangle() -> Rectangle {
+    static func makeModel() -> DrawingModel {
         let id = makeId()
         let size = SizeFactory.make()
         let point = PointFactory.make()
         let color = ColorFactory.make()
         let alpha = Alpha.allCases.randomElement() ?? .transpar10
         
-        return Rectangle(id: id, point: point, size: size, color: color, alpha: alpha)
+        return DrawingModel(id: id, point: point, size: size, color: color, alpha: alpha)
     }
     
-    static func makePhotoRectangle(url: URL) -> PhotoRectangle {
+    static func makeModel(url: URL) -> PhotoModel {
         let id = makeId()
         let size = SizeFactory.make()
         let point = PointFactory.make()
         let alpha = Alpha.transpar10
-        return PhotoRectangle(id: id, point: point, size: size, color: nil, alpha: alpha, url: url)
+        return PhotoModel(id: id, point: point, size: size, alpha: alpha, url: url)
     }
     
     private static func makeId() -> String {
