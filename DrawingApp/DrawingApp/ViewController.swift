@@ -9,6 +9,8 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    private let model = Plane()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,5 +22,10 @@ class ViewController: UIViewController {
         
         let rect = ShapeFactoryType.square(length: 20).make()
         Log.shared.print(logLevel: .default, message: rect.description)
+    }
+    
+    // MARK:- Actions
+    @IBAction func touchedCreateRect(_ sender: Any) {
+        model.createRect()
     }
 }
