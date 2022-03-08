@@ -107,7 +107,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func alphaSliderValueChanged(_ sender: UISlider) {
-        let newAlphaValue = Double(String(format: "%.1f", sender.value)) ?? 0
+        let newAlphaValue = Double(round(sender.value * 10) / 10.0)
         guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: newAlphaValue) else {return}
         let newAlpha = Alpha(opacityLevel: convertedOpacityLevel)
         guard let touchedView = self.touchedView,
@@ -130,7 +130,7 @@ class ViewController: UIViewController {
         minusAlphaValueButton.isEnabled = true
         minusAlphaValueButton.backgroundColor = .white
         
-        let newAlphaValue = Double(String(format: "%.1f",touchedView.alpha - 0.1)) ?? 0.1
+        let newAlphaValue = Double(round((touchedView.alpha - 0.1) * 10) / 10.0)
         guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: newAlphaValue) else {return}
         let newAlpha = Alpha(opacityLevel: convertedOpacityLevel)
         plane.changeAlphaValue(of: matchedRectangle, to: newAlpha)
@@ -145,7 +145,7 @@ class ViewController: UIViewController {
         plusAlphaValueButton.isEnabled = true
         plusAlphaValueButton.backgroundColor = .white
         
-        let newAlphaValue = Double(String(format: "%.1f",(touchedView.alpha + 0.1))) ?? 1.0
+        let newAlphaValue = Double(round((touchedView.alpha + 0.1) * 10) / 10.0)
         guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: newAlphaValue) else {return}
         let newAlpha = Alpha(opacityLevel: convertedOpacityLevel)
         plane.changeAlphaValue(of: matchedRectangle, to: newAlpha)
@@ -164,7 +164,7 @@ class ViewController: UIViewController {
     }
     
     private func updateMinusAlphaValueButton(with alpha: Double) {
-        if Double(String(format: "%.1f", alpha)) ?? 0.1 > 0.1 {
+        if Double(round(alpha * 10) / 10.0) > 0.1 {
             minusAlphaValueButton.isEnabled = true
             minusAlphaValueButton.backgroundColor = .white
         } else {
@@ -174,7 +174,7 @@ class ViewController: UIViewController {
     }
     
     private func updatePlusAlphaValueButton(with alpha: Double) {
-        if Double(String(format: "%.1f", alpha)) ?? 0.1 < 1.0 {
+        if Double(round(alpha * 10) / 10.0) < 1.0 {
             plusAlphaValueButton.isEnabled = true
             plusAlphaValueButton.backgroundColor = .white
         } else {
