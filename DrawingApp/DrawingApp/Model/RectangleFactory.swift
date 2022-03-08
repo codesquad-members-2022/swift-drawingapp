@@ -7,12 +7,18 @@
 
 import Foundation
 
+protocol RectangleFactoryDelegate {
+    func didMadeRectangle(rectangle: Rectangle)
+}
+
 class RectangleFactory {
     private let screenSize : (Double,Double)
+    var delegate : RectangleFactoryDelegate?
+    
     init(screenSize : (Double,Double)) {
         self.screenSize = screenSize
     }
-    func makeRandomRectangle() -> Rectangle? {
+    func makeRandomRectangle() {
         var randomPosition : Position {
             let screenWidth = screenSize.0
             let screenHeight = screenSize.1
@@ -34,14 +40,12 @@ class RectangleFactory {
 
         
         var randomAlpha : Alpha? {
-            guard let randomTransparency = Alpha.alphaRange.randomElement() else {
-                return Alpha(transparency: 10)
-            }
+            let randomTransparency = Double.random(in: Alpha.alphaRange)
             return Alpha(transparency: randomTransparency)
         }
-        guard let randomColor = randomColor else {return nil}
-        guard let randomAlpha = randomAlpha else {return nil}
-        return Rectangle(size: Size(width: 150, height: 120), position: randomPosition, color: randomColor, alpha: randomAlpha)
+        guard let randomColor = randomColor else {return}
+        guard let randomAlpha = randomAlpha else {return}
+        delegate?.didMadeRectangle(rectangle: Rectangle(size: Size(width: 150, height: 120), position: randomPosition, color: randomColor, alpha: randomAlpha))
     }
     
     
