@@ -13,8 +13,9 @@ class MainViewController: UIViewController, UIColorSliderDelegate{
     let rectFactory = RectangleFactory()
     let rightAttributerView = RightAttributerView()
     
-    private var rectangleUIViews = [Rectangle : UIView]()
+    private var rectangleUIViews = [Rectangle : RectangleView]()
     private var selectedRectangle: Rectangle?
+    private var selectedRectangleView: RectangleView?
     
     @IBOutlet weak var rectangleButton: UIButton!
     
@@ -30,10 +31,11 @@ class MainViewController: UIViewController, UIColorSliderDelegate{
         
         addRectangleMakerButtonObserver()
         addGestureRecognizerObserver()
+        addNoneClickedRectangleObserver()
     }
     
     @IBAction func makeRandomRectangle(_ sender: Any) {
-        let rectangleValue = rectFactory.makeRectangle(viewWidth: self.rightAttributerView.frame.minX, viewHeight: self.rectangleButton.frame.minY)
+        let rectangleValue = rectFactory.makeRandomRectangle(viewWidth: self.rightAttributerView.frame.minX, viewHeight: self.rectangleButton.frame.minY)
         plane.addRectangle(rectangle: rectangleValue)
     }
     
@@ -56,11 +58,15 @@ class MainViewController: UIViewController, UIColorSliderDelegate{
 
 extension MainViewController{
     private func addRectangleMakerButtonObserver(){
-        NotificationCenter.default.addObserver(self, selector: #selector(addRectangleView(_:)), name: Plane.makeRectangle, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(addRectangleView(_:)), name: Plane.makeRectangle, object: plane)
     }
     
     private func addGestureRecognizerObserver(){
-        NotificationCenter.default.addObserver(self, selector: #selector(displaySliderValue(_:)), name: Plane.selectRectangle, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(showTouchedView(_:)), name: Plane.selectRectangle, object: plane)
+    }
+    
+    private func addNoneClickedRectangleObserver(){
+        NotificationCenter.default.addObserver(self, selector: #selector(showNonTouchedView), name: Plane.noneSelectRectangle, object: plane)
     }
 }
 
@@ -75,14 +81,46 @@ extension MainViewController {
         return
     }
     
-    @objc func displaySliderValue(_ notification: Notification){
-        guard let rectangle = notification.userInfo?[Plane.userInfoKey] as? Rectangle, let _ = rectangleUIViews[rectangle] else{
+    @objc func showTouchedView(_ notification: Notification){
+        guard let rectangle = notification.userInfo?[Plane.userInfoKey] as? Rectangle, let rectangleView = rectangleUIViews[rectangle] else{
             return
         }
         
         selectedRectangle = rectangle
+        selectedRectangleView = rectangleView
         
+        displaySliderValue(rectangle: rectangle)
+        touchedViewFrame(view: rectangleView)
+    }
+    
+    private func displaySliderValue(rectangle: Rectangle){
         rightAttributerView.originSliderValue(red: Float(rectangle.showColor().red), green: Float(rectangle.showColor().green), blue: Float(rectangle.showColor().blue), alpha: Float(rectangle.showAlpha().showValue()))
+    }
+    
+    private func touchedViewFrame(view: RectangleView){
+        view.layer.borderColor = UIColor.cyan.cgColor
+        view.layer.borderWidth = 3
+    }
+    
+    @objc func showNonTouchedView(){
+        guard let rectangle = selectedRectangle, let view = selectedRectangleView else{
+            return
+        }
+        
+        noneTouchedViewFrame(view: view)
+        noneDisplaySliderValue(rectangle: rectangle)
+        
+        self.selectedRectangle = nil
+        self.selectedRectangleView = nil
+    }
+    
+    private func noneDisplaySliderValue(rectangle: Rectangle){
+        rightAttributerView.originSliderValue(red: 0, green: 0, blue: 0, alpha: 1)
+    }
+    
+    private func noneTouchedViewFrame(view: RectangleView){
+        view.layer.borderColor = .none
+        view.layer.borderWidth = 0
     }
 }
 
