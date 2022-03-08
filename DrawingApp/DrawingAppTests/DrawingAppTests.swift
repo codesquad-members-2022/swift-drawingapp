@@ -14,4 +14,8 @@ class DrawingAppTests: XCTestCase {
         sut = nil
         try super.tearDownWithError()
     }
+    func testRectangleColor() {
+        //given
+        
+    }
 }
