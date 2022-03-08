@@ -49,9 +49,8 @@ extension ViewController: PlaneDelegate {
     }
     
     func didCreate(rect: Rectangle) {
-        let view = UIView(frame: CGRect(origin: CGPoint(x: rect.point.x, y: rect.point.y), size: CGSize(width: rect.size.width, height: rect.size.height)))
-        view.backgroundColor = UIColor(color: rect.color)
-        canvas.addSubview(view)
+        let rectView = RectangleView(rect: rect)
+        canvas.addSubview(rectView)
     }
 }
 
