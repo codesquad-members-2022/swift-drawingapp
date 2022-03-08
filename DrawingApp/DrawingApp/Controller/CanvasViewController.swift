@@ -12,7 +12,8 @@ class CanvasViewController: UIViewController,
                             UINavigationControllerDelegate {
     
     private var plane = Plane()
-    private var viewIDMap = [String: CanvasView]()
+    private var rectangleMap = [Rectangle: CanvasView]()
+    private var photoMap = [Photo: CanvasView]()
     private let photoPicker = UIImagePickerController()
     private var temporaryView: UIImageView?
     
@@ -34,16 +35,16 @@ class CanvasViewController: UIViewController,
 extension CanvasViewController {
     
     private func observePlane() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didAddViewModel(_:)), name: Plane.addViewModel, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(didSelectViewModel(_:)), name: Plane.selectViewModel, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(didMutateColor(_:)), name: Plane.mutateColorViewModel, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(didMutateAlpha(_:)), name: Plane.mutateAlphaViewModel, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(didMutateOrigin(_:)), name: Plane.mutateOriginViewModel, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didAddViewModel(_:)), name: Plane.event.addViewModel, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didSelectViewModel(_:)), name: Plane.event.selectViewModel, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateColor(_:)), name: Plane.event.mutateColorViewModel, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateAlpha(_:)), name: Plane.event.mutateAlphaViewModel, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateOrigin(_:)), name: Plane.event.mutateOriginViewModel, object: plane)
     }
     
     private func observePanel() {
-        NotificationCenter.default.addObserver(self, selector: #selector(sliderChanged(_:)), name: PanelViewController.sliderChanged, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(colorButtonPressed(_:)), name: PanelViewController.colorButtonPressed, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(sliderChanged(_:)), name: PanelViewController.event.sliderChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(colorButtonPressed(_:)), name: PanelViewController.event.colorButtonPressed, object: nil)
     }
     
     private func setUpRecognizer() {
@@ -70,21 +71,25 @@ extension CanvasViewController {
     }
     
     @objc func didAddViewModel(_ notification: Notification) {
-        guard let newViewModel = notification.userInfo?[Plane.newViewModelKey] as? ViewModel else { return }
+        guard let newViewModel = notification.userInfo?[Plane.InfoKey.new] as? Rectangle else { return }
         let newCanvasView = createView(from: newViewModel)
-        addViewID(newCanvasView)
-        
+        add(canvasView: newCanvasView, to: newViewModel)
         view.addSubview(newCanvasView)
         setupPanRecognizer(newCanvasView)
     }
     
-    private func createView(from viewModel: ViewModel) -> CanvasView {
+    private func createView<T: ViewModel>(from viewModel: T) -> CanvasView {
         return CanvasView.create(from: viewModel)
     }
     
-    private func addViewID(_ new: CanvasView) {
-        viewIDMap[new.id] = new
+    private func add(canvasView: CanvasView, to viewModel: ViewModel) {
+        if let rectangle = viewModel as? Rectangle {
+            rectangleMap[rectangle] = canvasView
+        } else if let photo = viewModel as? Photo {
+            photoMap[photo] = canvasView
+        }
     }
+    
 }
 
 // MARK: - Use Case: Add New Photo
@@ -97,8 +102,8 @@ extension CanvasViewController {
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
-        guard let image = info[.originalImage] as? UIImage else { return }
-        guard let imageData = image.pngData() else { return }
+        guard let image = info[.originalImage] as? UIImage,
+              let imageData = image.pngData() else { return }
         
         plane.addPhoto(data: imageData)
         picker.dismiss(animated: true, completion: nil)
@@ -116,19 +121,23 @@ extension CanvasViewController {
     }
     
     @objc func didSelectViewModel(_ notification: Notification) {
-        if let new = notification.userInfo?[Plane.newViewModelKey] as? ViewModel {
+        if let new = notification.userInfo?[Plane.InfoKey.new] as? ViewModel {
             guard let newView = searchView(for: new) else { return }
             changeBorder(newView)
         }
         
-        if let old = notification.userInfo?[Plane.oldViewModelKey] as? ViewModel {
+        if let old = notification.userInfo?[Plane.InfoKey.old] as? ViewModel {
             guard let oldView = searchView(for: old) else { return }
             clearBorder(oldView)
         }
     }
     
-    private func searchView(for viewModel: ViewModel) -> CanvasView? {
-        return viewIDMap[viewModel.id]
+    private func search(for viewModel: ViewModel) -> CanvasView? {
+        if let rectangle = viewModel as? Rectangle {
+            return rectangleMap[rectangle]
+        } else if let photo = viewModel as? Photo {
+            return photoMap[photo]
+        }
     }
     
     private func changeBorder(_ view: CanvasView) {
@@ -147,29 +156,29 @@ extension CanvasViewController {
 extension CanvasViewController {
     
     @objc func colorButtonPressed(_ notification: Notification) {
-        plane.transform()
+        plane.set()
     }
     
     @objc func didMutateColor(_ notification: Notification) {
-        guard let plane = notification.object as? Plane else { return }
-        guard let mutated = plane.selected as? ColorMutable else { return }
+        guard let plane = notification.object as? Plane,
+              let mutated = plane.selected as? ColorMutable else { return }
         let mutatedUIView = searchView(for: mutated as! ViewModel)
-        mutatedUIView?.backgroundColor = Converter.toUIColor(mutated.color)
+        mutatedUIView?.backgroundColor = UIColor(with: mutated.color)
     }
     
     @objc func sliderChanged(_ notification: Notification) {
-        guard let value = notification.userInfo?[PanelViewController.sliderValueKey] as? Float else { return }
+        guard let value = notification.userInfo?[PanelViewController.InfoKey.sliderValue] as? Float else { return }
         
         if let alpha = Alpha(value) {
-            plane.transform(to: alpha)
+            plane.set(to: alpha)
         }
     }
     
     @objc func didMutateAlpha(_ notification: Notification) {
-        guard let plane = notification.object as? Plane else { return }
-        guard let mutated = plane.selected as? AlphaMutable else { return }
+        guard let plane = notification.object as? Plane,
+              let mutated = plane.selected as? AlphaMutable else { return }
         let mutatedUIView = searchView(for: mutated as! ViewModel)
-        mutatedUIView?.alpha = Converter.toCGFloat(mutated.alpha)
+        mutatedUIView?.alpha = CGFloat(with: mutated.alpha)
     }
 }
 
@@ -190,8 +199,8 @@ extension CanvasViewController {
     }
     
     private func startPan(_ gesture: UIPanGestureRecognizer) {
-        guard let gestureView = gesture.view as? CanvasView else { return }
-        guard gesture.state == .began else { return }
+        guard let gestureView = gesture.view as? CanvasView,
+              gesture.state == .began else { return }
         
         let temporaryView = gestureView.createTemporary()
         self.temporaryView = temporaryView
@@ -210,20 +219,31 @@ extension CanvasViewController {
     }
     
     private func endPan(_ gesture: UIPanGestureRecognizer) {
-        guard let gestureView = gesture.view as? CanvasView else { return }
-        guard let temporaryView = temporaryView else { return }
-        guard gesture.state == .ended else { return }
+        guard let gestureView = gesture.view as? CanvasView,
+              let temporaryView = temporaryView,
+              gesture.state == .ended else { return }
         
         let lastOrigin = Point(x: temporaryView.frame.origin.x,
                                y: temporaryView.frame.origin.y)
-        plane.transform(gestureView.id, to: lastOrigin)
+        
+        plane.set(gestureView, to: lastOrigin)
         temporaryView.removeFromSuperview()
     }
     
+    private func search(for canvasView: CanvasView) -> ViewModel? {
+        if let rectangle = viewModel as? Rectangle {
+            return rectangleMap.first { dict in
+                dict.value === canvasView
+            }
+        } else if let photo = viewModel as? Photo {
+            return photoMap[photo]
+        }
+    }
+    
     @objc func didMutateOrigin(_ notification: Notification) {
-        guard let mutated = notification.userInfo?[Plane.mutatedViewModelKey] as? OriginMutable else { return }
+        guard let mutated = notification.userInfo?[Plane.InfoKey.muatated] as? OriginMutable else { return }
         
         let mutatedCavnasView = searchView(for: mutated as! ViewModel)
-        mutatedCavnasView?.frame.origin = Converter.toCGPoint(mutated.origin)
+        mutatedCavnasView?.frame.origin = CGPoint(with: mutated.origin)
     }
 }

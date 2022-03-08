@@ -7,25 +7,31 @@
 
 import Foundation
 
+
+
 class Plane {
-    static let addViewModel = Notification.Name("addViewModel")
-    static let newViewModelKey = "new"
-    static let selectViewModel = Notification.Name("selectViewModel")
-    static let oldViewModelKey = "old"
-    static let mutateColorViewModel = Notification.Name("mutateColorViewModel")
-    static let mutateAlphaViewModel = Notification.Name("mutateAlphaViewModel")
-    static let mutateOriginViewModel = Notification.Name("mutateOriginViewModel")
-    static let mutatedViewModelKey = "mutated"
+    enum event {
+        static let addViewModel = Notification.Name("addViewModel")
+        static let selectViewModel = Notification.Name("selectViewModel")
+        static let mutateColorViewModel = Notification.Name("mutateColorViewModel")
+        static let mutateAlphaViewModel = Notification.Name("mutateAlphaViewModel")
+        static let mutateOriginViewModel = Notification.Name("mutateOriginViewModel")
+    }
+    
+    enum InfoKey {
+        static let new = "new"
+        static let old = "old"
+        static let muatated = "mutated"
+    }
     
     private var viewModels: [ViewModel] = [] {
         didSet {
             guard let newModel = viewModels.last else { return }
-            viewModelIDMap[newModel.id] = newModel
             Log.info("Added: \(newModel)")
         }
     }
     
-    private var viewModelIDMap = [String: ViewModel]()
+    private var viewModelIDMap = [CanvasView: ViewModel]()
     
     var selected: ViewModel?
     
@@ -48,13 +54,13 @@ class Plane {
     func addRectangle() {
         let newRectangle = Rectangle.createRectangle()
         viewModels.append(newRectangle)
-        NotificationCenter.default.post(name: Plane.addViewModel, object: self, userInfo: [Plane.newViewModelKey: newRectangle])
+        NotificationCenter.default.post(name: Plane.event.addViewModel, object: self, userInfo: [Plane.InfoKey.new: newRectangle])
     }
     
     func addPhoto(data: Data) {
         let newPhoto = Photo.create(from: data)
         viewModels.append(newPhoto)
-        NotificationCenter.default.post(name: Plane.addViewModel, object: self, userInfo: [Plane.newViewModelKey: newPhoto])
+        NotificationCenter.default.post(name: Plane.event.addViewModel, object: self, userInfo: [Plane.InfoKey.new: newPhoto])
     }
     
     func tap(on point: Point) {
@@ -62,24 +68,24 @@ class Plane {
         self.selected = viewModels.last(where: { viewModel in
             viewModel.contains(point)
         })
-        NotificationCenter.default.post(name: Plane.selectViewModel, object: self, userInfo: [Plane.oldViewModelKey: oldSelected as Any, Plane.newViewModelKey: selected as Any])
+        NotificationCenter.default.post(name: Plane.event.selectViewModel, object: self, userInfo: [Plane.InfoKey.old: oldSelected as Any, Plane.InfoKey.new: selected as Any])
     }
     
-    func transform(to color: Color = Color.random()) {
+    func set(to color: Color = Color.random()) {
         guard let mutableViewModel = selected as? ColorMutable else { return }
-        mutableViewModel.transform(to: color)
-        NotificationCenter.default.post(name: Plane.mutateColorViewModel, object: self)
+        mutableViewModel.set(to: color)
+        NotificationCenter.default.post(name: Plane.event.mutateColorViewModel, object: self)
     }
     
-    func transform(to alpha: Alpha) {
+    func set(to alpha: Alpha) {
         guard let mutableViewModel = selected as? AlphaMutable else { return }
-        mutableViewModel.transform(to: alpha)
-        NotificationCenter.default.post(name: Plane.mutateAlphaViewModel, object: self)
+        mutableViewModel.set(to: alpha)
+        NotificationCenter.default.post(name: Plane.event.mutateAlphaViewModel, object: self)
     }
     
-    func transform(_ id: String, to origin: Point) {
-        guard let mutableViewModel = viewModelIDMap[id] as? OriginMutable else { return }
-        mutableViewModel.transform(to: origin)
-        NotificationCenter.default.post(name: Plane.mutateOriginViewModel, object: self, userInfo: [Plane.mutatedViewModelKey: mutableViewModel])
+    func set(viewModel: ViewModel, to origin: Point) {
+//        guard let mutableViewModel = viewModelIDMap[id] as? OriginMutable else { return }
+//        mutableViewModel.transform(to: origin)
+//        NotificationCenter.default.post(name: Plane.mutateOriginViewModel, object: self, userInfo: [Plane.mutatedViewModelKey: mutableViewModel])
     }
 }
