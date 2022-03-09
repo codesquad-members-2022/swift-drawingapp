@@ -7,28 +7,19 @@
 
 import UIKit
 
-protocol RectangleViewDelegate {
-    func rectangleViewDidTap()
-}
-
 class RectangleView: UIView {
-    var delegate: RectangleViewDelegate?
-    
     // MARK: - Initialisers
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.configureTapGesture()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.configureTapGesture()
     }
     
-    // MARK: - Configuration
-    func configureTapGesture() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
-        self.addGestureRecognizer(tap)
+    init(data: Rectangle) {
+        super.init(frame: data.convert(using: CGRect.self))
+        self.setBackgroundColor(color: data.backgroundColor, alpha: data.alpha)
     }
     
     // MARK: - UI changing methods
@@ -58,10 +49,5 @@ class RectangleView: UIView {
         self.layer.cornerRadius = 0
         self.layer.borderWidth = 0
         self.layer.borderColor = .none
-    }
-    
-    @objc func handleTap(_ sender: UITapGestureRecognizer) {
-        guard sender.state == .ended else { return }
-        self.delegate?.rectangleViewDidTap()
     }
 }
