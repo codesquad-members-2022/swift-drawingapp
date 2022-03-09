@@ -21,12 +21,7 @@ final class ViewController: UIViewController {
         super.viewDidLoad()
         
         defaultButtonColor = buttonSetRandomColor.backgroundColor
-        
-        NotificationCenter.default.addObserver(
-            forName: .MainScreenTouched,
-            object: nil,
-            queue: OperationQueue.main
-        ) { [weak self] noti in
+        observeMainScreenTouched(using: { [weak self] noti in
             guard let self = self else { return }
             
             self.currentIndex = noti.userInfo?["index"] as? Int
@@ -42,7 +37,7 @@ final class ViewController: UIViewController {
             
             button?.backgroundColor = property.rgbValue.getColor(alpha: property.alpha)
             slider?.setValue(Float(property.alpha), animated: true)
-        }
+        })
     }
     
     @IBAction func buttonForAddTouchUpInside(_ sender: UIButton) {

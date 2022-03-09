@@ -48,11 +48,8 @@ struct RectRGBColor {
     @ColorValue var g: Double
     @ColorValue var b: Double
     
+    /// If you indicate RectRGBColor values bigger than maxValue(255), it will be definitely 0.
     init?(r: Double, g: Double, b: Double) {
-        if !(0...RectRGBColor.maxValue ~= r) || !(0...RectRGBColor.maxValue ~= g) || !(0...RectRGBColor.maxValue ~= b) {
-            return nil
-        }
-        
         self.r = r
         self.g = g
         self.b = b

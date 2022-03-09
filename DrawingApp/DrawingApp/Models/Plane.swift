@@ -23,6 +23,8 @@ final class Plane: RectangleViewTapDelegate {
     
     var screenDelegate: MainScreenDelegate?
     
+    // Plane 객체는 같은 방식으로 Notification을 보내는 것이 좋다고 생각해서
+    // Notification post 만 하는 메소드를 따로 빼서 사용하도록 하였습니다.
     private func sendNotification(_ model: RectangleProperty, at index: Int, as type: MainScreenAction) {
         NotificationCenter.default.post(name: .MainScreenAction, object: model, userInfo: ["index": index, "type": type])
     }

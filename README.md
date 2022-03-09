@@ -262,7 +262,7 @@ view들의 border에 정의하였습니다.
 
 ---
 
-## Step 3 - Oberserver Pattern
+## Step 3 - Oberserver Pattern (완료: 2022.03.09 14:00)
 
 * iOS MVC Pattern에서 Observer Pattern을 이용해 각 요소들끼리의 응집도를 향상시킨다.
 * NotificationCenter에 대해 알아본다.
