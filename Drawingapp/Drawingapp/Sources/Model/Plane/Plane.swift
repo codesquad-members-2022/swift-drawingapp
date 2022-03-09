@@ -10,7 +10,7 @@ import UIKit
 
 protocol PlaneAction {
     func touchPoint(where point: Point)
-    func changeColor(_ color: Color)
+    func changeColor()
     func changeAlpha(_ alpha: Alpha)
 }
 
@@ -104,11 +104,11 @@ extension Plane: PlaneAction {
         }
     }
     
-    func changeColor(_ color: Color) {
+    func changeColor() {
         guard let model = self.selectedModel as? RectangleModel else {
             return
         }
-        model.update(color: color)
+//        model.update(color: Color(using: RandomColorGenerator()))
     }
     
     func changeAlpha(_ alpha: Alpha) {

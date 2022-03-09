@@ -8,9 +8,9 @@
 import Foundation
 
 struct Color: CustomStringConvertible {
-    let r: UInt
-    let g: UInt
-    let b: UInt
+    let r: UInt8
+    let g: UInt8
+    let b: UInt8
     
     var hexColor: String {
         "#\(hexaFromDecimal(r))\(hexaFromDecimal(g))\(hexaFromDecimal(b))"
@@ -24,26 +24,18 @@ struct Color: CustomStringConvertible {
         let colorR = generator.colorR
         let colorG = generator.colorG
         let colorB = generator.colorB
-        
-        assert(colorR > 0 && colorR < 255 )
-        assert(colorG > 0 && colorG < 255 )
-        assert(colorB > 0 && colorB < 255 )
-        
         self.r = colorR
         self.g = colorG
         self.b = colorB
     }
     
-    private init(r: UInt, g: UInt, b: UInt) {
-        assert(r > 0 && r < 255 )
-        assert(g > 0 && g < 255 )
-        assert(b > 0 && b < 255 )
+    init(r: UInt8, g: UInt8, b: UInt8) {
         self.r = r
         self.g = g
         self.b = b
     }
     
-    private func hexaFromDecimal(_ value: UInt) -> String {
+    private func hexaFromDecimal(_ value: UInt8) -> String {
         var hex = String(value, radix: 16)
         hex = hex.count == 1 ? "0" + hex : hex
         return hex

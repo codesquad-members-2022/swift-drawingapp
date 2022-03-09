@@ -19,21 +19,21 @@ class ColorFactory {
 }
 
 protocol ColorValueGenerator {
-    var colorR: UInt { get }
-    var colorG: UInt { get }
-    var colorB: UInt { get }
+    var colorR: UInt8 { get }
+    var colorG: UInt8 { get }
+    var colorB: UInt8 { get }
 }
 
 class RandomColorGenerator: ColorValueGenerator {
-    var colorR: UInt {
-        UInt.random(in: 0...255)
+    var colorR: UInt8 {
+        UInt8.random(in: 0...255)
     }
     
-    var colorG: UInt {
-        UInt.random(in: 0...255)
+    var colorG: UInt8 {
+        UInt8.random(in: 0...255)
     }
     
-    var colorB: UInt {
-        UInt.random(in: 0...255)
+    var colorB: UInt8 {
+        UInt8.random(in: 0...255)
     }
 }

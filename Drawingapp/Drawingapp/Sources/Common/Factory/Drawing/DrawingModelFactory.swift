@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 class DrawingModelFactory {
     
@@ -21,8 +22,11 @@ class DrawingModelFactory {
     
     func makeRectangleModel() -> RectangleModel {
         let id = makeId()
-        let size = sizeFactory.make()
-        let point = pointFactory.make()
+        let size = sizeFactory.make(width: 150, height: 120)
+        let screenSize = UIScreen.main.bounds.size
+        let pointX = Int.random(in: 0..<Int(screenSize.width))
+        let pointY = Int.random(in: 0..<Int(screenSize.height))
+        let point = pointFactory.make(x: pointX, y: pointY)
         let color = colorFactory.makeRandomColor()
         let alpha = Alpha.allCases.randomElement() ?? .transpar10
         return RectangleModel(id: id, point: point, size: size, color: color, alpha: alpha)
@@ -30,8 +34,11 @@ class DrawingModelFactory {
     
     func makePhotoModel(url: URL) -> PhotoModel {
         let id = makeId()
-        let size = sizeFactory.make()
-        let point = pointFactory.make()
+        let size = sizeFactory.make(width: 150, height: 120)
+        let screenSize = UIScreen.main.bounds.size
+        let pointX = Int.random(in: 0..<Int(screenSize.width))
+        let pointY = Int.random(in: 0..<Int(screenSize.height))
+        let point = pointFactory.make(x: pointX, y: pointY)
         let alpha = Alpha.transpar10
         return PhotoModel(id: id, point: point, size: size, alpha: alpha, url: url)
     }

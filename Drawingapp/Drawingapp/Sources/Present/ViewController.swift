@@ -73,7 +73,7 @@ class ViewController: UIViewController {
             DispatchQueue.main.async {
                 let drawView = DrawingViewFactory.make(model: model)
                 self.drawingBoard.addSubview(drawView)
-                self.drawingViews[model] = drawView                
+                self.drawingViews[model] = drawView
             }
         }
         
@@ -133,8 +133,8 @@ extension ViewController: InspectorDelegate {
         ColorFactory()
     }
     
-    func changeColorButtonTapped(color: Color) {
-        self.plane.changeColor(color)
+    func changeColorButtonTapped() {
+        self.plane.changeColor()
     }
     
     func alphaSliderValueChanged(alpha: Alpha) {
