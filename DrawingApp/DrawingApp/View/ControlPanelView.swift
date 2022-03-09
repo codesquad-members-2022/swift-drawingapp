@@ -8,7 +8,7 @@
 import UIKit
 
 protocol ControlPanelViewDelegate {
-    func controlPanelDidPressColorButton(sender: RoundedButton, color: UIColor)
+    func controlPanelDidPressColorButton()
     func controlPanelDidPressAlphaStepper(_ sender: AlphaStepper)
 }
 
@@ -59,14 +59,20 @@ class ControlPanelView: UIView {
     
     // MARK: - Action Methods
     @objc func handleColorButtonPressed(_ sender: RoundedButton) {
-        let randomColor = UIColor.random()
-        self.colorButton.setTitle(randomColor.toHexString(), for: .normal)
-        
-        self.delegate?.controlPanelDidPressColorButton(sender: sender, color: randomColor)
+        self.delegate?.controlPanelDidPressColorButton()
     }
     
     @objc func handleAlphaStepperPressed(_ sender: AlphaStepper) {
         self.alphaSlider.value = Float(sender.value)
         self.delegate?.controlPanelDidPressAlphaStepper(sender)
+    }
+    
+    // MARK: - Methods
+    func changeBackgroundColor() {
+        
+    }
+    
+    func changeTransparency() {
+        
     }
 }
