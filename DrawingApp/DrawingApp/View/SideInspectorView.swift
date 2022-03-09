@@ -18,6 +18,13 @@ class SideInspectorView: UIView {
         return label
     }()
     
+    let backgroundColorValueView: BackgroundColorView = {
+        let view = BackgroundColorView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    
     // TODO: init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,12 +40,16 @@ class SideInspectorView: UIView {
     func setLayout() {
         backgroundColor = .systemGray5
         addSubview(backgroundColorLabel)
+        addSubview(backgroundColorValueView)
         
         NSLayoutConstraint.activate([
             backgroundColorLabel.widthAnchor.constraint(equalToConstant: 100),
             backgroundColorLabel.heightAnchor.constraint(equalToConstant: 50),
             backgroundColorLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
-            backgroundColorLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20)
+            backgroundColorLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            
+            backgroundColorValueView.topAnchor.constraint(equalTo: self.backgroundColorLabel.topAnchor, constant: 50),
+            backgroundColorValueView.leadingAnchor.constraint(equalTo: self.backgroundColorLabel.leadingAnchor)
         ])
     }
 }
