@@ -56,3 +56,9 @@ extension Rectangle: Equatable {
         return lhs.id == rhs.id
     }
 }
+
+extension Rectangle: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
