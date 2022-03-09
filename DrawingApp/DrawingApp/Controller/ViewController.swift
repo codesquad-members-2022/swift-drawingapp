@@ -71,9 +71,8 @@ extension ViewController: ControlPanelViewDelegate {
 extension ViewController {
     @objc func handleOnTapRectangleView(_ sender: UITapGestureRecognizer) {
         guard sender.state == .ended else { return }
-        guard let rectangleView = sender.view else { return }
-        
         // TODO: 겹친 사각형 선택 시 우선순위 처리
+//        guard let rectangleView = sender.view else { return }
 //        let point = rectangleView.frame.origin.convert(using: Point.self)
         let point = sender.location(in: self.planeView).convert(using: Point.self)
         
@@ -99,7 +98,7 @@ extension ViewController {
     }
     
     @objc func rectangleDataDidChanged(_ notification: Notification) {
-        
+        // TODO: 배경색, 투명도 변경 시 모델 업데이트
     }
 }
 
@@ -108,11 +107,12 @@ extension ViewController {
     @objc func planeDidDidSelectItem(_ notification: Notification) {
         guard let rectangle = notification.userInfo?[Plane.NotificationKey.select] as? Rectangle else { return }
         guard let rectangleView = self.rectangleMap[rectangle] else { return }
+        let hexString = UIColor(with: rectangle.backgroundColor).toHexString()
 
         rectangleView.setBorder(width: 2, color: .blue)
-        self.controlPanelView.setAlphaSliderValue(value: rectangle.alpha)
-        let hexString = UIColor(with: rectangle.backgroundColor).toHexString()
+        
         self.controlPanelView.setColorButtonTitle(title: hexString)
+        self.controlPanelView.setAlphaSliderValue(value: rectangle.alpha)
     }
     
     @objc func planeDidDidUnselectItem(_ notification: Notification) {
