@@ -37,11 +37,10 @@ struct Plane {
         delegate?.rectangleDidAdded(newRectangle)
     }
     
-    public func changeBackGroundColor() -> Rectangle? {
+    public func changeBackgroundColor(to newColor: BackgroundColor) -> Rectangle? {
         guard let specifiedRectangle = self.specifiedRectangle else {
             return nil
         }
-        let newColor = BackgroundColorFactory.makeRandomBackgroundColor()
         specifiedRectangle.changeBackgroundColor(to: newColor)
         delegate?.rectangleBackgroundColorDidChanged(specifiedRectangle)
         return specifiedRectangle

@@ -93,7 +93,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func backgroundButtonTouched(_ sender: UIButton) {
-        plane.changeBackGroundColor()
+        let newRandomColor = BackgroundColorFactory.makeRandomBackgroundColor()
+        plane.changeBackgroundColor(to: newRandomColor)
     }
     
     @IBAction func alphaSliderValueChanged(_ sender: UISlider) {
