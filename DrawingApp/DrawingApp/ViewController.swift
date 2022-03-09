@@ -10,6 +10,7 @@ import UIKit
 class ViewController: UIViewController {
 
     private let model = Plane()
+    private var rectangles = [Rectangle: RectangleView]()
     private var previousSelectedRectView: RectangleView?
     
     override func viewDidLoad() {
@@ -40,17 +41,6 @@ class ViewController: UIViewController {
         let size = Size(width: Int(canvas.frame.size.width), height: Int(canvas.frame.size.height))
         model.createRect(in: size)
     }
-    
-    @objc func didTapRectView(_ gesture: UITapGestureRecognizer) {
-        if let previousView = previousSelectedRectView {
-            previousView.toggleHighlight()
-        }
-        guard let touchedView = gesture.view as? RectangleView else {
-            return
-        }
-        self.previousSelectedRectView = touchedView
-        touchedView.toggleHighlight()
-    }
 }
 
 // MARK:- PlaneDelegate
@@ -66,9 +56,7 @@ extension ViewController: PlaneDelegate {
     func didCreate(rect: Rectangle) {
         let rectView = RectangleView(rect: rect)
         canvas.addSubview(rectView)
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapRectView(_:)))
-        rectView.addGestureRecognizer(tapGesture)
+        self.rectangles[rect] = rectView
     }
 }
 

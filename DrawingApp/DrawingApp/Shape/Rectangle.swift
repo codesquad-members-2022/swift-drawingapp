@@ -59,3 +59,13 @@ extension Rectangle: CustomStringConvertible {
         "[\(self.uniqueID)]: (x:\(self.point.x), y:\(self.point.y)), (w:\(self.size.width),h:\(self.size.height)), (r:\(self.color.red),g:\(self.color.green),b:\(self.color.blue)), alpha:\(self.alpha)"
     }
 }
+
+extension Rectangle: Hashable {
+    static func == (lhs: Rectangle, rhs: Rectangle) -> Bool {
+        return lhs.uniqueID == rhs.uniqueID
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(uniqueID)
+    }
+}
