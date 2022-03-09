@@ -9,6 +9,7 @@ import Foundation
 
 struct Plane {
     private var items = [String: Rectangle]()
+    private(set) var currentItem: Rectangle?
     
     var countItems: Int {
         return self.items.count
@@ -34,5 +35,14 @@ struct Plane {
     
     mutating func append(item: Rectangle) {
         self.items.updateValue(item, forKey: item.id)
+    }
+    
+    mutating func selectItem(id: String) {
+        guard let item = self.items[id] else { return }
+        self.currentItem = item
+    }
+    
+    mutating func unselectItem() {
+        self.currentItem = nil
     }
 }
