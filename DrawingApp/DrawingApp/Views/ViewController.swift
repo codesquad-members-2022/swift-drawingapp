@@ -12,10 +12,10 @@ final class ViewController: UIViewController {
     @IBOutlet weak var buttonSetRandomColor: UIButton!
     @IBOutlet weak var sliderSetAlpha: UISlider!
     
-    var defaultButtonColor: UIColor!
+    private var defaultButtonColor: UIColor!
     
-    let plane = Plane()
-    var currentIndex: Int?
+    private let plane = Plane()
+    private var currentIndex: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
