@@ -47,6 +47,10 @@ final class Alpha {
 
 }
 
-
+extension Alpha:Equatable {
+    static func == (lhs: Alpha, rhs: Alpha) -> Bool {
+        lhs.value == rhs.value
+    }
+}
 
 

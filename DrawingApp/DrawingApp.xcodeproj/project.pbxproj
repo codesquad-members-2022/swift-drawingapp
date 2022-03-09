@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D1AB31427D884550024AD38 /* DrawingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1AB31327D884550024AD38 /* DrawingAppTests.swift */; };
 		8D5DF31A27D0F88300F5E9C5 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5DF31927D0F88300F5E9C5 /* Plane.swift */; };
 		8D5DF31C27D1A88900F5E9C5 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5DF31B27D1A88900F5E9C5 /* DetailView.swift */; };
 		8D5DF32227D3107800F5E9C5 /* DetailViewDelgate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5DF32127D3107800F5E9C5 /* DetailViewDelgate.swift */; };
@@ -30,14 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8D69080C27CCBEF400F78A51 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8D6907ED27CCBEF000F78A51 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D6907F427CCBEF000F78A51;
-			remoteInfo = DrawingApp;
-		};
-		8D69081627CCBEF400F78A51 /* PBXContainerItemProxy */ = {
+		8D1AB31527D884550024AD38 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8D6907ED27CCBEF000F78A51 /* Project object */;
 			proxyType = 1;
@@ -47,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8D1AB31127D884550024AD38 /* DrawingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D1AB31327D884550024AD38 /* DrawingAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingAppTests.swift; sourceTree = "<group>"; };
 		8D5DF31927D0F88300F5E9C5 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		8D5DF31B27D1A88900F5E9C5 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		8D5DF32127D3107800F5E9C5 /* DetailViewDelgate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewDelgate.swift; sourceTree = "<group>"; };
@@ -61,8 +57,6 @@
 		8D69080127CCBEF400F78A51 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8D69080427CCBEF400F78A51 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8D69080627CCBEF400F78A51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8D69080B27CCBEF400F78A51 /* DrawingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		8D69081527CCBEF400F78A51 /* DrawingAppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingAppUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D69082D27CDFDFD00F78A51 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 		8D69083627CE08E900F78A51 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		8D69083827CE08F000F78A51 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
@@ -74,21 +68,14 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8D1AB30E27D884550024AD38 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D6907F227CCBEF000F78A51 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8D69080827CCBEF400F78A51 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8D69081227CCBEF400F78A51 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -98,6 +85,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8D1AB31227D884550024AD38 /* DrawingAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				8D1AB31327D884550024AD38 /* DrawingAppTests.swift */,
+			);
+			path = DrawingAppTests;
+			sourceTree = "<group>";
+		};
 		8D5DF31727D0F23E00F5E9C5 /* ++ */ = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				8D6907F727CCBEF100F78A51 /* DrawingApp */,
+				8D1AB31227D884550024AD38 /* DrawingAppTests */,
 				8D6907F627CCBEF100F78A51 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -128,8 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				8D6907F527CCBEF100F78A51 /* DrawingApp.app */,
-				8D69080B27CCBEF400F78A51 /* DrawingAppTests.xctest */,
-				8D69081527CCBEF400F78A51 /* DrawingAppUITests.xctest */,
+				8D1AB31127D884550024AD38 /* DrawingAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -203,6 +198,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8D1AB31027D884550024AD38 /* DrawingAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8D1AB31727D884550024AD38 /* Build configuration list for PBXNativeTarget "DrawingAppTests" */;
+			buildPhases = (
+				8D1AB30D27D884550024AD38 /* Sources */,
+				8D1AB30E27D884550024AD38 /* Frameworks */,
+				8D1AB30F27D884550024AD38 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8D1AB31627D884550024AD38 /* PBXTargetDependency */,
+			);
+			name = DrawingAppTests;
+			productName = DrawingAppTests;
+			productReference = 8D1AB31127D884550024AD38 /* DrawingAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		8D6907F427CCBEF000F78A51 /* DrawingApp */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8D69081F27CCBEF400F78A51 /* Build configuration list for PBXNativeTarget "DrawingApp" */;
@@ -220,42 +233,6 @@
 			productReference = 8D6907F527CCBEF100F78A51 /* DrawingApp.app */;
 			productType = "com.apple.product-type.application";
 		};
-		8D69080A27CCBEF400F78A51 /* DrawingAppTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8D69082227CCBEF400F78A51 /* Build configuration list for PBXNativeTarget "DrawingAppTests" */;
-			buildPhases = (
-				8D69080727CCBEF400F78A51 /* Sources */,
-				8D69080827CCBEF400F78A51 /* Frameworks */,
-				8D69080927CCBEF400F78A51 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8D69080D27CCBEF400F78A51 /* PBXTargetDependency */,
-			);
-			name = DrawingAppTests;
-			productName = DrawingAppTests;
-			productReference = 8D69080B27CCBEF400F78A51 /* DrawingAppTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		8D69081427CCBEF400F78A51 /* DrawingAppUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8D69082527CCBEF400F78A51 /* Build configuration list for PBXNativeTarget "DrawingAppUITests" */;
-			buildPhases = (
-				8D69081127CCBEF400F78A51 /* Sources */,
-				8D69081227CCBEF400F78A51 /* Frameworks */,
-				8D69081327CCBEF400F78A51 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8D69081727CCBEF400F78A51 /* PBXTargetDependency */,
-			);
-			name = DrawingAppUITests;
-			productName = DrawingAppUITests;
-			productReference = 8D69081527CCBEF400F78A51 /* DrawingAppUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -266,16 +243,12 @@
 				LastSwiftUpdateCheck = 1320;
 				LastUpgradeCheck = 1320;
 				TargetAttributes = {
+					8D1AB31027D884550024AD38 = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = 8D6907F427CCBEF000F78A51;
+					};
 					8D6907F427CCBEF000F78A51 = {
 						CreatedOnToolsVersion = 13.2.1;
-					};
-					8D69080A27CCBEF400F78A51 = {
-						CreatedOnToolsVersion = 13.2.1;
-						TestTargetID = 8D6907F427CCBEF000F78A51;
-					};
-					8D69081427CCBEF400F78A51 = {
-						CreatedOnToolsVersion = 13.2.1;
-						TestTargetID = 8D6907F427CCBEF000F78A51;
 					};
 				};
 			};
@@ -293,13 +266,19 @@
 			projectRoot = "";
 			targets = (
 				8D6907F427CCBEF000F78A51 /* DrawingApp */,
-				8D69080A27CCBEF400F78A51 /* DrawingAppTests */,
-				8D69081427CCBEF400F78A51 /* DrawingAppUITests */,
+				8D1AB31027D884550024AD38 /* DrawingAppTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8D1AB30F27D884550024AD38 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D6907F327CCBEF000F78A51 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -310,23 +289,17 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8D69080927CCBEF400F78A51 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8D69081327CCBEF400F78A51 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8D1AB30D27D884550024AD38 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D1AB31427D884550024AD38 /* DrawingAppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D6907F127CCBEF000F78A51 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -351,32 +324,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8D69080727CCBEF400F78A51 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8D69081127CCBEF400F78A51 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		8D69080D27CCBEF400F78A51 /* PBXTargetDependency */ = {
+		8D1AB31627D884550024AD38 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8D6907F427CCBEF000F78A51 /* DrawingApp */;
-			targetProxy = 8D69080C27CCBEF400F78A51 /* PBXContainerItemProxy */;
-		};
-		8D69081727CCBEF400F78A51 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8D6907F427CCBEF000F78A51 /* DrawingApp */;
-			targetProxy = 8D69081627CCBEF400F78A51 /* PBXContainerItemProxy */;
+			targetProxy = 8D1AB31527D884550024AD38 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -400,6 +354,42 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		8D1AB31827D884550024AD38 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N6KUR9465F;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SeobJin.DrawingAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DrawingApp.app/DrawingApp";
+			};
+			name = Debug;
+		};
+		8D1AB31927D884550024AD38 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = N6KUR9465F;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.SeobJin.DrawingAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DrawingApp.app/DrawingApp";
+			};
+			name = Release;
+		};
 		8D69081D27CCBEF400F78A51 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -574,85 +564,18 @@
 			};
 			name = Release;
 		};
-		8D69082327CCBEF400F78A51 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = N6KUR9465F;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.SeobJin.DrawingAppTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DrawingApp.app/DrawingApp";
-			};
-			name = Debug;
-		};
-		8D69082427CCBEF400F78A51 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = N6KUR9465F;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.SeobJin.DrawingAppTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DrawingApp.app/DrawingApp";
-			};
-			name = Release;
-		};
-		8D69082627CCBEF400F78A51 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = N6KUR9465F;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.SeobJin.DrawingAppUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = DrawingApp;
-			};
-			name = Debug;
-		};
-		8D69082727CCBEF400F78A51 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = N6KUR9465F;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.SeobJin.DrawingAppUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = DrawingApp;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8D1AB31727D884550024AD38 /* Build configuration list for PBXNativeTarget "DrawingAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D1AB31827D884550024AD38 /* Debug */,
+				8D1AB31927D884550024AD38 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8D6907F027CCBEF000F78A51 /* Build configuration list for PBXProject "DrawingApp" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -667,24 +590,6 @@
 			buildConfigurations = (
 				8D69082027CCBEF400F78A51 /* Debug */,
 				8D69082127CCBEF400F78A51 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8D69082227CCBEF400F78A51 /* Build configuration list for PBXNativeTarget "DrawingAppTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8D69082327CCBEF400F78A51 /* Debug */,
-				8D69082427CCBEF400F78A51 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8D69082527CCBEF400F78A51 /* Build configuration list for PBXNativeTarget "DrawingAppUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8D69082627CCBEF400F78A51 /* Debug */,
-				8D69082727CCBEF400F78A51 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
