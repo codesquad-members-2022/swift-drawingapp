@@ -9,17 +9,24 @@ import UIKit
 import OSLog
 
 class ViewController: UIViewController {
+    
     private var presentRectangleView = PresentRectangleView()
     private var sideInspectorView = SideInspectorView()
     private var addRectangleButton = AddRectangleButton()
     
     private var plane = Plane()
-    private var rectangleMap = [Rectangle : UIView]()
+    private var rectangleMap = [Rectangle : RectangleView]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        plane.delegate = self
+        
         setUpViews()
         
+        //Add Gesture Recognizer
+        let presentRectangleViewTap = UITapGestureRecognizer(target: self, action: #selector(handlePresentRectangleViewTap(_:)))
+        presentRectangleView.addGestureRecognizer(presentRectangleViewTap)
     }
     
     //MARK: Set Up Views
@@ -34,11 +41,8 @@ class ViewController: UIViewController {
         layoutSideInspectorView()
         layoutAddRectangleButton()
     }
+    
 }
-
-//TODO: 사각형 선택시 배경색 정보 띄우기 (16진수), 버튼 누를 때 마다 랜덤하게 색 변경
-//TODO: 사각형 선택시 알파 띄우기 + 조절 기능
-
 
 //MARK: Add Constraints
 
@@ -64,6 +68,7 @@ extension ViewController {
         sideInspectorView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         sideInspectorView.widthAnchor.constraint(equalToConstant: 200).isActive = true
     }
+    
 }
 
 //MARK: Actions
@@ -78,15 +83,40 @@ extension ViewController {
         plane.append(newRectangle: newRectangle)
     }
 
-    @objc func handleRectangleViewTap(_ tap: UITapGestureRecognizer) {
+    @objc func handlePresentRectangleViewTap(_ tap: UITapGestureRecognizer) {
         guard tap.state == .ended else { return }
-        //TODO: 제스처 액션 추가하기
+        
+        let location = tap.location(in: presentRectangleView)
+        let coordinate = (Double(location.x), Double(location.y))
+        plane.searchRectangle(on: coordinate)
     }
+    
 }
 
 //MARK: Delegates
 
 extension ViewController: PlaneDelegate {
+    
+    func didSelectRectanlge(_ rectangle: Rectangle?) {
+
+        //최근에 선택되었던 사각형이 있다면
+        if let recentlySelectedRectangle = plane.recentlySelectedRectangle,
+            let recentlySelectedRectangleView = rectangleMap[recentlySelectedRectangle] {
+            recentlySelectedRectangleView.clearCorner()
+        }
+        
+        //터치이벤트 발생한 지점에 rectangle이 없거나, 그 rectangle의 value로 연결된 view가 없다면 return
+        guard let rectangle = rectangle, let rectangleView = rectangleMap[rectangle] else { return }
+        
+        plane.updateRecentlySelected(rectangle: rectangle)
+        rectangleView.toggleCorner()
+        
+        
+        //TODO: SideInspectorView에 선택된 사각형의 속성값 전달
+            // rectangle != nil -> status 전달
+            // rectangle == nil -> clear
+        
+    }
     
     func didCreateRectangle(_ rectangle: Rectangle) {
         let color = RectangleAttributeFactory.createUIColor(by: rectangle)
@@ -94,5 +124,7 @@ extension ViewController: PlaneDelegate {
         let rectangleView = RectangleView(frame: frame, color: color)
         
         self.presentRectangleView.addSubview(rectangleView)
+        self.rectangleMap[rectangle] = rectangleView
     }
+    
 }
