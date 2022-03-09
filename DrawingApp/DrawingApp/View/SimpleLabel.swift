@@ -1,5 +1,5 @@
 //
-//  AutoresizingLabel.swift
+//  SimpleLabel.swift
 //  DrawingApp
 //
 //  Created by 송태환 on 2022/03/08.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AutoresizingLabel: UILabel {
+class SimpleLabel: UILabel {
 
     override init(frame: CGRect) {
         super.init(frame: frame)

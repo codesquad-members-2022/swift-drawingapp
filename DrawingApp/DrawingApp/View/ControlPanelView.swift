@@ -9,18 +9,18 @@ import UIKit
 
 protocol ControlPanelViewDelegate {
     func controlPanelDidPressColorButton()
-    func controlPanelDidPressAlphaStepper(_ sender: AlphaStepper)
+    func controlPanelDidPressAlphaStepper(_ sender: UIStepper)
 }
 
 class ControlPanelView: UIView {
     // MARK: - Properties
     var delegate: ControlPanelViewDelegate?
     
-    let colorLabel = AutoresizingLabel(title: "배경색")
-    let alphaLabel = AutoresizingLabel(title: "투명도")
-    let alphaSlider = AlphaSlider()
-    let alphaStepper = AlphaStepper()
+    let colorLabel = SimpleLabel(title: "배경색")
     let colorButton = RoundedButton(type: .system)
+    let alphaLabel = SimpleLabel(title: "투명도")
+    let alphaSlider = UISlider()
+    let alphaStepper = UIStepper()
     
     // MARK: - Initialisers
     override init(frame: CGRect) {
@@ -33,15 +33,50 @@ class ControlPanelView: UIView {
         self.configureUI()
     }
     
-    // MARK: - Configuration
+    // MARK: - UI Configuration
     func configureUI() {
+        self.addSubview(self.colorLabel)
+        self.addSubview(self.alphaLabel)
+        
+        self.configureColorButton()
+        self.configureAlphaSlider()
+        self.configureAlphaStepper()
+        self.configureViewElementsPosition()
+    }
+    
+    func configureAlphaSlider() {
+        self.alphaSlider.frame.size.width = 200
+        self.alphaSlider.isEnabled = false
+        self.alphaSlider.maximumValue = 10
+        self.alphaSlider.minimumValue = 1
+        self.alphaSlider.value = 5
+        self.alphaSlider.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleTopMargin, .flexibleLeftMargin, .flexibleBottomMargin, .flexibleRightMargin]
+        
+        self.addSubview(self.alphaSlider)
+    }
+    
+    func configureAlphaStepper() {
+        self.alphaStepper.maximumValue = 10
+        self.alphaStepper.minimumValue = 1
+        self.alphaStepper.value = 5
+        self.alphaStepper.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleTopMargin, .flexibleLeftMargin, .flexibleBottomMargin, .flexibleRightMargin]
+        
+        self.alphaStepper.addTarget(self, action: #selector(ControlPanelView.handleAlphaStepperPressed), for: .touchUpInside)
+        
+        self.addSubview(self.alphaStepper)
+    }
+    
+    func configureColorButton() {
         let randomColor = UIColor.random()
         
         self.colorButton.setTitle(randomColor.toHexString(), for: .normal)
         self.colorButton.frame.size = CGSize(width: 200, height: 50)
         self.colorButton.addTarget(self, action: #selector(ControlPanelView.handleColorButtonPressed), for: .touchUpInside)
-        self.alphaStepper.addTarget(self, action: #selector(ControlPanelView.handleAlphaStepperPressed), for: .touchUpInside)
         
+        self.addSubview(self.colorButton)
+    }
+    
+    func configureViewElementsPosition() {
         let SPACE: CGFloat = 20
         
         self.colorLabel.frame.origin = CGPoint(x: 20, y: 90)
@@ -49,12 +84,6 @@ class ControlPanelView: UIView {
         self.alphaLabel.frame.origin = CGPoint(x: 20, y: colorButton.frame.maxY + SPACE)
         self.alphaSlider.frame.origin = CGPoint(x: 20, y: alphaLabel.frame.maxY + SPACE)
         self.alphaStepper.frame.origin = CGPoint(x: self.frame.width / 2 - self.alphaStepper.center.x, y: alphaSlider.frame.maxY + SPACE)
-        
-        self.addSubview(self.colorLabel)
-        self.addSubview(self.colorButton)
-        self.addSubview(self.alphaLabel)
-        self.addSubview(self.alphaSlider)
-        self.addSubview(self.alphaStepper)
     }
     
     // MARK: - Action Methods
@@ -62,17 +91,8 @@ class ControlPanelView: UIView {
         self.delegate?.controlPanelDidPressColorButton()
     }
     
-    @objc func handleAlphaStepperPressed(_ sender: AlphaStepper) {
+    @objc func handleAlphaStepperPressed(_ sender: UIStepper) {
         self.alphaSlider.value = Float(sender.value)
         self.delegate?.controlPanelDidPressAlphaStepper(sender)
-    }
-    
-    // MARK: - Methods
-    func changeBackgroundColor() {
-        
-    }
-    
-    func changeTransparency() {
-        
     }
 }
