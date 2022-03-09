@@ -11,6 +11,8 @@ class SideInspectorView: UIStackView {
     
     //MARK: Create Components
     
+    //TODO: VC로부터 값 받아서 Set or Clear 메소드 구현
+    
     private let backgroundMenuStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -71,7 +73,6 @@ class SideInspectorView: UIStackView {
         
         layoutBackgroundMenuStackView()
         layoutAlphaMenuStackView()
-        
     }
     
     required init(coder: NSCoder) {
@@ -87,12 +88,12 @@ class SideInspectorView: UIStackView {
     
     //MARK: Configure Components
     
-    func configureView() {
+    private func configureView() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = .systemGray6
     }
     
-    func layoutAlphaMenuStackView() {
+    private func layoutAlphaMenuStackView() {
         alphaMenuStackView.topAnchor.constraint(equalTo: backgroundMenuStackView.bottomAnchor, constant: 30).isActive = true
         alphaMenuStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30).isActive = true
         alphaMenuStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30).isActive = true
@@ -103,7 +104,7 @@ class SideInspectorView: UIStackView {
         layoutAlphaSlider()
     }
     
-    func layoutBackgroundMenuStackView() {
+    private func layoutBackgroundMenuStackView() {
         backgroundMenuStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 30).isActive = true
         backgroundMenuStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30).isActive = true
         backgroundMenuStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30).isActive = true
@@ -114,14 +115,15 @@ class SideInspectorView: UIStackView {
         layoutBackgroundColorValueButton()
     }
     
-    func layoutBackgroundColorValueButton() {
+    private func layoutBackgroundColorValueButton() {
         backgroundColorValueButton.leadingAnchor.constraint(equalTo: backgroundMenuStackView.leadingAnchor).isActive = true
         backgroundColorValueButton.trailingAnchor.constraint(equalTo: backgroundMenuStackView.trailingAnchor).isActive = true
         backgroundColorValueButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
-    func layoutAlphaSlider() {
+    private func layoutAlphaSlider() {
         alphaSlider.leadingAnchor.constraint(equalTo: alphaMenuStackView.leadingAnchor).isActive = true
         alphaSlider.trailingAnchor.constraint(equalTo: alphaMenuStackView.trailingAnchor).isActive = true
     }
+    
 }
