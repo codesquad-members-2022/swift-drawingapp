@@ -7,8 +7,6 @@
 
 import Foundation
 
-
-
 class Plane {
     enum event {
         static let addViewModel = Notification.Name("addViewModel")
@@ -31,8 +29,6 @@ class Plane {
         }
     }
     
-    private var viewModelIDMap = [CanvasView: ViewModel]()
-    
     var selected: ViewModel?
     
     var rectangleCount: Int {
@@ -52,13 +48,13 @@ class Plane {
     }
     
     func addRectangle() {
-        let newRectangle = Rectangle.createRectangle()
+        let newRectangle = Rectangle.random()
         viewModels.append(newRectangle)
         NotificationCenter.default.post(name: Plane.event.addViewModel, object: self, userInfo: [Plane.InfoKey.new: newRectangle])
     }
     
     func addPhoto(data: Data) {
-        let newPhoto = Photo.create(from: data)
+        let newPhoto = Photo.random(from: data)
         viewModels.append(newPhoto)
         NotificationCenter.default.post(name: Plane.event.addViewModel, object: self, userInfo: [Plane.InfoKey.new: newPhoto])
     }

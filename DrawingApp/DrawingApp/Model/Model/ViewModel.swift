@@ -7,26 +7,49 @@
 
 import Foundation
 
-protocol ViewModel {
-    var id: ID { get }
-    var center: Point { get }
-    var origin: Point { get }
-    var size: Size { get }
+class ViewModel {
     
-    func contains(_ point: Point) -> Bool
+    private(set) var id: ID
+    private(set) var origin: Point
+    private(set) var size: Size
+    
+    init(id: ID, origin: Point, size: Size) {
+        self.id = id
+        self.origin = origin
+        self.size = size
+    }
+    
+    var center: Point {
+        Point(x: origin.x + (size.width / 2),
+              y: origin.y + (size.height / 2))
+    }
+    
+    func contains(_ point: Point) -> Bool {
+        return (origin.x...origin.x+size.width).contains(point.x)
+        && (origin.y...origin.y+size.height).contains(point.y)
+    }
+    
+    func set(to origin: Point) {
+        self.origin = origin
+    }
+}
+
+extension ViewModel: Hashable {
+    static func == (lhs: ViewModel, rhs: ViewModel) -> Bool {
+        lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
 }
 
 protocol ColorMutable {
     var color: Color { get }
-    func transform(to color: Color)
+    func set(to color: Color)
 }
 
 protocol AlphaMutable {
     var alpha: Alpha { get }
-    func transform(to alpha: Alpha)
-}
-
-protocol OriginMutable {
-    var origin: Point { get }
-    func transform(to origin: Point)
+    func set(to alpha: Alpha)
 }
