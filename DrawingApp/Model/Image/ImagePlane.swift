@@ -13,37 +13,37 @@ final class ImagePlane{
     static let noneSelectRectangle = Notification.Name("noneSelectImage")
     static let userInfoKey: String = "image"
     
-    private var imageRectangle: [Image] = []
+    private var images: [Image] = []
     
     subscript(index: Int) -> Image?{
-        guard imageRectangle.count > index && index >= 0 else{
+        guard images.count > index && index >= 0 else{
             return nil
         }
-        return imageRectangle[index]
+        return images[index]
     }
     
     func addImage(imageRectangle: Image){
-        self.imageRectangle.append(imageRectangle)
+        self.images.append(imageRectangle)
         NotificationCenter.default.post(name: ImagePlane.makeImageRectangle, object: self, userInfo: [ImagePlane.userInfoKey : imageRectangle])
     }
     
     func count() -> Int{
-        return imageRectangle.count
+        return images.count
     }
     
     func findImage(withX: Double, withY: Double) -> Bool{
-        guard !imageRectangle.isEmpty else{
+        guard !images.isEmpty else{
             return false
         }
         
         var findedImage: Image?
         
-        for imageRectangle in imageRectangle {
-            guard imageRectangle.findLocationRange(xPoint: withX, yPoint: withY) else{
+        for image in images {
+            guard image.findLocationRange(xPoint: withX, yPoint: withY) else{
                 continue
             }
 
-            findedImage = imageRectangle
+            findedImage = image
             break
         }
         

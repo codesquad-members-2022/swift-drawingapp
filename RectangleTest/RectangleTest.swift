@@ -21,8 +21,8 @@ class RectangleTest: XCTestCase {
         let id = rectangle.id
         let point = rectangle.point
         let size = rectangle.size
-        let alpha = rectangle.showAlpha()
-        let color = rectangle.showColor()
+        let alpha = rectangle.alpha
+        let color = rectangle.color
         let description = rectangle.description
     }
 

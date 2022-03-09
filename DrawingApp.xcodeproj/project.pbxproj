@@ -20,7 +20,7 @@
 		D26D915B27CCB8B3007507AE /* RectanglePlane.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26D915A27CCB8B3007507AE /* RectanglePlane.swift */; };
 		D26D916327CD03B0007507AE /* RectangleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26D916227CD03B0007507AE /* RectangleTest.swift */; };
 		D26D916B27CD08C6007507AE /* RectangleFactoryTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26D916A27CD08C6007507AE /* RectangleFactoryTest.swift */; };
-		D27017D427D84F4E003A591B /* AttributeValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27017D327D84F4E003A591B /* AttributeValue.swift */; };
+		D27017D427D84F4E003A591B /* RectValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = D27017D327D84F4E003A591B /* RectValue.swift */; };
 		D273EADE27CC5C6500DCDF78 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D273EADD27CC5C6500DCDF78 /* AppDelegate.swift */; };
 		D273EAE027CC5C6500DCDF78 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D273EADF27CC5C6500DCDF78 /* SceneDelegate.swift */; };
 		D273EAE227CC5C6500DCDF78 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D273EAE127CC5C6500DCDF78 /* MainViewController.swift */; };
@@ -61,7 +61,7 @@
 		D26D916027CD03B0007507AE /* RectangleTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RectangleTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D26D916227CD03B0007507AE /* RectangleTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleTest.swift; sourceTree = "<group>"; };
 		D26D916A27CD08C6007507AE /* RectangleFactoryTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactoryTest.swift; sourceTree = "<group>"; };
-		D27017D327D84F4E003A591B /* AttributeValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributeValue.swift; sourceTree = "<group>"; };
+		D27017D327D84F4E003A591B /* RectValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectValue.swift; sourceTree = "<group>"; };
 		D273EADA27CC5C6500DCDF78 /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D273EADD27CC5C6500DCDF78 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D273EADF27CC5C6500DCDF78 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -158,7 +158,7 @@
 		D27017D227D84F41003A591B /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				D27017D327D84F4E003A591B /* AttributeValue.swift */,
+				D27017D327D84F4E003A591B /* RectValue.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -352,7 +352,7 @@
 			files = (
 				D255615C27CEFA5C00B4F9D7 /* RGBColor.swift in Sources */,
 				D255616127CF003000B4F9D7 /* IDFactory.swift in Sources */,
-				D27017D427D84F4E003A591B /* AttributeValue.swift in Sources */,
+				D27017D427D84F4E003A591B /* RectValue.swift in Sources */,
 				D24BDFF727D6567B006FB721 /* UIColorSilderDelegate.swift in Sources */,
 				D255615A27CEFA4700B4F9D7 /* MyPoint.swift in Sources */,
 				D255617327CF492F00B4F9D7 /* RectangleView.swift in Sources */,

@@ -23,9 +23,11 @@ class ImagePlaneTest: XCTestCase {
         var plane = ImagePlane()
         let madeImage = Image(image: MyImage(image: namedImage), size: MySize(width: 100, height: 100), point: MyPoint(x: 15, y: 15), alpha: Alpha.seven)
         
-        plane.addRectangle(imageRectangle: madeImage)
+        plane.addImage(imageRectangle: madeImage)
         let count = plane.count()
         let image = plane[0]
+        let trueImage = plane.findImage(withX: 100, withY: 100)
+        let falseImage = plane.findImage(withX: 250, withY: 250)
     }
 
     func testPerformanceExample() throws {

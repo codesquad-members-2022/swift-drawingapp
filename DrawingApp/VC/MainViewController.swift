@@ -38,7 +38,6 @@ class MainViewController: UIViewController{
         
         addViewMakerButtonObserver()
         addGestureRecognizerObserver()
-        //addNoneClickedRectangleObserver()
     }
 }
 
@@ -55,7 +54,7 @@ extension MainViewController{
         guard let rectangleValue = notification.userInfo?[RectanglePlane.userInfoKey] as? Rectangle else { return }
         
         let rectangleView = RectangleView(frame: CGRect(x: rectangleValue.point.x, y: rectangleValue.point.y, width: rectangleValue.size.width, height: rectangleValue.size.height))
-        rectangleView.backgroundColor = UIColor(red: rectangleValue.showColor().redValue(), green: rectangleValue.showColor().blueValue(), blue: rectangleValue.showColor().greenValue(), alpha: rectangleValue.showAlpha().showValue())
+        rectangleView.backgroundColor = UIColor(red: rectangleValue.color.redValue(), green: rectangleValue.color.blueValue(), blue: rectangleValue.color.greenValue(), alpha: rectangleValue.alpha.showValue())
         rectangleView.restorationIdentifier = rectangleValue.id
         
         self.view.addSubview(rectangleView)
@@ -91,11 +90,11 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
         
         let imageView = ImageView(frame: CGRect(x: imageValue.point.x, y: imageValue.point.y, width: imageValue.size.width, height: imageValue.size.height))
         
-        imageView.alpha = imageValue.showAlpha().showValue()
+        imageView.alpha = imageValue.alpha.showValue()
         imageView.image = imageValue.image.image
         
         self.view.addSubview(imageView)
-        //rectangleUIViews[rectangleValue] = rectangleView
+        imageUIViews[imageValue] = imageView
         
         os_log("%@", "\(imageValue.description)")
     }
@@ -116,16 +115,10 @@ extension MainViewController{
         
         NotificationCenter.default.addObserver(self, selector: #selector(showImageTouchedView(_:)), name: ImagePlane.selectRectangle, object: imagePlane)
     }
-    
-    /*
-    private func addNoneClickedRectangleObserver(){
-        NotificationCenter.default.addObserver(self, selector: #selector(showNonTouchedView), name: RectanglePlane.noneSelectRectangle, object: rectanglePlane)
-    }
-     */
 }
 
 
-// MARK: - Use case: Click Rectangle
+// MARK: - Use case: Click Rectangle / Image View
 
 extension MainViewController {
     @objc func tapGesture(_ gesture: UITapGestureRecognizer){
@@ -147,7 +140,8 @@ extension MainViewController {
         
         if let _ = selectedRectangle{
             noneTouchedViewFrame()
-            
+        } else if let _ = selectedImage{
+            noneTouchedViewFrame()
         }
         
         displaySliderValue(selected: rectangle)
@@ -160,7 +154,9 @@ extension MainViewController {
             return
         }
         
-        if let _ = selectedImage{
+        if let _ = selectedRectangle{
+            noneTouchedViewFrame()
+        } else if let _ = selectedImage{
             noneTouchedViewFrame()
         }
         
@@ -168,23 +164,28 @@ extension MainViewController {
         touchedViewFrame(selected: image)
         selectedImage = image
     }
+}
     
-    private func displaySliderValue<T: AttributeValue>(selected: T){
+    
+// MARK: - Use case: Show click Rectangle / Image View event
+
+extension MainViewController{
+    private func displaySliderValue<T: RectValue>(selected: T){
         if let rectangle = selected as? Rectangle{
-            rightAttributerView.originSliderValue(red: Float(rectangle.showColor().red), green: Float(rectangle.showColor().green), blue: Float(rectangle.showColor().blue), alpha: Float(rectangle.showAlpha().showValue()))
+            rightAttributerView.originSliderValue(red: Float(rectangle.color.red), green: Float(rectangle.color.green), blue: Float(rectangle.color.blue), alpha: Float(rectangle.alpha.showValue()))
             
             rightAttributerView.useColorSlider()
             rightAttributerView.useAlphaSlider()
             
         } else if let image = selected as? Image{
-            rightAttributerView.originSliderValue(red: 0, green: 0, blue: 0, alpha: Float(image.showAlpha().showValue()))
+            rightAttributerView.originSliderValue(red: 0, green: 0, blue: 0, alpha: Float(image.alpha.showValue()))
             
             rightAttributerView.rockColorSlider()
             rightAttributerView.useAlphaSlider()
         }
     }
     
-    private func touchedViewFrame<T: AttributeValue>(selected: T){
+    private func touchedViewFrame<T: RectValue>(selected: T){
         if let rectangle = selected as? Rectangle{
             let view = rectangleUIViews[rectangle]
             view?.layer.borderColor = UIColor.cyan.cgColor
@@ -256,17 +257,21 @@ extension MainViewController: UIColorSliderDelegate{
         let newColor = RGBColor(red: rightAttributerView.redValue, green: rightAttributerView.greenValue, blue: rightAttributerView.blueValue)
         rectangle.changeColor(color: newColor)
         
-        rectView.backgroundColor = UIColor(red: rectangle.showColor().redValue(), green: rectangle.showColor().greenValue(), blue: rectangle.showColor().blueValue(), alpha: rectangle.showAlpha().showValue())
+        rectView.backgroundColor = UIColor(red: rectangle.color.redValue(), green: rectangle.color.greenValue(), blue: rectangle.color.blueValue(), alpha: rectangle.alpha.showValue())
     }
     
     func changeRectangleAlpha(){
-        guard let rectangle = selectedRectangle, let rectView = rectangleUIViews[rectangle] else{
-            return
+        if let rectangle = selectedRectangle{
+            let rectView = rectangleUIViews[rectangle]
+        
+            rectangle.changeAlpha(alpha: rightAttributerView.alphaValue)
+            rectView?.backgroundColor = rectView?.backgroundColor?.withAlphaComponent(rectangle.alpha.showValue())
+            
+        } else if let image = selectedImage{
+            let imageView = imageUIViews[image]
+        
+            image.changeAlpha(alpha: rightAttributerView.alphaValue)
+            imageView?.alpha = image.alpha.showValue()
         }
-        
-        let newAlpha = rightAttributerView.alphaValue
-        rectangle.changeAlpha(alpha: newAlpha)
-        
-        rectView.backgroundColor = rectView.backgroundColor?.withAlphaComponent(rectangle.showAlpha().showValue())
     }
 }

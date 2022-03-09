@@ -7,14 +7,16 @@
 
 import Foundation
 
-protocol AttributeValue: Hashable, CustomStringConvertible{
+protocol RectValue: Hashable, CustomStringConvertible{
+    var size: MySize { get }
+    var point: MyPoint { get }
+    var alpha: Alpha { get }
+    
     var description: String{ get }
     
     static func == (lhs: Self, rhs: Self) -> Bool
     
     func hash(into hasher: inout Hasher)
-    
-    func showAlpha() -> Alpha
     
     func changeAlpha(alpha: Alpha)
     
