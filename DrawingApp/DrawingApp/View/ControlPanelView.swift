@@ -9,7 +9,7 @@ import UIKit
 
 protocol ControlPanelViewDelegate {
     func controlPanelDidPressColorButton()
-    func controlPanelDidPressAlphaStepper(_ sender: UIStepper)
+    func controlPanelDidMoveAlphaSlider(_ sender: UISlider)
 }
 
 class ControlPanelView: UIView {
@@ -20,7 +20,6 @@ class ControlPanelView: UIView {
     let colorButton = RoundedButton(type: .system)
     let alphaLabel = SimpleLabel(title: "투명도")
     let alphaSlider = UISlider()
-    let alphaStepper = UIStepper()
     
     // MARK: - Initialisers
     override init(frame: CGRect) {
@@ -40,32 +39,20 @@ class ControlPanelView: UIView {
         
         self.configureColorButton()
         self.configureAlphaSlider()
-        self.configureAlphaStepper()
         self.configureViewElementsPosition()
     }
     
     func configureAlphaSlider() {
         self.alphaSlider.frame.size.width = 200
-        self.alphaSlider.isEnabled = false
         self.alphaSlider.maximumValue = 10
         self.alphaSlider.minimumValue = 1
         self.alphaSlider.value = 5
         self.alphaSlider.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleTopMargin, .flexibleLeftMargin, .flexibleBottomMargin, .flexibleRightMargin]
+        self.alphaSlider.addTarget(self, action: #selector(self.handleOnChangeAlpha), for: .valueChanged)
         
         self.addSubview(self.alphaSlider)
     }
-    
-    func configureAlphaStepper() {
-        self.alphaStepper.maximumValue = 10
-        self.alphaStepper.minimumValue = 1
-        self.alphaStepper.value = 5
-        self.alphaStepper.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleTopMargin, .flexibleLeftMargin, .flexibleBottomMargin, .flexibleRightMargin]
         
-        self.alphaStepper.addTarget(self, action: #selector(ControlPanelView.handleAlphaStepperPressed), for: .touchUpInside)
-        
-        self.addSubview(self.alphaStepper)
-    }
-    
     func configureColorButton() {
         let randomColor = UIColor.random()
         
@@ -83,7 +70,6 @@ class ControlPanelView: UIView {
         self.colorButton.frame.origin = CGPoint(x: 20, y: colorLabel.frame.maxY + SPACE)
         self.alphaLabel.frame.origin = CGPoint(x: 20, y: colorButton.frame.maxY + SPACE)
         self.alphaSlider.frame.origin = CGPoint(x: 20, y: alphaLabel.frame.maxY + SPACE)
-        self.alphaStepper.frame.origin = CGPoint(x: self.frame.width / 2 - self.alphaStepper.center.x, y: alphaSlider.frame.maxY + SPACE)
     }
     
     // MARK: - Action Methods
@@ -91,8 +77,7 @@ class ControlPanelView: UIView {
         self.delegate?.controlPanelDidPressColorButton()
     }
     
-    @objc func handleAlphaStepperPressed(_ sender: UIStepper) {
-        self.alphaSlider.value = Float(sender.value)
-        self.delegate?.controlPanelDidPressAlphaStepper(sender)
+    @objc func handleOnChangeAlpha(_ sender: UISlider) {
+        self.delegate?.controlPanelDidMoveAlphaSlider(sender)
     }
 }

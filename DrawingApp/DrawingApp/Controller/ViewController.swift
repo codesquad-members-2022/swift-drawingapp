@@ -61,7 +61,7 @@ extension ViewController: ControlPanelViewDelegate {
         // TODO: 현재 선택된 사각형 모델의 배경색 변경
     }
     
-    func controlPanelDidPressAlphaStepper(_ sender: UIStepper) {
+    func controlPanelDidMoveAlphaSlider(_ sender: UISlider) {
         let alpha = sender.value
         
         // TODO: 선택된 사각형 모델의 Alpha 값 변경
