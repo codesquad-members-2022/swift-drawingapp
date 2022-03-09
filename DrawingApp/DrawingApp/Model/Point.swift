@@ -9,8 +9,8 @@ import Foundation
 
 class Point {
     
-    private let x: Double
-    private let y: Double
+    let x: Double
+    let y: Double
     
     init(x: Double, y: Double) {
         self.x = x

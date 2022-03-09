@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		73312E5027D618C10073D746 /* ID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738A8A8227D5AC1400086985 /* ID.swift */; };
+		7348F21B27D7407F00613449 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7348F21A27D7407F00613449 /* Plane.swift */; };
 		736D9D3B27CFBF6C00C040D8 /* DrawingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 736D9D3A27CFBF6C00C040D8 /* DrawingAppTests.swift */; };
 		736D9D4227CFBF9600C040D8 /* Factory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C750BC27CE1D1A00086C1D /* Factory.swift */; };
 		736D9D4327CFBF9E00C040D8 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73C750B227CE00FE00086C1D /* Point.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7348F21A27D7407F00613449 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		736D9D3827CFBF6C00C040D8 /* DrawingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		736D9D3A27CFBF6C00C040D8 /* DrawingAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingAppTests.swift; sourceTree = "<group>"; };
 		738A8A8227D5AC1400086985 /* ID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ID.swift; sourceTree = "<group>"; };
@@ -78,6 +80,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		73312E5127D61A170073D746 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				73C750A127CDB7D300086C1D /* Main.storyboard */,
+				73C750A627CDB7D400086C1D /* LaunchScreen.storyboard */,
+				73C750A427CDB7D400086C1D /* Assets.xcassets */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
 		736D9D3127CFB3D600C040D8 /* Factory */ = {
 			isa = PBXGroup;
 			children = (
@@ -115,14 +127,12 @@
 		73C7509A27CDB7D300086C1D /* DrawingApp */ = {
 			isa = PBXGroup;
 			children = (
+				73312E5127D61A170073D746 /* Base */,
 				73C750AF27CE003D00086C1D /* Model */,
 				736D9D3127CFB3D600C040D8 /* Factory */,
 				73C7509B27CDB7D300086C1D /* AppDelegate.swift */,
 				73C7509D27CDB7D300086C1D /* SceneDelegate.swift */,
 				73C7509F27CDB7D300086C1D /* ViewController.swift */,
-				73C750A127CDB7D300086C1D /* Main.storyboard */,
-				73C750A427CDB7D400086C1D /* Assets.xcassets */,
-				73C750A627CDB7D400086C1D /* LaunchScreen.storyboard */,
 				73C750A927CDB7D400086C1D /* Info.plist */,
 			);
 			path = DrawingApp;
@@ -131,6 +141,7 @@
 		73C750AF27CE003D00086C1D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				7348F21A27D7407F00613449 /* Plane.swift */,
 				73C750B827CE033900086C1D /* Rectangle.swift */,
 				73C750B027CE007300086C1D /* Size.swift */,
 				73C750B227CE00FE00086C1D /* Point.swift */,
@@ -267,6 +278,7 @@
 				73C7509C27CDB7D300086C1D /* AppDelegate.swift in Sources */,
 				73C7509E27CDB7D300086C1D /* SceneDelegate.swift in Sources */,
 				73C750B927CE033900086C1D /* Rectangle.swift in Sources */,
+				7348F21B27D7407F00613449 /* Plane.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

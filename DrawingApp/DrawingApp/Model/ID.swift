@@ -32,3 +32,9 @@ extension ID: CustomStringConvertible {
         return ID.createId()
     }
 }
+
+extension ID: Equatable {
+    static func == (lhs: ID, rhs: ID) -> Bool {
+        return lhs.description == rhs.description
+    }
+}

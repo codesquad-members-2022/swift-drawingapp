@@ -11,13 +11,16 @@ import UIKit
 class Plane {
     
     private var rectangles: [Rectangle] = []
+    private var selctRectangle: Rectangle?
     
     subscript(index: Int) -> Rectangle {
         return rectangles[index]
     }
     
-    func addRectangle() {
-        rectangles.append(Factory.createRectangle())
+    func addRectangle() -> Rectangle {
+        let add = Factory.createRectangle()
+        rectangles.append(add)
+        return add
     }
     
     func countingRectangle() -> Int {
@@ -29,13 +32,14 @@ class Plane {
         }
     }
     
-    func isExist(point: Point) -> Bool {
+    func isExist(point: Point) -> Rectangle? {
         for rectangle in rectangles {
-            if rectangle.point.x== point.x || rectangle.point.y == point.y {
-                return true
+            if rectangle.point.x == point.x || rectangle.point.y == point.y {
+                selctRectangle = rectangle
+                return selctRectangle
             }
-            
         }
+        return nil
     }
     
 }

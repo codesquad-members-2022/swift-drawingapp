@@ -11,7 +11,7 @@ class Rectangle {
     
     private let id: String
     private let size: Size
-    private let point: Point
+    let point: Point
     private let backGroundColor: BackgroundColor
     private let alpha: Alpha
     
@@ -27,5 +27,11 @@ class Rectangle {
 extension Rectangle: CustomStringConvertible {
     var description: String {
         return "(\(id)), \(point), \(point), \(backGroundColor), \(alpha)"
+    }
+}
+
+extension Rectangle: Equatable {
+    static func == (lhs: Rectangle, rhs: Rectangle) -> Bool {
+        return lhs.id == rhs.id
     }
 }

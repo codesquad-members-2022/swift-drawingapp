@@ -1,5 +1,5 @@
 //
-//  RectangleFactory.swift
+//  RectangleFactory.swift.     
 //  DrawingApp
 //
 //  Created by Jihee hwang on 2022/03/01.
@@ -10,7 +10,7 @@ import UIKit
 
 class Factory {
 
-    func createRectangle() -> Rectangle {
+    static func createRectangle() -> Rectangle {
         
         let DeviceWidth = UIScreen.main.bounds.size.width
         let DeviceHeight = UIScreen.main.bounds.size.height
