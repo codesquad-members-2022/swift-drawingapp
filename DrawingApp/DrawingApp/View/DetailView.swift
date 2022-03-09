@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailView: UIView {
+final class DetailView: UIView {
     
     weak var delegate:DetailViewDelgate?
     
@@ -56,7 +56,6 @@ class DetailView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupView()
-    
     }
     
     required init?(coder: NSCoder) {
@@ -70,7 +69,6 @@ class DetailView: UIView {
         [backgroundColorLabel, backgroundColorButton, alphaLabel, alphaSlider].forEach {
             self.addSubview($0)
         }
-        
     }
     
     
