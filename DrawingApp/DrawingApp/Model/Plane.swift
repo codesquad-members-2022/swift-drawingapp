@@ -60,7 +60,8 @@ struct Plane {
             return nil
         }
         let newAlpha = specifiedRectangle.alpha.value + 0.1
-        guard let newOpacityLevel = Alpha.OpacityLevel(rawValue: newAlpha) else {
+        let normalizedNewAlpha = round(newAlpha * 10) / 10
+        guard let newOpacityLevel = Alpha.OpacityLevel(rawValue: normalizedNewAlpha) else {
             return nil
         }
         specifiedRectangle.changeAlphaValue(to: Alpha(opacityLevel: newOpacityLevel))
@@ -73,7 +74,8 @@ struct Plane {
             return nil
         }
         let newAlpha = specifiedRectangle.alpha.value - 0.1
-        guard let newOpacityLevel = Alpha.OpacityLevel(rawValue: newAlpha) else {
+        let normalizedNewAlpha = round(newAlpha * 10) / 10
+        guard let newOpacityLevel = Alpha.OpacityLevel(rawValue: normalizedNewAlpha) else {
             return nil
         }
         specifiedRectangle.changeAlphaValue(to: Alpha(opacityLevel: newOpacityLevel))

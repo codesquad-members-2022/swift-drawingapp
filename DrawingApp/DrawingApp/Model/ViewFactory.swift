@@ -24,11 +24,11 @@ class ViewFactory {
 }
 
 extension BackgroundColor {
-    fileprivate func convertToUIColor(with alphaValue: Double = 1.0) -> UIColor {
+    fileprivate func convertToUIColor(with alphaValue: Float = 1.0) -> UIColor {
         let convertedRed = Double(self.r) / 255.0
         let convertedGreen = Double(self.g) / 255.0
         let convertedBlue = Double(self.b) / 255.0
         
-        return UIColor(red: convertedRed, green: convertedGreen, blue: convertedBlue, alpha: alphaValue)
+        return UIColor(red: convertedRed, green: convertedGreen, blue: convertedBlue, alpha: CGFloat(alphaValue))
     }
 }

@@ -96,7 +96,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func alphaSliderValueChanged(_ sender: UISlider) {
-        let newAlphaValue = Double(round(sender.value * 10) / 10.0)
+        let newAlphaValue = round(sender.value * 10) / 10
         guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: newAlphaValue) else {return}
         let newAlpha = Alpha(opacityLevel: convertedOpacityLevel)
         
@@ -128,9 +128,9 @@ extension ViewController: PlaneDelegate {
         
         updateSelectedView(matchedView)
         updateBackgroundButton(color: specifiedRectangle.backgroundColor, alpha: specifiedRectangle.alpha)
-        updateAlphaSlider(alpha: matchedView.alpha)
-        updateMinusAlphaValueButton(with: matchedView.alpha)
-        updatePlusAlphaValueButton(with: matchedView.alpha)
+        updateAlphaSlider(alpha: Float(matchedView.alpha))
+        updateMinusAlphaValueButton(with: Float(matchedView.alpha))
+        updatePlusAlphaValueButton(with: Float(matchedView.alpha))
     }
     
     func rectangleBackgroundColorDidChanged(_ backgroundColorChangedRectangle: Rectangle) {
@@ -204,16 +204,16 @@ extension ViewController: PlaneDelegate {
     
     private func updateAlphaSlider(alpha: Float) {
         alphaSlider.isEnabled = true
-        alphaSlider.setValue(Float(alpha), animated: true)
+        alphaSlider.setValue(alpha, animated: true)
     }
 }
 
 extension BackgroundColor {
-    fileprivate func convertToUIColor(with alphaValue: Double = 1.0) -> UIColor {
+    fileprivate func convertToUIColor(with alphaValue: Float = 1.0) -> UIColor {
         let convertedRed = Double(self.r) / 255.0
         let convertedGreen = Double(self.g) / 255.0
         let convertedBlue = Double(self.b) / 255.0
         
-        return UIColor(red: convertedRed, green: convertedGreen, blue: convertedBlue, alpha: alphaValue)
+        return UIColor(red: convertedRed, green: convertedGreen, blue: convertedBlue, alpha: CGFloat(alphaValue))
     }
 }
