@@ -30,7 +30,20 @@ struct Point: PointBuildable {
 
 extension Point: CustomStringConvertible, Comparable {
     static func < (lhs: Point, rhs: Point) -> Bool {
-        return lhs.x < rhs.x && lhs.y < rhs.y
+        
+        if lhs.x == rhs.x {
+            return lhs.y < rhs.y
+        }
+        
+        if lhs.y == rhs.y {
+            return lhs.x < rhs.x
+        }
+        
+        return (lhs.x < rhs.x) && (lhs.y < rhs.y)
+    }
+    
+    static func <= (lhs: Point, rhs: Point) -> Bool {
+        return lhs.x <= rhs.x && lhs.y <= rhs.y
     }
     
     var description: String {

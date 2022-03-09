@@ -18,6 +18,10 @@ extension UIColor {
         return UIColor(red: .random(in: 0...1), green: .random(in: 0...1), blue: .random(in: 0...1), alpha: 1.0)
     }
     
+    convenience init(with color: Color) {
+        self.init(red: color.red, green: color.green, blue: color.blue, alpha: 1)
+    }
+    
     private func getRGBA() -> RGBA {
         var red: CGFloat = 0
         var green: CGFloat = 0

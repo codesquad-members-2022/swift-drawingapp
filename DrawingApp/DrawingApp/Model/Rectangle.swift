@@ -40,7 +40,7 @@ class Rectangle: Shapable {
     func contains(point: Point) -> Bool {
         let maxX = self.origin.x + self.size.width
         let maxY = self.origin.y + self.size.height
-        return point >= self.origin && point <= Point(x: maxX, y: maxY)
+        return self.origin <= point && point < Point(x: maxX, y: maxY)
     }
     
     func convert<T: RectangleBuildable>(using Convertor: T.Type) -> T {

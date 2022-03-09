@@ -8,7 +8,7 @@
 import UIKit
 
 protocol PlaneViewDelegate {
-    func planeViewDidTapped()
+    func planeViewDidTapped(_ sender: UITapGestureRecognizer)
     func planeViewDidPressRectangleAddButton()
 }
 
@@ -59,6 +59,6 @@ class PlaneView: UIView {
     
     @objc func handleOnTapPlaneView(_ sender: UITapGestureRecognizer) {
         guard sender.state == .ended else { return }
-        self.delegate?.planeViewDidTapped()
+        self.delegate?.planeViewDidTapped(sender)
     }
 }
