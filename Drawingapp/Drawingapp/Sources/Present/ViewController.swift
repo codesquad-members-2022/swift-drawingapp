@@ -45,12 +45,9 @@ class ViewController: UIViewController {
         topMenuBarView.delegate = self
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGusture))
-        tapGesture.delegate = self
         self.drawingBoard.addGestureRecognizer(tapGesture)
         
         let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGusture))
-        panGesture.delegate = self
-        panGesture.require(toFail: tapGesture)
         self.drawingBoard.addGestureRecognizer(panGesture)
     }
     
@@ -148,13 +145,6 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if let pangesture = gestureRecognizer as? UIPanGestureRecognizer {
-            let location = pangesture.location(in: pangesture.view)
-            self.plane.touchPoint(where: Point(x: location.x, y: location.y))
-        }
-        return true
-    }
     
     @objc private func tapGusture(sender: UITapGestureRecognizer) {
         let location = sender.location(in: sender.view)
@@ -166,6 +156,8 @@ extension ViewController: UIGestureRecognizerDelegate {
         
         switch sender.state {
         case .began:
+            let location = sender.location(in: sender.view)
+            self.plane.touchPoint(where: Point(x: location.x, y: location.y))
             self.plane.beganDrag()
         case .changed:
             guard let dummyView = self.dummyView else {
