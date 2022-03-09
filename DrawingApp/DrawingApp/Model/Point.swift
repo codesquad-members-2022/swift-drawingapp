@@ -7,11 +7,7 @@
 
 import Foundation
 
-protocol PointBuilder {
-    init(x: Double, y: Double)
-}
-
-struct Point {
+struct Point: PointBuildable {
     static let range = 0.0...500.0
     
     let x: Double
@@ -27,7 +23,7 @@ struct Point {
         self.y = y
     }
     
-    func convert<T: PointBuilder>(using Convertor: T.Type) -> T {
+    func convert<T: PointBuildable>(using Convertor: T.Type) -> T {
         return Convertor.init(x: self.x, y: self.y)
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol RectangleBuilder {
+protocol RectangleBuildable {
     init(x: Double, y: Double, width: Double, height: Double)
 }
 
@@ -42,7 +42,7 @@ class Rectangle: Shapable {
         return point >= self.origin && point <= Point(x: maxX, y: maxY)
     }
     
-    func convert<T: RectangleBuilder>(using Convertor: T.Type) -> T {
+    func convert<T: RectangleBuildable>(using Convertor: T.Type) -> T {
         return Convertor.init(x: self.origin.x, y: self.origin.y, width: self.size.width, height: self.size.height)
     }
 }
