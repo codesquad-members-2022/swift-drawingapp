@@ -17,6 +17,7 @@ protocol PlaneDelegate: AnyObject {
 class Plane {
     weak var delegate: PlaneDelegate?
     private var rectangles: [Rectangle] = []
+    private var currentRectangle: Rectangle?
     
     func createRect(in areaSize: Size) {
         let newRect = RectangleFactory.make(in: areaSize)
@@ -37,6 +38,7 @@ class Plane {
                 break
             }
         }
+        self.currentRectangle = selectedRect
         self.delegate?.didSelected(rect: selectedRect)
     }
 }
