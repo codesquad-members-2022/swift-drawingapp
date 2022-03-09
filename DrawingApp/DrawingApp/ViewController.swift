@@ -140,8 +140,8 @@ extension ViewController: PlaneDelegate {
         
         let newBackgroundColor = backgroundColorChangedRectangle.backgroundColor
         matchedView.backgroundColor = newBackgroundColor.convertToUIColor()
-        let previousnAlpha = backgroundColorChangedRectangle.alpha
-        updateBackgroundButton(color: newBackgroundColor, alpha: previousnAlpha)
+        let previousAlpha = backgroundColorChangedRectangle.alpha
+        updateBackgroundButton(color: newBackgroundColor, alpha: previousAlpha)
     }
     
     func rectangleAlphaDidChanged(_ alphaChangedRectangle: Rectangle) {
