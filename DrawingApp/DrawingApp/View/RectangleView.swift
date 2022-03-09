@@ -10,6 +10,7 @@ import UIKit
 class RectangleView: UIView {
     
     //MARK: Initialize
+    private var isHighlighted: Bool = false
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,5 +31,21 @@ class RectangleView: UIView {
     
     func configureView() {
         self.translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    private func highlightCorner() {
+        self.layer.borderColor = UIColor.systemCyan.cgColor
+        self.layer.borderWidth = 5
+        self.isHighlighted = true
+    }
+    
+    func clearCorner() {
+        self.layer.borderWidth = 0
+        self.layer.borderColor = .none
+        self.isHighlighted = false
+    }
+    
+    func toggleCorner() {
+        self.isHighlighted ? self.clearCorner() : self.highlightCorner()
     }
 }
