@@ -8,5 +8,6 @@
 import Foundation
 
 protocol PlaneDelegate {
-    func rectangleDidCreated(_ rectangle: Rectangle)
+    func didCreateRectangle(_ rectangle: Rectangle)
+    func didSelectRectanlge(_ rectangle: Rectangle?)
 }
