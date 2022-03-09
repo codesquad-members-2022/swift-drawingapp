@@ -42,7 +42,7 @@ final class RectangleButton:UIButton {
     }
     
     
-    //버튼 액션
+    //버튼 액션 - highLigted
     private func configureRectangleButtonTapped() {
         let squareImage = UIImage(systemName: "square")
         let highlightedImage = UIImage(systemName: "square.fill")
@@ -54,5 +54,4 @@ final class RectangleButton:UIButton {
             button.configuration = configuration
         }
     }
-    
 }

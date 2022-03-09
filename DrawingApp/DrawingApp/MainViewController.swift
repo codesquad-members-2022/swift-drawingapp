@@ -16,11 +16,10 @@ final class MainViewController: UIViewController{
     private var detailView = DetailView(frame: .zero)       //생성시 오해를 막고 기존 생성자와 관련있게 하기 위해 frame에 .zero를 대입했습니다.
     private var button:UIButton = RectangleButton(frame: .zero)
     
-    //그려진 retangleView를 Rectangle을 Key로 찾는 Dictionary로 만들어서 모델과 매칭을 시켜주었습니다.
+    //그려진 retangleView를 모델(Rectangle)을 Key로 찾는 Dictionary로 만들어서 모델과 매칭을 시켜주었습니다.
     private var retangleViews = [Rectangle:RectangleView]()
     //선택된 rectangleView
     private var seletedRectangleView:RectangleView?
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,20 +51,20 @@ final class MainViewController: UIViewController{
         )
     }
     
-    //사각형 추가 버튼 정의
+    //사각형 추가 버튼 Frame정의 및 Action추가.
     private func configureRectangleButton() {
         let width = 150.0
         let height = 100.0
         let x:CGFloat = (self.view.frame.maxX / 2.0) - (width / 2)
         let y:CGFloat = (self.view.frame.maxY - height)
         
-        button.layer.zPosition = 1.0                                //생성되는 사각형에 겹쳐서 클릭이 안되거나 안보이는 경우를 막기위해 zPosition을 주었다.
+        button.layer.zPosition = 1.0                                //생성되는 사각형에 겹쳐서 안보이는 경우를 막기위해 zPosition을 주었다.
         button.frame = CGRect(x: x, y: y, width: width, height: height)
-        button.addAction(makeRectangleAction(), for: .touchUpInside)
+        button.addAction(makeAddRectangleAction(), for: .touchUpInside)
     }
     
-    //버튼 액션정의
-    private func makeRectangleAction() -> UIAction {
+    //버튼 액션 - 사각형 추가
+    private func makeAddRectangleAction() -> UIAction {
         let action = UIAction {_ in
             let id = IDFactory.makeRandomID()
             let size = Size(width: 150, height: 120)
@@ -106,6 +105,7 @@ extension MainViewController:UIGestureRecognizerDelegate {
 
 //MARK: -- Delegate메소드 실제 구현
 
+//MARK: -- DetailViewDelegate
 //슬라이더를 움직일때 마다 현재 클릭한 모델 사각형의 alpha값을 바꾼다.
 extension MainViewController:DetailViewDelgate {
     func sliderViewEndEditing(sender: UISlider) {
@@ -120,6 +120,7 @@ extension MainViewController:DetailViewDelgate {
     }
 }
 
+//MARK: -- Plane Delegate
 extension MainViewController:PlaneDelegate {
     //바뀐 rgb값을 이용해서 View의 배경과 Label의 title을 바꿉니다.
     func didChangeColor(seletedRectangle: Rectangle) {
