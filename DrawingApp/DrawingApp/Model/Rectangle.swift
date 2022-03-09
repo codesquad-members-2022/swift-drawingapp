@@ -8,6 +8,7 @@
 import Foundation
 
 class Rectangle: Shapable {
+    
     private(set) var id: Identifier
     private(set) var size: Size
     private(set) var point: Point

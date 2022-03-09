@@ -89,8 +89,8 @@ class SideInspectorView: UIStackView {
     //MARK: Configure Components
     
     private func configureView() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = .systemGray6
+        translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = .systemGray6
     }
     
     private func layoutAlphaMenuStackView() {
@@ -125,5 +125,4 @@ class SideInspectorView: UIStackView {
         alphaSlider.leadingAnchor.constraint(equalTo: alphaMenuStackView.leadingAnchor).isActive = true
         alphaSlider.trailingAnchor.constraint(equalTo: alphaMenuStackView.trailingAnchor).isActive = true
     }
-    
 }

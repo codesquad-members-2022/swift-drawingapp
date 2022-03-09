@@ -8,6 +8,7 @@
 import Foundation
 
 struct Size {
+    
     private(set) var width: Double
     private(set) var height: Double
     

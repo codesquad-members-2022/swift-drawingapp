@@ -8,9 +8,10 @@
 import Foundation
 
 struct Plane {
+    
     var delegate: PlaneDelegate?
-
     private var rectangles: [Rectangle] = []
+    private(set) var recentlySelectedRectangle: Rectangle?
     
     subscript(index: Int) -> Rectangle {
         return rectangles[index]
@@ -20,15 +21,13 @@ struct Plane {
         return rectangles.count
     }
     
-    private(set) var recentlySelectedRectangle: Rectangle?
-    
     
     mutating func updateRecentlySelected(rectangle: Rectangle) {
-        self.recentlySelectedRectangle = rectangle
+        recentlySelectedRectangle = rectangle
     }
     
     mutating func append(newRectangle: Rectangle) {
-        self.rectangles.append(newRectangle)
+        rectangles.append(newRectangle)
         delegate?.didCreateRectangle(newRectangle)
     }
     

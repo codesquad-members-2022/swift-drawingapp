@@ -8,6 +8,7 @@
 import Foundation
 
 class Identifier {
+    
     private var firstToken: String
     private var secondToken: String
     private var thirdToken: String

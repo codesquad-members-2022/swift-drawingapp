@@ -41,7 +41,6 @@ class ViewController: UIViewController {
         layoutSideInspectorView()
         layoutAddRectangleButton()
     }
-    
 }
 
 //MARK: Add Constraints
@@ -68,15 +67,14 @@ extension ViewController {
         sideInspectorView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         sideInspectorView.widthAnchor.constraint(equalToConstant: 200).isActive = true
     }
-    
 }
 
 //MARK: Actions
 
 extension ViewController {
     @objc func addRectangleButtonTouched() {
-        let rectangleViewXBound = self.presentRectangleView.frame.width - Size.Range.width
-        let rectangleViewYBound = self.presentRectangleView.frame.height - Size.Range.height
+        let rectangleViewXBound = presentRectangleView.frame.width - Size.Range.width
+        let rectangleViewYBound = presentRectangleView.frame.height - Size.Range.height
 
         let newRectangle = RandomRectangleFactory.createRandomRectangle(xBound: rectangleViewXBound, yBound: rectangleViewYBound)
         
@@ -90,7 +88,6 @@ extension ViewController {
         let coordinate = (Double(location.x), Double(location.y))
         plane.searchRectangle(on: coordinate)
     }
-    
 }
 
 //MARK: Delegates
@@ -123,8 +120,7 @@ extension ViewController: PlaneDelegate {
         let frame = RectangleAttributeFactory.createRectangleFrame(by: rectangle)
         let rectangleView = RectangleView(frame: frame, color: color)
         
-        self.presentRectangleView.addSubview(rectangleView)
-        self.rectangleMap[rectangle] = rectangleView
+        presentRectangleView.addSubview(rectangleView)
+        rectangleMap[rectangle] = rectangleView
     }
-    
 }
