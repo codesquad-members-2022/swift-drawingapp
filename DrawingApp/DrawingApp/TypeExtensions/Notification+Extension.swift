@@ -7,11 +7,35 @@
 
 import UIKit
 
-// ViewController는 Rectangle이 선택되면 그 모델을 전달받아다가 버튼, 슬라이더에 적용하고
-// 버튼이 눌리거나 슬라이더가 움직이면 그 신호를 Plane -> MainScreenViewController에 보내게 된다.
+// MARK: - Predifined Notification Names
 extension Notification.Name {
-    // MainScreenViewController -> Plane -> ViewController
+    /// Notification name MainScreen(Rectangle etc...) touched
     static let MainScreenTouched = Notification.Name(rawValue: "MainScreenTouched")
-    // ViewController -> Plane -> MainScreenViewController
+    /// Notification name MainScreenControl(AddButton, AlphaSlider, ColorButton etc...) touched
     static let MainScreenAction = Notification.Name(rawValue: "MainScreenAction")
+}
+
+// MARK: - Add Observer Each ViewControllers
+extension MainScreenViewController {
+    // handler를 호출하는 쪽에서 정의하도록 한 이유는 아래의 함수가 호출하는 쪽의 응집력을 뺏어간다고 판단했기 때문입니다.
+    func observeMainScreenAction(using handler: @escaping (Notification) -> Void) {
+        NotificationCenter.default.addObserver(
+            forName: .MainScreenAction,
+            object: nil,
+            queue: OperationQueue.main,
+            using: handler
+        )
+    }
+}
+
+extension ViewController {
+    // 위의 observeMainScreenAction(using: (Notification)->Void) 의 설명과 같이 응집력의 문제를 생각하여 handler를 전달받습니다.
+    func observeMainScreenTouched(using handler: @escaping (Notification) -> Void) {
+        NotificationCenter.default.addObserver(
+            forName: .MainScreenTouched,
+            object: nil,
+            queue: OperationQueue.main,
+            using: handler
+        )
+    }
 }

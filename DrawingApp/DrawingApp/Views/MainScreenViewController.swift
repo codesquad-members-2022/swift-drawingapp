@@ -21,11 +21,7 @@ final class MainScreenViewController: UIViewController, MainScreenDelegate, UIGe
     var delegate: RectangleViewTapDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
-        NotificationCenter.default.addObserver(
-            forName: .MainScreenAction,
-            object: nil,
-            queue: OperationQueue.main
-        ) { [weak self] noti in
+        observeMainScreenAction(using: { [weak self] noti in
             guard let self = self else { return }
             
             guard
@@ -42,7 +38,7 @@ final class MainScreenViewController: UIViewController, MainScreenDelegate, UIGe
             case .SliderMoved:
                 self.current?.setValue(alpha: Float(model.alpha))
             }
-        }
+        })
     }
     
     // MARK: - MainScreenDelegate implementations
