@@ -35,6 +35,12 @@ class SideInspectorView: UIView {
         return label
     }()
     
+    let alphaSlider: UISlider = {
+        let slider = UISlider()
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        return slider
+    }()
+    
     
     // TODO: init
     override init(frame: CGRect) {
@@ -54,7 +60,8 @@ class SideInspectorView: UIView {
         addSubview(backgroundColorLabel)
         addSubview(backgroundColorValueView)
         addSubview(alphaLabel)
-
+        addSubview(alphaSlider)
+        
         NSLayoutConstraint.activate([
             backgroundColorLabel.widthAnchor.constraint(equalToConstant: 100),
             backgroundColorLabel.heightAnchor.constraint(equalToConstant: 50),
@@ -64,11 +71,14 @@ class SideInspectorView: UIView {
             backgroundColorValueView.topAnchor.constraint(equalTo: self.backgroundColorLabel.bottomAnchor),
             backgroundColorValueView.leadingAnchor.constraint(equalTo: self.backgroundColorLabel.leadingAnchor),
             backgroundColorValueView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            backgroundColorValueView.widthAnchor.constraint(equalToConstant: 100),
             backgroundColorValueView.heightAnchor.constraint(equalToConstant: 50),
             
             alphaLabel.topAnchor.constraint(equalTo: self.backgroundColorValueView.bottomAnchor, constant: 20),
-            alphaLabel.leadingAnchor.constraint(equalTo: self.backgroundColorLabel.leadingAnchor)
+            alphaLabel.leadingAnchor.constraint(equalTo: self.backgroundColorLabel.leadingAnchor),
+            
+            alphaSlider.topAnchor.constraint(equalTo: self.alphaLabel.bottomAnchor, constant: 10),
+            alphaSlider.leadingAnchor.constraint(equalTo: self.backgroundColorLabel.leadingAnchor),
+            alphaSlider.trailingAnchor.constraint(equalTo: self.backgroundColorValueView.trailingAnchor)
             
         ])
     }
