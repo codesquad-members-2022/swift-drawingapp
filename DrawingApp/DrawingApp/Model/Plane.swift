@@ -8,7 +8,7 @@
 import Foundation
 
 struct Plane {
-    private var items = [String: Rectangle]()
+    private  var items = [String: Rectangle]()
     private(set) var currentItem: Rectangle?
     
     var countItems: Int {
@@ -25,7 +25,7 @@ struct Plane {
      */
     func findItemBy(point: Point) -> Rectangle? {
         for rectangle in self.items.values {
-            if rectangle.contains(point: point) {
+            if rectangle.origin == point {
                 return rectangle
             }
         }
@@ -35,14 +35,35 @@ struct Plane {
     
     mutating func append(item: Rectangle) {
         self.items.updateValue(item, forKey: item.id)
+        item.postDidCreated()
     }
     
     mutating func selectItem(id: String) {
         guard let item = self.items[id] else { return }
         self.currentItem = item
+        self.notifyDidSelectItem()
     }
     
     mutating func unselectItem() {
+        guard let item = self.currentItem else { return }
         self.currentItem = nil
+        self.notifyDidUnselectItem(item)
+    }
+}
+
+// MARK: - Notification
+extension Plane {
+    enum NotificationKey {
+        case select
+        case unselect
+    }
+    
+    func notifyDidSelectItem() {
+        guard let item = self.currentItem else { return }
+        NotificationCenter.default.post(name: .PlaneDidSelectItem, object: self, userInfo: [Self.NotificationKey.select: item])
+    }
+    
+    func notifyDidUnselectItem(_ item: Rectangle) {
+        NotificationCenter.default.post(name: .PlaneDidUnselectItem, object: self, userInfo: [Self.NotificationKey.unselect: item])
     }
 }

@@ -17,9 +17,9 @@ class RectangleView: UIView {
         super.init(coder: coder)
     }
     
-    init(data: Rectangle) {
-        super.init(frame: data.convert(using: CGRect.self))
-        self.setBackgroundColor(color: data.backgroundColor, alpha: data.alpha)
+    init(with rectangle: Rectangle) {
+        super.init(frame: rectangle.convert(using: CGRect.self))
+        self.setBackgroundColor(color: rectangle.backgroundColor, alpha: rectangle.alpha)
     }
     
     // MARK: - UI changing methods

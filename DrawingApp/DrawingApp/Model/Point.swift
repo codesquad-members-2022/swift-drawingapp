@@ -19,8 +19,8 @@ struct Point: PointBuildable {
     }
     
     init(x: Double, y: Double) {
-        self.x = x
-        self.y = y
+        self.x = x.toFixed(digits: 4)
+        self.y = y.toFixed(digits: 4)
     }
     
     func convert<T: PointBuildable>(using Convertor: T.Type) -> T {
