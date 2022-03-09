@@ -9,7 +9,7 @@ import Foundation
 
 protocol PlaneDelegate {
     func rectangleDidAdded(_ rectangle: Rectangle)
-    func rectangleDidSpecified(_ rectangle: Rectangle)
+    func rectangleDidSpecified(_ rectangle: Rectangle?)
     func rectangleBackgroundColorDidChanged(_ rectangle: Rectangle)
     func rectangleAlphaDidChanged(_ rectangle: Rectangle)
 }
