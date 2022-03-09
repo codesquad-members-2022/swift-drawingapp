@@ -34,6 +34,7 @@ class ViewController: UIViewController {
     
     let plane = Plane(drawingModelFactory: DrawingModelFactory(sizeFactory: SizeFactory(), pointFactory: PointFactory(), colorFactory: ColorFactory()))
     var drawingViews: [DrawingModel:DrawingView] = [:]
+    var dummyView: UIView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,9 +44,14 @@ class ViewController: UIViewController {
         inspectorView.delegate = self
         topMenuBarView.delegate = self
         
-        let tapGesture = UITapGestureRecognizer()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGusture))
         tapGesture.delegate = self
         self.drawingBoard.addGestureRecognizer(tapGesture)
+        
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGusture))
+        panGesture.delegate = self
+        panGesture.require(toFail: tapGesture)
+        self.drawingBoard.addGestureRecognizer(panGesture)
     }
     
     func bind() {
@@ -77,6 +83,19 @@ class ViewController: UIViewController {
             }
         }
         
+        NotificationCenter.default.addObserver(forName: Plane.NotifiName.makeDragDummyView, object: nil, queue: nil) { notification in
+            guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
+                  let selectView = self.drawingViews[model],
+                  let copyView = selectView.copy() as? UIView else {
+                return
+            }
+            
+            self.drawingBoard.addSubview(copyView)
+            copyView.alpha = 0.5
+            copyView.isHidden = true
+            self.dummyView = copyView
+        }
+        
         NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updateColor, object: nil, queue: nil) { notification in
             guard let model = notification.object as? DrawingModel,
                   let view = self.drawingViews[model] as? Colorable,
@@ -94,6 +113,14 @@ class ViewController: UIViewController {
             }
             self.drawingViews[model]?.update(alpha: alpha)
             self.inspectorView.update(alpha: alpha)
+        }
+        
+        NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updatePoint, object: nil, queue: nil) { notification in
+            guard let model = notification.object as? DrawingModel,
+                  let point = notification.userInfo?[DrawingModel.ParamKey.point] as? Point else {
+                return
+            }
+            self.drawingViews[model]?.update(point: point)
         }
     }
     
@@ -122,9 +149,38 @@ class ViewController: UIViewController {
 
 extension ViewController: UIGestureRecognizerDelegate {
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        let location = gestureRecognizer.location(in: gestureRecognizer.view)
-        self.plane.touchPoint(where: Point(x: location.x, y: location.y))
+        if let pangesture = gestureRecognizer as? UIPanGestureRecognizer {
+            let location = pangesture.location(in: pangesture.view)
+            self.plane.touchPoint(where: Point(x: location.x, y: location.y))
+        }
         return true
+    }
+    
+    @objc private func tapGusture(sender: UITapGestureRecognizer) {
+        let location = sender.location(in: sender.view)
+        self.plane.touchPoint(where: Point(x: location.x, y: location.y))
+    }
+    
+    @objc private func panGusture(sender: UITapGestureRecognizer) {
+        let location = sender.location(in: sender.view)
+        
+        switch sender.state {
+        case .began:
+            self.plane.beganDrag()
+        case .changed:
+            guard let dummyView = self.dummyView else {
+                return
+            }
+            let size = dummyView.frame.size
+            dummyView.isHidden = false
+            dummyView.frame.origin = CGPoint(x: location.x - size.width / 2 , y: location.y - size.height / 2)
+        case .ended:
+            self.dummyView?.removeFromSuperview()
+            self.dummyView = nil
+            self.plane.pointChanged(where: Point(x: location.x, y: location.y))
+        default:
+            break
+        }
     }
 }
 
@@ -134,11 +190,11 @@ extension ViewController: InspectorDelegate {
     }
     
     func changeColorButtonTapped() {
-        self.plane.changeColor()
+        self.plane.colorChanged()
     }
     
     func alphaSliderValueChanged(alpha: Alpha) {
-        self.plane.changeAlpha(alpha)
+        self.plane.alphaChanged(alpha)
     }
 }
 

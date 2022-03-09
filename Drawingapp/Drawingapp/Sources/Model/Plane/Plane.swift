@@ -10,8 +10,10 @@ import UIKit
 
 protocol PlaneAction {
     func touchPoint(where point: Point)
-    func changeColor()
-    func changeAlpha(_ alpha: Alpha)
+    func pointChanged(where point: Point)
+    func colorChanged()
+    func alphaChanged(_ alpha: Alpha)
+    func beganDrag()
 }
 
 protocol MakeModelAction {
@@ -84,6 +86,14 @@ extension Plane: PlaneAction {
         NotificationCenter.default.post(name: Plane.NotifiName.didSelectedDrawingModel, object: self, userInfo: userInfo)
     }
     
+    func beganDrag() {
+        guard let model = self.selectedModel else {
+            return
+        }
+        let userInfo: [AnyHashable : Any] = [ParamKey.drawingModel:model]
+        NotificationCenter.default.post(name: Plane.NotifiName.makeDragDummyView, object: self, userInfo: userInfo)
+    }
+    
     func touchPoint(where point: Point) {
         guard let selectModel = self.selected(point: point) else {
             sendDidDisSelectModel(self.selectedModel)
@@ -104,20 +114,26 @@ extension Plane: PlaneAction {
         }
     }
     
-    func changeColor() {
+    func pointChanged(where point: Point) {
+        guard let model = self.selectedModel else {
+            return
+        }
+        model.update(point: point)
+    }
+    
+    func colorChanged() {
         guard let model = self.selectedModel as? RectangleModel else {
             return
         }
-//        model.update(color: Color(using: RandomColorGenerator()))
+        model.update(color: Color(using: RandomColorGenerator()))
     }
     
-    func changeAlpha(_ alpha: Alpha) {
+    func alphaChanged(_ alpha: Alpha) {
         guard let model = self.selectedModel else {
             return
         }
         model.update(alpha: alpha)
     }
-    
 }
 
 extension Plane {
@@ -125,6 +141,7 @@ extension Plane {
         static let didDisSelectedDrawingModel = NSNotification.Name("didDisSelectedDrawingModel")
         static let didSelectedDrawingModel = NSNotification.Name("didSelectedDrawingModel")
         static let didMakeDrawingModel = NSNotification.Name("didMakeDrawingModel")
+        static let makeDragDummyView = NSNotification.Name("makeDragDummyView")
     }
     
     enum ParamKey {
