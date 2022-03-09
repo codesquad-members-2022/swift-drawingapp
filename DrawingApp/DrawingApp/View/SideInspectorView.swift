@@ -27,6 +27,14 @@ class SideInspectorView: UIView {
         return view
     }()
     
+    let alphaLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "투명도"
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        return label
+    }()
+    
     
     // TODO: init
     override init(frame: CGRect) {
@@ -45,6 +53,7 @@ class SideInspectorView: UIView {
         backgroundColor = .systemGray5
         addSubview(backgroundColorLabel)
         addSubview(backgroundColorValueView)
+        addSubview(alphaLabel)
 
         NSLayoutConstraint.activate([
             backgroundColorLabel.widthAnchor.constraint(equalToConstant: 100),
@@ -52,11 +61,15 @@ class SideInspectorView: UIView {
             backgroundColorLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
             backgroundColorLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
             
-            backgroundColorValueView.topAnchor.constraint(equalTo: self.backgroundColorLabel.topAnchor, constant: 50),
+            backgroundColorValueView.topAnchor.constraint(equalTo: self.backgroundColorLabel.bottomAnchor),
             backgroundColorValueView.leadingAnchor.constraint(equalTo: self.backgroundColorLabel.leadingAnchor),
             backgroundColorValueView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             backgroundColorValueView.widthAnchor.constraint(equalToConstant: 100),
-            backgroundColorValueView.heightAnchor.constraint(equalToConstant: 50)
+            backgroundColorValueView.heightAnchor.constraint(equalToConstant: 50),
+            
+            alphaLabel.topAnchor.constraint(equalTo: self.backgroundColorValueView.bottomAnchor, constant: 20),
+            alphaLabel.leadingAnchor.constraint(equalTo: self.backgroundColorLabel.leadingAnchor)
+            
         ])
     }
 }
