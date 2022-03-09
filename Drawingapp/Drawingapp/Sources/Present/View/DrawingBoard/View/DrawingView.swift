@@ -55,4 +55,8 @@ class DrawingView: UIView {
         self.layer.borderWidth = select ? 3 : 0
         self.layer.borderColor = select ? UIColor.systemBlue.cgColor : UIColor.clear.cgColor
     }
+    
+    override func copy() -> Any {
+        self.snapshotView(afterScreenUpdates: false)
+    }
 }

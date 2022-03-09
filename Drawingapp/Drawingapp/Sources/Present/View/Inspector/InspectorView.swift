@@ -94,7 +94,7 @@ class InspectorView: UIView {
     
     func update(color: Color?) {
         if let color = color {
-//            colorButton.button.setTitle(color.hexColor, for: .normal)
+            colorButton.button.setTitle(color.hexColor, for: .normal)
         } else {
             colorButton.button.setTitle("None", for: .normal)            
         }
