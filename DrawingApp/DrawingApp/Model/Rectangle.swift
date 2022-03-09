@@ -74,11 +74,11 @@ extension Rectangle: Hashable {
 
 // MARK: - Notification To Observer
 extension Rectangle {
-    func postDidCreated() {
+    func notifyDidCreated() {
         NotificationCenter.default.post(name: .RectangleDataDidCreated, object: self)
     }
     
-    func postDidUpdated(key: String, data: Any) {
+    func notifyDidUpdated(key: String, data: Any) {
         NotificationCenter.default.post(name: .RectangleDataDidUpdated, object: self, userInfo: [key: data])
     }
 }

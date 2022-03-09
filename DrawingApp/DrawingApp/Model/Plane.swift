@@ -44,7 +44,7 @@ struct Plane {
     
     mutating func append(item: Rectangle) {
         self.items.updateValue(item, forKey: item.id)
-        item.postDidCreated()
+        item.notifyDidCreated()
     }
     
     mutating func selectItem(id: String) {
