@@ -23,7 +23,7 @@ class PresentRectangleView: UIView {
 
     //MARK: Configure Components
     
-    func configureView() {
+    private func configureView() {
         self.translatesAutoresizingMaskIntoConstraints = false
     }
 

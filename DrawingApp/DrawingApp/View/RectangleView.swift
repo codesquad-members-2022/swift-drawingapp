@@ -29,7 +29,7 @@ class RectangleView: UIView {
     
     //MARK: Configure Components
     
-    func configureView() {
+    private func configureView() {
         self.translatesAutoresizingMaskIntoConstraints = false
     }
     
@@ -48,4 +48,5 @@ class RectangleView: UIView {
     func toggleCorner() {
         self.isHighlighted ? self.clearCorner() : self.highlightCorner()
     }
+    
 }

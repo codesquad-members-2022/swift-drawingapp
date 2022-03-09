@@ -23,7 +23,7 @@ class AddRectangleButton: UIButton {
     
     //MARK: Configure Components
     
-    func configureButton() {
+    private func configureButton() {
         self.translatesAutoresizingMaskIntoConstraints = false
         self.backgroundColor = .systemGray6
         self.setTitle("사각형", for: .normal)
@@ -34,4 +34,5 @@ class AddRectangleButton: UIButton {
         
         self.addTarget(superview, action: #selector(ViewController.addRectangleButtonTouched), for: .touchUpInside)
     }
+    
 }
