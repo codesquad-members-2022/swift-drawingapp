@@ -7,7 +7,4 @@
 
 import UIKit
 
-extension CGSize: SizeBuilder {}
-extension CGPoint: PointBuilder {}
 extension CGFloat: AlphaBuilder {}
-extension CGRect: RectangleBuilder {}
