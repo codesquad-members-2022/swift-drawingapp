@@ -1,34 +1,29 @@
 //
-//  Rectangle.swift
+//  ImagePlane.swift
 //  DrawingApp
 //
-//  Created by juntaek.oh on 2022/02/28.
+//  Created by juntaek.oh on 2022/03/08.
 //
 
 import Foundation
 
-final class Rectangle: RectValue{
-    let id: String
+final class Image: RectValue{
+    let image: MyImage
     private(set) var size: MySize
     private(set) var point: MyPoint
-    private(set) var color: RGBColor
     private(set) var alpha: Alpha
     
     var description: String{
-        let description = "[\(id)] : (X: \(point.x), Y:\(point.y)) / (W: \(size.width), H:\(size.height)) / (R: \(color.red), G: \(color.green), B: \(color.blue)) / Alpha: \(alpha)"
+        let description = "[\(image.imageInfo())] : (X: \(point.x), Y:\(point.y)) / (W: \(size.width), H:\(size.height)) / Alpha: \(alpha)"
         return description
     }
     
-    static func == (lhs: Rectangle, rhs: Rectangle) -> Bool {
-        return lhs.id == rhs.id && lhs.size == rhs.size && lhs.point == rhs.point && lhs.color == rhs.color && lhs.alpha == rhs.alpha
+    static func == (lhs: Image, rhs: Image) -> Bool {
+        return lhs.image == rhs.image && lhs.size == rhs.size && lhs.point == rhs.point && lhs.alpha == rhs.alpha
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
-    
-    func changeColor(color: RGBColor){
-        self.color = color
+        hasher.combine(image.imageInfo())
     }
     
     func changeAlpha(alpha: Alpha){
@@ -44,11 +39,10 @@ final class Rectangle: RectValue{
         return xPoint >= minX && xPoint <= maxX && yPoint >= minY && yPoint <= maxY
     }
     
-    init(id: String, size: MySize, point: MyPoint, color: RGBColor, alpha: Alpha){
-        self.id = id
+    init(image: MyImage, size: MySize, point: MyPoint, alpha: Alpha){
+        self.image = image
         self.size = size
         self.point = point
-        self.color = color
         self.alpha = alpha
     }
 }

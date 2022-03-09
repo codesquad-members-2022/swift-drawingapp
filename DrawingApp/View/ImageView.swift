@@ -1,14 +1,14 @@
 //
-//  RandomRectangle.swift
+//  ImageView.swift
 //  DrawingApp
 //
-//  Created by juntaek.oh on 2022/03/02.
+//  Created by juntaek.oh on 2022/03/08.
 //
 
+import Foundation
 import UIKit
-import os
 
-class RandomRectangleView: UIView {
+final class ImageView: UIImageView {
     override init(frame: CGRect) {
         super.init(frame: frame)
     }

@@ -6,11 +6,13 @@
 //
 
 import Foundation
-import UIKit
 
-struct Plane{
+final class RectanglePlane{
     static let makeRectangle = Notification.Name("makeRectangle")
     static let selectRectangle = Notification.Name("selectRectangle")
+    static let noneSelectRectangle = Notification.Name("noneSelectRectangle")
+    static let userInfoKey: String = "rectangle"
+    
     private var rectangles: [Rectangle] = []
     
     subscript(index: Int) -> Rectangle?{
@@ -20,18 +22,18 @@ struct Plane{
         return rectangles[index]
     }
     
-    mutating func addRectangle(rectangle: Rectangle){
+    func addRectangle(rectangle: Rectangle){
         self.rectangles.append(rectangle)
-        NotificationCenter.default.post(name: Plane.makeRectangle, object: self, userInfo: ["rectangle" : rectangle])
+        NotificationCenter.default.post(name: RectanglePlane.makeRectangle, object: self, userInfo: [RectanglePlane.userInfoKey : rectangle])
     }
     
     func count() -> Int{
         return rectangles.count
     }
     
-    func findRectangle(withX: Double, withY: Double){
+    func findRectangle(withX: Double, withY: Double) -> Bool{
         guard !rectangles.isEmpty else{
-            return
+            return false
         }
         
         var findedRectangle: Rectangle?
@@ -45,6 +47,11 @@ struct Plane{
             break
         }
         
-        NotificationCenter.default.post(name: Plane.selectRectangle, object: self, userInfo: ["rectangle" : findedRectangle as Any])
+        if let rectangle = findedRectangle{
+            NotificationCenter.default.post(name: RectanglePlane.selectRectangle, object: self, userInfo: [RectanglePlane.userInfoKey : rectangle])
+            return true
+        } else{
+            return false
+        }
     }
 }

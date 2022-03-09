@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct RGBColor{
+struct RGBColor: Equatable{
     let red: Double
     let green: Double
     let blue: Double

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RightAttributerView: UIView {
+final class RightAttributerView: UIView {
     private let colorTitle = UILabel()
     private let alphaTitle = UILabel()
     
@@ -36,7 +36,7 @@ class RightAttributerView: UIView {
         return value ?? .one
     }
     
-    var delegate: RightAttributerViewDelegate?
+    var delegate: UIColorSliderDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -69,26 +69,31 @@ extension RightAttributerView{
         colorTitle.text = "배경색"
         alphaTitle.textColor = .black
         alphaTitle.font = .systemFont(ofSize: 17)
-        alphaTitle.text = "투명도"
+        alphaTitle.text = "투명도 : 10"
         
         colorNameRed.textColor = .red
         colorNameRed.font = .systemFont(ofSize: 15)
-        colorNameRed.text = "Red"
+        colorNameRed.text = "Red : 0"
         colorNameGreen.textColor = .green
         colorNameGreen.font = .systemFont(ofSize: 15)
-        colorNameGreen.text = "Green"
+        colorNameGreen.text = "Green : 0"
         colorNameBlue.textColor = .blue
         colorNameBlue.font = .systemFont(ofSize: 15)
-        colorNameBlue.text = "Blue"
+        colorNameBlue.text = "Blue : 0"
         
         redSlider.minimumValue = 0
         redSlider.maximumValue = 255
+        redSlider.isContinuous = false
         greenSlider.minimumValue = 0
         greenSlider.maximumValue = 255
+        greenSlider.isContinuous = false
         blueSlider.minimumValue = 0
         blueSlider.maximumValue = 255
+        blueSlider.isContinuous = false
         alphaSlider.minimumValue = 0.1
         alphaSlider.maximumValue = 1.0
+        alphaSlider.value = 1.0
+        alphaSlider.isContinuous = false
     }
     
     private func layout(){
@@ -123,19 +128,19 @@ extension RightAttributerView{
     }
     
     @objc private func moveAlphaSlider(){
-        self.delegate?.moveAlphaSlider()
+        self.delegate?.alphaSliderDidMove()
     }
     
     @objc private func moveRedSlider(){
-        self.delegate?.moveRedSlider()
+        self.delegate?.redSliderDidMove()
     }
     
     @objc private func moveGreenSlider(){
-        self.delegate?.moveGreenSlider()
+        self.delegate?.greenSliderDidMove()
     }
     
     @objc private func moveBlueSlider(){
-        self.delegate?.moveBlueSlider()
+        self.delegate?.blueSliderDidMove()
     }
 }
 
@@ -169,5 +174,30 @@ extension RightAttributerView{
     
     func changeAlphaSliderView(text: String){
         alphaTitle.text = text
+    }
+}
+
+
+// MARK: - Use case: Slider View disable
+
+extension RightAttributerView{
+    func rockColorSlider(){
+        redSlider.isEnabled = false
+        greenSlider.isEnabled = false
+        blueSlider.isEnabled = false
+    }
+    
+    func rockAlphaSlider(){
+        alphaSlider.isEnabled = false
+    }
+    
+    func useColorSlider(){
+        redSlider.isEnabled = true
+        greenSlider.isEnabled = true
+        blueSlider.isEnabled = true
+    }
+    
+    func useAlphaSlider(){
+        alphaSlider.isEnabled = true
     }
 }
