@@ -50,3 +50,19 @@ extension Identifier {
         static let tokenLength = 3
     }
 }
+
+extension Identifier: Equatable {
+    static func == (lhs: Identifier, rhs: Identifier) -> Bool {
+        return lhs.firstToken == rhs.firstToken &&
+        lhs.secondToken == rhs.secondToken &&
+        lhs.thirdToken == rhs.thirdToken
+    }
+}
+
+extension Identifier: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(firstToken)
+        hasher.combine(secondToken)
+        hasher.combine(thirdToken)
+    }
+}

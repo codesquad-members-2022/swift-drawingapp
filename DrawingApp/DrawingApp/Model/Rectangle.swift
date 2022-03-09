@@ -27,3 +27,13 @@ class Rectangle: Shapable {
         self.alpha = alpha
     }
 }
+
+extension Rectangle: Hashable {
+    static func == (lhs: Rectangle, rhs: Rectangle) -> Bool {
+        return lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
