@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class Image: Hashable{
+final class Image: AttributeValue{
     let image: MyImage
     let size: MySize
     let point: MyPoint

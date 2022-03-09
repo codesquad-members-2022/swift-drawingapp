@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class Rectangle: Hashable, CustomStringConvertible{
+final class Rectangle: AttributeValue{
     let id: String
     let size: MySize
     let point: MyPoint

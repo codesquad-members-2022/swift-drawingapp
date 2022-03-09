@@ -176,3 +176,28 @@ extension RightAttributerView{
         alphaTitle.text = text
     }
 }
+
+
+// MARK: - Use case: Slider View disable
+
+extension RightAttributerView{
+    func rockColorSlider(){
+        redSlider.isEnabled = false
+        greenSlider.isEnabled = false
+        blueSlider.isEnabled = false
+    }
+    
+    func rockAlphaSlider(){
+        alphaSlider.isEnabled = false
+    }
+    
+    func useColorSlider(){
+        redSlider.isEnabled = true
+        greenSlider.isEnabled = true
+        blueSlider.isEnabled = true
+    }
+    
+    func useAlphaSlider(){
+        alphaSlider.isEnabled = true
+    }
+}
