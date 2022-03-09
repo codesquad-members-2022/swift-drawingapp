@@ -25,10 +25,10 @@ class ImageTest: XCTestCase {
         let myImage = image.image
         let size = image.size
         let point = image.point
-        let alpha = image.showAlpha()
+        let alpha = image.alpha
         
         image.changeAlpha(alpha: .one)
-        let modifiedAlpha = image.showAlpha()
+        let modifiedAlpha = image.alpha
         
         let findedLocationTrue = image.findLocationRange(xPoint: 30, yPoint: 30)
         let findedLocationFalse = image.findLocationRange(xPoint: 200, yPoint: 200)

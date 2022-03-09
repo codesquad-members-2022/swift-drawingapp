@@ -7,15 +7,15 @@
 
 import Foundation
 
-final class Rectangle: AttributeValue{
+final class Rectangle: RectValue{
     let id: String
-    let size: MySize
-    let point: MyPoint
-    private var color: RGBColor
-    private var alpha: Alpha
+    private(set) var size: MySize
+    private(set) var point: MyPoint
+    private(set) var color: RGBColor
+    private(set) var alpha: Alpha
     
     var description: String{
-        let description = "[\(id)] : (X: \(point.x), Y:\(point.y)) / (W: \(size.width), H:\(size.height)) / (R: \(color.red), G: \(color.green), B: \(color.blue)) / Alpha: \(showAlpha())"
+        let description = "[\(id)] : (X: \(point.x), Y:\(point.y)) / (W: \(size.width), H:\(size.height)) / (R: \(color.red), G: \(color.green), B: \(color.blue)) / Alpha: \(alpha)"
         return description
     }
     
@@ -25,14 +25,6 @@ final class Rectangle: AttributeValue{
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
-    }
-    
-    func showColor() -> RGBColor{
-        return color
-    }
-    
-    func showAlpha() -> Alpha{
-        return alpha
     }
     
     func changeColor(color: RGBColor){

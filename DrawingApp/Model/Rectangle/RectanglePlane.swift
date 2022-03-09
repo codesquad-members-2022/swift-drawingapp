@@ -51,7 +51,6 @@ final class RectanglePlane{
             NotificationCenter.default.post(name: RectanglePlane.selectRectangle, object: self, userInfo: [RectanglePlane.userInfoKey : rectangle])
             return true
         } else{
-            //NotificationCenter.default.post(name: RectanglePlane.noneSelectRectangle, object: self)
             return false
         }
     }

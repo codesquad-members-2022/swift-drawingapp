@@ -7,14 +7,14 @@
 
 import Foundation
 
-final class Image: AttributeValue{
+final class Image: RectValue{
     let image: MyImage
-    let size: MySize
-    let point: MyPoint
-    private var alpha: Alpha
+    private(set) var size: MySize
+    private(set) var point: MyPoint
+    private(set) var alpha: Alpha
     
     var description: String{
-        let description = "[\(image.imageInfo())] : (X: \(point.x), Y:\(point.y)) / (W: \(size.width), H:\(size.height)) / Alpha: \(showAlpha())"
+        let description = "[\(image.imageInfo())] : (X: \(point.x), Y:\(point.y)) / (W: \(size.width), H:\(size.height)) / Alpha: \(alpha)"
         return description
     }
     
@@ -24,10 +24,6 @@ final class Image: AttributeValue{
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(image.imageInfo())
-    }
-    
-    func showAlpha() -> Alpha{
-        return alpha
     }
     
     func changeAlpha(alpha: Alpha){
