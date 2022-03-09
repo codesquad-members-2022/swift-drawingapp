@@ -5,9 +5,8 @@
 //  Created by 박진섭 on 2022/03/01.
 //
 
-import UIKit
-
 class Rectangle:CustomStringConvertible {
+    
     var description: String {
         return "\(id), \(origin), \(size),\(rgb), \(alpha)"
     }
@@ -26,5 +25,15 @@ class Rectangle:CustomStringConvertible {
         self.alpha = alpha
     }
     
+}
+
+//선택한 Rectangle모델을 찾기위해 Dictionary를 선언했기에 Hashable프로토콜을 채택한다.
+extension Rectangle:Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.id)
+    }
+    static func == (lhs: Rectangle, rhs: Rectangle) -> Bool {
+        lhs.id == rhs.id
+    }
 }
 
