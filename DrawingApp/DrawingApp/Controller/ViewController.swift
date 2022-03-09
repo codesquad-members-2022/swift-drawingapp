@@ -12,18 +12,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var controlPanelView: ControlPanelView!
     @IBOutlet weak var planeView: PlaneView!
     
-    /**
-     선택된 View 에 변화를 주는 것은 컨트롤러의 역할이므로 해당 View 의 참조를 컨트롤러의 속성으로 저장하였습니다.
-     선택된 View 객체 정보는 컨트롤러의 상태정보에 해당한다고 생각하였기 때문입니다.
-     */
-    
     // MARK: - Property for Model
     private var plane = Plane()
+    private var rectangleMap = [Rectangle: RectangleView]()
     
     // MARK: - View Life Cycle Methods
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureDelegate()
+        self.setObservers()
     }
     
     // MARK: - UI Configuration Methods
@@ -33,18 +30,18 @@ class ViewController: UIViewController {
     }
     
     func setObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(self.rectangleDataDidCreated), name: .RectangleDataDidCreated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.rectangleDataDidChanged), name: .RectangleDataDidUpdated, object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(self.planeDidDidSelectItem), name: .PlaneDidSelectItem, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.planeDidDidUnselectItem), name: .PlaneDidUnselectItem, object: nil)
     }
 }
 
 // MARK: - PlaneView To ViewController
 extension ViewController: PlaneViewDelegate {
     func planeViewDidTapped() {
-        // TODO: 사각현 선택해제
-    }
-    
-    func planeViewDidTapRectangleView(_ sender: UITapGestureRecognizer) {
-        // TODO: 사각형 뷰 선택
+        self.plane.unselectItem()
     }
     
     func planeViewDidPressRectangleAddButton() {
@@ -56,19 +53,67 @@ extension ViewController: PlaneViewDelegate {
 // MARK: - ControlPanelView To ViewController
 extension ViewController: ControlPanelViewDelegate {
     func controlPanelDidPressColorButton() {
-        let color = UIColor.random()
+        guard let rectangle = self.plane.currentItem else { return }
+        guard let color = UIColor.random().convert(using: Color.self) else { return }
         
-        // TODO: 현재 선택된 사각형 모델의 배경색 변경
+        rectangle.setBackgroundColor(color)
     }
     
     func controlPanelDidMoveAlphaSlider(_ sender: UISlider) {
-        let alpha = sender.value
+        guard let rectangle = self.plane.currentItem else { return }
+        guard let alpha = Alpha(rawValue: Int(sender.value)) else { return }
         
-        // TODO: 선택된 사각형 모델의 Alpha 값 변경
+        rectangle.setAlpha(alpha)
     }
 }
 
-// MARK: - Rectangle To ViewController
+// MARK: - RectangleView To ViewController
 extension ViewController {
+    @objc func handleOnTapRectangleView(_ sender: UITapGestureRecognizer) {
+        guard sender.state == .ended else { return }
+        guard let rectangleView = sender.view else { return }
+        
+        let point = rectangleView.frame.origin.convert(using: Point.self)
+        
+        guard let rectangle = self.plane.findItemBy(point: point) else { return }
+        
+        self.plane.selectItem(id: rectangle.id)
+    }
+}
+
+// MARK: - Rectangle Model To ViewController
+extension ViewController {
+    @objc func rectangleDataDidCreated(_ notification: Notification) {
+        guard let rectangle = notification.object as? Rectangle else { return }
+        
+        let rectangleView = RectangleView(with: rectangle)
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleOnTapRectangleView))
+        
+        rectangleView.addGestureRecognizer(tap)
+        rectangleView.accessibilityIdentifier = rectangle.id
+        
+        self.planeView.addSubview(rectangleView)
+        self.rectangleMap.updateValue(rectangleView, forKey: rectangle)
+    }
     
+    @objc func rectangleDataDidChanged(_ notification: Notification) {
+        
+    }
+}
+
+// MARK: - Plane Model to ViewController
+extension ViewController {
+    @objc func planeDidDidSelectItem(_ notification: Notification) {
+        guard let rectangle = notification.userInfo?[Plane.NotificationKey.select] as? Rectangle else { return }
+        guard let rectangleView = self.rectangleMap[rectangle] else { return }
+
+        rectangleView.setBorder(width: 2, color: .blue)
+    }
+    
+    @objc func planeDidDidUnselectItem(_ notification: Notification) {
+        guard let rectangle = notification.userInfo?[Plane.NotificationKey.unselect] as? Rectangle else { return }
+        guard let rectangleView = self.rectangleMap[rectangle] else { return }
+        
+        rectangleView.removeBorder()
+    }
 }

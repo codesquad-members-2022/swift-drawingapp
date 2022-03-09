@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Color {
+struct Color: ColorBuildable {
     static let range = 0.0...255.0
     
     static let black = Color(red: 0, green: 0, blue: 0)
@@ -28,6 +28,7 @@ struct Color {
         return Color.range.contains(Double(value))
     }
     
+    // MARK: - Initialisers
     private init(red: Int, green: Int, blue: Int) {
          guard Self.isValid(value: red) && Self.isValid(value: green) && Self.isValid(value: blue) else {
             self = .white

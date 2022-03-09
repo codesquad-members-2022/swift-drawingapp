@@ -13,13 +13,14 @@ protocol RectangleBuildable {
 
 class Rectangle: Shapable {
     // MARK: - Properties
+    private(set) var backgroundColor: Color
+    private(set) var alpha: Alpha
+    
     let id: String
-    let backgroundColor: Color
     let size: Size
-    let alpha: Alpha
     let origin: Point
     
-    // MARK: - Initializers
+    // MARK: - Initialisers
     init(id: String, origin: Point, size: Size, color: Color = .white, alpha: Alpha = .opaque) {
         self.id = id
         self.origin = origin
@@ -45,16 +46,39 @@ class Rectangle: Shapable {
     func convert<T: RectangleBuildable>(using Convertor: T.Type) -> T {
         return Convertor.init(x: self.origin.x, y: self.origin.y, width: self.size.width, height: self.size.height)
     }
+    
+    func setBackgroundColor(_ color: Color) {
+        self.backgroundColor = color
+    }
+    
+    func setAlpha(_ alpha: Alpha) {
+        self.alpha = alpha
+    }
 }
 
-extension Rectangle: Equatable {
+extension Rectangle: Hashable {
     static func == (lhs: Rectangle, rhs: Rectangle) -> Bool {
-        return lhs.id == rhs.id
+        return lhs === rhs
     }
     
     var description: String {
         return """
-        (\(self.id)), \(self.origin), \(self.size), \(self.backgroundColor)
+        (\(self.id)), \(self.origin), \(self.size), \(self.backgroundColor), \(self.alpha)
         """
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(ObjectIdentifier(self))
+    }
+}
+
+// MARK: - Notification To Observer
+extension Rectangle {
+    func postDidCreated() {
+        NotificationCenter.default.post(name: .RectangleDataDidCreated, object: self)
+    }
+    
+    func postDidUpdated(key: String, data: Any) {
+        NotificationCenter.default.post(name: .RectangleDataDidUpdated, object: self, userInfo: [key: data])
     }
 }
