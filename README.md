@@ -276,3 +276,26 @@ view들의 border에 정의하였습니다.
 
 1. ```Notification.Name``` 이것을 어떤 방식으로 설정해놓고 사용하면 좀 더 명확한 코드 작성이 가능할까?
 2. Notification 객체를 만들 때 objecbt(Any), userInfo([AnyHashable:Any]) 두 개를 넣을 수 있다. object로도 다 할수 있는데 userInfo는 지양해야 하는가? 아니면 object를 지양하는 편이 좀 더 좋은가?
+
+### 결과
+
+<span>
+    <img src="DrawingApp/IMAGES/Step3_Result1.jpg" alt="Step3_Result1" width="300" />
+    <img src="DrawingApp/IMAGES/Step3_Result2.jpg" alt="Step3_Result2" width="300" />
+    <img src="DrawingApp/IMAGES/Step3_Result3.jpg" alt="Step3_Result3" width="300" />
+</span>
+
+이전 스텝과 동일한 작동을 합니다. 핵심객체 간 관계 및 협력방식을 아래와 같이 표현해보았습니다.
+
+![Relationship_MVC](DrawingApp/IMAGES/Relationship_MVC.jpg)
+
+### 다양한 옵저버 등록 방식
+
+NotificationCenter.default.addObserver 에서 옵저버와 Notification post가 매칭 되는 방식은 두 가지입니다.
+
+* Notification.Name이 같은 경우
+* Notification의 옵저버 등록 시 설정한 object 파라미터가 일치할 경우
+
+addObserver 시 Name, Object는 모두 nil이 될 수 있습니다. 그러므로 post 시 `object가 같은 옵저버`와 `name이 같은 옵저버` 혹은 `name, object가 모두 일치하는 옵저버`로 Notification post와 Observer를 매칭시킬 수 있습니다.
+
+참고로 Notification 생성자를 확인해보면 전부 Notification.Name을 필수로 넣어야 하는데, 이를 주의하여 옵저버 패턴을 작성해야겠다고 생각하였습니다.

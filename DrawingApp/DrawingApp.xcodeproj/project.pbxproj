@@ -14,6 +14,10 @@
 		1B54997B27D0B4C00086EC5F /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B54997A27D0B4C00086EC5F /* Rectangle.swift */; };
 		1B5668A927D4B6C30060FD59 /* MainScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5668A827D4B6C30060FD59 /* MainScreenViewController.swift */; };
 		1B5668AB27D7399C0060FD59 /* Notification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B5668AA27D7399C0060FD59 /* Notification+Extension.swift */; };
+		1B6EFD2E27D875200002BB41 /* Step3_Result3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1B6EFD2B27D875200002BB41 /* Step3_Result3.jpg */; };
+		1B6EFD2F27D875200002BB41 /* Step3_Result2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1B6EFD2C27D875200002BB41 /* Step3_Result2.jpg */; };
+		1B6EFD3027D875200002BB41 /* Step3_Result1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1B6EFD2D27D875200002BB41 /* Step3_Result1.jpg */; };
+		1B6EFD3427D887170002BB41 /* Relationship_MVC.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 1B6EFD3327D887170002BB41 /* Relationship_MVC.jpg */; };
 		1B79C92D27CE3B6000D7D60B /* Add_OSLog_Framework.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B79C92C27CE3B5F00D7D60B /* Add_OSLog_Framework.png */; };
 		1B811EBB27CF4F3300C3E6BC /* LoggerUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B811EBA27CF4F3300C3E6BC /* LoggerUtil.swift */; };
 		1BD7287227CCBC7A008DED9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD7287127CCBC7A008DED9E /* AppDelegate.swift */; };
@@ -60,6 +64,10 @@
 		1B54997A27D0B4C00086EC5F /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 		1B5668A827D4B6C30060FD59 /* MainScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainScreenViewController.swift; sourceTree = "<group>"; };
 		1B5668AA27D7399C0060FD59 /* Notification+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Notification+Extension.swift"; sourceTree = "<group>"; };
+		1B6EFD2B27D875200002BB41 /* Step3_Result3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Step3_Result3.jpg; sourceTree = "<group>"; };
+		1B6EFD2C27D875200002BB41 /* Step3_Result2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Step3_Result2.jpg; sourceTree = "<group>"; };
+		1B6EFD2D27D875200002BB41 /* Step3_Result1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Step3_Result1.jpg; sourceTree = "<group>"; };
+		1B6EFD3327D887170002BB41 /* Relationship_MVC.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Relationship_MVC.jpg; sourceTree = "<group>"; };
 		1B79C92C27CE3B5F00D7D60B /* Add_OSLog_Framework.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Add_OSLog_Framework.png; sourceTree = "<group>"; };
 		1B811EBA27CF4F3300C3E6BC /* LoggerUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerUtil.swift; sourceTree = "<group>"; };
 		1BD7286E27CCBC7A008DED9E /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -215,6 +223,10 @@
 			children = (
 				1B79C92C27CE3B5F00D7D60B /* Add_OSLog_Framework.png */,
 				1BD728A427CCC1ED008DED9E /* Model_ViewController.jpg */,
+				1B6EFD2D27D875200002BB41 /* Step3_Result1.jpg */,
+				1B6EFD2C27D875200002BB41 /* Step3_Result2.jpg */,
+				1B6EFD2B27D875200002BB41 /* Step3_Result3.jpg */,
+				1B6EFD3327D887170002BB41 /* Relationship_MVC.jpg */,
 			);
 			path = IMAGES;
 			sourceTree = "<group>";
@@ -331,12 +343,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1B6EFD3427D887170002BB41 /* Relationship_MVC.jpg in Resources */,
 				1BD7287E27CCBC7C008DED9E /* LaunchScreen.storyboard in Resources */,
 				1B79C92D27CE3B6000D7D60B /* Add_OSLog_Framework.png in Resources */,
 				1BD7287B27CCBC7C008DED9E /* Assets.xcassets in Resources */,
 				1BD728A527CCC1ED008DED9E /* Model_ViewController.jpg in Resources */,
+				1B6EFD3027D875200002BB41 /* Step3_Result1.jpg in Resources */,
+				1B6EFD2E27D875200002BB41 /* Step3_Result3.jpg in Resources */,
 				1BD728A227CCBD58008DED9E /* README.md in Resources */,
 				1BD7287927CCBC7A008DED9E /* Main.storyboard in Resources */,
+				1B6EFD2F27D875200002BB41 /* Step3_Result2.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
