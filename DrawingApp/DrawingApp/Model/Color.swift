@@ -8,6 +8,7 @@
 import Foundation
 
 class Color {
+    
     private(set) var red: Double
     private(set) var green: Double
     private(set) var blue: Double

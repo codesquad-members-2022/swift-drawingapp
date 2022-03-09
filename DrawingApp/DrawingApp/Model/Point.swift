@@ -8,6 +8,7 @@
 import Foundation
 
 struct Point {
+    
     private(set) var x: Double
     private(set) var y: Double
     

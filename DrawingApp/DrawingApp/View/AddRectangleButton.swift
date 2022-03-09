@@ -24,15 +24,14 @@ class AddRectangleButton: UIButton {
     //MARK: Configure Components
     
     private func configureButton() {
-        self.translatesAutoresizingMaskIntoConstraints = false
-        self.backgroundColor = .systemGray6
-        self.setTitle("사각형", for: .normal)
-        self.setTitleColor(.gray, for: .normal)
-        self.layer.cornerRadius = 10
-        self.layer.borderWidth = 1
-        self.layer.borderColor = UIColor.systemGray6.cgColor
+        translatesAutoresizingMaskIntoConstraints = false
+        backgroundColor = .systemGray6
+        setTitle("사각형", for: .normal)
+        setTitleColor(.gray, for: .normal)
+        layer.cornerRadius = 10
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.systemGray6.cgColor
         
-        self.addTarget(superview, action: #selector(ViewController.addRectangleButtonTouched), for: .touchUpInside)
+        addTarget(superview, action: #selector(ViewController.addRectangleButtonTouched), for: .touchUpInside)
     }
-    
 }

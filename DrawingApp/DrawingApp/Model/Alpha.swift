@@ -8,6 +8,7 @@
 import Foundation
 
 enum Alpha: Double {
+    
     case level1
     case level2
     case level3
