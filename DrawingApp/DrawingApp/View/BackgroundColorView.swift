@@ -15,6 +15,7 @@ class BackgroundColorView: UIView {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "#000000"
+        label.textAlignment = .center
         return label
     }()
     
@@ -33,7 +34,9 @@ class BackgroundColorView: UIView {
         
         NSLayoutConstraint.activate([
             colorLabel.widthAnchor.constraint(equalToConstant: 100),
-            colorLabel.heightAnchor.constraint(equalToConstant: 50)
+            colorLabel.heightAnchor.constraint(equalToConstant: 50),
+            colorLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            colorLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ])
     }
 }
