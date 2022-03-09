@@ -28,16 +28,16 @@ class PlaneView: UIView {
     // MARK: - Initialisers
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.configureView()
+        self.configureUI()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        self.configureView()
+        self.configureUI()
     }
     
     // MARK: - Configuration
-    func configureView() {
+    func configureUI() {
         self.configureGesture()
         self.configureButtonPosition()
         self.addSubview(self.rectangleAddButton)

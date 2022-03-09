@@ -134,13 +134,13 @@
 		E4630C2327CDD22D00644B70 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E48109EE27D6204A007B0E3F /* RoundedButton.swift */,
-				E4002E9527D5B00300F14AFD /* RectangleView.swift */,
-				E41EE3AE27D6EAA7007C7595 /* PlaneView.swift */,
 				E41EE3B027D6F478007C7595 /* ControlPanelView.swift */,
+				E41EE3AE27D6EAA7007C7595 /* PlaneView.swift */,
+				E4002E9527D5B00300F14AFD /* RectangleView.swift */,
+				E48109EE27D6204A007B0E3F /* RoundedButton.swift */,
+				E49679E727D71AF900A9BA27 /* AutoresizingLabel.swift */,
 				E49679EB27D7291500A9BA27 /* AlphaStepper.swift */,
 				E49679E927D7288000A9BA27 /* AlphaSlider.swift */,
-				E49679E727D71AF900A9BA27 /* AutoresizingLabel.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
