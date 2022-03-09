@@ -40,7 +40,7 @@ class ViewController: UIViewController {
 
 // MARK: - PlaneView To ViewController
 extension ViewController: PlaneViewDelegate {
-    func planeViewDidTapped() {
+    func planeViewDidTapped(_ sender: UITapGestureRecognizer) {
         self.plane.unselectItem()
     }
     
@@ -73,7 +73,9 @@ extension ViewController {
         guard sender.state == .ended else { return }
         guard let rectangleView = sender.view else { return }
         
-        let point = rectangleView.frame.origin.convert(using: Point.self)
+        // TODO: 겹친 사각형 선택 시 우선순위 처리
+//        let point = rectangleView.frame.origin.convert(using: Point.self)
+        let point = sender.location(in: self.planeView).convert(using: Point.self)
         
         guard let rectangle = self.plane.findItemBy(point: point) else { return }
         
@@ -108,6 +110,9 @@ extension ViewController {
         guard let rectangleView = self.rectangleMap[rectangle] else { return }
 
         rectangleView.setBorder(width: 2, color: .blue)
+        self.controlPanelView.setAlphaSliderValue(value: rectangle.alpha)
+        let hexString = UIColor(with: rectangle.backgroundColor).toHexString()
+        self.controlPanelView.setColorButtonTitle(title: hexString)
     }
     
     @objc func planeDidDidUnselectItem(_ notification: Notification) {

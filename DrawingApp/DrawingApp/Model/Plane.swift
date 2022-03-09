@@ -8,8 +8,17 @@
 import Foundation
 
 struct Plane {
-    private  var items = [String: Rectangle]()
-    private(set) var currentItem: Rectangle?
+    private var items = [String: Rectangle]()
+    
+    private(set) var currentItem: Rectangle? {
+        willSet {
+            guard let item = self.currentItem else { return }
+            self.notifyDidUnselectItem(item)
+        }
+        didSet {
+            self.notifyDidSelectItem()
+        }
+    }
     
     var countItems: Int {
         return self.items.count
@@ -25,7 +34,7 @@ struct Plane {
      */
     func findItemBy(point: Point) -> Rectangle? {
         for rectangle in self.items.values {
-            if rectangle.origin == point {
+            if rectangle.contains(point: point) {
                 return rectangle
             }
         }
@@ -41,13 +50,10 @@ struct Plane {
     mutating func selectItem(id: String) {
         guard let item = self.items[id] else { return }
         self.currentItem = item
-        self.notifyDidSelectItem()
     }
     
     mutating func unselectItem() {
-        guard let item = self.currentItem else { return }
         self.currentItem = nil
-        self.notifyDidUnselectItem(item)
     }
 }
 
@@ -60,6 +66,7 @@ extension Plane {
     
     func notifyDidSelectItem() {
         guard let item = self.currentItem else { return }
+        print("ITEM: ",item.origin)
         NotificationCenter.default.post(name: .PlaneDidSelectItem, object: self, userInfo: [Self.NotificationKey.select: item])
     }
     

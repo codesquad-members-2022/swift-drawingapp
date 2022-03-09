@@ -80,4 +80,13 @@ class ControlPanelView: UIView {
     @objc func handleOnChangeAlpha(_ sender: UISlider) {
         self.delegate?.controlPanelDidMoveAlphaSlider(sender)
     }
+    
+    // MARK: - Methods
+    func setAlphaSliderValue(value: Alpha) {
+        self.alphaSlider.value = Float(value.rawValue)
+    }
+    
+    func setColorButtonTitle(title: String) {
+        self.colorButton.setTitle(title, for: .normal)
+    }
 }

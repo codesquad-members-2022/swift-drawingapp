@@ -48,7 +48,7 @@ struct Color: ColorBuildable {
         self.red = red / 255.0
         self.green = green / 255.0
         self.blue = blue / 255.0
-    }
+    }    
 }
 
 extension Color: CustomStringConvertible, Equatable {
