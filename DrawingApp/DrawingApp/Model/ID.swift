@@ -6,7 +6,7 @@
 //
 
 //고유한 값을 가지는 ID는 값으로 비교해야 되기 때문에 Struct로 선언했습니다.
-struct ID:CustomStringConvertible,Equatable {
+struct ID:CustomStringConvertible,Hashable {
     var description: String {
         "(\(firstName)-\(middleName)-\(lastName))"
     }
