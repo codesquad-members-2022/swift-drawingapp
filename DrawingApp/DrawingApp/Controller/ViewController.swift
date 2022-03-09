@@ -8,13 +8,18 @@
 import UIKit
 
 class ViewController: UIViewController {
+    let sideInspectorView: SideInspectorView = {
+        let view = SideInspectorView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     let x = UIScreen.main.bounds.width
     let y = UIScreen.main.bounds.height
     let button = UIButton(type: .system) as UIButton
     let factory = RectangleFactory()
     var plane = Plane()
-
+    
     
     @objc func createRectangleButtonTapped(_ sender: UIButton) {
         let rectangle = factory.createRectangle()
@@ -40,5 +45,18 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         createRectangleButton()
+        
+        setInspectorView()
+    }
+    
+    private func setInspectorView() {
+        view.addSubview(sideInspectorView)
+        
+        NSLayoutConstraint.activate([
+            sideInspectorView.topAnchor.constraint(equalTo: view.topAnchor, constant: 0),
+            sideInspectorView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 0),
+            sideInspectorView.widthAnchor.constraint(equalToConstant: 200),
+            sideInspectorView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: 0)
+        ])
     }
 }
