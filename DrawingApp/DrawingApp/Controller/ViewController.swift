@@ -9,16 +9,12 @@ import UIKit
 import OSLog
 
 class ViewController: UIViewController {
-    lazy var rectangleViewXBound = self.presentRectangleView.frame.width - Size.Range.width
-    lazy var rectangleViewYBound = self.presentRectangleView.frame.height - Size.Range.height
-    lazy var rectangleFactory = RandomRectangleFactory()
-    lazy var plane = Plane()
-    var rectangleViewTabGesture: UITapGestureRecognizer?
-
-
     private var presentRectangleView = PresentRectangleView()
     private var sideInspectorView = SideInspectorView()
     private var addRectangleButton = AddRectangleButton()
+    
+    private var plane = Plane()
+    private var rectangleMap = [Rectangle : UIView]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,9 +70,11 @@ extension ViewController {
 
 extension ViewController {
     @objc func addRectangleButtonTouched() {
-        plane.delegate = self
-        let newRectangle = rectangleFactory.createRandomRectangle(xBound: rectangleViewXBound,
-                                                                  yBound: rectangleViewYBound)
+        let rectangleViewXBound = self.presentRectangleView.frame.width - Size.Range.width
+        let rectangleViewYBound = self.presentRectangleView.frame.height - Size.Range.height
+
+        let newRectangle = RandomRectangleFactory.createRandomRectangle(xBound: rectangleViewXBound, yBound: rectangleViewYBound)
+        
         plane.append(newRectangle: newRectangle)
     }
 
@@ -89,14 +87,12 @@ extension ViewController {
 //MARK: Delegates
 
 extension ViewController: PlaneDelegate {
-    func rectangleDidCreated(_ rectangle: Rectangle) {
-        //Create Rectangle View & Add Subview
-        let rectangleView = RectangleViewFactory.createRectangleView(by: rectangle)
-        rectangleView.translatesAutoresizingMaskIntoConstraints = false
+    
+    func didCreateRectangle(_ rectangle: Rectangle) {
+        let color = RectangleAttributeFactory.createUIColor(by: rectangle)
+        let frame = RectangleAttributeFactory.createRectangleFrame(by: rectangle)
+        let rectangleView = RectangleView(frame: frame, color: color)
+        
         self.presentRectangleView.addSubview(rectangleView)
-
-        //Add Gesture Recognizer
-        rectangleViewTabGesture = UITapGestureRecognizer(target: self, action: #selector(handleRectangleViewTap(_:)))
-        rectangleView.addGestureRecognizer(rectangleViewTabGesture!)
     }
 }
