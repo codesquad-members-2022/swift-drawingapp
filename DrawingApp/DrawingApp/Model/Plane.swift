@@ -27,6 +27,7 @@ struct Plane {
                 return
             }
         }
+        delegate?.rectangleDidSpecified(nil)
         self.specifiedRectangle = nil
     }
     

@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     
     private var plane = Plane()
     private var rectangleAndViewMap = [Rectangle: RectangleView]()
+    private var selectedView: RectangleView?
     weak var generateRectangleButton: UIButton!
     weak var drawableAreaView: UIView!
     @IBOutlet weak var statusView: UIView!
@@ -71,8 +72,6 @@ class ViewController: UIViewController {
     }
     
     @objc func viewDidTouched(sender: UITapGestureRecognizer) {
-        initializeViewsInTouchedEmptySpaceCondition()
-        
         let touchedLocation = sender.location(in: drawableAreaView)
         let touchedPoint = Point(x: touchedLocation.x, y: touchedLocation.y)
         
@@ -80,6 +79,8 @@ class ViewController: UIViewController {
     }
     
     private func initializeViewsInTouchedEmptySpaceCondition() {
+        self.selectedView?.layer.borderWidth = 0
+        self.selectedView = nil
         backgroundColorButton.isEnabled = false
         backgroundColorButton.backgroundColor = .clear
         alphaSlider.isEnabled = false
@@ -121,10 +122,12 @@ extension ViewController: PlaneDelegate {
         rectangleAndViewMap[rectangle] = newRectangleView
     }
     
-    func rectangleDidSpecified(_ specifiedRectangle: Rectangle) {
-        guard let matchedView = rectangleAndViewMap[specifiedRectangle] else {
-            return
-        }
+    func rectangleDidSpecified(_ specifiedRectangle: Rectangle?) {
+        guard let specifiedRectangle = specifiedRectangle,
+              let matchedView = rectangleAndViewMap[specifiedRectangle] else {
+                  initializeViewsInTouchedEmptySpaceCondition()
+                  return
+              }
         
         updateSelectedView(matchedView)
         updateBackgroundButton(color: specifiedRectangle.backgroundColor, alpha: specifiedRectangle.alpha)
@@ -155,10 +158,9 @@ extension ViewController: PlaneDelegate {
     }
     
     private func updateSelectedView(_ selectedView: RectangleView) {
-        drawableAreaView.subviews.forEach { rectangleView in
-            rectangleView.layer.borderWidth = 0
-        }
+        self.selectedView?.layer.borderWidth = 0
         
+        self.selectedView = selectedView
         selectedView.layer.borderWidth = 3
         selectedView.layer.borderColor = UIColor.black.cgColor
     }
