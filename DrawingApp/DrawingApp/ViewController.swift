@@ -11,7 +11,7 @@ import OSLog
 class ViewController: UIViewController {
     
     private var plane = Plane()
-    private var viewRectangleMap = [RectangleView: Rectangle]()
+    private var rectangleAndViewMap = [Rectangle: RectangleView]()
     weak var generateRectangleButton: UIButton!
     weak var drawableAreaView: UIView!
     @IBOutlet weak var statusView: UIView!
@@ -20,8 +20,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var minusAlphaValueButton: UIButton!
     @IBOutlet weak var plusAlphaValueButton: UIButton!
     
-    
-    weak var touchedView: RectangleView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,8 +80,6 @@ class ViewController: UIViewController {
     }
     
     private func initializeViewsInTouchedEmptySpaceCondition() {
-        self.touchedView?.layer.borderWidth = 0
-        self.touchedView = nil
         backgroundColorButton.isEnabled = false
         backgroundColorButton.backgroundColor = .clear
         alphaSlider.isEnabled = false
@@ -96,91 +92,22 @@ class ViewController: UIViewController {
     }
     
     @IBAction func backgroundButtonTouched(_ sender: UIButton) {
-        guard let touchedView = self.touchedView,
-              let matchedRectangle = self.viewRectangleMap[touchedView]
-        else {
-            return
-        }
-        let newColor = BackgroundColorFactory.makeRandomBackgroundColor()
-        
-        plane.changeBackGroundColor(of: matchedRectangle, to: newColor)
+        plane.changeBackGroundColor()
     }
     
     @IBAction func alphaSliderValueChanged(_ sender: UISlider) {
         let newAlphaValue = Double(round(sender.value * 10) / 10.0)
         guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: newAlphaValue) else {return}
         let newAlpha = Alpha(opacityLevel: convertedOpacityLevel)
-        guard let touchedView = self.touchedView,
-              let matchedRectangle = self.viewRectangleMap[touchedView]
-        else {
-            return
-        }
         
-        plane.changeAlphaValue(of: matchedRectangle, to: newAlpha)
-        
+        plane.changeAlphaValue(to: newAlpha)
     }
     
     @IBAction func minusAlphaValueButtonTouched(_ sender: UIButton) {
-        guard let touchedView = self.touchedView,
-              let matchedRectangle = self.viewRectangleMap[touchedView]
-        else {
-            return
-        }
-        
-        minusAlphaValueButton.isEnabled = true
-        minusAlphaValueButton.backgroundColor = .white
-        
-        let newAlphaValue = Double(round((touchedView.alpha - 0.1) * 10) / 10.0)
-        guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: newAlphaValue) else {return}
-        let newAlpha = Alpha(opacityLevel: convertedOpacityLevel)
-        plane.changeAlphaValue(of: matchedRectangle, to: newAlpha)
+        plane.stepDownAlphaValue()
     }
     @IBAction func plusAlphaValueButtonTouched(_ sender: UIButton) {
-        guard let touchedView = self.touchedView,
-              let matchedRectangle = self.viewRectangleMap[touchedView]
-        else {
-            return
-        }
-        
-        plusAlphaValueButton.isEnabled = true
-        plusAlphaValueButton.backgroundColor = .white
-        
-        let newAlphaValue = Double(round((touchedView.alpha + 0.1) * 10) / 10.0)
-        guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: newAlphaValue) else {return}
-        let newAlpha = Alpha(opacityLevel: convertedOpacityLevel)
-        plane.changeAlphaValue(of: matchedRectangle, to: newAlpha)
-    }
-    
-    private func updateStatusViewElement(with alpha: Double) {
-        updateBackgroundColorButtonAlpha(alpha)
-        updateAlphaSlider(alpha: alpha)
-        updateMinusAlphaValueButton(with: alpha)
-        updatePlusAlphaValueButton(with: alpha)
-    }
-    
-    private func updateBackgroundColorButtonAlpha(_ newAlpha: CGFloat) {
-        let previousBackgroundColorButtonColor = backgroundColorButton.backgroundColor ?? UIColor()
-        self.backgroundColorButton.backgroundColor = previousBackgroundColorButtonColor.withAlphaComponent(newAlpha)
-    }
-    
-    private func updateMinusAlphaValueButton(with alpha: Double) {
-        if Double(round(alpha * 10) / 10.0) > 0.1 {
-            minusAlphaValueButton.isEnabled = true
-            minusAlphaValueButton.backgroundColor = .white
-        } else {
-            minusAlphaValueButton.isEnabled = false
-            minusAlphaValueButton.backgroundColor = .systemGray6
-        }
-    }
-    
-    private func updatePlusAlphaValueButton(with alpha: Double) {
-        if Double(round(alpha * 10) / 10.0) < 1.0 {
-            plusAlphaValueButton.isEnabled = true
-            plusAlphaValueButton.backgroundColor = .white
-        } else {
-            plusAlphaValueButton.isEnabled = false
-            plusAlphaValueButton.backgroundColor = .systemGray6
-        }
+        plane.stepUpAlphaValue()
     }
     
 }
@@ -191,18 +118,13 @@ extension ViewController: PlaneDelegate {
         
         let newRectangleView = ViewFactory.generateRectangleView(of: rectangle)
         self.drawableAreaView.addSubview(newRectangleView)
-        addViewRectangleMap(rectangleView: newRectangleView, rectangle: rectangle)
+        rectangleAndViewMap[rectangle] = newRectangleView
     }
     
     func rectangleDidSpecified(_ specifiedRectangle: Rectangle) {
-        
-        guard let matchedView = viewRectangleMap.first(where: { view, rectangle in
-            rectangle == specifiedRectangle
-        })?.key
-        else {
+        guard let matchedView = rectangleAndViewMap[specifiedRectangle] else {
             return
         }
-        self.touchedView = matchedView
         
         updateSelectedView(matchedView)
         updateBackgroundButton(color: specifiedRectangle.backgroundColor, alpha: specifiedRectangle.alpha)
@@ -212,13 +134,9 @@ extension ViewController: PlaneDelegate {
     }
     
     func rectangleBackgroundColorDidChanged(_ backgroundColorChangedRectangle: Rectangle) {
-        guard let matchedView = viewRectangleMap.first(where: { view, rectangle in
-            rectangle == backgroundColorChangedRectangle
-        })?.key
-        else {
+        guard let matchedView = rectangleAndViewMap[backgroundColorChangedRectangle] else {
             return
         }
-        self.touchedView = matchedView
         
         let newBackgroundColor = backgroundColorChangedRectangle.backgroundColor
         matchedView.backgroundColor = newBackgroundColor.convertToUIColor()
@@ -227,21 +145,13 @@ extension ViewController: PlaneDelegate {
     }
     
     func rectangleAlphaDidChanged(_ alphaChangedRectangle: Rectangle) {
-        guard let matchedView = viewRectangleMap.first(where: { view, rectangle in
-            rectangle == alphaChangedRectangle
-        })?.key
-        else {
+        guard let matchedView = rectangleAndViewMap[alphaChangedRectangle] else {
             return
         }
-        self.touchedView = matchedView
         
         let newAlphaValue = alphaChangedRectangle.alpha.value
         matchedView.alpha = CGFloat(newAlphaValue)
         updateStatusViewElement(with: newAlphaValue)
-    }
-    
-    private func addViewRectangleMap(rectangleView: RectangleView, rectangle: Rectangle) {
-        viewRectangleMap[rectangleView] = rectangle
     }
     
     private func updateSelectedView(_ selectedView: RectangleView) {
@@ -260,7 +170,39 @@ extension ViewController: PlaneDelegate {
         backgroundColorButton.backgroundColor = buttonBackgroundColor
     }
     
-    private func updateAlphaSlider(alpha: Double) {
+    private func updateStatusViewElement(with alpha: Float) {
+        updateBackgroundColorButtonAlpha(with: CGFloat(alpha))
+        updateAlphaSlider(alpha: alpha)
+        updateMinusAlphaValueButton(with: alpha)
+        updatePlusAlphaValueButton(with: alpha)
+    }
+    
+    private func updateBackgroundColorButtonAlpha(with newAlpha: CGFloat) {
+        let previousBackgroundColorButtonColor = backgroundColorButton.backgroundColor ?? UIColor()
+        self.backgroundColorButton.backgroundColor = previousBackgroundColorButtonColor.withAlphaComponent(newAlpha)
+    }
+    
+    private func updateMinusAlphaValueButton(with alpha: Float) {
+        if round(alpha * 10) / 10.0 > 0.1 {
+            minusAlphaValueButton.isEnabled = true
+            minusAlphaValueButton.backgroundColor = .white
+        } else {
+            minusAlphaValueButton.isEnabled = false
+            minusAlphaValueButton.backgroundColor = .systemGray6
+        }
+    }
+    
+    private func updatePlusAlphaValueButton(with alpha: Float) {
+        if round(alpha * 10) / 10.0 < 1.0 {
+            plusAlphaValueButton.isEnabled = true
+            plusAlphaValueButton.backgroundColor = .white
+        } else {
+            plusAlphaValueButton.isEnabled = false
+            plusAlphaValueButton.backgroundColor = .systemGray6
+        }
+    }
+    
+    private func updateAlphaSlider(alpha: Float) {
         alphaSlider.isEnabled = true
         alphaSlider.setValue(Float(alpha), animated: true)
     }

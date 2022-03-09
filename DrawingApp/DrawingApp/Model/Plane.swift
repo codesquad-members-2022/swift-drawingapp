@@ -10,6 +10,7 @@ import Foundation
 struct Plane {
     private var rectangles = [Rectangle]()
     var delegate: PlaneDelegate?
+    private var specifiedRectangle: Rectangle?
     var count: Int {
         return rectangles.count
     }
@@ -18,14 +19,15 @@ struct Plane {
         return rectangles[index]
     }
     
-    public func specifyRectangle(point: Point) -> Rectangle? {
+    mutating public func specifyRectangle(point: Point) {
         for rectangle in rectangles.reversed() {
             if rectangle.isPointInArea(point) {
+                self.specifiedRectangle = rectangle
                 delegate?.rectangleDidSpecified(rectangle)
-                return rectangle
+                return
             }
         }
-        return nil
+        self.specifiedRectangle = nil
     }
     
     mutating public func addNewRectangle(in frame: (width: Double, height: Double)) {
@@ -34,13 +36,48 @@ struct Plane {
         delegate?.rectangleDidAdded(newRectangle)
     }
     
-    public func changeBackGroundColor(of rectangle: Rectangle, to newColor: BackgroundColor) {
-        rectangle.changeBackgroundColor(to: newColor)
-        delegate?.rectangleBackgroundColorDidChanged(rectangle)
+    public func changeBackGroundColor() -> Rectangle? {
+        guard let specifiedRectangle = self.specifiedRectangle else {
+            return nil
+        }
+        let newColor = BackgroundColorFactory.makeRandomBackgroundColor()
+        specifiedRectangle.changeBackgroundColor(to: newColor)
+        delegate?.rectangleBackgroundColorDidChanged(specifiedRectangle)
+        return specifiedRectangle
     }
 
-    public func changeAlphaValue(of rectangle: Rectangle, to newAlpha: Alpha) {
-        rectangle.changeAlphaValue(to: newAlpha)
-        delegate?.rectangleAlphaDidChanged(rectangle)
+    public func changeAlphaValue(to newAlpha: Alpha) -> Rectangle? {
+        guard let specifiedRectangle = self.specifiedRectangle else {
+            return nil
+        }
+        specifiedRectangle.changeAlphaValue(to: newAlpha)
+        delegate?.rectangleAlphaDidChanged(specifiedRectangle)
+        return specifiedRectangle
+    }
+    
+    public func stepUpAlphaValue() -> Rectangle? {
+        guard let specifiedRectangle = self.specifiedRectangle else {
+            return nil
+        }
+        let newAlpha = specifiedRectangle.alpha.value + 0.1
+        guard let newOpacityLevel = Alpha.OpacityLevel(rawValue: newAlpha) else {
+            return nil
+        }
+        specifiedRectangle.changeAlphaValue(to: Alpha(opacityLevel: newOpacityLevel))
+        delegate?.rectangleAlphaDidChanged(specifiedRectangle)
+        return specifiedRectangle
+    }
+    
+    public func stepDownAlphaValue() -> Rectangle? {
+        guard let specifiedRectangle = self.specifiedRectangle else {
+            return nil
+        }
+        let newAlpha = specifiedRectangle.alpha.value - 0.1
+        guard let newOpacityLevel = Alpha.OpacityLevel(rawValue: newAlpha) else {
+            return nil
+        }
+        specifiedRectangle.changeAlphaValue(to: Alpha(opacityLevel: newOpacityLevel))
+        delegate?.rectangleAlphaDidChanged(specifiedRectangle)
+        return specifiedRectangle
     }
 }
