@@ -58,3 +58,9 @@ extension RGB:CustomStringConvertible {
             return "#" + String(format:"%02X", red) + String(format:"%02X", green) + String(format:"%02X", blue)
     }
 }
+
+extension RGB:Equatable {
+    static func == (lhs: RGB, rhs: RGB) -> Bool {
+        lhs.hexValue == rhs.hexValue
+    }
+}

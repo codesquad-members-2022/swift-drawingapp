@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Plane {
+public struct Plane {
     
     var delegate:PlaneDelegate?
     //Point를 기반으로 Dictionary를 만듬으로써 View에서 TapGesture로 좌표값을 넘겼을때 그에 해당하는 Rectangle을 찾을 수있다.
