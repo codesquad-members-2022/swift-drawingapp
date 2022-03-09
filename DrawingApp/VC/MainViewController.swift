@@ -10,15 +10,14 @@ import os
 
 class MainViewController: UIViewController{
     private var rectanglePlane = RectanglePlane()
-    private var imageRectanglePlane = ImagePlane()
+    private var imagePlane = ImagePlane()
     private let rectFactory = RectangleFactory()
     private let rightAttributerView = RightAttributerView()
     private let imagePicker = UIImagePickerController()
     
     private var rectangleUIViews = [Rectangle : RectangleView]()
-    private var selectedRectangle: Rectangle?
-    
     private var imageUIViews = [Image : ImageView]()
+    private var selectedRectangle: Rectangle?
     private var selectedImage: Image?
     
     @IBOutlet weak var rectangleButton: UIButton!
@@ -37,9 +36,9 @@ class MainViewController: UIViewController{
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapGesture))
         self.view.addGestureRecognizer(tapGestureRecognizer)
         
-        addRectangleMakerButtonObserver()
+        addViewMakerButtonObserver()
         addGestureRecognizerObserver()
-        addNoneClickedRectangleObserver()
+        //addNoneClickedRectangleObserver()
     }
 }
 
@@ -77,7 +76,7 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
             let imageValue = rectFactory.makeRandomImageRectangle(image: MyImage(image: pickedImage), viewWidth: self.rightAttributerView.frame.minX, viewHeight: self.rectangleButton.frame.minY)
-            imageRectanglePlane.addRectangle(imageRectangle: imageValue)
+            imagePlane.addImage(imageRectangle: imageValue)
         }
 
         dismiss(animated: true, completion: nil)
@@ -91,7 +90,8 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
         guard let imageValue = notification.userInfo?[ImagePlane.userInfoKey] as? Image else { return }
         
         let imageView = ImageView(frame: CGRect(x: imageValue.point.x, y: imageValue.point.y, width: imageValue.size.width, height: imageValue.size.height))
-        imageView.backgroundColor = imageView.backgroundColor?.withAlphaComponent(imageValue.showAlpha().showValue())
+        
+        imageView.alpha = imageValue.showAlpha().showValue()
         imageView.image = imageValue.image.image
         
         self.view.addSubview(imageView)
@@ -105,19 +105,23 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
 // MARK: - Use case: Add observers
 
 extension MainViewController{
-    private func addRectangleMakerButtonObserver(){
+    private func addViewMakerButtonObserver(){
         NotificationCenter.default.addObserver(self, selector: #selector(addRectangleView(_:)), name: RectanglePlane.makeRectangle, object: rectanglePlane)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(addImageRectangleView(_:)), name: ImagePlane.makeImageRectangle, object: imageRectanglePlane)
+        NotificationCenter.default.addObserver(self, selector: #selector(addImageRectangleView(_:)), name: ImagePlane.makeImageRectangle, object: imagePlane)
     }
     
     private func addGestureRecognizerObserver(){
-        NotificationCenter.default.addObserver(self, selector: #selector(showTouchedView(_:)), name: RectanglePlane.selectRectangle, object: rectanglePlane)
+        NotificationCenter.default.addObserver(self, selector: #selector(showRectangleTouchedView(_:)), name: RectanglePlane.selectRectangle, object: rectanglePlane)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(showImageTouchedView(_:)), name: ImagePlane.selectRectangle, object: imagePlane)
     }
     
+    /*
     private func addNoneClickedRectangleObserver(){
         NotificationCenter.default.addObserver(self, selector: #selector(showNonTouchedView), name: RectanglePlane.noneSelectRectangle, object: rectanglePlane)
     }
+     */
 }
 
 
@@ -126,53 +130,98 @@ extension MainViewController{
 extension MainViewController {
     @objc func tapGesture(_ gesture: UITapGestureRecognizer){
         let touchPoint = gesture.location(in: self.view)
-        rectanglePlane.findRectangle(withX: touchPoint.x, withY: touchPoint.y)
+        let isRectangle: Bool = rectanglePlane.findRectangle(withX: touchPoint.x, withY: touchPoint.y)
+        let isImage: Bool = imagePlane.findImage(withX: touchPoint.x, withY: touchPoint.y)
+        
+        if !isRectangle && !isImage{
+            showNonTouchedView()
+        }
         
         return
     }
     
-    @objc func showTouchedView(_ notification: Notification){
-        guard let rectangle = notification.userInfo?[RectanglePlane.userInfoKey] as? Rectangle, let rectangleView = rectangleUIViews[rectangle] else{
+    @objc func showRectangleTouchedView(_ notification: Notification){
+        guard let rectangle = notification.userInfo?[RectanglePlane.userInfoKey] as? Rectangle else{
             return
         }
         
-        if let selected = selectedRectangle, let view = rectangleUIViews[selected]{
-            noneTouchedViewFrame(view: view)
+        if let _ = selectedRectangle{
+            noneTouchedViewFrame()
+            
         }
         
+        displaySliderValue(selected: rectangle)
+        touchedViewFrame(selected: rectangle)
         selectedRectangle = rectangle
-        
-        displaySliderValue(rectangle: rectangle)
-        touchedViewFrame(view: rectangleView)
     }
     
-    private func displaySliderValue(rectangle: Rectangle){
-        rightAttributerView.originSliderValue(red: Float(rectangle.showColor().red), green: Float(rectangle.showColor().green), blue: Float(rectangle.showColor().blue), alpha: Float(rectangle.showAlpha().showValue()))
-    }
-    
-    private func touchedViewFrame(view: RectangleView){
-        view.layer.borderColor = UIColor.cyan.cgColor
-        view.layer.borderWidth = 3
-    }
-    
-    @objc func showNonTouchedView(){
-        guard let rectangle = selectedRectangle, let rectangleView = rectangleUIViews[rectangle] else{
+    @objc func showImageTouchedView(_ notification: Notification){
+        guard let image = notification.userInfo?[ImagePlane.userInfoKey] as? Image else{
             return
         }
         
-        noneTouchedViewFrame(view: rectangleView)
-        noneDisplaySliderValue(rectangle: rectangle)
+        if let _ = selectedImage{
+            noneTouchedViewFrame()
+        }
         
-        self.selectedRectangle = nil
+        displaySliderValue(selected: image)
+        touchedViewFrame(selected: image)
+        selectedImage = image
     }
     
-    private func noneDisplaySliderValue(rectangle: Rectangle){
+    private func displaySliderValue<T: AttributeValue>(selected: T){
+        if let rectangle = selected as? Rectangle{
+            rightAttributerView.originSliderValue(red: Float(rectangle.showColor().red), green: Float(rectangle.showColor().green), blue: Float(rectangle.showColor().blue), alpha: Float(rectangle.showAlpha().showValue()))
+            
+            rightAttributerView.useColorSlider()
+            rightAttributerView.useAlphaSlider()
+            
+        } else if let image = selected as? Image{
+            rightAttributerView.originSliderValue(red: 0, green: 0, blue: 0, alpha: Float(image.showAlpha().showValue()))
+            
+            rightAttributerView.rockColorSlider()
+            rightAttributerView.useAlphaSlider()
+        }
+    }
+    
+    private func touchedViewFrame<T: AttributeValue>(selected: T){
+        if let rectangle = selected as? Rectangle{
+            let view = rectangleUIViews[rectangle]
+            view?.layer.borderColor = UIColor.cyan.cgColor
+            view?.layer.borderWidth = 3
+            
+        } else if let image = selected as? Image{
+            let view = imageUIViews[image]
+            view?.layer.borderColor = UIColor.cyan.cgColor
+            view?.layer.borderWidth = 3
+        }
+        
+    }
+    
+    private func showNonTouchedView(){
+        noneTouchedViewFrame()
+        noneDisplaySliderValue()
+    }
+    
+    private func noneDisplaySliderValue(){
         rightAttributerView.originSliderValue(red: 0, green: 0, blue: 0, alpha: 1)
+        rightAttributerView.rockColorSlider()
+        rightAttributerView.rockAlphaSlider()
     }
     
-    private func noneTouchedViewFrame(view: RectangleView){
-        view.layer.borderColor = .none
-        view.layer.borderWidth = 0
+    private func noneTouchedViewFrame(){
+        if let rectangle = selectedRectangle{
+            let view = rectangleUIViews[rectangle]
+            view?.layer.borderColor = .none
+            view?.layer.borderWidth = 0
+            self.selectedRectangle = nil
+            
+        } else if let image = selectedImage{
+            let view = imageUIViews[image]
+            view?.layer.borderColor = .none
+            view?.layer.borderWidth = 0
+            self.selectedImage = nil
+        }
     }
 }
 

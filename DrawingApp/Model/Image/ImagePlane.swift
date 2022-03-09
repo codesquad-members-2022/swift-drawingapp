@@ -8,8 +8,10 @@
 import Foundation
 
 final class ImagePlane{
-    static let makeImageRectangle = Notification.Name("makeImageRectangle")
-    static let userInfoKey: String = "imageRectangle"
+    static let makeImageRectangle = Notification.Name("makeImage")
+    static let selectRectangle = Notification.Name("selectImage")
+    static let noneSelectRectangle = Notification.Name("noneSelectImage")
+    static let userInfoKey: String = "image"
     
     private var imageRectangle: [Image] = []
     
@@ -20,7 +22,7 @@ final class ImagePlane{
         return imageRectangle[index]
     }
     
-    func addRectangle(imageRectangle: Image){
+    func addImage(imageRectangle: Image){
         self.imageRectangle.append(imageRectangle)
         NotificationCenter.default.post(name: ImagePlane.makeImageRectangle, object: self, userInfo: [ImagePlane.userInfoKey : imageRectangle])
     }
@@ -29,26 +31,27 @@ final class ImagePlane{
         return imageRectangle.count
     }
     
-    func findRectangle(withX: Double, withY: Double){
+    func findImage(withX: Double, withY: Double) -> Bool{
         guard !imageRectangle.isEmpty else{
-            return
+            return false
         }
         
-        var findedImageRectangle: Image?
+        var findedImage: Image?
         
         for imageRectangle in imageRectangle {
             guard imageRectangle.findLocationRange(xPoint: withX, yPoint: withY) else{
                 continue
             }
 
-            findedImageRectangle = imageRectangle
+            findedImage = imageRectangle
             break
         }
         
-        if let imageRectangle = findedImageRectangle{
-            
+        if let image = findedImage{
+            NotificationCenter.default.post(name: ImagePlane.selectRectangle, object: self, userInfo: [ImagePlane.userInfoKey : image])
+            return true
         } else{
-            
+            return false
         }
     }
 }

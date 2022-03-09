@@ -31,9 +31,9 @@ final class RectanglePlane{
         return rectangles.count
     }
     
-    func findRectangle(withX: Double, withY: Double){
+    func findRectangle(withX: Double, withY: Double) -> Bool{
         guard !rectangles.isEmpty else{
-            return
+            return false
         }
         
         var findedRectangle: Rectangle?
@@ -48,9 +48,11 @@ final class RectanglePlane{
         }
         
         if let rectangle = findedRectangle{
-            NotificationCenter.default.post(name: RectanglePlane.selectRectangle, object: self, userInfo: [RectanglePlane.userInfoKey : rectangle as Any])
+            NotificationCenter.default.post(name: RectanglePlane.selectRectangle, object: self, userInfo: [RectanglePlane.userInfoKey : rectangle])
+            return true
         } else{
-            NotificationCenter.default.post(name: RectanglePlane.noneSelectRectangle, object: self)
+            //NotificationCenter.default.post(name: RectanglePlane.noneSelectRectangle, object: self)
+            return false
         }
     }
 }
