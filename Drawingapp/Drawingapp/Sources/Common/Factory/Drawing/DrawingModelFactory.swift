@@ -9,38 +9,25 @@ import Foundation
 import UIKit
 
 class DrawingModelFactory {
-    
-    private let sizeFactory: SizeFactory
-    private let pointFactory: PointFactory
     private let colorFactory: ColorFactory
     
-    init(sizeFactory: SizeFactory, pointFactory: PointFactory, colorFactory: ColorFactory) {
-        self.sizeFactory = sizeFactory
-        self.pointFactory = pointFactory
+    init(colorFactory: ColorFactory) {
         self.colorFactory = colorFactory
     }
     
-    func makeRectangleModel() -> RectangleModel {
+    func makeRectangleModel(origin: Point) -> RectangleModel {
         let id = makeId()
-        let size = sizeFactory.make(width: 150, height: 120)
-        let screenSize = UIScreen.main.bounds.size
-        let pointX = Int.random(in: 0..<Int(screenSize.width))
-        let pointY = Int.random(in: 0..<Int(screenSize.height))
-        let point = pointFactory.make(x: pointX, y: pointY)
+        let size = Size(width: 150, height: 120)
         let color = colorFactory.makeRandomColor()
         let alpha = Alpha.allCases.randomElement() ?? .transpar10
-        return RectangleModel(id: id, point: point, size: size, color: color, alpha: alpha)
+        return RectangleModel(id: id, origin: origin, size: size, color: color, alpha: alpha)
     }
     
-    func makePhotoModel(url: URL) -> PhotoModel {
+    func makePhotoModel(origin: Point, url: URL) -> PhotoModel {
         let id = makeId()
-        let size = sizeFactory.make(width: 150, height: 120)
-        let screenSize = UIScreen.main.bounds.size
-        let pointX = Int.random(in: 0..<Int(screenSize.width))
-        let pointY = Int.random(in: 0..<Int(screenSize.height))
-        let point = pointFactory.make(x: pointX, y: pointY)
+        let size = Size(width: 150, height: 120)
         let alpha = Alpha.transpar10
-        return PhotoModel(id: id, point: point, size: size, alpha: alpha, url: url)
+        return PhotoModel(id: id, origin: origin, size: size, alpha: alpha, url: url)
     }
     
     func makeId() -> String {

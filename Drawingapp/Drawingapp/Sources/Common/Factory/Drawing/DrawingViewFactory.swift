@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 class DrawingViewFactory {
     static func make(model: DrawingModel) -> DrawingView {
@@ -21,14 +20,14 @@ class DrawingViewFactory {
     }
     
     static func makeDrawingView(model: DrawingModel) -> DrawingView {
-        DrawingView(point: model.point, size: model.size, alpha: model.alpha)
+        DrawingView(point: model.origin, size: model.size, alpha: model.alpha)
     }
     
     static func makeRectangleView(model: RectangleModel) -> RectangleView {
-        RectangleView(point: model.point, size: model.size, alpha: model.alpha, color: model.color)
+        RectangleView(point: model.origin, size: model.size, alpha: model.alpha, color: model.color)
     }
     
     static func makePhotoView(model: PhotoModel) -> PhotoView {
-        PhotoView(point: model.point, size: model.size, alpha: model.alpha, imageUrl: model.imageUrl)
+        PhotoView(point: model.origin, size: model.size, alpha: model.alpha, imageUrl: model.imageUrl)
     }
 }

@@ -11,12 +11,12 @@ class PhotoModel: DrawingModel, Imageable {
     public private(set) var imageUrl: URL?
     
     override var description: String {
-        "id: ( \(id) ), \(point), \(size), alpha: \(alpha), url: \(imageUrl)"
+        "id: ( \(id) ), \(origin), \(size), alpha: \(alpha), url: \(imageUrl)"
     }
     
-    init(id: String, point: Point, size: Size, alpha: Alpha, url: URL) {
+    init(id: String, origin: Point, size: Size, alpha: Alpha, url: URL) {
         self.imageUrl = url
-        super.init(id: id, point: point, size: size, alpha: alpha)
+        super.init(id: id, origin: origin, size: size, alpha: alpha)
     }
     
     func update(imageUrl: URL?) {
