@@ -14,11 +14,6 @@ class ShapeFactory: ShapeCreator {
     }
     
     private func generateId() -> String {
-        let uuidId = UUID().uuidString.split(separator: "-").joined(separator: "")
-        let thirdIndex = uuidId.index(uuidId.startIndex, offsetBy: 3)
-        let sixthIndex = uuidId.index(thirdIndex, offsetBy: 3)
-        let ninethIndex = uuidId.index(sixthIndex, offsetBy: 3)
-        let result = uuidId[..<thirdIndex] + "-" + uuidId[thirdIndex..<sixthIndex] + "-" +  uuidId[sixthIndex..<ninethIndex]
-        return String(result)
+        return UUID().uuidString.prefix(3) + "-" + UUID().uuidString.prefix(3) + "-" + UUID().uuidString.prefix(3)
     }
 }
