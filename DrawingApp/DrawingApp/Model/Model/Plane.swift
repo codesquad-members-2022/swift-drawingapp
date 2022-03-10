@@ -19,7 +19,7 @@ class Plane {
     enum InfoKey {
         static let new = "new"
         static let old = "old"
-        static let muatated = "mutated"
+        static let mutated = "mutated"
     }
     
     private var viewModels: [ViewModel] = [] {
@@ -70,18 +70,17 @@ class Plane {
     func set(to color: Color = Color.random()) {
         guard let mutableViewModel = selected as? ColorMutable else { return }
         mutableViewModel.set(to: color)
-        NotificationCenter.default.post(name: Plane.event.mutateColorViewModel, object: self)
+        NotificationCenter.default.post(name: Plane.event.mutateColorViewModel, object: self, userInfo: [Plane.InfoKey.new: color])
     }
     
     func set(to alpha: Alpha) {
         guard let mutableViewModel = selected as? AlphaMutable else { return }
         mutableViewModel.set(to: alpha)
-        NotificationCenter.default.post(name: Plane.event.mutateAlphaViewModel, object: self)
+        NotificationCenter.default.post(name: Plane.event.mutateAlphaViewModel, object: self, userInfo: [Plane.InfoKey.new: alpha])
     }
     
     func set(viewModel: ViewModel, to origin: Point) {
-//        guard let mutableViewModel = viewModelIDMap[id] as? OriginMutable else { return }
-//        mutableViewModel.transform(to: origin)
-//        NotificationCenter.default.post(name: Plane.mutateOriginViewModel, object: self, userInfo: [Plane.mutatedViewModelKey: mutableViewModel])
+        viewModel.set(to: origin)
+        NotificationCenter.default.post(name: Plane.event.mutateOriginViewModel, object: self, userInfo: [Plane.InfoKey.mutated: viewModel])
     }
 }
