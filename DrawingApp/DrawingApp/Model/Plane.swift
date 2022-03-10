@@ -2,6 +2,7 @@ import Foundation
 
 struct Plane:CustomStringConvertible{
     
+    private var notificationCenter = NotificationCenter.default
     private var rectangles:[Rectangle.Id:Rectangle] = [:]
     private(set) var selectedRectangleId: Rectangle.Id?
     var count: Int{
@@ -10,24 +11,19 @@ struct Plane:CustomStringConvertible{
     var description: String{
         return self.rectangles.description
     }
-    weak var delegate: PlaneDelegate?
     
     mutating func findMatchingRectangleModel(x: Double, y: Double){
-        if let delegate = self.delegate{
-            guard let rectangle = self[x,y] else {
-                delegate.rectangleNotFoundFromPlane()
-                return
-            }
-            self.selectedRectangleId = rectangle.id
-            delegate.rectangleFoundFromPlane(rectangle: rectangle)
+        guard let rectangle = self[x,y] else {
+            self.notificationCenter.post(name: .rectangleNotFoundFromPlane, object: nil)
+            return
         }
+        self.selectedRectangleId = rectangle.id
+        self.notificationCenter.post(name: .rectangleFoundFromPlane, object: rectangle, userInfo: nil)
     }
     
     mutating func addRectangle(_ rectangle: Rectangle){
         self.rectangles[rectangle.id] = rectangle
-        if let delegate = self.delegate{
-            delegate.addingRectangleCompleted(rectangle: rectangle)
-        }
+        self.notificationCenter.post(name: .rectangleAdded, object: rectangle, userInfo: nil)
     }
     
     private func isRectangleInsideTheRange(x: Double, y: Double, rectangle: Rectangle)-> Bool{

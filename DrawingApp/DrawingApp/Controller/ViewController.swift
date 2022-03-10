@@ -8,21 +8,25 @@ class ViewController: UIViewController{
     private var stylerView: StylerView?
     private var plane: Plane = Plane()
     private var currentlyTouchedView: RectangleView?
+    private var notificationCenter = NotificationCenter.default
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initializePlaneDelegate()
         initializeAllUIViews()
+        initializeNotificationCenter()
         setGestureRecognizer()
     }
-    
-    private func initializePlaneDelegate(){
-        self.plane.delegate = self
-    }
-    
+
     private func initializeAllUIViews(){
         setCanvasView()
         setStylerView()
+    }
+
+    
+    private func initializeNotificationCenter(){
+        self.notificationCenter.addObserver(self, selector: #selector(rectangleFoundFromPlane(_:)), name: .rectangleFoundFromPlane, object: nil)
+        self.notificationCenter.addObserver(self, selector: #selector(rectangleNotFoundFromPlane), name: .rectangleNotFoundFromPlane, object: nil)
+        self.notificationCenter.addObserver(self, selector: #selector(addingRectangleCompleted(_:)), name: .rectangleAdded, object: nil)
     }
     
     private func setGestureRecognizer(){
@@ -65,6 +69,24 @@ class ViewController: UIViewController{
         let opacity = rectangle.alpha.opacity
         stylerView.updateRectangleInfo(r: r, g: g, b: b, opacity: opacity)
     }
+    
+    
+    @objc func addingRectangleCompleted(_ notification: Notification) {
+        guard let rectangle = notification.object as? Rectangle else { return }
+        guard let canvasView = self.canvasView else { return }
+        let rectangleView = RectangleViewFactory.createRectangleView(rectangle: rectangle)
+        canvasView.insertSubview(rectangleView, belowSubview: canvasView.generatingButton)
+    }
+    
+    @objc func rectangleFoundFromPlane(_ notification: Notification){
+        guard let rectangle = notification.object as? Rectangle else { return }
+        self.updateViewWithSelectedRectangleModel(rectangle: rectangle)
+    }
+    
+    @objc func rectangleNotFoundFromPlane(){
+        guard let stylerView = self.stylerView else { return }
+        stylerView.clearSelectedRectangleInfo()
+    }
 
 }
 
@@ -77,24 +99,6 @@ extension ViewController: UIGestureRecognizerDelegate{
         let touchedPoint = touch.location(in: self.canvasView)
         self.plane.findMatchingRectangleModel(x: touchedPoint.x, y: touchedPoint.y)
         return true
-    }
-}
-
-extension ViewController: PlaneDelegate{
-    
-    func addingRectangleCompleted(rectangle: Rectangle) {
-        guard let canvasView = self.canvasView else { return }
-        let rectangleView = RectangleViewFactory.createRectangleView(rectangle: rectangle)
-        canvasView.insertSubview(rectangleView, belowSubview: canvasView.generatingButton)
-    }
-    
-    func rectangleFoundFromPlane(rectangle: Rectangle){
-        self.updateViewWithSelectedRectangleModel(rectangle: rectangle)
-    }
-    
-    func rectangleNotFoundFromPlane(){
-        guard let stylerView = self.stylerView else { return }
-        stylerView.clearSelectedRectangleInfo()
     }
 }
 
@@ -168,4 +172,11 @@ extension ViewController: StylerViewDelegate{
         canvasView.clearRectangleViewSelection()
     }
 
+}
+
+extension Notification.Name{
+
+    static let rectangleAdded = Notification.Name("rectangleAdded")
+    static let rectangleFoundFromPlane = Notification.Name("rectangleFoundFromPlane")
+    static let rectangleNotFoundFromPlane = Notification.Name("rectangleNotFoundFromPlane")
 }
