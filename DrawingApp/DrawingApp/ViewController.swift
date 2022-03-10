@@ -14,12 +14,10 @@ class ViewController: UIViewController {
     let rectanglePropertyChangeBoard = PropertyChangeBoard()
     let addRectangleButton = UIButton()
    
-    let rectangleFactory = RectangleFactory(screenSize: (800, 570))
     let plane = Plane()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        rectangleFactory.delegate = self
         rectanglePropertyChangeBoard.delegate = self
         plane.delegate = self
         rectangleViewBoard.delegate = self
@@ -78,7 +76,8 @@ class ViewController: UIViewController {
     }
     
     @objc func addNewRectangle() {
-        rectangleFactory.makeRandomRectangle()
+        guard let newRectangle = RectangleFactory.makeRandomRectangle(in: (800, 570)) else {return}
+        plane.addRectangle(rectangle: newRectangle)
     }
     
     @objc func tapRectangleViewBoard(_ gestureRecognizer: UITapGestureRecognizer) {
@@ -95,13 +94,6 @@ extension ViewController: PropertyChangeBoardDelegate {
     
     func didUpateAlpha(alpha: Alpha) {
         plane.updateAlphaValue(with: alpha)
-    }
-}
-
-extension ViewController: RectangleFactoryDelegate {
-    func didMadeRectangle(rectangle : Rectangle) {
-        plane.addRectangle(rectangle: rectangle)
-        
     }
 }
 
