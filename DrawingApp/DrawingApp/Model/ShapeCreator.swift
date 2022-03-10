@@ -8,9 +8,5 @@
 import Foundation
 
 protocol ShapeCreator {
-    func createShape(shapeType: ShapeType, point: Point, size: Size, color: Color, alpha: Alpha) -> Shape
-}
-
-enum ShapeType {
-    case rectangle
+    func createRectangle(point: Point, size: Size, color: Color, alpha: Alpha) -> Shape
 }
