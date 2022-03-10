@@ -8,8 +8,8 @@
 import Foundation
 
 protocol PlaneDelegate {
-    func rectangleDidAdded(_ rectangle: Rectangle)
-    func rectangleDidSpecified(_ rectangle: Rectangle?)
-    func rectangleBackgroundColorDidChanged(_ rectangle: Rectangle)
-    func rectangleAlphaDidChanged(_ rectangle: Rectangle)
+    func planeDidAddRectangle(_ plane: Plane)
+    func planeDidSpecifyRectangle(_ plane: Plane)
+    func planeDidChangeBackgroundColorOfRectangle(_ plane: Plane)
+    func planeDidChangeAlphaOfRectangle(_ plane: Plane)
 }

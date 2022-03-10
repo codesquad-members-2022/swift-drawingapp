@@ -125,16 +125,17 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: PlaneDelegate {
-    func rectangleDidAdded(_ rectangle: Rectangle) {
-        os_log("\(rectangle)")
+    func planeDidAddRectangle(_ plane: Plane) {
+        guard let addedRectangle = plane.addedRectangle else {return}
+        os_log("\(addedRectangle)")
         
         let newRectangleView = ViewFactory.generateRectangleView(of: rectangle)
         self.drawableAreaView.addSubview(newRectangleView)
-        rectangleAndViewMap[rectangle] = newRectangleView
+        rectangleAndViewMap[addedRectangle] = newRectangleView
     }
     
-    func rectangleDidSpecified(_ specifiedRectangle: Rectangle?) {
-        guard let specifiedRectangle = specifiedRectangle,
+    func planeDidSpecifyRectangle(_ plane: Plane) {
+        guard let specifiedRectangle = plane.specifiedRectangle,
               let matchedView = rectangleAndViewMap[specifiedRectangle] else {
                   initializeViewsInTouchedEmptySpaceCondition()
                   return
@@ -147,23 +148,25 @@ extension ViewController: PlaneDelegate {
         updatePlusAlphaValueButton(with: Float(matchedView.alpha))
     }
     
-    func rectangleBackgroundColorDidChanged(_ backgroundColorChangedRectangle: Rectangle) {
-        guard let matchedView = rectangleAndViewMap[backgroundColorChangedRectangle] else {
+    func planeDidChangeBackgroundColorOfRectangle(_ plane: Plane) {
+        guard let specifiedRectangle = plane.specifiedRectangle,
+             let matchedView = rectangleAndViewMap[specifiedRectangle] else {
             return
         }
         
-        let newBackgroundColor = backgroundColorChangedRectangle.backgroundColor
+        let newBackgroundColor = specifiedRectangle.backgroundColor
         matchedView.backgroundColor = newBackgroundColor.convertToUIColor()
-        let previousAlpha = backgroundColorChangedRectangle.alpha
+        let previousAlpha = specifiedRectangle.alpha
         updateBackgroundButton(color: newBackgroundColor, alpha: previousAlpha)
     }
     
-    func rectangleAlphaDidChanged(_ alphaChangedRectangle: Rectangle) {
-        guard let matchedView = rectangleAndViewMap[alphaChangedRectangle] else {
+    func planeDidChangeAlphaOfRectangle(_ plane: Plane) {
+        guard let specifiedRectangle = plane.specifiedRectangle,
+             let matchedView = rectangleAndViewMap[specifiedRectangle] else {
             return
         }
         
-        let newAlphaValue = alphaChangedRectangle.alpha.value
+        let newAlphaValue = specifiedRectangle.alpha.value
         matchedView.alpha = CGFloat(newAlphaValue)
         updateStatusViewElement(with: newAlphaValue)
     }
