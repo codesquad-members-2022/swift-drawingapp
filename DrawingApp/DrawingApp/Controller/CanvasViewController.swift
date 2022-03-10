@@ -45,6 +45,8 @@ extension CanvasViewController {
     private func observePanel() {
         NotificationCenter.default.addObserver(self, selector: #selector(sliderChanged(_:)), name: PanelViewController.event.sliderChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(colorButtonPressed(_:)), name: PanelViewController.event.colorButtonPressed, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(originStepperChanged(_:)), name: PanelViewController.event.originStepperChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(sizeStepperChanged(_:)), name: PanelViewController.event.sizeStpperChanged, object: nil)
     }
     
     private func setUpRecognizer() {
@@ -145,7 +147,7 @@ extension CanvasViewController {
     }
 }
 
-// MARK: - Use Case: Transform CanvasView
+// MARK: - Use Case: Change CanvasView
 
 extension CanvasViewController {
     
@@ -174,6 +176,17 @@ extension CanvasViewController {
         let mutatedUIView = search(for: selected)
         mutatedUIView?.alpha = CGFloat(with: newAlpha)
     }
+    
+    @objc func originStepperChanged(_ notification: Notification) {
+        guard let origin = notification.userInfo?[PanelViewController.InfoKey.newOrigin] as? Point else { return }
+        print(origin)
+    }
+    
+    @objc func sizeStepperChanged(_ notification: Notification) {
+        guard let size = notification.userInfo?[PanelViewController.InfoKey.newSize] as? Size else { return }
+        print(size)
+    }
+    
 }
 
 // MARK: - Use Case: Drag CanvasView
