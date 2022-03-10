@@ -9,7 +9,6 @@ import Foundation
 
 public struct Plane {
     
-    var delegate:PlaneDelegate?
     //Point를 기반으로 Dictionary를 만듬으로써 View에서 TapGesture로 좌표값을 넘겼을때 그에 해당하는 Rectangle을 찾을 수있다.
     var rectangles:[Point:Rectangle] = [:]
     var selectedRectangle:Rectangle?
@@ -22,16 +21,15 @@ public struct Plane {
     func change(alpha:Alpha){
         guard let selectedRectangle = selectedRectangle else { return }
         selectedRectangle.alpha = alpha
-        delegate?.didChangeAlpha(to: selectedRectangle)
+        
     }
     
     //현재 선택한 rectangle 모델 Color를 바꾸고 ViewController에게 delegate로 알려줍니다.
     func change(color:RGB) {
         guard let selectedRectangle = selectedRectangle else { return }
         selectedRectangle.rgb = color
-        delegate?.didChangeColor(to: selectedRectangle)
+        
     }
-    
     
     //rectangle을 추가할때마다 delegate메소드를 호출합니다.
     mutating func addRectangle(rectangle:Rectangle) {
@@ -42,7 +40,6 @@ public struct Plane {
         
         rectangles[key] = rectangle
         
-        delegate?.didAddRectangle(rectangle: rectangle)
     }
     
     //특정 좌표에 맞는 retangle을 찾고 seletedRectangle에 대입합니다.
@@ -54,6 +51,6 @@ public struct Plane {
         
         guard let selectedRectangle = rectangles[key] else { return }
         self.selectedRectangle = selectedRectangle
-        delegate?.didFindRectangle(rectrangle: selectedRectangle)
+    
     }
 }
