@@ -38,6 +38,7 @@ class Plane {
     }
     
     func searchRectangle(at position : Position) {
+        self.selectedRectangle = nil
         for rectangle in rectangles.reversed() {
             if (rectangle.position.x...(rectangle.position.x + rectangle.size.width)).contains(position.x) && (rectangle.position.y...(rectangle.position.y + rectangle.size.height)).contains(position.y) {
                 self.selectedRectangle = rectangle
