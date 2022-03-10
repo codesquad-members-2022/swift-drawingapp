@@ -13,18 +13,25 @@ class ViewController: UIViewController {
     var plane = Plane()
     let factory = RectangleFactory()
     
+    @IBOutlet var canvasView: CanvasView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         plane.delegate = self
+        canvasView.delgate = self
     }
-    
-    @IBAction func addRectangleButtonTouched(_ sender: Any) {
+
+}
+// Delegate : View
+extension ViewController: RectangleViewDelegate {
+    func touchedAddRectangleButton() {
         plane.add(rectangle: factory.createRandomRectangle())
     }
 }
 
+// Delegate : Model
 extension ViewController: PlaneDelegate {
+    
     func addRectangle(_ rectangle: Rectangle) {
         let rect = UIView(frame: CGRect(x: rectangle.position.x, y: rectangle.position.y, width: rectangle.size.width, height: rectangle.size.height))
     
