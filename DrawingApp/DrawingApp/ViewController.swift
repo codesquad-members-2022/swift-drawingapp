@@ -103,10 +103,10 @@ extension ViewController: PlaneDelegate {
         self.rectangleViewBoard.addSubview(rectangleView)
     }
     
-    func plane(didSearchRectangle index: Int) {
+    func plane(didSearch rectangle: Rectangle, at index: Int) {
         let selectedRectangleView = self.rectangleViewBoard.subviews[index]
         self.rectangleViewBoard.setSelectedRectangleView(rectangleView: selectedRectangleView as? RectangleView)
-        self.rectanglePropertyChangeBoard.setPropertyBoard(with: selectedRectangleView as? RectangleView)
+        self.rectanglePropertyChangeBoard.setPropertyBoard(with: rectangle)
     }
     
     func plane(didUpdated alpha: Alpha) {
@@ -119,8 +119,8 @@ extension ViewController: PlaneDelegate {
 }
 
 extension ViewController: RectangleViewBoardDelegate {
-    func rectangleViewBoardDidUpdatedColor() {
-        rectanglePropertyChangeBoard.updateColorButton()
+    func rectangleViewBoard(didUpdated color: Color) {
+        rectanglePropertyChangeBoard.updateColorButton(color: color)
     }
 
 }

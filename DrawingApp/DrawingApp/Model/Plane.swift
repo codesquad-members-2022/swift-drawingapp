@@ -10,7 +10,7 @@ import UIKit
 
 protocol PlaneDelegate {
     func plane(didAdd rectangle: Rectangle)
-    func plane(didSearchRectangle index: Int)
+    func plane(didSearch rectangle: Rectangle, at index: Int)
     func plane(didUpdated alpha : Alpha)
     func plane(didChanged color : Color)
 }
@@ -46,7 +46,7 @@ class Plane {
         }
         guard let target = selectedRectangle else {return}
         if let selectedIndex = rectangles.lastIndex(of: target) {
-            delegate?.plane(didSearchRectangle: selectedIndex)
+            delegate?.plane(didSearch: target, at: selectedIndex)
         }
     }
     

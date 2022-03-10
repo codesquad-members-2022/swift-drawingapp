@@ -19,9 +19,7 @@ class PropertyChangeBoard : UIView {
     private let alphaLabel = UILabel()
     private let alphaChangeSlider = UISlider()
     var delegate : PropertyChangeBoardDelegate?
-    
-    var selectedRectangleView : RectangleView?
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -97,20 +95,17 @@ class PropertyChangeBoard : UIView {
         self.alphaChangeSlider.addTarget(self, action: #selector(self.moveAlphaSlider), for: .valueChanged)
     }
     
-    func setPropertyBoard(with rectangleView: RectangleView?) {
-        self.selectedRectangleView = rectangleView
-        guard let alpha = self.selectedRectangleView?.alpha else {return}
+    func setPropertyBoard(with rectangle: Rectangle?) {
+        guard let alpha = rectangle?.alpha.transparency else {return}
+        guard let color = rectangle?.backGroundColor else {return}
         self.alphaChangeSlider.value = Float(alpha)
-        updateColorButton()
+        updateColorButton(color: color)
     }
     
-    func updateColorButton() {
-        guard let color = self.selectedRectangleView?.backgroundColor?.cgColor.components else {
-            return
-        }
-        let red = Int(color[0] * 255)
-        let green = Int(color[1] * 255)
-        let blue = Int(color[2] * 255)
+    func updateColorButton(color : Color) {
+        let red = Int(color.red * 255)
+        let green = Int(color.green * 255)
+        let blue = Int(color.blue * 255)
         self.colorChangeButton.setTitle("\(String(format: "#%02X%02X%02x", red, green, blue))", for: .normal)
     }
     
