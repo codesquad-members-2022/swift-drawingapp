@@ -54,32 +54,5 @@ struct Plane {
         delegate?.rectangleAlphaDidChanged(specifiedRectangle)
         return specifiedRectangle
     }
-    
-    public func stepUpAlphaValue() -> Rectangle? {
-        guard let specifiedRectangle = self.specifiedRectangle else {
-            return nil
-        }
-        let newAlpha = specifiedRectangle.alpha.value + 0.1
-        let normalizedNewAlpha = round(newAlpha * 10) / 10
-        guard let newOpacityLevel = Alpha.OpacityLevel(rawValue: normalizedNewAlpha) else {
-            return nil
-        }
-        specifiedRectangle.changeAlphaValue(to: Alpha(opacityLevel: newOpacityLevel))
-        delegate?.rectangleAlphaDidChanged(specifiedRectangle)
-        return specifiedRectangle
-    }
-    
-    public func stepDownAlphaValue() -> Rectangle? {
-        guard let specifiedRectangle = self.specifiedRectangle else {
-            return nil
-        }
-        let newAlpha = specifiedRectangle.alpha.value - 0.1
-        let normalizedNewAlpha = round(newAlpha * 10) / 10
-        guard let newOpacityLevel = Alpha.OpacityLevel(rawValue: normalizedNewAlpha) else {
-            return nil
-        }
-        specifiedRectangle.changeAlphaValue(to: Alpha(opacityLevel: newOpacityLevel))
-        delegate?.rectangleAlphaDidChanged(specifiedRectangle)
-        return specifiedRectangle
-    }
+
 }

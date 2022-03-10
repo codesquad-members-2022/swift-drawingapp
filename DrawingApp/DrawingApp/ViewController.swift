@@ -106,10 +106,20 @@ class ViewController: UIViewController {
     }
     
     @IBAction func minusAlphaValueButtonTouched(_ sender: UIButton) {
-        plane.stepDownAlphaValue()
+        guard let selectedView = self.selectedView else {return}
+        let previousAlphaValue = Float(selectedView.alpha)
+        let newAlphaValue = previousAlphaValue - 0.1
+        let normalizedNewAlphaValue = round(newAlphaValue * 10) / 10
+        guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: normalizedNewAlphaValue) else {return}
+        plane.changeAlphaValue(to: Alpha(opacityLevel: convertedOpacityLevel))
     }
     @IBAction func plusAlphaValueButtonTouched(_ sender: UIButton) {
-        plane.stepUpAlphaValue()
+        guard let selectedView = self.selectedView else {return}
+        let previousAlphaValue = Float(selectedView.alpha)
+        let newAlphaValue = previousAlphaValue + 0.1
+        let normalizedNewAlphaValue = round(newAlphaValue * 10) / 10
+        guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: normalizedNewAlphaValue) else {return}
+        plane.changeAlphaValue(to: Alpha(opacityLevel: convertedOpacityLevel))
     }
     
 }
