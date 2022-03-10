@@ -12,8 +12,8 @@ class CanvasViewController: UIViewController,
                             UINavigationControllerDelegate {
     
     private var plane = Plane()
-    private var viewModelMap = [ViewModel: UIImageView]()
-    private var viewMap = [UIImageView: ViewModel]()
+    private var viewModelMap = [ViewModel: UIView]()
+    private var viewMap = [UIView: ViewModel]()
     private let photoPicker = UIImagePickerController()
     private var temporaryView: UIView?
     
@@ -72,18 +72,18 @@ extension CanvasViewController {
     
     @objc func didAddViewModel(_ notification: Notification) {
         guard let newViewModel = notification.userInfo?[Plane.InfoKey.new] as? ViewModel else { return }
-        guard let newView = UIImageView.create(from: newViewModel) else { return }
+        guard let newView = ViewFactory.create(from: newViewModel) else { return }
         
         map(newView, to: newViewModel)
         view.addSubview(newView)
         setupPanRecognizer(newView)
     }
     
-    private func createView(from viewModel: ViewModel) -> UIImageView? {
-        return UIImageView.create(from: viewModel)
+    private func createView(from viewModel: ViewModel) -> UIView? {
+        return ViewFactory.create(from: viewModel)
     }
     
-    private func map(_ view: UIImageView, to viewModel: ViewModel) {
+    private func map(_ view: UIView, to viewModel: ViewModel) {
         viewModelMap[viewModel] = view
         viewMap[view] = viewModel
     }
@@ -193,10 +193,10 @@ extension CanvasViewController {
     }
     
     private func startPan(_ gesture: UIPanGestureRecognizer) {
-        guard let gestureView = gesture.view as? UIImageView,
+        guard let gestureView = gesture.view,
               gesture.state == .began else { return }
         
-        let temporaryView = gestureView.clone()
+        let temporaryView = ViewFactory.clone(gestureView)
         self.temporaryView = temporaryView
         view.addSubview(temporaryView)
     }
@@ -213,7 +213,7 @@ extension CanvasViewController {
     }
     
     private func endPan(_ gesture: UIPanGestureRecognizer) {
-        guard let gestureView = gesture.view as? UIImageView,
+        guard let gestureView = gesture.view,
               let gestureViewModel = viewMap[gestureView],
               let temporaryView = temporaryView,
               gesture.state == .ended else { return }
@@ -225,7 +225,7 @@ extension CanvasViewController {
         temporaryView.removeFromSuperview()
     }
     
-    private func search(for view: UIImageView) -> ViewModel? {
+    private func search(for view: UIView) -> ViewModel? {
         return viewMap[view]
     }
     
