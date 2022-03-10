@@ -31,7 +31,7 @@ struct Plane{
         delegate?.addRectangle(rectangle)
     }
     
-    func isExistRectangle(_ point: Point) -> Rectangle?{
+    func ExistRectangle(at point: Point) -> Rectangle?{
      
         for rect in rectangles {
             if (rect.leftTopPoint.x <= point.x && rect.leftTopPoint.y <= point.y) && (rect.rightBottomPoint.x >= point.x && rect.rightBottomPoint.y >= point.y) {

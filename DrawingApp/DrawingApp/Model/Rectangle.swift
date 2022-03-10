@@ -30,7 +30,7 @@ class Rectangle: CustomStringConvertible{
         return position
     }
     var rightBottomPoint: Point {
-        return Point(x: Double(position.x + size.width) , y: Double(position.y + size.width))
+        return Point(x: Double(position.x + size.width) , y: Double(position.y + size.height))
     }
     
     required init(ID: String, size: Size, position: Point, backgroundColor: Color, alpha: Alpha) {
@@ -45,4 +45,15 @@ class Rectangle: CustomStringConvertible{
         return "\(ID), \(size), \(position), \(backgroundColor), \(alpha)"
     }
 
+}
+
+extension Rectangle: Hashable {
+    static func == (lhs: Rectangle, rhs: Rectangle) -> Bool {
+        return lhs.ID == rhs.ID
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(ID)
+    }
+    
 }
