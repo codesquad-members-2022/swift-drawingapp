@@ -6,6 +6,10 @@
 - [x] UI 요소에 AutoresizingMask 적용
 - [x] NotificationCenter 사용해 Model-ViewController-View 흐름 구축
 
+## 데모
+
+<image src="../images/step3.gif" width="300px">
+
 ## 학습 키워드
 
 - AutoresizingMask
