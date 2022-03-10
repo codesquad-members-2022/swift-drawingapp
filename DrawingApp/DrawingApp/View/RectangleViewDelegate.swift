@@ -6,8 +6,10 @@
 //
 
 import Foundation
+import UIKit
 
 protocol RectangleViewDelegate {
     
-    func touchedAddRectangleButton() 
+    func touchedAddRectangleButton()
+    func touchedCanvas(at point: CGPoint)
 }

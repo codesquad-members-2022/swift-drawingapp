@@ -22,6 +22,7 @@
                     <rect key="frame" x="385" y="688" width="140" height="132"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" systemColor="systemGray5Color"/>
+                    <gestureRecognizers/>
                     <color key="tintColor" white="0.1057192835" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" title="사각형">
@@ -34,8 +35,17 @@
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <gestureRecognizers/>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="hI1-Zi-Khl" appends="YES" id="R03-0B-bxA"/>
+            </connections>
             <point key="canvasLocation" x="138.81355932203391" y="114.8780487804878"/>
         </view>
+        <tapGestureRecognizer id="hI1-Zi-Khl">
+            <connections>
+                <action selector="tapAction:" destination="-1" id="gEs-ha-UA2"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <systemColor name="systemGray5Color">
