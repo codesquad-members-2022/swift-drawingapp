@@ -10,18 +10,28 @@ import XCTest
 
 class DrawingAppTests: XCTestCase {
     var sut: RectangleFactory!
+    var sut2: Plane!
 
     override func setUpWithError() throws {
         sut = RectangleFactory()
+        sut2 = Plane()
         try super.setUpWithError()
     }
 
     override func tearDownWithError() throws {
         sut = nil
+        sut2 = nil
         try super.tearDownWithError()
     }
     
     func testRectangleFactoryIsInitialized() {
-        sut.createRectangle()
+        let rectangle = sut.createRectangle()
+        XCTAssertNotNil(rectangle)
+    }
+    
+    func testRectangleIsAddedToPlane() {
+        let rectangle = sut.createRectangle()
+        sut2.addRectangle(rectangle)
+        XCTAssertEqual(sut2.rectangleCount, 1)
     }
 }
