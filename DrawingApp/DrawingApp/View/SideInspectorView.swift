@@ -41,6 +41,15 @@ class SideInspectorView: UIView {
         return slider
     }()
     
+    let createRectangleButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("사각형", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = .systemGray4
+        button.layer.cornerRadius = 12
+        return button
+    }()
     
     // TODO: init
     override init(frame: CGRect) {
@@ -61,6 +70,7 @@ class SideInspectorView: UIView {
         addSubview(backgroundColorValueView)
         addSubview(alphaLabel)
         addSubview(alphaSlider)
+        addSubview(createRectangleButton)
         
         NSLayoutConstraint.activate([
             backgroundColorLabel.widthAnchor.constraint(equalToConstant: 100),
@@ -78,8 +88,12 @@ class SideInspectorView: UIView {
             
             alphaSlider.topAnchor.constraint(equalTo: self.alphaLabel.bottomAnchor, constant: 10),
             alphaSlider.leadingAnchor.constraint(equalTo: self.backgroundColorLabel.leadingAnchor),
-            alphaSlider.trailingAnchor.constraint(equalTo: self.backgroundColorValueView.trailingAnchor)
+            alphaSlider.trailingAnchor.constraint(equalTo: self.backgroundColorValueView.trailingAnchor),
             
+            createRectangleButton.leadingAnchor.constraint(equalTo: self.backgroundColorLabel.leadingAnchor),
+            createRectangleButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
+            createRectangleButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            createRectangleButton.heightAnchor.constraint(equalToConstant: 120)
         ])
     }
 }
