@@ -12,7 +12,7 @@ protocol RectangleViewBoardDelegate {
 }
 
 class RectangleViewBoard: UIView {
-    var selectedRectangleView : RectangleView?
+    private var selectedRectangleView : RectangleView?
     var delegate : RectangleViewBoardDelegate?
     
     func updateAlpha(alpha : Alpha) {
@@ -24,12 +24,12 @@ class RectangleViewBoard: UIView {
         delegate?.rectangleViewBoard(didUpdated: color)
     }
     
-    func setSelectedRectangleView(rectangleView: RectangleView?) {
+    func setSelectedRectangleView(at index: Int) {
         if self.selectedRectangleView != nil {
             self.selectedRectangleView?.layer.borderWidth = 0
             self.selectedRectangleView = nil
         }
-        self.selectedRectangleView = rectangleView
+        self.selectedRectangleView = self.subviews[index] as? RectangleView
         self.selectedRectangleView?.layer.borderWidth = 2
         self.selectedRectangleView?.layer.borderColor = UIColor.blue.cgColor
     }
