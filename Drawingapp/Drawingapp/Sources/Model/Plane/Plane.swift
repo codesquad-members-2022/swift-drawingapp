@@ -119,16 +119,18 @@ extension Plane: PlaneAction {
                 return
             }
             let userInfo: [AnyHashable : Any] = [ParamKey.drawingModel:dragModel]
-            NotificationCenter.default.post(name: Plane.NotifiName.beganDrawingModelDrag, object: self, userInfo: userInfo)
+            NotificationCenter.default.post(name: Plane.NotifiName.didBeganDrag, object: self, userInfo: userInfo)
         case .changed:
             let userInfo: [AnyHashable : Any] = [ParamKey.dragPoint:point]
-            NotificationCenter.default.post(name: Plane.NotifiName.changeDrawingModelDrag, object: self, userInfo: userInfo)
+            NotificationCenter.default.post(name: Plane.NotifiName.didChangedDrag, object: self, userInfo: userInfo)
         case .ended:
             guard let dragModel = self.selectedModel else {
                 return
             }
-            dragModel.update(origin: point)
-            NotificationCenter.default.post(name: Plane.NotifiName.endedDrawingModelDrag, object: self, userInfo: nil)
+            let centerX = point.x - dragModel.size.width / 2
+            let centerY = point.y - dragModel.size.height / 2
+            dragModel.update(origin: Point(x: centerX, y: centerY))
+            NotificationCenter.default.post(name: Plane.NotifiName.didEndedDrag, object: self, userInfo: nil)
         default:
             break
         }
@@ -168,9 +170,9 @@ extension Plane {
         static let didDisSelectedDrawingModel = NSNotification.Name("didDisSelectedDrawingModel")
         static let didSelectedDrawingModel = NSNotification.Name("didSelectedDrawingModel")
         static let didMakeDrawingModel = NSNotification.Name("didMakeDrawingModel")
-        static let beganDrawingModelDrag = NSNotification.Name("beganDrawingModelDrag")
-        static let changeDrawingModelDrag = NSNotification.Name("changeDrawingViewDrag")
-        static let endedDrawingModelDrag = NSNotification.Name("endedDrawingViewDrag")
+        static let didBeganDrag = NSNotification.Name("didBeganDrag")
+        static let didChangedDrag = NSNotification.Name("didChangedDrag")
+        static let didEndedDrag = NSNotification.Name("didEndedDrag")
     }
     
     enum ParamKey {
