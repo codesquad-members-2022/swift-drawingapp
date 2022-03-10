@@ -10,19 +10,17 @@ import os
 
 class DrawingViewController: UIViewController {
     private let logger = Logger()
-    private var plane: PlaneDelegate?
+    private var plane: RectangleChangeable?
     private lazy var rectangleAddButton = RectangleAddButton(frame: CGRect(x: view.center.x - 50, y: view.frame.maxY - 144.0, width: 100, height: 100))
     private var drawingDelegate: DrawingDelegate?
     private var rectangleViews: [String: RectangleView] = [:]
     
     private let notificationCenter = NotificationCenter.default
-    private var observer: NSKeyValueObservation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(rectangleAddButton)
         setRectangleButtonEvent()
-        plane = Plane()
         let viewTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewTappedGesture))
         view.addGestureRecognizer(viewTapGesture)
         addNotificationObserver()
@@ -32,17 +30,21 @@ class DrawingViewController: UIViewController {
         self.drawingDelegate = drawingDelegate
     }
     
+    func setRectangleChangeable(plane: RectangleChangeable){
+        self.plane = plane
+    }
+    
     private func addNotificationObserver(){
-        notificationCenter.addObserver(self, selector: #selector(addRectangleView), name: .addedRectangle, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(changeViewColorRandomly), name: .changedRectangleColor, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(touchedRectangleView), name: .selectedRectangle, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(deSelectedRectangle), name: .deselectedRectangle, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(updateRectangleAlpha), name: .updateRectangleAlpha, object: nil)
-        notificationCenter.addObserver(self, selector: #selector(propertyAction), name: .propertyAction, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(addRectangleView), name: Plane.NotiEvent.addedRectangle, object: plane)
+        notificationCenter.addObserver(self, selector: #selector(rectangleColorChanged), name: Plane.NotiEvent.changedRectangleColor, object: plane)
+        notificationCenter.addObserver(self, selector: #selector(selectedRectangle), name: Plane.NotiEvent.selectedRectangle, object: plane)
+        notificationCenter.addObserver(self, selector: #selector(deSelectedRectangle), name: Plane.NotiEvent.deselectedRectangle, object: plane)
+        notificationCenter.addObserver(self, selector: #selector(rectangleAlphaChanged), name: Plane.NotiEvent.updateRectangleAlpha, object: plane)
+        notificationCenter.addObserver(self, selector: #selector(propertyAction), name: SplitViewController.NotiEvent.propertyAction, object: nil)
     }
     
     @objc private func viewTappedGesture(){
-        plane?.deSelectedTarget()
+        plane?.deSelectTargetRectangle()
     }
     
     @objc private func deSelectedRectangle(_ notification: Notification){
@@ -54,17 +56,18 @@ class DrawingViewController: UIViewController {
     }
     
     @objc func rectangleAddButtonTapped(sender: Any){
-        plane?.didAddRandomRectangle()
+        plane?.addRandomRectangle()
     }
     
     @objc private func addRectangleView(_ notification: Notification){
-        guard let rectangle = notification.object as? Rectangle else {
+        guard let rectangle = notification.userInfo?[PlaneNotificationKey.rectangle] as? Rectangle else {
             return
         }
         let rectangleView = RectangleView(size: rectangle.size, point: rectangle.point)
         rectangleView.setRGBColor(rgb: rectangle.color)
         rectangleView.setAlpha(alpha: rectangle.alpha)
-        drawingDelegate?.changedColor(rectangleRGB: rectangle.color)
+        drawingDelegate?.changedColor(rectangle: rectangle)
+        drawingDelegate?.updatedAlpha(rectangle: rectangle)
         let viewTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(rectangleTappedGesture))
         rectangleView.addGestureRecognizer(viewTapGesture)
         rectangleViews[rectangle.uniqueId] = rectangleView
@@ -74,46 +77,49 @@ class DrawingViewController: UIViewController {
     @objc func rectangleTappedGesture(sender: UITapGestureRecognizer){
         guard let touchedView = sender.view as? RectangleView else { return }
         let point = ViewPoint(x: Int(touchedView.frame.origin.x), y: Int(touchedView.frame.origin.y))
-        plane?.didSelectedTarget(point: point)
+        plane?.selectTargetRectangle(point: point)
     }
     
-    @objc private func touchedRectangleView(_ notification: Notification){
-        guard let rectangle = notification.object as? Rectangle else { return }
-        drawingDelegate?.defaultProperty(rectangle: rectangle)
+    @objc private func selectedRectangle(_ notification: Notification){
+        guard let rectangle = notification.userInfo?[PlaneNotificationKey.rectangle] as? Rectangle else {
+            return
+        }
+        drawingDelegate?.selectedRectangle(rectangle: rectangle)
     }
     
-    @objc private func changeViewColorRandomly(_ notification: Notification){
-        guard let rectangle = notification.object as? Rectangle else { return }
+    @objc private func rectangleColorChanged(_ notification: Notification){
+        guard let rectangle = notification.userInfo?[PlaneNotificationKey.rectangle] as? Rectangle else {
+            return
+        }
         rectangleViews[rectangle.uniqueId]?.setRGBColor(rgb: rectangle.color)
-        drawingDelegate?.changedColor(rectangleRGB: rectangle.color)
+        drawingDelegate?.changedColor(rectangle: rectangle)
     }
     
-    @objc private func updateRectangleAlpha(_ notification: Notification){
-        guard let rectangle = notification.object as? Rectangle else { return }
+    @objc private func rectangleAlphaChanged(_ notification: Notification){
+        guard let rectangle = notification.userInfo?[PlaneNotificationKey.rectangle] as? Rectangle else {
+            return
+        }
         rectangleViews[rectangle.uniqueId]?.setAlpha(alpha: rectangle.alpha)
-        drawingDelegate?.updatedAlpha(alpha: rectangle.alpha)
+        drawingDelegate?.updatedAlpha(rectangle: rectangle)
     }
     
     private func plusViewAlpha(){
-        plane?.didUpdateAlpha(changed: .plus)
+        plane?.changeRectangleAlpha(changed: .plus)
     }
     
     private func minusViewAlpha(){
-        plane?.didUpdateAlpha(changed: .minus)
+        plane?.changeRectangleAlpha(changed: .minus)
     }
     
     @objc private func propertyAction(_ notification: Notification) {
-        guard let action = notification.object as? PropertyViewAction else { return }
+        guard let action = notification.userInfo?[PropertyNotificationKey.action] as? PropertyViewAction else { return }
         switch action{
         case .colorChangedTapped:
-            plane?.didChangedColor()
+            plane?.changeRectangleRandomColor()
         case .alphaPlusTapped:
             plusViewAlpha()
         case .alphaMinusTapped:
             minusViewAlpha()
         }
     }
-}
-extension Notification.Name{
-    static let propertyAction = Notification.Name.init("addedRectangle")
 }
