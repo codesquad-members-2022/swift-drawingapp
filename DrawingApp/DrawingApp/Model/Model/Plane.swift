@@ -14,6 +14,7 @@ class Plane {
         static let mutateColorViewModel = Notification.Name("mutateColorViewModel")
         static let mutateAlphaViewModel = Notification.Name("mutateAlphaViewModel")
         static let mutateOriginViewModel = Notification.Name("mutateOriginViewModel")
+        static let mutateSizeViewModel = Notification.Name("mutateSizeViewModel")
     }
     
     enum InfoKey {
@@ -82,14 +83,16 @@ class Plane {
     func set(to origin: Point) {
         guard let viewModel = selected else { return }
         viewModel.set(to: origin)
+        NotificationCenter.default.post(name: Plane.event.mutateOriginViewModel, object: self, userInfo: [Plane.InfoKey.mutated: viewModel])
     }
     
     func set(to size: Size) {
         guard let viewModel = selected else { return }
         viewModel.set(to: size)
+        NotificationCenter.default.post(name: Plane.event.mutateSizeViewModel, object: self, userInfo: [Plane.InfoKey.mutated: viewModel])
     }
     
-    func set(viewModel: ViewModel, to origin: Point) {
+    func drag(viewModel: ViewModel, to origin: Point) {
         viewModel.set(to: origin)
         NotificationCenter.default.post(name: Plane.event.mutateOriginViewModel, object: self, userInfo: [Plane.InfoKey.mutated: viewModel])
     }
