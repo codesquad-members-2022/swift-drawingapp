@@ -15,7 +15,6 @@
 		8D1AB31E27D9D0370024AD38 /* RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69083C27CE249900F78A51 /* RGB.swift */; };
 		8D1AB31F27D9D0400024AD38 /* UIColor++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBC282A27D393A8007422D6 /* UIColor++.swift */; };
 		8D1AB32027D9D0680024AD38 /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69083A27CE249200F78A51 /* Alpha.swift */; };
-		8D1AB32127D9D08B0024AD38 /* PlaneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D67432F27D733AC00397D68 /* PlaneDelegate.swift */; };
 		8D1AB32227D9D09F0024AD38 /* ID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69084E27CF4D9F00F78A51 /* ID.swift */; };
 		8D1AB32327D9D0A20024AD38 /* IDFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69084C27CF4D4200F78A51 /* IDFactory.swift */; };
 		8D5DF31A27D0F88300F5E9C5 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5DF31927D0F88300F5E9C5 /* Plane.swift */; };
@@ -23,7 +22,6 @@
 		8D5DF32227D3107800F5E9C5 /* DetailViewDelgate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5DF32127D3107800F5E9C5 /* DetailViewDelgate.swift */; };
 		8D67432C27D72AD100397D68 /* RectangleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D67432B27D72AD100397D68 /* RectangleButton.swift */; };
 		8D67432E27D7312200397D68 /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D67432D27D7312200397D68 /* RectangleView.swift */; };
-		8D67433027D733AC00397D68 /* PlaneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D67432F27D733AC00397D68 /* PlaneDelegate.swift */; };
 		8D6907F927CCBEF100F78A51 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6907F827CCBEF100F78A51 /* AppDelegate.swift */; };
 		8D6907FB27CCBEF100F78A51 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6907FA27CCBEF100F78A51 /* SceneDelegate.swift */; };
 		8D6907FD27CCBEF100F78A51 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6907FC27CCBEF100F78A51 /* MainViewController.swift */; };
@@ -58,7 +56,6 @@
 		8D5DF32127D3107800F5E9C5 /* DetailViewDelgate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewDelgate.swift; sourceTree = "<group>"; };
 		8D67432B27D72AD100397D68 /* RectangleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleButton.swift; sourceTree = "<group>"; };
 		8D67432D27D7312200397D68 /* RectangleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
-		8D67432F27D733AC00397D68 /* PlaneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneDelegate.swift; sourceTree = "<group>"; };
 		8D6907F527CCBEF100F78A51 /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D6907F827CCBEF100F78A51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8D6907FA27CCBEF100F78A51 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -200,7 +197,6 @@
 			isa = PBXGroup;
 			children = (
 				8D5DF32127D3107800F5E9C5 /* DetailViewDelgate.swift */,
-				8D67432F27D733AC00397D68 /* PlaneDelegate.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -308,7 +304,6 @@
 			files = (
 				8D1AB32327D9D0A20024AD38 /* IDFactory.swift in Sources */,
 				8D1AB32227D9D09F0024AD38 /* ID.swift in Sources */,
-				8D1AB32127D9D08B0024AD38 /* PlaneDelegate.swift in Sources */,
 				8D1AB32027D9D0680024AD38 /* Alpha.swift in Sources */,
 				8D1AB31F27D9D0400024AD38 /* UIColor++.swift in Sources */,
 				8D1AB31E27D9D0370024AD38 /* RGB.swift in Sources */,
@@ -331,7 +326,6 @@
 				8D69083927CE08F000F78A51 /* Point.swift in Sources */,
 				8D67432E27D7312200397D68 /* RectangleView.swift in Sources */,
 				8D5DF31A27D0F88300F5E9C5 /* Plane.swift in Sources */,
-				8D67433027D733AC00397D68 /* PlaneDelegate.swift in Sources */,
 				8D6907F927CCBEF100F78A51 /* AppDelegate.swift in Sources */,
 				8D69084F27CF4D9F00F78A51 /* ID.swift in Sources */,
 				8D67432C27D72AD100397D68 /* RectangleButton.swift in Sources */,
