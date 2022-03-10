@@ -38,10 +38,10 @@ class PropertySetViewController: UIViewController{
     }
     
     private func addNotificationObservers(){
-        NotificationCenter.default.addObserver(self, selector: #selector(changedColorText), name: .changedColorText, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(alphaButtonHidden), name: .alphaButtonHidden, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateSelectedUI), name: .updateSelectedUI, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateDeselectedUI), name: .updateDeselectedUI, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changedColorText), name: SplitViewController.NotiEvent.changedColorText, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(alphaButtonHidden), name: SplitViewController.NotiEvent.alphaButtonHidden, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateSelectedUI), name: SplitViewController.NotiEvent.updateSelectedUI, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateDeselectedUI), name: SplitViewController.NotiEvent.updateDeselectedUI, object: nil)
     }
     
     @IBAction func colorChangeTapped(_ sender: UIButton) {
@@ -57,17 +57,17 @@ class PropertySetViewController: UIViewController{
     }
     
     @objc private func changedColorText(_ notification: Notification){
-        guard let colorRgb = notification.object as? ColorRGB else { return }
-        setColorButtonRGBText(rectangleRGB: colorRgb)
+        guard let rectangle = notification.userInfo?[PropertyNotificationKey.rectangle] as? Rectangle else { return }
+        setColorButtonRGBText(rectangleRGB: rectangle.color)
     }
     
     @objc private func alphaButtonHidden(_ notification: Notification){
-        guard let alpha = notification.object as? Double else { return }
-        alphaButtonIsHidden(alpha: alpha)
+        guard let rectangle = notification.userInfo?[PropertyNotificationKey.rectangle] as? Rectangle else { return }
+        alphaButtonIsHidden(alpha: rectangle.alpha)
     }
     
     @objc private func updateSelectedUI(_ notification: Notification){
-        guard let rectangle = notification.object as? Rectangle else { return }
+        guard let rectangle = notification.userInfo?[PropertyNotificationKey.rectangle] as? Rectangle else { return }
         alphaButtonIsHidden(alpha: rectangle.alpha)
         setColorButtonRGBText(rectangleRGB: rectangle.color)
     }
@@ -86,11 +86,4 @@ class PropertySetViewController: UIViewController{
         minusAlphaButton.isHidden = false
         colorChangeButton.setTitle("color change", for: .normal)
     }
-}
-
-extension Notification.Name{
-    static let changedColorText = Notification.Name.init("changedColorText")
-    static let alphaButtonHidden = Notification.Name.init("alphaButtonHidden")
-    static let updateSelectedUI = Notification.Name.init("updateSelectedUI")
-    static let updateDeselectedUI = Notification.Name.init("updateDeselectedUI")
 }

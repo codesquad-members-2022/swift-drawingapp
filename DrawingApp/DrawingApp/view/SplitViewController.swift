@@ -18,28 +18,42 @@ class SplitViewController: UISplitViewController{
         guard let drawingViewController = drawingViewController else{ return }
         propertySetViewController.setPropertyDelegate(propertyAction: self)
         drawingViewController.setDrawingDelegate(drawingDelegate: self)
+        drawingViewController.setRectangleChangeable(plane: Plane(rectangleFactory: RectangleFactory()))
         viewControllers = [propertySetViewController, drawingViewController]
+    }
+    
+    enum NotiEvent{
+        static let propertyAction = Notification.Name.init("propertyAction")
+        static let changedColorText = Notification.Name.init("changedColorText")
+        static let alphaButtonHidden = Notification.Name.init("alphaButtonHidden")
+        static let updateSelectedUI = Notification.Name.init("updateSelectedUI")
+        static let updateDeselectedUI = Notification.Name.init("updateDeselectedUI")
     }
 }
 extension SplitViewController: DrawingDelegate{
     func deselected() {
-        NotificationCenter.default.post(name: .updateDeselectedUI, object: nil)
+        NotificationCenter.default.post(name: SplitViewController.NotiEvent.updateDeselectedUI, object: self)
     }
     
-    func defaultProperty(rectangle: Rectangle) {
-        NotificationCenter.default.post(name: .updateSelectedUI, object: rectangle)
+    func selectedRectangle(rectangle: Rectangle) {
+        NotificationCenter.default.post(name: SplitViewController.NotiEvent.updateSelectedUI, object: self, userInfo: [PropertyNotificationKey.rectangle : rectangle])
     }
     
-    func updatedAlpha(alpha: Double) {
-        NotificationCenter.default.post(name: .alphaButtonHidden, object: alpha)
+    func updatedAlpha(rectangle: Rectangle) {
+        NotificationCenter.default.post(name: SplitViewController.NotiEvent.alphaButtonHidden, object: self, userInfo: [PropertyNotificationKey.rectangle : rectangle])
     }
     
-    func changedColor(rectangleRGB: ColorRGB) {
-        NotificationCenter.default.post(name: .changedColorText, object: rectangleRGB)
+    func changedColor(rectangle: Rectangle) {
+        NotificationCenter.default.post(name: SplitViewController.NotiEvent.changedColorText, object: self, userInfo: [PropertyNotificationKey.rectangle : rectangle])
     }
 }
 extension SplitViewController: PropertyDelegate{
     func propertyAction(action: PropertyViewAction) {
-        NotificationCenter.default.post(name: .propertyAction, object: action)
+        NotificationCenter.default.post(name: SplitViewController.NotiEvent.propertyAction, object: self, userInfo: [PropertyNotificationKey.action : action])
     }
+}
+
+enum PropertyNotificationKey{
+    case rectangle
+    case action
 }
