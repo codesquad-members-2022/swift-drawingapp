@@ -21,81 +21,80 @@ class PropertyChangeBoard : UIView {
     var delegate : PropertyChangeBoardDelegate?
     
     var selectedRectangleView : RectangleView?
-     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        initialSetUp()
-    }
-    
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        initialSetUp()
-    }
-    
-    private func initialSetUp() {
-        self.addSubview(colorLabel)
-        self.addSubview(colorChangeButton)
-        self.addSubview(alphaLabel)
-        self.addSubview(alphaChangeSlider)
-        
-        let layoutColorLabel = {
-            self.colorLabel.translatesAutoresizingMaskIntoConstraints = false
-
-            self.colorLabel.text = "배경색"
-
-            self.colorLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 40).isActive = true
-            self.colorLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30).isActive = true
-            self.colorLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30).isActive = true
-            self.colorLabel.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.05).isActive = true
-        }
-        
-        let layoutColorChangeButton = {
-            self.colorChangeButton.translatesAutoresizingMaskIntoConstraints = false
-            
-            self.colorChangeButton.layer.borderWidth = 1
-            self.colorChangeButton.layer.borderColor = UIColor.black.cgColor
-            self.colorChangeButton.layer.cornerRadius = 10
-            self.colorChangeButton.setTitleColor(.black, for: .normal)
-            
-            self.colorChangeButton.topAnchor.constraint(equalTo: self.colorLabel.bottomAnchor, constant: 10).isActive = true
-            self.colorChangeButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.05).isActive = true
-            self.colorChangeButton.leadingAnchor.constraint(equalTo: self.colorLabel.leadingAnchor).isActive = true
-            self.colorChangeButton.trailingAnchor.constraint(equalTo: self.colorLabel.trailingAnchor).isActive = true
-            
-            self.colorChangeButton.addTarget(self, action: #selector(self.touchColorButton), for: .touchUpInside)
-        }
-        
-        let layoutAlphaLabel = {
-            
-            self.alphaLabel.translatesAutoresizingMaskIntoConstraints = false
-            
-            self.alphaLabel.text = "투명도"
-            
-            self.alphaLabel.topAnchor.constraint(equalTo: self.colorChangeButton.bottomAnchor, constant: 40).isActive = true
-            self.alphaLabel.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.05).isActive = true
-            self.alphaLabel.leadingAnchor.constraint(equalTo: self.colorLabel.leadingAnchor).isActive = true
-            self.alphaLabel.trailingAnchor.constraint(equalTo: self.colorLabel.trailingAnchor).isActive = true
-        }
-        
-        let layoutAlphaChangeSlider = {
-           
-            self.alphaChangeSlider.translatesAutoresizingMaskIntoConstraints = false
-            
-            self.alphaChangeSlider.minimumValue = 0.1
-            self.alphaChangeSlider.maximumValue = 1
-            
-            self.alphaChangeSlider.topAnchor.constraint(equalTo: self.alphaLabel.bottomAnchor, constant: 10).isActive = true
-            self.alphaChangeSlider.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.05).isActive = true
-            self.alphaChangeSlider.leadingAnchor.constraint(equalTo: self.colorLabel.leadingAnchor).isActive = true
-            self.alphaChangeSlider.trailingAnchor.constraint(equalTo: self.colorLabel.trailingAnchor).isActive = true
-            
-            self.alphaChangeSlider.addTarget(self, action: #selector(self.moveAlphaSlider), for: .valueChanged)
-        }
         
         layoutColorLabel()
         layoutColorChangeButton()
         layoutAlphaLabel()
         layoutAlphaChangeSlider()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        
+        layoutColorLabel()
+        layoutColorChangeButton()
+        layoutAlphaLabel()
+        layoutAlphaChangeSlider()
+    }
+    
+    
+    private func layoutColorLabel() {
+        self.addSubview(colorLabel)
+        self.colorLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.colorLabel.text = "배경색"
+        
+        self.colorLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 40).isActive = true
+        self.colorLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30).isActive = true
+        self.colorLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30).isActive = true
+        self.colorLabel.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.05).isActive = true
+    }
+    
+    private func layoutColorChangeButton() {
+        self.addSubview(colorChangeButton)
+        self.colorChangeButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.colorChangeButton.layer.borderWidth = 1
+        self.colorChangeButton.layer.borderColor = UIColor.black.cgColor
+        self.colorChangeButton.layer.cornerRadius = 10
+        self.colorChangeButton.setTitleColor(.black, for: .normal)
+        
+        self.colorChangeButton.topAnchor.constraint(equalTo: self.colorLabel.bottomAnchor, constant: 10).isActive = true
+        self.colorChangeButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.05).isActive = true
+        self.colorChangeButton.leadingAnchor.constraint(equalTo: self.colorLabel.leadingAnchor).isActive = true
+        self.colorChangeButton.trailingAnchor.constraint(equalTo: self.colorLabel.trailingAnchor).isActive = true
+        
+        self.colorChangeButton.addTarget(self, action: #selector(self.touchColorButton), for: .touchUpInside)
+    }
+    
+    private func layoutAlphaLabel() {
+        self.addSubview(alphaLabel)
+        self.alphaLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.alphaLabel.text = "투명도"
+        
+        self.alphaLabel.topAnchor.constraint(equalTo: self.colorChangeButton.bottomAnchor, constant: 40).isActive = true
+        self.alphaLabel.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.05).isActive = true
+        self.alphaLabel.leadingAnchor.constraint(equalTo: self.colorLabel.leadingAnchor).isActive = true
+        self.alphaLabel.trailingAnchor.constraint(equalTo: self.colorLabel.trailingAnchor).isActive = true
+    }
+    
+    private func layoutAlphaChangeSlider() {
+        self.addSubview(alphaChangeSlider)
+        self.alphaChangeSlider.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.alphaChangeSlider.minimumValue = 0.1
+        self.alphaChangeSlider.maximumValue = 1
+        
+        self.alphaChangeSlider.topAnchor.constraint(equalTo: self.alphaLabel.bottomAnchor, constant: 10).isActive = true
+        self.alphaChangeSlider.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.05).isActive = true
+        self.alphaChangeSlider.leadingAnchor.constraint(equalTo: self.colorLabel.leadingAnchor).isActive = true
+        self.alphaChangeSlider.trailingAnchor.constraint(equalTo: self.colorLabel.trailingAnchor).isActive = true
+        
+        self.alphaChangeSlider.addTarget(self, action: #selector(self.moveAlphaSlider), for: .valueChanged)
     }
     
     func setPropertyBoard(with rectangleView: RectangleView?) {
