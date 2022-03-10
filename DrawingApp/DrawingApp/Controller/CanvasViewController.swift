@@ -191,6 +191,12 @@ extension CanvasViewController {
         plane.set(to: origin)
     }
     
+    @objc func didMutateOrigin(_ notification: Notification) {
+        guard let mutated = notification.userInfo?[Plane.InfoKey.mutated] as? ViewModel else { return }
+        let mutatedCavnasView = search(for: mutated)
+        mutatedCavnasView?.frame.origin = CGPoint(with: mutated.origin)
+    }
+    
     @objc func sizeStepperChanged(_ notification: Notification) {
         guard let size = notification.userInfo?[PanelViewController.InfoKey.newSize] as? Size else { return }
         plane.set(to: size)
@@ -261,11 +267,5 @@ extension CanvasViewController {
     
     private func search(for view: UIView) -> ViewModel? {
         return viewMap[view]
-    }
-    
-    @objc func didMutateOrigin(_ notification: Notification) {
-        guard let mutated = notification.userInfo?[Plane.InfoKey.mutated] as? ViewModel else { return }
-        let mutatedCavnasView = search(for: mutated)
-        mutatedCavnasView?.frame.origin = CGPoint(with: mutated.origin)
     }
 }
