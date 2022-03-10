@@ -31,7 +31,7 @@ class PanelViewController: UIViewController {
     @IBAction func originChanged(_ sender: UIStepper) {
         // Canvas로 changed 전송
         let newOrigin = Point(x: xOriginStepper.value, y: yOriginStepper.value)
-        NotificationCenter.default.post(name: PanelViewController.event.originStepperChanged, object: self, userInfo: [PanelViewController.InfoKey.newOrigin: newOrigin])
+        NotificationCenter.default.post(name: PanelViewController.Event.originStepperChanged, object: self, userInfo: [PanelViewController.InfoKey.newOrigin: newOrigin])
     }
     
     @IBAction func sizeChanged(_ sender: UIStepper) {
@@ -45,10 +45,10 @@ class PanelViewController: UIViewController {
             newSize = Size(width: widthStepper.value, height: heightStpper.value)
         }
         
-        NotificationCenter.default.post(name: PanelViewController.event.sizeStpperChanged, object: self, userInfo: [PanelViewController.InfoKey.newSize: newSize])
+        NotificationCenter.default.post(name: PanelViewController.Event.sizeStpperChanged, object: self, userInfo: [PanelViewController.InfoKey.newSize: newSize])
     }
     
-    enum event {
+    enum Event {
         static let sliderChanged = Notification.Name("sliderChanged")
         static let colorButtonPressed = Notification.Name("colorButtonPressed")
         static let originStepperChanged = Notification.Name("originStepperChanged")
@@ -64,14 +64,19 @@ class PanelViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         observePlane()
+        observeCanvas()
     }
     
     private func observePlane() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didSelectViewModel(_:)), name: Plane.event.selectViewModel, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didMutateColor(_:)), name: Plane.event.mutateColorViewModel, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didMutateAlpha(_:)), name: Plane.event.mutateAlphaViewModel, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didMutateSize(_:)), name: Plane.event.mutateSizeViewModel, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didMutateOrigin(_:)), name: Plane.event.mutateOriginViewModel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didSelectViewModel(_:)), name: Plane.Event.selectViewModel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateColor(_:)), name: Plane.Event.mutateColorViewModel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateAlpha(_:)), name: Plane.Event.mutateAlphaViewModel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateSize(_:)), name: Plane.Event.mutateSizeViewModel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateOrigin(_:)), name: Plane.Event.mutateOriginViewModel, object: nil)
+    }
+    
+    private func observeCanvas() {
+        NotificationCenter.default.addObserver(self, selector: #selector(didDrag(_:)), name: CanvasViewController.Event.drag, object: nil)
     }
 }
 
@@ -157,6 +162,17 @@ extension PanelViewController {
         
     }
     
+    private func displayTemporaryOrigin(_ origin: Point) {
+        let selectedX = origin.x
+        let selectedY = origin.y
+        
+        xOriginStepper.value = selectedX
+        yOriginStepper.value = selectedY
+        
+        xOriginLabel.text = String(format: "%.0f", selectedX)
+        yOriginLabel.text = String(format: "%.0f", selectedY)
+    }
+    
     private func clearPanel() {
         clearColorButton()
         clearAlphaSlider()
@@ -198,7 +214,7 @@ extension PanelViewController {
 extension PanelViewController {
     
     @IBAction func ColorButtonPressed(_ sender: UIButton) {
-        NotificationCenter.default.post(name: PanelViewController.event.colorButtonPressed, object: self)
+        NotificationCenter.default.post(name: PanelViewController.Event.colorButtonPressed, object: self)
     }
     
     @objc func didMutateColor(_ notification: Notification) {
@@ -208,7 +224,7 @@ extension PanelViewController {
     }
     
     @IBAction func SliderChanged(_ sender: UISlider) {
-        NotificationCenter.default.post(name: PanelViewController.event.sliderChanged, object: self, userInfo: [PanelViewController.InfoKey.sliderValue: sender.value])
+        NotificationCenter.default.post(name: PanelViewController.Event.sliderChanged, object: self, userInfo: [PanelViewController.InfoKey.sliderValue: sender.value])
     }
     
     @objc func didMutateAlpha(_ notification: Notification) {
@@ -225,5 +241,10 @@ extension PanelViewController {
     @objc func didMutateOrigin(_ notification: Notification) {
         guard let mutated = notification.userInfo?[Plane.InfoKey.mutated] as? ViewModel else { return }
         displayOrigin(mutated)
+    }
+    
+    @objc func didDrag(_ notification: Notification) {
+        guard let temporaryOrigin = notification.userInfo?[CanvasViewController.InfoKey.newOrigin] as? Point else { return }
+        displayTemporaryOrigin(temporaryOrigin)
     }
 }

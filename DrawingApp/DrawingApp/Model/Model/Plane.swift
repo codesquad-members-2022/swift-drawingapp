@@ -8,7 +8,7 @@
 import Foundation
 
 class Plane {
-    enum event {
+    enum Event {
         static let addViewModel = Notification.Name("addViewModel")
         static let selectViewModel = Notification.Name("selectViewModel")
         static let mutateColorViewModel = Notification.Name("mutateColorViewModel")
@@ -51,13 +51,13 @@ class Plane {
     func addRectangle() {
         let newRectangle = Rectangle.random()
         viewModels.append(newRectangle)
-        NotificationCenter.default.post(name: Plane.event.addViewModel, object: self, userInfo: [Plane.InfoKey.new: newRectangle])
+        NotificationCenter.default.post(name: Plane.Event.addViewModel, object: self, userInfo: [Plane.InfoKey.new: newRectangle])
     }
     
     func addPhoto(data: Data) {
         let newPhoto = Photo.random(from: data)
         viewModels.append(newPhoto)
-        NotificationCenter.default.post(name: Plane.event.addViewModel, object: self, userInfo: [Plane.InfoKey.new: newPhoto])
+        NotificationCenter.default.post(name: Plane.Event.addViewModel, object: self, userInfo: [Plane.InfoKey.new: newPhoto])
     }
     
     func tap(on point: Point) {
@@ -65,36 +65,36 @@ class Plane {
         self.selected = viewModels.last(where: { viewModel in
             viewModel.contains(point)
         })
-        NotificationCenter.default.post(name: Plane.event.selectViewModel, object: self, userInfo: [Plane.InfoKey.old: oldSelected as Any, Plane.InfoKey.new: selected as Any])
+        NotificationCenter.default.post(name: Plane.Event.selectViewModel, object: self, userInfo: [Plane.InfoKey.old: oldSelected as Any, Plane.InfoKey.new: selected as Any])
     }
     
     func set(to color: Color = Color.random()) {
         guard let mutableViewModel = selected as? ColorMutable else { return }
         mutableViewModel.set(to: color)
-        NotificationCenter.default.post(name: Plane.event.mutateColorViewModel, object: self, userInfo: [Plane.InfoKey.new: color])
+        NotificationCenter.default.post(name: Plane.Event.mutateColorViewModel, object: self, userInfo: [Plane.InfoKey.new: color])
     }
     
     func set(to alpha: Alpha) {
         guard let mutableViewModel = selected as? AlphaMutable else { return }
         mutableViewModel.set(to: alpha)
-        NotificationCenter.default.post(name: Plane.event.mutateAlphaViewModel, object: self, userInfo: [Plane.InfoKey.new: alpha])
+        NotificationCenter.default.post(name: Plane.Event.mutateAlphaViewModel, object: self, userInfo: [Plane.InfoKey.new: alpha])
     }
     
     func set(to origin: Point) {
         guard let viewModel = selected else { return }
         viewModel.set(to: origin)
-        NotificationCenter.default.post(name: Plane.event.mutateOriginViewModel, object: self, userInfo: [Plane.InfoKey.mutated: viewModel])
+        NotificationCenter.default.post(name: Plane.Event.mutateOriginViewModel, object: self, userInfo: [Plane.InfoKey.mutated: viewModel])
     }
     
     func set(to size: Size) {
         guard let viewModel = selected else { return }
         viewModel.set(to: size)
-        NotificationCenter.default.post(name: Plane.event.mutateSizeViewModel, object: self, userInfo: [Plane.InfoKey.mutated: viewModel])
+        NotificationCenter.default.post(name: Plane.Event.mutateSizeViewModel, object: self, userInfo: [Plane.InfoKey.mutated: viewModel])
     }
     
     func drag(viewModel: ViewModel, to origin: Point) {
         viewModel.set(to: origin)
-        NotificationCenter.default.post(name: Plane.event.mutateOriginViewModel, object: self, userInfo: [Plane.InfoKey.mutated: viewModel])
+        NotificationCenter.default.post(name: Plane.Event.mutateOriginViewModel, object: self, userInfo: [Plane.InfoKey.mutated: viewModel])
     }
     
 }
