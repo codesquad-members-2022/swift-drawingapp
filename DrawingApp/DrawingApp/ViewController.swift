@@ -20,10 +20,10 @@ class ViewController: UIViewController {
         logger.info("\(newRectangle)")
         
         let test = UIView.init(frame: CGRect(x: newRectangle.point.x, y: newRectangle.point.y, width: newRectangle.size.width, height: newRectangle.size.height))
-        test.backgroundColor = UIColor.red
-//        test.backgroundColor = UIColor(red: 0, green: CGFloat(newRectangle.color.g), blue: CGFloat(newRectangle.color.b), alpha: newRectangle.alpha.self)
+        
+        let util = Util(color: newRectangle.color, alpha: newRectangle.alpha)
+        test.backgroundColor = util.getUIColor()
         self.view.addSubview(test)
-
 
     }
     

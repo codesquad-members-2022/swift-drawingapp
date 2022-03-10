@@ -8,31 +8,21 @@
 import Foundation
 
 class Color {
-    static let min = 0
-    static let max = 255
+    static let min = 0.0
+    static let max = 255.0
     
-    var r: Int { checkRange(number: checkR) }
-    var g: Int { checkRange(number: checkG) }
-    var b: Int { checkRange(number: checkB) }
+    private(set) var r: Double
+    private(set) var g: Double
+    private(set) var b: Double
     
-    private let checkR: Int
-    private let checkG: Int
-    private let checkB: Int
-    
-    func checkRange(number: Int) -> Int {
-        if number < Color.min {
-            return Color.min
-        } else if number > Color.max {
-            return Color.max
-        } else {
-            return number
-        }
-    }
-    
-    init(r: Int, g: Int, b: Int) {
-        self.checkR = r
-        self.checkG = g
-        self.checkB = b
+    init(r: Double, g: Double, b: Double) {
+        self.r = r
+        self.g = g
+        self.b = b
+        
+        if r <= Color.min { self.r = Color.min }; if r >= Color.max { self.r = Color.max }
+        if g <= Color.min { self.g = Color.min }; if g >= Color.max { self.g = Color.max }
+        if b <= Color.min { self.b = Color.min }; if b >= Color.max { self.b = Color.max }
     }
     
 }

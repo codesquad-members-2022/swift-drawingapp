@@ -19,12 +19,12 @@ class Factory {
         let DeviceHeight = UIScreen.main.bounds.size.height - marginY
 
         let size = Size(width: 150, height: 120)
-        let point = Point(x: Double.random(in: 0..<DeviceWidth),
-                          y: Double.random(in: 0..<DeviceHeight))
-        let color = Color(r: Int.random(in: 0...255),
-                          g: Int.random(in: 0...255),
-                          b: Int.random(in: 0...255))
-        let alpha = Alpha(alpha: Double(Int.random(in: 1...10)))
+        let point = Point(x: round(Double.random(in: 0..<DeviceWidth)),
+                          y: round(Double.random(in: 0..<DeviceHeight)))
+        let color = Color(r: round(Double.random(in: 0...255)),
+                          g: round(Double.random(in: 0...255)),
+                          b: round(Double.random(in: 0...255)))
+        let alpha = Alpha(value: Double(Int.random(in: 1...10)))
         
         return Rectangle(id: ID.createId(), size: size, point: point, color: color, alpha: alpha)
     }

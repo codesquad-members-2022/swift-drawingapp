@@ -12,22 +12,13 @@ struct Alpha {
     static let min = 1.0
     static let max = 10.0
     
-    var alpha: Double { checkRange(number: value) }
+    private(set) var value: Double
     
-    private let value: Double
-    
-    func checkRange(number: Double) -> Double {
-        if number < Alpha.min {
-            return Alpha.min
-        } else if number > Alpha.max {
-            return Alpha.max
-        } else {
-            return number
-        }
-    }
-
-    init(alpha: Double) {
-        self.value = alpha / 10
+    init(value: Double) {
+        self.value = value / 10
+        
+        if value < Alpha.min { self.value = Alpha.min }
+        if value > Alpha.max { self.value = Alpha.max }
     }
 }
 
