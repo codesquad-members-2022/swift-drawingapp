@@ -32,7 +32,7 @@ class ViewController: UIViewController {
         return inspectorView
     }()
     
-    let plane = Plane(drawingModelFactory: DrawingModelFactory(sizeFactory: SizeFactory(), pointFactory: PointFactory(), colorFactory: ColorFactory()))
+    let plane = Plane()
     var drawingViews: [DrawingModel:DrawingView] = [:]
     var dummyView: UIView?
     
@@ -43,6 +43,7 @@ class ViewController: UIViewController {
         
         inspectorView.delegate = self
         topMenuBarView.delegate = self
+        plane.delegate = self
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGusture))
         self.drawingBoard.addGestureRecognizer(tapGesture)
@@ -173,6 +174,12 @@ extension ViewController: UIGestureRecognizerDelegate {
         default:
             break
         }
+    }
+}
+
+extension ViewController: PlaneDelegate {
+    func getDrawingModelFactory() -> DrawingModelFactory {
+        DrawingModelFactory(sizeFactory: SizeFactory(), pointFactory: PointFactory(), colorFactory: ColorFactory())
     }
 }
 

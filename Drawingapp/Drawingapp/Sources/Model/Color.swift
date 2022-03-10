@@ -41,7 +41,3 @@ struct Color: CustomStringConvertible {
         return hex
     }
 }
-
-extension Color {
-    static var black = Color(r: 0, g: 0, b: 0)
-}

@@ -17,7 +17,7 @@ protocol Imageable {
 
 class DrawingModel: CustomStringConvertible, Equatable, Hashable {
     let id: String
-    let size: Size
+    public private(set) var size: Size
     public private(set) var point: Point
     public private(set) var alpha: Alpha
     
@@ -59,6 +59,12 @@ class DrawingModel: CustomStringConvertible, Equatable, Hashable {
         let userInfo: [AnyHashable : Any] = [ParamKey.point:self.point]
         NotificationCenter.default.post(name: NotifiName.updatePoint, object: self, userInfo: userInfo)
     }
+    
+    func update(size: Size) {
+        self.size = size
+        let userInfo: [AnyHashable : Any] = [ParamKey.size:self.size]
+        NotificationCenter.default.post(name: NotifiName.updateSize, object: self, userInfo: userInfo)
+    }
 }
 
 extension DrawingModel {
@@ -76,5 +82,6 @@ extension DrawingModel {
         static let alpha = "alpha"
         static let imageUrl = "imageUrl"
         static let point = "point"
+        static let size = "size"
     }
 }
