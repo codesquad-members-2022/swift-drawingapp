@@ -8,8 +8,8 @@
 import Foundation
 
 protocol DrawingDelegate{
-    func changedColor(rectangleRGB: ColorRGB)
-    func updatedAlpha(alpha: Double)
-    func defaultProperty(rectangle: Rectangle)
+    func changedColor(rectangle: Rectangle)
+    func updatedAlpha(rectangle: Rectangle)
+    func selectedRectangle(rectangle: Rectangle)
     func deselected()
 }
