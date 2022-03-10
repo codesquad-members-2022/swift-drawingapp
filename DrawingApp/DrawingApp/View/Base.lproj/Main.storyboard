@@ -176,7 +176,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="500" stepValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="vbE-dE-nQx">
+                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="700" stepValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="vbE-dE-nQx">
                                                         <rect key="frame" x="166" y="0.0" width="94" height="31.5"/>
                                                         <connections>
                                                             <action selector="originChanged:" destination="LiX-43-8CF" eventType="valueChanged" id="nPI-ni-zeb"/>
@@ -199,7 +199,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="500" stepValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="JGL-nx-eUQ">
+                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="500" stepValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="JGL-nx-eUQ">
                                                         <rect key="frame" x="166" y="0.0" width="94" height="32"/>
                                                         <connections>
                                                             <action selector="originChanged:" destination="LiX-43-8CF" eventType="valueChanged" id="S7n-cR-hnn"/>
@@ -247,7 +247,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="300" stepValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="DQI-ty-EwO">
+                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="500" stepValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="DQI-ty-EwO">
                                                         <rect key="frame" x="166" y="0.0" width="94" height="31.5"/>
                                                         <connections>
                                                             <action selector="sizeChanged:" destination="LiX-43-8CF" eventType="valueChanged" id="qQG-aA-ZNw"/>
@@ -270,7 +270,7 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="300" stepValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="4ie-rP-488">
+                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="500" stepValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="4ie-rP-488">
                                                         <rect key="frame" x="166" y="0.0" width="94" height="31.5"/>
                                                         <connections>
                                                             <action selector="sizeChanged:" destination="LiX-43-8CF" eventType="valueChanged" id="B7r-DJ-PTc"/>
