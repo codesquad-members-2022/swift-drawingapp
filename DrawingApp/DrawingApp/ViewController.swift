@@ -93,7 +93,8 @@ extension ViewController: PropertyChangeBoardDelegate {
     }
     
     func propertyChangeBoardDidTouchedColorButton() {
-        plane.changeRandomColor()
+        let randomColor = RandomGenerator.generateColor()
+        plane.changeRandomColor(to: randomColor)
     }
 }
 
