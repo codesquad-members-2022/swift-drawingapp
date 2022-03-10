@@ -1,5 +1,5 @@
 //
-//  Id.swift
+//  Identifier.swift
 //  DrawingApp
 //
 //  Created by 안상희 on 2022/03/07.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-class Id: CustomStringConvertible {
-    var description: String
+class Identifier {
+    private(set) var id: String
     
     init() {
-        self.description = Id.makeRandomId()
+        self.id = Identifier.makeRandomId()
     }
     
     private static func makeRandomId() -> String {
