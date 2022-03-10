@@ -93,7 +93,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func backgroundButtonTouched(_ sender: UIButton) {
-        let newRandomColor = BackgroundColorFactory.makeRandomBackgroundColor()
+        let newRandomColor = BackgroundColor.random()
         plane.changeBackgroundColor(to: newRandomColor)
     }
     
@@ -129,7 +129,7 @@ extension ViewController: PlaneDelegate {
         guard let addedRectangle = plane.addedRectangle else {return}
         os_log("\(addedRectangle)")
         
-        let newRectangleView = ViewFactory.generateRectangleView(of: rectangle)
+        let newRectangleView = ViewFactory.makeRectangleView(of: addedRectangle)
         self.drawableAreaView.addSubview(newRectangleView)
         rectangleAndViewMap[addedRectangle] = newRectangleView
     }
