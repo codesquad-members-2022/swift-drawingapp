@@ -40,6 +40,7 @@ extension CanvasViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(didMutateColor(_:)), name: Plane.event.mutateColorViewModel, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(didMutateAlpha(_:)), name: Plane.event.mutateAlphaViewModel, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(didMutateOrigin(_:)), name: Plane.event.mutateOriginViewModel, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateSize(_:)), name: Plane.event.mutateSizeViewModel, object: plane)
     }
     
     private func observePanel() {
@@ -186,6 +187,12 @@ extension CanvasViewController {
         guard let size = notification.userInfo?[PanelViewController.InfoKey.newSize] as? Size else { return }
         plane.set(to: size)
     }
+    
+    @objc func didMutateSize(_ notification: Notification) {
+        guard let mutated = notification.userInfo?[Plane.InfoKey.mutated] as? ViewModel else { return }
+        let mutatedUIView = search(for: mutated)
+        mutatedUIView?.frame.size = CGSize(with: mutated.size)
+    }
 }
 
 // MARK: - Use Case: Drag CanvasView
@@ -233,7 +240,7 @@ extension CanvasViewController {
         let lastOrigin = Point(x: temporaryView.frame.origin.x,
                                y: temporaryView.frame.origin.y)
         
-        plane.set(viewModel: gestureViewModel, to: lastOrigin)
+        plane.drag(viewModel: gestureViewModel, to: lastOrigin)
         temporaryView.removeFromSuperview()
     }
     
@@ -243,7 +250,6 @@ extension CanvasViewController {
     
     @objc func didMutateOrigin(_ notification: Notification) {
         guard let mutated = notification.userInfo?[Plane.InfoKey.mutated] as? ViewModel else { return }
-        
         let mutatedCavnasView = search(for: mutated)
         mutatedCavnasView?.frame.origin = CGPoint(with: mutated.origin)
     }
