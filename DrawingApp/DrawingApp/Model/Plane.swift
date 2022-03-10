@@ -20,15 +20,17 @@ struct Plane {
         return rectangles[index]
     }
     
-    mutating public func specifyRectangle(point: Point) {
+    mutating public func specifyRectangle(point: Point) -> Result<Rectangle, PlaneError> {
         for rectangle in rectangles.reversed() {
             if rectangle.isPointInArea(point) {
                 self.specifiedRectangle = rectangle
                 delegate?.planeDidSpecifyRectangle(self)
-                return
+                return .success(rectangle)
             }
         }
         self.specifiedRectangle = nil
+        delegate?.planeDidSpecifyRectangle(self)
+        return .failure(.cannotSpecifyRectangleError)
     }
     
     mutating public func addNewRectangle(in frame: (width: Double, height: Double)) {
@@ -38,22 +40,27 @@ struct Plane {
         delegate?.planeDidAddRectangle(self)
     }
     
-    public func changeBackgroundColor(to newColor: BackgroundColor) -> Rectangle? {
+    public func changeBackgroundColor(to newColor: BackgroundColor) -> Result<Rectangle, PlaneError> {
         guard let specifiedRectangle = self.specifiedRectangle else {
-            return nil
+            return .failure(.noSpecifiedRectangleToChangeError)
         }
         specifiedRectangle.changeBackgroundColor(to: newColor)
         delegate?.planeDidChangeBackgroundColorOfRectangle(self)
-        return specifiedRectangle
+        return .success(specifiedRectangle)
     }
 
-    public func changeAlphaValue(to newAlpha: Alpha) -> Rectangle? {
+    public func changeAlphaValue(to newAlpha: Alpha) -> Result<Rectangle, PlaneError> {
         guard let specifiedRectangle = self.specifiedRectangle else {
-            return nil
+            return .failure(.noSpecifiedRectangleToChangeError)
         }
         specifiedRectangle.changeAlphaValue(to: newAlpha)
         delegate?.planeDidChangeAlphaOfRectangle(self)
-        return specifiedRectangle
+        return .success(specifiedRectangle)
     }
 
+}
+
+enum PlaneError: Error {
+    case cannotSpecifyRectangleError
+    case noSpecifiedRectangleToChangeError
 }
