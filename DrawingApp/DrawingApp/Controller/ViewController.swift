@@ -107,6 +107,7 @@ extension ViewController {
             rectangleView.setBackgroundColor(color: color, alpha: rectangle.alpha)
             self.controlPanelView.setColorButtonTitle(title: UIColor(with: color).toHexString())
         }
+        
     }
 }
 
@@ -120,6 +121,7 @@ extension ViewController {
         rectangleView.setBorder(width: 2, color: .blue)
         
         self.controlPanelView.setColorButtonTitle(title: hexString)
+        self.controlPanelView.setAlphaSliderValue(value: rectangle.alpha)
     }
     
     @objc func planeDidDidUnselectItem(_ notification: Notification) {
