@@ -7,9 +7,14 @@
 
 import Foundation
 
+protocol PlaneDelegate {
+    func addRectangle(_ rectangle: Rectangle)
+}
+
 
 struct Plane{
     
+    var delegate: PlaneDelegate?
     private var rectangles: [Rectangle] = []
     
     func count() -> Int{
