@@ -99,12 +99,7 @@ extension ViewController: PropertyChangeBoardDelegate {
 
 extension ViewController: PlaneDelegate {
     func plane(didAdd rectangle: Rectangle) {
-        let size = rectangle.size
-        let position = rectangle.position
-        let color = rectangle.backGroundColor
-        let alpha = rectangle.alpha
-        let rectangleFrame = CGRect(x: position.x , y: position.y, width: size.width, height: size.height)
-        let rectangleView = RectangleView(from: rectangleFrame, color: color, alpha: alpha)
+        let rectangleView = RectangleViewFactory.makeView(of: rectangle)
         self.rectangleViewBoard.addSubview(rectangleView)
     }
     
@@ -126,5 +121,4 @@ extension ViewController: RectangleViewBoardDelegate {
     func rectangleViewBoard(didUpdated color: Color) {
         rectanglePropertyChangeBoard.updateColorButton(color: color)
     }
-
 }
