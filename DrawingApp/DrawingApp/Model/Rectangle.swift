@@ -20,11 +20,11 @@ protocol RectangleCreator {
 
 class Rectangle: CustomStringConvertible{
     
-    private var ID: String
-    private var size: Size
-    private var position: Point
-    private var backgroundColor: Color
-    private var alpha: Alpha
+    private(set) var ID: String
+    private(set) var size: Size
+    private(set) var position: Point
+    private(set) var backgroundColor: Color
+    private(set) var alpha: Alpha
     
     var leftTopPoint: Point {
         return position

@@ -9,9 +9,9 @@ import Foundation
 
 struct Color: CustomStringConvertible{
     
-    private var red: Int = 0
-    private var green: Int = 0
-    private var blue: Int = 0
+    private(set) var red: Int = 0
+    private(set) var green: Int = 0
+    private(set) var blue: Int = 0
     
     init(R: Int, G: Int, B: Int)  {
         red = adjustColorValue(value: R)
@@ -27,6 +27,7 @@ struct Color: CustomStringConvertible{
         return Color(R: red, G: green, B: blue)
 
     }
+    
     
     static func redColor() -> Color {
         return Color(R: 255, G: 0, B: 0)
