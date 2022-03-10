@@ -21,7 +21,6 @@ struct Plane {
         return rectangles.count
     }
     
-    
     mutating func updateRecentlySelected(rectangle: Rectangle) {
         recentlySelectedRectangle = rectangle
     }
@@ -31,7 +30,7 @@ struct Plane {
         delegate?.didCreateRectangle(newRectangle)
     }
     
-    func isRectangleExist(on coordinate: (x: Double, y: Double), target rectangle: Rectangle) -> Bool {
+    private func isRectangleExist(on coordinate: (x: Double, y: Double), target rectangle: Rectangle) -> Bool {
         let xBound = (rectangle.point.x)...(rectangle.point.x + rectangle.size.width)
         let yBound = (rectangle.point.y)...(rectangle.point.y + rectangle.size.height)
         
