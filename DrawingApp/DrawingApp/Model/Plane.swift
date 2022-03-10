@@ -27,6 +27,7 @@ struct Plane{
     
     mutating func add(rectangle: Rectangle){
         rectangles.append(rectangle)
+        delegate?.addRectangle(rectangle)
     }
     
     func isExistRectangle(_ point: Point) -> Bool{
