@@ -17,8 +17,8 @@ class RectangleFactory {
     }
     
     
-    func createRandomId() -> Id {
-        return Id()
+    func createRandomId() -> String {
+        return Identifier().id
     }
     
     

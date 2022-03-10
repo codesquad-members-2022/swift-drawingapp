@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D031063727D5A84300FCAEA7 /* Id.swift in Sources */ = {isa = PBXBuildFile; fileRef = D031063627D5A84300FCAEA7 /* Id.swift */; };
+		D031063727D5A84300FCAEA7 /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D031063627D5A84300FCAEA7 /* Identifier.swift */; };
 		D06D5D6F27D6E8060031D3BF /* DrawingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D5D6E27D6E8060031D3BF /* DrawingAppTests.swift */; };
 		D06D5D7627D6ED6A0031D3BF /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D5D7527D6ED6A0031D3BF /* Plane.swift */; };
 		D0872B8027D1A41200085C86 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0872B7F27D1A41200085C86 /* Rectangle.swift */; };
@@ -40,7 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		D031063627D5A84300FCAEA7 /* Id.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Id.swift; sourceTree = "<group>"; };
+		D031063627D5A84300FCAEA7 /* Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
 		D06D5D6C27D6E8060031D3BF /* DrawingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D06D5D6E27D6E8060031D3BF /* DrawingAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingAppTests.swift; sourceTree = "<group>"; };
 		D06D5D7527D6ED6A0031D3BF /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
@@ -145,7 +145,7 @@
 				D0872B8327D1AFEE00085C86 /* Size.swift */,
 				D0872B8527D1B20B00085C86 /* Color.swift */,
 				D0872B8727D1D90800085C86 /* Alpha.swift */,
-				D031063627D5A84300FCAEA7 /* Id.swift */,
+				D031063627D5A84300FCAEA7 /* Identifier.swift */,
 				D06D5D7527D6ED6A0031D3BF /* Plane.swift */,
 			);
 			path = Model;
@@ -284,7 +284,7 @@
 				D0872B8027D1A41200085C86 /* Rectangle.swift in Sources */,
 				D0872B8627D1B20B00085C86 /* Color.swift in Sources */,
 				D06D5D7627D6ED6A0031D3BF /* Plane.swift in Sources */,
-				D031063727D5A84300FCAEA7 /* Id.swift in Sources */,
+				D031063727D5A84300FCAEA7 /* Identifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

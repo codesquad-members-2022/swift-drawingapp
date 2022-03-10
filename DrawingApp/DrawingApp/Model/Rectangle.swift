@@ -12,14 +12,14 @@ class Rectangle: Equatable {
         return lhs === rhs
     }
     
-    private(set) var id: Id
+    private(set) var id: String
     private(set) var point: Point
     private(set) var size: Size
     private(set) var backgroundColor: Color
     private(set) var alpha: Alpha
     
     
-    init(id: Id, point: Point, size: Size, backgroundColor: Color, alpha: Alpha) {
+    init(id: String, point: Point, size: Size, backgroundColor: Color, alpha: Alpha) {
         self.id = id
         self.point = point
         self.size = size
