@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B30749AC27DA4120009394E2 /* ControllerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B30749AB27DA4120009394E2 /* ControllerView.xib */; };
+		B30749AE27DA4135009394E2 /* ControllerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B30749AD27DA4135009394E2 /* ControllerView.swift */; };
 		B37F41AE27CF4E05001F6115 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37F41AD27CF4E05001F6115 /* AppDelegate.swift */; };
 		B37F41B027CF4E05001F6115 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37F41AF27CF4E05001F6115 /* SceneDelegate.swift */; };
 		B37F41B227CF4E05001F6115 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37F41B127CF4E05001F6115 /* ViewController.swift */; };
@@ -38,6 +40,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B30749AB27DA4120009394E2 /* ControllerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ControllerView.xib; sourceTree = "<group>"; };
+		B30749AD27DA4135009394E2 /* ControllerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerView.swift; sourceTree = "<group>"; };
 		B37F41AA27CF4E05001F6115 /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B37F41AD27CF4E05001F6115 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B37F41AF27CF4E05001F6115 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -150,6 +154,8 @@
 				B3C4979327D9E5AC007721B3 /* CanvasView.xib */,
 				B3C4979527D9E640007721B3 /* CanvasView.swift */,
 				B3C4979727DA35F8007721B3 /* RectangleViewDelegate.swift */,
+				B30749AB27DA4120009394E2 /* ControllerView.xib */,
+				B30749AD27DA4135009394E2 /* ControllerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -238,6 +244,7 @@
 				B37F41BD27CF4E0B001F6115 /* LaunchScreen.storyboard in Resources */,
 				B37F41BA27CF4E0B001F6115 /* Assets.xcassets in Resources */,
 				B3C4979427D9E5AC007721B3 /* CanvasView.xib in Resources */,
+				B30749AC27DA4120009394E2 /* ControllerView.xib in Resources */,
 				B37F41B527CF4E05001F6115 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -256,6 +263,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B30749AE27DA4135009394E2 /* ControllerView.swift in Sources */,
 				B37F41C927CF52C7001F6115 /* Point.swift in Sources */,
 				B37F41C527CF50AB001F6115 /* Rectangle.swift in Sources */,
 				B3C4979627D9E640007721B3 /* CanvasView.swift in Sources */,

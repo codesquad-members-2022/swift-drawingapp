@@ -17,7 +17,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Jy9-JN-6Qs" customClass="CanvasView" customModule="DrawingApp" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="939" height="820"/>
+                                <rect key="frame" x="0.0" y="0.0" width="975" height="820"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ZHN-PQ-I2y" customClass="ControllerView" customModule="DrawingApp" customModuleProvider="target">
+                                <rect key="frame" x="983" y="0.0" width="197" height="820"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
