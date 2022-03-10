@@ -35,6 +35,14 @@ struct BackgroundColor: Equatable {
         self.g = colorValues[1]
         self.b = colorValues[2]
     }
+    
+    static func random() -> BackgroundColor {
+        let randomR = Int.random(in: possibleColorValues)
+        let randomG = Int.random(in: possibleColorValues)
+        let randomB = Int.random(in: possibleColorValues)
+        
+        return BackgroundColor(r: randomR, g: randomG, b: randomB) ?? BackgroundColor(r: 0, g: 0, b: 0)!
+    }
 
 }
 

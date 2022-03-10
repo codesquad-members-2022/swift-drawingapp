@@ -11,9 +11,9 @@ class RectangleFactory {
     
     public static func makeRandomRectangle(in frame: (width: Double, height: Double)) -> Rectangle {
         let size = Size(width: 150, height: 120)
-        let point = PointFactory.makeRandomPoint(in: frame)
-        let backgroundColor = BackgroundColorFactory.makeRandomBackgroundColor() 
-        let alpha = AlphaFactory.makeRandomAlpha()
+        let point = Point.random(in: frame)
+        let backgroundColor = BackgroundColor.random()
+        let alpha = Alpha.random()
         let id = ID()
         
         let newRectangle = Rectangle(id: id, size: size, point: point, backgroundColor: backgroundColor, alpha: alpha)
