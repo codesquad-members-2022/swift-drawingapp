@@ -57,6 +57,12 @@ struct Plane {
     }
 }
 
+extension Plane: CustomStringConvertible {
+    var description: String {
+        return "Count: \(self.countItems), Items: \(self.items.values.map { (id: $0.id, origin: $0.origin) })"
+    }
+}
+
 // MARK: - Notification
 extension Plane {
     enum NotificationKey {
