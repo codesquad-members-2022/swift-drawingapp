@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 class SideInspectorView: UIView {
+    var delegate: SideInspectorViewDelegate? // VC에 뷰 변경 기능을 위임하기 위한 delegate 속성
+
     // TODO: component 속성 정의
     let backgroundColorLabel: UILabel = {
         let label = UILabel()
@@ -48,8 +50,13 @@ class SideInspectorView: UIView {
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .systemGray4
         button.layer.cornerRadius = 12
+        button.addTarget(self, action: #selector(createRectangleButtonTapped(_:)), for: .touchUpInside)
         return button
     }()
+    
+    @objc func createRectangleButtonTapped(_ sender: UIButton) {
+        delegate?.sideInspectorView(self, buttonDidTapped: sender)
+    }
     
     // TODO: init
     override init(frame: CGRect) {
