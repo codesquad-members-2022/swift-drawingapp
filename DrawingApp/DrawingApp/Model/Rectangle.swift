@@ -8,17 +8,17 @@
 import Foundation
 
 class Rectangle: Shape {
-    let id: String
+    private let id: String
 
-    var size: Size
+    private var size: Size
     
-    var point: Point
+    private var point: Point
     
-    var color: Color
+    private var color: Color
     
-    var alpha: Alpha
+    private var alpha: Alpha
     
-    required init(id: String, point: Point, size: Size, color: Color, alpha: Alpha) {
+    init(id: String, point: Point, size: Size, color: Color, alpha: Alpha) {
         self.id = id
         self.point = point
         self.size = size
