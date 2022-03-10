@@ -24,6 +24,10 @@ class ViewModel {
               y: origin.y + (size.height / 2))
     }
     
+    var aspectRatio: Double {
+        size.height / size.width
+    }
+    
     func contains(_ point: Point) -> Bool {
         return (origin.x...origin.x+size.width).contains(point.x)
         && (origin.y...origin.y+size.height).contains(point.y)
