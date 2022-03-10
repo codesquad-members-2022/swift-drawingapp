@@ -6,21 +6,9 @@
 //
 
 import UIKit
-protocol RectangleViewDelegate{
-    func didTouchRectView(rectView: RectangleView)
-}
+
 class RectangleView: UIView {
-    
-    var selected = false {
-        didSet{
-//            print("사각형 뷰 선택됨 :: \(selected) with \(self.alpha)")
-            if selected == true {
-                delegate?.didTouchRectView(rectView: self)
-            }
-        }
-    }
-    var delegate : RectangleViewDelegate?
-    
+        
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -39,8 +27,8 @@ class RectangleView: UIView {
     }
     
     
-    func configure(didSelect : Bool){
-        if didSelect {
+    func configure(isSelected : Bool){
+        if isSelected {
             self.layer.borderWidth = 4
             self.layer.borderColor = UIColor.blue.cgColor
         }else{

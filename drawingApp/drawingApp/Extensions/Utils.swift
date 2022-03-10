@@ -10,8 +10,7 @@ import UIKit
 
 extension Double {
     var trim : Double {
-        let str = String(format: "%.f", self)
-        return Double(str)!
+        Double(Int(ceil(self)))
     }
     
     var scaleRGB : Double {

@@ -7,22 +7,17 @@
 
 import Foundation
 import OSLog
+import UIKit
 
 protocol PlaneDelegate {
-    func didAppendRect(rect: Rectangle?)
+    func didAppendRectangleModel(rectModel: Rectangle?)
+    func didSearchForRectangleModel(detectedModels: [Rectangle])
 }
 
 struct Plane{
     
     var delegate : PlaneDelegate?
-    
-    
-    private var rectangles = [Rectangle]() {
-        willSet{
-            os_log(.debug, "Plane 에 있는 사각형 정보 : \(newValue)")
-            delegate?.didAppendRect(rect: newValue.last)
-        }
-    }
+    private var rectangles = [Rectangle]()
     var numberOfRect : Int {
         self.rectangles.count
     }
@@ -37,21 +32,26 @@ struct Plane{
     
     mutating func append(_ rect : Rectangle) {
         self.rectangles.append(rect)
+        os_log(.debug, "Plane 에 새로 들어온 사각형 정보 : \(rect) ")
+        delegate?.didAppendRectangleModel(rectModel: rect)
     }
     
-    func detectRect(x: Double, y: Double) -> Rectangle? {
-        for rectangle in rectangles {
-            let minX = rectangle.point.x
-            let minY = rectangle.point.y
-            let maxX = rectangle.point.x + rectangle.size.width
-            let maxY = rectangle.point.y + rectangle.size.height
-            if minX <= x, maxX >= x, minY <= y , maxY >= y {
-                os_log(.debug,"모델정보: \(rectangle)")
-                return rectangle
+    
+    
+    func searchRectangleModel(tabCoordX x : Double, tabCoordY y: Double)  {
+
+        let detectedModels = rectangles.filter{
+            let minX = $0.point.x
+            let minY = $0.point.y
+            let maxX = $0.point.x + $0.size.width
+            let maxY = $0.point.y + $0.size.height
+            
+            if (minX <= x && maxX >= x && minY <= y && maxY >= y) || $0.selectedStatus(){
+                $0.toggleSelected()
+                return true
             }
+              return false
         }
-        return nil
+        delegate?.didSearchForRectangleModel(detectedModels:detectedModels)
     }
-    
- 
 }

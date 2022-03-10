@@ -25,15 +25,14 @@ class ViewController: UIViewController {
     let panelWidth : Double = 200
     
     
-    //Targets
-    private var targetModel : Rectangle?
-    private var targetView : RectangleView?
+    //[Model : View]
+    private var rectangleList : [Rectangle : RectangleView] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSubViews()
         setupHandlers()
-        //setupDelegates()
+        setupDelegates()
         setupLayout()
     }
     
@@ -41,24 +40,19 @@ class ViewController: UIViewController {
     func setupSubViews() {
         view.addSubview(rectangleGenerationButton)
         view.addSubview(panelView)
-//        view.addSubview(colorRondomizeButton)
-//        view.addSubview(alphaStepper)
-//        view.addSubview(stepperLabel)
     }
 
     func setupHandlers() {
-        rectangleGenerationButton.addTarget(self, action: #selector(didTabrectangle), for:.touchUpInside)
-//        let tapGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapTriggered))
-//        tapGuestureRecognizer.numberOfTapsRequired = 1
-//        self.view.addGestureRecognizer(tapGuestureRecognizer)
+        rectangleGenerationButton.addTarget(self, action: #selector(createRectangleModel), for:.touchUpInside)
+        let tapGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapTriggered))
+        tapGuestureRecognizer.numberOfTapsRequired = 1
+        self.view.addGestureRecognizer(tapGuestureRecognizer)
     }
     
-//    func setupDelegates(){
-//        rectangleGenerationButton.delegate = self
-//        plane.delegate = self
-//        colorRondomizeButton.delegate = self
-//        alphaStepper.delegate = self
-//    }
+    func setupDelegates(){
+        panelView.delegate = self
+        plane.delegate = self
+    }
 
     func setupLayout(){
         rectangleGenerationButton.frame = CGRect(x: (screenWdith - panelWidth)/2 - (buttonWidth/2), y: screenHeight - buttonHeight, width: buttonWidth, height: buttonHeight)
@@ -66,80 +60,57 @@ class ViewController: UIViewController {
         rectangleGenerationButton.backgroundColor = .lightGray
         rectangleGenerationButton.setTitle("사각형", for: .normal)
         panelView.frame = CGRect(x: screenWdith - panelWidth, y: view.safeAreaInsets.top, width: panelWidth, height: screenHeight)
-//        colorRondomizeButton.frame = CGRect(x: (screenWdith - panelWidth) + 20, y: view.safeAreaInsets.top + 70.0, width: 160, height: 50)
-//        alphaStepper.frame = CGRect(x: (screenWdith - panelWidth) + 100, y: view.safeAreaInsets.top + 190.0, width: 160, height: 50)
-//        stepperLabel.frame = CGRect(x: (screenWdith - panelWidth) + 55, y: view.safeAreaInsets.top + 185.0, width: 160, height: 50)
     }
     
-    @objc func didTabrectangle() {
+    @objc func createRectangleModel() {
         do {
             let rectModel = try ShapeFactory(planeWidth: screenWdith - panelWidth, planeHeight: screenHeight - buttonHeight, shapeSize: Size(width: 130, height: 120)).makeRect()
-            os_log(.debug, "\(rectModel)")
             plane.append(rectModel)
         }catch{
         }
     }
     
-//
-//    //MARK: Event 2.0 : 사용자가 RectangleView 를 터치했을때 해당 사각형 뷰를 highlight 해준다
-//    @objc func tapTriggered(sender: UITapGestureRecognizer) {
-//        let point = sender.location(in: self.view)
-//        let presentedRectViews = view.subviews.compactMap{$0 as? RectangleView}
-//
-//        if let detectedMoodel = plane.detectRect(x: point.x, y: point.y) {
-//            targetModel = detectedMoodel
-//            targetModel?.delegate = self
-//            targetView = view.hitTest(sender.location(in: self.view), with: nil) as? RectangleView
-//            targetView?.delegate = self
-//            selectHighlight(at: targetView, on: presentedRectViews)
-//        }
-//        else {
-//            targetView = nil
-//            targetModel = nil
-//            dismissSelectHighlight(on: presentedRectViews)
-//        }
-//    }
-//
-//    // MARK: 선택한 사각형뷰 Highlight 메소드.
-//    func selectHighlight(at detectedView: RectangleView?, on presentedRectViews : [RectangleView]) {
-//        if let rectView = detectedView {
-//            os_log(.debug,"사각형 뷰정보 : \(rectView)")
-//            for view in presentedRectViews {
-//                if rectView == view {
-//                    invertSelectConfiguration(rectView)
-//                }else{
-//                    view.configure(didSelect: false)
-//                    view.selected = false
-//                }
-//            }
-//        }
-//    }
-//
-//    func invertSelectConfiguration (_ rectView: RectangleView){
-//        if rectView.selected {
-//            rectView.configure(didSelect: false)
-//            resetPanel()
-//        }else{
-//            rectView.configure(didSelect: true)
-//        }
-//        rectView.selected = !rectView.selected
-//    }
-//
-//    func dismissSelectHighlight(on presentedRectView : [RectangleView]) {
-//        for view in presentedRectView{
-//            view.configure(didSelect: false)
-//            view.selected = false
-//        }
-//        resetPanel()
-//    }
-//
-//    func resetPanel() {
-//        colorRondomizeButton.setTitle("", for: .normal)
-//        updateStepper(to: 0)
-//    }
-//
-//
-//
+
+    //MARK: Event 1.0 : 사용자가 ViewController 를 터치했을때(입력)
+    @objc func tapTriggered(sender: UITapGestureRecognizer) {
+        let point = sender.location(in: self.view)
+        plane.searchRectangleModel(tabCoordX: point.x, tabCoordY: point.y)
+    }
+    
+    func createRectangleView (with rectModel: Rectangle) {
+        let rectView = RectangleView(frame: CGRect(x: rectModel.point.x.trim, y: rectModel.point.y.trim, width: rectModel.size.width, height: rectModel.size.height))
+        rectView.backgroundColor = UIColor(red: rectModel.color.red.scaleRGB, green: rectModel.color.green.scaleRGB, blue: rectModel.color.blue.scaleRGB, alpha: rectModel.alpha.value)
+
+        rectangleList.updateValue(rectView, forKey: rectModel)
+        view.addSubview(rectView)
+    }
+    
+    func manageViews(with models: [Rectangle]) {
+        for model in models {
+            setHighlightView(from:model)
+            updatePanel(from: model)
+        }
+    }
+    
+    func setHighlightView(from model: Rectangle) {
+        if let rectView = rectangleList[model] {
+            rectView.configure(isSelected: model.selectedStatus())
+        }
+    }
+  
+    
+    func updatePanel(from model: Rectangle) {
+        if model.selectedStatus() {
+            panelView.updateAlphaLable(newAlphaValue: String(model.alpha.value * 10.0))
+            panelView.updateRomdomizeColorButton(newColor: model.color.tohexString)
+        }else{
+            panelView.updateAlphaLable(newAlphaValue: "0.0")
+            panelView.updateRomdomizeColorButton(newColor: "#000000")
+        }
+            
+        
+    }
+
 //    //MARK: 선택 되어 있는 RectangleView 의 색상을 업데이트하기.
 //    func updateRectangleView(at view : RectangleView? , with model: Rectangle?) {
 //        if let rectView = view, let rectModel = model {
@@ -170,6 +141,7 @@ class ViewController: UIViewController {
 //}
 //
 ////MARK: Event 1.0 사용자가 “사각형” 버튼을 누를시 “RectangleView” 를 생성한다 (1/2)
+   
 //extension ViewController : GenerateRectangleButtonDelegate {
 //    //사각형 생성 버튼이 눌리면 함수 정의
 //    func didTapGenerateButton() {
@@ -182,16 +154,7 @@ class ViewController: UIViewController {
 //    }
 //}
 //
-////MARK: Event 1.0 사용자가 “사각형” 버튼을 누를시 “RectangleView” 를 생성한다 (2/2)
-//extension ViewController : PlaneDelegate {
-//    func didAppendRect(rect: Rectangle?) {
-//        if let appendedRect = rect {
-//            let rectView = RectangleView(frame: CGRect(x: appendedRect.point.x.trim, y: appendedRect.point.y.trim, width: appendedRect.size.width, height: appendedRect.size.height))
-//            rectView.backgroundColor = UIColor(red: appendedRect.color.red.scaleRGB, green: appendedRect.color.green.scaleRGB, blue: appendedRect.color.blue.scaleRGB, alpha: appendedRect.alpha.value)
-//            view.addSubview(rectView)
-//        }
-//    }
-//}
+
 //
 ////MARK: Event 3.0 : 사용자가 RectangleView 를 터치했을때 그 사각형에 대한 정보를 패널에 정보를 표시한다.
 //extension ViewController : RectangleViewDelegate {
@@ -229,4 +192,32 @@ class ViewController: UIViewController {
 //        updateRectangleView(at: targetView, with: targetModel)
 //    }
 //}
+
+    
 }
+
+//MARK: Event 1.0 사용자가 “사각형” 버튼을 누를시 “RectangleView” 를 생성한다 (2/2)
+extension ViewController : PlaneDelegate {
+   
+    func didSearchForRectangleModel(detectedModels: [Rectangle]) {
+        manageViews(with: detectedModels)
+    }
+
+    func didAppendRectangleModel(rectModel: Rectangle?) {
+        if let appendedRect = rectModel {
+            createRectangleView(with : appendedRect)
+        }
+    }
+}
+
+extension ViewController : PanelViewDelegate {
+    func didTabRondomizeColor() {
+        //
+    }
+    
+    func didTabChangeAlpha() {
+        //
+    }
+
+}
+

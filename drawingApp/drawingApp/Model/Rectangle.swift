@@ -22,12 +22,11 @@
 
 import Foundation
 import OSLog
-protocol RectangleDelegate {
-    func didChangeProperty(sender : Rectangle)
-}
+
 //뷰에 나타날 사각형의 데이터.
 class Rectangle {
-    var delegate : RectangleDelegate?
+     
+    
     
     //사각형에 대한 모든 속성을 가지고 있다
     let `id` : String
@@ -36,15 +35,15 @@ class Rectangle {
     var color : Color {
         didSet {
             os_log(.debug, "사각형 색상 변경감지: \(oldValue) -> \(self.color)")
-            delegate?.didChangeProperty(sender: self)
         }
     }
     var alpha : Alpha {
         didSet {
             os_log(.debug, "사각형 알파 변경감지: \(oldValue) -> \(self.alpha)")
-            delegate?.didChangeProperty(sender: self)
         }
     }
+    
+    private var isSelected = false
     
     init (id: String, size:Size , point: Point, color: Color, alpha : Alpha) {
         self.id = id
@@ -62,6 +61,21 @@ class Rectangle {
         self.alpha = alpha
     }
     
+    func toggleSelected(){
+        self.isSelected = !isSelected
+    }
+    
+       
+    func setSelected(_ bool : Bool ) {
+        self.isSelected = bool
+    }
+
+    func selectedStatus() -> Bool {
+        isSelected
+    }
+
+   
+    
 }
 
 
@@ -72,7 +86,18 @@ extension Rectangle : CustomStringConvertible {
     }
 }
 
-
+//비교가능 하게 만들기
+extension Rectangle : Equatable {
+    static func == (lhs: Rectangle, rhs: Rectangle) -> Bool {
+        return lhs.id == rhs.id
+    }
+}
+//hash 값 생성
+extension Rectangle : Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
 
 
 
