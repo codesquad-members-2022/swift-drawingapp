@@ -21,7 +21,7 @@ enum ViewFactory {
     
     private static func createView(from rectangle: Rectangle) -> UIView {
         let frame = CGRect(origin: rectangle.origin, size: rectangle.size)
-        let view = UIImageView(frame: frame)
+        let view = UIView(frame: frame)
         
         view.backgroundColor = UIColor(with: rectangle.color)
         view.alpha = CGFloat(with: rectangle.alpha)
@@ -42,19 +42,18 @@ enum ViewFactory {
     static func clone(_ original: UIView) -> UIView {
         if let original = original as? UIImageView {
             return clone(original)
+        } else {
+            let clone = UIView(frame: original.frame)
+            
+            if let backgroundColor = original.backgroundColor {
+                clone.backgroundColor = backgroundColor
+            }
+            
+            applyCloneEffect(clone)
+            
+            return clone
         }
-        
-        let clone = UIView(frame: original.frame)
-        
-        if let backgroundColor = original.backgroundColor {
-            clone.backgroundColor = backgroundColor
-        }
-        
-        applyCloneEffect(clone)
-        
-        return clone
     }
-    
     
     private static func clone(_ original: UIImageView) -> UIImageView {
         let clone = UIImageView(frame: original.frame)
