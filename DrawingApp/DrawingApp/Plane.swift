@@ -1,9 +1,12 @@
 import Foundation
 //보낼 메시지를 정의
 //3번 전의 준비 과정 - 1
-protocol PlaneDelegate {
+protocol RectangleAddedDelegate {
     // 매개 변수에서 왜 사각형을 보내야 할까요? -> 사각형을 만들었다는 사실을 알리기 위해
     func didMakeRectangle(rectangle: Rectangle)
+}
+protocol RectangleTouchedDelegate {
+    func TouchedRectangle(rectangle: Rectangle)
 }
 
 class Plane {
@@ -11,7 +14,8 @@ class Plane {
     
     // 델리게이트 등록 - 3번 전의 준비과정 - 2
     // 추후에 이 델리게이트를 "자기"라고 self로 지정하는 녀석이 나타날 때 사용할 속성
-    var delegate :PlaneDelegate?
+    var addedRectangleDelegate :RectangleAddedDelegate?
+    var touchedRectangleDelegate : RectangleTouchedDelegate?
     
     var rectangleCount: Int {
         return rectangleArray.count
@@ -30,7 +34,7 @@ class Plane {
         rectangleArray.append(rectangle)
         
         //3번 전의 준비 과정 - 3
-        delegate?.didMakeRectangle(rectangle: rectangle)
+        addedRectangleDelegate?.didMakeRectangle(rectangle: rectangle)
     }
     
     subscript(index: Int) -> Rectangle {
@@ -50,11 +54,11 @@ class Plane {
         return (false,99999)
     }
     
-    func TouchedRectangle(at point: Rectangle.Point) -> Rectangle? {
+    func TouchedRectangle(at point: Rectangle.Point) {
         let touchedResult = isTouchedOnRectangle(at: point)
         guard touchedResult.bool == true else {
-            return nil
+            return
         }
-        return rectangleArray[touchedResult.index]
+        touchedRectangleDelegate?.TouchedRectangle(rectangle: rectangleArray[touchedResult.index])
     }
 }
