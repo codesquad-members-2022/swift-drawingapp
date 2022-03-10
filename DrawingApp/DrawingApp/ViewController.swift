@@ -88,39 +88,38 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: PropertyChangeBoardDelegate {
-    func didTouchedColorButton() {
-        plane.changeRandomColor()
+    func propertyChangeBoard(didChanged alpha: Alpha) {
+        plane.updateAlphaValue(with: alpha)
     }
     
-    func didUpateAlpha(alpha: Alpha) {
-        plane.updateAlphaValue(with: alpha)
+    func propertyChangeBoardDidTouchedColorButton() {
+        plane.changeRandomColor()
     }
 }
 
 extension ViewController: PlaneDelegate {
-    func didChangedColor(color: Color) {
-        rectangleViewBoard.updateColor(color: color)
-    }
-    
-    func didUpdatedAlpha(alpha: Alpha) {
-        self.rectangleViewBoard.updateAlpha(alpha: alpha)
-    }
-    
-    func didAddRectangle(rectangle: Rectangle) {
+    func plane(didAdd rectangle: Rectangle) {
         let rectangleView = RectangleView(from: rectangle)
         self.rectangleViewBoard.addSubview(rectangleView)
     }
     
-    func didSearchRectangle(index: Int) {
+    func plane(didSearchRectangle index: Int) {
         let selectedRectangleView = self.rectangleViewBoard.subviews[index]
         self.rectangleViewBoard.setSelectedRectangleView(rectangleView: selectedRectangleView as? RectangleView)
         self.rectanglePropertyChangeBoard.setPropertyBoard(with: selectedRectangleView as? RectangleView)
     }
     
+    func plane(didUpdated alpha: Alpha) {
+        self.rectangleViewBoard.updateAlpha(alpha: alpha)
+    }
+    
+    func plane(didChanged color: Color) {
+        rectangleViewBoard.updateColor(color: color)
+    }
 }
 
 extension ViewController: RectangleViewBoardDelegate {
-    func didUpdatedColor() {
+    func rectangleViewBoardDidUpdatedColor() {
         rectanglePropertyChangeBoard.updateColorButton()
     }
 

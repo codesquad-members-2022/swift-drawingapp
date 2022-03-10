@@ -8,7 +8,7 @@
 import UIKit
 
 protocol RectangleViewBoardDelegate {
-    func didUpdatedColor()
+    func rectangleViewBoardDidUpdatedColor()
 }
 
 class RectangleViewBoard: UIView {
@@ -21,7 +21,7 @@ class RectangleViewBoard: UIView {
     
     func updateColor(color : Color) {
         self.selectedRectangleView?.setBackgroundColor(color: color)
-        delegate?.didUpdatedColor()
+        delegate?.rectangleViewBoardDidUpdatedColor()
     }
     
     func setSelectedRectangleView(rectangleView: RectangleView?) {

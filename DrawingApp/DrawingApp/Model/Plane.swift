@@ -9,16 +9,16 @@ import Foundation
 import UIKit
 
 protocol PlaneDelegate {
-    func didAddRectangle(rectangle: Rectangle)
-    func didSearchRectangle(index: Int)
-    func didUpdatedAlpha(alpha : Alpha)
-    func didChangedColor(color : Color)
+    func plane(didAdd rectangle: Rectangle)
+    func plane(didSearchRectangle index: Int)
+    func plane(didUpdated alpha : Alpha)
+    func plane(didChanged color : Color)
 }
 
 class Plane {
-    var rectangles : [Rectangle] = []
+    private var rectangles : [Rectangle] = []
+    private var selectedRectangle : Rectangle?
     var delegate : PlaneDelegate?
-    var selectedRectangle : Rectangle?
     
     subscript(index: Int) -> Rectangle? {
         if index < rectangleCount {
@@ -34,7 +34,7 @@ class Plane {
     
     func addRectangle(rectangle: Rectangle) {
         self.rectangles.append(rectangle)
-        delegate?.didAddRectangle(rectangle: rectangle)
+        delegate?.plane(didAdd: rectangle)
     }
     
     func searchRectangle(at position : Position) {
@@ -46,13 +46,13 @@ class Plane {
         }
         guard let target = selectedRectangle else {return}
         if let selectedIndex = rectangles.lastIndex(of: target) {
-            delegate?.didSearchRectangle(index: selectedIndex)
+            delegate?.plane(didSearchRectangle: selectedIndex)
         }
     }
     
     func updateAlphaValue(with alpha: Alpha) {
         self.selectedRectangle?.alpha = alpha
-        delegate?.didUpdatedAlpha(alpha: alpha)
+        delegate?.plane(didUpdated: alpha)
     }
     
     func changeRandomColor() {
@@ -65,6 +65,6 @@ class Plane {
         }
         guard let randomColor = randomColor else {return}
         self.selectedRectangle?.backGroundColor = randomColor
-        delegate?.didChangedColor(color: randomColor)
+        delegate?.plane(didChanged: randomColor)
     }
 }
