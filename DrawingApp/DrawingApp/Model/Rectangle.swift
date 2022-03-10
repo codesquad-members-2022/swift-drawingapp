@@ -11,7 +11,7 @@ protocol RectangleBuildable {
     init(x: Double, y: Double, width: Double, height: Double)
 }
 
-class Rectangle: Shapable {
+class Rectangle: Shapable, Hashable {
     // MARK: - Properties
     private(set) var backgroundColor: Color
     private(set) var alpha: Alpha
@@ -19,6 +19,10 @@ class Rectangle: Shapable {
     let id: String
     let size: Size
     let origin: Point
+    
+    var diagonalPoint: Point {
+        return Point(x: self.origin.x + self.size.width, y: self.origin.y + self.size.height)
+    }
     
     // MARK: - Initialisers
     init(id: String, origin: Point, size: Size, color: Color = .white, alpha: Alpha = .opaque) {
@@ -56,19 +60,12 @@ class Rectangle: Shapable {
     }
 }
 
-extension Rectangle: Hashable {
-    static func == (lhs: Rectangle, rhs: Rectangle) -> Bool {
-        return lhs === rhs
-    }
-    
+// MARK: - CustomStringConvertible Protocol
+extension Rectangle {
     var description: String {
         return """
         (\(self.id)), \(self.origin), \(self.size), \(self.backgroundColor), \(self.alpha)
         """
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(ObjectIdentifier(self))
     }
 }
 
