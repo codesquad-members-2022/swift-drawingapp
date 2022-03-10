@@ -11,12 +11,12 @@ class RectangleModel: DrawingModel, Colorable {
     public private(set) var color: Color
     
     override var description: String {
-        "id: ( \(id) ), \(point), \(size), \(color), alpha: \(alpha)"
+        "id: ( \(id) ), \(origin), \(size), \(color), alpha: \(alpha)"
     }
     
-    init(id: String, point: Point, size: Size, color: Color, alpha: Alpha) {
+    init(id: String, origin: Point, size: Size, color: Color, alpha: Alpha) {
         self.color = color
-        super.init(id: id, point: point, size: size, alpha: alpha)
+        super.init(id: id, origin: origin, size: size, alpha: alpha)
     }
     
     func update(color: Color) {

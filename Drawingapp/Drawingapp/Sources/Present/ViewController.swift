@@ -149,7 +149,7 @@ extension ViewController: UIGestureRecognizerDelegate {
     
     @objc private func tapGusture(sender: UITapGestureRecognizer) {
         let location = sender.location(in: sender.view)
-        self.plane.touchPoint(where: Point(x: location.x, y: location.y))
+        self.plane.touchPoint(Point(x: location.x, y: location.y))
     }
     
     @objc private func panGusture(sender: UITapGestureRecognizer) {
@@ -158,7 +158,7 @@ extension ViewController: UIGestureRecognizerDelegate {
         switch sender.state {
         case .began:
             let location = sender.location(in: sender.view)
-            self.plane.touchPoint(where: Point(x: location.x, y: location.y))
+            self.plane.touchPoint(Point(x: location.x, y: location.y))
             self.plane.beganDrag()
         case .changed:
             guard let dummyView = self.dummyView else {
@@ -170,7 +170,7 @@ extension ViewController: UIGestureRecognizerDelegate {
         case .ended:
             self.dummyView?.removeFromSuperview()
             self.dummyView = nil
-            self.plane.pointChanged(where: Point(x: location.x, y: location.y))
+            self.plane.originChanged(Point(x: location.x, y: location.y))
         default:
             break
         }
@@ -179,15 +179,11 @@ extension ViewController: UIGestureRecognizerDelegate {
 
 extension ViewController: PlaneDelegate {
     func getDrawingModelFactory() -> DrawingModelFactory {
-        DrawingModelFactory(sizeFactory: SizeFactory(), pointFactory: PointFactory(), colorFactory: ColorFactory())
+        DrawingModelFactory(colorFactory: ColorFactory())
     }
 }
 
-extension ViewController: InspectorDelegate {
-    func usingColorFactory() -> ColorFactory {
-        ColorFactory()
-    }
-    
+extension ViewController: InspectorDelegate {    
     func changeColorButtonTapped() {
         self.plane.colorChanged()
     }
@@ -199,7 +195,10 @@ extension ViewController: InspectorDelegate {
 
 extension ViewController: TopMenuBarDelegate {
     func makeRectangleButtonTapped() {
-        self.plane.makeRectangleModel()
+        let screenSize = UIScreen.main.bounds.size
+        let originX = Int.random(in: 0..<Int(screenSize.width))
+        let originY = Int.random(in: 0..<Int(screenSize.height))
+        self.plane.makeRectangleModel(origin: Point(x: originX, y: originY))
     }
     
     func makePhotoButtonTapped() {
@@ -232,7 +231,11 @@ extension ViewController: PHPickerViewControllerDelegate {
                     try? fileManager.removeItem(at: destination)
                 }
                 try? fileManager.copyItem(at: url, to: destination)
-                self.plane.makePhotoModel(url: destination)
+                
+                let screenSize = UIScreen.main.bounds.size
+                let originX = Int.random(in: 0..<Int(screenSize.width))
+                let originY = Int.random(in: 0..<Int(screenSize.height))
+                self.plane.makePhotoModel(origin: Point(x: originX, y: originY), url: destination)
             } catch {
                 Log.error("image Load Fail: \(url)")
             }

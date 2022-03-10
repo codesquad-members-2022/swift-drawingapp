@@ -18,7 +18,7 @@ protocol Imageable {
 class DrawingModel: CustomStringConvertible, Equatable, Hashable {
     let id: String
     public private(set) var size: Size
-    public private(set) var point: Point
+    public private(set) var origin: Point
     public private(set) var alpha: Alpha
     
     func hash(into hasher: inout Hasher) {
@@ -26,23 +26,23 @@ class DrawingModel: CustomStringConvertible, Equatable, Hashable {
     }
     
     var description: String {
-        "id: ( \(id) ), \(point), \(size), alpha: \(alpha)"
+        "id: ( \(id) ), \(origin), \(size), alpha: \(alpha)"
     }
     
     static func == (lhs: DrawingModel, rhs: DrawingModel) -> Bool {
         lhs.id == rhs.id
     }
         
-    init(id: String, point: Point, size: Size, alpha: Alpha) {
+    init(id: String, origin: Point, size: Size, alpha: Alpha) {
         self.id = id
-        self.point = point
+        self.origin = origin
         self.size = size
         self.alpha = alpha
     }
     
     func isSelected(by touchPoint: Point) -> Bool {
-        if touchPoint.x >= point.x, touchPoint.y >= point.y,
-           touchPoint.x <= point.x + size.width, touchPoint.y <= point.y + size.height {
+        if touchPoint.x >= origin.x, touchPoint.y >= origin.y,
+           touchPoint.x <= origin.x + size.width, touchPoint.y <= origin.y + size.height {
             return true
         }
         return false
@@ -54,9 +54,9 @@ class DrawingModel: CustomStringConvertible, Equatable, Hashable {
         NotificationCenter.default.post(name: NotifiName.updateAlpha, object: self, userInfo: userInfo)
     }
     
-    func update(point: Point) {
-        self.point = Point(x: point.x - size.width / 2, y: point.y - size.height / 2)
-        let userInfo: [AnyHashable : Any] = [ParamKey.point:self.point]
+    func update(origin: Point) {
+        self.origin = Point(x: origin.x - size.width / 2, y: origin.y - size.height / 2)
+        let userInfo: [AnyHashable : Any] = [ParamKey.point:self.origin]
         NotificationCenter.default.post(name: NotifiName.updatePoint, object: self, userInfo: userInfo)
     }
     

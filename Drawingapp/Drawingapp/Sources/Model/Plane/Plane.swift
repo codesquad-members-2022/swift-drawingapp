@@ -9,10 +9,10 @@ import Foundation
 import UIKit
 
 protocol PlaneAction {
-    func touchPoint(where point: Point)
-    func pointChanged(where point: Point)
-    func colorChanged()
+    func touchPoint(_ point: Point)
+    func originChanged(_ origin: Point)
     func alphaChanged(_ alpha: Alpha)
+    func colorChanged()
     func beganDrag()
 }
 
@@ -21,8 +21,8 @@ protocol PlaneDelegate {
 }
 
 protocol MakeModelAction {
-    func makeRectangleModel()
-    func makePhotoModel(url: URL)
+    func makeRectangleModel(origin: Point)
+    func makePhotoModel(origin: Point, url: URL)
 }
 
 class Plane {
@@ -54,15 +54,15 @@ class Plane {
 }
 
 extension Plane: MakeModelAction {
-    func makeRectangleModel() {
-        guard let model = self.delegate?.getDrawingModelFactory().makeRectangleModel() else {
+    func makeRectangleModel(origin: Point) {
+        guard let model = self.delegate?.getDrawingModelFactory().makeRectangleModel(origin: origin) else {
             return
         }
         didMakeDrawingModel(model: model)
     }
     
-    func makePhotoModel(url: URL) {
-        guard let model = self.delegate?.getDrawingModelFactory().makePhotoModel(url: url) else {
+    func makePhotoModel(origin: Point, url: URL) {
+        guard let model = self.delegate?.getDrawingModelFactory().makePhotoModel(origin: origin, url: url) else {
             return
         }
         didMakeDrawingModel(model: model)
@@ -99,7 +99,7 @@ extension Plane: PlaneAction {
         NotificationCenter.default.post(name: Plane.NotifiName.makeDragDummyView, object: self, userInfo: userInfo)
     }
     
-    func touchPoint(where point: Point) {
+    func touchPoint(_ point: Point) {
         guard let selectModel = self.selected(point: point) else {
             sendDidDisSelectModel(self.selectedModel)
             self.selectedModel = nil
@@ -119,15 +119,15 @@ extension Plane: PlaneAction {
         }
     }
     
-    func pointChanged(where point: Point) {
+    func originChanged(_ origin: Point) {
         guard let model = self.selectedModel else {
             return
         }
-        model.update(point: point)
+        model.update(origin: origin)
     }
     
     func colorChanged() {
-        guard let model = self.selectedModel as? RectangleModel else {
+        guard let model = self.selectedModel as? Colorable else {
             return
         }
         model.update(color: Color(using: RandomColorGenerator()))
@@ -138,6 +138,13 @@ extension Plane: PlaneAction {
             return
         }
         model.update(alpha: alpha)
+    }
+    
+    func sizeChanged(_ size: Size) {
+        guard let model = self.selectedModel else {
+            return
+        }
+        model.update(size: size)
     }
 }
 
