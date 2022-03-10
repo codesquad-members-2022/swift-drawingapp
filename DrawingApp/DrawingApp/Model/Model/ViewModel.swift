@@ -32,6 +32,10 @@ class ViewModel {
     func set(to origin: Point) {
         self.origin = origin
     }
+    
+    func set(to size: Size) {
+        self.size = size
+    }
 }
 
 extension ViewModel: Hashable {
