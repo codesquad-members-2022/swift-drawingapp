@@ -53,12 +53,16 @@ class ViewController: UIViewController {
     }
     
     func bind() {
-        NotificationCenter.default.addObserver(forName: Plane.NotifiName.didDisSelectedDrawingModel, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: Plane.NotifiName.didMakeDrawingModel, object: nil, queue: nil) { notification in
             guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
                 return
             }
-            self.inspectorView.isHidden = true
-            self.drawingViews[model]?.selected(is: false)
+            DispatchQueue.main.async {
+                let drawView = DrawingViewFactory.make(model: model)
+                self.drawingBoard.addSubview(drawView)
+                self.drawingViews[model] = drawView
+            }
+            self.bindObserver(targetModel: model)
         }
         
         NotificationCenter.default.addObserver(forName: Plane.NotifiName.didSelectedDrawingModel, object: nil, queue: nil) { notification in
@@ -69,34 +73,49 @@ class ViewController: UIViewController {
             self.inspectorView.update(model: model)
             self.drawingViews[model]?.selected(is: true)
         }
-                
-        NotificationCenter.default.addObserver(forName: Plane.NotifiName.didMakeDrawingModel, object: nil, queue: nil) { notification in
+        
+        NotificationCenter.default.addObserver(forName: Plane.NotifiName.didDisSelectedDrawingModel, object: nil, queue: nil) { notification in
             guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
                 return
             }
-            DispatchQueue.main.async {
-                let drawView = DrawingViewFactory.make(model: model)
-                self.drawingBoard.addSubview(drawView)
-                self.drawingViews[model] = drawView
-            }
+            self.inspectorView.isHidden = true
+            self.drawingViews[model]?.selected(is: false)
         }
         
-        NotificationCenter.default.addObserver(forName: Plane.NotifiName.makeDragDummyView, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: Plane.NotifiName.beganDrawingModelDrag, object: nil, queue: nil) { notification in
             guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
                   let selectView = self.drawingViews[model],
-                  let copyView = selectView.copy() as? UIView else {
+                  let snapshotView = selectView.snapshotView() else {
                 return
             }
             
-            self.drawingBoard.addSubview(copyView)
-            copyView.alpha = 0.5
-            copyView.isHidden = true
-            self.dummyView = copyView
+            self.drawingBoard.addSubview(snapshotView)
+            snapshotView.alpha = 0.5
+            snapshotView.isHidden = true
+            self.dummyView = snapshotView
+        }
+                
+        NotificationCenter.default.addObserver(forName: Plane.NotifiName.changeDrawingModelDrag, object: nil, queue: nil) { notification in
+            guard let point = notification.userInfo?[Plane.ParamKey.dragPoint] as? Point,
+                  let dummyView = self.dummyView else {
+                return
+            }
+            let size = dummyView.frame.size
+            let centerX = point.x - size.width / 2
+            let centerY = point.y - size.height / 2
+            dummyView.isHidden = false
+            dummyView.frame.origin = CGPoint(x: centerX, y: centerY)
         }
         
-        NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updateColor, object: nil, queue: nil) { notification in
-            guard let model = notification.object as? DrawingModel,
-                  let view = self.drawingViews[model] as? Colorable,
+        NotificationCenter.default.addObserver(forName: Plane.NotifiName.endedDrawingModelDrag, object: nil, queue: nil) { notification in
+            self.dummyView?.removeFromSuperview()
+            self.dummyView = nil
+        }
+    }
+    
+    func bindObserver(targetModel: DrawingModel) {
+        NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updateColor, object: targetModel, queue: nil) { notification in
+            guard let view = self.drawingViews[targetModel] as? Colorable,
                   let color = notification.userInfo?[DrawingModel.ParamKey.color] as? Color else {
                 return
             }
@@ -104,21 +123,19 @@ class ViewController: UIViewController {
             self.inspectorView.update(color: color)
         }
         
-        NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updateAlpha, object: nil, queue: nil) { notification in
-            guard let model = notification.object as? DrawingModel,
-                  let alpha = notification.userInfo?[DrawingModel.ParamKey.alpha] as? Alpha else {
+        NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updateAlpha, object: targetModel, queue: nil) { notification in
+            guard let alpha = notification.userInfo?[DrawingModel.ParamKey.alpha] as? Alpha else {
                 return
             }
-            self.drawingViews[model]?.update(alpha: alpha)
+            self.drawingViews[targetModel]?.update(alpha: alpha)
             self.inspectorView.update(alpha: alpha)
         }
         
-        NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updatePoint, object: nil, queue: nil) { notification in
-            guard let model = notification.object as? DrawingModel,
-                  let point = notification.userInfo?[DrawingModel.ParamKey.point] as? Point else {
+        NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updatePoint, object: targetModel, queue: nil) { notification in
+            guard let point = notification.userInfo?[DrawingModel.ParamKey.point] as? Point else {
                 return
             }
-            self.drawingViews[model]?.update(point: point)
+            self.drawingViews[targetModel]?.update(point: point)
         }
     }
     
@@ -154,26 +171,7 @@ extension ViewController: UIGestureRecognizerDelegate {
     
     @objc private func panGusture(sender: UITapGestureRecognizer) {
         let location = sender.location(in: sender.view)
-        
-        switch sender.state {
-        case .began:
-            let location = sender.location(in: sender.view)
-            self.plane.touchPoint(Point(x: location.x, y: location.y))
-            self.plane.beganDrag()
-        case .changed:
-            guard let dummyView = self.dummyView else {
-                return
-            }
-            let size = dummyView.frame.size
-            dummyView.isHidden = false
-            dummyView.frame.origin = CGPoint(x: location.x - size.width / 2 , y: location.y - size.height / 2)
-        case .ended:
-            self.dummyView?.removeFromSuperview()
-            self.dummyView = nil
-            self.plane.originChanged(Point(x: location.x, y: location.y))
-        default:
-            break
-        }
+        self.plane.onPanGustureAction(state: sender.state, point: Point(x: location.x, y: location.y))
     }
 }
 

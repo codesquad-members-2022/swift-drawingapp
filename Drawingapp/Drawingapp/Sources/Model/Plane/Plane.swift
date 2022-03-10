@@ -13,7 +13,7 @@ protocol PlaneAction {
     func originChanged(_ origin: Point)
     func alphaChanged(_ alpha: Alpha)
     func colorChanged()
-    func beganDrag()
+    func onPanGustureAction(state: UIGestureRecognizer.State, point: Point)
 }
 
 protocol PlaneDelegate {
@@ -91,14 +91,6 @@ extension Plane: PlaneAction {
         NotificationCenter.default.post(name: Plane.NotifiName.didSelectedDrawingModel, object: self, userInfo: userInfo)
     }
     
-    func beganDrag() {
-        guard let model = self.selectedModel else {
-            return
-        }
-        let userInfo: [AnyHashable : Any] = [ParamKey.drawingModel:model]
-        NotificationCenter.default.post(name: Plane.NotifiName.makeDragDummyView, object: self, userInfo: userInfo)
-    }
-    
     func touchPoint(_ point: Point) {
         guard let selectModel = self.selected(point: point) else {
             sendDidDisSelectModel(self.selectedModel)
@@ -116,6 +108,29 @@ extension Plane: PlaneAction {
             sendDidDisSelectModel(prevSelectModel)
             sendDidSelectModel(selectModel)
             self.selectedModel = selectModel
+        }
+    }
+    
+    func onPanGustureAction(state: UIGestureRecognizer.State, point: Point) {
+        switch state {
+        case .began:
+            self.touchPoint(point)
+            guard let dragModel = self.selectedModel else {
+                return
+            }
+            let userInfo: [AnyHashable : Any] = [ParamKey.drawingModel:dragModel]
+            NotificationCenter.default.post(name: Plane.NotifiName.beganDrawingModelDrag, object: self, userInfo: userInfo)
+        case .changed:
+            let userInfo: [AnyHashable : Any] = [ParamKey.dragPoint:point]
+            NotificationCenter.default.post(name: Plane.NotifiName.changeDrawingModelDrag, object: self, userInfo: userInfo)
+        case .ended:
+            guard let dragModel = self.selectedModel else {
+                return
+            }
+            dragModel.update(origin: point)
+            NotificationCenter.default.post(name: Plane.NotifiName.endedDrawingModelDrag, object: self, userInfo: nil)
+        default:
+            break
         }
     }
     
@@ -153,10 +168,13 @@ extension Plane {
         static let didDisSelectedDrawingModel = NSNotification.Name("didDisSelectedDrawingModel")
         static let didSelectedDrawingModel = NSNotification.Name("didSelectedDrawingModel")
         static let didMakeDrawingModel = NSNotification.Name("didMakeDrawingModel")
-        static let makeDragDummyView = NSNotification.Name("makeDragDummyView")
+        static let beganDrawingModelDrag = NSNotification.Name("beganDrawingModelDrag")
+        static let changeDrawingModelDrag = NSNotification.Name("changeDrawingViewDrag")
+        static let endedDrawingModelDrag = NSNotification.Name("endedDrawingViewDrag")
     }
     
     enum ParamKey {
         static let drawingModel = "drawingModel"
+        static let dragPoint = "dragPoint"
     }
 }
