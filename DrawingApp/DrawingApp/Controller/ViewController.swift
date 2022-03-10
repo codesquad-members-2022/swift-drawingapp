@@ -107,7 +107,6 @@ extension ViewController {
             rectangleView.setBackgroundColor(color: color, alpha: rectangle.alpha)
             self.controlPanelView.setColorButtonTitle(title: UIColor(with: color).toHexString())
         }
-        
     }
 }
 

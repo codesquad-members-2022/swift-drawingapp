@@ -68,7 +68,6 @@ extension Plane {
     
     func notifyDidSelectItem() {
         guard let item = self.currentItem else { return }
-        print("ITEM: ",item.origin)
         NotificationCenter.default.post(name: .PlaneDidSelectItem, object: self, userInfo: [Self.NotificationKey.select: item])
     }
     
