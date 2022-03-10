@@ -40,11 +40,11 @@ class CanvasView: UIView{
         delegate.updatingSelectedRectangleViewAlphaCompleted(opacity: opacity)
     }
     
-    func changeSelectedRectangleViewColor(rgb: [Double]){
+    func changeSelectedRectangleViewColor(newColor: UIColor){
         guard let selectedRectangleView = selectedRectangleView else { return }
-        selectedRectangleView.backgroundColor = UIColor(red: rgb[0], green: rgb[1], blue: rgb[2], alpha: 1)
+        selectedRectangleView.backgroundColor = newColor
         if let delegate = self.delegate{
-            delegate.updatingSelectedRectangleViewColorCompleted(rgb: rgb)
+            delegate.updatingSelectedRectangleViewColorCompleted(newColor: newColor)
         }
     }
     

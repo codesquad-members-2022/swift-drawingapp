@@ -128,9 +128,11 @@ extension ViewController: CanvasViewDelegate{
         rectangle.alpha = Rectangle.Alpha.allCases[opacity]
     }
     
-    func updatingSelectedRectangleViewColorCompleted(rgb: [Double]) {
+    func updatingSelectedRectangleViewColorCompleted(newColor: UIColor) {
         guard let selectedRectangleId = plane.selectedRectangleId else { return }
         guard let rectangle = plane[selectedRectangleId] else { return }
+        guard let components = newColor.cgColor.components else { return }
+        let rgb = components.map{Double($0)}
         rectangle.backgroundColor = Rectangle.Color(r: rgb[0]*255, g: rgb[1]*255, b: rgb[2]*255)
     }
 }
@@ -145,25 +147,22 @@ extension ViewController: StylerViewDelegate{
     
     func updatingSelectedRecntagleViewColorRequested(){
         guard let stylerView = self.stylerView else { return }
-        guard let rgb = generateNewColor() else { return }
-        stylerView.updateSelectedRectangleViewColorInfo(rgb: rgb)
+        let newColor = generateNewColor()
+        guard let rgb = newColor.cgColor.components else { return }
+        let newHexString = "#\(String(Int(rgb[0]*255), radix: 16))\(String(Int(rgb[1]*255), radix: 16))\(String(Int(rgb[2]*255), radix: 16))"
+        stylerView.updateSelectedRectangleViewColorInfo(newColor: newColor, newHexString: newHexString)
     }
     
-    private func generateNewColor()-> [Double]?{
-        let newColor = UIColor(red: CGFloat.random(in: 0...1),
-                               green: CGFloat.random(in: 0...1),
-                               blue: CGFloat.random(in: 0...1),
-                               alpha: 1)
-        var rgb:[Double]?
-        if let components = newColor.cgColor.components{
-            rgb = components.map{ Double($0) }
-        }
-        return rgb
+    private func generateNewColor()-> UIColor{
+        return UIColor(red: CGFloat.random(in: 0...1),
+                       green: CGFloat.random(in: 0...1),
+                       blue: CGFloat.random(in: 0...1),
+                       alpha: 1)
     }
     
-    func updatingSelectedRectangleViewColorInfoCompleted(rgb: [Double]) {
+    func updatingSelectedRectangleViewColorInfoCompleted(newColor: UIColor) {
         guard let canvasView = self.canvasView else { return }
-        canvasView.changeSelectedRectangleViewColor(rgb: rgb)
+        canvasView.changeSelectedRectangleViewColor(newColor: newColor)
     }
     
     func updatingSelectedRectangleViewAlphaRequested(opacity: Int){

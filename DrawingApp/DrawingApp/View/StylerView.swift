@@ -91,17 +91,12 @@ class StylerView: UIView{
         }, for: .valueChanged)
     }
     
-    func updateSelectedRectangleViewColorInfo(rgb: [Double]){
-        let newHexString = "#\(String(Int(rgb[0]*255), radix: 16))\(String(Int(rgb[1]*255), radix: 16))\(String(Int(rgb[2]*255), radix: 16))"
-        self.rectangleColorValueField.backgroundColor = UIColor(red: rgb[0],
-                                                                green: rgb[1],
-                                                                blue: rgb[2],
-                                                                alpha: 1)
+    func updateSelectedRectangleViewColorInfo(newColor: UIColor, newHexString: String){
+        self.rectangleColorValueField.backgroundColor = newColor
         self.rectangleColorValueField.setTitle(newHexString, for: .normal)
         if let delegate = self.delegate{
-            delegate.updatingSelectedRectangleViewColorInfoCompleted(rgb: rgb)
+            delegate.updatingSelectedRectangleViewColorInfoCompleted(newColor: newColor)
         }
-
     }
     
 }
