@@ -27,27 +27,7 @@ class PanelViewController: UIViewController {
     @IBOutlet weak var heightStpper: UIStepper!
     
     private var aspectRatio: Double?
-    
-    @IBAction func originChanged(_ sender: UIStepper) {
-        // Canvas로 changed 전송
-        let newOrigin = Point(x: xOriginStepper.value, y: yOriginStepper.value)
-        NotificationCenter.default.post(name: PanelViewController.Event.originStepperChanged, object: self, userInfo: [PanelViewController.InfoKey.newOrigin: newOrigin])
-    }
-    
-    @IBAction func sizeChanged(_ sender: UIStepper) {
-        // Canvas로 changed 전송
-        var newSize = Size(width: 0, height: 0)
-        if isSizeFixedRatio.isOn, let aspectRatio = aspectRatio {
-            newSize = sender === widthStepper ?
-            Size(width: widthStepper.value, height: widthStepper.value * aspectRatio) :
-            Size(width: heightStpper.value * (1/aspectRatio) , height: heightStpper.value)
-        } else {
-            newSize = Size(width: widthStepper.value, height: heightStpper.value)
-        }
-        
-        NotificationCenter.default.post(name: PanelViewController.Event.sizeStpperChanged, object: self, userInfo: [PanelViewController.InfoKey.newSize: newSize])
-    }
-    
+   
     enum Event {
         static let sliderChanged = Notification.Name("sliderChanged")
         static let colorButtonPressed = Notification.Name("colorButtonPressed")
@@ -85,10 +65,7 @@ extension PanelViewController {
     @objc func didSelectViewModel(_ notification: Notification) {
 
         guard let selected = notification.userInfo?[Plane.InfoKey.new] as? ViewModel else {
-            clearColorButton()
-            clearAlphaSlider()
-            clearSizeStepper()
-            clearOriginStepper()
+            clearPanel()
             return
         }
         
@@ -233,9 +210,14 @@ extension PanelViewController {
         displayAlpha(mutated)
     }
     
-    @objc func didMutateSize(_ notification: Notification) {
-        guard let mutated = notification.userInfo?[Plane.InfoKey.mutated] as? ViewModel else { return }
-        displaySize(mutated)
+    @objc func didDrag(_ notification: Notification) {
+        guard let temporaryOrigin = notification.userInfo?[CanvasViewController.InfoKey.newOrigin] as? Point else { return }
+        displayTemporaryOrigin(temporaryOrigin)
+    }
+    
+    @IBAction func originChanged(_ sender: UIStepper) {
+        let newOrigin = Point(x: xOriginStepper.value, y: yOriginStepper.value)
+        NotificationCenter.default.post(name: PanelViewController.Event.originStepperChanged, object: self, userInfo: [PanelViewController.InfoKey.newOrigin: newOrigin])
     }
     
     @objc func didMutateOrigin(_ notification: Notification) {
@@ -243,8 +225,22 @@ extension PanelViewController {
         displayOrigin(mutated)
     }
     
-    @objc func didDrag(_ notification: Notification) {
-        guard let temporaryOrigin = notification.userInfo?[CanvasViewController.InfoKey.newOrigin] as? Point else { return }
-        displayTemporaryOrigin(temporaryOrigin)
+    @IBAction func sizeChanged(_ sender: UIStepper) {
+        var newSize = Size(width: 0, height: 0)
+        
+        if isSizeFixedRatio.isOn, let aspectRatio = aspectRatio {
+            newSize = sender === widthStepper ?
+            Size(width: widthStepper.value, height: widthStepper.value * aspectRatio) :
+            Size(width: heightStpper.value * (1/aspectRatio) , height: heightStpper.value)
+        } else {
+            newSize = Size(width: widthStepper.value, height: heightStpper.value)
+        }
+        
+        NotificationCenter.default.post(name: PanelViewController.Event.sizeStpperChanged, object: self, userInfo: [PanelViewController.InfoKey.newSize: newSize])
+    }
+    
+    @objc func didMutateSize(_ notification: Notification) {
+        guard let mutated = notification.userInfo?[Plane.InfoKey.mutated] as? ViewModel else { return }
+        displaySize(mutated)
     }
 }
