@@ -27,6 +27,9 @@
                     <color key="tintColor" red="0.44705882349999998" green="0.53725490200000003" blue="0.77647058820000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="filled" title="Button"/>
+                    <connections>
+                        <action selector="touchedBackgroundButton:" destination="-1" eventType="touchUpInside" id="6MU-XV-ytn"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="투명도" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TIw-dX-TgL">
                     <rect key="frame" x="31" y="152" width="42" height="20"/>

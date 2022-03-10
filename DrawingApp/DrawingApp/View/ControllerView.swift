@@ -9,7 +9,8 @@ import UIKit
 
 class ControllerView: UIView {
 
-
+    var delegate: ControllerViewDelegate?
+    
     override init(frame: CGRect){
         super.init(frame: frame)
         customInit()
@@ -27,4 +28,8 @@ class ControllerView: UIView {
                 addSubview(view)
             }
         }
+
+    @IBAction func touchedBackgroundButton(_ sender: Any) {
+        delegate?.touchedBackgroundButton()
+    }
 }

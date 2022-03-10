@@ -32,6 +32,7 @@
                     </view>
                     <connections>
                         <outlet property="canvasView" destination="Jy9-JN-6Qs" id="Clp-FB-Ck3"/>
+                        <outlet property="controllerView" destination="ZHN-PQ-I2y" id="bPf-8q-15S"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
