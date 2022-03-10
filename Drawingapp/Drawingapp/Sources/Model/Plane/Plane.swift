@@ -16,13 +16,18 @@ protocol PlaneAction {
     func beganDrag()
 }
 
+protocol PlaneDelegate {
+    func getDrawingModelFactory() -> DrawingModelFactory
+}
+
 protocol MakeModelAction {
     func makeRectangleModel()
     func makePhotoModel(url: URL)
 }
 
 class Plane {
-    private let drawingModelFactory: DrawingModelFactory
+    var delegate: PlaneDelegate?
+    
     private var drawingModels: [DrawingModel] = []
     private var selectedModel: DrawingModel?
     
@@ -35,10 +40,6 @@ class Plane {
             return drawingModels[index]
         }
         return nil
-    }
-    
-    init(drawingModelFactory: DrawingModelFactory) {
-        self.drawingModelFactory = drawingModelFactory
     }
     
     private func selected(point: Point) -> DrawingModel? {
@@ -54,12 +55,16 @@ class Plane {
 
 extension Plane: MakeModelAction {
     func makeRectangleModel() {
-        let model = drawingModelFactory.makeRectangleModel()
+        guard let model = self.delegate?.getDrawingModelFactory().makeRectangleModel() else {
+            return
+        }
         didMakeDrawingModel(model: model)
     }
     
     func makePhotoModel(url: URL) {
-        let model = drawingModelFactory.makePhotoModel(url: url)
+        guard let model = self.delegate?.getDrawingModelFactory().makePhotoModel(url: url) else {
+            return
+        }
         didMakeDrawingModel(model: model)
     }
     
