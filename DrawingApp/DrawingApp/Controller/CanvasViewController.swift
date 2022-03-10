@@ -17,6 +17,14 @@ class CanvasViewController: UIViewController,
     private let photoPicker = UIImagePickerController()
     private var temporaryView: UIView?
     
+    enum Event {
+        static let drag = Notification.Name("drag")
+    }
+    
+    enum InfoKey {
+        static let newOrigin = "origin"
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         observePlane()
@@ -35,19 +43,19 @@ class CanvasViewController: UIViewController,
 extension CanvasViewController {
     
     private func observePlane() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didAddViewModel(_:)), name: Plane.event.addViewModel, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(didSelectViewModel(_:)), name: Plane.event.selectViewModel, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(didMutateColor(_:)), name: Plane.event.mutateColorViewModel, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(didMutateAlpha(_:)), name: Plane.event.mutateAlphaViewModel, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(didMutateOrigin(_:)), name: Plane.event.mutateOriginViewModel, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(didMutateSize(_:)), name: Plane.event.mutateSizeViewModel, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didAddViewModel(_:)), name: Plane.Event.addViewModel, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didSelectViewModel(_:)), name: Plane.Event.selectViewModel, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateColor(_:)), name: Plane.Event.mutateColorViewModel, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateAlpha(_:)), name: Plane.Event.mutateAlphaViewModel, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateOrigin(_:)), name: Plane.Event.mutateOriginViewModel, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateSize(_:)), name: Plane.Event.mutateSizeViewModel, object: plane)
     }
     
     private func observePanel() {
-        NotificationCenter.default.addObserver(self, selector: #selector(sliderChanged(_:)), name: PanelViewController.event.sliderChanged, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(colorButtonPressed(_:)), name: PanelViewController.event.colorButtonPressed, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(originStepperChanged(_:)), name: PanelViewController.event.originStepperChanged, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(sizeStepperChanged(_:)), name: PanelViewController.event.sizeStpperChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(sliderChanged(_:)), name: PanelViewController.Event.sliderChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(colorButtonPressed(_:)), name: PanelViewController.Event.colorButtonPressed, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(originStepperChanged(_:)), name: PanelViewController.Event.originStepperChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(sizeStepperChanged(_:)), name: PanelViewController.Event.sizeStpperChanged, object: nil)
     }
     
     private func setUpRecognizer() {
@@ -229,6 +237,13 @@ extension CanvasViewController {
             y: temporaryView.center.y + translation.y
         )
         gesture.setTranslation(.zero, in: view)
+        
+        displayTemporaryOrigin(temporaryView)
+    }
+    
+    private func displayTemporaryOrigin(_ temporaryView: UIView) {
+        let temporaryOrigin = Point(x: temporaryView.frame.origin.x, y: temporaryView.frame.origin.y)
+        NotificationCenter.default.post(name: CanvasViewController.Event.drag, object: self, userInfo: [CanvasViewController.InfoKey.newOrigin: temporaryOrigin])
     }
     
     private func endPan(_ gesture: UIPanGestureRecognizer) {
