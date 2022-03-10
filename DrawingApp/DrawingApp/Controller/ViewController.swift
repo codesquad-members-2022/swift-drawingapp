@@ -84,14 +84,7 @@ extension ViewController: PlaneDelegate{
     
     func addingRectangleCompleted(rectangle: Rectangle) {
         guard let canvasView = self.canvasView else { return }
-        let rectangleView = RectangleView(frame: CGRect(x: rectangle.point.x,
-                                                 y: rectangle.point.y,
-                                                 width: rectangle.size.width,
-                                                 height: rectangle.size.height))
-        rectangleView.backgroundColor = UIColor(red: rectangle.backgroundColor.r,
-                                                green: rectangle.backgroundColor.g,
-                                                blue: rectangle.backgroundColor.b,
-                                                alpha: CGFloat(rectangle.alpha.opacity))
+        let rectangleView = RectangleViewFactory.createRectangleView(rectangle: rectangle)
         canvasView.insertSubview(rectangleView, belowSubview: canvasView.generatingButton)
     }
     
