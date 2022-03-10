@@ -179,14 +179,13 @@ extension CanvasViewController {
     
     @objc func originStepperChanged(_ notification: Notification) {
         guard let origin = notification.userInfo?[PanelViewController.InfoKey.newOrigin] as? Point else { return }
-        print(origin)
+        plane.set(to: origin)
     }
     
     @objc func sizeStepperChanged(_ notification: Notification) {
         guard let size = notification.userInfo?[PanelViewController.InfoKey.newSize] as? Size else { return }
-        print(size)
+        plane.set(to: size)
     }
-    
 }
 
 // MARK: - Use Case: Drag CanvasView

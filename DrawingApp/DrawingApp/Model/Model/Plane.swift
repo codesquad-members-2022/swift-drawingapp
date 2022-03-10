@@ -79,8 +79,19 @@ class Plane {
         NotificationCenter.default.post(name: Plane.event.mutateAlphaViewModel, object: self, userInfo: [Plane.InfoKey.new: alpha])
     }
     
+    func set(to origin: Point) {
+        guard let viewModel = selected else { return }
+        viewModel.set(to: origin)
+    }
+    
+    func set(to size: Size) {
+        guard let viewModel = selected else { return }
+        viewModel.set(to: size)
+    }
+    
     func set(viewModel: ViewModel, to origin: Point) {
         viewModel.set(to: origin)
         NotificationCenter.default.post(name: Plane.event.mutateOriginViewModel, object: self, userInfo: [Plane.InfoKey.mutated: viewModel])
     }
+    
 }
