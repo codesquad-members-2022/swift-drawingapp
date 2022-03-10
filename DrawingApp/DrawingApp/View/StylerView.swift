@@ -26,20 +26,13 @@ class StylerView: UIView{
         self.rectangleAlphaSlider.value = 0
         self.rectangleColorValueField.backgroundColor = .white
         self.rectangleColorValueField.setTitle("", for: .normal)
-        if let delegate = self.delegate{
-            delegate.clearingSelectedRectangleInfoCompleted()
-        }
     }
     
-    func updateRectangleInfo(r: Double, g: Double, b: Double, opacity: Float){
-        let hexString = "#\(String(Int(r*255), radix: 16))\(String(Int(g*255), radix: 16))\(String(Int(b*255), radix: 16))"
+    func updateRectangleInfo(r: Double, g: Double, b: Double, opacity: Float, hexString: String){
         self.rectangleColorValueField.setTitle(hexString, for: .normal)
         self.rectangleColorValueField.titleLabel?.textAlignment = .center
         self.rectangleColorValueField.backgroundColor = UIColor(red: r, green: g, blue: b, alpha: 1)
         self.rectangleAlphaSlider.value = opacity
-        if let delegate = self.delegate{
-            delegate.updatingRectangleInfoCompleted()
-        }
     }
     
     private func setRectangleColorInformationView(){
@@ -62,7 +55,7 @@ class StylerView: UIView{
     private func setColorChangeAction(){
         self.rectangleColorValueField.addAction(UIAction(title: ""){_ in
             if let delegate = self.delegate{
-                delegate.updatingSelectedRecntagleViewColorRequested()
+                delegate.updatingSelectedRectangleColorRequested()
             }
         }, for: .touchDown)
     }
@@ -86,7 +79,7 @@ class StylerView: UIView{
     private func setAlphaChangeAction(){
         self.rectangleAlphaSlider.addAction(UIAction(title: ""){ _ in
             if let delegate = self.delegate{
-                delegate.updatingSelectedRectangleViewAlphaRequested(opacity: Int(self.rectangleAlphaSlider.value * 10))
+                delegate.updatingSelectedRectangleAlphaRequested(opacity: Int(self.rectangleAlphaSlider.value * 10))
             }
         }, for: .valueChanged)
     }
@@ -94,9 +87,6 @@ class StylerView: UIView{
     func updateSelectedRectangleViewColorInfo(newColor: UIColor, newHexString: String){
         self.rectangleColorValueField.backgroundColor = newColor
         self.rectangleColorValueField.setTitle(newHexString, for: .normal)
-        if let delegate = self.delegate{
-            delegate.updatingSelectedRectangleViewColorInfoCompleted(newColor: newColor)
-        }
     }
     
 }

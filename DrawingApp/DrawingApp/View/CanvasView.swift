@@ -34,18 +34,13 @@ class CanvasView: UIView{
     }
     
     func updateSelectedRectangleOpacity(opacity: Int){
-        guard let delegate = self.delegate else { return }
         guard let selectedRectangleView = selectedRectangleView else { return }
         selectedRectangleView.alpha = CGFloat(opacity) / 10
-        delegate.updatingSelectedRectangleViewAlphaCompleted(opacity: opacity)
     }
     
-    func changeSelectedRectangleViewColor(newColor: UIColor){
+    func updateSelectedRectangleViewColor(newColor: UIColor){
         guard let selectedRectangleView = selectedRectangleView else { return }
         selectedRectangleView.backgroundColor = newColor
-        if let delegate = self.delegate{
-            delegate.updatingSelectedRectangleViewColorCompleted(newColor: newColor)
-        }
     }
     
     private func setGeneratingButton(){
