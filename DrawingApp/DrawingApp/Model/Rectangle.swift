@@ -5,13 +5,13 @@
 //  Created by 박진섭 on 2022/03/01.
 //
 
-class Rectangle:CustomStringConvertible {
+final class Rectangle:CustomStringConvertible {
     
     var description: String {
         return "\(id), \(origin), \(size),\(rgb), \(alpha)"
     }
     
-    let id:ID
+    private let id:ID
     let origin:Point
     let size:Size
     var rgb:RGB

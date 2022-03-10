@@ -92,7 +92,7 @@ extension MainViewController:UIGestureRecognizerDelegate {
         
         //터치된 View의 origin x와 y값을 plane에게 넘겨줍니다.
         guard let touchedView = touch.view else { return true }
-        if touchedView.frame.width == 1180 { seletedRectangleView?.layer.borderWidth = 0.0 } //빈 화면 클릭시 width을 초기화한다.
+        if touchedView == self.view { seletedRectangleView?.layer.borderWidth = 0.0 } //빈 화면 클릭시 width을 초기화한다.
         
         //Plane에게 touch된 View의 origin좌표를 넘겨준다.
         let x:Double = touchedView.frame.origin.x
@@ -123,7 +123,7 @@ extension MainViewController:DetailViewDelgate {
 //MARK: -- Plane Delegate
 extension MainViewController:PlaneDelegate {
     //바뀐 rgb값을 이용해서 View의 배경과 Label의 title을 바꿉니다.
-    func didChangeColor(seletedRectangle: Rectangle) {
+    func didChangeColor(to seletedRectangle: Rectangle) {
         let rgb = seletedRectangle.rgb
         let alpha = seletedRectangle.alpha
         let hexRGB = seletedRectangle.rgb.hexValue
@@ -133,25 +133,29 @@ extension MainViewController:PlaneDelegate {
         detailView.backgroundColorButton.setTitle("\(hexRGB)", for: .normal)
     }
     
-    //찾은 Rectangle의 테두리를 바꿉니다.
+    //찾은 Rectangle의 테두리를 바꾸고 선택된 Rectangle의 Alpha와 Color를 View에 표시.
     func didFindRectangle(rectrangle: Rectangle) {
+        detailView.alphaSlider.value = rectrangle.alpha.value
+        detailView.backgroundColorButton.setTitle("\(rectrangle.rgb.hexValue)", for: .normal)
+        detailView.alphaLabel.text = "\(rectrangle.alpha.value)"
         
         seletedRectangleView?.layer.borderWidth = 0.0           //기존 seletedRectangleView초기화
         
-        seletedRectangleView = retangleViews[rectrangle]        //View 찾기
+        seletedRectangleView = retangleViews[rectrangle]
         
-        seletedRectangleView?.layer.borderWidth = 2.0           //테두리 바꾸기
+        seletedRectangleView?.layer.borderWidth = 2.0
         seletedRectangleView?.layer.borderColor = UIColor.blue.cgColor
+        
     }
     
     //Rectangle이 추가가 됬으니 View에게 알립니다.
     func didAddRectangle(rectangle: Rectangle) {
         let rgb = rectangle.rgb
         let alpha = rectangle.alpha
-        let rectView = RectangleView(rect: rectangle, rgb: rgb, alpha: alpha) //View를 만듬
+        let rectView = RectangleView(rect: rectangle, rgb: rgb, alpha: alpha) 
         
-        retangleViews[rectangle] = rectView             //Dictionary에 추가
-        self.view.addSubview(rectView)                  //화면에 추가
+        retangleViews[rectangle] = rectView
+        self.view.addSubview(rectView)
         
         //사각형 추가 버튼이나 detailView의 슬라이더가 추가된 사각형에 가려지더라도 이벤트를 발생시키기 위해서 최상단으로 View를 올렸습니다.
         self.view.bringSubviewToFront(button)
@@ -159,7 +163,7 @@ extension MainViewController:PlaneDelegate {
     }
     
     //Alpha가 바뀌었으니 View에게 알립니다.
-    func didChangeAlpha(selectedRectangle: Rectangle) {
+    func didChangeAlpha(to selectedRectangle: Rectangle) {
         seletedRectangleView?.alpha = CGFloat(selectedRectangle.alpha.value)
     }
 }

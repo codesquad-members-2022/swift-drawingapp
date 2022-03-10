@@ -8,6 +8,16 @@
 
 /* Begin PBXBuildFile section */
 		8D1AB31427D884550024AD38 /* DrawingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1AB31327D884550024AD38 /* DrawingAppTests.swift */; };
+		8D1AB31A27D9CFB50024AD38 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5DF31927D0F88300F5E9C5 /* Plane.swift */; };
+		8D1AB31B27D9D0130024AD38 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69083627CE08E900F78A51 /* Size.swift */; };
+		8D1AB31C27D9D01B0024AD38 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69083827CE08F000F78A51 /* Point.swift */; };
+		8D1AB31D27D9D0220024AD38 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69082D27CDFDFD00F78A51 /* Rectangle.swift */; };
+		8D1AB31E27D9D0370024AD38 /* RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69083C27CE249900F78A51 /* RGB.swift */; };
+		8D1AB31F27D9D0400024AD38 /* UIColor++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBC282A27D393A8007422D6 /* UIColor++.swift */; };
+		8D1AB32027D9D0680024AD38 /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69083A27CE249200F78A51 /* Alpha.swift */; };
+		8D1AB32127D9D08B0024AD38 /* PlaneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D67432F27D733AC00397D68 /* PlaneDelegate.swift */; };
+		8D1AB32227D9D09F0024AD38 /* ID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69084E27CF4D9F00F78A51 /* ID.swift */; };
+		8D1AB32327D9D0A20024AD38 /* IDFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69084C27CF4D4200F78A51 /* IDFactory.swift */; };
 		8D5DF31A27D0F88300F5E9C5 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5DF31927D0F88300F5E9C5 /* Plane.swift */; };
 		8D5DF31C27D1A88900F5E9C5 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5DF31B27D1A88900F5E9C5 /* DetailView.swift */; };
 		8D5DF32227D3107800F5E9C5 /* DetailViewDelgate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5DF32127D3107800F5E9C5 /* DetailViewDelgate.swift */; };
@@ -296,6 +306,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D1AB32327D9D0A20024AD38 /* IDFactory.swift in Sources */,
+				8D1AB32227D9D09F0024AD38 /* ID.swift in Sources */,
+				8D1AB32127D9D08B0024AD38 /* PlaneDelegate.swift in Sources */,
+				8D1AB32027D9D0680024AD38 /* Alpha.swift in Sources */,
+				8D1AB31F27D9D0400024AD38 /* UIColor++.swift in Sources */,
+				8D1AB31E27D9D0370024AD38 /* RGB.swift in Sources */,
+				8D1AB31D27D9D0220024AD38 /* Rectangle.swift in Sources */,
+				8D1AB31C27D9D01B0024AD38 /* Point.swift in Sources */,
+				8D1AB31B27D9D0130024AD38 /* Size.swift in Sources */,
+				8D1AB31A27D9CFB50024AD38 /* Plane.swift in Sources */,
 				8D1AB31427D884550024AD38 /* DrawingAppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
