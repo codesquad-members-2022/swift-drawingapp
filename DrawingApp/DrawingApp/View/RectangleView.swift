@@ -8,7 +8,7 @@
 import UIKit
 
 class RectangleView: UIView {
-    var id :Id?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -17,22 +17,12 @@ class RectangleView: UIView {
         super.init(coder: coder)
     }
     
-    convenience init(from rectangle: Rectangle) {
-        self.init()
-        initialSetUp(rectangle: rectangle)
-    }
-    
-    func initialSetUp(rectangle: Rectangle) {
-        self.id = rectangle.id
-        let size = rectangle.size
-        let position = rectangle.position
-        let color = rectangle.backGroundColor
-        let alpha = rectangle.alpha
-        self.frame = CGRect(x: position.x , y: position.y, width: size.width, height: size.height)
+    convenience init(from rectangleFrame: CGRect, color: Color, alpha: Alpha) {
+        self.init(frame: rectangleFrame)
         setBackgroundColor(color: color)
-        self.alpha = alpha.transparency
+        setAlpha(alpha: alpha)
     }
-    
+
     func setAlpha(alpha: Alpha) {
         self.alpha = alpha.transparency
     }
