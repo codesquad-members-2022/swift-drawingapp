@@ -9,8 +9,8 @@ import Foundation
 import UIKit
 
 protocol PropertyChangeBoardDelegate {
-    func didUpdatedAlpha(alpha: Alpha)
-    func didTouchedColorButton()
+    func propertyChangeBoard(didChanged alpha: Alpha)
+    func propertyChangeBoardDidTouchedColorButton()
 }
 
 class PropertyChangeBoard : UIView {
@@ -62,7 +62,7 @@ class PropertyChangeBoard : UIView {
             self.colorChangeButton.leadingAnchor.constraint(equalTo: self.colorLabel.leadingAnchor).isActive = true
             self.colorChangeButton.trailingAnchor.constraint(equalTo: self.colorLabel.trailingAnchor).isActive = true
             
-            self.colorChangeButton.addTarget(self, action: #selector(self.touchButton), for: .touchUpInside)
+            self.colorChangeButton.addTarget(self, action: #selector(self.touchColorButton), for: .touchUpInside)
         }
         
         let layoutAlphaLabel = {
@@ -81,15 +81,15 @@ class PropertyChangeBoard : UIView {
            
             self.alphaChangeSlider.translatesAutoresizingMaskIntoConstraints = false
             
-            self.alphaChangeSlider.minimumValue = 1
-            self.alphaChangeSlider.maximumValue = 10
+            self.alphaChangeSlider.minimumValue = 0.1
+            self.alphaChangeSlider.maximumValue = 1
             
             self.alphaChangeSlider.topAnchor.constraint(equalTo: self.alphaLabel.bottomAnchor, constant: 10).isActive = true
             self.alphaChangeSlider.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.05).isActive = true
             self.alphaChangeSlider.leadingAnchor.constraint(equalTo: self.colorLabel.leadingAnchor).isActive = true
             self.alphaChangeSlider.trailingAnchor.constraint(equalTo: self.colorLabel.trailingAnchor).isActive = true
             
-            self.alphaChangeSlider.addTarget(self, action: #selector(self.moveSlider), for: .valueChanged)
+            self.alphaChangeSlider.addTarget(self, action: #selector(self.moveAlphaSlider), for: .valueChanged)
         }
         
         layoutColorLabel()
@@ -101,7 +101,7 @@ class PropertyChangeBoard : UIView {
     func setPropertyBoard(with rectangleView: RectangleView?) {
         self.selectedRectangleView = rectangleView
         guard let alpha = self.selectedRectangleView?.alpha else {return}
-        self.alphaChangeSlider.value = Float(Int(alpha * 10))
+        self.alphaChangeSlider.value = Float(alpha)
         updateColorButton()
     }
     
@@ -115,12 +115,12 @@ class PropertyChangeBoard : UIView {
         self.colorChangeButton.setTitle("\(String(format: "#%02X%02X%02x", red, green, blue))", for: .normal)
     }
     
-    @objc func moveSlider() {
-        guard let updatedAlpha = Alpha(transparency: Double(self.alphaChangeSlider.value/10)) else {return}
-        delegate?.didUpdatedAlpha(alpha: updatedAlpha)
+    @objc func moveAlphaSlider() {
+        guard let updatedAlpha = Alpha(transparency: Double(self.alphaChangeSlider.value)) else {return}
+        delegate?.propertyChangeBoard(didChanged: updatedAlpha)
     }
     
-    @objc func touchButton() {
-        delegate?.didTouchedColorButton()
+    @objc func touchColorButton() {
+        delegate?.propertyChangeBoardDidTouchedColorButton()
     }
 }
