@@ -3,7 +3,6 @@ import Foundation
 struct Plane:CustomStringConvertible{
     
     private var rectangles:[Rectangle.Id:Rectangle] = [:]
-    private var rectangleIndex:[Rectangle.Id] = []
     private(set) var selectedRectangleId: Rectangle.Id?
     var count: Int{
         return rectangles.count
@@ -26,7 +25,6 @@ struct Plane:CustomStringConvertible{
     
     mutating func addRectangle(_ rectangle: Rectangle){
         self.rectangles[rectangle.id] = rectangle
-        self.rectangleIndex.append(rectangle.id)
         if let delegate = self.delegate{
             delegate.addingRectangleCompleted(rectangle: rectangle)
         }
@@ -52,17 +50,9 @@ struct Plane:CustomStringConvertible{
         return nil
     }
     
-    subscript(index: Int = 0)-> Rectangle?{
-        
-        if(index < 0 || index >= self.rectangleIndex.count){
-            return nil
-        }
-        return self.rectangles[rectangleIndex[index]]
-    }
-    
     subscript(x: Double = 0, y: Double = 0)-> Rectangle?{
   
-        for id in rectangleIndex.reversed(){
+        for id in self.rectangles.keys{
             guard let rectangle = rectangles[id] else { continue }
             if(isRectangleInsideTheRange(x: x, y: y, rectangle: rectangle)){
                 return rectangle
