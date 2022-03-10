@@ -98,14 +98,14 @@ class ViewController: UIViewController{
     }
     
     @objc func updateSelectedRecntalgeViewColor(_ notification: Notification){
-        guard let rgb = notification.object as? [Double] else { return }
+        guard let newColor = notification.object as? Rectangle.Color else { return }
         guard let stylerView = self.stylerView else { return }
         guard let canvasView = self.canvasView else { return }
         
-        let newColor = UIColor(red: rgb[0], green: rgb[1], blue: rgb[2], alpha: 1)
-        let newHexString = "#\(String(Int(rgb[0]*255), radix: 16))\(String(Int(rgb[1]*255), radix: 16))\(String(Int(rgb[2]*255), radix: 16))"
-        stylerView.updateSelectedRectangleViewColorInfo(newColor: newColor, newHexString: newHexString)
-        canvasView.updateSelectedRectangleViewColor(newColor: newColor)
+        let newUIColor = UIColor(red: newColor.r, green: newColor.g, blue: newColor.b, alpha: 1)
+        let newHexString = "#\(String(Int(newColor.r*255), radix: 16))\(String(Int(newColor.g*255), radix: 16))\(String(Int(newColor.b*255), radix: 16))"
+        stylerView.updateSelectedRectangleViewColorInfo(newColor: newUIColor, newHexString: newHexString)
+        canvasView.updateSelectedRectangleViewColor(newColor: newUIColor)
     }
     
     @objc func updateSelectedRectangleViewAlpha(_ notification: Notification){
@@ -147,17 +147,8 @@ extension ViewController: CanvasViewDelegate{
 extension ViewController: StylerViewDelegate{
     
     func updatingSelectedRectangleColorRequested(){
-        let newColor = generateNewColor()
-        guard let components = newColor.cgColor.components else { return }
-        let rgb = components.map{Double($0)}
-        self.plane.updateRectangleColor(rgb: rgb)
-    }
-    
-    private func generateNewColor()-> UIColor{
-        return UIColor(red: CGFloat.random(in: 0...1),
-                       green: CGFloat.random(in: 0...1),
-                       blue: CGFloat.random(in: 0...1),
-                       alpha: 1)
+        let newColor = RectangleFactory.createRandomColor()
+        self.plane.updateRectangleColor(newColor: newColor)
     }
     
     func updatingSelectedRectangleAlphaRequested(opacity: Int){
