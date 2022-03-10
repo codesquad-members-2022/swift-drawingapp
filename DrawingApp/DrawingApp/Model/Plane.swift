@@ -27,11 +27,11 @@ struct Plane:CustomStringConvertible{
         self.notificationCenter.post(name: .rectangleAdded, object: rectangle, userInfo: nil)
     }
     
-    mutating func updateRectangleColor(rgb: [Double]){
+    mutating func updateRectangleColor(newColor: Rectangle.Color){
         guard let selectedRectangleId = self.selectedRectangleId else { return }
         guard let rectangle = self.rectangles[selectedRectangleId] else { return }
-        rectangle.backgroundColor = Rectangle.Color(r: rgb[0]*255, g: rgb[1]*255, b: rgb[2]*255)
-        self.notificationCenter.post(name: .rectangleColorUpdated, object: rgb)
+        rectangle.backgroundColor = newColor
+        self.notificationCenter.post(name: .rectangleColorUpdated, object: newColor)
     }
     
     mutating func updateRectangleAlpha(opacity: Int){

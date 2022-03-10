@@ -24,7 +24,7 @@ class RectangleFactory{
         return Rectangle.Size(width: Double.random(in: minWidth...maxWidth), height: Double.random(in: minHeight...maxHeight))
     }
     
-    private static func createRandomColor()-> Rectangle.Color{
+    static func createRandomColor()-> Rectangle.Color{
         return Rectangle.Color(r: Double.random(in: 0...255), g: Double.random(in: 0...255), b: Double.random(in: 0...255))
     }
     
