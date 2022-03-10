@@ -30,7 +30,7 @@ class RectangleFactory{
         return property.randomValue
     }
     
-    func makeRandomRectangle() -> Rectangle{
+    private func makeRandomRectangle() -> Rectangle{
         let r = randomValue(property: .rgbRange)
         let b = randomValue(property: .rgbRange)
         let g = randomValue(property: .rgbRange)
@@ -43,7 +43,7 @@ class RectangleFactory{
         return Rectangle(uniqueId: uniqueId, color: color, point: point, size: size, alpha: 1.0)
     }
     
-    func makeRandomColor() -> ColorRGB{
+    private func makeRandomColor() -> ColorRGB{
         let r = randomValue(property: .rgbRange)
         let b = randomValue(property: .rgbRange)
         let g = randomValue(property: .rgbRange)
