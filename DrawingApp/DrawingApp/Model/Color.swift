@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Color {
+struct Color {
     private let red: Int
     private let green: Int
     private let blue: Int
