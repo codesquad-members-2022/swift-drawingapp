@@ -56,13 +56,7 @@ class Plane {
     }
     
     func changeRandomColor() {
-        var randomColor : Color? {
-            var randomInt: Int {
-                Color.colorRange.randomElement() ?? 0
-            }
-            let randomColor = Color(red: randomInt, green: randomInt, blue: randomInt)
-            return randomColor
-        }
+        let randomColor = RandomGenerator.generateColor()
         guard let randomColor = randomColor else {return}
         self.selectedRectangle?.backGroundColor = randomColor
         delegate?.plane(didChanged: randomColor)
