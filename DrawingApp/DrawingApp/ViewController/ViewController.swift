@@ -16,11 +16,26 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        plane.delegate = self
     }
-    
     
     @IBAction func addRectangleButtonTouched(_ sender: Any) {
         plane.add(rectangle: factory.createRandomRectangle())
     }
+}
+
+extension ViewController: PlaneDelegate {
+    func addRectangle(_ rectangle: Rectangle) {
+        let rect = UIView(frame: CGRect(x: rectangle.position.x, y: rectangle.position.y, width: rectangle.size.width, height: rectangle.size.height))
+    
+        rect.backgroundColor = UIColor(red: CGFloat(rectangle.backgroundColor.red)/255, green: CGFloat(rectangle.backgroundColor.green)/255, blue: CGFloat(rectangle.backgroundColor.blue)/255, alpha: 1)
+        rect.alpha = Double(rectangle.alpha.rawValue) * 0.1
+        print(rect)
+        self.view.addSubview(rect)
+        
+    }
+    
+    
+    
 }
 
