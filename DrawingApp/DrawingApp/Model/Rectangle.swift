@@ -7,7 +7,11 @@
 
 import Foundation
 
-class Rectangle {
+class Rectangle: Equatable {
+    static func == (lhs: Rectangle, rhs: Rectangle) -> Bool {
+        return lhs === rhs
+    }
+    
     private(set) var id: Id
     private(set) var point: Point
     private(set) var size: Size
