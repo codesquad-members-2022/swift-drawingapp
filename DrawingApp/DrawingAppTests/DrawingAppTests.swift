@@ -11,33 +11,33 @@ import os
 
 class DrawingAppTests: XCTestCase {
     func testAddRectangle() throws {
-        var plane = Plane()
-        plane.addRectangle()
+        var plane = Plane(rectangleFactory: RectangleFactory())
+        plane.addRandomRectangle()
         XCTAssertEqual(plane.rectangleCount(), 1)
     }
     
     func testChangedColor(){
-        var plane = Plane()
-        plane.addRectangle()
-        let beforeColor = plane.selectedRectangleColor()
-        plane.changeColor()
-        let afterColor = plane.selectedRectangleColor()
+        var plane = Plane(rectangleFactory: RectangleFactory())
+        plane.addRandomRectangle()
+        let beforeColor = plane.selectedRectangle?.color
+        plane.changeRectangleRandomColor()
+        let afterColor = plane.selectedRectangle?.color
         XCTAssertTrue(afterColor != beforeColor)
     }
     
     func testChangedAlpha(){
-        var plane = Plane()
-        plane.addRectangle()
+        var plane = Plane(rectangleFactory: RectangleFactory())
+        plane.addRandomRectangle()
         
-        let beforeAlpha = plane.selectedRectangleAlpha()
+        let beforeAlpha = plane.selectedRectangle?.alpha
         XCTAssertTrue(beforeAlpha == 1.0)
         
         plane.minusAlpha()
-        let minusAlpha = plane.selectedRectangleAlpha()
+        let minusAlpha = plane.selectedRectangle?.alpha
         XCTAssertTrue(minusAlpha == 0.9)
         
         plane.plusAlpha()
-        let plusAlpha = plane.selectedRectangleAlpha()
+        let plusAlpha = plane.selectedRectangle?.alpha
         XCTAssertTrue(plusAlpha == 1.0)
     }
 }

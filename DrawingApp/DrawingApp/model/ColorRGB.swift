@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct ColorRGB{
+struct ColorRGB: Equatable{
     private(set) var r: Int{
         didSet{
             if 0 > r && r > 255{
