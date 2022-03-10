@@ -22,14 +22,14 @@ public struct Plane {
     func change(alpha:Alpha){
         guard let selectedRectangle = selectedRectangle else { return }
         selectedRectangle.alpha = alpha
-        delegate?.didChangeAlpha(selectedRectangle: selectedRectangle)
+        delegate?.didChangeAlpha(to: selectedRectangle)
     }
     
     //현재 선택한 rectangle 모델 Color를 바꾸고 ViewController에게 delegate로 알려줍니다.
     func change(color:RGB) {
         guard let selectedRectangle = selectedRectangle else { return }
         selectedRectangle.rgb = color
-        delegate?.didChangeColor(seletedRectangle: selectedRectangle)
+        delegate?.didChangeColor(to: selectedRectangle)
     }
     
     

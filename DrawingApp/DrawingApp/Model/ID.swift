@@ -11,9 +11,9 @@ struct ID:CustomStringConvertible,Hashable {
         "(\(firstName)-\(middleName)-\(lastName))"
     }
     
-    let firstName:String
-    let middleName:String
-    let lastName:String
+    private let firstName:String
+    private let middleName:String
+    private let lastName:String
     
     
     init(firstName:String, middleName:String, lastName:String) {

@@ -6,8 +6,8 @@
 //
 
 protocol PlaneDelegate {
-    func didChangeAlpha(selectedRectangle:Rectangle)
-    func didChangeColor(seletedRectangle:Rectangle)
+    func didChangeAlpha(to selectedRectangle:Rectangle)
+    func didChangeColor(to seletedRectangle:Rectangle)
     func didAddRectangle(rectangle:Rectangle)
     func didFindRectangle(rectrangle:Rectangle)
 }
