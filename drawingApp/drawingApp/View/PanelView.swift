@@ -8,8 +8,8 @@
 import Foundation
 import UIKit
 protocol PanelViewDelegate {
-    func didRondomizeColor()
-    func didChangeAlpha()
+    func didTabRondomizeColor()
+    func didTabChangeAlpha()
 }
 
 class PanelView : UIView {
@@ -17,9 +17,9 @@ class PanelView : UIView {
     private var colorRondomizeButton : UIButton!
     private var alphaStepper : UIStepper!
     
-    private var stepperLabel : UILabel!
+    private var alphaLabel : UILabel!
     private var colorTitleLabel : UILabel!
-    private var alphaTitleLabel : UILabel!
+    private var transparencyLabel : UILabel!
     
     var delegate : PanelViewDelegate?
     
@@ -39,12 +39,19 @@ class PanelView : UIView {
         loadSubViews()
     }
     
-  
+    func updateAlphaLable(newAlphaValue : String) {
+        self.alphaLabel.text = newAlphaValue
+    }
+    
+    func updateRomdomizeColorButton(newColor : String) {
+        self.colorRondomizeButton.setTitle(newColor, for: .normal)
+    }
+    
     
     private func loadSubViews() {
         addSubview(colorTitleLabel)
-        addSubview(alphaTitleLabel)
-        addSubview(stepperLabel)
+        addSubview(transparencyLabel)
+        addSubview(alphaLabel)
         addSubview(colorRondomizeButton)
         addSubview(alphaStepper)
     }
@@ -52,20 +59,20 @@ class PanelView : UIView {
     private func setupLables() {
         
         self.colorTitleLabel = UILabel()
-        self.alphaTitleLabel = UILabel()
-        self.stepperLabel = UILabel()
+        self.transparencyLabel = UILabel()
+        self.alphaLabel = UILabel()
         
         colorTitleLabel.textAlignment = .left
-        alphaTitleLabel.textAlignment = .left
-        stepperLabel.textAlignment = .center
+        transparencyLabel.textAlignment = .left
+        alphaLabel.textAlignment = .center
         
         colorTitleLabel.text = "배경색"
-        alphaTitleLabel.text = "투명도"
-        stepperLabel.text = "0"
+        transparencyLabel.text = "투명도"
+        alphaLabel.text = "0"
         
         colorTitleLabel.frame = CGRect(x: self.bounds.minX+20, y: self.bounds.minY+20, width: 160, height: 50)
-        alphaTitleLabel.frame = CGRect(x: self.bounds.minX+20, y: self.bounds.minY+150, width: 160, height: 50)
-        stepperLabel.frame = CGRect(x: self.bounds.minX, y: self.bounds.minY + 185.0, width: 160, height: 50)
+        transparencyLabel.frame = CGRect(x: self.bounds.minX+20, y: self.bounds.minY+150, width: 160, height: 50)
+        alphaLabel.frame = CGRect(x: self.bounds.minX, y: self.bounds.minY + 185.0, width: 160, height: 50)
     }
     
     private func setupButtons() {
@@ -91,10 +98,10 @@ class PanelView : UIView {
     
     
     @objc func didTabColorRondomizeButton() {
-        delegate?.didRondomizeColor()
+        delegate?.didTabRondomizeColor()
     }
     @objc func didTabAlphaStepper() {
-        delegate?.didChangeAlpha()
+        delegate?.didTabChangeAlpha()
     }
     
 }
