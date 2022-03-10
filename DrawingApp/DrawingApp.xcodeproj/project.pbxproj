@@ -15,7 +15,6 @@
 		1E541E8427CCBC98000C8B50 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E541E8227CCBC98000C8B50 /* LaunchScreen.storyboard */; };
 		1E80BDF427D23EEB004F77C1 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E80BDF327D23EEB004F77C1 /* Plane.swift */; };
 		1E80BDFA27D24ECA004F77C1 /* PlaneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E80BDF927D24ECA004F77C1 /* PlaneDelegate.swift */; };
-		1E80BDFC27D25C61004F77C1 /* RectangleAttributeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E80BDFB27D25C61004F77C1 /* RectangleAttributeFactory.swift */; };
 		1E80BE7C27D6F959004F77C1 /* PresentRectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E80BE7B27D6F959004F77C1 /* PresentRectangleView.swift */; };
 		1E80BE7E27D6F96F004F77C1 /* AddRectangleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E80BE7D27D6F96F004F77C1 /* AddRectangleButton.swift */; };
 		1E80BE8027D6F97B004F77C1 /* SideInspectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E80BE7F27D6F97B004F77C1 /* SideInspectorView.swift */; };
@@ -52,7 +51,6 @@
 		1E541E8527CCBC98000C8B50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E80BDF327D23EEB004F77C1 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		1E80BDF927D24ECA004F77C1 /* PlaneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneDelegate.swift; sourceTree = "<group>"; };
-		1E80BDFB27D25C61004F77C1 /* RectangleAttributeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleAttributeFactory.swift; sourceTree = "<group>"; };
 		1E80BE7B27D6F959004F77C1 /* PresentRectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentRectangleView.swift; sourceTree = "<group>"; };
 		1E80BE7D27D6F96F004F77C1 /* AddRectangleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRectangleButton.swift; sourceTree = "<group>"; };
 		1E80BE7F27D6F97B004F77C1 /* SideInspectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideInspectorView.swift; sourceTree = "<group>"; };
@@ -160,7 +158,6 @@
 		1E80BE5127D5FAD9004F77C1 /* Factory */ = {
 			isa = PBXGroup;
 			children = (
-				1E80BDFB27D25C61004F77C1 /* RectangleAttributeFactory.swift */,
 				1EE4CCE627CD0751005EA3D4 /* RandomRectangleFactory.swift */,
 			);
 			path = Factory;
@@ -296,7 +293,6 @@
 				1EE4CCE927CDDC96005EA3D4 /* Size.swift in Sources */,
 				1EE4CCE527CCFD44005EA3D4 /* Rectangle.swift in Sources */,
 				1E80BDF427D23EEB004F77C1 /* Plane.swift in Sources */,
-				1E80BDFC27D25C61004F77C1 /* RectangleAttributeFactory.swift in Sources */,
 				1E80BE8227D878BF004F77C1 /* RectangleView.swift in Sources */,
 				1E80BE7E27D6F96F004F77C1 /* AddRectangleButton.swift in Sources */,
 				1EE4CCEF27CDDCA5005EA3D4 /* Alpha.swift in Sources */,
