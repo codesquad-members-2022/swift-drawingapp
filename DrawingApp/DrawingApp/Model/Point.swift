@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Point {
+struct Point {
     private let x: Double
     private let y: Double
     
