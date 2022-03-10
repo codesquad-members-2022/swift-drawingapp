@@ -43,8 +43,8 @@ class Plane {
         viewModels.count
     }
     
-    subscript(index: Int) -> ViewModel {
-        return viewModels[index]
+    subscript(index: Int) -> ViewModel? {
+        return (0..<viewModels.count).contains(index) ? viewModels[index] : nil
     }
     
     func addRectangle() {
