@@ -82,7 +82,7 @@ class ViewController: UIViewController {
             self.drawingViews[model]?.selected(is: false)
         }
         
-        NotificationCenter.default.addObserver(forName: Plane.NotifiName.beganDrawingModelDrag, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: Plane.NotifiName.didBeganDrag, object: nil, queue: nil) { notification in
             guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
                   let selectView = self.drawingViews[model],
                   let snapshotView = selectView.snapshotView() else {
@@ -95,7 +95,7 @@ class ViewController: UIViewController {
             self.dummyView = snapshotView
         }
                 
-        NotificationCenter.default.addObserver(forName: Plane.NotifiName.changeDrawingModelDrag, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: Plane.NotifiName.didChangedDrag, object: nil, queue: nil) { notification in
             guard let point = notification.userInfo?[Plane.ParamKey.dragPoint] as? Point,
                   let dummyView = self.dummyView else {
                 return
@@ -107,7 +107,7 @@ class ViewController: UIViewController {
             dummyView.frame.origin = CGPoint(x: centerX, y: centerY)
         }
         
-        NotificationCenter.default.addObserver(forName: Plane.NotifiName.endedDrawingModelDrag, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: Plane.NotifiName.didEndedDrag, object: nil, queue: nil) { notification in
             self.dummyView?.removeFromSuperview()
             self.dummyView = nil
         }
@@ -182,11 +182,11 @@ extension ViewController: PlaneDelegate {
 }
 
 extension ViewController: InspectorDelegate {    
-    func changeColorButtonTapped() {
+    func colorChanged() {
         self.plane.colorChanged()
     }
     
-    func alphaSliderValueChanged(alpha: Alpha) {
+    func alphaChanged(_ alpha: Alpha) {
         self.plane.alphaChanged(alpha)
     }
 }
