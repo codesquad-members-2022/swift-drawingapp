@@ -15,11 +15,12 @@
 		1E541E8427CCBC98000C8B50 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E541E8227CCBC98000C8B50 /* LaunchScreen.storyboard */; };
 		1E80BDF427D23EEB004F77C1 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E80BDF327D23EEB004F77C1 /* Plane.swift */; };
 		1E80BDFA27D24ECA004F77C1 /* PlaneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E80BDF927D24ECA004F77C1 /* PlaneDelegate.swift */; };
-		1E80BDFC27D25C61004F77C1 /* RectangleViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E80BDFB27D25C61004F77C1 /* RectangleViewFactory.swift */; };
+		1E80BDFC27D25C61004F77C1 /* RectangleAttributeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E80BDFB27D25C61004F77C1 /* RectangleAttributeFactory.swift */; };
 		1E80BE7C27D6F959004F77C1 /* PresentRectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E80BE7B27D6F959004F77C1 /* PresentRectangleView.swift */; };
 		1E80BE7E27D6F96F004F77C1 /* AddRectangleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E80BE7D27D6F96F004F77C1 /* AddRectangleButton.swift */; };
 		1E80BE8027D6F97B004F77C1 /* SideInspectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E80BE7F27D6F97B004F77C1 /* SideInspectorView.swift */; };
 		1E80BE8227D878BF004F77C1 /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E80BE8127D878BF004F77C1 /* RectangleView.swift */; };
+		1E80BE9127D89A95004F77C1 /* PlaneTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E80BE9027D89A95004F77C1 /* PlaneTests.swift */; };
 		1EE4CCE527CCFD44005EA3D4 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCE427CCFD44005EA3D4 /* Rectangle.swift */; };
 		1EE4CCE727CD0751005EA3D4 /* RandomRectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCE627CD0751005EA3D4 /* RandomRectangleFactory.swift */; };
 		1EE4CCE927CDDC96005EA3D4 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCE827CDDC96005EA3D4 /* Size.swift */; };
@@ -29,6 +30,16 @@
 		1EE4CCFB27CE5174005EA3D4 /* Shapable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCFA27CE5174005EA3D4 /* Shapable.swift */; };
 		1EE4CCFD27CF0282005EA3D4 /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCFC27CF0282005EA3D4 /* Identifier.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		1E80BE8B27D89A42004F77C1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 1E541E6C27CCBC97000C8B50 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 1E541E7327CCBC97000C8B50;
+			remoteInfo = DrawingApp;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1E541E7427CCBC97000C8B50 /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -41,11 +52,13 @@
 		1E541E8527CCBC98000C8B50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E80BDF327D23EEB004F77C1 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		1E80BDF927D24ECA004F77C1 /* PlaneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneDelegate.swift; sourceTree = "<group>"; };
-		1E80BDFB27D25C61004F77C1 /* RectangleViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleViewFactory.swift; sourceTree = "<group>"; };
+		1E80BDFB27D25C61004F77C1 /* RectangleAttributeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleAttributeFactory.swift; sourceTree = "<group>"; };
 		1E80BE7B27D6F959004F77C1 /* PresentRectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentRectangleView.swift; sourceTree = "<group>"; };
 		1E80BE7D27D6F96F004F77C1 /* AddRectangleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRectangleButton.swift; sourceTree = "<group>"; };
 		1E80BE7F27D6F97B004F77C1 /* SideInspectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideInspectorView.swift; sourceTree = "<group>"; };
 		1E80BE8127D878BF004F77C1 /* RectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
+		1E80BE8727D89A41004F77C1 /* DrawingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1E80BE9027D89A95004F77C1 /* PlaneTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneTests.swift; sourceTree = "<group>"; };
 		1EE4CCE427CCFD44005EA3D4 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 		1EE4CCE627CD0751005EA3D4 /* RandomRectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomRectangleFactory.swift; sourceTree = "<group>"; };
 		1EE4CCE827CDDC96005EA3D4 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
@@ -64,6 +77,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1E80BE8427D89A41004F77C1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -71,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				1E541E7627CCBC97000C8B50 /* DrawingApp */,
+				1E80BE8827D89A41004F77C1 /* DrawingAppTests */,
 				1E541E7527CCBC97000C8B50 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -79,6 +100,7 @@
 			isa = PBXGroup;
 			children = (
 				1E541E7427CCBC97000C8B50 /* DrawingApp.app */,
+				1E80BE8727D89A41004F77C1 /* DrawingAppTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -138,7 +160,7 @@
 		1E80BE5127D5FAD9004F77C1 /* Factory */ = {
 			isa = PBXGroup;
 			children = (
-				1E80BDFB27D25C61004F77C1 /* RectangleViewFactory.swift */,
+				1E80BDFB27D25C61004F77C1 /* RectangleAttributeFactory.swift */,
 				1EE4CCE627CD0751005EA3D4 /* RandomRectangleFactory.swift */,
 			);
 			path = Factory;
@@ -150,6 +172,14 @@
 				1E80BDF927D24ECA004F77C1 /* PlaneDelegate.swift */,
 			);
 			name = Delegate;
+			sourceTree = "<group>";
+		};
+		1E80BE8827D89A41004F77C1 /* DrawingAppTests */ = {
+			isa = PBXGroup;
+			children = (
+				1E80BE9027D89A95004F77C1 /* PlaneTests.swift */,
+			);
+			path = DrawingAppTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -172,6 +202,24 @@
 			productReference = 1E541E7427CCBC97000C8B50 /* DrawingApp.app */;
 			productType = "com.apple.product-type.application";
 		};
+		1E80BE8627D89A41004F77C1 /* DrawingAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1E80BE8D27D89A42004F77C1 /* Build configuration list for PBXNativeTarget "DrawingAppTests" */;
+			buildPhases = (
+				1E80BE8327D89A41004F77C1 /* Sources */,
+				1E80BE8427D89A41004F77C1 /* Frameworks */,
+				1E80BE8527D89A41004F77C1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1E80BE8C27D89A42004F77C1 /* PBXTargetDependency */,
+			);
+			name = DrawingAppTests;
+			productName = DrawingAppTests;
+			productReference = 1E80BE8727D89A41004F77C1 /* DrawingAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -184,6 +232,10 @@
 				TargetAttributes = {
 					1E541E7327CCBC97000C8B50 = {
 						CreatedOnToolsVersion = 13.2.1;
+					};
+					1E80BE8627D89A41004F77C1 = {
+						CreatedOnToolsVersion = 13.2.1;
+						TestTargetID = 1E541E7327CCBC97000C8B50;
 					};
 				};
 			};
@@ -201,6 +253,7 @@
 			projectRoot = "";
 			targets = (
 				1E541E7327CCBC97000C8B50 /* DrawingApp */,
+				1E80BE8627D89A41004F77C1 /* DrawingAppTests */,
 			);
 		};
 /* End PBXProject section */
@@ -213,6 +266,13 @@
 				1E541E8427CCBC98000C8B50 /* LaunchScreen.storyboard in Resources */,
 				1E541E8127CCBC98000C8B50 /* Assets.xcassets in Resources */,
 				1E541E7F27CCBC97000C8B50 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		1E80BE8527D89A41004F77C1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -236,7 +296,7 @@
 				1EE4CCE927CDDC96005EA3D4 /* Size.swift in Sources */,
 				1EE4CCE527CCFD44005EA3D4 /* Rectangle.swift in Sources */,
 				1E80BDF427D23EEB004F77C1 /* Plane.swift in Sources */,
-				1E80BDFC27D25C61004F77C1 /* RectangleViewFactory.swift in Sources */,
+				1E80BDFC27D25C61004F77C1 /* RectangleAttributeFactory.swift in Sources */,
 				1E80BE8227D878BF004F77C1 /* RectangleView.swift in Sources */,
 				1E80BE7E27D6F96F004F77C1 /* AddRectangleButton.swift in Sources */,
 				1EE4CCEF27CDDCA5005EA3D4 /* Alpha.swift in Sources */,
@@ -244,7 +304,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		1E80BE8327D89A41004F77C1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E80BE9127D89A95004F77C1 /* PlaneTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		1E80BE8C27D89A42004F77C1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1E541E7327CCBC97000C8B50 /* DrawingApp */;
+			targetProxy = 1E80BE8B27D89A42004F77C1 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		1E541E7D27CCBC97000C8B50 /* Main.storyboard */ = {
@@ -440,6 +516,42 @@
 			};
 			name = Release;
 		};
+		1E80BE8E27D89A42004F77C1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MPN6WL3W3U;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sanghyeok.test.DrawingAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DrawingApp.app/DrawingApp";
+			};
+			name = Debug;
+		};
+		1E80BE8F27D89A42004F77C1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = MPN6WL3W3U;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.sanghyeok.test.DrawingAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/DrawingApp.app/DrawingApp";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -457,6 +569,15 @@
 			buildConfigurations = (
 				1E541E8927CCBC98000C8B50 /* Debug */,
 				1E541E8A27CCBC98000C8B50 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1E80BE8D27D89A42004F77C1 /* Build configuration list for PBXNativeTarget "DrawingAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1E80BE8E27D89A42004F77C1 /* Debug */,
+				1E80BE8F27D89A42004F77C1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
