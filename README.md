@@ -168,12 +168,12 @@ View의 alpha값은 기본값으로 1.0을 가지고있고 View안에 subView되
 - 원하던 View의 값이 바뀌거나 다시 초기화되는 문제가 생겼다.
 `뷰 컨트롤러가 만들어지는 시점, AppDelegate 콜백 메소드 시점, viewDidLoad같은 콜백 메소드 호출 시점`을 확인하기 위해 간단하게 print문을 찍어 보았다.
 ![스크린샷 2022-03-09 오후 5 00 04](https://user-images.githubusercontent.com/80263729/157397924-6cedc5ad-a0a1-42a8-80af-e12545cb3c07.png)
-![스크린샷 2022-03-08 오전 11 27 43](https://user-images.githubusercontent.com/80263729/157393672-57cb7906-89df-406b-8d99-c571d527904f.png)
+![스크린샷 2022-03-08 오전 11 27 43](https://user-images.githubusercontent.com/80263729/157393672-57cb7906-89df-406b-8d99-c571d527904f.png)  
 위 log과 사진을 종합해보았을떄 순서는 Appdelegate -> ViewController(init) -> SceneDelegate -> 
 LoadView -> ViewDidLoad 라고 생각이되며 ViewController가 만들어지는 시점과 View가 그려지는 시점이 다르다는 것을 
 알 수 있었다.
 아직까지 모든 구체적인 사례는 잘 모르겠지만,  init과 loadView사이에 하나의 단계가 더있고, init할때 넣어준 값을  viewDidLoad에서 바꾼다면 결국 ViewDidLoad에서 바뀐것만 적용이 되기 때문에 init후에 다시 값을 바꾸고 싶다면 ViewDidLoad에 혹은 여러 View가 있을경우 ViewWillAppear에 로직을 적용하는게 맞다는 생각이 들었다.
-	- 마스터님의 코멘트
+	- 마스터님의 코멘트  
 ViewDidLoad까지는 뷰 컨트롤러가 만들어질때 한번만 호출된다.
 하지만 ViewWillAppear이후로는 여러번 불릴 수 있다.
 그렇기 때문에 ViewDidLoad를 마지막 시점으로 사용되는 것이다.
