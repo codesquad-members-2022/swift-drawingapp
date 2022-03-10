@@ -16,11 +16,13 @@ class ViewController: UIViewController {
     var rectangleViews = [Rectangle : UIView]()
     
     @IBOutlet var canvasView: CanvasView!
+    @IBOutlet var controllerView: ControllerView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         plane.delegate = self
         canvasView.delgate = self
+        controllerView.delegate = self
     }
 
 }
@@ -66,7 +68,10 @@ extension ViewController: PlaneDelegate {
         
     }
     
-    
-    
 }
 
+extension ViewController: ControllerViewDelegate {
+    func touchedBackgroundButton() {
+        selectedRectangleView?.backgroundColor = Convertor.convertColor(from: Color.randomColor())
+    }
+}
