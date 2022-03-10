@@ -16,14 +16,13 @@
 
 ## 고민과 해결
 
-문제.1
+- 모델 업데이트 후 View 에 반영하기 위해 Rectangle 모델 정보만을 가지고 해당하는 RectangleView 를 어떻게 찾아야할지 방법을 찾아야했습니다.
 
-- 모델 정보를 가지고 있을 때 해당 view 를 어떻게 찾나?
+  - ViewController 에 `var rectangleMap: [Rectangle: RectangleView]` 를 추가해 모델과 View 의 참조를 매핑했습니다.
 
-문제.2
+- 딕셔너리의 키값으로 클래스 인스턴스를 저장하는 과정에서 Hashable 프로토콜을 학습했습니다.
 
-- 클래스를 맵의 키로 저장
+  - 유니크한 hash 값을 얻기 위해 `ObjectIdentifier` 로 얻은 메모리 주소값을 사용했습니다.
 
-## 추가 학습거리
-
-- post(name:object:userInfo:) object 와 userInfo
+- 몇 가지 View 와 Model 만으로도 ViewController 의 코드량이 점점 많아지고 있는 것 같습니다.
+  - Container View Controller 를 사용해 하위 ViewController 를 포함시켜 각 ViewController 가 담당하는 역할을 세분화시켜야할 것 같다는 생각이 들었습니다.
