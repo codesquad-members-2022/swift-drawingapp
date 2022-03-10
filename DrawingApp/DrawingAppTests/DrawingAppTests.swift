@@ -34,4 +34,11 @@ class DrawingAppTests: XCTestCase {
         sut2.addRectangle(rectangle)
         XCTAssertEqual(sut2.rectangleCount, 1)
     }
+    
+    
+    func testPlaneSubscript() {
+        let rectangle = sut.createRectangle()
+        sut2.addRectangle(rectangle)
+        XCTAssertEqual(rectangle, sut2[0])
+    }
 }
