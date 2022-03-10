@@ -55,7 +55,9 @@ class DrawingModel: CustomStringConvertible, Equatable, Hashable {
     }
     
     func update(origin: Point) {
-        self.origin = Point(x: origin.x - size.width / 2, y: origin.y - size.height / 2)
+        let centerX = origin.x - size.width / 2
+        let centerY = origin.y - size.height / 2
+        self.origin = Point(x: centerX, y: centerY)
         let userInfo: [AnyHashable : Any] = [ParamKey.point:self.origin]
         NotificationCenter.default.post(name: NotifiName.updatePoint, object: self, userInfo: userInfo)
     }
