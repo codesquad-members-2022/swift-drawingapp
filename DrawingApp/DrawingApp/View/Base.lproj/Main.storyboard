@@ -154,20 +154,11 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="260" height="32"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="위치" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WJu-lp-66C">
-                                                        <rect key="frame" x="0.0" y="4.5" width="121.5" height="23"/>
+                                                        <rect key="frame" x="0.0" y="4.5" width="260" height="23"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="비율 고정" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gO8-J7-Fbg">
-                                                        <rect key="frame" x="134.5" y="6" width="63.5" height="20.5"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="H8p-0L-Xwb">
-                                                        <rect key="frame" x="211" y="0.5" width="51" height="31"/>
-                                                    </switch>
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="52" translatesAutoresizingMaskIntoConstraints="NO" id="aOt-hK-cfx">
@@ -179,14 +170,17 @@
                                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zYy-U1-iTh">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zYy-U1-iTh">
                                                         <rect key="frame" x="63.5" y="5.5" width="50.5" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="100" stepValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="vbE-dE-nQx">
+                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="500" stepValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="vbE-dE-nQx">
                                                         <rect key="frame" x="166" y="0.0" width="94" height="31.5"/>
+                                                        <connections>
+                                                            <action selector="originChanged:" destination="LiX-43-8CF" eventType="valueChanged" id="nPI-ni-zeb"/>
+                                                        </connections>
                                                     </stepper>
                                                 </subviews>
                                             </stackView>
@@ -199,14 +193,17 @@
                                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r2b-kM-hjo">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r2b-kM-hjo">
                                                         <rect key="frame" x="63" y="6" width="51" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="100" stepValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="JGL-nx-eUQ">
+                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="500" stepValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="JGL-nx-eUQ">
                                                         <rect key="frame" x="166" y="0.0" width="94" height="32"/>
+                                                        <connections>
+                                                            <action selector="originChanged:" destination="LiX-43-8CF" eventType="valueChanged" id="S7n-cR-hnn"/>
+                                                        </connections>
                                                     </stepper>
                                                 </subviews>
                                             </stackView>
@@ -244,14 +241,17 @@
                                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cui-9b-0N1">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cui-9b-0N1">
                                                         <rect key="frame" x="65.5" y="5.5" width="51.5" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="100" stepValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="DQI-ty-EwO">
+                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="300" stepValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="DQI-ty-EwO">
                                                         <rect key="frame" x="166" y="0.0" width="94" height="31.5"/>
+                                                        <connections>
+                                                            <action selector="sizeChanged:" destination="LiX-43-8CF" eventType="valueChanged" id="qQG-aA-ZNw"/>
+                                                        </connections>
                                                     </stepper>
                                                 </subviews>
                                             </stackView>
@@ -264,14 +264,17 @@
                                                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ubJ-QB-EFN">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="249" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ubJ-QB-EFN">
                                                         <rect key="frame" x="63.5" y="5.5" width="51.5" height="20.5"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="100" stepValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="4ie-rP-488">
+                                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="300" stepValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="4ie-rP-488">
                                                         <rect key="frame" x="166" y="0.0" width="94" height="31.5"/>
+                                                        <connections>
+                                                            <action selector="sizeChanged:" destination="LiX-43-8CF" eventType="valueChanged" id="B7r-DJ-PTc"/>
+                                                        </connections>
                                                     </stepper>
                                                 </subviews>
                                             </stackView>
@@ -295,6 +298,15 @@
                         <outlet property="AlphaLabel" destination="bNT-Oi-sID" id="GlV-dA-2lT"/>
                         <outlet property="alphaSlider" destination="2IS-Tl-qfB" id="237-Da-Hwo"/>
                         <outlet property="colorButton" destination="9ja-qU-gTV" id="XNw-vc-0eh"/>
+                        <outlet property="heightLabel" destination="ubJ-QB-EFN" id="o0W-xV-kF8"/>
+                        <outlet property="heightStpper" destination="4ie-rP-488" id="ip0-Ly-nRZ"/>
+                        <outlet property="isSizeFixedRatio" destination="2Qc-zv-VS2" id="y9n-fM-50p"/>
+                        <outlet property="widthLabel" destination="cui-9b-0N1" id="31D-rP-gB1"/>
+                        <outlet property="widthStepper" destination="DQI-ty-EwO" id="KxO-PF-EiG"/>
+                        <outlet property="xOriginLabel" destination="zYy-U1-iTh" id="IOn-fm-cCw"/>
+                        <outlet property="xOriginStepper" destination="vbE-dE-nQx" id="ES9-3b-jE7"/>
+                        <outlet property="yOriginLabel" destination="r2b-kM-hjo" id="HfL-vM-wAG"/>
+                        <outlet property="yOriginStepper" destination="JGL-nx-eUQ" id="4Qr-yg-cit"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nTJ-o3-kbP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

@@ -13,13 +13,43 @@ class PanelViewController: UIViewController {
     @IBOutlet weak var AlphaLabel: UILabel!
     @IBOutlet weak var alphaSlider: UISlider!
     
+    @IBOutlet weak var xOriginLabel: UILabel!
+    @IBOutlet weak var yOriginLabel: UILabel!
+    
+    @IBOutlet weak var widthLabel: UILabel!
+    @IBOutlet weak var heightLabel: UILabel!
+    @IBOutlet weak var isSizeFixedRatio: UISwitch!
+    
+    @IBOutlet weak var yOriginStepper: UIStepper!
+    @IBOutlet weak var xOriginStepper: UIStepper!
+    
+    @IBOutlet weak var widthStepper: UIStepper!
+    @IBOutlet weak var heightStpper: UIStepper!
+    
+    @IBAction func originChanged(_ sender: UIStepper) {
+        // Canvas로 changed 전송
+        let newOrigin = Point(x: xOriginStepper.value, y: yOriginStepper.value)
+        NotificationCenter.default.post(name: PanelViewController.event.originStepperChanged, object: self, userInfo: [PanelViewController.InfoKey.newOrigin: newOrigin])
+    }
+    
+    @IBAction func sizeChanged(_ sender: UIStepper) {
+        // Canvas로 changed 전송
+        let newSize = Size(width: widthStepper.value, height: heightStpper.value)
+        NotificationCenter.default.post(name: PanelViewController.event.sizeStpperChanged, object: self, userInfo: [PanelViewController.InfoKey.newSize: newSize])
+    }
+    
     enum event {
         static let sliderChanged = Notification.Name("sliderChanged")
         static let colorButtonPressed = Notification.Name("colorButtonPressed")
+        static let originStepperChanged = Notification.Name("originStepperChanged")
+        static let sizeStpperChanged = Notification.Name("sizeStpperChanged")
+        
     }
     
     enum InfoKey {
         static let sliderValue = "value"
+        static let newOrigin = "origin"
+        static let newSize = "size"
     }
     
     override func viewDidLoad() {
