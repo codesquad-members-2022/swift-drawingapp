@@ -9,6 +9,7 @@ import Foundation
 
 protocol PlaneDelegate {
     func addRectangle(_ rectangle: Rectangle)
+    func selectedRectangle(_ rectangle: Rectangle)
 }
 
 
@@ -30,14 +31,16 @@ struct Plane{
         delegate?.addRectangle(rectangle)
     }
     
-    func isExistRectangle(_ point: Point) -> Bool{
-        
+    func isExistRectangle(_ point: Point) -> Rectangle?{
+     
         for rect in rectangles {
-            if (rect.leftTopPoint.x >= point.x && rect.leftTopPoint.y >= point.y) && (rect.rightBottomPoint.x <= point.x && rect.rightBottomPoint.y <= point.y) {
-                return true
+            if (rect.leftTopPoint.x <= point.x && rect.leftTopPoint.y <= point.y) && (rect.rightBottomPoint.x >= point.x && rect.rightBottomPoint.y >= point.y) {
+                return rect
                 }
             }
-        return false
+        return nil
     }
+    
+
     
 }
