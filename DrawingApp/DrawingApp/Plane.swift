@@ -1,5 +1,6 @@
 import Foundation
-//보낼 메시지를 정의 - 1
+//보낼 메시지를 정의
+//3번 전의 준비 과정 - 1
 protocol PlaneDelegate {
     // 매개 변수에서 왜 사각형을 보내야 할까요? -> 사각형을 만들었다는 사실을 알리기 위해
     func didMakeRectangle(rectangle: Rectangle)
@@ -8,7 +9,8 @@ protocol PlaneDelegate {
 class Plane {
     private var rectangleArray: [Rectangle] = []
     
-    // 델리게이트 등록 - 2
+    // 델리게이트 등록 - 3번 전의 준비과정 - 2
+    // 추후에 이 델리게이트를 "자기"라고 self로 지정하는 녀석이 나타날 때 사용할 속성
     var delegate :PlaneDelegate?
     
     var rectangleCount: Int {
@@ -22,11 +24,12 @@ class Plane {
         return bounds
     }
     
-    // 나 사각형 만들었어라는 메시지(옵저버 or 델리게이트)
+    // 나 사각형 만들었어라는 메시지(옵저버 or 델리게이트)(2번 이후에 모델이 일처리를 하는 메서드)
     func addRectangle() {
         let rectangle: Rectangle = Factory.createRandomRectangle()
         rectangleArray.append(rectangle)
         
+        //3번 전의 준비 과정 - 3
         delegate?.didMakeRectangle(rectangle: rectangle)
     }
     
