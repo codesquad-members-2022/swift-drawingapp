@@ -15,6 +15,14 @@ struct Point: Equatable {
         self.x = x
         self.y = y
     }
+    
+    static func random(in frame: (width: Double, height: Double)) -> Point {
+        let maxXPoint = frame.width
+        let maxYPoint = frame.height
+        
+        return Point(x: Double.random(in: 0...maxXPoint),
+                     y: Double.random(in: 0...maxYPoint))
+    }
 }
 
 extension Point: CustomStringConvertible {

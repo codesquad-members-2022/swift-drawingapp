@@ -23,6 +23,11 @@ struct Alpha: Equatable {
     static func == (lhs: Alpha, rhs: Alpha) -> Bool {
         lhs.opacityLevel.rawValue == rhs.opacityLevel.rawValue
     }
+    
+    static func random() -> Alpha {
+        let randomOpacityLevel = Alpha.OpacityLevel.allCases.randomElement() ?? Alpha.OpacityLevel.ten
+        return Alpha(opacityLevel: randomOpacityLevel)
+    }
 }
 
 extension Alpha: CustomStringConvertible {
