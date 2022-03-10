@@ -27,6 +27,8 @@ class ViewController: UIViewController{
         self.notificationCenter.addObserver(self, selector: #selector(rectangleFoundFromPlane(_:)), name: .rectangleFoundFromPlane, object: nil)
         self.notificationCenter.addObserver(self, selector: #selector(rectangleNotFoundFromPlane), name: .rectangleNotFoundFromPlane, object: nil)
         self.notificationCenter.addObserver(self, selector: #selector(addingRectangleCompleted(_:)), name: .rectangleAdded, object: nil)
+        self.notificationCenter.addObserver(self, selector: #selector(updateSelectedRecntalgeViewColor(_:)), name: .rectangleColorUpdated , object: nil)
+        self.notificationCenter.addObserver(self, selector: #selector(updateSelectedRectangleViewAlpha(_:)), name: .rectangleAlphaUpdated, object: nil)
     }
     
     private func setGestureRecognizer(){
@@ -61,16 +63,6 @@ class ViewController: UIViewController{
         self.view.addSubview(stylerView)
     }
     
-    private func updateViewWithSelectedRectangleModel(rectangle: Rectangle){
-        guard let stylerView = self.stylerView else { return }
-        let r = rectangle.backgroundColor.r
-        let g = rectangle.backgroundColor.g
-        let b = rectangle.backgroundColor.b
-        let opacity = rectangle.alpha.opacity
-        stylerView.updateRectangleInfo(r: r, g: g, b: b, opacity: opacity)
-    }
-    
-    
     @objc func addingRectangleCompleted(_ notification: Notification) {
         guard let rectangle = notification.object as? Rectangle else { return }
         guard let canvasView = self.canvasView else { return }
@@ -83,9 +75,44 @@ class ViewController: UIViewController{
         self.updateViewWithSelectedRectangleModel(rectangle: rectangle)
     }
     
+    private func updateViewWithSelectedRectangleModel(rectangle: Rectangle){
+        guard let stylerView = self.stylerView else { return }
+        guard let canvasView = self.canvasView else { return }
+        guard let rectangleView = self.currentlyTouchedView else { return }
+
+        let r = rectangle.backgroundColor.r
+        let g = rectangle.backgroundColor.g
+        let b = rectangle.backgroundColor.b
+        let opacity = rectangle.alpha.opacity
+        let hexString = "#\(String(Int(r*255), radix: 16))\(String(Int(g*255), radix: 16))\(String(Int(b*255), radix: 16))"
+        stylerView.updateRectangleInfo(r: r, g: g, b: b, opacity: opacity, hexString: hexString)
+        canvasView.updateSelectedRectangleView(subView: rectangleView)
+        
+    }
+    
     @objc func rectangleNotFoundFromPlane(){
         guard let stylerView = self.stylerView else { return }
+        guard let canvasView = self.canvasView else { return }
         stylerView.clearSelectedRectangleInfo()
+        canvasView.clearRectangleViewSelection()
+    }
+    
+    @objc func updateSelectedRecntalgeViewColor(_ notification: Notification){
+        guard let rgb = notification.object as? [Double] else { return }
+        guard let stylerView = self.stylerView else { return }
+        guard let canvasView = self.canvasView else { return }
+        
+        let newColor = UIColor(red: rgb[0], green: rgb[1], blue: rgb[2], alpha: 1)
+        let newHexString = "#\(String(Int(rgb[0]*255), radix: 16))\(String(Int(rgb[1]*255), radix: 16))\(String(Int(rgb[2]*255), radix: 16))"
+        stylerView.updateSelectedRectangleViewColorInfo(newColor: newColor, newHexString: newHexString)
+        canvasView.updateSelectedRectangleViewColor(newColor: newColor)
+    }
+    
+    @objc func updateSelectedRectangleViewAlpha(_ notification: Notification){
+        guard let opacity = notification.object as? Int else { return }
+        guard let canvasView = self.canvasView else { return }
+        
+        canvasView.updateSelectedRectangleOpacity(opacity: opacity)
     }
 
 }
@@ -114,40 +141,16 @@ extension ViewController: CanvasViewDelegate{
                                                           maxHeight: 180)
         plane.addRectangle(rectangle)
     }
-    
-    func updatingSelectedRectangleViewAlphaCompleted(opacity: Int) {
-        var opacity = opacity
-        guard let selectedRectangleId = plane.selectedRectangleId else { return }
-        guard let rectangle = plane[selectedRectangleId] else { return }
-        if(opacity == 10){
-            opacity = opacity - 1
-        }
-        rectangle.alpha = Rectangle.Alpha.allCases[opacity]
-    }
-    
-    func updatingSelectedRectangleViewColorCompleted(newColor: UIColor) {
-        guard let selectedRectangleId = plane.selectedRectangleId else { return }
-        guard let rectangle = plane[selectedRectangleId] else { return }
-        guard let components = newColor.cgColor.components else { return }
-        let rgb = components.map{Double($0)}
-        rectangle.backgroundColor = Rectangle.Color(r: rgb[0]*255, g: rgb[1]*255, b: rgb[2]*255)
-    }
+
 }
 
 extension ViewController: StylerViewDelegate{
     
-    func updatingRectangleInfoCompleted() {
-        guard let canvasView = self.canvasView else { return }
-        guard let rectangleView = self.currentlyTouchedView else { return }
-        canvasView.updateSelectedRectangleView(subView: rectangleView)
-    }
-    
-    func updatingSelectedRecntagleViewColorRequested(){
-        guard let stylerView = self.stylerView else { return }
+    func updatingSelectedRectangleColorRequested(){
         let newColor = generateNewColor()
-        guard let rgb = newColor.cgColor.components else { return }
-        let newHexString = "#\(String(Int(rgb[0]*255), radix: 16))\(String(Int(rgb[1]*255), radix: 16))\(String(Int(rgb[2]*255), radix: 16))"
-        stylerView.updateSelectedRectangleViewColorInfo(newColor: newColor, newHexString: newHexString)
+        guard let components = newColor.cgColor.components else { return }
+        let rgb = components.map{Double($0)}
+        self.plane.updateRectangleColor(rgb: rgb)
     }
     
     private func generateNewColor()-> UIColor{
@@ -157,19 +160,8 @@ extension ViewController: StylerViewDelegate{
                        alpha: 1)
     }
     
-    func updatingSelectedRectangleViewColorInfoCompleted(newColor: UIColor) {
-        guard let canvasView = self.canvasView else { return }
-        canvasView.changeSelectedRectangleViewColor(newColor: newColor)
-    }
-    
-    func updatingSelectedRectangleViewAlphaRequested(opacity: Int){
-        guard let canvasView = self.canvasView else { return }
-        canvasView.updateSelectedRectangleOpacity(opacity: opacity)
-    }
-
-    func clearingSelectedRectangleInfoCompleted() {
-        guard let canvasView = self.canvasView else { return }
-        canvasView.clearRectangleViewSelection()
+    func updatingSelectedRectangleAlphaRequested(opacity: Int){
+        self.plane.updateRectangleAlpha(opacity: opacity)
     }
 
 }
@@ -179,4 +171,6 @@ extension Notification.Name{
     static let rectangleAdded = Notification.Name("rectangleAdded")
     static let rectangleFoundFromPlane = Notification.Name("rectangleFoundFromPlane")
     static let rectangleNotFoundFromPlane = Notification.Name("rectangleNotFoundFromPlane")
+    static let rectangleColorUpdated = Notification.Name("rectangleColorUpdated")
+    static let rectangleAlphaUpdated = Notification.Name("rectangleAlphaUpdated")
 }
