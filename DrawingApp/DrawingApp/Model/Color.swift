@@ -11,7 +11,6 @@ class Color {
     private let red: Int
     private let green: Int
     private let blue: Int
-    private(set) var hexValue: String
     
     init(red: Int, green: Int, blue: Int) {
         let minValue = 0
@@ -20,7 +19,9 @@ class Color {
         self.red = red < minValue ? minValue : (red > maxValue ? maxValue : red)
         self.green = green < minValue ? minValue : (green > maxValue ? maxValue : green)
         self.blue = blue < minValue ? minValue : (blue > maxValue ? maxValue : blue)
-        
+    }
+    
+    func getHexValue() -> String {
         var hexRed = String(red, radix: 16)
         var hexGreen = String(green, radix: 16)
         var hexBlue = String(blue, radix: 16)
@@ -37,13 +38,13 @@ class Color {
             hexBlue = "0" + hexBlue
         }
         
-        self.hexValue = "0x" + hexRed + hexGreen + hexBlue
+        return "0x" + hexRed + hexGreen + hexBlue
     }
 }
 
 
 extension Color: CustomStringConvertible {
     var description: String {
-        return "R:\(red), G:\(green), B:\(blue), hexValue: \(hexValue)"
+        return "R:\(red), G:\(green), B:\(blue), hexValue: \(getHexValue())"
     }
 }
