@@ -22,12 +22,6 @@ class CanvasView: UIView {
         customInit()
     }
     
-    
-    
-    @IBAction func addRectangleTouched(_ sender: Any) {
-        delgate?.touchedAddRectangleButton()
-    }
-    
     func customInit() {
             if let view = Bundle.main.loadNibNamed("CanvasView", owner: self, options: nil)?.first as? UIView {
                 view.frame = self.bounds
@@ -35,5 +29,18 @@ class CanvasView: UIView {
             }
         rectangleAddButton.layer.cornerRadius = 15
         }
+    
+    
+    @IBAction func addRectangleTouched(_ sender: Any) {
+        delgate?.touchedAddRectangleButton()
+    }
+    
+    @IBAction func tapAction(_ sender: UITapGestureRecognizer) {
+        let touchedPoint = sender.location(in: sender.view)
+        delgate?.touchedCanvas(at: touchedPoint)
+    }
+    
+    
+
         
 }
