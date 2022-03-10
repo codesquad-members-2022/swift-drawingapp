@@ -7,12 +7,32 @@
 
 import Foundation
 
-enum Alpha: Double, CaseIterable {
-    case one = 1, two, three, four, five, six, seven, eight, nine, ten
+struct Alpha {
+    
+    static let min = 1.0
+    static let max = 10.0
+    
+    var alpha: Double { checkRange(number: value) }
+    
+    private let value: Double
+    
+    func checkRange(number: Double) -> Double {
+        if number < Alpha.min {
+            return Alpha.min
+        } else if number > Alpha.max {
+            return Alpha.max
+        } else {
+            return number
+        }
+    }
+
+    init(alpha: Double) {
+        self.value = alpha / 10
+    }
 }
 
 extension Alpha: CustomStringConvertible {
     var description: String {
-        return "Alpha: \(self.rawValue / 10 )"
+        return "Alpha: \(value)"
     }
 }

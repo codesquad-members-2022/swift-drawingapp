@@ -12,18 +12,21 @@ class Factory {
 
     static func createRectangle() -> Rectangle {
         
-        let DeviceWidth = UIScreen.main.bounds.size.width
-        let DeviceHeight = UIScreen.main.bounds.size.height
+        let marginX = 130.0
+        let marginY = 160.0
+        
+        let DeviceWidth = UIScreen.main.bounds.size.width - marginX
+        let DeviceHeight = UIScreen.main.bounds.size.height - marginY
 
         let size = Size(width: 150, height: 120)
-        let point = Point(x: Double(Int.random(in: 0..<Int(DeviceWidth))),
-                          y: Double(Int.random(in: 0..<Int(DeviceHeight))))
-        let color = BackgroundColor(r: Int.random(in: 0...255),
-                                    g: Int.random(in: 0...255),
-                                    b: Int.random(in: 0...255))
-        let alpha = Alpha.allCases[Int.random(in: 0..<10)]
+        let point = Point(x: Double.random(in: 0..<DeviceWidth),
+                          y: Double.random(in: 0..<DeviceHeight))
+        let color = Color(r: Int.random(in: 0...255),
+                          g: Int.random(in: 0...255),
+                          b: Int.random(in: 0...255))
+        let alpha = Alpha(alpha: Double(Int.random(in: 1...10)))
         
-        return Rectangle(id: ID.createId(), size: size, point: point, backGroundColor: color, alpha: alpha)
+        return Rectangle(id: ID.createId(), size: size, point: point, color: color, alpha: alpha)
     }
     
 }

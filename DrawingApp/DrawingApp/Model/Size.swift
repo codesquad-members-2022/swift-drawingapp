@@ -9,8 +9,8 @@ import Foundation
 
 class Size {
     
-    private let width: Double
-    private let height: Double
+    private(set) var width: Double
+    private(set) var height: Double
     
     init(width: Double, height: Double) {
         self.width = width
