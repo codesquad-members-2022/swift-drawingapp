@@ -18,11 +18,12 @@ extension UIColor {
         return UIColor(red: .random(in: 0...1), green: .random(in: 0...1), blue: .random(in: 0...1), alpha: 1.0)
     }
     
-    convenience init(with color: Color) {
-        self.init(red: color.red, green: color.green, blue: color.blue, alpha: 1)
+    convenience init(with color: Color, alpha: Alpha = .opaque) {
+        let alphaValue = alpha.convert(using: CGFloat.self) / 10
+        self.init(red: color.red / 255, green: color.green / 255, blue: color.blue / 255, alpha: alphaValue)
     }
     
-    private func getRGBA() -> RGBA {
+    func getRGBA() -> RGBA {
         var red: CGFloat = 0
         var green: CGFloat = 0
         var blue: CGFloat = 0
@@ -40,8 +41,8 @@ extension UIColor {
         return String(format:"#%06x", RGB).uppercased()
     }
     
-    func convert<T: ColorBuildable>(using Convertor: T.Type) -> T? {
+    func convert<T: ColorBuildable>(using Convertor: T.Type, multiplier: CGFloat = 1) -> T? {
         let (red, green, blue, _) = self.getRGBA()
-        return Convertor.init(red: red, green: green, blue: blue)
+        return Convertor.init(red: red * multiplier, green: green * multiplier, blue: blue * multiplier)
     }
 }
