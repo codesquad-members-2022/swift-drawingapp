@@ -3,9 +3,13 @@ import OSLog
 
 class ViewController: UIViewController, UIGestureRecognizerDelegate {
     var plane: Plane = Plane()
+    //TODO: [사각형] 버튼위에 사각형이 생성되면 클릭이 안됨
+    @IBAction func rectangleButtonTouched(_ sender: Any) {
+        addRectangles()
+    }
     
 //    탭되었을 때 실행할 메서드
-    //TODO: 사각형이 겹쳐있을 떄 더 상단에 있는 사각형을 선택해야함, 느낌상 뒤에 있는 사각형을 선택하는 듯 함
+    //TODO: 사각형이 겹쳐있을 떄 더 상단에 있는 사각형을 선택해야함 기준이 앞에 있는 것을 택하는 지, 뒤에 있는 것을 택하는지 확실치 않음
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         let viewPoint: CGPoint = sender.location(in: self.view)
         let rectPoint: Rectangle.Point = Rectangle.Point(x: viewPoint.x, y: viewPoint.y)
@@ -46,11 +50,10 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         super.viewDidLoad()
         // 플레인의 대행 처리는 뷰컨트롤러가 맡겠다.
         plane.delegate = self
-        addRectangles()
     }
 }
 
-
+//MARK: 우아하게 프로토콜을 확장하는 방법
 extension ViewController: PlaneDelegate {
     func didMakeRectangle(rectangle: Rectangle) {
         let rectView = UIView(frame: CGRect(x: rectangle.getPoint().x, y: rectangle.getPoint().y, width: rectangle.getSize().width, height: rectangle.getSize().height))
