@@ -23,13 +23,22 @@ class RectangleView: UIView {
     }
     
     // MARK: - UI changing methods
-    func setBackgroundColor(color: Color, alpha: Alpha = .opaque) {
-        let alphaValue = alpha.convert(using: CGFloat.self) / 10
-        self.backgroundColor = UIColor(red: color.red, green: color.green, blue: color.blue, alpha: alphaValue)
+    func setBackgroundColor(color: Color, alpha: Alpha) {
+        self.backgroundColor = UIColor(with: color, alpha: alpha)
+    }
+    
+    func setBackgroundColor(with color: Color) {
+        self.backgroundColor = UIColor(with: color)
     }
     
     func setBackgroundColor(with alpha: CGFloat) {
         let color = self.backgroundColor?.withAlphaComponent(alpha)
+        self.backgroundColor = color
+    }
+    
+    func setBackgroundColor(with alpha: Alpha) {
+        let alphaValue = alpha.convert(using: CGFloat.self) / 10
+        let color = self.backgroundColor?.withAlphaComponent(alphaValue)
         self.backgroundColor = color
     }
     

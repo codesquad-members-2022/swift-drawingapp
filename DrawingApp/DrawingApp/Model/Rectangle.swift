@@ -13,8 +13,17 @@ protocol RectangleBuildable {
 
 class Rectangle: Shapable, Hashable {
     // MARK: - Properties
-    private(set) var backgroundColor: Color
-    private(set) var alpha: Alpha
+    private(set) var backgroundColor: Color {
+        didSet {
+            self.notifyDidUpdated(key: .color, data: self.backgroundColor)
+        }
+    }
+    
+    private(set) var alpha: Alpha {
+        didSet {
+            self.notifyDidUpdated(key: .alpha, data: self.alpha)
+        }
+    }
     
     let id: String
     let size: Size
@@ -71,11 +80,16 @@ extension Rectangle {
 
 // MARK: - Notification To Observer
 extension Rectangle {
+    enum NotificationKey {
+        case alpha
+        case color
+    }
+    
     func notifyDidCreated() {
         NotificationCenter.default.post(name: .RectangleDataDidCreated, object: self)
     }
     
-    func notifyDidUpdated(key: String, data: Any) {
+    func notifyDidUpdated(key: NotificationKey, data: Any) {
         NotificationCenter.default.post(name: .RectangleDataDidUpdated, object: self, userInfo: [key: data])
     }
 }

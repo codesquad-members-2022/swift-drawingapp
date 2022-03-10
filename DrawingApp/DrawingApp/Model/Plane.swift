@@ -33,13 +33,9 @@ struct Plane {
      결과값이 없으면 nil 을 리턴, 여러개인 경우에는 첫번째 요소를 반환합니다.
      */
     func findItemBy(point: Point) -> Rectangle? {
-        for rectangle in self.items.values {
-            if rectangle.contains(point: point) {
-                return rectangle
-            }
-        }
-        
-        return nil
+        return Array(self.items.values).last(where: { item in
+            return item.contains(point: point)
+        })
     }
     
     mutating func append(item: Rectangle) {
