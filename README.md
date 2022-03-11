@@ -316,5 +316,5 @@ addObserver 시 Name, Object는 모두 nil이 될 수 있습니다. 그러므로
 * MainScreenViewController의 ```observeMainScreenAction(using handler: @escaping (Notification) -> Void)```는 굳이 MainScreenViewController 소스코드와 분리할 필요가 없어 보임. (부연설명, OOP)[x]
 * Notification 의 object는 매우 중요하므로 정확히 명시하는게 좋다. (Observer Pattern)[x]
 * MainScreenViewController 에서 액션 별로 옵저버가 등록되는 것이 좋음.[x]
-* MainScreenViewController 에서 터치한 뷰를 찾고, 프로퍼티를 변경하는 작업도 모델 기준으로 처리하도록 수정.
+* MainScreenViewController 에서 터치한 뷰를 찾고, 프로퍼티를 변경하는 작업도 모델 기준으로 처리하도록 수정.[x]
 * ViewController의 ```sliderAdmitAlphaValueChanged(_:UISlider)``` 메소드는 '(입력)뷰 컨트롤러 -> 모델, (출력)뷰 컨트롤러 변경' 을 하고 있는데 '(출력)뷰 컨트롤러 변경'은 따로 분리. 출력은 모델 -> 뷰 컨트롤러 -> 뷰 흐름을 가져야 한다.[x]
