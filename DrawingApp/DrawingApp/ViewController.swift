@@ -98,7 +98,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func alphaSliderValueChanged(_ sender: UISlider) {
-        let newAlphaValue = round(sender.value * 10) / 10
+        let newAlphaValue = sender.value.normalized()
         guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: newAlphaValue) else {return}
         let newAlpha = Alpha(opacityLevel: convertedOpacityLevel)
         
@@ -109,7 +109,7 @@ class ViewController: UIViewController {
         guard let selectedView = self.selectedView else {return}
         let previousAlphaValue = Float(selectedView.alpha)
         let newAlphaValue = previousAlphaValue - 0.1
-        let normalizedNewAlphaValue = round(newAlphaValue * 10) / 10
+        let normalizedNewAlphaValue = newAlphaValue.normalized()
         guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: normalizedNewAlphaValue) else {return}
         plane.changeAlphaValue(to: Alpha(opacityLevel: convertedOpacityLevel))
     }
@@ -117,7 +117,7 @@ class ViewController: UIViewController {
         guard let selectedView = self.selectedView else {return}
         let previousAlphaValue = Float(selectedView.alpha)
         let newAlphaValue = previousAlphaValue + 0.1
-        let normalizedNewAlphaValue = round(newAlphaValue * 10) / 10
+        let normalizedNewAlphaValue = newAlphaValue.normalized()
         guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: normalizedNewAlphaValue) else {return}
         plane.changeAlphaValue(to: Alpha(opacityLevel: convertedOpacityLevel))
     }
@@ -207,7 +207,7 @@ extension ViewController {
     }
     
     private func updateMinusAlphaValueButton(with alpha: Float) {
-        if round(alpha * 10) / 10.0 > 0.1 {
+        if alpha.normalized() > 0.1 {
             minusAlphaValueButton.isEnabled = true
             minusAlphaValueButton.backgroundColor = .white
         } else {
@@ -217,7 +217,7 @@ extension ViewController {
     }
     
     private func updatePlusAlphaValueButton(with alpha: Float) {
-        if round(alpha * 10) / 10.0 < 1.0 {
+        if alpha.normalized() < 1.0 {
             plusAlphaValueButton.isEnabled = true
             plusAlphaValueButton.backgroundColor = .white
         } else {
@@ -239,5 +239,11 @@ extension BackgroundColor {
         let convertedBlue = Double(self.b) / 255.0
         
         return UIColor(red: convertedRed, green: convertedGreen, blue: convertedBlue, alpha: CGFloat(alphaValue))
+    }
+}
+
+extension Float {
+    fileprivate func normalized() -> Float {
+        return roundf(self * 10) / 10
     }
 }
