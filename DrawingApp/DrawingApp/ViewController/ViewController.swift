@@ -12,7 +12,7 @@ class ViewController: UIViewController {
 
     var plane = Plane()
     let factory = RectangleFactory()
-    var selectedRectangleView: UIView?
+    private var selectedRectangleView: UIView?
     var rectangleViews = [Rectangle : UIView]()
     
     @IBOutlet var canvasView: CanvasView!
@@ -28,12 +28,12 @@ class ViewController: UIViewController {
 }
 // Delegate : View
 extension ViewController: RectangleViewDelegate {
-    
-    func touchedAddRectangleButton() {
+   
+    func addRectangleButtonDidTouch() {
         plane.add(rectangle: factory.createRandomRectangle())
     }
     
-    func touchedCanvas(at point: CGPoint) {
+    func canvasDidTab(at point: CGPoint) {
         let touchedPoint = Point(x: point.x, y: point.y)
         if let selected = plane.ExistRectangle(at: touchedPoint) {
             
@@ -55,7 +55,7 @@ extension ViewController: PlaneDelegate {
     func selectedRectangle(_ rectangle: Rectangle) {
     }
 
-    func addRectangle(_ rectangle: Rectangle) {
+    func RectangleDidAdd(_ rectangle: Rectangle) {
         let rect = UIView(frame: CGRect(x: rectangle.position.x, y: rectangle.position.y, width: rectangle.size.width, height: rectangle.size.height))
         rect.backgroundColor = Convertor.convertColor(from: rectangle.backgroundColor)
         rect.alpha = Double(rectangle.alpha.rawValue) * 0.1
@@ -71,7 +71,8 @@ extension ViewController: PlaneDelegate {
 
 
 extension ViewController: ControllerViewDelegate {
-    func touchedBackgroundButton() {
+    
+    func backgroundButtonDidTouch() {
         let changedColor = Color.randomColor()
         selectedRectangleView?.backgroundColor = Convertor.convertColor(from: changedColor)
         plane.changeBackgroundColor(to: changedColor)

@@ -8,7 +8,7 @@
 import Foundation
 
 protocol PlaneDelegate {
-    func addRectangle(_ rectangle: Rectangle)
+    func RectangleDidAdd(_ rectangle: Rectangle)
 //    func selectedRectangle(_ rectangle: Rectangle)
 //    func changedBackgroundColor()
 }
@@ -30,7 +30,7 @@ struct Plane{
     
     mutating func add(rectangle: Rectangle){
         rectangles.append(rectangle)
-        delegate?.addRectangle(rectangle)
+        delegate?.RectangleDidAdd(rectangle)
     }
     
     func ExistRectangle(at point: Point) -> Rectangle?{

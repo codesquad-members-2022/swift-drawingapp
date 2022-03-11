@@ -7,6 +7,11 @@
 
 import UIKit
 
+protocol RectangleViewDelegate {
+    func addRectangleButtonDidTouch()
+    func canvasDidTab(at point: CGPoint)
+}
+
 class CanvasView: UIView {
     
     var delgate: RectangleViewDelegate?
@@ -32,12 +37,12 @@ class CanvasView: UIView {
     
     
     @IBAction func addRectangleTouched(_ sender: Any) {
-        delgate?.touchedAddRectangleButton()
+        delgate?.addRectangleButtonDidTouch()
     }
     
     @IBAction func tapAction(_ sender: UITapGestureRecognizer) {
         let touchedPoint = sender.location(in: sender.view)
-        delgate?.touchedCanvas(at: touchedPoint)
+        delgate?.canvasDidTab(at: touchedPoint)
     }
     
     
