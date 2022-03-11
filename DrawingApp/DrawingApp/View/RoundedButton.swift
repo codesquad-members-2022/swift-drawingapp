@@ -24,7 +24,7 @@ class RoundedButton: UIButton {
         self.setTitle(title, for: .normal)
     }
     
-    func setDefaultConfiguration() {
+    private func setDefaultConfiguration() {
         let fontColor = UIColor(named: "Font")
         let borderColor = UIColor(named: "Border")
         let backgroundColor = UIColor(named: "Background")

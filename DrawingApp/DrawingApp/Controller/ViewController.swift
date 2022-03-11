@@ -24,12 +24,12 @@ class ViewController: UIViewController {
     }
     
     // MARK: - UI Configuration Methods
-    func configureDelegate() {
+    private func configureDelegate() {
         self.planeView.delegate = self
         self.controlPanelView.delegate = self
     }
     
-    func setObservers() {
+    private func setObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(self.rectangleDataDidCreated), name: .RectangleDataDidCreated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.rectangleDataDidChanged), name: .RectangleDataDidUpdated, object: nil)
         
@@ -59,7 +59,7 @@ extension ViewController: ControlPanelViewDelegate {
     func controlPanelDidPressColorButton() {
         guard let rectangle = self.plane.currentItem else { return }
         guard let color = UIColor.random().convert(using: Color.self, multiplier: 255) else { return }
-
+        
         rectangle.setBackgroundColor(color)
     }
     
@@ -73,7 +73,7 @@ extension ViewController: ControlPanelViewDelegate {
 
 // MARK: - RectangleView To ViewController
 extension ViewController {
-    @objc func handleOnTapRectangleView(_ sender: UITapGestureRecognizer) {
+    @objc private func handleOnTapRectangleView(_ sender: UITapGestureRecognizer) {
         guard sender.state == .ended else { return }
         
         let point = sender.location(in: self.planeView).convert(using: Point.self)
@@ -86,7 +86,7 @@ extension ViewController {
 
 // MARK: - Rectangle Model To ViewController
 extension ViewController {
-    @objc func rectangleDataDidCreated(_ notification: Notification) {
+    @objc private func rectangleDataDidCreated(_ notification: Notification) {
         guard let rectangle = notification.object as? Rectangle else { return }
         
         let rectangleView = RectangleView(with: rectangle)
@@ -101,7 +101,7 @@ extension ViewController {
     }
     
     
-    @objc func rectangleDataDidChanged(_ notification: Notification) {
+    @objc private func rectangleDataDidChanged(_ notification: Notification) {
         guard let rectangle = self.plane.currentItem else { return }
         guard let rectangleView = self.rectangleMap[rectangle] else { return }
         
@@ -118,7 +118,7 @@ extension ViewController {
 
 // MARK: - Plane Model to ViewController
 extension ViewController {
-    @objc func planeDidDidSelectItem(_ notification: Notification) {
+    @objc private func planeDidDidSelectItem(_ notification: Notification) {
         guard let rectangle = notification.userInfo?[Plane.NotificationKey.select] as? Rectangle else { return }
         guard let rectangleView = self.rectangleMap[rectangle] else { return }
         let hexString = UIColor(with: rectangle.backgroundColor).toHexString()
@@ -129,7 +129,7 @@ extension ViewController {
         self.controlPanelView.setAlphaSliderValue(value: rectangle.alpha)
     }
     
-    @objc func planeDidDidUnselectItem(_ notification: Notification) {
+    @objc private func planeDidDidUnselectItem(_ notification: Notification) {
         guard let rectangle = notification.userInfo?[Plane.NotificationKey.unselect] as? Rectangle else { return }
         guard let rectangleView = self.rectangleMap[rectangle] else { return }
         

@@ -16,10 +16,10 @@ class ControlPanelView: UIView {
     // MARK: - Properties
     var delegate: ControlPanelViewDelegate?
     
-    let colorLabel = SimpleLabel(title: "배경색")
-    let colorButton = RoundedButton(type: .system)
-    let alphaLabel = SimpleLabel(title: "투명도")
-    let alphaSlider = UISlider()
+    private let colorLabel = SimpleLabel(title: "배경색")
+    private let colorButton = RoundedButton(type: .system)
+    private let alphaLabel = SimpleLabel(title: "투명도")
+    private let alphaSlider = UISlider()
     
     // MARK: - Initialisers
     override init(frame: CGRect) {
@@ -33,7 +33,7 @@ class ControlPanelView: UIView {
     }
     
     // MARK: - UI Configuration
-    func configureUI() {
+    private func configureUI() {
         self.addSubview(self.colorLabel)
         self.addSubview(self.alphaLabel)
         
@@ -42,7 +42,7 @@ class ControlPanelView: UIView {
         self.configureViewElementsPosition()
     }
     
-    func configureAlphaSlider() {
+    private func configureAlphaSlider() {
         self.alphaSlider.frame.size.width = 200
         self.alphaSlider.maximumValue = 10
         self.alphaSlider.minimumValue = 1
@@ -53,7 +53,7 @@ class ControlPanelView: UIView {
         self.addSubview(self.alphaSlider)
     }
         
-    func configureColorButton() {
+    private func configureColorButton() {
         let randomColor = UIColor.random()
         
         self.colorButton.setTitle(randomColor.toHexString(), for: .normal)
@@ -63,7 +63,7 @@ class ControlPanelView: UIView {
         self.addSubview(self.colorButton)
     }
     
-    func configureViewElementsPosition() {
+    private func configureViewElementsPosition() {
         let SPACE: CGFloat = 20
         
         self.colorLabel.frame.origin = CGPoint(x: 20, y: 90)
@@ -73,11 +73,11 @@ class ControlPanelView: UIView {
     }
     
     // MARK: - Action Methods
-    @objc func handleColorButtonPressed(_ sender: RoundedButton) {
+    @objc private func handleColorButtonPressed(_ sender: RoundedButton) {
         self.delegate?.controlPanelDidPressColorButton()
     }
     
-    @objc func handleOnChangeAlpha(_ sender: UISlider) {
+    @objc private func handleOnChangeAlpha(_ sender: UISlider) {
         self.delegate?.controlPanelDidMoveAlphaSlider(sender)
     }
     
