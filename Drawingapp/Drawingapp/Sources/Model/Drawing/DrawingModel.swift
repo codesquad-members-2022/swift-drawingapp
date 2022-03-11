@@ -56,14 +56,12 @@ class DrawingModel: CustomStringConvertible, Equatable, Hashable {
     
     func update(alpha: Alpha) {
         self.alpha = alpha
-        let userInfo: [AnyHashable : Any] = [ParamKey.alpha:alpha]
-        NotificationCenter.default.post(name: NotifiName.updateAlpha, object: self, userInfo: userInfo)
+        NotificationCenter.default.post(name: Event.updateAlpha, object: self, userInfo: [ParamKey.alpha:alpha])
     }
     
     func update(origin: Point) {
         self.origin = origin
-        let userInfo: [AnyHashable : Any] = [ParamKey.origin:self.origin]
-        NotificationCenter.default.post(name: NotifiName.updateOrigin, object: self, userInfo: userInfo)
+        NotificationCenter.default.post(name: Event.updateOrigin, object: self, userInfo: [ParamKey.origin:self.origin])
     }
     
     func originMove(x: Double, y: Double) {
@@ -75,8 +73,7 @@ class DrawingModel: CustomStringConvertible, Equatable, Hashable {
     
     func update(size: Size) {
         self.size = size
-        let userInfo: [AnyHashable : Any] = [ParamKey.size:self.size]
-        NotificationCenter.default.post(name: NotifiName.updateSize, object: self, userInfo: userInfo)
+        NotificationCenter.default.post(name: Event.updateSize, object: self, userInfo: [ParamKey.size:self.size])
     }
     
     func sizeIncrease(width: Double, height: Double) {
@@ -86,7 +83,7 @@ class DrawingModel: CustomStringConvertible, Equatable, Hashable {
 }
 
 extension DrawingModel {
-    enum NotifiName {
+    enum Event {
         static let updateColor = NSNotification.Name("updateColor")
         static let updateOrigin = NSNotification.Name("updateOrigin")
         static let updateSize = NSNotification.Name("updateSize")
