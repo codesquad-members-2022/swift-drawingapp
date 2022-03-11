@@ -21,6 +21,7 @@ protocol PlaneAction {
 
 protocol PlaneDelegate {
     func getDrawingModelFactory() -> DrawingModelFactory
+    func getScreenSize() -> Size
 }
 
 protocol MakeModelAction {
@@ -53,6 +54,22 @@ class Plane {
             }
         }
         return nil
+    }
+    
+    private func calibrateScreenInPoint(to point: Point, size: Size) -> Point? {
+        guard let screenSize = self.delegate?.getScreenSize() else {
+            return nil
+        }
+        
+        var originX = point.x - size.width / 2
+        originX = originX < 1 ? 1 : originX
+        originX = originX + size.width > screenSize.width ? screenSize.width - size.width : originX
+        
+        var originY = point.y - size.height / 2
+        originY = originY < 1 ? 1 : originY
+        originY = originY + size.height > screenSize.height ? screenSize.height - size.height : originY
+        
+        return Point(x: originX, y: originY)
     }
 }
 
@@ -123,20 +140,19 @@ extension Plane: PlaneAction {
             let userInfo: [AnyHashable : Any] = [ParamKey.drawingModel:dragModel]
             NotificationCenter.default.post(name: Plane.NotifiName.didBeganDrag, object: self, userInfo: userInfo)
         case .changed:
-            guard let dragModel = self.selectedModel else {
+            guard let dragModel = self.selectedModel,
+                  let newOrigin = self.calibrateScreenInPoint(to: point, size: dragModel.size) else {
                 return
             }
-            let originX = point.x - dragModel.size.width / 2
-            let originY = point.y - dragModel.size.height / 2
-            let userInfo: [AnyHashable : Any] = [ParamKey.dragPoint:Point(x: originX, y: originY)]
+            
+            let userInfo: [AnyHashable : Any] = [ParamKey.dragPoint:Point(x: newOrigin.x, y: newOrigin.y)]
             NotificationCenter.default.post(name: Plane.NotifiName.didChangedDrag, object: self, userInfo: userInfo)
         case .ended:
-            guard let dragModel = self.selectedModel else {
+            guard let dragModel = self.selectedModel,
+                  let newOrigin = self.calibrateScreenInPoint(to: point, size: dragModel.size) else {
                 return
             }
-            let originX = point.x - dragModel.size.width / 2
-            let originY = point.y - dragModel.size.height / 2
-            dragModel.update(origin: Point(x: originX, y: originY))
+            dragModel.update(origin: Point(x: newOrigin.x, y: newOrigin.y))
             NotificationCenter.default.post(name: Plane.NotifiName.didEndedDrag, object: self, userInfo: nil)
         default:
             break

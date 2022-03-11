@@ -61,7 +61,9 @@ class DrawingModel: CustomStringConvertible, Equatable, Hashable {
     }
     
     func move(x: Double, y: Double) {
-        let moveOrigin = Point(x: origin.x + x, y: origin.y + y)
+        let originX = origin.x + x < 1 ? 1 : origin.x + x
+        let originY = origin.y + y < 1 ? 1 : origin.y + y
+        let moveOrigin = Point(x: originX, y: originY)
         update(origin: moveOrigin)
     }
     
