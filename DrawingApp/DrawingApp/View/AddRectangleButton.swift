@@ -31,7 +31,5 @@ class AddRectangleButton: UIButton {
         layer.cornerRadius = 10
         layer.borderWidth = 1
         layer.borderColor = UIColor.systemGray6.cgColor
-        
-        addTarget(superview, action: #selector(ViewController.addRectangleButtonTouched), for: .touchUpInside)
     }
 }
