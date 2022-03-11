@@ -11,7 +11,7 @@ import OSLog
 class ViewController: UIViewController {
     
     private var plane = Plane()
-    private var rectangleAndViewMap = [Rectangle: RectangleView]()
+    private var rectangleAndViewMap = [AnyHashable: RectangleViewable]()
     private let notificationCenter = NotificationCenter.default
     private var selectedView: RectangleView?
     weak var generateRectangleButton: UIButton!
@@ -31,7 +31,7 @@ class ViewController: UIViewController {
         
         addGenerateRectangleButton()
         addDrawableAreaView()
-
+        
         initializeViewsInTouchedEmptySpaceCondition()
         
     }
@@ -137,14 +137,15 @@ extension ViewController {
         guard let addedRectangle = notification.userInfo?[Plane.addedRectangle] as? Rectangle else {return}
         os_log("\(addedRectangle)")
         
-        let newRectangleView = ViewFactory.makeRectangleView(of: addedRectangle)
+        guard let newRectangleView = ViewFactory.makeRectangleView(of: addedRectangle) as? RectangleView else {return}
         self.drawableAreaView.addSubview(newRectangleView)
         rectangleAndViewMap[addedRectangle] = newRectangleView
     }
     
     @objc func planeDidSpecifyRectangle(_ notification: Notification) {
         guard let specifiedRectangle = notification.userInfo?[Plane.specifiedRectangle] as? Rectangle,
-              let matchedView = rectangleAndViewMap[specifiedRectangle] else {
+              let matchedView = rectangleAndViewMap[specifiedRectangle],
+              let matchedView = matchedView as? RectangleView else {
                   initializeViewsInTouchedEmptySpaceCondition()
                   return
               }
@@ -163,7 +164,7 @@ extension ViewController {
               }
         
         let newBackgroundColor = backgroundColorChangedRectangle.backgroundColor
-        matchedView.backgroundColor = newBackgroundColor.convertToUIColor()
+        matchedView.changeBackgroundColor(to: newBackgroundColor.convertToUIColor())
         let previousAlpha = backgroundColorChangedRectangle.alpha
         updateBackgroundButton(color: newBackgroundColor, alpha: previousAlpha)
     }
@@ -175,7 +176,7 @@ extension ViewController {
               }
         
         let newAlphaValue = alphaChangedRectangle.alpha.value
-        matchedView.alpha = CGFloat(newAlphaValue)
+        matchedView.changeAlphaValue(to: CGFloat(newAlphaValue))
         updateStatusViewElement(with: newAlphaValue)
     }
     

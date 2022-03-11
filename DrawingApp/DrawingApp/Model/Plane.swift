@@ -8,8 +8,8 @@
 import Foundation
 
 class Plane {
-    private var rectangles = [Rectangle]()
-    private var specifiedRectangle: Rectangle?
+    private var rectangles = [Rectangularable]()
+    private var specifiedRectangle: Rectangularable?
     private let notificationCenter = NotificationCenter.default
     static let didAddRectangle = Notification.Name("PlaneDidAddRectangle")
     static let didSpecifyRectangle = Notification.Name("PlaneDidSpecifyRectangle")
@@ -45,7 +45,7 @@ class Plane {
         notificationCenter.post(name: Plane.didAddRectangle, object: self, userInfo: [Plane.addedRectangle: newRectangle])
     }
     
-    public func changeBackgroundColor(to newColor: BackgroundColor) -> Result<Rectangle, PlaneError> {
+    public func changeBackgroundColor(to newColor: BackgroundColor) -> Result<Rectangularable, PlaneError> {
         guard let specifiedRectangle = self.specifiedRectangle else {
             return .failure(.noSpecifiedRectangleToChangeError)
         }
@@ -54,7 +54,7 @@ class Plane {
         return .success(specifiedRectangle)
     }
 
-    public func changeAlphaValue(to newAlpha: Alpha) -> Result<Rectangle, PlaneError> {
+    public func changeAlphaValue(to newAlpha: Alpha) -> Result<Rectangularable, PlaneError> {
         guard let specifiedRectangle = self.specifiedRectangle else {
             return .failure(.noSpecifiedRectangleToChangeError)
         }
