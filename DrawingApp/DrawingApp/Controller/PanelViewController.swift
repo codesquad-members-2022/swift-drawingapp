@@ -213,7 +213,7 @@ extension PanelViewController {
     }
 }
 
-// MARK: - Use case: Mutate View using Controls
+// MARK: - Use case: Set View & ViewModel using Controls
 
 extension PanelViewController {
     
