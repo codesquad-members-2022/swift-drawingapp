@@ -88,6 +88,9 @@ extension CanvasViewController {
         guard let newView = ViewFactory.create(from: newViewModel) else { return }
         
         map(newView, to: newViewModel)
+        
+        if newView is UILabel { resizeToFit(newViewModel, for: newView) }
+        
         view.addSubview(newView)
         setupPanRecognizer(newView)
     }
@@ -100,7 +103,6 @@ extension CanvasViewController {
         viewModelMap[viewModel] = view
         viewMap[view] = viewModel
     }
-    
 }
 
 // MARK: - Use Case: Add New Photo
@@ -126,6 +128,11 @@ extension CanvasViewController {
 extension CanvasViewController {
     @IBAction func addLabelPressed(_ sender: UIButton) {
         plane.addLabel()
+    }
+    
+    private func resizeToFit(_ viewModel: ViewModel, for view: UIView) {
+        let fitSize = Size(width: view.intrinsicContentSize.width, height: view.intrinsicContentSize.height)
+        plane.set(viewModel: viewModel, to: fitSize)
     }
 }
 

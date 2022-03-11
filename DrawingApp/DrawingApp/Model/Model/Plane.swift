@@ -102,4 +102,9 @@ class Plane {
         viewModel.set(to: origin)
         NotificationCenter.default.post(name: Plane.Event.mutateOriginViewModel, object: self, userInfo: [Plane.InfoKey.mutated: viewModel])
     }
+    
+    func set(viewModel: ViewModel, to size: Size) {
+        viewModel.set(to: size)
+        NotificationCenter.default.post(name: Plane.Event.mutateSizeViewModel, object: self, userInfo: [Plane.InfoKey.mutated: viewModel])
+    }
 }
