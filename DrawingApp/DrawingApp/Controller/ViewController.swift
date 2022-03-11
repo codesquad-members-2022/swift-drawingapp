@@ -11,8 +11,8 @@ class ViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        initializeAllUIViews()
         initializeNotificationCenter()
+        initializeAllUIViews()
         setGestureRecognizer()
     }
 
@@ -23,11 +23,11 @@ class ViewController: UIViewController{
 
     
     private func initializeNotificationCenter(){
-        NotificationCenter.default.addObserver(self, selector: #selector(rectangleFoundFromPlane(_:)), name: .rectangleFoundFromPlane, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(rectangleNotFoundFromPlane), name: .rectangleNotFoundFromPlane, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(addingRectangleCompleted(_:)), name: .rectangleAdded, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateSelectedRecntalgeViewColor(_:)), name: .rectangleColorUpdated , object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateSelectedRectangleViewAlpha(_:)), name: .rectangleAlphaUpdated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(rectangleFoundFromPlane(_:)), name: .rectangleFoundFromPlane, object: self.plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(rectangleNotFoundFromPlane), name: .rectangleNotFoundFromPlane, object: self.plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(addingRectangleCompleted(_:)), name: .rectangleAdded, object: self.plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateSelectedRecntalgeViewColor(_:)), name: .rectangleColorUpdated , object: self.plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateSelectedRectangleViewAlpha(_:)), name: .rectangleAlphaUpdated, object: self.plane)
     }
     
     private func setGestureRecognizer(){
@@ -63,14 +63,14 @@ class ViewController: UIViewController{
     }
     
     @objc func addingRectangleCompleted(_ notification: Notification) {
-        guard let rectangle = notification.object as? Rectangle else { return }
+        guard let rectangle = notification.userInfo?[Plane.UserInfoKey.rectangleAdded] as? Rectangle else { return }
         guard let canvasView = self.canvasView else { return }
         let rectangleView = RectangleViewFactory.createRectangleView(rectangle: rectangle)
         canvasView.insertSubview(rectangleView, belowSubview: canvasView.generatingButton)
     }
     
     @objc func rectangleFoundFromPlane(_ notification: Notification){
-        guard let rectangle = notification.object as? Rectangle else { return }
+        guard let rectangle = notification.userInfo?[Plane.UserInfoKey.rectangleFound] as? Rectangle else { return }
         self.updateViewWithSelectedRectangleModel(rectangle: rectangle)
     }
     
@@ -97,7 +97,7 @@ class ViewController: UIViewController{
     }
     
     @objc func updateSelectedRecntalgeViewColor(_ notification: Notification){
-        guard let newColor = notification.object as? Rectangle.Color else { return }
+        guard let newColor = notification.userInfo?[Plane.UserInfoKey.rectangleColorUpdated] as? Rectangle.Color else { return }
         guard let stylerView = self.stylerView else { return }
         guard let canvasView = self.canvasView else { return }
         
@@ -108,7 +108,7 @@ class ViewController: UIViewController{
     }
     
     @objc func updateSelectedRectangleViewAlpha(_ notification: Notification){
-        guard let opacity = notification.object as? Int else { return }
+        guard let opacity = notification.userInfo?[Plane.UserInfoKey.rectangleAlphaUpdated] as? Int else { return }
         guard let canvasView = self.canvasView else { return }
         
         canvasView.updateSelectedRectangleOpacity(opacity: opacity)

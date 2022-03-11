@@ -9,7 +9,14 @@ extension Notification.Name{
     static let rectangleAlphaUpdated = Notification.Name("rectangleAlphaUpdated")
 }
 
-struct Plane:CustomStringConvertible{
+class Plane:CustomStringConvertible{
+    
+    enum UserInfoKey: String{
+        case rectangleFound = "rectangleFound"
+        case rectangleAdded = "rectangleAdded"
+        case rectangleColorUpdated = "rectangleColorUpdated"
+        case rectangleAlphaUpdated = "rectangleAlphaUpdated"
+    }
     
     private var rectangles:[Rectangle] = []
     private var selectedRectangleIndex: Int?
@@ -20,35 +27,35 @@ struct Plane:CustomStringConvertible{
         return self.rectangles.description
     }
     
-    mutating func findMatchingRectangleModel(x: Double, y: Double){
+    func findMatchingRectangleModel(x: Double, y: Double){
         guard let rectangle = self[x,y] else {
             self.selectedRectangleIndex = nil
-            NotificationCenter.default.post(name: .rectangleNotFoundFromPlane, object: nil)
+            NotificationCenter.default.post(name: .rectangleNotFoundFromPlane, object: self, userInfo: nil)
             return
         }
         self.selectedRectangleIndex = self[rectangle.id]
-        NotificationCenter.default.post(name: .rectangleFoundFromPlane, object: rectangle, userInfo: nil)
+        NotificationCenter.default.post(name: .rectangleFoundFromPlane, object: self, userInfo: [UserInfoKey.rectangleFound:rectangle])
     }
     
-    mutating func addRectangle(_ rectangle: Rectangle){
+    func addRectangle(_ rectangle: Rectangle){
         self.rectangles.append(rectangle)
-        NotificationCenter.default.post(name: .rectangleAdded, object: rectangle, userInfo: nil)
+        NotificationCenter.default.post(name: .rectangleAdded, object: self, userInfo: [UserInfoKey.rectangleAdded: rectangle])
     }
     
-    mutating func updateRectangleColor(newColor: Rectangle.Color){
+    func updateRectangleColor(newColor: Rectangle.Color){
         guard let selectedRectangleIndex = self.selectedRectangleIndex else { return }
         self.rectangles[selectedRectangleIndex].backgroundColor = newColor
-        NotificationCenter.default.post(name: .rectangleColorUpdated, object: newColor)
+        NotificationCenter.default.post(name: .rectangleColorUpdated, object: self, userInfo: [UserInfoKey.rectangleColorUpdated:newColor])
     }
     
-    mutating func updateRectangleAlpha(opacity: Int){
+    func updateRectangleAlpha(opacity: Int){
         var opacity = opacity
         guard let selectedRectangleIndex = self.selectedRectangleIndex else { return }
         if(opacity == 10){
             opacity = opacity - 1
         }
         self.rectangles[selectedRectangleIndex].alpha = Rectangle.Alpha.allCases[opacity]
-        NotificationCenter.default.post(name: .rectangleAlphaUpdated, object: opacity)
+        NotificationCenter.default.post(name: .rectangleAlphaUpdated, object: self, userInfo: [UserInfoKey.rectangleAlphaUpdated:opacity])
     }
     
     private func isRectangleInsideTheRange(x: Double, y: Double, rectangle: Rectangle)-> Bool{
