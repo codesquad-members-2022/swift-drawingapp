@@ -9,7 +9,6 @@ import Foundation
 
 protocol PlaneDelegate {
     func RectangleDidAdd(_ rectangle: Rectangle)
-//    func selectedRectangle(_ rectangle: Rectangle)
 //    func changedBackgroundColor()
 }
 

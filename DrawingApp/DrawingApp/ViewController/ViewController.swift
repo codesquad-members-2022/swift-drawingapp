@@ -52,8 +52,7 @@ extension ViewController: RectangleViewDelegate {
 
 // Delegate : Model
 extension ViewController: PlaneDelegate {
-    func selectedRectangle(_ rectangle: Rectangle) {
-    }
+ 
 
     func RectangleDidAdd(_ rectangle: Rectangle) {
         let rect = UIView(frame: CGRect(x: rectangle.position.x, y: rectangle.position.y, width: rectangle.size.width, height: rectangle.size.height))
@@ -76,5 +75,8 @@ extension ViewController: ControllerViewDelegate {
         let changedColor = Color.randomColor()
         selectedRectangleView?.backgroundColor = Convertor.convertColor(from: changedColor)
         plane.changeBackgroundColor(to: changedColor)
+        
+        // 모델에게 해당 Rect의 색이 변경되었음을 알려주기
+        plane.selectedRectangle?.changedBackGroundColor(to: Convertor.convertColor(from: selectedRectangleView?.backgroundColor ?? UIColor()))
     }
 }
