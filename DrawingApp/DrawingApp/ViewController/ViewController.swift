@@ -52,7 +52,6 @@ extension ViewController: RectangleViewDelegate {
 
 // Delegate : Model
 extension ViewController: PlaneDelegate {
- 
 
     func RectangleDidAdd(_ rectangle: Rectangle) {
         let rect = UIView(frame: CGRect(x: rectangle.position.x, y: rectangle.position.y, width: rectangle.size.width, height: rectangle.size.height))
@@ -63,7 +62,12 @@ extension ViewController: PlaneDelegate {
         rect.isUserInteractionEnabled = false
         
         rectangleViews[rectangle] = rect
-        
+    }
+    
+    func BackgroundDidChanged() {
+        // 뷰의 배경색 버튼 Label을 변경 (16진수로 변환한다)
+        let hexString = selectedRectangleView?.backgroundColor?.convertHex()
+        controllerView.backgroundButton.setTitle(hexString, for: .normal)
     }
     
 }
@@ -77,6 +81,7 @@ extension ViewController: ControllerViewDelegate {
         plane.changeBackgroundColor(to: changedColor)
         
         // 모델에게 해당 Rect의 색이 변경되었음을 알려주기
-        plane.selectedRectangle?.changedBackGroundColor(to: Convertor.convertColor(from: selectedRectangleView?.backgroundColor ?? UIColor()))
+        plane.selectedRectangle?.changedBackGroundColor(to: changedColor)
+        
     }
 }
