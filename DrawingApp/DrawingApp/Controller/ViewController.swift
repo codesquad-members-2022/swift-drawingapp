@@ -48,6 +48,10 @@ extension ViewController: PlaneViewDelegate {
         let rectangle = RectangleFactory.makeRandomRectangle()
         plane.append(item: rectangle)
     }
+    
+    func planeViewDidPressImageAddButton() {
+        // TODO: Image Rectangle 모델 인스턴스 생성
+    }
 }
 
 // MARK: - ControlPanelView To ViewController
@@ -107,7 +111,6 @@ extension ViewController {
             rectangleView.setBackgroundColor(color: color, alpha: rectangle.alpha)
             self.controlPanelView.setColorButtonTitle(title: UIColor(with: color).toHexString())
         }
-        
     }
 }
 
