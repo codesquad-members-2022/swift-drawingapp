@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Plane {
+class Plane {
     private var items = [String: Rectangle]()
     
     private(set) var currentItem: Rectangle? {
@@ -38,17 +38,17 @@ struct Plane {
         })
     }
     
-    mutating func append(item: Rectangle) {
+    func append(item: Rectangle) {
         self.items.updateValue(item, forKey: item.id)
         item.notifyDidCreated()
     }
     
-    mutating func selectItem(id: String) {
+    func selectItem(id: String) {
         guard let item = self.items[id] else { return }
         self.currentItem = item
     }
     
-    mutating func unselectItem() {
+    func unselectItem() {
         self.currentItem = nil
     }
 }
