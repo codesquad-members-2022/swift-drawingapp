@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ControllerView" customModule="DrawingApp" customModuleProvider="target">
             <connections>
+                <outlet property="alphaSlider" destination="GbY-4l-0Kf" id="tn2-ok-kfQ"/>
                 <outlet property="backgroundButton" destination="jvT-O5-KSV" id="cFd-nL-5RF"/>
             </connections>
         </placeholder>
@@ -42,17 +43,20 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="GbY-4l-0Kf">
+                <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="1" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="GbY-4l-0Kf">
                     <rect key="frame" x="31" y="180" width="134" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="tintColor" red="0.44705882349999998" green="0.53725490200000003" blue="0.77647058820000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <color key="thumbTintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <action selector="changedAlphaSlider:" destination="-1" eventType="valueChanged" id="iL7-H4-ebh"/>
+                    </connections>
                 </slider>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <color key="backgroundColor" systemColor="systemGray5Color"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-28.220338983050848" y="105.36585365853658"/>
+            <point key="canvasLocation" x="-31" y="107"/>
         </view>
     </objects>
     <resources>

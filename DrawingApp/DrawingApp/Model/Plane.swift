@@ -10,6 +10,7 @@ import Foundation
 protocol PlaneDelegate {
     func RectangleDidAdd(_ rectangle: Rectangle)
     func BackgroundDidChanged()
+    func alpahDidChanged()
 }
 
 
@@ -47,6 +48,11 @@ struct Plane{
         // 배경색 모델이 바뀌었으므로 컨트롤러에게 전달
         delegate?.BackgroundDidChanged()
         
+    }
+    
+    func changeAlpha(value : Int){
+        selectedRectangle?.changedAlpha(to: value)
+        delegate?.alpahDidChanged()
     }
     
 

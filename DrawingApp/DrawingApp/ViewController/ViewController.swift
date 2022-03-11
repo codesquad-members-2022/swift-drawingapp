@@ -70,6 +70,13 @@ extension ViewController: PlaneDelegate {
         controllerView.backgroundButton.setTitle(hexString, for: .normal)
     }
     
+    func alpahDidChanged() {
+        if let alpha = selectedRectangleView?.alpha {
+            controllerView.alphaSlider.setValue(Float(alpha) * 10, animated: false)
+            
+        }
+    }
+    
 }
 
 
@@ -82,6 +89,13 @@ extension ViewController: ControllerViewDelegate {
         
         // 모델에게 해당 Rect의 색이 변경되었음을 알려주기
         plane.selectedRectangle?.changedBackGroundColor(to: changedColor)
+    }
+    
+    func alphaSliderDidChange(_ value: Float) {
+        selectedRectangleView?.alpha = CGFloat(value) / 10.0
+        plane.changeAlpha(value: Int(value))
         
     }
 }
+
+
