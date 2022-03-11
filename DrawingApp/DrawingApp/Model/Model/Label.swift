@@ -23,12 +23,23 @@ class Label: ViewModel {
         let labelID = ID.random()
         let origin = Point.random()
         let size = Size.standard()
-        let string = dummyString.components(separatedBy: " ").randomElement() ?? " "
+        let text = dummyString()
         let fontSize = Float.random(in: 16...32)
         let fontColor = Color.random()
         
-        return Label(id: labelID, origin: origin, size: size, text: string, fontSize: fontSize, fontColor: fontColor)
+        return Label(id: labelID, origin: origin, size: size, text: text, fontSize: fontSize, fontColor: fontColor)
     }
     
-    static let dummyString = "Slip inside the eye of your mind Don't you know you might find A better place to play You said that you'd never been But all the things that you've seen Slowly fade away And so Sally can wait She knows it's too late As we're walking on by Her soul slides away But don't look back in anger I heard you say"
+    static let dummyString: () -> String = {
+        let lorem = "Slip inside the eye of your mind Don't you know you might find A better place to play You said that you'd never been But all the things that you've seen Slowly fade away And so Sally can wait She knows it's too late As we're walking on by Her soul slides away But don't look back in anger I heard you say"
+        let dummyArray = lorem.components(separatedBy: " ")
+        let randomIndex = Int.random(in: 0..<dummyArray.count)
+        return dummyArray[randomIndex..<randomIndex+5].joined(separator: " ")
+    }
+}
+
+extension Label: CustomStringConvertible {
+    var description: String {
+        return "(\(id)), \(origin), \(size), \(text), \(fontColor), \(fontSize)p"
+    }
 }
