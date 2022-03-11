@@ -7,7 +7,13 @@
 
 import Foundation
 
-class Rectangle {
+protocol Rectangularable {
+    func isPointInArea(_ point: Point) -> Bool
+    func changeBackgroundColor(to newColor: BackgroundColor)
+    func changeAlphaValue(to newAlpha: Alpha)
+}
+
+class Rectangle: Rectangularable {
     private let id: ID
     private(set) var size: Size
     private(set) var point: Point
