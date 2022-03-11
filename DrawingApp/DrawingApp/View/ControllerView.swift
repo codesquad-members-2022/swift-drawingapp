@@ -7,6 +7,12 @@
 
 import UIKit
 
+
+protocol ControllerViewDelegate {
+    func backgroundButtonDidTouch()
+}
+
+
 class ControllerView: UIView {
 
     var delegate: ControllerViewDelegate?
@@ -30,6 +36,6 @@ class ControllerView: UIView {
         }
 
     @IBAction func touchedBackgroundButton(_ sender: Any) {
-        delegate?.touchedBackgroundButton()
+        delegate?.backgroundButtonDidTouch()
     }
 }
