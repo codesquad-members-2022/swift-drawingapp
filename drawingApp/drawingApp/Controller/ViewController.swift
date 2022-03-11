@@ -63,6 +63,7 @@ class ViewController: UIViewController {
         panelView.frame = CGRect(x: screenWdith - panelWidth, y: view.safeAreaInsets.top, width: panelWidth, height: screenHeight)
     }
     
+    //MARK: 사용자가 사각형 버튼을 누르면 plane 구역안에 뷰를 생성 시켜줄 팩토리 를 이용하여 모델생성 및 plane 에 추가.
     @objc func createRectangleModel() {
         do {
             let rectModel = try ShapeFactory(planeWidth: screenWdith - panelWidth, planeHeight: screenHeight - buttonHeight, shapeSize: Size(width: 130, height: 120)).makeRect()
@@ -72,13 +73,14 @@ class ViewController: UIViewController {
     }
     
 
-    //MARK: Event 1.0 : 사용자가 ViewController 를 터치했을때(입력)
+    //MARK: 사용자가 ViewController 를 터치했을때 좌표를 기준으로 사각형을 찾음.
     @objc func tapTriggered(sender: UITapGestureRecognizer) {
         let point = sender.location(in: self.view)
         plane.searchRectangleModel(tabCoordX: point.x, tabCoordY: point.y)
     }
     
     func createRectangleView (with model: Rectangle) {
+  
         let rectView = RectangleView(frame: CGRect(x: model.point.x.trim, y: model.point.y.trim, width: model.size.width, height: model.size.height))
         rectView.backgroundColor = UIColor(red: model.color.red.scaleRGB, green: model.color.green.scaleRGB, blue: model.color.blue.scaleRGB, alpha: model.alpha.value)
 
@@ -86,7 +88,7 @@ class ViewController: UIViewController {
         view.addSubview(rectView)
     }
     
-    //사각형 뷰 선택에 따른 테두리 및 패널 뷰처리 함수.
+    //MARK: 사각형 뷰 선택에 따른 테두리 및 패널 뷰처리 함수.
     func manageSelectingViews(on models: [Rectangle]) {
         var parsedModels = models
         
@@ -100,12 +102,7 @@ class ViewController: UIViewController {
         }
                 
     }
-    
-    //색상, 알파 수정에 대한 뷰처리 함수.
-    func manageAmendingViews(by model: Rectangle, operation : (Rectangle) -> ()){
-        return operation(model)
-    }
-    
+
     func updateHighlight(from model: Rectangle) {
         if let rectView = rectangleList[model] {
             rectView.configure(isSelected: model.selectedStatus())
@@ -123,83 +120,33 @@ class ViewController: UIViewController {
         }
     }
     
-   
+    //MARK: 색상, 알파 수정에 대한 뷰처리 함수.
+    func manageAmendingViews(by model: Rectangle, operation : (Rectangle) -> ()){
+        return operation(model)
+    }
+    
     func colorRandomization(on model: Rectangle) {
         if let rectView = rectangleList[model] {
             rectView.updateColor(with: model)
-            rectView.updateAlpha(newAlpha: model.alpha.value)
             updatePanel(from: model)
         }
     }
 
 
     func alphaModification(on model : Rectangle){
-        updatePanel(from: model)
+        if let rectView = rectangleList[model] {
+         rectView.updateAlpha(newAlpha: model.alpha.value)
+         updatePanel(from: model)
+        }
+        
     }
 
 }
-//
-////MARK: Event 1.0 사용자가 “사각형” 버튼을 누를시 “RectangleView” 를 생성한다 (1/2)
-   
-//extension ViewController : GenerateRectangleButtonDelegate {
-//    //사각형 생성 버튼이 눌리면 함수 정의
-//    func didTapGenerateButton() {
-//        do {
-//            let rectModel = try ShapeFactory(planeWidth: screenWdith - panelWidth, planeHeight: screenHeight - buttonHeight, shapeSize: Size(width: 130, height: 120)).makeRect()
-//            os_log(.debug, "\(rectModel)")
-//            plane.append(rectModel)
-//        }catch{
-//        }
-//    }
-//}
-//
 
-//
-////MARK: Event 3.0 : 사용자가 RectangleView 를 터치했을때 그 사각형에 대한 정보를 패널에 정보를 표시한다.
-//extension ViewController : RectangleViewDelegate {
-//    func didTouchRectView(rectView: RectangleView) {
-//        updatePanel(with: targetModel)
-//    }
-//}
-//
-////MARK: Event 4.0 : 사용자가 ColorRondomizeButton 를 터치했을때 그 사각형에 대한 정보를 패널에 정보를 표시한다. (1/2)
-//extension ViewController : ColorRondomizeButtonDelegate {
-//    func generateRandomColor(sender: ColorRondomizeButton) {
-//        let hexColor = sender.currentTitle
-//        if targetModel?.color.tohexString == hexColor {
-//            targetModel?.randomizeColor()
-//        }
-//    }
-//}
-//
-//
-////MARK: Event 5.0 : 사용자가 AlphaStepper 를 터치했을때 그 사각형에 대한 정보를 패널에 정보를 표시한다. (1/2)
-//extension ViewController : AlphaStepperDelegate {
-//    func changeAlpha(sender: AlphaStepper) {
-//        //사각형 모델 알파 값 변경.
-//        if let alpha = Alpha(rawValue: Int(sender.value)) {
-//            targetModel?.updateAlpha(alpha)
-//        }
-//    }
-//}
-//
-////MARK: Event 4.0 : 사용자가 ColorRondomizeButton 를 터치했을때 그 사각형에 대한 정보를 패널에 정보를 표시한다. (2/2)
-////MARK: Event 5.0 : 사용자가 AlphaStepper 를 터치했을때 그 사각형에 대한 정보를 패널에 정보를 표시한다. (2/2)
-//extension ViewController: RectangleDelegate {
-//    func didChangeProperty(sender: Rectangle) {
-//        updatePanel(with: targetModel)
-//        updateRectangleView(at: targetView, with: targetModel)
-//    }
-//}
-
-    
-
-//MARK: Event 1.0 사용자가 “사각형” 버튼을 누를시 “RectangleView” 를 생성한다 (2/2)
+// 출력 관련 델리게이션 함수
 extension ViewController : PlaneDelegate {
     
-
     func didSearchForRectangleModel(detectedModels: [Rectangle]) {
-    
         if detectedModels.isEmpty {
             panelView.setDefaultPanelValues()
         }else {
@@ -217,10 +164,14 @@ extension ViewController : PlaneDelegate {
         manageAmendingViews(by: model, operation: colorRandomization)
     }
     
+    func didChangeAlpha(model: Rectangle) {
+        manageAmendingViews(by: model, operation: alphaModification)
+    }
     
     
 }
 
+//입력 관련 델리게이션 함수 
 extension ViewController : PanelViewDelegate {
     func didTabRondomizeColor() {
         if let selectedModel = plane.getSelectedModel(){
@@ -233,8 +184,5 @@ extension ViewController : PanelViewDelegate {
             plane.changeAlpha(on: selectedModel, with: Alpha(rawValue: Int(from.value)))
         }
     }
-    
-  
-
 }
 

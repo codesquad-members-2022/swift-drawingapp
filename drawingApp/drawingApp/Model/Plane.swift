@@ -13,6 +13,7 @@ protocol PlaneDelegate {
     func didAppendRectangleModel(model: Rectangle?)
     func didSearchForRectangleModel(detectedModels: [Rectangle])
     func didRandomizeColor(model : Rectangle)
+    func didChangeAlpha(model: Rectangle)
 }
 
 struct Plane{
@@ -34,7 +35,7 @@ struct Plane{
     mutating func append(_ rect : Rectangle) {
         self.rectangles.append(rect)
         os_log(.debug, "Plane 에 새로 들어온 사각형 정보 : \(rect) ")
-        delegate?.didAppendRectangleModel(model: rect)
+        delegate?.didAppendRectangleModel(model: rectangles.last)
     }
     
     
@@ -64,6 +65,7 @@ struct Plane{
     func changeAlpha(on model : Rectangle, with alpha: Alpha?){
         if let newAlpha = alpha {
             model.updateAlpha(newAlpha)
+            delegate?.didChangeAlpha(model: model)
         }
     }
     
