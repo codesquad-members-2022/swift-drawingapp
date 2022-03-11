@@ -18,7 +18,7 @@ class Plane:CustomStringConvertible{
     }
     
     private var rectangles:[Rectangle] = []
-    private var selectedRectangleIndex: Int?
+    private var selectedRectangle: Rectangle?
     var count: Int{
         return rectangles.count
     }
@@ -28,11 +28,11 @@ class Plane:CustomStringConvertible{
     
     func findMatchingRectangleModel(x: Double, y: Double){
         guard let rectangle = self[x,y] else {
-            self.selectedRectangleIndex = nil
+            self.selectedRectangle = nil
             NotificationCenter.default.post(name: NotificationName.rectangleNotFoundFromPlane, object: self, userInfo: nil)
             return
         }
-        self.selectedRectangleIndex = self[rectangle.id]
+        self.selectedRectangle = rectangle
         NotificationCenter.default.post(name: NotificationName.rectangleFoundFromPlane, object: self, userInfo: [UserInfoKey.rectangleFound:rectangle])
     }
     
@@ -42,14 +42,14 @@ class Plane:CustomStringConvertible{
     }
     
     func updateRectangleColor(newColor: Rectangle.Color){
-        guard let selectedRectangleIndex = self.selectedRectangleIndex else { return }
-        self.rectangles[selectedRectangleIndex].backgroundColor = newColor
+        guard let selectedRectangle = self.selectedRectangle else { return }
+        selectedRectangle.backgroundColor = newColor
         NotificationCenter.default.post(name: NotificationName.rectangleColorUpdated, object: self, userInfo: [UserInfoKey.rectangleColorUpdated:newColor])
     }
     
     func updateRectangleAlpha(opacity: Int){
-        guard let selectedRectangleIndex = self.selectedRectangleIndex else { return }
-        self.rectangles[selectedRectangleIndex].alpha = Rectangle.Alpha(opacity: opacity)
+        guard let selectedRectangle = self.selectedRectangle else { return }
+        selectedRectangle.alpha = Rectangle.Alpha(opacity: opacity)
         NotificationCenter.default.post(name: NotificationName.rectangleAlphaUpdated, object: self, userInfo: [UserInfoKey.rectangleAlphaUpdated:opacity])
     }
     
@@ -64,15 +64,6 @@ class Plane:CustomStringConvertible{
         }
         
         return false
-    }
-    
-    subscript(id: Rectangle.Id)-> Int?{
-        for index in 0..<rectangles.count {
-            if(rectangles[index].id == id){
-                return index
-            }
-        }
-        return nil
     }
     
     subscript(x: Double = 0, y: Double = 0)-> Rectangle?{
