@@ -37,9 +37,9 @@ class DrawingModelFactory {
         let alpha = Alpha.allCases.randomElement() ?? .transpar10
         
         let uiFont = UIFont(name: font.name, size: font.size)
-        let text = "asddfasddfasddfasddfasddfasddf"
+        let text = makeRandomText()
         let labelSize = NSString(string: text).size(withAttributes: [.font:uiFont])
-        let size = Size(width: labelSize.width, height: labelSize.height)
+        let size = Size(width: labelSize.width + 10, height: labelSize.height + 10)
         
         return LabelModel(id: id, origin: origin, size: size, alpha: alpha, text: text, font: font, fontColor: fontColor)
     }
@@ -50,5 +50,17 @@ class DrawingModelFactory {
             let randomId = String((0..<3).compactMap{ _ in chars.randomElement()})
             return id + randomId + "-"
         }.dropLast())
+    }
+    
+    func makeRandomText() -> String {
+        let randomWords =
+"""
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas tellus rutrum tellus pellentesque eu. Viverra justo nec ultrices dui sapien eget mi proin sed. Vel pretium lectus quam id leo. Molestie at elementum eu facilisis sed odio morbi quis commodo. Risus at ultrices mi tempus imperdiet nulla malesuada. In est ante in nibh mauris cursus mattis molestie a. Venenatis urna cursus eget nunc. Eget velit aliquet sagittis id consectetur purus ut. Amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus. Consequat nisl vel pretium lectus quam id. Nisl vel pretium lectus quam id leo in vitae turpis. Purus faucibus ornare suspendisse sed. Amet mauris commodo quis imperdiet.
+""".split(separator: " ")
+        let randomIndex = Int.random(in: 0..<randomWords.count - 4)
+        let randomText = (randomIndex..<randomIndex+5).reduce(""){
+            $0 + " " + randomWords[$1]
+        }.dropFirst()
+        return String(randomText)
     }
 }
