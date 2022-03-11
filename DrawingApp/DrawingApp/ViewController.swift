@@ -17,14 +17,19 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func didTapView(_ sender: UITapGestureRecognizer) {
-        print("didTapView", sender)
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // Tap Gesture Recognizer 초기화
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
+        
+        // Tap Gesture Recognizer를 뷰에 추가
+        tappableView.addGestureRecognizer(tapGestureRecognizer)
     }
 
+    @objc func didTapView(_ sender: UITapGestureRecognizer) {
+        print("didTapView", sender)
+    }
 }
 
