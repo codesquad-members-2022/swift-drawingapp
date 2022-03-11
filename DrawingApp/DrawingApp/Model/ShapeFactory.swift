@@ -16,4 +16,8 @@ class ShapeFactory: ShapeCreator {
     private func generateId() -> String {
         return UUID().uuidString.prefix(3) + "-" + UUID().uuidString.prefix(3) + "-" + UUID().uuidString.prefix(3)
     }
+    
+    private func createRandomColor() -> Color {
+        return Color(r: Int.random(in: 0...255), g: Int.random(in: 0...255), b: Int.random(in: 0...255))
+    }
 }
