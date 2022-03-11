@@ -8,9 +8,9 @@
 import Foundation
 
 class Label: ViewModel {
-    private var text: String
-    private var fontSize: Float
-    private var fontColor: Color
+    private(set) var text: String
+    private(set) var fontSize: Float
+    private(set) var fontColor: Color
     
     init(id: ID, origin: Point, size: Size, text: String, fontSize: Float, fontColor: Color) {
         self.text = text

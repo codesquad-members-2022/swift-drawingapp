@@ -14,6 +14,8 @@ enum ViewFactory {
             return createView(from: rectangle)
         case let photo as Photo:
             return createView(from: photo)
+        case let label as Label:
+            return createView(from: label)
         default:
             return nil
         }
@@ -39,10 +41,24 @@ enum ViewFactory {
         return view
     }
     
+    private static func createView(from label: Label) -> UILabel {
+        let frame = CGRect(origin: label.origin, size: label.size)
+        let view = UILabel(frame: frame)
+        
+        view.text = label.text
+        view.font = UIFont.systemFont(ofSize: CGFloat(label.fontSize))
+        view.textColor = UIColor(with: label.fontColor)
+        
+        return view
+    }
+    
     static func clone(_ original: UIView) -> UIView {
-        if let original = original as? UIImageView {
-            return clone(original)
-        } else {
+        switch original {
+        case let imageView as UIImageView:
+            return clone(imageView)
+        case let label as UILabel:
+            return clone(label)
+        default:
             let clone = UIView(frame: original.frame)
             
             if let backgroundColor = original.backgroundColor {
@@ -50,7 +66,6 @@ enum ViewFactory {
             }
             
             applyCloneEffect(clone)
-            
             return clone
         }
     }
@@ -62,6 +77,17 @@ enum ViewFactory {
             clone.image = image
         }
 
+        applyCloneEffect(clone)
+        
+        return clone
+    }
+    
+    private static func clone(_ original: UILabel) -> UILabel {
+        let clone = UILabel(frame: original.frame)
+        
+        clone.text = original.text
+        clone.font = UIFont.systemFont(ofSize: original.font.pointSize)
+        clone.textColor = original.textColor
         applyCloneEffect(clone)
         
         return clone
