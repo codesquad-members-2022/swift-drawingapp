@@ -21,6 +21,8 @@
 		BC1806D127D06DEF0057679D /* ViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1806D027D06DEF0057679D /* ViewFactory.swift */; };
 		BC1806D727D095E30057679D /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1806D627D095E30057679D /* UIColorExtension.swift */; };
 		BC1806D927D0D3D10057679D /* ConverterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC1806D827D0D3D10057679D /* ConverterExtension.swift */; };
+		BC70F81B27DB83A400F880F0 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC802D6A27DB4498002BD536 /* Label.swift */; };
+		BC70F81C27DB83AC00F880F0 /* ID.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC802D6027D72C10002BD536 /* ID.swift */; };
 		BC7ECF8E27CCB46A00BC6AEC /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7ECF8D27CCB46A00BC6AEC /* Rectangle.swift */; };
 		BC7ECF8F27CCB46A00BC6AEC /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7ECF8D27CCB46A00BC6AEC /* Rectangle.swift */; };
 		BC7ECF9227CCB8CA00BC6AEC /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7ECF9127CCB8CA00BC6AEC /* Color.swift */; };
@@ -406,9 +408,11 @@
 				BC802D5E27D60092002BD536 /* ViewModel.swift in Sources */,
 				BC1806C727CF51620057679D /* Size.swift in Sources */,
 				BC1806C827CF51650057679D /* Alpha.swift in Sources */,
+				BC70F81B27DB83A400F880F0 /* Label.swift in Sources */,
 				BC802D5F27D60095002BD536 /* Photo.swift in Sources */,
 				BC7ECF8F27CCB46A00BC6AEC /* Rectangle.swift in Sources */,
 				BCE3CB9727CC6D90004F2AFE /* PlaneTests.swift in Sources */,
+				BC70F81C27DB83AC00F880F0 /* ID.swift in Sources */,
 				BC7ECF9327CCB8CA00BC6AEC /* Color.swift in Sources */,
 				BC1806CA27CF51730057679D /* Log.swift in Sources */,
 				BC1806C927CF516B0057679D /* Plane.swift in Sources */,

@@ -42,6 +42,10 @@ class Plane {
         viewModels.filter { $0 is Photo }.count
     }
     
+    var labelCount: Int {
+        viewModels.filter { $0 is Label }.count
+    }
+    
     var viewModelCount: Int {
         viewModels.count
     }
