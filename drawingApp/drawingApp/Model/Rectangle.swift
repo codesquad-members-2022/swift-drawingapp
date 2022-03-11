@@ -65,11 +65,6 @@ class Rectangle {
         self.isSelected = !isSelected
     }
     
-       
-    func setSelected(_ bool : Bool ) {
-        self.isSelected = bool
-    }
-
     func selectedStatus() -> Bool {
         isSelected
     }
