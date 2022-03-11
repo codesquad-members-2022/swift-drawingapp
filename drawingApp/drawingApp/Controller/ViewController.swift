@@ -77,19 +77,26 @@ class ViewController: UIViewController {
         plane.searchRectangleModel(tabCoordX: point.x, tabCoordY: point.y)
     }
     
-    func createRectangleView (with rectModel: Rectangle) {
-        let rectView = RectangleView(frame: CGRect(x: rectModel.point.x.trim, y: rectModel.point.y.trim, width: rectModel.size.width, height: rectModel.size.height))
-        rectView.backgroundColor = UIColor(red: rectModel.color.red.scaleRGB, green: rectModel.color.green.scaleRGB, blue: rectModel.color.blue.scaleRGB, alpha: rectModel.alpha.value)
+    func createRectangleView (with model: Rectangle) {
+        let rectView = RectangleView(frame: CGRect(x: model.point.x.trim, y: model.point.y.trim, width: model.size.width, height: model.size.height))
+        rectView.backgroundColor = UIColor(red: model.color.red.scaleRGB, green: model.color.green.scaleRGB, blue: model.color.blue.scaleRGB, alpha: model.alpha.value)
 
-        rectangleList.updateValue(rectView, forKey: rectModel)
+        rectangleList.updateValue(rectView, forKey: model)
         view.addSubview(rectView)
     }
     
     func manageViews(with models: [Rectangle]) {
-        for model in models {
-            setHighlightView(from:model)
-            updatePanel(from: model)
+        var parsedModels = models
+        
+        if models.last!.selectedStatus() == false {
+            parsedModels = models.reversed()
         }
+      
+        for model in parsedModels {
+            setHighlightView(from:model)
+            updatePanel(from : model)
+        }
+                
     }
     
     func setHighlightView(from model: Rectangle) {
@@ -103,13 +110,12 @@ class ViewController: UIViewController {
         if model.selectedStatus() {
             panelView.updateAlphaLable(newAlphaValue: String(model.alpha.value * 10.0))
             panelView.updateRomdomizeColorButton(newColor: model.color.tohexString)
-        }else{
-            panelView.updateAlphaLable(newAlphaValue: "0.0")
-            panelView.updateRomdomizeColorButton(newColor: "#000000")
         }
-            
-        
+        else{
+            panelView.setDefaultPanelValues()
+        }
     }
+    
 
 //    //MARK: 선택 되어 있는 RectangleView 의 색상을 업데이트하기.
 //    func updateRectangleView(at view : RectangleView? , with model: Rectangle?) {
@@ -120,18 +126,9 @@ class ViewController: UIViewController {
 //    }
 //
 //
-//    func updatePanel(with model : Rectangle?) {
-//        if let rectModel = model {
-//            updateColorRondomizeButton(to : rectModel.color.tohexString)
-//            updateStepper(to: (rectModel.alpha.value * 10))
-//        }
-//    }
+
 //
-//    func updateColorRondomizeButton(to str : String?) {
-//        if let newString = str {
-//            colorRondomizeButton.setTitle(newString, for: .normal)
-//        }
-//    }
+
 //
 //    func updateStepper(to value : Double) {
 //        self.alphaStepper.updateValue(value)
@@ -200,7 +197,12 @@ class ViewController: UIViewController {
 extension ViewController : PlaneDelegate {
    
     func didSearchForRectangleModel(detectedModels: [Rectangle]) {
-        manageViews(with: detectedModels)
+    
+        if detectedModels.isEmpty {
+            panelView.setDefaultPanelValues()
+        }else {
+            manageViews(with: detectedModels)
+        }
     }
 
     func didAppendRectangleModel(rectModel: Rectangle?) {

@@ -20,7 +20,9 @@ class PanelView : UIView {
     private var alphaLabel : UILabel!
     private var colorTitleLabel : UILabel!
     private var transparencyLabel : UILabel!
-    
+    private let defaultAlphaValue = "0.0"
+    private let defaultColorValue = "#000000"
+
     var delegate : PanelViewDelegate?
     
     override init(frame: CGRect) {
@@ -28,6 +30,7 @@ class PanelView : UIView {
         self.backgroundColor = UIColor.systemGray3
         setupLables()
         setupButtons()
+        setDefaultPanelValues()
         loadSubViews()
     }
     
@@ -36,6 +39,7 @@ class PanelView : UIView {
         self.backgroundColor = UIColor.systemGray3
         setupLables()
         setupButtons()
+        setDefaultPanelValues()
         loadSubViews()
     }
     
@@ -47,6 +51,10 @@ class PanelView : UIView {
         self.colorRondomizeButton.setTitle(newColor, for: .normal)
     }
     
+    func setDefaultPanelValues() {
+        self.colorRondomizeButton.setTitle(defaultColorValue, for: .normal)
+        self.alphaLabel.text = defaultAlphaValue
+    }
     
     private func loadSubViews() {
         addSubview(colorTitleLabel)
@@ -68,7 +76,7 @@ class PanelView : UIView {
         
         colorTitleLabel.text = "배경색"
         transparencyLabel.text = "투명도"
-        alphaLabel.text = "0"
+      
         
         colorTitleLabel.frame = CGRect(x: self.bounds.minX+20, y: self.bounds.minY+20, width: 160, height: 50)
         transparencyLabel.frame = CGRect(x: self.bounds.minX+20, y: self.bounds.minY+150, width: 160, height: 50)
