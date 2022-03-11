@@ -10,11 +10,13 @@ import UIKit
 
 protocol ControllerViewDelegate {
     func backgroundButtonDidTouch()
+    func alphaSliderDidChange(_ value: Float)
 }
 
 
 class ControllerView: UIView {
 
+    @IBOutlet var alphaSlider: UISlider!
     @IBOutlet var backgroundButton: UIButton!
     var delegate: ControllerViewDelegate?
     
@@ -40,5 +42,8 @@ class ControllerView: UIView {
         delegate?.backgroundButtonDidTouch()
     }
     
+    @IBAction func changedAlphaSlider(_ sender: UISlider) {
+        delegate?.alphaSliderDidChange(sender.value)
+    }
     
 }

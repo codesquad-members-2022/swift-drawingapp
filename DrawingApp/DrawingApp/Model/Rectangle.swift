@@ -48,6 +48,10 @@ class Rectangle: CustomStringConvertible{
     func changedBackGroundColor(to color: Color){
         self.backgroundColor = color
     }
+    
+    func changedAlpha(to value: Int){
+        self.alpha = Alpha(rawValue: value) ?? .opaque
+    }
 
 }
 
