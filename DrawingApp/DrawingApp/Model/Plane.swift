@@ -11,6 +11,7 @@ import UIKit
 class Plane {
     private var rectangles : [Rectangle] = []
     private var selectedRectangle : Rectangle?
+    static let addRectangle : Notification.Name = Notification.Name("addRectangle")
     
     subscript(index: Int) -> Rectangle? {
         if index < rectangleCount {
@@ -26,6 +27,7 @@ class Plane {
     
     func addRectangle(rectangle: Rectangle) {
         self.rectangles.append(rectangle)
+        NotificationCenter.default.post(name: Plane.addRectangle, object: self, userInfo: ["rectangle":rectangle])
     }
     
     func searchRectangle(at position : Position) {
