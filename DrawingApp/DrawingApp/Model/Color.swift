@@ -13,9 +13,9 @@ struct Color {
     private let blue: Int
     
     init(r: Int, g: Int, b: Int) {
-        self.red = Int.random(in: 0...255)
-        self.green = Int.random(in: 0...255)
-        self.blue = Int.random(in: 0...255)
+        self.red = r
+        self.green = g
+        self.blue = b
     }
 }
 
