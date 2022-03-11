@@ -27,14 +27,14 @@ class InspectorUpDownView: UIView {
     let upButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .blue
+        button.setImage(UIImage(named: "ic_upArrow"), for: .normal)
         return button
     }()
     
     let downButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.backgroundColor = .red
+        button.setImage(UIImage(named: "ic_downArrow"), for: .normal)
         return button
     }()
     
@@ -72,11 +72,11 @@ class InspectorUpDownView: UIView {
         value.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
 
         upButton.rightAnchor.constraint(equalTo: downButton.leftAnchor, constant: -5).isActive = true
-        upButton.widthAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+        upButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
         upButton.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         
         downButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -5).isActive = true
-        downButton.widthAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+        downButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
         downButton.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
     }
 }
