@@ -15,6 +15,14 @@ struct Point {
         self.x = x
         self.y = y
     }
+    
+    func getCurrentX() -> Double {
+        return x
+    }
+    
+    func getCurrentY() -> Double {
+        return y
+    }
 }
 
 extension Point: CustomStringConvertible {
