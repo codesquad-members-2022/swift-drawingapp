@@ -18,4 +18,8 @@ struct Convertor {
         let B = CGFloat(color.blue) / 255
         return UIColor(red: R, green: G, blue: B, alpha: 1)
     }
+    
+    static func convertColor(from color: UIColor) -> Color {
+        return Color(R: Int(color.ciColor.red) * 255, G: Int(color.ciColor.green) * 255, B: Int(color.ciColor.blue) * 255)
+    }
 }
