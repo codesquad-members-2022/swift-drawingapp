@@ -7,8 +7,9 @@
 
 import Foundation
 
-final class Image: RectValue{
+final class Image: RectValue, CustomStringConvertible{
     let image: MyImage
+    let madeTime = Date()
     private(set) var size: MySize
     private(set) var point: MyPoint
     private(set) var alpha: Alpha
@@ -23,7 +24,7 @@ final class Image: RectValue{
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(image.imageInfo())
+        hasher.combine("\(image):\(madeTime)")
     }
     
     func changeAlpha(alpha: Alpha){

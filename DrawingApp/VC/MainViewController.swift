@@ -9,8 +9,7 @@ import UIKit
 import os
 
 class MainViewController: UIViewController{
-    private var rectanglePlane = RectanglePlane()
-    private var imagePlane = ImagePlane()
+    private var plane = Plane()
     private let rectFactory = RectangleFactory()
     private let rightAttributerView = RightAttributerView()
     private let imagePicker = UIImagePickerController()
@@ -38,6 +37,7 @@ class MainViewController: UIViewController{
         
         addViewMakerButtonObserver()
         addGestureRecognizerObserver()
+        addNoneTappedViewObserver()
     }
 }
 
@@ -46,12 +46,12 @@ class MainViewController: UIViewController{
 
 extension MainViewController{
     @IBAction func makeRandomRectangle(_ sender: Any) {
-        let rectangleValue = rectFactory.makeRandomRectangle(viewWidth: self.rightAttributerView.frame.minX, viewHeight: self.rectangleButton.frame.minY)
-        rectanglePlane.addRectangle(rectangle: rectangleValue)
+        let rectangleValue = rectFactory.makeRandomRectanglePosition(viewWidth: self.rightAttributerView.frame.minX, viewHeight: self.rectangleButton.frame.minY)
+        plane.addValue(rectangle: rectangleValue)
     }
     
     @objc func addRectangleView(_ notification: Notification){
-        guard let rectangleValue = notification.userInfo?[RectanglePlane.userInfoKey] as? Rectangle else { return }
+        guard let rectangleValue = notification.userInfo?[Plane.NotificationName.userInfoKeyRectangle] as? Rectangle else { return }
         
         let rectangleView = RectangleView(frame: CGRect(x: rectangleValue.point.x, y: rectangleValue.point.y, width: rectangleValue.size.width, height: rectangleValue.size.height))
         rectangleView.backgroundColor = UIColor(red: rectangleValue.color.redValue(), green: rectangleValue.color.blueValue(), blue: rectangleValue.color.greenValue(), alpha: rectangleValue.alpha.showValue())
@@ -74,8 +74,8 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
-            let imageValue = rectFactory.makeRandomImageRectangle(image: MyImage(image: pickedImage), viewWidth: self.rightAttributerView.frame.minX, viewHeight: self.rectangleButton.frame.minY)
-            imagePlane.addImage(imageRectangle: imageValue)
+            let imageValue = rectFactory.makeRandomImagePosition(image: MyImage(image: pickedImage), viewWidth: self.rightAttributerView.frame.minX, viewHeight: self.rectangleButton.frame.minY)
+            plane.addValue(image: imageValue)
         }
 
         dismiss(animated: true, completion: nil)
@@ -86,7 +86,7 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
     
     @objc func addImageRectangleView(_ notification: Notification){
-        guard let imageValue = notification.userInfo?[ImagePlane.userInfoKey] as? Image else { return }
+        guard let imageValue = notification.userInfo?[Plane.NotificationName.userInfoKeyImage] as? Image else { return }
         
         let imageView = ImageView(frame: CGRect(x: imageValue.point.x, y: imageValue.point.y, width: imageValue.size.width, height: imageValue.size.height))
         
@@ -105,15 +105,19 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
 
 extension MainViewController{
     private func addViewMakerButtonObserver(){
-        NotificationCenter.default.addObserver(self, selector: #selector(addRectangleView(_:)), name: RectanglePlane.makeRectangle, object: rectanglePlane)
+        NotificationCenter.default.addObserver(self, selector: #selector(addRectangleView(_:)), name: Plane.NotificationName.makeRectangle, object: plane)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(addImageRectangleView(_:)), name: ImagePlane.makeImageRectangle, object: imagePlane)
+        NotificationCenter.default.addObserver(self, selector: #selector(addImageRectangleView(_:)), name: Plane.NotificationName.makeImage, object: plane)
     }
     
     private func addGestureRecognizerObserver(){
-        NotificationCenter.default.addObserver(self, selector: #selector(showRectangleTouchedView(_:)), name: RectanglePlane.selectRectangle, object: rectanglePlane)
+        NotificationCenter.default.addObserver(self, selector: #selector(showRectangleTouchedView(_:)), name: Plane.NotificationName.selectRectangle, object: plane)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(showImageTouchedView(_:)), name: ImagePlane.selectRectangle, object: imagePlane)
+        NotificationCenter.default.addObserver(self, selector: #selector(showImageTouchedView(_:)), name: Plane.NotificationName.selectImage, object: plane)
+    }
+    
+    private func addNoneTappedViewObserver(){
+        NotificationCenter.default.addObserver(self, selector: #selector(showNonTouchedView), name: Plane.NotificationName.noneSelect, object: plane)
     }
 }
 
@@ -123,18 +127,13 @@ extension MainViewController{
 extension MainViewController {
     @objc func tapGesture(_ gesture: UITapGestureRecognizer){
         let touchPoint = gesture.location(in: self.view)
-        let isRectangle: Bool = rectanglePlane.findRectangle(withX: touchPoint.x, withY: touchPoint.y)
-        let isImage: Bool = imagePlane.findImage(withX: touchPoint.x, withY: touchPoint.y)
-        
-        if !isRectangle && !isImage{
-            showNonTouchedView()
-        }
+        plane.findRectangle(withX: touchPoint.x, withY: touchPoint.y)
         
         return
     }
     
     @objc func showRectangleTouchedView(_ notification: Notification){
-        guard let rectangle = notification.userInfo?[RectanglePlane.userInfoKey] as? Rectangle else{
+        guard let rectangle = notification.userInfo?[Plane.NotificationName.userInfoKeyRectangle] as? Rectangle else{
             return
         }
         
@@ -150,7 +149,7 @@ extension MainViewController {
     }
     
     @objc func showImageTouchedView(_ notification: Notification){
-        guard let image = notification.userInfo?[ImagePlane.userInfoKey] as? Image else{
+        guard let image = notification.userInfo?[Plane.NotificationName.userInfoKeyImage] as? Image else{
             return
         }
         
@@ -163,6 +162,11 @@ extension MainViewController {
         displaySliderValue(selected: image)
         touchedViewFrame(selected: image)
         selectedImage = image
+    }
+    
+    @objc private func showNonTouchedView(){
+        noneTouchedViewFrame()
+        noneDisplaySliderValue()
     }
 }
     
@@ -197,11 +201,6 @@ extension MainViewController{
             view?.layer.borderWidth = 3
         }
         
-    }
-    
-    private func showNonTouchedView(){
-        noneTouchedViewFrame()
-        noneDisplaySliderValue()
     }
     
     private func noneDisplaySliderValue(){
