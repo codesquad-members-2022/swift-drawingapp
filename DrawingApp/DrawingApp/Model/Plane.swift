@@ -15,6 +15,9 @@ class Plane {
     static let didSpecifyRectangle = Notification.Name("PlaneDidSpecifyRectangle")
     static let didChangeRectangleBackgroundColor = Notification.Name("PlaneDidChangeRectangleBackgroundColor")
     static let didChangeRectangleAlpha = Notification.Name("PlaneDidChangeRectangleAlpha")
+    static let changedRectangle = "ChangedRectangle"
+    static let specifiedRectangle = "specifiedRectangle"
+    static let addedRectangle = "addedRectanlge"
     var count: Int {
         return rectangles.count
     }
@@ -27,7 +30,7 @@ class Plane {
         for rectangle in rectangles.reversed() {
             if rectangle.isPointInArea(point) {
                 self.specifiedRectangle = rectangle
-                notificationCenter.post(name: Plane.didSpecifyRectangle, object: self, userInfo: [K.PlaneRectangle.specified: rectangle])
+                notificationCenter.post(name: Plane.didSpecifyRectangle, object: self, userInfo: [Plane.specifiedRectangle: rectangle])
                 return .success(rectangle)
             }
         }
@@ -39,7 +42,7 @@ class Plane {
     public func addNewRectangle(in frame: (width: Double, height: Double)) {
         let newRectangle = RectangleFactory.makeRandomRectangle(in: frame)
         rectangles.append(newRectangle)
-        notificationCenter.post(name: Plane.didAddRectangle, object: self, userInfo: [K.PlaneRectangle.added: newRectangle])
+        notificationCenter.post(name: Plane.didAddRectangle, object: self, userInfo: [Plane.addedRectangle: newRectangle])
     }
     
     public func changeBackgroundColor(to newColor: BackgroundColor) -> Result<Rectangle, PlaneError> {
@@ -47,7 +50,7 @@ class Plane {
             return .failure(.noSpecifiedRectangleToChangeError)
         }
         specifiedRectangle.changeBackgroundColor(to: newColor)
-        notificationCenter.post(name: Plane.didChangeRectangleBackgroundColor, object: self, userInfo: [K.PlaneRectangle.changed: specifiedRectangle])
+        notificationCenter.post(name: Plane.didChangeRectangleBackgroundColor, object: self, userInfo: [Plane.changedRectangle: specifiedRectangle])
         return .success(specifiedRectangle)
     }
 
@@ -56,7 +59,7 @@ class Plane {
             return .failure(.noSpecifiedRectangleToChangeError)
         }
         specifiedRectangle.changeAlphaValue(to: newAlpha)
-        notificationCenter.post(name: Plane.didChangeRectangleAlpha, object: self, userInfo: [K.PlaneRectangle.changed: specifiedRectangle])
+        notificationCenter.post(name: Plane.didChangeRectangleAlpha, object: self, userInfo: [Plane.changedRectangle: specifiedRectangle])
         return .success(specifiedRectangle)
     }
 
