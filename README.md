@@ -312,9 +312,9 @@ addObserver 시 Name, Object는 모두 nil이 될 수 있습니다. 그러므로
 * ```addProperties(_: RectangleProperty)```는 여러 속성들을 한꺼번에 바꾼다는 뜻으로 해석되는데 실제는 그렇지 않음. 이름 변경 필요.(Naming)[x]
 * MainScreenAction 타입은 Plane에 있을 필요가 있는지 고민 필요.(MVC)[x]
 * RectRGBColor 에 propertyWrapper + init() 매개변수 타입 변경도 시도해보기.(OOP)[x]
-* ```extension Notification.Name``` 를 전체적으로 선언하였는데 좀 더 관련이 깊은 타입에 확장하는 것이 좋음. 응집력이 떨어짐. (OOP)
-* MainScreenViewController의 ```observeMainScreenAction(using handler: @escaping (Notification) -> Void)```는 굳이 MainScreenViewController 소스코드와 분리할 필요가 없어 보임. (부연설명, OOP)
-* Notification 의 object는 매우 중요하므로 정확히 명시하는게 좋다. (Observer Pattern)
-* MainScreenViewController 에서 액션 별로 옵저버가 등록되는 것이 좋음.
+* ```extension Notification.Name``` 를 전체적으로 선언하였는데 좀 더 관련이 깊은 타입에 확장하는 것이 좋음. 응집력이 떨어짐. (OOP)[x]
+* MainScreenViewController의 ```observeMainScreenAction(using handler: @escaping (Notification) -> Void)```는 굳이 MainScreenViewController 소스코드와 분리할 필요가 없어 보임. (부연설명, OOP)[x]
+* Notification 의 object는 매우 중요하므로 정확히 명시하는게 좋다. (Observer Pattern)[x]
+* MainScreenViewController 에서 액션 별로 옵저버가 등록되는 것이 좋음.[x]
 * MainScreenViewController 에서 터치한 뷰를 찾고, 프로퍼티를 변경하는 작업도 모델 기준으로 처리하도록 수정.
-* ViewController의 ```sliderAdmitAlphaValueChanged(_:UISlider)``` 메소드는 '(입력)뷰 컨트롤러 -> 모델, (출력)뷰 컨트롤러 변경' 을 하고 있는데 '(출력)뷰 컨트롤러 변경'은 따로 분리. 출력은 모델 -> 뷰 컨트롤러 -> 뷰 흐름을 가져야 한다.
+* ViewController의 ```sliderAdmitAlphaValueChanged(_:UISlider)``` 메소드는 '(입력)뷰 컨트롤러 -> 모델, (출력)뷰 컨트롤러 변경' 을 하고 있는데 '(출력)뷰 컨트롤러 변경'은 따로 분리. 출력은 모델 -> 뷰 컨트롤러 -> 뷰 흐름을 가져야 한다.[x]
