@@ -8,8 +8,8 @@
 import Foundation
 
 protocol DrawingDelegate{
-    func changedColor(rectangle: Rectangle)
-    func updatedAlpha(rectangle: Rectangle)
-    func selectedRectangle(rectangle: Rectangle)
-    func deselected()
+    func drawingViewDidChangeColor(rectangle: Rectangle)
+    func drawingViewDidUpdateAlpha(rectangle: Rectangle)
+    func drawingViewDidSelecteRectangle(rectangle: Rectangle)
+    func drawingViewDidDeselect()
 }

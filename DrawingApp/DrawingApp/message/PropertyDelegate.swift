@@ -8,7 +8,7 @@
 import Foundation
 
 protocol PropertyDelegate{
-    func propertyAction(action: PropertyViewAction)
+    func propertyViewAction(action: PropertyViewAction)
 }
 
 enum PropertyViewAction{

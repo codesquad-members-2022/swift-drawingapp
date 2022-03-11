@@ -8,7 +8,7 @@
 import UIKit
 import os
 
-class DrawingViewController: UIViewController {
+class DrawingViewController: UIViewController{
     private let logger = Logger()
     private var plane: RectangleChangeable?
     private lazy var rectangleAddButton = RectangleAddButton(frame: CGRect(x: view.center.x - 50, y: view.frame.maxY - 144.0, width: 100, height: 100))
@@ -48,7 +48,7 @@ class DrawingViewController: UIViewController {
     }
     
     @objc private func deSelectedRectangle(_ notification: Notification){
-        drawingDelegate?.deselected()
+        drawingDelegate?.drawingViewDidDeselect()
     }
     
     private func setRectangleButtonEvent(){
@@ -66,8 +66,8 @@ class DrawingViewController: UIViewController {
         let rectangleView = RectangleView(size: rectangle.size, point: rectangle.point)
         rectangleView.setRGBColor(rgb: rectangle.color)
         rectangleView.setAlpha(alpha: rectangle.alpha)
-        drawingDelegate?.changedColor(rectangle: rectangle)
-        drawingDelegate?.updatedAlpha(rectangle: rectangle)
+        drawingDelegate?.drawingViewDidChangeColor(rectangle: rectangle)
+        drawingDelegate?.drawingViewDidUpdateAlpha(rectangle: rectangle)
         let viewTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(rectangleTappedGesture))
         rectangleView.addGestureRecognizer(viewTapGesture)
         rectangleViews[rectangle.uniqueId] = rectangleView
@@ -84,7 +84,7 @@ class DrawingViewController: UIViewController {
         guard let rectangle = notification.userInfo?[PlaneNotificationKey.rectangle] as? Rectangle else {
             return
         }
-        drawingDelegate?.selectedRectangle(rectangle: rectangle)
+        drawingDelegate?.drawingViewDidSelecteRectangle(rectangle: rectangle)
     }
     
     @objc private func rectangleColorChanged(_ notification: Notification){
@@ -92,7 +92,7 @@ class DrawingViewController: UIViewController {
             return
         }
         rectangleViews[rectangle.uniqueId]?.setRGBColor(rgb: rectangle.color)
-        drawingDelegate?.changedColor(rectangle: rectangle)
+        drawingDelegate?.drawingViewDidChangeColor(rectangle: rectangle)
     }
     
     @objc private func rectangleAlphaChanged(_ notification: Notification){
@@ -100,15 +100,15 @@ class DrawingViewController: UIViewController {
             return
         }
         rectangleViews[rectangle.uniqueId]?.setAlpha(alpha: rectangle.alpha)
-        drawingDelegate?.updatedAlpha(rectangle: rectangle)
+        drawingDelegate?.drawingViewDidUpdateAlpha(rectangle: rectangle)
     }
     
     private func plusViewAlpha(){
-        plane?.changeRectangleAlpha(changed: .plus)
+        plane?.pluseRectangleAlpha()
     }
     
     private func minusViewAlpha(){
-        plane?.changeRectangleAlpha(changed: .minus)
+        plane?.minusRectangleAlpha()
     }
     
     @objc private func propertyAction(_ notification: Notification) {
