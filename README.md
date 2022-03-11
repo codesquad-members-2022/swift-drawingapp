@@ -304,12 +304,12 @@ addObserver 시 Name, Object는 모두 nil이 될 수 있습니다. 그러므로
 
 ### Step 3 Complement Tasks
 
-* 델리게이트 메소드 규칙을 따르지 않는 RectangleViewTapDelegate 프로토콜의 ```changeCurrentSelect(at index: Int?)``` 를 수정합니다. 메소드명 자체는 좀 줄여볼 수 있음.(Naming+)
-* Plane 객체의 ```sendNotification(_:RectangleProperty, at:Int, as:MainScreenAction)``` 에서 생성하는 Notification post의 하드코딩 부분을 상수로 선언해본다.
-* Plane 객체의 addRectangle() 메소드 내 ```let factoryProperty: FactoryProperties```는 의미가 너무 광범위. 다른 이름으로 변경 필요.(Naming)
-* 바로 위와 같은 메소드에서 append 하는 property라는 단어 또한 광범위.
-* ```setRandomColor(at: Int)```는 이름이 애매함. return 이 있으면 get 이기도 한데 어딘가에 랜덤컬러를 넣는건지 반환하는건지 바꾸는건지 명확한 이름 선택 필요.(Naming)
-* ```addProperties(_: RectangleProperty)```는 여러 속성들을 한꺼번에 바꾼다는 뜻으로 해석되는데 실제는 그렇지 않음. 이름 변경 필요.(Naming)
+* 델리게이트 메소드 규칙을 따르지 않는 RectangleViewTapDelegate 프로토콜의 ```changeCurrentSelect(at index: Int?)``` 를 수정합니다. 메소드명 자체는 좀 줄여볼 수 있음.(Naming+)[x]
+* Plane 객체의 ```sendNotification(_:RectangleProperty, at:Int, as:MainScreenAction)``` 에서 생성하는 Notification post의 하드코딩 부분을 상수로 선언해본다.[x]
+* Plane 객체의 addRectangle() 메소드 내 ```let factoryProperty: FactoryProperties```는 의미가 너무 광범위. 다른 이름으로 변경 필요.(Naming)[x]
+* 바로 위와 같은 메소드에서 append 하는 property라는 단어 또한 광범위.[x]
+* ```setRandomColor(at: Int)```는 이름이 애매함. return 이 있으면 get 이기도 한데 어딘가에 랜덤컬러를 넣는건지 반환하는건지 바꾸는건지 명확한 이름 선택 필요.(Naming)[x]
+* ```addProperties(_: RectangleProperty)```는 여러 속성들을 한꺼번에 바꾼다는 뜻으로 해석되는데 실제는 그렇지 않음. 이름 변경 필요.(Naming)[x]
 * MainScreenAction 타입은 Plane에 있을 필요가 있는지 고민 필요.(MVC)
 * RectRGBColor 에 propertyWrapper + init() 매개변수 타입 변경도 시도해보기.(OOP)
 * ```extension Notification.Name``` 를 전체적으로 선언하였는데 좀 더 관련이 깊은 타입에 확장하는 것이 좋음. 응집력이 떨어짐. (OOP)
