@@ -7,8 +7,9 @@
 
 import Foundation
 
-final class Rectangle: RectValue{
+final class Rectangle: RectValue, CustomStringConvertible{
     let id: String
+    let madeTime = Date()
     private(set) var size: MySize
     private(set) var point: MyPoint
     private(set) var color: RGBColor
@@ -24,7 +25,7 @@ final class Rectangle: RectValue{
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
+        hasher.combine("\(id):\(madeTime)")
     }
     
     func changeColor(color: RGBColor){
