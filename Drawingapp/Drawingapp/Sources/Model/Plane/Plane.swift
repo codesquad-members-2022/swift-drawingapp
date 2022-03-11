@@ -10,12 +10,12 @@ import UIKit
 
 protocol PlaneAction {
     func touchPoint(_ point: Point)
-    func originChanged(_ origin: Point)
-    func originMoved(x: Double, y: Double)
-    func sizeChanged(_ size: Size)
+    func originChange(_ origin: Point)
+    func originMove(x: Double, y: Double)
+    func sizeChange(_ size: Size)
     func sizeIncrease(width: Double, height: Double)
-    func alphaChanged(_ alpha: Alpha)
-    func colorChanged()
+    func alphaChange(_ alpha: Alpha)
+    func colorChange()
     func onPanGustureAction(state: UIGestureRecognizer.State, point: Point)
 }
 
@@ -56,7 +56,7 @@ class Plane {
         return nil
     }
     
-    private func calibrateScreenInPoint(to point: Point, size: Size) -> Point? {
+    private func calibrateScreenInOrigin(to point: Point, size: Size) -> Point? {
         guard let screenSize = self.delegate?.getScreenSize() else {
             return nil
         }
@@ -141,7 +141,7 @@ extension Plane: PlaneAction {
             NotificationCenter.default.post(name: Plane.NotifiName.didBeganDrag, object: self, userInfo: userInfo)
         case .changed:
             guard let dragModel = self.selectedModel,
-                  let newOrigin = self.calibrateScreenInPoint(to: point, size: dragModel.size) else {
+                  let newOrigin = self.calibrateScreenInOrigin(to: point, size: dragModel.size) else {
                 return
             }
             
@@ -149,7 +149,7 @@ extension Plane: PlaneAction {
             NotificationCenter.default.post(name: Plane.NotifiName.didChangedDrag, object: self, userInfo: userInfo)
         case .ended:
             guard let dragModel = self.selectedModel,
-                  let newOrigin = self.calibrateScreenInPoint(to: point, size: dragModel.size) else {
+                  let newOrigin = self.calibrateScreenInOrigin(to: point, size: dragModel.size) else {
                 return
             }
             dragModel.update(origin: Point(x: newOrigin.x, y: newOrigin.y))
@@ -159,21 +159,21 @@ extension Plane: PlaneAction {
         }
     }
     
-    func originChanged(_ origin: Point) {
+    func originChange(_ origin: Point) {
         guard let model = self.selectedModel else {
             return
         }
         model.update(origin: origin)
     }
     
-    func originMoved(x: Double, y: Double) {
+    func originMove(x: Double, y: Double) {
         guard let model = self.selectedModel else {
             return
         }
-        model.move(x: x, y: y)
+        model.originMove(x: x, y: y)
     }
     
-    func sizeChanged(_ size: Size) {
+    func sizeChange(_ size: Size) {
         guard let model = self.selectedModel else {
             return
         }
@@ -187,14 +187,14 @@ extension Plane: PlaneAction {
         model.sizeIncrease(width: width, height: height)
     }
     
-    func colorChanged() {
+    func colorChange() {
         guard let model = self.selectedModel as? Colorable else {
             return
         }
         model.update(color: Color(using: RandomColorGenerator()))
     }
     
-    func alphaChanged(_ alpha: Alpha) {
+    func alphaChange(_ alpha: Alpha) {
         guard let model = self.selectedModel else {
             return
         }

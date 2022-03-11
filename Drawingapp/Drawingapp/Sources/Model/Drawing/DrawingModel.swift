@@ -57,10 +57,10 @@ class DrawingModel: CustomStringConvertible, Equatable, Hashable {
     func update(origin: Point) {
         self.origin = origin
         let userInfo: [AnyHashable : Any] = [ParamKey.origin:self.origin]
-        NotificationCenter.default.post(name: NotifiName.updatePoint, object: self, userInfo: userInfo)
+        NotificationCenter.default.post(name: NotifiName.updateOrigin, object: self, userInfo: userInfo)
     }
     
-    func move(x: Double, y: Double) {
+    func originMove(x: Double, y: Double) {
         let originX = origin.x + x < 1 ? 1 : origin.x + x
         let originY = origin.y + y < 1 ? 1 : origin.y + y
         let moveOrigin = Point(x: originX, y: originY)
@@ -82,7 +82,7 @@ class DrawingModel: CustomStringConvertible, Equatable, Hashable {
 extension DrawingModel {
     enum NotifiName {
         static let updateColor = NSNotification.Name("updateColor")
-        static let updatePoint = NSNotification.Name("updatePoint")
+        static let updateOrigin = NSNotification.Name("updateOrigin")
         static let updateSize = NSNotification.Name("updateSize")
         static let updateAlpha = NSNotification.Name("updateAlpha")
         static let updateImageUrl = NSNotification.Name("updateImageUrl")

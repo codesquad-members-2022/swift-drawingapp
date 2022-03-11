@@ -37,7 +37,7 @@ class DrawingappTests: XCTestCase, PlaneDelegate {
             model.update(origin: testPoint)
         }
         
-        NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updatePoint, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updateOrigin, object: nil, queue: nil) { notification in
             
             guard let origin = notification.userInfo?[DrawingModel.ParamKey.origin] as? Point else {
                 return
