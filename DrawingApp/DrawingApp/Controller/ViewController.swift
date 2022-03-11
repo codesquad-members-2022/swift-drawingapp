@@ -24,6 +24,8 @@ class ViewController: UIViewController {
         
         setUpViews()
         
+        addRectangleButton.addTarget(self, action: #selector(addRectangleButtonTouched), for: .touchUpInside)
+        
         //Add Gesture Recognizer
         let presentRectangleViewTap = UITapGestureRecognizer(target: self, action: #selector(handlePresentRectangleViewTap(_:)))
         presentRectangleView.addGestureRecognizer(presentRectangleViewTap)
