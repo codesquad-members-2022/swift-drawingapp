@@ -31,6 +31,8 @@
 		E081807127DB0A20000633E1 /* LabelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E081807027DB0A20000633E1 /* LabelModel.swift */; };
 		E081807327DB0B4C000633E1 /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E081807227DB0B4C000633E1 /* LabelView.swift */; };
 		E081807527DB1068000633E1 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = E081807427DB1068000633E1 /* Font.swift */; };
+		E081807827DB5477000633E1 /* LabelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E081807027DB0A20000633E1 /* LabelModel.swift */; };
+		E081807927DB5485000633E1 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = E081807427DB1068000633E1 /* Font.swift */; };
 		E0D7D9DE27CC594D00A56635 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9DD27CC594D00A56635 /* AppDelegate.swift */; };
 		E0D7D9E027CC594D00A56635 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9DF27CC594D00A56635 /* SceneDelegate.swift */; };
 		E0D7D9E227CC594D00A56635 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9E127CC594D00A56635 /* ViewController.swift */; };
@@ -533,7 +535,9 @@
 				E034561927D1ADF30036988A /* Alpha.swift in Sources */,
 				E034562027D1AE020036988A /* DrawingModelFactory.swift in Sources */,
 				E034561A27D1ADF30036988A /* Color.swift in Sources */,
+				E081807927DB5485000633E1 /* Font.swift in Sources */,
 				E081806927D75324000633E1 /* PhotoModel.swift in Sources */,
+				E081807827DB5477000633E1 /* LabelModel.swift in Sources */,
 				E034561827D1ADF30036988A /* Plane.swift in Sources */,
 				E081806A27D75324000633E1 /* DrawingModel.swift in Sources */,
 				E0D7D9F527CC594E00A56635 /* DrawingappTests.swift in Sources */,

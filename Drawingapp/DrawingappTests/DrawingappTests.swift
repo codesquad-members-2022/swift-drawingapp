@@ -10,7 +10,6 @@ import XCTest
 
 
 class DrawingappTests: XCTestCase, PlaneDelegate {
-
     let plane = Plane()
     var drawingModel: DrawingModel?
     
@@ -18,17 +17,17 @@ class DrawingappTests: XCTestCase, PlaneDelegate {
         self.plane.delegate = self
     }
     
-    func getDrawingModelFactory() -> DrawingModelFactory {
+    func injectDrawingModelFactory() -> DrawingModelFactory {
         DrawingModelFactory(colorFactory: ColorFactory())
     }
     
-    func getScreenSize() -> Size {
+    func injectScreenSize() -> Size {
         Size(width: 1000, height: 1000)
     }
     
     func testOriginChanged() {
         let testPoint = Point(x: 200, y: 200)
-        NotificationCenter.default.addObserver(forName: Plane.NotifiName.didMakeDrawingModel, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: Plane.Event.didMakeDrawingModel, object: nil, queue: nil) { notification in
             
             guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
                 XCTFail("사각형이 만들어 지지 않았습니다")
@@ -37,7 +36,7 @@ class DrawingappTests: XCTestCase, PlaneDelegate {
             model.update(origin: testPoint)
         }
         
-        NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updateOrigin, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: DrawingModel.Event.updateOrigin, object: nil, queue: nil) { notification in
             
             guard let origin = notification.userInfo?[DrawingModel.ParamKey.origin] as? Point else {
                 return
@@ -49,7 +48,7 @@ class DrawingappTests: XCTestCase, PlaneDelegate {
     
     func testSizeChanged() {
         let testSize = Size(width: 200, height: 200)
-        NotificationCenter.default.addObserver(forName: Plane.NotifiName.didMakeDrawingModel, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: Plane.Event.didMakeDrawingModel, object: nil, queue: nil) { notification in
             
             guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
                 XCTFail("사각형이 만들어 지지 않았습니다")
@@ -58,7 +57,7 @@ class DrawingappTests: XCTestCase, PlaneDelegate {
             model.update(size: testSize)
         }
         
-        NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updateSize, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: DrawingModel.Event.updateSize, object: nil, queue: nil) { notification in
             
             guard let size = notification.userInfo?[DrawingModel.ParamKey.size] as? Size else {
                 return
@@ -69,7 +68,7 @@ class DrawingappTests: XCTestCase, PlaneDelegate {
     }
     
     func testSelectedRectangle() {
-        NotificationCenter.default.addObserver(forName: Plane.NotifiName.didMakeDrawingModel, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: Plane.Event.didMakeDrawingModel, object: nil, queue: nil) { notification in
             
             let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel
             XCTAssertTrue(model != nil, "사각형이 생성되지 않았습니다")
@@ -77,7 +76,7 @@ class DrawingappTests: XCTestCase, PlaneDelegate {
             self.plane.touchPoint(Point(x: 100, y: 100))
         }
         
-        NotificationCenter.default.addObserver(forName: Plane.NotifiName.didSelectedDrawingModel, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: Plane.Event.didSelectedDrawingModel, object: nil, queue: nil) { notification in
             guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
                 XCTFail("사각형이 선택되지 않았습니다")
                 return
@@ -89,7 +88,7 @@ class DrawingappTests: XCTestCase, PlaneDelegate {
     
     //사각형 뷰 생성 테스트
     func testMakeRectangleModel() {
-        NotificationCenter.default.addObserver(forName: Plane.NotifiName.didMakeDrawingModel, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: Plane.Event.didMakeDrawingModel, object: nil, queue: nil) { notification in
             
             let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel
             XCTAssertTrue(model != nil, "사각형이 생성되지 않았습니다")
