@@ -8,7 +8,6 @@ class ViewController: UIViewController{
     private var stylerView: StylerView?
     private var plane: Plane = Plane()
     private var currentlyTouchedView: RectangleView?
-    private var notificationCenter = NotificationCenter.default
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,11 +23,11 @@ class ViewController: UIViewController{
 
     
     private func initializeNotificationCenter(){
-        self.notificationCenter.addObserver(self, selector: #selector(rectangleFoundFromPlane(_:)), name: .rectangleFoundFromPlane, object: nil)
-        self.notificationCenter.addObserver(self, selector: #selector(rectangleNotFoundFromPlane), name: .rectangleNotFoundFromPlane, object: nil)
-        self.notificationCenter.addObserver(self, selector: #selector(addingRectangleCompleted(_:)), name: .rectangleAdded, object: nil)
-        self.notificationCenter.addObserver(self, selector: #selector(updateSelectedRecntalgeViewColor(_:)), name: .rectangleColorUpdated , object: nil)
-        self.notificationCenter.addObserver(self, selector: #selector(updateSelectedRectangleViewAlpha(_:)), name: .rectangleAlphaUpdated, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(rectangleFoundFromPlane(_:)), name: .rectangleFoundFromPlane, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(rectangleNotFoundFromPlane), name: .rectangleNotFoundFromPlane, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(addingRectangleCompleted(_:)), name: .rectangleAdded, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateSelectedRecntalgeViewColor(_:)), name: .rectangleColorUpdated , object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateSelectedRectangleViewAlpha(_:)), name: .rectangleAlphaUpdated, object: nil)
     }
     
     private func setGestureRecognizer(){
@@ -119,7 +118,7 @@ class ViewController: UIViewController{
 
 extension ViewController: UIGestureRecognizerDelegate{
     
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {        
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         if let touchedView = touch.view as? RectangleView{
             self.currentlyTouchedView = touchedView
         }else{

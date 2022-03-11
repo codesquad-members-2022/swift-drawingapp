@@ -2,7 +2,6 @@ import Foundation
 
 struct Plane:CustomStringConvertible{
     
-    private var notificationCenter = NotificationCenter.default
     private var rectangles:[Rectangle] = []
     private var selectedRectangleIndex: Int?
     var count: Int{
@@ -15,22 +14,22 @@ struct Plane:CustomStringConvertible{
     mutating func findMatchingRectangleModel(x: Double, y: Double){
         guard let rectangle = self[x,y] else {
             self.selectedRectangleIndex = nil
-            self.notificationCenter.post(name: .rectangleNotFoundFromPlane, object: nil)
+            NotificationCenter.default.post(name: .rectangleNotFoundFromPlane, object: nil)
             return
         }
         self.selectedRectangleIndex = self[rectangle.id]
-        self.notificationCenter.post(name: .rectangleFoundFromPlane, object: rectangle, userInfo: nil)
+        NotificationCenter.default.post(name: .rectangleFoundFromPlane, object: rectangle, userInfo: nil)
     }
     
     mutating func addRectangle(_ rectangle: Rectangle){
         self.rectangles.append(rectangle)
-        self.notificationCenter.post(name: .rectangleAdded, object: rectangle, userInfo: nil)
+        NotificationCenter.default.post(name: .rectangleAdded, object: rectangle, userInfo: nil)
     }
     
     mutating func updateRectangleColor(newColor: Rectangle.Color){
         guard let selectedRectangleIndex = self.selectedRectangleIndex else { return }
         self.rectangles[selectedRectangleIndex].backgroundColor = newColor
-        self.notificationCenter.post(name: .rectangleColorUpdated, object: newColor)
+        NotificationCenter.default.post(name: .rectangleColorUpdated, object: newColor)
     }
     
     mutating func updateRectangleAlpha(opacity: Int){
@@ -40,7 +39,7 @@ struct Plane:CustomStringConvertible{
             opacity = opacity - 1
         }
         self.rectangles[selectedRectangleIndex].alpha = Rectangle.Alpha.allCases[opacity]
-        self.notificationCenter.post(name: .rectangleAlphaUpdated, object: opacity)
+        NotificationCenter.default.post(name: .rectangleAlphaUpdated, object: opacity)
     }
     
     private func isRectangleInsideTheRange(x: Double, y: Double, rectangle: Rectangle)-> Bool{
