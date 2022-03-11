@@ -82,7 +82,7 @@ class ViewController: UIViewController{
         let r = rectangle.backgroundColor.r
         let g = rectangle.backgroundColor.g
         let b = rectangle.backgroundColor.b
-        let opacity = rectangle.alpha.opacity
+        let opacity = rectangle.alpha.opacity.rawValue
         let hexString = "#\(String(Int(r*255), radix: 16))\(String(Int(g*255), radix: 16))\(String(Int(b*255), radix: 16))"
         stylerView.updateRectangleInfo(r: r, g: g, b: b, opacity: opacity, hexString: hexString)
         canvasView.updateSelectedRectangleView(subView: rectangleView)

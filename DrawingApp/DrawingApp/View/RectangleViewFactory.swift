@@ -11,7 +11,7 @@ class RectangleViewFactory{
         rectangleView.backgroundColor = UIColor(red: rectangle.backgroundColor.r,
                                                 green: rectangle.backgroundColor.g,
                                                 blue: rectangle.backgroundColor.b,
-                                                alpha: CGFloat(rectangle.alpha.opacity))
+                                                alpha: CGFloat(rectangle.alpha.opacity.rawValue))
         return rectangleView
     }
 }

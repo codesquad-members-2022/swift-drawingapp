@@ -48,12 +48,8 @@ class Plane:CustomStringConvertible{
     }
     
     func updateRectangleAlpha(opacity: Int){
-        var opacity = opacity
         guard let selectedRectangleIndex = self.selectedRectangleIndex else { return }
-        if(opacity == 10){
-            opacity = opacity - 1
-        }
-        self.rectangles[selectedRectangleIndex].alpha = Rectangle.Alpha.allCases[opacity]
+        self.rectangles[selectedRectangleIndex].alpha = Rectangle.Alpha(opacity: opacity)
         NotificationCenter.default.post(name: NotificationName.rectangleAlphaUpdated, object: self, userInfo: [UserInfoKey.rectangleAlphaUpdated:opacity])
     }
     

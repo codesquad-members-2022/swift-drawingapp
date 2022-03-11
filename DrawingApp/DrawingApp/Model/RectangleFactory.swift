@@ -29,6 +29,6 @@ class RectangleFactory{
     }
     
     private static func createRandomAlpha()-> Rectangle.Alpha{
-        return Rectangle.Alpha.allCases[Int.random(in: 0...9)]
+        return Rectangle.Alpha(opacity: Int.random(in: 0...9))
     }
 }
