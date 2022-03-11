@@ -7,7 +7,6 @@ class ViewController: UIViewController{
     private var canvasView: CanvasView?
     private var stylerView: StylerView?
     private var plane: Plane = Plane()
-    private var currentlyTouchedView: RectangleView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,7 +34,6 @@ class ViewController: UIViewController{
         let gestureRecognizer = UITapGestureRecognizer()
         gestureRecognizer.delegate = self
         canvasView.addGestureRecognizer(gestureRecognizer)
-        
     }
     
     private func setCanvasView(){
@@ -71,14 +69,15 @@ class ViewController: UIViewController{
     
     @objc func rectangleFoundFromPlane(_ notification: Notification){
         guard let rectangle = notification.userInfo?[Plane.UserInfoKey.rectangleFound] as? Rectangle else { return }
-        self.updateViewWithSelectedRectangleModel(rectangle: rectangle)
+        guard let selectedRectangleIndex = notification.userInfo?[Plane.UserInfoKey.selectedRectangleIndex] as? Int else { return }
+        self.updateViewWithSelectedRectangleModel(rectangle: rectangle, selectedRectangleIndex: selectedRectangleIndex)
     }
     
-    private func updateViewWithSelectedRectangleModel(rectangle: Rectangle){
+    private func updateViewWithSelectedRectangleModel(rectangle: Rectangle, selectedRectangleIndex: Int){
         guard let stylerView = self.stylerView else { return }
         guard let canvasView = self.canvasView else { return }
-        guard let rectangleView = self.currentlyTouchedView else { return }
-
+        let rectangleView = canvasView.subviews[selectedRectangleIndex]
+        
         let r = rectangle.backgroundColor.r
         let g = rectangle.backgroundColor.g
         let b = rectangle.backgroundColor.b
@@ -86,7 +85,6 @@ class ViewController: UIViewController{
         let hexString = "#\(String(Int(r*255), radix: 16))\(String(Int(g*255), radix: 16))\(String(Int(b*255), radix: 16))"
         stylerView.updateRectangleInfo(r: r, g: g, b: b, opacity: opacity, hexString: hexString)
         canvasView.updateSelectedRectangleView(subView: rectangleView)
-        
     }
     
     @objc func rectangleNotFoundFromPlane(){
@@ -119,11 +117,6 @@ class ViewController: UIViewController{
 extension ViewController: UIGestureRecognizerDelegate{
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        if let touchedView = touch.view as? RectangleView{
-            self.currentlyTouchedView = touchedView
-        }else{
-            self.currentlyTouchedView = nil
-        }
         let touchedPoint = touch.location(in: self.canvasView)
         self.plane.findMatchingRectangleModel(x: touchedPoint.x, y: touchedPoint.y)
         return true
