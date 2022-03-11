@@ -57,8 +57,7 @@ extension ViewController: PlaneDelegate {
 
     func addRectangle(_ rectangle: Rectangle) {
         let rect = UIView(frame: CGRect(x: rectangle.position.x, y: rectangle.position.y, width: rectangle.size.width, height: rectangle.size.height))
-    
-        rect.backgroundColor = UIColor(red: CGFloat(rectangle.backgroundColor.red)/255, green: CGFloat(rectangle.backgroundColor.green)/255, blue: CGFloat(rectangle.backgroundColor.blue)/255, alpha: 1)
+        rect.backgroundColor = Convertor.convertColor(from: rectangle.backgroundColor)
         rect.alpha = Double(rectangle.alpha.rawValue) * 0.1
         self.canvasView.addSubview(rect)
         rect.layer.borderColor = CGColor(red: 1, green: 0, blue: 0, alpha: 1)
