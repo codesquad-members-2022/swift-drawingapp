@@ -40,9 +40,9 @@ extension ViewController: RectangleViewDelegate {
             if rectangleViews[selected] != selectedRectangleView {
                 selectedRectangleView?.layer.borderWidth = 0
             }
-            
             selectedRectangleView = rectangleViews[selected]
             selectedRectangleView?.layer.borderWidth = 5
+            plane.selectedRectangle = selected
             
         } else {
             selectedRectangleView?.layer.borderWidth = 0
@@ -70,8 +70,11 @@ extension ViewController: PlaneDelegate {
     
 }
 
+
 extension ViewController: ControllerViewDelegate {
     func touchedBackgroundButton() {
-        selectedRectangleView?.backgroundColor = Convertor.convertColor(from: Color.randomColor())
+        let changedColor = Color.randomColor()
+        selectedRectangleView?.backgroundColor = Convertor.convertColor(from: changedColor)
+        plane.changeBackgroundColor(to: changedColor)
     }
 }

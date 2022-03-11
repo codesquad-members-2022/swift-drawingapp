@@ -9,7 +9,8 @@ import Foundation
 
 protocol PlaneDelegate {
     func addRectangle(_ rectangle: Rectangle)
-    func selectedRectangle(_ rectangle: Rectangle)
+//    func selectedRectangle(_ rectangle: Rectangle)
+//    func changedBackgroundColor()
 }
 
 
@@ -17,6 +18,7 @@ struct Plane{
     
     var delegate: PlaneDelegate?
     private var rectangles: [Rectangle] = []
+    var selectedRectangle: Rectangle?
     
     func count() -> Int{
         return rectangles.count
@@ -39,6 +41,11 @@ struct Plane{
                 }
             }
         return nil
+    }
+    
+    func changeBackgroundColor(to color: Color){
+        selectedRectangle?.changedBackGroundColor(to: color)
+        
     }
     
 

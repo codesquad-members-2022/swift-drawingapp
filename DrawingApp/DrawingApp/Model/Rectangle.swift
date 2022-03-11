@@ -44,6 +44,10 @@ class Rectangle: CustomStringConvertible{
     var description: String {
         return "\(ID), \(size), \(position), \(backgroundColor), \(alpha)"
     }
+    
+    func changedBackGroundColor(to color: Color){
+        self.backgroundColor = color
+    }
 
 }
 
