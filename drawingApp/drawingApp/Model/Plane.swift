@@ -58,7 +58,7 @@ struct Plane{
     }
     
     func randomizeColor(on model: Rectangle){
-        model.updateColor(Color.getRandomColor())
+        model.updateColor(RandomGenerator.makeColor())
         delegate?.didRandomizeColor(model: model)
     }
     

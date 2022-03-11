@@ -51,4 +51,6 @@ enum Alpha : Int , CustomStringConvertible , CaseIterable{
             return 1.0
         }
     }
+    
+   
 }
