@@ -10,7 +10,7 @@ import OSLog
 
 class ViewController: UIViewController {
     
-    private var presentRectangleView = PresentRectangleView()
+    private var presentRectangleView = UIView()
     private var sideInspectorView = SideInspectorView()
     private var addRectangleButton = AddRectangleButton()
     
@@ -34,12 +34,11 @@ class ViewController: UIViewController {
     //MARK: Set Up Views
     
     func setUpViews() {
-        
         view.addSubview(presentRectangleView)
         view.addSubview(sideInspectorView)
         view.addSubview(addRectangleButton)
         
-        layoutPresentRectangleView()
+        presentRectangleView.translatesAutoresizingMaskIntoConstraints = false
         layoutSideInspectorView()
         layoutAddRectangleButton()
     }
