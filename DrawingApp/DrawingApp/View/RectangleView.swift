@@ -7,7 +7,13 @@
 
 import UIKit
 
-class RectangleView: UIView {
+protocol RectangleViewable {
+    func changeBackgroundColor(to newColor: UIColor)
+    func changeAlphaValue(to newAlphaValue: CGFloat)
+}
+
+class RectangleView: UIView, RectangleViewable {
+    
     override var description: String {
         return "Frame = \(frame); alpha = \(alpha); backgroundColor = \(backgroundColor ?? .white)"
     }
@@ -26,4 +32,11 @@ class RectangleView: UIView {
         self.alpha = alpha
     }
     
+    func changeBackgroundColor(to newColor: UIColor) {
+        self.backgroundColor = newColor
+    }
+    
+    func changeAlphaValue(to newAlphaValue: CGFloat) {
+        self.alpha = newAlphaValue
+    }
 }
