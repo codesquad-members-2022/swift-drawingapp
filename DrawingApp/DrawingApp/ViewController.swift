@@ -18,7 +18,7 @@ class ViewController: UIViewController, UIGestureRecognizerDelegate {
         let viewPoint: CGPoint = sender.location(in: self.view)
         // 뷰포인트를 넘기면, rectangle.point 로 변환하는 작업은 model에서 처리해야하지 않나 싶네요. 그러나 저게 CGPoint 타입이여서, 그것을 viewController에서 해줌
         let rectPoint: Rectangle.Point = Rectangle.Point(x: viewPoint.x, y: viewPoint.y)
-        plane.TouchedRectangle(at: rectPoint)
+            plane.TouchedRectangle(at: rectPoint)
     }
     
 //    배경 뷰가 터치되도록 기능을 추가하는 메서드
