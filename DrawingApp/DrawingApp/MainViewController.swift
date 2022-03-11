@@ -9,7 +9,10 @@ import UIKit
 import OSLog
 
 final class MainViewController: UIViewController{
-
+    
+    //NotificationCenter.default가 중복되는것 같아 private 상수로 선언했습니다.
+    private let defultNotificationCenter = NotificationCenter.default
+    
     //model
     private var plane = Plane()
     //view
@@ -21,10 +24,11 @@ final class MainViewController: UIViewController{
     //선택된 rectangleView
     private var seletedRectangleView:RectangleView?
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        
+        configureNotificationCenter()
         
         configureRectangleButton()
         configureDeatailView()
@@ -102,16 +106,94 @@ extension MainViewController:UIGestureRecognizerDelegate {
         
         return true
     }
+    
+    //MARK: -- NotificationCenter
+    private func configureNotificationCenter() {
+        defultNotificationCenter.addObserver(
+            self,
+            selector:#selector(addRectangleView),
+            name: Plane.NotificationName.didAddRectangle,
+            object: plane )
+        
+        defultNotificationCenter.addObserver(
+            self,
+            selector: #selector(findSelectedRectangle),
+            name: Plane.NotificationName.didFindRectangle,
+            object: plane )
+        
+        defultNotificationCenter.addObserver(
+            self,
+            selector: #selector(changeAlpha),
+            name: Plane.NotificationName.didchangeRectangleAlpha,
+            object: plane )
+        
+        defultNotificationCenter.addObserver(
+            self,
+            selector: #selector(changeColor),
+            name: Plane.NotificationName.didChangeRectangleColor,
+            object: plane )
+    }
+    
+    //ChangeColor
+    @objc func changeColor(_ notification:Notification) {
+        guard let newRGB = notification.userInfo?[Plane.UserInfoKey.changedColor] as? RGB else { return }
+        let alpha:Alpha = Alpha(Float(seletedRectangleView?.alpha ?? 0.0))
+        
+        seletedRectangleView?.backgroundColor = UIColor(rgb: newRGB, alpha: alpha)
+        
+        detailView.backgroundColorButton.setTitle("\(newRGB.hexValue)", for: .normal)
+    }
+    
+    
+    //ChangeAlpha
+    @objc func changeAlpha(_ notification:Notification) {
+        guard let newAlpha = notification.userInfo?[Plane.UserInfoKey.changedAlpha] as? Alpha else { return }
+        seletedRectangleView?.alpha = CGFloat(newAlpha.value)
+    }
+    
+    
+    //addRectagnleView
+    @objc func addRectangleView(_ notification:Notification) {
+        guard let newRectangle = notification.userInfo?[Plane.UserInfoKey.addedRectangle] as? Rectangle else { return }
+        
+        let rectangleView = RectangleView(rect: newRectangle, rgb: newRectangle.rgb, alpha: newRectangle.alpha)
+        view.addSubview(rectangleView)
+        
+        self.retangleViews[newRectangle] = rectangleView
+        
+        self.view.bringSubviewToFront(button)
+        self.view.bringSubviewToFront(detailView)
+    }
+    
+    //findSelected Rectangle & Set View
+    @objc func findSelectedRectangle(_ notification:Notification) {
+        seletedRectangleView?.layer.borderWidth = .zero
+        
+        guard let seletedRectangle = notification.userInfo?[Plane.UserInfoKey.foundRectangle] as? Rectangle else { return }
+        
+        let rectangleView = self.retangleViews[seletedRectangle]
+        self.seletedRectangleView = rectangleView
+        
+        seletedRectangleView?.layer.borderWidth = 2.0
+        seletedRectangleView?.layer.borderColor = UIColor.blue.cgColor
+        
+        self.detailView.alphaLabel.text = "\(seletedRectangle.alpha.value)"
+        self.detailView.alphaSlider.value = seletedRectangle.alpha.value
+        
+        self.detailView.backgroundColorButton.setTitle("\(seletedRectangle.rgb.hexValue)", for: .normal)
+    }
 }
 
-//MARK: -- Delegate메소드 실제 구현
+
+
+
 
 //MARK: -- DetailViewDelegate
 //슬라이더를 움직일때 마다 현재 클릭한 모델 사각형의 alpha값을 바꾼다.
 extension MainViewController:DetailViewDelgate {
     func sliderViewEndEditing(sender: UISlider) {
-        let currentSliderValue = sender.value                      //silder에서 넘어온 값
-        plane.change(alpha: Alpha(currentSliderValue))             //모델의 값을 바꾼다.
+        let currentSliderValue = sender.value
+        plane.change(alpha: Alpha(currentSliderValue))
     }
     
     //랜덤한 RGB값을 설정하고 현재 클릭한 모델 사각형의 rgb값을 변경한다
@@ -121,50 +203,4 @@ extension MainViewController:DetailViewDelgate {
     }
 }
 
-////MARK: -- Plane Delegate
-//extension MainViewController:PlaneDelegate {
-//    //바뀐 rgb값을 이용해서 View의 배경과 Label의 title을 바꿉니다.
-//    func didChangeColor(to seletedRectangle: Rectangle) {
-//        let rgb = seletedRectangle.rgb
-//        let alpha = seletedRectangle.alpha
-//        let hexRGB = seletedRectangle.rgb.hexValue
-//
-//        seletedRectangleView?.backgroundColor = UIColor(rgb: rgb, alpha: alpha)
-//
-//        detailView.backgroundColorButton.setTitle("\(hexRGB)", for: .normal)
-//    }
-//
-//    //찾은 Rectangle의 테두리를 바꾸고 선택된 Rectangle의 Alpha와 Color를 View에 표시.
-//    func didFindRectangle(rectrangle: Rectangle) {
-//        detailView.alphaSlider.value = rectrangle.alpha.value
-//        detailView.backgroundColorButton.setTitle("\(rectrangle.rgb.hexValue)", for: .normal)
-//        detailView.alphaLabel.text = "\(rectrangle.alpha.value)"
-//
-//        seletedRectangleView?.layer.borderWidth = 0.0           //기존 seletedRectangleView초기화
-//
-//        seletedRectangleView = retangleViews[rectrangle]
-//
-//        seletedRectangleView?.layer.borderWidth = 2.0
-//        seletedRectangleView?.layer.borderColor = UIColor.blue.cgColor
-//
-//    }
-//
-//    //Rectangle이 추가가 됬으니 View에게 알립니다.
-//    func didAddRectangle(rectangle: Rectangle) {
-//        let rgb = rectangle.rgb
-//        let alpha = rectangle.alpha
-//        let rectView = RectangleView(rect: rectangle, rgb: rgb, alpha: alpha)
-//
-//        retangleViews[rectangle] = rectView
-//        self.view.addSubview(rectView)
-//
-//        //사각형 추가 버튼이나 detailView의 슬라이더가 추가된 사각형에 가려지더라도 이벤트를 발생시키기 위해서 최상단으로 View를 올렸습니다.
-//        self.view.bringSubviewToFront(button)
-//        self.view.bringSubviewToFront(detailView)
-//    }
-//
-//    //Alpha가 바뀌었으니 View에게 알립니다.
-//    func didChangeAlpha(to selectedRectangle: Rectangle) {
-//        seletedRectangleView?.alpha = CGFloat(selectedRectangle.alpha.value)
-//    }
-//}
+
