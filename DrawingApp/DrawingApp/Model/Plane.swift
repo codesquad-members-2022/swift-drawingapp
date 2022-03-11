@@ -11,6 +11,10 @@ class Plane {
     private var rectangles = [Rectangle]()
     private var specifiedRectangle: Rectangle?
     private let notificationCenter = NotificationCenter.default
+    static let didAddRectangle = Notification.Name("PlaneDidAddRectangle")
+    static let didSpecifyRectangle = Notification.Name("PlaneDidSpecifyRectangle")
+    static let didChangeRectangleBackgroundColor = Notification.Name("PlaneDidChangeRectangleBackgroundColor")
+    static let didChangeRectangleAlpha = Notification.Name("PlaneDidChangeRectangleAlpha")
     var count: Int {
         return rectangles.count
     }
@@ -23,19 +27,19 @@ class Plane {
         for rectangle in rectangles.reversed() {
             if rectangle.isPointInArea(point) {
                 self.specifiedRectangle = rectangle
-                notificationCenter.post(name: ViewController.planeDidSpecifyRectangle, object: self, userInfo: [K.PlaneRectangle.specified: rectangle])
+                notificationCenter.post(name: Plane.didSpecifyRectangle, object: self, userInfo: [K.PlaneRectangle.specified: rectangle])
                 return .success(rectangle)
             }
         }
         self.specifiedRectangle = nil
-        notificationCenter.post(name: ViewController.planeDidSpecifyRectangle, object: self)
+        notificationCenter.post(name: Plane.didSpecifyRectangle, object: self)
         return .failure(.cannotSpecifyRectangleError)
     }
     
     public func addNewRectangle(in frame: (width: Double, height: Double)) {
         let newRectangle = RectangleFactory.makeRandomRectangle(in: frame)
         rectangles.append(newRectangle)
-        notificationCenter.post(name: ViewController.planeDidAddRectangle, object: self, userInfo: [K.PlaneRectangle.added: newRectangle])
+        notificationCenter.post(name: Plane.didAddRectangle, object: self, userInfo: [K.PlaneRectangle.added: newRectangle])
     }
     
     public func changeBackgroundColor(to newColor: BackgroundColor) -> Result<Rectangle, PlaneError> {
@@ -43,7 +47,7 @@ class Plane {
             return .failure(.noSpecifiedRectangleToChangeError)
         }
         specifiedRectangle.changeBackgroundColor(to: newColor)
-        notificationCenter.post(name: ViewController.planeDidChangeRectangleBackgroundColor, object: self, userInfo: [K.PlaneRectangle.changed: specifiedRectangle])
+        notificationCenter.post(name: Plane.didChangeRectangleBackgroundColor, object: self, userInfo: [K.PlaneRectangle.changed: specifiedRectangle])
         return .success(specifiedRectangle)
     }
 
@@ -52,7 +56,7 @@ class Plane {
             return .failure(.noSpecifiedRectangleToChangeError)
         }
         specifiedRectangle.changeAlphaValue(to: newAlpha)
-        notificationCenter.post(name: ViewController.planeDidChangeRectangleAlpha, object: self, userInfo: [K.PlaneRectangle.changed: specifiedRectangle])
+        notificationCenter.post(name: Plane.didChangeRectangleAlpha, object: self, userInfo: [K.PlaneRectangle.changed: specifiedRectangle])
         return .success(specifiedRectangle)
     }
 
@@ -61,11 +65,4 @@ class Plane {
 enum PlaneError: Error {
     case cannotSpecifyRectangleError
     case noSpecifiedRectangleToChangeError
-}
-
-extension Notification.Name {
-    static let planeDidAddRectangle = Notification.Name("PlaneDidAddRectangle")
-    static let planeDidSpecifyRectangle = Notification.Name("PlaneDidSpecifyRectangle")
-    static let planeDidChangeRectangleBackgroundColor = Notification.Name("PlaneDidChangeRectangleBackgroundColor")
-    static let planeDidChangeRectangleAlpha = Notification.Name("PlaneDidChangeRectangleAlpha")
 }
