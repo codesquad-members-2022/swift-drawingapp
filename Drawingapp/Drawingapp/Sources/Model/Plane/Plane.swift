@@ -9,14 +9,14 @@ import Foundation
 
 protocol PlaneAction {
     func touchPoint(_ point: Point)
-    func originChange(_ origin: Point)
-    func originMove(x: Double, y: Double)
-    func sizeChange(_ size: Size)
-    func sizeIncrease(width: Double, height: Double)
-    func alphaChange(_ alpha: Alpha)
-    func colorChange()
-    func fontChange(name: String)
-    func onPanGustureAction(state: Plane.PanGustureState, point: Point)
+    func changeAlpha(_ alpha: Alpha)
+    func changeColor()
+    func changeFont(name: String)
+    func transform(translationX: Double, y: Double)
+    func transform(width: Double, height: Double)
+    func beganDrag(point: Point)
+    func changedDrag(point: Point)
+    func endedDrag(point: Point)
 }
 
 protocol PlaneDelegate {
@@ -98,8 +98,7 @@ extension Plane: MakeModelAction {
     
     private func didMakeDrawingModel(model: DrawingModel) {
         self.drawingModels.append(model)
-        let userInfo: [AnyHashable : Any] = [ParamKey.drawingModel:model]
-        NotificationCenter.default.post(name: Plane.NotifiName.didMakeDrawingModel, object: self, userInfo: userInfo)
+        NotificationCenter.default.post(name: Plane.Event.didMakeDrawingModel, object: self, userInfo: [ParamKey.drawingModel:model])
         
     }
 }
@@ -109,13 +108,11 @@ extension Plane: PlaneAction {
         guard let model = model else {
             return
         }
-        let userInfo: [AnyHashable : Any] = [ParamKey.drawingModel:model]
-        NotificationCenter.default.post(name: Plane.NotifiName.didDisSelectedDrawingModel, object: self, userInfo: userInfo)
+        NotificationCenter.default.post(name: Plane.Event.didDisSelectedDrawingModel, object: self, userInfo: [ParamKey.drawingModel:model])
     }
     
     private func sendDidSelectModel(_ model: DrawingModel) {
-        let userInfo: [AnyHashable : Any] = [ParamKey.drawingModel:model]
-        NotificationCenter.default.post(name: Plane.NotifiName.didSelectedDrawingModel, object: self, userInfo: userInfo)
+        NotificationCenter.default.post(name: Plane.Event.didSelectedDrawingModel, object: self, userInfo: [ParamKey.drawingModel:model])
     }
     
     func touchPoint(_ point: Point) {
@@ -138,78 +135,68 @@ extension Plane: PlaneAction {
         }
     }
     
-    func onPanGustureAction(state: PanGustureState, point: Point) {
-        switch state {
-        case .began:
-            self.touchPoint(point)
-            guard let dragModel = self.selectedModel else {
-                return
-            }
-            let userInfo: [AnyHashable : Any] = [ParamKey.drawingModel:dragModel]
-            NotificationCenter.default.post(name: Plane.NotifiName.didBeganDrag, object: self, userInfo: userInfo)
-        case .changed:
-            guard let dragModel = self.selectedModel,
-                  let newOrigin = self.calibrateScreenInOrigin(to: point, size: dragModel.size) else {
-                return
-            }
-            
-            let userInfo: [AnyHashable : Any] = [ParamKey.dragPoint:Point(x: newOrigin.x, y: newOrigin.y)]
-            NotificationCenter.default.post(name: Plane.NotifiName.didChangedDrag, object: self, userInfo: userInfo)
-        case .ended:
-            guard let dragModel = self.selectedModel,
-                  let newOrigin = self.calibrateScreenInOrigin(to: point, size: dragModel.size) else {
-                return
-            }
-            dragModel.update(origin: Point(x: newOrigin.x, y: newOrigin.y))
-            NotificationCenter.default.post(name: Plane.NotifiName.didEndedDrag, object: self, userInfo: nil)
-        default:
-            break
+    func beganDrag(point: Point) {
+        self.touchPoint(point)
+        guard let dragModel = self.selectedModel else {
+            return
         }
+        NotificationCenter.default.post(name: Plane.Event.didBeganDrag, object: self, userInfo: [ParamKey.drawingModel:dragModel])
     }
     
-    func originChange(_ origin: Point) {
+    func changedDrag(point: Point) {
+        guard let dragModel = self.selectedModel,
+              let newOrigin = self.calibrateScreenInOrigin(to: point, size: dragModel.size) else {
+            return
+        }
+        
+        NotificationCenter.default.post(name: Plane.Event.didChangedDrag, object: self, userInfo: [ParamKey.dragPoint:Point(x: newOrigin.x, y: newOrigin.y)])
+    }
+    
+    func endedDrag(point: Point) {
+        guard let dragModel = self.selectedModel,
+              let newOrigin = self.calibrateScreenInOrigin(to: point, size: dragModel.size) else {
+            return
+        }
+        dragModel.update(origin: Point(x: newOrigin.x, y: newOrigin.y))
+        NotificationCenter.default.post(name: Plane.Event.didEndedDrag, object: self, userInfo: nil)
+    }
+    
+    func transform(translationX: Double, y: Double) {
         guard let model = self.selectedModel else {
             return
         }
-        model.update(origin: origin)
+        model.originMove(x: translationX, y: y)
     }
     
-    func originMove(x: Double, y: Double) {
-        guard let model = self.selectedModel else {
-            return
-        }
-        model.originMove(x: x, y: y)
-    }
-    
-    func sizeChange(_ size: Size) {
+    func updateSize(_ size: Size) {
         guard let model = self.selectedModel else {
             return
         }
         model.update(size: size)
     }
     
-    func sizeIncrease(width: Double, height: Double) {
+    func transform(width: Double, height: Double) {
         guard let model = self.selectedModel else {
             return
         }
         model.sizeIncrease(width: width, height: height)
     }
     
-    func colorChange() {
+    func changeColor() {
         guard let model = self.selectedModel as? Colorable else {
             return
         }
         model.update(color: Color(using: RandomColorGenerator()))
     }
     
-    func alphaChange(_ alpha: Alpha) {
+    func changeAlpha(_ alpha: Alpha) {
         guard let model = self.selectedModel else {
             return
         }
         model.update(alpha: alpha)
     }
     
-    func fontChange(name: String) {
+    func changeFont(name: String) {
         guard let labelModel = self.selectedModel as? LabelModel else {
             return
         }
@@ -218,7 +205,7 @@ extension Plane: PlaneAction {
 }
 
 extension Plane {
-    enum NotifiName {
+    enum Event {
         static let didDisSelectedDrawingModel = NSNotification.Name("didDisSelectedDrawingModel")
         static let didSelectedDrawingModel = NSNotification.Name("didSelectedDrawingModel")
         static let didMakeDrawingModel = NSNotification.Name("didMakeDrawingModel")
@@ -230,9 +217,5 @@ extension Plane {
     enum ParamKey {
         static let drawingModel = "drawingModel"
         static let dragPoint = "dragPoint"
-    }
-    
-    enum PanGustureState {
-        case began, changed, ended
     }
 }

@@ -52,7 +52,7 @@ class ViewController: UIViewController {
     }
     
     func bind() {
-        NotificationCenter.default.addObserver(forName: Plane.NotifiName.didMakeDrawingModel, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: Plane.Event.didMakeDrawingModel, object: nil, queue: nil) { notification in
             guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
                 return
             }
@@ -64,7 +64,7 @@ class ViewController: UIViewController {
             self.bindObserver(targetModel: model)
         }
         
-        NotificationCenter.default.addObserver(forName: Plane.NotifiName.didSelectedDrawingModel, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: Plane.Event.didSelectedDrawingModel, object: nil, queue: nil) { notification in
             guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
                 return
             }
@@ -73,7 +73,7 @@ class ViewController: UIViewController {
             self.drawingViews[model]?.selected(is: true)
         }
         
-        NotificationCenter.default.addObserver(forName: Plane.NotifiName.didDisSelectedDrawingModel, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: Plane.Event.didDisSelectedDrawingModel, object: nil, queue: nil) { notification in
             guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
                 return
             }
@@ -81,7 +81,7 @@ class ViewController: UIViewController {
             self.drawingViews[model]?.selected(is: false)
         }
         
-        NotificationCenter.default.addObserver(forName: Plane.NotifiName.didBeganDrag, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: Plane.Event.didBeganDrag, object: nil, queue: nil) { notification in
             guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
                   let selectView = self.drawingViews[model],
                   let snapshotView = selectView.snapshotView() else {
@@ -94,7 +94,7 @@ class ViewController: UIViewController {
             self.dummyView = snapshotView
         }
                 
-        NotificationCenter.default.addObserver(forName: Plane.NotifiName.didChangedDrag, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: Plane.Event.didChangedDrag, object: nil, queue: nil) { notification in
             guard let point = notification.userInfo?[Plane.ParamKey.dragPoint] as? Point,
                   let dummyView = self.dummyView else {
                 return
@@ -104,7 +104,7 @@ class ViewController: UIViewController {
             self.inspectorView.update(origin: Point(x: point.x, y: point.y))
         }
         
-        NotificationCenter.default.addObserver(forName: Plane.NotifiName.didEndedDrag, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: Plane.Event.didEndedDrag, object: nil, queue: nil) { notification in
             self.dummyView?.removeFromSuperview()
             self.dummyView = nil
             
@@ -112,7 +112,7 @@ class ViewController: UIViewController {
     }
     
     func bindObserver(targetModel: DrawingModel) {
-        NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updateColor, object: targetModel, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: DrawingModel.Event.updateColor, object: targetModel, queue: nil) { notification in
             guard let view = self.drawingViews[targetModel] as? Colorable,
                   let color = notification.userInfo?[DrawingModel.ParamKey.color] as? Color else {
                 return
@@ -121,7 +121,7 @@ class ViewController: UIViewController {
             self.inspectorView.update(color: color)
         }
         
-        NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updateAlpha, object: targetModel, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: DrawingModel.Event.updateAlpha, object: targetModel, queue: nil) { notification in
             guard let alpha = notification.userInfo?[DrawingModel.ParamKey.alpha] as? Alpha else {
                 return
             }
@@ -129,7 +129,7 @@ class ViewController: UIViewController {
             self.inspectorView.update(alpha: alpha)
         }
         
-        NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updateOrigin, object: targetModel, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: DrawingModel.Event.updateOrigin, object: targetModel, queue: nil) { notification in
             guard let origin = notification.userInfo?[DrawingModel.ParamKey.origin] as? Point else {
                 return
             }
@@ -137,7 +137,7 @@ class ViewController: UIViewController {
             self.inspectorView.update(origin: origin)
         }
         
-        NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updateSize, object: targetModel, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: DrawingModel.Event.updateSize, object: targetModel, queue: nil) { notification in
             guard let size = notification.userInfo?[DrawingModel.ParamKey.size] as? Size else {
                 return
             }
@@ -145,7 +145,7 @@ class ViewController: UIViewController {
             self.inspectorView.update(size: size)
         }
         
-        NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updateFont, object: targetModel, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: DrawingModel.Event.updateFont, object: targetModel, queue: nil) { notification in
             guard let view = self.drawingViews[targetModel] as? Textable,
                 let font = notification.userInfo?[DrawingModel.ParamKey.font] as? Font else {
                 return
@@ -202,7 +202,7 @@ extension ViewController: UIGestureRecognizerDelegate {
             return
         }
         
-        self.plane.onPanGustureAction(state: state, point: Point(x: location.x, y: location.y))
+        self.plane.drag(state: state, point: Point(x: location.x, y: location.y))
     }
 }
 
@@ -218,23 +218,23 @@ extension ViewController: PlaneDelegate {
 
 extension ViewController: InspectorDelegate {
     func fontChange(name: String) {
-        self.plane.fontChange(name: name)
+        self.plane.changeFont(name: name)
     }
     
     func colorChange() {
-        self.plane.colorChange()
+        self.plane.changeColor()
     }
     
     func alphaChange(_ alpha: Alpha) {
-        self.plane.alphaChange(alpha)
+        self.plane.changeAlpha(alpha)
     }
     
     func originMove(x: Double, y: Double) {
-        self.plane.originMove(x:x, y: y)
+        self.plane.transform(translationX:x, y: y)
     }
     
     func sizeIncrease(width: Double, height: Double) {
-        self.plane.sizeIncrease(width: width, height: height)
+        self.plane.transform(width: width, height: height)
     }
 }
 
