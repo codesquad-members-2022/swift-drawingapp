@@ -28,25 +28,22 @@ class Plane {
         return rectangles.count
     }
     
-    subscript(_ point: Point) -> Rectangularable? {
-        for rectangle in rectangles.reversed() {
-            if rectangle.isPointInArea(point) {
-                return rectangle
-            }
-        }
-        return nil
+    subscript(_ index: Int) -> Rectangularable? {
+        return rectangles[index]
     }
     
     public func specifyRectangle(point: Point) -> Result<Rectangularable, PlaneError> {
-        guard let specifiedRectangle = self[point] else {
-            self.specifiedRectangle = nil
-            notificationCenter.post(name: Plane.NotificationNames.didSpecifyRectangle, object: self)
-            return .failure(.cannotSpecifyRectangleError)
+        for rectangle in rectangles.reversed() {
+            if rectangle.isPointInArea(point) {
+                self.specifiedRectangle = rectangle
+                notificationCenter.post(name: Plane.NotificationNames.didSpecifyRectangle, object: self, userInfo: [Plane.UserIDKeys.specifiedRectangle: rectangle])
+                return .success(rectangle)
+            }
         }
+        self.specifiedRectangle = nil
+        notificationCenter.post(name: Plane.NotificationNames.didSpecifyRectangle, object: self)
+        return .failure(.cannotSpecifyRectangleError)
         
-        self.specifiedRectangle = specifiedRectangle
-        notificationCenter.post(name: Plane.NotificationNames.didSpecifyRectangle, object: self, userInfo: [Plane.UserIDKeys.specifiedRectangle: specifiedRectangle])
-        return .success(specifiedRectangle)
     }
     
     public func addNewRectangle(in frame: (width: Double, height: Double)) {
