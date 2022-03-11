@@ -56,14 +56,24 @@ class DrawingModel: CustomStringConvertible, Equatable, Hashable {
     
     func update(origin: Point) {
         self.origin = origin
-        let userInfo: [AnyHashable : Any] = [ParamKey.point:self.origin]
+        let userInfo: [AnyHashable : Any] = [ParamKey.origin:self.origin]
         NotificationCenter.default.post(name: NotifiName.updatePoint, object: self, userInfo: userInfo)
+    }
+    
+    func move(x: Double, y: Double) {
+        let moveOrigin = Point(x: origin.x + x, y: origin.y + y)
+        update(origin: moveOrigin)
     }
     
     func update(size: Size) {
         self.size = size
         let userInfo: [AnyHashable : Any] = [ParamKey.size:self.size]
         NotificationCenter.default.post(name: NotifiName.updateSize, object: self, userInfo: userInfo)
+    }
+    
+    func sizeIncrease(width: Double, height: Double) {
+        let sizeIncrease = Size(width: size.width + width, height: size.height + height)
+        update(size: sizeIncrease)
     }
 }
 
@@ -78,10 +88,10 @@ extension DrawingModel {
     
     enum ParamKey {
         static let id = "id"
-        static let color = "color"
         static let alpha = "alpha"
-        static let imageUrl = "imageUrl"
-        static let point = "point"
+        static let origin = "origin"
         static let size = "size"
+        static let color = "color"
+        static let imageUrl = "imageUrl"
     }
 }

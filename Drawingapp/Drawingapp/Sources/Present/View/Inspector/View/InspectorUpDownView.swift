@@ -9,23 +9,32 @@ import Foundation
 import UIKit
 
 class InspectorUpDownView: UIView {
-    private let name: UILabel = {
+    let name: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
         return label
     }()
     
-    private let value: UILabel = {
+    let value: UILabel = {
         let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.textAlignment = .center
+        label.text = ""
         return label
     }()
     
-    private let upButton: UIButton = {
+    let upButton: UIButton = {
         let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .blue
         return button
     }()
     
-    private let downButton: UIButton = {
+    let downButton: UIButton = {
         let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.backgroundColor = .red
         return button
     }()
     
@@ -42,12 +51,32 @@ class InspectorUpDownView: UIView {
     }
     
     private func attribute() {
+        self.backgroundColor = .clear
         self.layer.borderColor = UIColor.gray.cgColor
         self.layer.borderWidth = 1
-        self.backgroundColor = .clear
+        self.layer.cornerRadius = 5
     }
     
     private func layout() {
+        self.addSubview(name)
+        self.addSubview(value)
+        self.addSubview(upButton)
+        self.addSubview(downButton)
         
+        name.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
+        name.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        name.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+        
+        value.leftAnchor.constraint(equalTo: name.rightAnchor, constant: 10).isActive = true
+        value.rightAnchor.constraint(equalTo: upButton.leftAnchor, constant: -10).isActive = true
+        value.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+
+        upButton.rightAnchor.constraint(equalTo: downButton.leftAnchor, constant: -5).isActive = true
+        upButton.widthAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+        upButton.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+        
+        downButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -5).isActive = true
+        downButton.widthAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+        downButton.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
     }
 }

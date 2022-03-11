@@ -100,16 +100,15 @@ class ViewController: UIViewController {
                   let dummyView = self.dummyView else {
                 return
             }
-            let size = dummyView.frame.size
-            let centerX = point.x - size.width / 2
-            let centerY = point.y - size.height / 2
             dummyView.isHidden = false
-            dummyView.frame.origin = CGPoint(x: centerX, y: centerY)
+            dummyView.frame.origin = CGPoint(x: point.x, y: point.y)
+            self.inspectorView.update(origin: Point(x: point.x, y: point.y))
         }
         
         NotificationCenter.default.addObserver(forName: Plane.NotifiName.didEndedDrag, object: nil, queue: nil) { notification in
             self.dummyView?.removeFromSuperview()
             self.dummyView = nil
+            
         }
     }
     
@@ -132,10 +131,19 @@ class ViewController: UIViewController {
         }
         
         NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updatePoint, object: targetModel, queue: nil) { notification in
-            guard let point = notification.userInfo?[DrawingModel.ParamKey.point] as? Point else {
+            guard let origin = notification.userInfo?[DrawingModel.ParamKey.origin] as? Point else {
                 return
             }
-            self.drawingViews[targetModel]?.update(point: point)
+            self.drawingViews[targetModel]?.update(origin: origin)
+            self.inspectorView.update(origin: origin)
+        }
+        
+        NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updateSize, object: targetModel, queue: nil) { notification in
+            guard let size = notification.userInfo?[DrawingModel.ParamKey.size] as? Size else {
+                return
+            }
+            self.drawingViews[targetModel]?.update(size: size)
+            self.inspectorView.update(size: size)
         }
     }
     
@@ -181,13 +189,21 @@ extension ViewController: PlaneDelegate {
     }
 }
 
-extension ViewController: InspectorDelegate {    
+extension ViewController: InspectorDelegate {
     func colorChanged() {
         self.plane.colorChanged()
     }
     
     func alphaChanged(_ alpha: Alpha) {
         self.plane.alphaChanged(alpha)
+    }
+    
+    func originMoved(x: Double, y: Double) {
+        self.plane.originMoved(x:x, y: y)
+    }
+    
+    func sizeIncrease(width: Double, height: Double) {
+        self.plane.sizeIncrease(width: width, height: height)
     }
 }
 
