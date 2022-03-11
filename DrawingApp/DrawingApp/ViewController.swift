@@ -124,17 +124,17 @@ class ViewController: UIViewController {
     }
     
     func setNotificationCenter() {
-        notificationCenter.addObserver(self, selector: #selector(planeDidAddRectangle(_:)), name: Plane.didAddRectangle, object: plane)
-        notificationCenter.addObserver(self, selector: #selector(planeDidSpecifyRectangle(_:)), name: Plane.didSpecifyRectangle, object: plane)
-        notificationCenter.addObserver(self, selector: #selector(planeDidChangeRectangleBackgroundColor(_:)), name: Plane.didChangeRectangleBackgroundColor, object: plane)
-        notificationCenter.addObserver(self, selector: #selector(planeDidChangeRectangleAlpha(_:)), name: Plane.didChangeRectangleAlpha, object: plane)
+        notificationCenter.addObserver(self, selector: #selector(planeDidAddRectangle(_:)), name: Plane.NotificationNames.didAddRectangle, object: plane)
+        notificationCenter.addObserver(self, selector: #selector(planeDidSpecifyRectangle(_:)), name: Plane.NotificationNames.didSpecifyRectangle, object: plane)
+        notificationCenter.addObserver(self, selector: #selector(planeDidChangeRectangleBackgroundColor(_:)), name: Plane.NotificationNames.didChangeRectangleBackgroundColor, object: plane)
+        notificationCenter.addObserver(self, selector: #selector(planeDidChangeRectangleAlpha(_:)), name: Plane.NotificationNames.didChangeRectangleAlpha, object: plane)
     }
 }
 
 extension ViewController {
     
     @objc func planeDidAddRectangle(_ notification: Notification) {
-        guard let addedRectangle = notification.userInfo?[Plane.addedRectangle] as? Rectangle else {return}
+        guard let addedRectangle = notification.userInfo?[Plane.UserIDKeys.addedRectangle] as? Rectangle else {return}
         os_log("\(addedRectangle)")
         
         guard let newRectangleView = ViewFactory.makeRectangleView(of: addedRectangle) as? RectangleView else {return}
@@ -143,7 +143,7 @@ extension ViewController {
     }
     
     @objc func planeDidSpecifyRectangle(_ notification: Notification) {
-        guard let specifiedRectangle = notification.userInfo?[Plane.specifiedRectangle] as? Rectangle,
+        guard let specifiedRectangle = notification.userInfo?[Plane.UserIDKeys.specifiedRectangle] as? Rectangle,
               let matchedView = rectangleAndViewMap[specifiedRectangle],
               let matchedView = matchedView as? RectangleView else {
                   initializeViewsInTouchedEmptySpaceCondition()
@@ -158,7 +158,7 @@ extension ViewController {
     }
     
     @objc func planeDidChangeRectangleBackgroundColor(_ notification: Notification) {
-        guard let backgroundColorChangedRectangle = notification.userInfo?[Plane.changedRectangle] as? Rectangle,
+        guard let backgroundColorChangedRectangle = notification.userInfo?[Plane.UserIDKeys.changedRectangle] as? Rectangle,
               let matchedView = rectangleAndViewMap[backgroundColorChangedRectangle] else {
                   return
               }
@@ -170,7 +170,7 @@ extension ViewController {
     }
     
     @objc func planeDidChangeRectangleAlpha(_ notification: Notification) {
-        guard let alphaChangedRectangle = notification.userInfo?[Plane.changedRectangle] as? Rectangle,
+        guard let alphaChangedRectangle = notification.userInfo?[Plane.UserIDKeys.changedRectangle] as? Rectangle,
               let matchedView = rectangleAndViewMap[alphaChangedRectangle] else {
                   return
               }

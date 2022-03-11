@@ -8,16 +8,22 @@
 import Foundation
 
 class Plane {
+    struct NotificationNames {
+        static let didAddRectangle = Notification.Name("PlaneDidAddRectangle")
+        static let didSpecifyRectangle = Notification.Name("PlaneDidSpecifyRectangle")
+        static let didChangeRectangleBackgroundColor = Notification.Name("PlaneDidChangeRectangleBackgroundColor")
+        static let didChangeRectangleAlpha = Notification.Name("PlaneDidChangeRectangleAlpha")
+    }
+    
+    struct UserIDKeys {
+        static let changedRectangle = "changedRectangle"
+        static let specifiedRectangle = "specifiedRectangle"
+        static let addedRectangle = "addedRectangle"
+    }
+    
     private var rectangles = [Rectangularable]()
     private var specifiedRectangle: Rectangularable?
     private let notificationCenter = NotificationCenter.default
-    static let didAddRectangle = Notification.Name("PlaneDidAddRectangle")
-    static let didSpecifyRectangle = Notification.Name("PlaneDidSpecifyRectangle")
-    static let didChangeRectangleBackgroundColor = Notification.Name("PlaneDidChangeRectangleBackgroundColor")
-    static let didChangeRectangleAlpha = Notification.Name("PlaneDidChangeRectangleAlpha")
-    static let changedRectangle = "ChangedRectangle"
-    static let specifiedRectangle = "specifiedRectangle"
-    static let addedRectangle = "addedRectanlge"
     var count: Int {
         return rectangles.count
     }
@@ -34,19 +40,19 @@ class Plane {
     public func specifyRectangle(point: Point) -> Result<Rectangularable, PlaneError> {
         guard let specifiedRectangle = self[point] else {
             self.specifiedRectangle = nil
-            notificationCenter.post(name: Plane.didSpecifyRectangle, object: self)
+            notificationCenter.post(name: Plane.NotificationNames.didSpecifyRectangle, object: self)
             return .failure(.cannotSpecifyRectangleError)
         }
         
         self.specifiedRectangle = specifiedRectangle
-        notificationCenter.post(name: Plane.didSpecifyRectangle, object: self, userInfo: [Plane.specifiedRectangle: specifiedRectangle])
+        notificationCenter.post(name: Plane.NotificationNames.didSpecifyRectangle, object: self, userInfo: [Plane.UserIDKeys.specifiedRectangle: specifiedRectangle])
         return .success(specifiedRectangle)
     }
     
     public func addNewRectangle(in frame: (width: Double, height: Double)) {
         let newRectangle = RectangleFactory.makeRandomRectangle(in: frame)
         rectangles.append(newRectangle)
-        notificationCenter.post(name: Plane.didAddRectangle, object: self, userInfo: [Plane.addedRectangle: newRectangle])
+        notificationCenter.post(name: Plane.NotificationNames.didAddRectangle, object: self, userInfo: [Plane.UserIDKeys.addedRectangle: newRectangle])
     }
     
     public func changeBackgroundColor(to newColor: BackgroundColor) -> Result<Rectangularable, PlaneError> {
@@ -54,7 +60,7 @@ class Plane {
             return .failure(.noSpecifiedRectangleToChangeError)
         }
         specifiedRectangle.changeBackgroundColor(to: newColor)
-        notificationCenter.post(name: Plane.didChangeRectangleBackgroundColor, object: self, userInfo: [Plane.changedRectangle: specifiedRectangle])
+        notificationCenter.post(name: Plane.NotificationNames.didChangeRectangleBackgroundColor, object: self, userInfo: [Plane.UserIDKeys.changedRectangle: specifiedRectangle])
         return .success(specifiedRectangle)
     }
 
@@ -63,7 +69,7 @@ class Plane {
             return .failure(.noSpecifiedRectangleToChangeError)
         }
         specifiedRectangle.changeAlphaValue(to: newAlpha)
-        notificationCenter.post(name: Plane.didChangeRectangleAlpha, object: self, userInfo: [Plane.changedRectangle: specifiedRectangle])
+        notificationCenter.post(name: Plane.NotificationNames.didChangeRectangleAlpha, object: self, userInfo: [Plane.UserIDKeys.changedRectangle: specifiedRectangle])
         return .success(specifiedRectangle)
     }
 
