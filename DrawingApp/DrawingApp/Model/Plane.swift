@@ -12,6 +12,7 @@ class Plane {
     private var rectangles : [Rectangle] = []
     private var selectedRectangle : Rectangle?
     static let addRectangle : Notification.Name = Notification.Name("addRectangle")
+    static let searchRectangle : Notification.Name = Notification.Name("searchRectangle")
     
     subscript(index: Int) -> Rectangle? {
         if index < rectangleCount {
@@ -38,8 +39,9 @@ class Plane {
                 break
             }
         }
-        guard let target = selectedRectangle else {return}
-        if let selectedIndex = rectangles.lastIndex(of: target) {
+        guard let targetRectangle = selectedRectangle else {return}
+        if let selectedIndex = rectangles.lastIndex(of: targetRectangle) {
+            NotificationCenter.default.post(name: Plane.searchRectangle, object: self, userInfo: ["rectangle":targetRectangle, "index": selectedIndex])
         }
     }
     

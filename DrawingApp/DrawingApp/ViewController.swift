@@ -22,6 +22,7 @@ class ViewController: UIViewController {
         rectangleViewBoard.delegate = self
         initialScreenSetUp()
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidAdd(_:)), name: Plane.addRectangle, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(planeDidSearch(_:)), name: Plane.searchRectangle, object: nil)
     }
     
     func initialScreenSetUp() {
@@ -105,7 +106,9 @@ extension ViewController {
         self.rectangleViewBoard.addSubview(rectangleView)
     }
     
-    func plane(didSearch rectangle: Rectangle, at index: Int) {
+    @objc func planeDidSearch(_ notification: Notification) {
+        guard let index = notification.userInfo?["index"] as? Int else {return}
+        guard let rectangle = notification.userInfo?["rectangle"] as? Rectangle else {return}
         self.rectangleViewBoard.setSelectedRectangleView(at: index)
         self.rectanglePropertyChangeBoard.setPropertyBoard(with: rectangle)
     }
