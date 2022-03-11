@@ -23,6 +23,7 @@ struct Plane {
     
     mutating func updateRecentlySelected(rectangle: Rectangle) {
         recentlySelectedRectangle = rectangle
+        delegate?.didUpdateRecentlySelectedRectangle(rectangle)
     }
     
     mutating func append(newRectangle: Rectangle) {
