@@ -15,6 +15,12 @@ protocol Imageable {
     func update(imageUrl: URL?)
 }
 
+protocol Textable {
+    func update(text: String)
+    func update(font: Font)
+    func update(fontColor: Color)
+}
+
 class DrawingModel: CustomStringConvertible, Equatable, Hashable {
     let id: String
     public private(set) var size: Size
@@ -86,6 +92,9 @@ extension DrawingModel {
         static let updateSize = NSNotification.Name("updateSize")
         static let updateAlpha = NSNotification.Name("updateAlpha")
         static let updateImageUrl = NSNotification.Name("updateImageUrl")
+        static let updateText = NSNotification.Name("updateText")
+        static let updateFont = NSNotification.Name("updateFont")
+        static let updateFontColor = NSNotification.Name("updateFontColor")
     }
     
     enum ParamKey {
@@ -95,5 +104,8 @@ extension DrawingModel {
         static let size = "size"
         static let color = "color"
         static let imageUrl = "imageUrl"
+        static let text = "text"
+        static let font = "font"
+        static let fontColor = "fontColor"
     }
 }

@@ -227,6 +227,13 @@ extension ViewController: TopMenuBarDelegate {
         phpPicker.delegate = self
         self.present(phpPicker, animated: true)
     }
+    
+    func makeLabelButtonTapped() {
+        let screenSize = UIScreen.main.bounds.size
+        let originX = Int.random(in: 0..<Int(screenSize.width))
+        let originY = Int.random(in: 0..<Int(screenSize.height))
+        self.plane.makeLabelModel(origin: Point(x: originX, y: originY))
+    }
 }
 
 extension ViewController: PHPickerViewControllerDelegate {

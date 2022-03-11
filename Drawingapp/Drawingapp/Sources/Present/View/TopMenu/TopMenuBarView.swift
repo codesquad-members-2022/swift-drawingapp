@@ -11,6 +11,7 @@ import UIKit
 protocol TopMenuBarDelegate {
     func makeRectangleButtonTapped()
     func makePhotoButtonTapped()
+    func makeLabelButtonTapped()
 }
 
 class TopMenuBarView: UIView {
@@ -37,8 +38,16 @@ class TopMenuBarView: UIView {
         return itemView
     }()
     
+    let makeLabel: TopMenuItemView = {
+        let itemView = TopMenuItemView()
+        itemView.backgroundColor = .clear
+        itemView.icon.image = UIImage(named: "ic_text")
+        itemView.translatesAutoresizingMaskIntoConstraints = false
+        return itemView
+    }()
+    
     private var items: [TopMenuItemView] {
-        [makeRectangle, makePhoto]
+        [makeRectangle, makePhoto, makeLabel]
     }
     
     var delegate: TopMenuBarDelegate?
@@ -62,6 +71,10 @@ class TopMenuBarView: UIView {
         
         makePhoto.button.addAction(UIAction{ _ in
             self.delegate?.makePhotoButtonTapped()
+        }, for: .touchUpInside)
+        
+        makeLabel.button.addAction(UIAction{ _ in
+            self.delegate?.makeLabelButtonTapped()
         }, for: .touchUpInside)
     }
     

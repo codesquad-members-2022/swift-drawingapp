@@ -14,6 +14,8 @@ class DrawingViewFactory {
             return makePhotoView(model: model)
         case let model as RectangleModel:
             return makeRectangleView(model: model)
+        case let model as LabelModel:
+            return makeLabelView(model: model)
         default:
             return makeDrawingView(model: model)
         }
@@ -29,5 +31,9 @@ class DrawingViewFactory {
     
     static func makePhotoView(model: PhotoModel) -> PhotoView {
         PhotoView(point: model.origin, size: model.size, alpha: model.alpha, imageUrl: model.imageUrl)
+    }
+    
+    static func makeLabelView(model: LabelModel) -> LabelView {
+        LabelView(point: model.origin, size: model.size, alpha: model.alpha, text: model.text, font: model.font, fontColor: model.fontColor)
     }
 }

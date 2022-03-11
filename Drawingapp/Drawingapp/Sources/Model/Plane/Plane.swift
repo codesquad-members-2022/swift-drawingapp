@@ -27,6 +27,7 @@ protocol PlaneDelegate {
 protocol MakeModelAction {
     func makeRectangleModel(origin: Point)
     func makePhotoModel(origin: Point, url: URL)
+    func makeLabelModel(origin: Point)
 }
 
 class Plane {
@@ -83,6 +84,13 @@ extension Plane: MakeModelAction {
     
     func makePhotoModel(origin: Point, url: URL) {
         guard let model = self.delegate?.getDrawingModelFactory().makePhotoModel(origin: origin, url: url) else {
+            return
+        }
+        didMakeDrawingModel(model: model)
+    }
+    
+    func makeLabelModel(origin: Point) {
+        guard let model = self.delegate?.getDrawingModelFactory().makeLabelModel(origin: origin) else {
             return
         }
         didMakeDrawingModel(model: model)
