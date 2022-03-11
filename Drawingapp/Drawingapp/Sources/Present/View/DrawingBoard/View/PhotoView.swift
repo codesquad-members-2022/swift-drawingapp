@@ -17,8 +17,7 @@ class PhotoView: DrawingView, Imageable {
     }()
     
     init(point: Point, size: Size, alpha: Alpha, imageUrl: URL?) {
-        super.init(frame: CGRect(x: point.x, y: point.y, width: size.width, height: size.height))
-        self.update(alpha: alpha)
+        super.init(point: point, size: size, alpha: alpha)
         self.update(imageUrl: imageUrl)
     }
     

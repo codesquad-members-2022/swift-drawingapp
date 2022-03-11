@@ -30,6 +30,20 @@ class DrawingModelFactory {
         return PhotoModel(id: id, origin: origin, size: size, alpha: alpha, url: url)
     }
     
+    func makeLabelModel(origin: Point) -> LabelModel {
+        let id = makeId()
+        let font = Font(name: "AppleSDGothicNeo-Regular", size: 16)
+        let fontColor = colorFactory.makeRandomColor()
+        let alpha = Alpha.allCases.randomElement() ?? .transpar10
+        
+        let uiFont = UIFont(name: font.name, size: font.size)
+        let text = "asddfasddfasddfasddfasddfasddf"
+        let labelSize = NSString(string: text).size(withAttributes: [.font:uiFont])
+        let size = Size(width: labelSize.width, height: labelSize.height)
+        
+        return LabelModel(id: id, origin: origin, size: size, alpha: alpha, text: text, font: font, fontColor: fontColor)
+    }
+    
     func makeId() -> String {
         let chars = "abcdefghijklmnopqrstuvwxyz0123456789"
         return String((0..<3).reduce(""){ id, _ in
