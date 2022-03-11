@@ -10,16 +10,24 @@ import UIKit
 protocol PlaneViewDelegate {
     func planeViewDidTapped(_ sender: UITapGestureRecognizer)
     func planeViewDidPressRectangleAddButton()
+    func planeViewDidPressImageAddButton()
 }
 
 class PlaneView: UIView {
     var delegate: PlaneViewDelegate?
     
     let rectangleAddButton: RoundedButton = {
-        let button = RoundedButton(type: .system)
-        button.frame.size = CGSize(width: 120, height: 80)
-        button.setTitle("사각형 추가", for: .normal)
-        button.addTarget(self, action: #selector(PlaneView.handleOnPressAddRectangle), for: .touchUpInside)
+        let button = RoundedButton(title: "사각형 추가")
+        button.setImage(UIImage(systemName: "rectangle"), for: .normal, on: .top, with: 12)
+        button.setCorners([.topLeft, .bottomLeft], radius: 10)
+        
+        return button
+    }()
+    
+    let imageAddButton: RoundedButton = {
+        let button = RoundedButton(title: "이미지 추가")
+        button.setImage(UIImage(systemName: "photo"), for: .normal, on: .top, with: 12)
+        button.setCorners([.topRight, .bottomRight], radius: 10)
         
         return button
     }()
@@ -38,8 +46,10 @@ class PlaneView: UIView {
     // MARK: - Configuration
     func configureUI() {
         self.configureGesture()
+        self.configureActions()
         self.configureButtonPosition()
         self.addSubview(self.rectangleAddButton)
+        self.addSubview(self.imageAddButton)
     }
     
     func configureGesture() {
@@ -48,17 +58,28 @@ class PlaneView: UIView {
     }
     
     func configureButtonPosition() {
-        self.rectangleAddButton.center.x = self.center.x
+        self.rectangleAddButton.center.x = self.center.x - 60
         self.rectangleAddButton.center.y = self.frame.height - self.rectangleAddButton.frame.height
+        self.imageAddButton.center.x = self.center.x + 60
+        self.imageAddButton.center.y = self.frame.height - self.rectangleAddButton.frame.height
+    }
+    
+    func configureActions() {
+        self.rectangleAddButton.addTarget(self, action: #selector(PlaneView.handleOnPressRectangleAddButton), for: .touchUpInside)
+        self.imageAddButton.addTarget(self, action: #selector(PlaneView.handleOnPressImageAddButton), for: .touchUpInside)
     }
     
     // MARK: - Action Methods
-    @objc func handleOnPressAddRectangle(_ sender: RoundedButton) {
+    @objc func handleOnPressRectangleAddButton(_ sender: RoundedButton) {
         self.delegate?.planeViewDidPressRectangleAddButton()
     }
     
     @objc func handleOnTapPlaneView(_ sender: UITapGestureRecognizer) {
         guard sender.state == .ended else { return }
         self.delegate?.planeViewDidTapped(sender)
+    }
+    
+    @objc func handleOnPressImageAddButton(_ sender: RoundedButton) {
+        self.delegate?.planeViewDidPressRectangleAddButton()
     }
 }
