@@ -9,9 +9,6 @@ import Foundation
 
 public class Plane {
     
-    //NotificationCenter.default가 중복되는것 같아 private 상수로 선언했습니다.
-    private let defultNotificationCenter = NotificationCenter.default
-    
     //Point를 기반으로 Dictionary를 만듬으로써 View에서 TapGesture로 좌표값을 넘겼을때 그에 해당하는 Rectangle을 찾을 수있다.
     var rectangles:[Point:Rectangle] = [:]
     var selectedRectangle:Rectangle?
@@ -25,7 +22,7 @@ public class Plane {
         guard let selectedRectangle = selectedRectangle else { return }
         selectedRectangle.alpha = alpha
         
-        defultNotificationCenter.post(
+        NotificationCenter.default.post(
             name: Plane.NotificationName.didchangeRectangleAlpha,
             object: self,
             userInfo: [Plane.UserInfoKey.changedAlpha:alpha]
@@ -37,7 +34,7 @@ public class Plane {
         guard let selectedRectangle = selectedRectangle else { return }
         selectedRectangle.rgb = color
         
-        defultNotificationCenter.post(
+        NotificationCenter.default.post(
             name: Plane.NotificationName.didChangeRectangleColor,
             object: self,
             userInfo: [Plane.UserInfoKey.changedColor:color]
@@ -51,7 +48,7 @@ public class Plane {
         let key = Point(x: x, y: y)
         
         rectangles[key] = rectangle
-        defultNotificationCenter.post(
+        NotificationCenter.default.post(
                 name: Plane.NotificationName.didAddRectangle,
                 object: self,
                 userInfo:[Plane.UserInfoKey.addedRectangle: rectangle]
@@ -68,7 +65,7 @@ public class Plane {
         guard let foundRectangle = rectangles[key] else { return }
         self.selectedRectangle = foundRectangle
         
-        defultNotificationCenter.post(
+        NotificationCenter.default.post(
             name: Plane.NotificationName.didFindRectangle,
             object: self,
             userInfo: [Plane.UserInfoKey.foundRectangle:foundRectangle]     
