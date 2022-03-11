@@ -15,6 +15,7 @@ protocol PlaneAction {
     func sizeIncrease(width: Double, height: Double)
     func alphaChange(_ alpha: Alpha)
     func colorChange()
+    func fontChange(name: String)
     func onPanGustureAction(state: Plane.PanGustureState, point: Point)
 }
 
@@ -206,6 +207,13 @@ extension Plane: PlaneAction {
             return
         }
         model.update(alpha: alpha)
+    }
+    
+    func fontChange(name: String) {
+        guard let labelModel = self.selectedModel as? LabelModel else {
+            return
+        }
+        labelModel.update(font: Font(name: name, size: labelModel.font.size))
     }
 }
 
