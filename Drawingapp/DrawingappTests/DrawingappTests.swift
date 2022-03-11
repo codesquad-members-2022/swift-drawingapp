@@ -12,6 +12,7 @@ import XCTest
 class DrawingappTests: XCTestCase, PlaneDelegate {
     let plane = Plane()
     var drawingModel: DrawingModel?
+    var selectedModel: DrawingModel?
     
     override func setUp() {
         self.plane.delegate = self
@@ -26,73 +27,87 @@ class DrawingappTests: XCTestCase, PlaneDelegate {
     }
     
     func testOriginChanged() {
-        let testPoint = Point(x: 200, y: 200)
-        NotificationCenter.default.addObserver(forName: Plane.Event.didMakeDrawingModel, object: nil, queue: nil) { notification in
-            
-            guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
-                XCTFail("사각형이 만들어 지지 않았습니다")
-                return
-            }
-            model.update(origin: testPoint)
+        expectation(forNotification: Plane.Event.didMakeDrawingModel, object: nil) { notification in
+            self.drawingModel = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel
+            return true
         }
         
-        NotificationCenter.default.addObserver(forName: DrawingModel.Event.updateOrigin, object: nil, queue: nil) { notification in
-            
-            guard let origin = notification.userInfo?[DrawingModel.ParamKey.origin] as? Point else {
-                return
-            }
-            XCTAssertTrue(origin.x == testPoint.x && origin.y == testPoint.y, "크기가 변경되지 않았습니다")
+        expectation(forNotification: DrawingModel.Event.updateOrigin, object: nil) { notification in
+            self.drawingModel = notification.object as? DrawingModel
+            return true
         }
-        plane.makeRectangleModel(origin: Point(x: 100, y: 100))
+        
+        let testPoint = Point(x: 200, y: 200)
+        let operation = BlockOperation {
+            self.plane.makeRectangleModel(origin: Point(x: 100, y: 100))
+            self.drawingModel?.update(origin: testPoint)
+        }
+        
+        operation.start()
+        let baseOrigin = self.drawingModel?.origin
+        XCTAssertTrue(baseOrigin?.x == testPoint.x && baseOrigin?.y == testPoint.y, "사각형의 위치가 변경되지 않았습니다")
+        waitForExpectations(timeout: 3, handler: nil)
     }
     
     func testSizeChanged() {
-        let testSize = Size(width: 200, height: 200)
-        NotificationCenter.default.addObserver(forName: Plane.Event.didMakeDrawingModel, object: nil, queue: nil) { notification in
-            
-            guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
-                XCTFail("사각형이 만들어 지지 않았습니다")
-                return
-            }
-            model.update(size: testSize)
+        expectation(forNotification: Plane.Event.didMakeDrawingModel, object: nil) { notification in
+            self.drawingModel = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel
+            return true
         }
         
-        NotificationCenter.default.addObserver(forName: DrawingModel.Event.updateSize, object: nil, queue: nil) { notification in
-            
-            guard let size = notification.userInfo?[DrawingModel.ParamKey.size] as? Size else {
-                return
-            }
-            XCTAssertTrue(size.width == testSize.width && size.height == testSize.height, "크기가 다릅니다")
+        expectation(forNotification: DrawingModel.Event.updateSize, object: nil) { notification in
+            self.drawingModel = notification.object as? DrawingModel
+            return true
         }
-        plane.makeRectangleModel(origin: Point(x: 100, y: 100))
+        
+        let testSize = Size(width: 200, height: 200)
+        
+        let operation = BlockOperation {
+            self.plane.makeRectangleModel(origin: Point(x: 100, y: 100))
+            self.drawingModel?.update(size: testSize)
+        }
+        
+        operation.start()
+        let baseSize = self.drawingModel?.size
+        XCTAssertTrue(baseSize?.width == testSize.width && baseSize?.height == testSize.height, "사각형의 크기가 변경되지 않았습니다")
+        waitForExpectations(timeout: 3, handler: nil)
     }
     
     func testSelectedRectangle() {
-        NotificationCenter.default.addObserver(forName: Plane.Event.didMakeDrawingModel, object: nil, queue: nil) { notification in
-            
-            let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel
-            XCTAssertTrue(model != nil, "사각형이 생성되지 않았습니다")
-            
+        expectation(forNotification: Plane.Event.didMakeDrawingModel, object: nil) { notification in
+            self.drawingModel = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel
+            return true
+        }
+        
+        expectation(forNotification: Plane.Event.didSelectedDrawingModel, object: nil) { notification in
+            self.selectedModel = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel
+            return true
+        }
+        
+        let operation = BlockOperation {
+            self.plane.makeRectangleModel(origin: Point(x: 100, y: 100))
             self.plane.touchPoint(Point(x: 100, y: 100))
         }
         
-        NotificationCenter.default.addObserver(forName: Plane.Event.didSelectedDrawingModel, object: nil, queue: nil) { notification in
-            guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
-                XCTFail("사각형이 선택되지 않았습니다")
-                return
-            }
-            XCTAssertTrue(true)
-        }
-        plane.makeRectangleModel(origin: Point(x: 100, y: 100))
+        operation.start()
+        XCTAssertTrue(self.drawingModel == self.selectedModel, "사각형이 선택되지 않았습니다")
+        waitForExpectations(timeout: 3, handler: nil)
     }
     
     //사각형 뷰 생성 테스트
     func testMakeRectangleModel() {
-        NotificationCenter.default.addObserver(forName: Plane.Event.didMakeDrawingModel, object: nil, queue: nil) { notification in
-            
-            let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel
-            XCTAssertTrue(model != nil, "사각형이 생성되지 않았습니다")
+        expectation(forNotification: Plane.Event.didMakeDrawingModel, object: nil) { notification in
+            self.drawingModel = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel
+            return true
         }
-        plane.makeRectangleModel(origin: Point(x: 100, y: 100))
+        
+        let operation = BlockOperation {
+            self.plane.makeRectangleModel(origin: Point(x: 100, y: 100))
+        }
+        
+        operation.start()
+        
+        XCTAssertTrue(self.drawingModel != nil, "사각형이 생성되지 않았습니다")
+        waitForExpectations(timeout: 3, handler: nil)
     }
 }
