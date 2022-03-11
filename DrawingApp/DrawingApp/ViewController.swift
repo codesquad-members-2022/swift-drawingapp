@@ -12,6 +12,7 @@ class ViewController: UIViewController {
     
     private var plane = Plane()
     private var rectangleAndViewMap = [Rectangle: RectangleView]()
+    private let notificationCenter = NotificationCenter.default
     private var selectedView: RectangleView?
     weak var generateRectangleButton: UIButton!
     weak var drawableAreaView: UIView!
@@ -24,13 +25,13 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setNotificationCenter()
         
         backgroundColorButton.setTitle("배경색 버튼", for: .disabled)
         
         addGenerateRectangleButton()
         addDrawableAreaView()
-        plane.delegate = self
-        
+
         initializeViewsInTouchedEmptySpaceCondition()
         
     }
@@ -122,11 +123,18 @@ class ViewController: UIViewController {
         plane.changeAlphaValue(to: Alpha(opacityLevel: convertedOpacityLevel))
     }
     
+    func setNotificationCenter() {
+        notificationCenter.addObserver(self, selector: #selector(planeDidAddRectangle(_:)), name: .planeDidAddRectangle, object: plane)
+        notificationCenter.addObserver(self, selector: #selector(planeDidSpecifyRectangle(_:)), name: .planeDidSpecifyRectangle, object: plane)
+        notificationCenter.addObserver(self, selector: #selector(planeDidChangeRectangleBackgroundColor(_:)), name: .planeDidChangeRectangleBackgroundColor, object: plane)
+        notificationCenter.addObserver(self, selector: #selector(planeDidChangeRectangleAlpha(_:)), name: .planeDidChangeRectangleAlpha, object: plane)
+    }
 }
 
-extension ViewController: PlaneDelegate {
-    func planeDidAddRectangle(_ plane: Plane) {
-        guard let addedRectangle = plane.addedRectangle else {return}
+extension ViewController {
+    
+    @objc func planeDidAddRectangle(_ notification: Notification) {
+        guard let addedRectangle = notification.userInfo?["newRectangle"] as? Rectangle else {return}
         os_log("\(addedRectangle)")
         
         let newRectangleView = ViewFactory.makeRectangleView(of: addedRectangle)
@@ -134,8 +142,8 @@ extension ViewController: PlaneDelegate {
         rectangleAndViewMap[addedRectangle] = newRectangleView
     }
     
-    func planeDidSpecifyRectangle(_ plane: Plane) {
-        guard let specifiedRectangle = plane.specifiedRectangle,
+    @objc func planeDidSpecifyRectangle(_ notification: Notification) {
+        guard let specifiedRectangle = notification.userInfo?["specifiedRectangle"] as? Rectangle,
               let matchedView = rectangleAndViewMap[specifiedRectangle] else {
                   initializeViewsInTouchedEmptySpaceCondition()
                   return
@@ -148,25 +156,25 @@ extension ViewController: PlaneDelegate {
         updatePlusAlphaValueButton(with: Float(matchedView.alpha))
     }
     
-    func planeDidChangeBackgroundColorOfRectangle(_ plane: Plane) {
-        guard let specifiedRectangle = plane.specifiedRectangle,
-             let matchedView = rectangleAndViewMap[specifiedRectangle] else {
-            return
-        }
+    @objc func planeDidChangeRectangleBackgroundColor(_ notification: Notification) {
+        guard let backgroundColorChangedRectangle = notification.userInfo?["backgroundColorChangedRectangle"] as? Rectangle,
+              let matchedView = rectangleAndViewMap[backgroundColorChangedRectangle] else {
+                  return
+              }
         
-        let newBackgroundColor = specifiedRectangle.backgroundColor
+        let newBackgroundColor = backgroundColorChangedRectangle.backgroundColor
         matchedView.backgroundColor = newBackgroundColor.convertToUIColor()
-        let previousAlpha = specifiedRectangle.alpha
+        let previousAlpha = backgroundColorChangedRectangle.alpha
         updateBackgroundButton(color: newBackgroundColor, alpha: previousAlpha)
     }
     
-    func planeDidChangeAlphaOfRectangle(_ plane: Plane) {
-        guard let specifiedRectangle = plane.specifiedRectangle,
-             let matchedView = rectangleAndViewMap[specifiedRectangle] else {
-            return
-        }
+    @objc func planeDidChangeRectangleAlpha(_ notification: Notification) {
+        guard let alphaChangedRectangle = notification.userInfo?["alphaChangedRectangle"] as? Rectangle,
+              let matchedView = rectangleAndViewMap[alphaChangedRectangle] else {
+                  return
+              }
         
-        let newAlphaValue = specifiedRectangle.alpha.value
+        let newAlphaValue = alphaChangedRectangle.alpha.value
         matchedView.alpha = CGFloat(newAlphaValue)
         updateStatusViewElement(with: newAlphaValue)
     }

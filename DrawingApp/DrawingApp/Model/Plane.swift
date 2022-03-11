@@ -7,11 +7,10 @@
 
 import Foundation
 
-struct Plane {
+class Plane {
     private var rectangles = [Rectangle]()
-    var delegate: PlaneDelegate?
-    var specifiedRectangle: Rectangle?
-    var addedRectangle: Rectangle?
+    private var specifiedRectangle: Rectangle?
+    private let notificationCenter = NotificationCenter.default
     var count: Int {
         return rectangles.count
     }
@@ -20,24 +19,23 @@ struct Plane {
         return rectangles[index]
     }
     
-    mutating public func specifyRectangle(point: Point) -> Result<Rectangle, PlaneError> {
+    public func specifyRectangle(point: Point) -> Result<Rectangle, PlaneError> {
         for rectangle in rectangles.reversed() {
             if rectangle.isPointInArea(point) {
                 self.specifiedRectangle = rectangle
-                delegate?.planeDidSpecifyRectangle(self)
+                notificationCenter.post(name: .planeDidSpecifyRectangle, object: self, userInfo: ["specifiedRectangle": rectangle])
                 return .success(rectangle)
             }
         }
         self.specifiedRectangle = nil
-        delegate?.planeDidSpecifyRectangle(self)
+        notificationCenter.post(name: .planeDidSpecifyRectangle, object: self)
         return .failure(.cannotSpecifyRectangleError)
     }
     
-    mutating public func addNewRectangle(in frame: (width: Double, height: Double)) {
+    public func addNewRectangle(in frame: (width: Double, height: Double)) {
         let newRectangle = RectangleFactory.makeRandomRectangle(in: frame)
         rectangles.append(newRectangle)
-        self.addedRectangle = newRectangle
-        delegate?.planeDidAddRectangle(self)
+        notificationCenter.post(name: .planeDidAddRectangle, object: self, userInfo: ["newRectangle": newRectangle])
     }
     
     public func changeBackgroundColor(to newColor: BackgroundColor) -> Result<Rectangle, PlaneError> {
@@ -45,7 +43,7 @@ struct Plane {
             return .failure(.noSpecifiedRectangleToChangeError)
         }
         specifiedRectangle.changeBackgroundColor(to: newColor)
-        delegate?.planeDidChangeBackgroundColorOfRectangle(self)
+        notificationCenter.post(name: .planeDidChangeRectangleBackgroundColor, object: self, userInfo: ["backgroundColorChangedRectangle": specifiedRectangle])
         return .success(specifiedRectangle)
     }
 
@@ -54,7 +52,7 @@ struct Plane {
             return .failure(.noSpecifiedRectangleToChangeError)
         }
         specifiedRectangle.changeAlphaValue(to: newAlpha)
-        delegate?.planeDidChangeAlphaOfRectangle(self)
+        notificationCenter.post(name: .planeDidChangeRectangleAlpha, object: self, userInfo: ["alphaChangedRectangle": specifiedRectangle])
         return .success(specifiedRectangle)
     }
 
@@ -63,4 +61,11 @@ struct Plane {
 enum PlaneError: Error {
     case cannotSpecifyRectangleError
     case noSpecifiedRectangleToChangeError
+}
+
+extension Notification.Name {
+    static let planeDidAddRectangle = Notification.Name("PlaneDidAddRectangle")
+    static let planeDidSpecifyRectangle = Notification.Name("PlaneDidSpecifyRectangle")
+    static let planeDidChangeRectangleBackgroundColor = Notification.Name("PlaneDidChangeRectangleBackgroundColor")
+    static let planeDidChangeRectangleAlpha = Notification.Name("PlaneDidChangeRectangleAlpha")
 }
