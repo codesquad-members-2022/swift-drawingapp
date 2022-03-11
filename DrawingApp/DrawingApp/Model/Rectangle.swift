@@ -25,6 +25,14 @@ class Rectangle: Shape {
         self.color = color
         self.alpha = alpha
     }
+    
+    func isContainPoint(point: Point) -> Bool {
+        let rectangleX = self.point.getCurrentX()
+        let rectangleY = self.point.getCurrentY()
+        var isContainX = (rectangleX...rectangleX + self.size.getCurrentWidth()).contains(point.getCurrentX())
+        var isContainY = (rectangleY...rectangleY + self.size.getCurrentHeight()).contains(point.getCurrentY())
+        return isContainX && isContainY
+    }
 }
 
 extension Rectangle: CustomStringConvertible {
