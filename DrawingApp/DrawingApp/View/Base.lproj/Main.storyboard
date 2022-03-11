@@ -13,7 +13,7 @@
             <objects>
                 <viewController id="l8x-Ot-BnL" customClass="CanvasViewController" customModule="DrawingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xo9-MY-jyf">
-                        <rect key="frame" x="0.0" y="0.0" width="859.5" height="820"/>
+                        <rect key="frame" x="0.0" y="0.0" width="860" height="820"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="g98-d2-ots">
@@ -33,7 +33,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="addRectanglePressed:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="xMp-E6-HpT"/>
+                                            <action selector="didTouchRectangleButton:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="xHV-rV-bVe"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3cB-Gg-zBo">
@@ -50,7 +50,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="addPhotoPressed:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="wG9-JK-1Q4"/>
+                                            <action selector="didTouchPhotoButton:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="l7E-vQ-O0o"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K5x-AO-ZR2">
@@ -67,7 +67,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="addLabelPressed:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="bqm-52-9RR"/>
+                                            <action selector="didTouchLabelButton:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="lD6-g7-ekf"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -131,7 +131,7 @@
                                                 <state key="normal" title="Button"/>
                                                 <buttonConfiguration key="configuration" style="filled"/>
                                                 <connections>
-                                                    <action selector="ColorButtonPressed:" destination="LiX-43-8CF" eventType="touchUpInside" id="fkV-j3-xAp"/>
+                                                    <action selector="didTouchColorButton:" destination="LiX-43-8CF" eventType="touchUpInside" id="dk0-7k-a61"/>
                                                 </connections>
                                             </button>
                                         </subviews>
@@ -159,7 +159,7 @@
                                             <slider opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="5" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="2IS-Tl-qfB">
                                                 <rect key="frame" x="-2" y="36.5" width="264" height="31"/>
                                                 <connections>
-                                                    <action selector="SliderChanged:" destination="LiX-43-8CF" eventType="valueChanged" id="7ND-sN-b6c"/>
+                                                    <action selector="didChangeSlider:" destination="LiX-43-8CF" eventType="valueChanged" id="uff-gK-8sn"/>
                                                 </connections>
                                             </slider>
                                         </subviews>
@@ -196,7 +196,7 @@
                                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="700" stepValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="vbE-dE-nQx">
                                                         <rect key="frame" x="166" y="0.0" width="94" height="30"/>
                                                         <connections>
-                                                            <action selector="originChanged:" destination="LiX-43-8CF" eventType="valueChanged" id="nPI-ni-zeb"/>
+                                                            <action selector="didTouchOriginStepper:" destination="LiX-43-8CF" eventType="valueChanged" id="ynH-Uq-0tU"/>
                                                         </connections>
                                                     </stepper>
                                                 </subviews>
@@ -219,7 +219,7 @@
                                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="500" stepValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="JGL-nx-eUQ">
                                                         <rect key="frame" x="166" y="0.0" width="94" height="29.5"/>
                                                         <connections>
-                                                            <action selector="originChanged:" destination="LiX-43-8CF" eventType="valueChanged" id="S7n-cR-hnn"/>
+                                                            <action selector="didTouchOriginStepper:" destination="LiX-43-8CF" eventType="valueChanged" id="Yz4-r3-DRz"/>
                                                         </connections>
                                                     </stepper>
                                                 </subviews>
@@ -267,7 +267,7 @@
                                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="500" stepValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="DQI-ty-EwO">
                                                         <rect key="frame" x="166" y="0.0" width="94" height="31"/>
                                                         <connections>
-                                                            <action selector="sizeChanged:" destination="LiX-43-8CF" eventType="valueChanged" id="qQG-aA-ZNw"/>
+                                                            <action selector="didTouchSizeStepper:" destination="LiX-43-8CF" eventType="valueChanged" id="alC-iV-N5a"/>
                                                         </connections>
                                                     </stepper>
                                                 </subviews>
@@ -290,7 +290,7 @@
                                                     <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="500" stepValue="20" translatesAutoresizingMaskIntoConstraints="NO" id="4ie-rP-488">
                                                         <rect key="frame" x="166" y="0.0" width="94" height="31"/>
                                                         <connections>
-                                                            <action selector="sizeChanged:" destination="LiX-43-8CF" eventType="valueChanged" id="B7r-DJ-PTc"/>
+                                                            <action selector="didTouchSizeStepper:" destination="LiX-43-8CF" eventType="valueChanged" id="crT-1c-oat"/>
                                                         </connections>
                                                     </stepper>
                                                 </subviews>

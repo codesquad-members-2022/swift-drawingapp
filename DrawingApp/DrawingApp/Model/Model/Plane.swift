@@ -9,19 +9,20 @@ import Foundation
 
 class Plane {
     enum Event {
-        static let addViewModel = Notification.Name("addViewModel")
-        static let selectViewModel = Notification.Name("selectViewModel")
-        static let mutateColorViewModel = Notification.Name("mutateColorViewModel")
-        static let mutateAlphaViewModel = Notification.Name("mutateAlphaViewModel")
-        static let mutateOriginViewModel = Notification.Name("mutateOriginViewModel")
-        static let mutateSizeViewModel = Notification.Name("mutateSizeViewModel")
-        static let mutateTextViewModel = Notification.Name("mutateTextViewModel")
+        static let didAddViewModel = Notification.Name("didAddViewModel")
+        static let didSelectViewModel = Notification.Name("didSelectViewModel")
+        static let didSetColor = Notification.Name("didSetColor")
+        static let didSetAlpha = Notification.Name("didSetAlpha")
+        static let didSetOrigin = Notification.Name("didSetOrigin")
+        static let didSetSize = Notification.Name("didSetSize")
+        static let didSetText = Notification.Name("didSetText")
     }
     
     enum InfoKey {
-        static let new = "new"
-        static let old = "old"
-        static let mutated = "mutated"
+        static let added = "added"
+        static let selected = "selected"
+        static let unselected = "unselected"
+        static let set = "set"
     }
     
     private var viewModels: [ViewModel] = [] {
@@ -52,66 +53,66 @@ class Plane {
     func addRectangle() {
         let newRectangle = Rectangle.random()
         viewModels.append(newRectangle)
-        NotificationCenter.default.post(name: Plane.Event.addViewModel, object: self, userInfo: [Plane.InfoKey.new: newRectangle])
+        NotificationCenter.default.post(name: Plane.Event.didAddViewModel, object: self, userInfo: [Plane.InfoKey.added: newRectangle])
     }
     
     func addPhoto(data: Data) {
         let newPhoto = Photo.random(from: data)
         viewModels.append(newPhoto)
-        NotificationCenter.default.post(name: Plane.Event.addViewModel, object: self, userInfo: [Plane.InfoKey.new: newPhoto])
+        NotificationCenter.default.post(name: Plane.Event.didAddViewModel, object: self, userInfo: [Plane.InfoKey.added: newPhoto])
     }
     
     func addLabel() {
         let newLabel = Label.random()
         viewModels.append(newLabel)
-        NotificationCenter.default.post(name: Plane.Event.addViewModel, object: self, userInfo: [Plane.InfoKey.new: newLabel])
+        NotificationCenter.default.post(name: Plane.Event.didAddViewModel, object: self, userInfo: [Plane.InfoKey.added: newLabel])
     }
     
     func tap(on point: Point) {
-        let oldSelected = selected
+        let unselected = selected
         self.selected = viewModels.last(where: { viewModel in
             viewModel.contains(point)
         })
-        NotificationCenter.default.post(name: Plane.Event.selectViewModel, object: self, userInfo: [Plane.InfoKey.old: oldSelected as Any, Plane.InfoKey.new: selected as Any])
+        NotificationCenter.default.post(name: Plane.Event.didSelectViewModel, object: self, userInfo: [Plane.InfoKey.unselected: unselected as Any, Plane.InfoKey.selected: selected as Any])
     }
     
-    func set(to color: Color = Color.random()) {
+    func setSelected(to color: Color = Color.random()) {
         guard let colorMutable = selected as? ColorMutable else { return }
         colorMutable.set(to: color)
-        NotificationCenter.default.post(name: Plane.Event.mutateColorViewModel, object: self, userInfo: [Plane.InfoKey.new: color])
+        NotificationCenter.default.post(name: Plane.Event.didSetColor, object: self, userInfo: [Plane.InfoKey.set: color])
     }
     
-    func set(to alpha: Alpha) {
+    func setSelected(to alpha: Alpha) {
         guard let alphaMutable = selected as? AlphaMutable else { return }
         alphaMutable.set(to: alpha)
-        NotificationCenter.default.post(name: Plane.Event.mutateAlphaViewModel, object: self, userInfo: [Plane.InfoKey.new: alpha])
+        NotificationCenter.default.post(name: Plane.Event.didSetAlpha, object: self, userInfo: [Plane.InfoKey.set: alpha])
     }
     
-    func set(to text: String) {
+    func setSelected(to text: String) {
         guard let textMutable = selected as? TextMutable else { return }
         textMutable.set(to: text)
-        NotificationCenter.default.post(name: Plane.Event.mutateTextViewModel, object: self, userInfo: [Plane.InfoKey.new: text])
+        NotificationCenter.default.post(name: Plane.Event.didSetText, object: self, userInfo: [Plane.InfoKey.set: text])
     }
     
-    func set(to origin: Point) {
+    func setSelected(to origin: Point) {
         guard let viewModel = selected else { return }
         viewModel.set(to: origin)
-        NotificationCenter.default.post(name: Plane.Event.mutateOriginViewModel, object: self, userInfo: [Plane.InfoKey.mutated: viewModel])
+        NotificationCenter.default.post(name: Plane.Event.didSetOrigin, object: self, userInfo: [Plane.InfoKey.set: viewModel])
     }
     
-    func set(to size: Size) {
+    func setSelected(to size: Size) {
         guard let viewModel = selected else { return }
         viewModel.set(to: size)
-        NotificationCenter.default.post(name: Plane.Event.mutateSizeViewModel, object: self, userInfo: [Plane.InfoKey.mutated: viewModel])
+        NotificationCenter.default.post(name: Plane.Event.didSetSize, object: self, userInfo: [Plane.InfoKey.set: viewModel])
     }
     
-    func drag(viewModel: ViewModel, to origin: Point) {
+    func set(viewModel: ViewModel, to origin: Point) {
         viewModel.set(to: origin)
-        NotificationCenter.default.post(name: Plane.Event.mutateOriginViewModel, object: self, userInfo: [Plane.InfoKey.mutated: viewModel])
+        NotificationCenter.default.post(name: Plane.Event.didSetOrigin, object: self, userInfo: [Plane.InfoKey.set: viewModel])
     }
     
     func set(viewModel: ViewModel, to size: Size) {
         viewModel.set(to: size)
-        NotificationCenter.default.post(name: Plane.Event.mutateSizeViewModel, object: self, userInfo: [Plane.InfoKey.mutated: viewModel])
+        NotificationCenter.default.post(name: Plane.Event.didSetSize, object: self, userInfo: [Plane.InfoKey.set: viewModel])
     }
 }

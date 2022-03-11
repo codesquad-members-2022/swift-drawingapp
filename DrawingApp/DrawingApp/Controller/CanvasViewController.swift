@@ -18,11 +18,11 @@ class CanvasViewController: UIViewController,
     private var temporaryView: UIView?
     
     enum Event {
-        static let drag = Notification.Name("drag")
+        static let isDragging = Notification.Name("drag")
     }
     
     enum InfoKey {
-        static let newOrigin = "origin"
+        static let origin = "origin"
     }
     
     override func viewDidLoad() {
@@ -43,21 +43,21 @@ class CanvasViewController: UIViewController,
 extension CanvasViewController {
     
     private func observePlane() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didAddViewModel(_:)), name: Plane.Event.addViewModel, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(didSelectViewModel(_:)), name: Plane.Event.selectViewModel, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(didMutateColor(_:)), name: Plane.Event.mutateColorViewModel, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(didMutateAlpha(_:)), name: Plane.Event.mutateAlphaViewModel, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(didMutateOrigin(_:)), name: Plane.Event.mutateOriginViewModel, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(didMutateSize(_:)), name: Plane.Event.mutateSizeViewModel, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(didMutateText(_:)), name: Plane.Event.mutateTextViewModel, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didAddViewModel(_:)), name: Plane.Event.didAddViewModel, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didSelectViewModel(_:)), name: Plane.Event.didSelectViewModel, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didSetColor(_:)), name: Plane.Event.didSetColor, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didSetAlpha(_:)), name: Plane.Event.didSetAlpha, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didSetOrigin(_:)), name: Plane.Event.didSetOrigin, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didSetSize(_:)), name: Plane.Event.didSetSize, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didSetText(_:)), name: Plane.Event.didSetText, object: plane)
     }
     
     private func observePanel() {
-        NotificationCenter.default.addObserver(self, selector: #selector(sliderChanged(_:)), name: PanelViewController.Event.sliderChanged, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(colorButtonPressed(_:)), name: PanelViewController.Event.colorButtonPressed, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(originStepperChanged(_:)), name: PanelViewController.Event.originStepperChanged, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(sizeStepperChanged(_:)), name: PanelViewController.Event.sizeStpperChanged, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(textFieldChanged(_:)), name: PanelViewController.Event.textFieldChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeSlider(_:)), name: PanelViewController.Event.didChangeSlider, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didTouchColorButton(_:)), name: PanelViewController.Event.didTouchColorButton, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didTouchOriginStepper(_:)), name: PanelViewController.Event.didTouchOriginStepper, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didTouchSizeStepper(_:)), name: PanelViewController.Event.didTouchSizeStepper, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didEditTextField(_:)), name: PanelViewController.Event.didEditTextField, object: nil)
     }
     
     private func setUpRecognizer() {
@@ -81,12 +81,12 @@ extension CanvasViewController {
 
 extension CanvasViewController {
     
-    @IBAction func addRectanglePressed(_ sender: UIButton) {
+    @IBAction func didTouchRectangleButton(_ sender: UIButton) {
         plane.addRectangle()
     }
     
     @objc func didAddViewModel(_ notification: Notification) {
-        guard let newViewModel = notification.userInfo?[Plane.InfoKey.new] as? ViewModel else { return }
+        guard let newViewModel = notification.userInfo?[Plane.InfoKey.added] as? ViewModel else { return }
         guard let newView = ViewFactory.create(from: newViewModel) else { return }
         
         map(newView, to: newViewModel)
@@ -111,7 +111,7 @@ extension CanvasViewController {
 
 extension CanvasViewController {
     
-    @IBAction func addPhotoPressed(_ sender: UIButton) {
+    @IBAction func didTouchPhotoButton(_ sender: UIButton) {
         present(photoPicker, animated: true, completion: nil)
     }
     
@@ -128,10 +128,11 @@ extension CanvasViewController {
 // MARK: - Use Case: Add New Label
 
 extension CanvasViewController {
-    @IBAction func addLabelPressed(_ sender: UIButton) {
+    @IBAction func didTouchLabelButton(_ sender: UIButton) {
         plane.addLabel()
     }
     
+    // Set viewModel to fit intrinsic content size
     private func resizeToFit(_ viewModel: ViewModel, for view: UIView) {
         let fitSize = Size(width: view.intrinsicContentSize.width, height: view.intrinsicContentSize.height)
         plane.set(viewModel: viewModel, to: fitSize)
@@ -149,12 +150,12 @@ extension CanvasViewController {
     }
     
     @objc func didSelectViewModel(_ notification: Notification) {
-        if let new = notification.userInfo?[Plane.InfoKey.new] as? ViewModel {
+        if let new = notification.userInfo?[Plane.InfoKey.selected] as? ViewModel {
             guard let newView = search(for: new) else { return }
             changeBorder(newView)
         }
         
-        if let old = notification.userInfo?[Plane.InfoKey.old] as? ViewModel {
+        if let old = notification.userInfo?[Plane.InfoKey.unselected] as? ViewModel {
             guard let oldView = search(for: old) else { return }
             clearBorder(oldView)
         }
@@ -179,63 +180,63 @@ extension CanvasViewController {
 
 extension CanvasViewController {
     
-    @objc func colorButtonPressed(_ notification: Notification) {
-        plane.set()
+    @objc func didTouchColorButton(_ notification: Notification) {
+        plane.setSelected()
     }
     
-    @objc func didMutateColor(_ notification: Notification) {
+    @objc func didSetColor(_ notification: Notification) {
         guard let selected = plane.selected,
-              let newColor = notification.userInfo?[Plane.InfoKey.new] as? Color else { return }
+              let newColor = notification.userInfo?[Plane.InfoKey.set] as? Color else { return }
         let mutatedUIView = search(for: selected)
         mutatedUIView?.backgroundColor = UIColor(with: newColor)
     }
     
-    @objc func sliderChanged(_ notification: Notification) {
-        guard let value = notification.userInfo?[PanelViewController.InfoKey.sliderValue] as? Float else { return }
+    @objc func didChangeSlider(_ notification: Notification) {
+        guard let value = notification.userInfo?[PanelViewController.InfoKey.value] as? Float else { return }
         
         if let alpha = Alpha(value) {
-            plane.set(to: alpha)
+            plane.setSelected(to: alpha)
         }
     }
     
-    @objc func didMutateAlpha(_ notification: Notification) {
+    @objc func didSetAlpha(_ notification: Notification) {
         guard let selected = plane.selected,
-              let newAlpha = notification.userInfo?[Plane.InfoKey.new] as? Alpha else { return }
+              let newAlpha = notification.userInfo?[Plane.InfoKey.set] as? Alpha else { return }
         let mutatedUIView = search(for: selected)
         mutatedUIView?.alpha = CGFloat(with: newAlpha)
     }
     
-    @objc func originStepperChanged(_ notification: Notification) {
-        guard let origin = notification.userInfo?[PanelViewController.InfoKey.newOrigin] as? Point else { return }
-        plane.set(to: origin)
+    @objc func didTouchOriginStepper(_ notification: Notification) {
+        guard let origin = notification.userInfo?[PanelViewController.InfoKey.origin] as? Point else { return }
+        plane.setSelected(to: origin)
     }
     
-    @objc func didMutateOrigin(_ notification: Notification) {
-        guard let mutated = notification.userInfo?[Plane.InfoKey.mutated] as? ViewModel else { return }
+    @objc func didSetOrigin(_ notification: Notification) {
+        guard let mutated = notification.userInfo?[Plane.InfoKey.set] as? ViewModel else { return }
         let mutatedCavnasView = search(for: mutated)
         mutatedCavnasView?.frame.origin = CGPoint(with: mutated.origin)
     }
     
-    @objc func sizeStepperChanged(_ notification: Notification) {
-        guard let size = notification.userInfo?[PanelViewController.InfoKey.newSize] as? Size else { return }
-        plane.set(to: size)
+    @objc func didTouchSizeStepper(_ notification: Notification) {
+        guard let size = notification.userInfo?[PanelViewController.InfoKey.size] as? Size else { return }
+        plane.setSelected(to: size)
     }
     
-    @objc func didMutateSize(_ notification: Notification) {
-        guard let mutated = notification.userInfo?[Plane.InfoKey.mutated] as? ViewModel else { return }
+    @objc func didSetSize(_ notification: Notification) {
+        guard let mutated = notification.userInfo?[Plane.InfoKey.set] as? ViewModel else { return }
         let mutatedUIView = search(for: mutated)
         mutatedUIView?.frame.size = CGSize(with: mutated.size)
     }
     
-    @objc func textFieldChanged(_ notification: Notification) {
-        guard let text = notification.userInfo?[PanelViewController.InfoKey.newText] as? String else { return }
-        plane.set(to: text)
+    @objc func didEditTextField(_ notification: Notification) {
+        guard let text = notification.userInfo?[PanelViewController.InfoKey.text] as? String else { return }
+        plane.setSelected(to: text)
     }
     
-    @objc func didMutateText(_ notification: Notification) {
+    @objc func didSetText(_ notification: Notification) {
         guard let selected = plane.selected,
               let mutatedUIView = search(for: selected) as? UILabel,
-              let newText = notification.userInfo?[Plane.InfoKey.new] as? String else { return }
+              let newText = notification.userInfo?[Plane.InfoKey.set] as? String else { return }
         mutatedUIView.text = newText
         resizeToFit(selected, for: mutatedUIView)
     }
@@ -281,7 +282,7 @@ extension CanvasViewController {
     
     private func displayTemporaryOrigin(_ temporaryView: UIView) {
         let temporaryOrigin = Point(x: temporaryView.frame.origin.x, y: temporaryView.frame.origin.y)
-        NotificationCenter.default.post(name: CanvasViewController.Event.drag, object: self, userInfo: [CanvasViewController.InfoKey.newOrigin: temporaryOrigin])
+        NotificationCenter.default.post(name: CanvasViewController.Event.isDragging, object: self, userInfo: [CanvasViewController.InfoKey.origin: temporaryOrigin])
     }
     
     private func endPan(_ gesture: UIPanGestureRecognizer) {
@@ -293,7 +294,7 @@ extension CanvasViewController {
         let lastOrigin = Point(x: temporaryView.frame.origin.x,
                                y: temporaryView.frame.origin.y)
         
-        plane.drag(viewModel: gestureViewModel, to: lastOrigin)
+        plane.set(viewModel: gestureViewModel, to: lastOrigin)
         temporaryView.removeFromSuperview()
     }
     
