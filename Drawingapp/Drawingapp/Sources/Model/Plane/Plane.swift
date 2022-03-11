@@ -11,6 +11,9 @@ import UIKit
 protocol PlaneAction {
     func touchPoint(_ point: Point)
     func originChanged(_ origin: Point)
+    func originMoved(x: Double, y: Double)
+    func sizeChanged(_ size: Size)
+    func sizeIncrease(width: Double, height: Double)
     func alphaChanged(_ alpha: Alpha)
     func colorChanged()
     func onPanGustureAction(state: UIGestureRecognizer.State, point: Point)
@@ -77,7 +80,6 @@ extension Plane: MakeModelAction {
 }
 
 extension Plane: PlaneAction {
-    
     private func sendDidDisSelectModel(_ model: DrawingModel?) {
         guard let model = model else {
             return
@@ -121,15 +123,20 @@ extension Plane: PlaneAction {
             let userInfo: [AnyHashable : Any] = [ParamKey.drawingModel:dragModel]
             NotificationCenter.default.post(name: Plane.NotifiName.didBeganDrag, object: self, userInfo: userInfo)
         case .changed:
-            let userInfo: [AnyHashable : Any] = [ParamKey.dragPoint:point]
+            guard let dragModel = self.selectedModel else {
+                return
+            }
+            let originX = point.x - dragModel.size.width / 2
+            let originY = point.y - dragModel.size.height / 2
+            let userInfo: [AnyHashable : Any] = [ParamKey.dragPoint:Point(x: originX, y: originY)]
             NotificationCenter.default.post(name: Plane.NotifiName.didChangedDrag, object: self, userInfo: userInfo)
         case .ended:
             guard let dragModel = self.selectedModel else {
                 return
             }
-            let centerX = point.x - dragModel.size.width / 2
-            let centerY = point.y - dragModel.size.height / 2
-            dragModel.update(origin: Point(x: centerX, y: centerY))
+            let originX = point.x - dragModel.size.width / 2
+            let originY = point.y - dragModel.size.height / 2
+            dragModel.update(origin: Point(x: originX, y: originY))
             NotificationCenter.default.post(name: Plane.NotifiName.didEndedDrag, object: self, userInfo: nil)
         default:
             break
@@ -141,6 +148,27 @@ extension Plane: PlaneAction {
             return
         }
         model.update(origin: origin)
+    }
+    
+    func originMoved(x: Double, y: Double) {
+        guard let model = self.selectedModel else {
+            return
+        }
+        model.move(x: x, y: y)
+    }
+    
+    func sizeChanged(_ size: Size) {
+        guard let model = self.selectedModel else {
+            return
+        }
+        model.update(size: size)
+    }
+    
+    func sizeIncrease(width: Double, height: Double) {
+        guard let model = self.selectedModel else {
+            return
+        }
+        model.sizeIncrease(width: width, height: height)
     }
     
     func colorChanged() {
@@ -155,13 +183,6 @@ extension Plane: PlaneAction {
             return
         }
         model.update(alpha: alpha)
-    }
-    
-    func sizeChanged(_ size: Size) {
-        guard let model = self.selectedModel else {
-            return
-        }
-        model.update(size: size)
     }
 }
 

@@ -43,8 +43,8 @@ class DrawingView: UIView {
         canvasView.alpha = alpha.value
     }
     
-    func update(point: Point) {
-        self.frame = CGRect(x: point.x, y: point.y, width: self.frame.width, height: self.frame.height)
+    func update(origin: Point) {
+        self.frame = CGRect(x: origin.x, y: origin.y, width: self.frame.width, height: self.frame.height)
     }
     
     func update(size: Size) {

@@ -19,45 +19,41 @@ class DrawingappTests: XCTestCase, PlaneDelegate {
     }
     
     func getDrawingModelFactory() -> DrawingModelFactory {
-        DrawingModelFactory(sizeFactory: SizeFactory(), pointFactory: PointFactory(), colorFactory: ColorFactory())
+        DrawingModelFactory(colorFactory: ColorFactory())
     }
     
-    class RandomColorGenerator: ColorValueGenerator {
-        
-        var r: UInt8 = 0
-        var g: UInt8 = 0
-        var b: UInt8 = 0
-        
-        var colorR: UInt8 {
-            self.r = UInt8.random(in: 0...255)
-            return self.r
-        }
-        
-        var colorG: UInt8 {
-            self.g = UInt8.random(in: 0...255)
-            return self.g
-        }
-        
-        var colorB: UInt8 {
-            self.b = UInt8.random(in: 0...255)
-            return self.b
-        }
-    }
-    
-    func testColor() {
-        let randomValue = RandomColorGenerator()
-        Color(using: RandomColorGenerator())
-    }
-
-    func testSelectTest() {
+    func testSizeChanged() {
+        let testSize = Size(width: 200, height: 200)
         NotificationCenter.default.addObserver(forName: Plane.NotifiName.didMakeDrawingModel, object: nil, queue: nil) { notification in
-
+            
             guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
+                XCTFail("사각형이 선택되지 않았습니다")
                 return
             }
-            self.drawingModel = model
+            model.update(size: testSize)
         }
-
+        
+        NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updateSize, object: nil, queue: nil) { notification in
+            
+            guard let size = notification.userInfo?[DrawingModel.ParamKey.size] as? Size else {
+                return
+            }
+            XCTAssertTrue(size.width == testSize.width && size.height == testSize.height, "크기가 다릅니다")
+        }
+        
+        
+        plane.makeRectangleModel(origin: Point(x: 100, y: 100))
+    }
+    
+    func testSelectedRectangle() {
+        NotificationCenter.default.addObserver(forName: Plane.NotifiName.didMakeDrawingModel, object: nil, queue: nil) { notification in
+            
+            let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel
+            XCTAssertTrue(model != nil, "사각형이 생성되지 않았습니다")
+            
+            self.plane.touchPoint(Point(x: 100, y: 100))
+        }
+        
         NotificationCenter.default.addObserver(forName: Plane.NotifiName.didSelectedDrawingModel, object: nil, queue: nil) { notification in
             guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
                 XCTFail("사각형이 선택되지 않았습니다")
@@ -65,15 +61,7 @@ class DrawingappTests: XCTestCase, PlaneDelegate {
             }
             XCTAssertTrue(true)
         }
-
-        plane.makeRectangleModel()
-
-        guard let model = self.drawingModel else {
-            XCTFail("사각형이 생성되지 않았습니다")
-            return
-        }
-
-        self.plane.touchPoint(Point(x: model.point.x, y: model.point.y))
+        plane.makeRectangleModel(origin: Point(x: 100, y: 100))
     }
     
     //사각형 뷰 생성 테스트
@@ -83,6 +71,6 @@ class DrawingappTests: XCTestCase, PlaneDelegate {
             let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel
             XCTAssertTrue(model != nil, "사각형이 생성되지 않았습니다")
         }
-        plane.makeRectangleModel()
+        plane.makeRectangleModel(origin: Point(x: 100, y: 100))
     }
 }

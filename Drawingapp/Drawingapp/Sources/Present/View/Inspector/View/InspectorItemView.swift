@@ -20,6 +20,7 @@ class InspectorItemView: UIView {
        let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
+        stackView.spacing = 5
         return stackView
     }()
     
