@@ -16,11 +16,11 @@ struct Size {
         self.height = height
     }
     
-    func getCurrentWidth -> Double {
+    func getCurrentWidth() -> Double {
         return width
     }
     
-    func getCurrentHeight -> Double {
+    func getCurrentHeight() -> Double {
         return height
     }
 }
