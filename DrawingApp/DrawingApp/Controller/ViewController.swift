@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PhotosUI
 
 class ViewController: UIViewController {
     // MARK: - Properties for View
@@ -50,7 +51,16 @@ extension ViewController: PlaneViewDelegate {
     }
     
     func planeViewDidPressImageAddButton() {
-        // TODO: Image Rectangle 모델 인스턴스 생성
+        var configuration = PHPickerConfiguration(photoLibrary: .shared())
+        
+        configuration.filter = .images
+        configuration.selectionLimit = 3
+        
+        let picker = PHPickerViewController(configuration: configuration)
+        
+        picker.delegate = self
+        
+        self.present(picker, animated: true, completion: nil)
     }
 }
 
@@ -122,7 +132,7 @@ extension ViewController {
         guard let rectangle = notification.userInfo?[Plane.NotificationKey.select] as? Rectangle else { return }
         guard let rectangleView = self.rectangleMap[rectangle] else { return }
         let hexString = UIColor(with: rectangle.backgroundColor).toHexString()
-
+        
         rectangleView.setBorder(width: 2, color: .blue)
         
         self.controlPanelView.setColorButtonTitle(title: hexString)
@@ -134,5 +144,39 @@ extension ViewController {
         guard let rectangleView = self.rectangleMap[rectangle] else { return }
         
         rectangleView.removeBorder()
+    }
+}
+
+// MARK: - PickerViewController to ViewController
+extension ViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        self.dismiss(animated: true)
+        
+        let group = DispatchGroup()
+        var images = [UIImage]()
+        
+        for result in results {
+            let itemProvider = result.itemProvider
+            
+            guard itemProvider.canLoadObject(ofClass: UIImage.self) else { continue }
+            
+            group.enter()
+            
+            itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+                defer {
+                    group.leave()
+                }
+                
+                guard let image = image as? UIImage, error == nil else { return }
+                images.append(image)
+            }
+        }
+        
+        group.notify(queue: DispatchQueue.global()) {
+            // TODO: 이미지 모델 생성
+            for image in images {
+                
+            }
+        }
     }
 }

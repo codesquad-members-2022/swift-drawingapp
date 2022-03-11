@@ -80,6 +80,6 @@ class PlaneView: UIView {
     }
     
     @objc private func handleOnPressImageAddButton(_ sender: RoundedButton) {
-        self.delegate?.planeViewDidPressRectangleAddButton()
+        self.delegate?.planeViewDidPressImageAddButton()
     }
 }
