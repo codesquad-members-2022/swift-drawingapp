@@ -9,13 +9,13 @@ import Foundation
 import UIKit
 
 class InspectorTwoUpDownView: InspectorItemView{
-    let firstView: InspectorUpDownView = {
+    private let firstView: InspectorUpDownView = {
         let upDownView = InspectorUpDownView()
         upDownView.translatesAutoresizingMaskIntoConstraints = false
         return upDownView
     }()
     
-    let secondView: InspectorUpDownView = {
+    private let secondView: InspectorUpDownView = {
         let upDownView = InspectorUpDownView()
         upDownView.translatesAutoresizingMaskIntoConstraints = false
         return upDownView
@@ -38,4 +38,44 @@ class InspectorTwoUpDownView: InspectorItemView{
         firstView.heightAnchor.constraint(equalToConstant: 45).isActive = true
         secondView.heightAnchor.constraint(equalToConstant: 45).isActive = true
     }
+    
+    func bind(action: @escaping (ViewType, ButtonType) -> Void) {
+        firstView.upButton.addAction(UIAction{ _ in
+            action(.first, .up)
+        }, for: .touchUpInside)
+        
+        firstView.downButton.addAction(UIAction{ _ in
+            action(.first, .down)
+        }, for: .touchUpInside)
+        
+        secondView.upButton.addAction(UIAction{ _ in
+            action(.second, .up)
+        }, for: .touchUpInside)
+        
+        secondView.downButton.addAction(UIAction{ _ in
+            action(.second, .down)
+        }, for: .touchUpInside)
+    }
+    
+    func setTitles(firstTitle: String, secondTitle: String) {
+        firstView.name.text = firstTitle
+        secondView.name.text = secondTitle
+    }
+    
+    func setValues(firstValue: String, secondValue: String) {
+        firstView.value.text = firstValue
+        secondView.value.text = secondValue
+    }
 }
+
+extension InspectorTwoUpDownView {
+    enum ViewType {
+        case first, second
+    }
+    
+    enum ButtonType {
+        case up, down
+    }
+}
+                                     
+                                     

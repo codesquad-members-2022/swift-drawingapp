@@ -9,9 +9,11 @@ import Foundation
 import UIKit
 
 class InspectorItemButtonView: InspectorItemView {
-    let button: UIButton = {
+    private let button: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("", for: .normal)
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .clear
         button.layer.borderWidth = 1
@@ -33,5 +35,19 @@ class InspectorItemButtonView: InspectorItemView {
     private func layout() {
         self.stackView.addArrangedSubview(button)
         button.heightAnchor.constraint(equalToConstant: 40).isActive = true
+    }
+    
+    func bind(action: @escaping () -> Void) {
+        button.addAction(UIAction{ _ in
+            action()
+        }, for: .touchUpInside)
+    }
+    
+    func addMenu(menu: UIMenu) {
+        button.menu = menu
+    }
+    
+    func setTitle(title: String) {
+        button.setTitle(title, for: .normal)
     }
 }

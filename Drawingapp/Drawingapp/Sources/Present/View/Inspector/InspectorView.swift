@@ -42,8 +42,7 @@ class InspectorView: UIView {
     private let alphaSlider: InspectorSliderView = {
         let inspectorView = InspectorSliderView()
         inspectorView.title.text = "Alpha"
-        inspectorView.slider.minimumValue = 0
-        inspectorView.slider.maximumValue = Float(Alpha.max.index)
+        inspectorView.setMinMaxValue(min: 0, max: Float(Alpha.max.index))
         inspectorView.translatesAutoresizingMaskIntoConstraints = false
         return inspectorView
     }()
@@ -51,23 +50,20 @@ class InspectorView: UIView {
     private let originView: InspectorTwoUpDownView = {
         let inspectorView = InspectorTwoUpDownView()
         inspectorView.title.text = "위치"
-        inspectorView.firstView.name.text = "X"
-        inspectorView.secondView.name.text = "Y"
+        inspectorView.setTitles(firstTitle: "X", secondTitle: "Y")
         return inspectorView
     }()
     
     private let sizeView: InspectorTwoUpDownView = {
         let inspectorView = InspectorTwoUpDownView()
         inspectorView.title.text = "크기"
-        inspectorView.firstView.name.text = "W"
-        inspectorView.secondView.name.text = "H"
+        inspectorView.setTitles(firstTitle: "W", secondTitle: "H")
         return inspectorView
     }()
     
     private let fontButton: InspectorItemButtonView = {
         let inspectorView = InspectorItemButtonView()
         inspectorView.title.text = "Font"
-        inspectorView.button.titleLabel?.adjustsFontSizeToFitWidth = true
         inspectorView.translatesAutoresizingMaskIntoConstraints = false
         return inspectorView
     }()
@@ -91,49 +87,31 @@ class InspectorView: UIView {
     }
     
     private func bind() {
-        colorButton.button.addAction(UIAction{ _ in
+        colorButton.bind {
             self.delegate?.changeColor()
-        }, for: .touchUpInside)
+        }
         
-        alphaSlider.slider.addAction(UIAction{ _ in
-            if let alpha = Alpha.init(rawValue: Int(self.alphaSlider.slider.value)) {
-                self.delegate?.changeAlpha(alpha)                
+        alphaSlider.bind {
+            if let alpha = Alpha.init(rawValue: Int($0)) {
+                self.delegate?.changeAlpha(alpha)
             }
-        }, for: .valueChanged)
+        }
         
-        //Origin
-        originView.firstView.upButton.addAction(UIAction{ _ in
-            self.delegate?.transform(translationX: Constants.originMoveValue, y: 0)
-        }, for: .touchUpInside)
+        originView.bind { viewType, buttonType in
+            if viewType == .first {
+                self.delegate?.transform(translationX: Constants.originMoveValue * (buttonType == .up ? 1 : -1), y: 0)
+            } else {
+                self.delegate?.transform(translationX: 0, y: Constants.originMoveValue * (buttonType == .up ? 1 : -1))
+            }
+        }
         
-        originView.firstView.downButton.addAction(UIAction{ _ in
-            self.delegate?.transform(translationX: -Constants.originMoveValue, y: 0)
-        }, for: .touchUpInside)
-        
-        originView.secondView.upButton.addAction(UIAction{ _ in
-            self.delegate?.transform(translationX: 0, y: Constants.originMoveValue)
-        }, for: .touchUpInside)
-        
-        originView.secondView.downButton.addAction(UIAction{ _ in
-            self.delegate?.transform(translationX: 0, y: -Constants.originMoveValue)
-        }, for: .touchUpInside)
-        
-        //Size
-        sizeView.firstView.upButton.addAction(UIAction{ _ in
-            self.delegate?.transform(width: Constants.sizeIncreaseValue, height: 0)
-        }, for: .touchUpInside)
-        
-        sizeView.firstView.downButton.addAction(UIAction{ _ in
-            self.delegate?.transform(width: -Constants.sizeIncreaseValue, height: 0)
-        }, for: .touchUpInside)
-        
-        sizeView.secondView.upButton.addAction(UIAction{ _ in
-            self.delegate?.transform(width: 0, height: Constants.sizeIncreaseValue)
-        }, for: .touchUpInside)
-        
-        sizeView.secondView.downButton.addAction(UIAction{ _ in
-            self.delegate?.transform(width: 0, height: -Constants.sizeIncreaseValue)
-        }, for: .touchUpInside)
+        sizeView.bind { viewType, buttonType in
+            if viewType == .first {
+                self.delegate?.transform(width: Constants.originMoveValue * (buttonType == .up ? 1 : -1), height: 0)
+            } else {
+                self.delegate?.transform(width: 0, height: Constants.originMoveValue * (buttonType == .up ? 1 : -1))
+            }
+        }
         
         let fontMenus: [UIAction] =
         Font.names.map { name in
@@ -142,7 +120,7 @@ class InspectorView: UIView {
             })
         }
         
-        fontButton.button.menu = UIMenu(title: "Font", image: nil, identifier: nil, options: .displayInline, children: fontMenus)
+        fontButton.addMenu(menu: UIMenu(title: "Font", image: nil, identifier: nil, options: .displayInline, children: fontMenus))
     }
     
     private func layout() {
@@ -182,9 +160,9 @@ class InspectorView: UIView {
     
     func update(color: Color?) {
         if let color = color {
-            colorButton.button.setTitle(color.hexColor, for: .normal)
+            colorButton.setTitle(title: color.hexColor)
         } else {
-            colorButton.button.setTitle("None", for: .normal)            
+            colorButton.setTitle(title: "None")
         }
     }
     
@@ -193,16 +171,14 @@ class InspectorView: UIView {
     }
     
     func update(size: Size) {
-        sizeView.firstView.value.text = String(format: "%.1f", size.width)
-        sizeView.secondView.value.text = String(format: "%.1f", size.height)
+        sizeView.setValues(firstValue: String(format: "%.1f", size.width), secondValue: String(format: "%.1f", size.height))
     }
     
     func update(origin: Point) {
-        originView.firstView.value.text = String(format: "%.1f", origin.x)
-        originView.secondView.value.text = String(format: "%.1f", origin.y)
+        originView.setValues(firstValue: String(format: "%.1f", origin.x), secondValue: String(format: "%.1f", origin.y))
     }
     
     func update(font: Font) {
-        fontButton.button.setTitle("\(font.name)", for: .normal)
+        fontButton.setTitle(title: "\(font.name)")
     }
 }
