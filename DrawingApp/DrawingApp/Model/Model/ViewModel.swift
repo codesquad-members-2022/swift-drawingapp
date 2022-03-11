@@ -61,3 +61,8 @@ protocol AlphaMutable {
     var alpha: Alpha { get }
     func set(to alpha: Alpha)
 }
+
+protocol TextMutable {
+    var text: String { get }
+    func set(to text: String)
+}

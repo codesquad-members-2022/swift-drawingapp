@@ -15,6 +15,7 @@ class Plane {
         static let mutateAlphaViewModel = Notification.Name("mutateAlphaViewModel")
         static let mutateOriginViewModel = Notification.Name("mutateOriginViewModel")
         static let mutateSizeViewModel = Notification.Name("mutateSizeViewModel")
+        static let mutateTextViewModel = Notification.Name("mutateTextViewModel")
     }
     
     enum InfoKey {
@@ -75,15 +76,21 @@ class Plane {
     }
     
     func set(to color: Color = Color.random()) {
-        guard let mutableViewModel = selected as? ColorMutable else { return }
-        mutableViewModel.set(to: color)
+        guard let colorMutable = selected as? ColorMutable else { return }
+        colorMutable.set(to: color)
         NotificationCenter.default.post(name: Plane.Event.mutateColorViewModel, object: self, userInfo: [Plane.InfoKey.new: color])
     }
     
     func set(to alpha: Alpha) {
-        guard let mutableViewModel = selected as? AlphaMutable else { return }
-        mutableViewModel.set(to: alpha)
+        guard let alphaMutable = selected as? AlphaMutable else { return }
+        alphaMutable.set(to: alpha)
         NotificationCenter.default.post(name: Plane.Event.mutateAlphaViewModel, object: self, userInfo: [Plane.InfoKey.new: alpha])
+    }
+    
+    func set(to text: String) {
+        guard let textMutable = selected as? TextMutable else { return }
+        textMutable.set(to: text)
+        NotificationCenter.default.post(name: Plane.Event.mutateTextViewModel, object: self, userInfo: [Plane.InfoKey.new: text])
     }
     
     func set(to origin: Point) {

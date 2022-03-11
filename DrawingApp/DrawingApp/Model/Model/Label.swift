@@ -35,6 +35,12 @@ class Label: ViewModel {
     }
 }
 
+extension Label: TextMutable {
+    func set(to text: String) {
+        self.text = text
+    }
+}
+
 extension Label: CustomStringConvertible {
     var description: String {
         return "(\(id)), \(origin), \(size), \(text), \(fontSize)p"
