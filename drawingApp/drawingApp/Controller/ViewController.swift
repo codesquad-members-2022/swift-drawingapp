@@ -47,6 +47,7 @@ class ViewController: UIViewController {
         let tapGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapTriggered))
         tapGuestureRecognizer.numberOfTapsRequired = 1
         self.view.addGestureRecognizer(tapGuestureRecognizer)
+
     }
     
     func setupDelegates(){
@@ -85,7 +86,8 @@ class ViewController: UIViewController {
         view.addSubview(rectView)
     }
     
-    func manageViews(with models: [Rectangle]) {
+    //사각형 뷰 선택에 따른 테두리 및 패널 뷰처리 함수.
+    func manageSelectingViews(on models: [Rectangle]) {
         var parsedModels = models
         
         if models.last!.selectedStatus() == false {
@@ -93,13 +95,18 @@ class ViewController: UIViewController {
         }
       
         for model in parsedModels {
-            setHighlightView(from:model)
+            updateHighlight(from:model)
             updatePanel(from : model)
         }
                 
     }
     
-    func setHighlightView(from model: Rectangle) {
+    //색상, 알파 수정에 대한 뷰처리 함수.
+    func manageAmendingViews(by model: Rectangle, operation : (Rectangle) -> ()){
+        return operation(model)
+    }
+    
+    func updateHighlight(from model: Rectangle) {
         if let rectView = rectangleList[model] {
             rectView.configure(isSelected: model.selectedStatus())
         }
@@ -108,7 +115,7 @@ class ViewController: UIViewController {
     
     func updatePanel(from model: Rectangle) {
         if model.selectedStatus() {
-            panelView.updateAlphaLable(newAlphaValue: String(model.alpha.value * 10.0))
+            panelView.updateAlpha(newAlphaValue: model.alpha.value)
             panelView.updateRomdomizeColorButton(newColor: model.color.tohexString)
         }
         else{
@@ -116,26 +123,21 @@ class ViewController: UIViewController {
         }
     }
     
+   
+    func colorRandomization(on model: Rectangle) {
+        if let rectView = rectangleList[model] {
+            rectView.updateColor(with: model)
+            rectView.updateAlpha(newAlpha: model.alpha.value)
+            updatePanel(from: model)
+        }
+    }
 
-//    //MARK: 선택 되어 있는 RectangleView 의 색상을 업데이트하기.
-//    func updateRectangleView(at view : RectangleView? , with model: Rectangle?) {
-//        if let rectView = view, let rectModel = model {
-//            rectView.updateColor(with: rectModel)
-//            rectView.updateAlpha(newAlpha: rectModel.alpha.value)
-//        }
-//    }
-//
-//
 
-//
+    func alphaModification(on model : Rectangle){
+        updatePanel(from: model)
+    }
 
-//
-//    func updateStepper(to value : Double) {
-//        self.alphaStepper.updateValue(value)
-//        self.stepperLabel.updateText(String(value))
-//    }
-//
-//}
+}
 //
 ////MARK: Event 1.0 사용자가 “사각형” 버튼을 누를시 “RectangleView” 를 생성한다 (1/2)
    
@@ -191,35 +193,48 @@ class ViewController: UIViewController {
 //}
 
     
-}
 
 //MARK: Event 1.0 사용자가 “사각형” 버튼을 누를시 “RectangleView” 를 생성한다 (2/2)
 extension ViewController : PlaneDelegate {
-   
+    
+
     func didSearchForRectangleModel(detectedModels: [Rectangle]) {
     
         if detectedModels.isEmpty {
             panelView.setDefaultPanelValues()
         }else {
-            manageViews(with: detectedModels)
+            manageSelectingViews(on: detectedModels)
         }
     }
 
-    func didAppendRectangleModel(rectModel: Rectangle?) {
-        if let appendedRect = rectModel {
+    func didAppendRectangleModel(model: Rectangle?) {
+        if let appendedRect = model {
             createRectangleView(with : appendedRect)
         }
     }
+
+    func didRandomizeColor(model:Rectangle) {
+        manageAmendingViews(by: model, operation: colorRandomization)
+    }
+    
+    
+    
 }
 
 extension ViewController : PanelViewDelegate {
     func didTabRondomizeColor() {
-        //
+        if let selectedModel = plane.getSelectedModel(){
+            plane.randomizeColor(on: selectedModel)
+        }
     }
     
-    func didTabChangeAlpha() {
-        //
+    func didTabChangeAlpha(from: UIStepper) {
+        if let selectedModel = plane.getSelectedModel(){
+            plane.changeAlpha(on: selectedModel, with: Alpha(rawValue: Int(from.value)))
+        }
     }
+    
+  
 
 }
 

@@ -10,8 +10,9 @@ import OSLog
 import UIKit
 
 protocol PlaneDelegate {
-    func didAppendRectangleModel(rectModel: Rectangle?)
+    func didAppendRectangleModel(model: Rectangle?)
     func didSearchForRectangleModel(detectedModels: [Rectangle])
+    func didRandomizeColor(model : Rectangle)
 }
 
 struct Plane{
@@ -33,7 +34,7 @@ struct Plane{
     mutating func append(_ rect : Rectangle) {
         self.rectangles.append(rect)
         os_log(.debug, "Plane 에 새로 들어온 사각형 정보 : \(rect) ")
-        delegate?.didAppendRectangleModel(rectModel: rect)
+        delegate?.didAppendRectangleModel(model: rect)
     }
     
     
@@ -54,4 +55,23 @@ struct Plane{
         }
         delegate?.didSearchForRectangleModel(detectedModels:detectedModels)
     }
+    
+    func randomizeColor(on model: Rectangle){
+        model.updateColor(Color.getRandomColor())
+        delegate?.didRandomizeColor(model: model)
+    }
+    
+    func changeAlpha(on model : Rectangle, with alpha: Alpha?){
+        if let newAlpha = alpha {
+            model.updateAlpha(newAlpha)
+        }
+    }
+    
+    func getSelectedModel() -> Rectangle? {
+        for model in rectangles {
+            if model.selectedStatus() {return model}
+        }
+        return nil
+    }
+    
 }
