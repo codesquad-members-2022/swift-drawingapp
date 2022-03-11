@@ -112,13 +112,12 @@ extension ViewController: PlaneDelegate {
     }
     
     func didSelectEmptyView() {
-        if let recentlySelectedRectangle = plane.recentlySelectedRectangle,
-            let recentlySelectedRectangleView = rectangleMap[recentlySelectedRectangle] {
-            
-            recentlySelectedRectangleView.clearCorner()
-            sideInspectorView.clearBackgroundColorValueButtonTitle()
-            sideInspectorView.clearBackgroundColorValueButtonColor()
-        }
+        guard let recentlySelectedRectangle = plane.recentlySelectedRectangle,
+            let recentlySelectedRectangleView = rectangleMap[recentlySelectedRectangle] else { return }
+        
+        recentlySelectedRectangleView.clearCorner()
+        sideInspectorView.clearBackgroundColorValueButtonTitle()
+        sideInspectorView.clearBackgroundColorValueButtonColor()
     }
     
     func didCreateRectangle(_ rectangle: Rectangle) {
