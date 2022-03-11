@@ -31,24 +31,24 @@ class SplitViewController: UISplitViewController{
     }
 }
 extension SplitViewController: DrawingDelegate{
-    func deselected() {
+    func drawingViewDidDeselect() {
         NotificationCenter.default.post(name: SplitViewController.NotiEvent.updateDeselectedUI, object: self)
     }
     
-    func selectedRectangle(rectangle: Rectangle) {
+    func drawingViewDidSelecteRectangle(rectangle: Rectangle) {
         NotificationCenter.default.post(name: SplitViewController.NotiEvent.updateSelectedUI, object: self, userInfo: [PropertyNotificationKey.rectangle : rectangle])
     }
     
-    func updatedAlpha(rectangle: Rectangle) {
+    func drawingViewDidUpdateAlpha(rectangle: Rectangle) {
         NotificationCenter.default.post(name: SplitViewController.NotiEvent.alphaButtonHidden, object: self, userInfo: [PropertyNotificationKey.rectangle : rectangle])
     }
     
-    func changedColor(rectangle: Rectangle) {
+    func drawingViewDidChangeColor(rectangle: Rectangle) {
         NotificationCenter.default.post(name: SplitViewController.NotiEvent.changedColorText, object: self, userInfo: [PropertyNotificationKey.rectangle : rectangle])
     }
 }
 extension SplitViewController: PropertyDelegate{
-    func propertyAction(action: PropertyViewAction) {
+    func propertyViewAction(action: PropertyViewAction) {
         NotificationCenter.default.post(name: SplitViewController.NotiEvent.propertyAction, object: self, userInfo: [PropertyNotificationKey.action : action])
     }
 }

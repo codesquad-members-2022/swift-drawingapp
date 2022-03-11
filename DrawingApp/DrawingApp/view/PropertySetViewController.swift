@@ -45,15 +45,15 @@ class PropertySetViewController: UIViewController{
     }
     
     @IBAction func colorChangeTapped(_ sender: UIButton) {
-        propertyDelegate?.propertyAction(action: .colorChangedTapped)
+        propertyDelegate?.propertyViewAction(action: .colorChangedTapped)
     }
     
     @IBAction func alphaPlusTapped(_ sender: Any) {
-        propertyDelegate?.propertyAction(action: .alphaPlusTapped)
+        propertyDelegate?.propertyViewAction(action: .alphaPlusTapped)
     }
     
     @IBAction func alphaMinusTapped(_ sender: Any) {
-        propertyDelegate?.propertyAction(action: .alphaMinusTapped)
+        propertyDelegate?.propertyViewAction(action: .alphaMinusTapped)
     }
     
     @objc private func changedColorText(_ notification: Notification){

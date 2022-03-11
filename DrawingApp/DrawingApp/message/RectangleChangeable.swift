@@ -8,9 +8,11 @@
 import Foundation
 
 protocol RectangleChangeable{
-    mutating func addRandomRectangle()
+    func addRandomRectangle()
     func changeRectangleRandomColor()
-    mutating func selectTargetRectangle(point: ViewPoint)
-    mutating func deSelectTargetRectangle()
-    func changeRectangleAlpha(changed: RectangleAlphaChange)
+    func selectTargetRectangle(point: ViewPoint)
+    func deSelectTargetRectangle()
+    func pluseRectangleAlpha()
+    func minusRectangleAlpha()
+    func rectangleCount() -> Int
 }
