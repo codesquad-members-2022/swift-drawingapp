@@ -26,7 +26,6 @@ class ViewController: UIViewController {
     
     let inspectorView: InspectorView = {
         let inspectorView = InspectorView()
-        inspectorView.isHidden = true
         inspectorView.backgroundColor = UIColor(red: 200.0 / 255.0, green: 200.0 / 255.0, blue: 1, alpha: 1)
         inspectorView.translatesAutoresizingMaskIntoConstraints = false
         return inspectorView
@@ -69,7 +68,7 @@ class ViewController: UIViewController {
             guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
                 return
             }
-            self.inspectorView.isHidden = false
+            self.inspectorView.setHidden(false)
             self.inspectorView.update(model: model)
             self.drawingViews[model]?.selected(is: true)
         }
@@ -78,7 +77,7 @@ class ViewController: UIViewController {
             guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
                 return
             }
-            self.inspectorView.isHidden = true
+            self.inspectorView.setHidden(true)
             self.drawingViews[model]?.selected(is: false)
         }
         
@@ -157,12 +156,12 @@ class ViewController: UIViewController {
         drawingBoard.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         drawingBoard.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         drawingBoard.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
-        drawingBoard.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
+        drawingBoard.rightAnchor.constraint(equalTo: inspectorView.leftAnchor).isActive = true
         
         inspectorView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         inspectorView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         inspectorView.rightAnchor.constraint(equalTo: self.view.rightAnchor).isActive = true
-        inspectorView.widthAnchor.constraint(equalTo: safeAreaGuide.widthAnchor, multiplier: 0.25).isActive = true
+        inspectorView.widthAnchor.constraint(equalTo: safeAreaGuide.widthAnchor, multiplier: 0.15).isActive = true
         
         topMenuBarView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         topMenuBarView.centerXAnchor.constraint(equalTo: self.drawingBoard.centerXAnchor).isActive = true
@@ -228,7 +227,7 @@ extension ViewController: InspectorDelegate {
 
 extension ViewController: TopMenuBarDelegate {
     func makeRectangleButtonTapped() {
-        let screenSize = UIScreen.main.bounds.size
+        let screenSize = self.drawingBoard.frame.size
         let originX = Int.random(in: 0..<Int(screenSize.width))
         let originY = Int.random(in: 0..<Int(screenSize.height))
         self.plane.makeRectangleModel(origin: Point(x: originX, y: originY))
@@ -244,7 +243,7 @@ extension ViewController: TopMenuBarDelegate {
     }
     
     func makeLabelButtonTapped() {
-        let screenSize = UIScreen.main.bounds.size
+        let screenSize = self.drawingBoard.frame.size
         let originX = Int.random(in: 0..<Int(screenSize.width))
         let originY = Int.random(in: 0..<Int(screenSize.height))
         self.plane.makeLabelModel(origin: Point(x: originX, y: originY))

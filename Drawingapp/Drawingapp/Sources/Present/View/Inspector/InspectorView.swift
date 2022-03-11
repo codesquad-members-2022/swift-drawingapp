@@ -27,6 +27,7 @@ class InspectorView: UIView {
         stackView.axis = .vertical
         stackView.spacing = 10
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.isHidden = true
         return stackView
     }()
     
@@ -138,6 +139,10 @@ class InspectorView: UIView {
         itemStackView.bottomAnchor.constraint(equalTo: items[items.count - 1].bottomAnchor).isActive = true
     }
     
+    func setHidden(_ hidden: Bool) {
+        self.itemStackView.isHidden = hidden
+    }
+    
     func update(model: DrawingModel) {
         self.update(alpha: model.alpha)
         self.update(size: model.size)
@@ -146,9 +151,8 @@ class InspectorView: UIView {
         switch model {
         case let model as RectangleModel:
             self.update(color: model.color)
-        case model as PhotoModel:
-            self.update(color: nil)
         default:
+            self.update(color: nil)
             break
         }
     }
@@ -166,12 +170,12 @@ class InspectorView: UIView {
     }
     
     func update(size: Size) {
-        sizeView.firstView.value.text = String(format: "%.2f", size.width)
-        sizeView.secondView.value.text = String(format: "%.2f", size.height)
+        sizeView.firstView.value.text = String(format: "%.1f", size.width)
+        sizeView.secondView.value.text = String(format: "%.1f", size.height)
     }
     
     func update(origin: Point) {
-        originView.firstView.value.text = String(format: "%.2f", origin.x)
-        originView.secondView.value.text = String(format: "%.2f", origin.y)
+        originView.firstView.value.text = String(format: "%.1f", origin.x)
+        originView.secondView.value.text = String(format: "%.1f", origin.y)
     }
 }

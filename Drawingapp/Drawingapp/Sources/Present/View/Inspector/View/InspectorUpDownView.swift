@@ -64,7 +64,7 @@ class InspectorUpDownView: UIView {
         self.addSubview(downButton)
         
         name.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
-        name.widthAnchor.constraint(equalToConstant: 50).isActive = true
+        name.widthAnchor.constraint(equalToConstant: 30).isActive = true
         name.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         
         value.leftAnchor.constraint(equalTo: name.rightAnchor, constant: 10).isActive = true
@@ -72,11 +72,11 @@ class InspectorUpDownView: UIView {
         value.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
 
         upButton.rightAnchor.constraint(equalTo: downButton.leftAnchor, constant: -5).isActive = true
-        upButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        upButton.widthAnchor.constraint(equalToConstant: 20).isActive = true
         upButton.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         
         downButton.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -5).isActive = true
-        downButton.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        downButton.widthAnchor.constraint(equalToConstant: 20).isActive = true
         downButton.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
     }
 }
