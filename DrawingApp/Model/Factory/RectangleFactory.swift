@@ -12,13 +12,13 @@ final class RectangleFactory{
     private let width: Double = 150
     private let height: Double = 120
     
-    func makeRandomRectanglePosition(viewWidth: Double, viewHeight: Double) -> Rectangle{
+    func makePosition(viewWidth: Double, viewHeight: Double) -> Rectangle{
         let rectangle = Rectangle(id: IDFactory.makeID(), size: makeSize(), point: makePoint(viewWidth: viewWidth, viewHeight: viewHeight), color: makeColor(), alpha: makeAlpha())
         return rectangle
     }
     
-    func makeRandomImagePosition(image: MyImage, viewWidth: Double, viewHeight: Double) -> Image{
-        let imageRectangle = Image(image: image, size: makeSize(), point: makePoint(viewWidth: viewWidth, viewHeight: viewHeight), alpha: makeAlpha())
+    func makePosition(image: MyImage, viewWidth: Double, viewHeight: Double) -> Image{
+        let imageRectangle = Image(image: image, id: IDFactory.makeID(), size: makeSize(), point: makePoint(viewWidth: viewWidth, viewHeight: viewHeight), alpha: makeAlpha())
         return imageRectangle
     }
     

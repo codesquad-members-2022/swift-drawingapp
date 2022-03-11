@@ -7,13 +7,8 @@
 
 import Foundation
 
-final class Rectangle: RectValue, CustomStringConvertible{
-    let id: String
-    let madeTime = Date()
-    private(set) var size: MySize
-    private(set) var point: MyPoint
+final class Rectangle: RectValue, Hashable, CustomStringConvertible{
     private(set) var color: RGBColor
-    private(set) var alpha: Alpha
     
     var description: String{
         let description = "[\(id)] : (X: \(point.x), Y:\(point.y)) / (W: \(size.width), H:\(size.height)) / (R: \(color.red), G: \(color.green), B: \(color.blue)) / Alpha: \(alpha)"
@@ -32,24 +27,8 @@ final class Rectangle: RectValue, CustomStringConvertible{
         self.color = color
     }
     
-    func changeAlpha(alpha: Alpha){
-        self.alpha = alpha
-    }
-    
-    func findLocationRange(xPoint: Double, yPoint: Double) -> Bool{
-        let minX: Double = self.point.x
-        let maxX: Double = minX + self.size.width
-        let minY: Double = self.point.y
-        let maxY: Double = minY + self.size.height
-        
-        return xPoint >= minX && xPoint <= maxX && yPoint >= minY && yPoint <= maxY
-    }
-    
     init(id: String, size: MySize, point: MyPoint, color: RGBColor, alpha: Alpha){
-        self.id = id
-        self.size = size
-        self.point = point
         self.color = color
-        self.alpha = alpha
+        super.init(id: id, size: size, point: point, alpha: alpha)
     }
 }

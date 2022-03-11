@@ -3,9 +3,25 @@
 
 | 날짜       | 번호   | 내용                             | 비고                                             |
 | ---------- | :----- | ------------------------------| ---------------------------------------------- |
+| 2022.03.11 | Step04 | 사진 추가하기                    | UIImagePickerController를 활용한 앨범 사진 View 추가  |
 | 2022.03.08 | Step03 | 관찰자(Observer) 패턴 적용        | Step02 단계에서 구현한 기능 Observer패턴과 결합         |
 | 2022.03.04 | Step02 | 속성 변경 동작                   | 사각형 속성 조정 컨트롤 뷰 및 관련 기능 구현              |
 | 2022.02.28 | Step01 | 아이패드 앱 프로젝트               | 사각형 View 랜덤 생성 관련 Model, VC 구현             |
+
+------
+## [Step04] 
+### Description
+- 앨범에서 선택한 사진이 View에 추가되고 
+
+### Task
+- [x] UIImagePickerController 사용
+- [x] Image 관련 모델 생성 및 Image/Model의 부모클래스 RectValue 작성
+- [x] Plane이 관리하는 타입을 RectValue로 변경
+    
+### 결과 화면
+- 정상 작동.gif
+<img src = "https://user-images.githubusercontent.com/44107696/157814831-7344e692-924e-493f-9b53-d3d6644bab9e.gif" width="710" height="570">
+
 
 ------
 ## [Step03] 

@@ -1,8 +1,8 @@
 //
-//  Plane.swift
+//  Sub.swift
 //  DrawingApp
 //
-//  Created by juntaek.oh on 2022/03/10.
+//  Created by juntaek.oh on 2022/03/11.
 //
 
 import Foundation
@@ -20,73 +20,49 @@ final class Plane{
         static let noneSelect = Notification.Name("noneSelect")
     }
     
-    private var rectangles: [Rectangle] = []
-    private var images: [Image] = []
+    private var values: [RectValue] = []
     
-    subscript(rectangleIndex: Int) -> Rectangle?{
-        guard rectangles.count > rectangleIndex && rectangleIndex >= 0 else{
+    subscript(index: Int) -> RectValue?{
+        guard values.count > index && index >= 0 else{
             return nil
         }
-        return rectangles[rectangleIndex]
-    }
-    
-    subscript(imageIndex: Int) -> Image?{
-        guard images.count > imageIndex && imageIndex >= 0 else{
-            return nil
-        }
-        return images[imageIndex]
+        return values[index]
     }
     
     func addValue(rectangle: Rectangle){
-        self.rectangles.append(rectangle)
+        self.values.append(rectangle)
         NotificationCenter.default.post(name: Plane.NotificationName.makeRectangle, object: self, userInfo: [Plane.NotificationName.userInfoKeyRectangle : rectangle])
     }
     
     func addValue(image: Image){
-        self.images.append(image)
+        self.values.append(image)
         NotificationCenter.default.post(name: Plane.NotificationName.makeImage, object: self, userInfo: [Plane.NotificationName.userInfoKeyImage : image])
     }
     
-    func rectangleCount() -> Int{
-        return rectangles.count
+    func count() -> Int{
+        return values.count
     }
     
-    func imageCount() -> Int{
-        return images.count
-    }
-    
-    func findRectangle(withX: Double, withY: Double){
-        guard !rectangles.isEmpty || !images.isEmpty else{
+    func findValue(withX: Double, withY: Double){
+        guard !values.isEmpty else{
             NotificationCenter.default.post(name: Plane.NotificationName.noneSelect, object: self)
             return
         }
         
-        var findedRectangle: Rectangle?
-        var findedImage: Image?
+        var findedValue: RectValue?
         
-        for rectangle in rectangles.reversed(){
-            guard rectangle.findLocationRange(xPoint: withX, yPoint: withY) else{
+        for value in values.reversed(){
+            guard value.findLocationRange(xPoint: withX, yPoint: withY) else{
                 continue
             }
 
-            findedRectangle = rectangle
+            findedValue = value
             break
         }
         
-        for image in images.reversed(){
-            guard image.findLocationRange(xPoint: withX, yPoint: withY) else{
-                continue
-            }
-
-            findedImage = image
-            break
-        }
-        
-        if let rectangle = findedRectangle, let image = findedImage{
-            rectangle.madeTime > image.madeTime ? NotificationCenter.default.post(name: Plane.NotificationName.selectRectangle, object: self, userInfo: [Plane.NotificationName.userInfoKeyRectangle : rectangle]) : NotificationCenter.default.post(name: Plane.NotificationName.selectImage, object: self, userInfo: [Plane.NotificationName.userInfoKeyImage : image])
-        } else if let rectangle = findedRectangle{
+        if let rectangle = findedValue as? Rectangle{
             NotificationCenter.default.post(name: Plane.NotificationName.selectRectangle, object: self, userInfo: [Plane.NotificationName.userInfoKeyRectangle : rectangle])
-        } else if let image = findedImage{
+        } else if let image = findedValue as? Image{
             NotificationCenter.default.post(name: Plane.NotificationName.selectImage, object: self, userInfo: [Plane.NotificationName.userInfoKeyImage : image])
         } else{
             NotificationCenter.default.post(name: Plane.NotificationName.noneSelect, object: self)
