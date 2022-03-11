@@ -36,3 +36,9 @@ extension Rectangle: CustomStringConvertible{
         return "(\(uniqueId)) \(point.description),\(size.description) \(color.description) alpha:\(alpha)"
     }
 }
+
+extension Rectangle: RectangleMutable{
+    var rectangle: Rectangle {
+        return self
+    }
+}

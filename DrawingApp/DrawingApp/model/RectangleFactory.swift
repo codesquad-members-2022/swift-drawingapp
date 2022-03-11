@@ -52,13 +52,21 @@ class RectangleFactory{
 }
 
 extension RectangleFactory: RectangleFactoryResponse{
-    func randomRectangle() -> Rectangle {
+    func randomRectangle() -> RectangleMutable {
         return makeRandomRectangle()
     }
     
-    func randomRGBColor() -> ColorRGB {
+    func randomRGBColor() -> RGBColorMutable {
         return makeRandomColor()
     }
+}
+
+protocol RectangleMutable{
+    var rectangle: Rectangle { get }
+}
+
+protocol RGBColorMutable{
+    var colorRGB: ColorRGB { get }
 }
 
 enum RandomMax: Int{
