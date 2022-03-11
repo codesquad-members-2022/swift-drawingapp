@@ -60,6 +60,12 @@ class Plane {
         NotificationCenter.default.post(name: Plane.Event.addViewModel, object: self, userInfo: [Plane.InfoKey.new: newPhoto])
     }
     
+    func addLabel() {
+        let newLabel = Label.random()
+        viewModels.append(newLabel)
+        NotificationCenter.default.post(name: Plane.Event.addViewModel, object: self, userInfo: [Plane.InfoKey.new: newLabel])
+    }
+    
     func tap(on point: Point) {
         let oldSelected = selected
         self.selected = viewModels.last(where: { viewModel in
