@@ -31,7 +31,7 @@ class InspectorSliderView: InspectorItemView {
         return button
     }()
     
-    let slider: UISlider = {
+    private let slider: UISlider = {
         let slider = UISlider()
         slider.translatesAutoresizingMaskIntoConstraints = false
         return slider
@@ -60,7 +60,7 @@ class InspectorSliderView: InspectorItemView {
             self.updateButtonsState()
         }, for: .touchUpInside)
     }
-        
+    
     private func layout() {
         self.stackView.addArrangedSubview(sliderStackView)
         
@@ -82,6 +82,17 @@ class InspectorSliderView: InspectorItemView {
     private func addValue(_ value: Float) {
         slider.value += value
         slider.sendActions(for: .valueChanged)
+    }
+    
+    func bind(action: @escaping (Float) -> Void) {
+        slider.addAction(UIAction{ _ in
+            action(self.slider.value)
+        }, for: .touchUpInside)
+    }
+    
+    func setMinMaxValue(min: Float, max: Float) {
+        slider.minimumValue = min
+        slider.maximumValue = max
     }
     
     func setValue(_ value: Float) {

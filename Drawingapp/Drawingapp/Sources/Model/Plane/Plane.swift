@@ -8,6 +8,7 @@
 import Foundation
 
 protocol PlaneAction {
+    var delegate: PlaneDelegate? {get set}
     func touchPoint(_ point: Point)
     func changeAlpha(_ alpha: Alpha)
     func changeColor()

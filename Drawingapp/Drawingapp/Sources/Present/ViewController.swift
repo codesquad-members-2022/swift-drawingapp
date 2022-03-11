@@ -182,7 +182,7 @@ extension ViewController: UIGestureRecognizerDelegate {
     
     @objc private func tapGusture(sender: UITapGestureRecognizer) {
         let location = sender.location(in: sender.view)
-        self.plane.touchedPoint(Point(x: location.x, y: location.y))
+        self.plane.touchPoint(Point(x: location.x, y: location.y))
     }
     
     @objc private func panGusture(sender: UITapGestureRecognizer) {
@@ -221,7 +221,7 @@ extension ViewController: InspectorDelegate {
     }
     
     func changeAlpha(_ alpha: Alpha) {
-        self.plane.change(alpha)
+        self.plane.changeAlpha(alpha)
     }
     
     func transform(translationX: Double, y: Double) {
