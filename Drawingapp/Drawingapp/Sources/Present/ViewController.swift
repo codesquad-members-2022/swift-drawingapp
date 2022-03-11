@@ -187,6 +187,10 @@ extension ViewController: PlaneDelegate {
     func getDrawingModelFactory() -> DrawingModelFactory {
         DrawingModelFactory(colorFactory: ColorFactory())
     }
+    
+    func getScreenSize() -> Size {
+        Size(width: self.drawingBoard.frame.width, height: self.drawingBoard.frame.height)
+    }
 }
 
 extension ViewController: InspectorDelegate {
