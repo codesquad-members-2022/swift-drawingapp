@@ -16,8 +16,7 @@ class MainViewController: UIViewController{
     
     private var rectangleUIViews = [Rectangle : RectangleView]()
     private var imageUIViews = [Image : ImageView]()
-    private var selectedRectangle: Rectangle?
-    private var selectedImage: Image?
+    private var selectedValue: RectValue?
     
     @IBOutlet weak var rectangleButton: UIButton!
     @IBOutlet weak var albumButton: UIButton!
@@ -33,7 +32,9 @@ class MainViewController: UIViewController{
         self.view.addSubview(rightAttributerView)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapGesture))
+        let dragGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(dragGesture))
         self.view.addGestureRecognizer(tapGestureRecognizer)
+        self.view.addGestureRecognizer(dragGestureRecognizer)
         
         addViewMakerButtonObserver()
         addGestureRecognizerObserver()
@@ -137,15 +138,13 @@ extension MainViewController {
             return
         }
         
-        if let _ = selectedRectangle{
-            noneTouchedViewFrame()
-        } else if let _ = selectedImage{
+        if let _ = selectedValue{
             noneTouchedViewFrame()
         }
         
         displaySliderValue(selected: rectangle)
         touchedViewFrame(selected: rectangle)
-        selectedRectangle = rectangle
+        selectedValue = rectangle
     }
     
     @objc func showImageTouchedView(_ notification: Notification){
@@ -153,15 +152,13 @@ extension MainViewController {
             return
         }
         
-        if let _ = selectedRectangle{
-            noneTouchedViewFrame()
-        } else if let _ = selectedImage{
+        if let _ = selectedValue{
             noneTouchedViewFrame()
         }
         
         displaySliderValue(selected: image)
         touchedViewFrame(selected: image)
-        selectedImage = image
+        selectedValue = image
     }
     
     @objc private func showNonTouchedView(){
@@ -210,20 +207,31 @@ extension MainViewController{
     }
     
     private func noneTouchedViewFrame(){
-        if let rectangle = selectedRectangle{
+        if let rectangle = selectedValue as? Rectangle{
             let view = rectangleUIViews[rectangle]
             view?.layer.borderColor = .none
             view?.layer.borderWidth = 0
-            self.selectedRectangle = nil
+            self.selectedValue = nil
             
-        } else if let image = selectedImage{
+        } else if let image = selectedValue as? Image{
             let view = imageUIViews[image]
             view?.layer.borderColor = .none
             view?.layer.borderWidth = 0
-            self.selectedImage = nil
+            self.selectedValue = nil
         }
     }
 }
+
+
+// MARK: - Use case: Click Rectangle / Image View
+
+extension MainViewController {
+    @objc func dragGesture(_ gesture: UIPanGestureRecognizer){
+        let moveDistance = gesture.translation(in: self.view)
+    }
+    
+}
+
 
 // MARK: - Use case: Control RigthAttributerView's sliders
 
@@ -249,7 +257,7 @@ extension MainViewController: UIColorSliderDelegate{
     }
     
     func changeRectangleColor(){
-        guard let rectangle = selectedRectangle, let rectView = rectangleUIViews[rectangle] else{
+        guard let rectangle = selectedValue as? Rectangle, let rectView = rectangleUIViews[rectangle] else{
             return
         }
         
@@ -260,13 +268,13 @@ extension MainViewController: UIColorSliderDelegate{
     }
     
     func changeRectangleAlpha(){
-        if let rectangle = selectedRectangle{
+        if let rectangle = selectedValue as? Rectangle{
             let rectView = rectangleUIViews[rectangle]
         
             rectangle.changeAlpha(alpha: rightAttributerView.alphaValue)
             rectView?.backgroundColor = rectView?.backgroundColor?.withAlphaComponent(rectangle.alpha.showValue())
             
-        } else if let image = selectedImage{
+        } else if let image = selectedValue as? Image{
             let imageView = imageUIViews[image]
         
             image.changeAlpha(alpha: rightAttributerView.alphaValue)
