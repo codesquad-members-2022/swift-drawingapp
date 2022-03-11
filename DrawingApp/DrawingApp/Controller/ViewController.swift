@@ -157,12 +157,3 @@ extension ViewController: StylerViewDelegate{
     }
 
 }
-
-extension Notification.Name{
-
-    static let rectangleAdded = Notification.Name("rectangleAdded")
-    static let rectangleFoundFromPlane = Notification.Name("rectangleFoundFromPlane")
-    static let rectangleNotFoundFromPlane = Notification.Name("rectangleNotFoundFromPlane")
-    static let rectangleColorUpdated = Notification.Name("rectangleColorUpdated")
-    static let rectangleAlphaUpdated = Notification.Name("rectangleAlphaUpdated")
-}
