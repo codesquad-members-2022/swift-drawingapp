@@ -62,14 +62,25 @@ public class Plane {
         
         let key = Point(x: convertX, y: convertY)
         
-        guard let foundRectangle = rectangles[key] else { return }
-        self.selectedRectangle = foundRectangle
-        
-        NotificationCenter.default.post(
-            name: Plane.NotificationName.didFindRectangle,
-            object: self,
-            userInfo: [Plane.UserInfoKey.foundRectangle:foundRectangle]     
-        )
+        //ViewController에서 하던 빈 화면 클릭시 처리하는 로직을 입출력 구분을 위해, guard let으로 바로 리턴하지 않고 if let으로 바인딩 하면서 조건을 주었습니다.
+        if let foundRectangle = rectangles[key] {
+            self.selectedRectangle = foundRectangle
+            
+            NotificationCenter.default.post(
+                name: Plane.NotificationName.didFindRectangle,
+                object: self,
+                userInfo: [Plane.UserInfoKey.foundRectangle:foundRectangle]
+            )
+            
+        } else {
+            self.selectedRectangle = nil
+            NotificationCenter.default.post(
+                name: Plane.NotificationName.didFindRectangle,
+                object: self,
+                userInfo: [Plane.UserInfoKey.foundRectangle:selectedRectangle as Any]
+            )
+        }
+
     }
     
     //Plane.UserInfoKey와 같이 Plane과 관련있게 하고싶어서 Nested Enum을 선언했습니다.

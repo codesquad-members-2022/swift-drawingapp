@@ -94,7 +94,6 @@ extension MainViewController:UIGestureRecognizerDelegate {
         
         //터치된 View의 origin x와 y값을 plane에게 넘겨줍니다.
         guard let touchedView = touch.view else { return true }
-        if touchedView == self.view { seletedRectangleView?.layer.borderWidth = 0.0 } //빈 화면 클릭시 width을 초기화한다.
         
         //Plane에게 touch된 View의 origin좌표를 넘겨준다.
         let x:Double = touchedView.frame.origin.x
