@@ -119,14 +119,7 @@ class ViewController: UIViewController{
 
 extension ViewController: UIGestureRecognizerDelegate{
     
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        /*
-           1. 우선 터치된 곳에 해당하는 touch.view의 타입이 RectangleView인 경우에는,
-              현재 터치된 사각형뷰를 임시로 저장한 currentlyTouchedView의 인스턴스로 할당
-           2. 이후 Plane에서 터치된 x,y를 가지고 유효한 모델이 내부에 존재하는 지 검증되면 이후 뷰에서 뷰컨트롤러로 값 변경 요청이 들어오면 currentlyTouchedView를 사용하여 사각형 뷰의 배경색 혹은 투명도를 바꿀 수 있도록 함
-           3. 단, 이후 터치된 곳에 해당하는 touch.view가 RectangleView가 아닌 경우에는, 사각형이 없는 부분을 터치한 것이므로 currentlyTouchedView를 다시 nil로 초기화
-         */
-        
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {        
         if let touchedView = touch.view as? RectangleView{
             self.currentlyTouchedView = touchedView
         }else{
