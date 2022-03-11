@@ -1,6 +1,7 @@
 import UIKit
 import OSLog
 
+typealias RectangleView = UIView
 class ViewController: UIViewController{
     
     private var logger: Logger = Logger()
