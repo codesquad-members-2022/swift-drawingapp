@@ -23,19 +23,19 @@ class Plane {
         for rectangle in rectangles.reversed() {
             if rectangle.isPointInArea(point) {
                 self.specifiedRectangle = rectangle
-                notificationCenter.post(name: .planeDidSpecifyRectangle, object: self, userInfo: ["specifiedRectangle": rectangle])
+                notificationCenter.post(name: ViewController.planeDidSpecifyRectangle, object: self, userInfo: [K.PlaneRectangle.specified: rectangle])
                 return .success(rectangle)
             }
         }
         self.specifiedRectangle = nil
-        notificationCenter.post(name: .planeDidSpecifyRectangle, object: self)
+        notificationCenter.post(name: ViewController.planeDidSpecifyRectangle, object: self)
         return .failure(.cannotSpecifyRectangleError)
     }
     
     public func addNewRectangle(in frame: (width: Double, height: Double)) {
         let newRectangle = RectangleFactory.makeRandomRectangle(in: frame)
         rectangles.append(newRectangle)
-        notificationCenter.post(name: .planeDidAddRectangle, object: self, userInfo: ["newRectangle": newRectangle])
+        notificationCenter.post(name: ViewController.planeDidAddRectangle, object: self, userInfo: [K.PlaneRectangle.added: newRectangle])
     }
     
     public func changeBackgroundColor(to newColor: BackgroundColor) -> Result<Rectangle, PlaneError> {
@@ -43,7 +43,7 @@ class Plane {
             return .failure(.noSpecifiedRectangleToChangeError)
         }
         specifiedRectangle.changeBackgroundColor(to: newColor)
-        notificationCenter.post(name: .planeDidChangeRectangleBackgroundColor, object: self, userInfo: ["backgroundColorChangedRectangle": specifiedRectangle])
+        notificationCenter.post(name: ViewController.planeDidChangeRectangleBackgroundColor, object: self, userInfo: [K.PlaneRectangle.changed: specifiedRectangle])
         return .success(specifiedRectangle)
     }
 
@@ -52,7 +52,7 @@ class Plane {
             return .failure(.noSpecifiedRectangleToChangeError)
         }
         specifiedRectangle.changeAlphaValue(to: newAlpha)
-        notificationCenter.post(name: .planeDidChangeRectangleAlpha, object: self, userInfo: ["alphaChangedRectangle": specifiedRectangle])
+        notificationCenter.post(name: ViewController.planeDidChangeRectangleAlpha, object: self, userInfo: [K.PlaneRectangle.changed: specifiedRectangle])
         return .success(specifiedRectangle)
     }
 

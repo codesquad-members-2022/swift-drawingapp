@@ -134,7 +134,7 @@ class ViewController: UIViewController {
 extension ViewController {
     
     @objc func planeDidAddRectangle(_ notification: Notification) {
-        guard let addedRectangle = notification.userInfo?["newRectangle"] as? Rectangle else {return}
+        guard let addedRectangle = notification.userInfo?[K.PlaneRectangle.added] as? Rectangle else {return}
         os_log("\(addedRectangle)")
         
         let newRectangleView = ViewFactory.makeRectangleView(of: addedRectangle)
@@ -143,7 +143,7 @@ extension ViewController {
     }
     
     @objc func planeDidSpecifyRectangle(_ notification: Notification) {
-        guard let specifiedRectangle = notification.userInfo?["specifiedRectangle"] as? Rectangle,
+        guard let specifiedRectangle = notification.userInfo?[K.PlaneRectangle.specified] as? Rectangle,
               let matchedView = rectangleAndViewMap[specifiedRectangle] else {
                   initializeViewsInTouchedEmptySpaceCondition()
                   return
@@ -157,7 +157,7 @@ extension ViewController {
     }
     
     @objc func planeDidChangeRectangleBackgroundColor(_ notification: Notification) {
-        guard let backgroundColorChangedRectangle = notification.userInfo?["backgroundColorChangedRectangle"] as? Rectangle,
+        guard let backgroundColorChangedRectangle = notification.userInfo?[K.PlaneRectangle.changed] as? Rectangle,
               let matchedView = rectangleAndViewMap[backgroundColorChangedRectangle] else {
                   return
               }
@@ -169,7 +169,7 @@ extension ViewController {
     }
     
     @objc func planeDidChangeRectangleAlpha(_ notification: Notification) {
-        guard let alphaChangedRectangle = notification.userInfo?["alphaChangedRectangle"] as? Rectangle,
+        guard let alphaChangedRectangle = notification.userInfo?[K.PlaneRectangle.changed] as? Rectangle,
               let matchedView = rectangleAndViewMap[alphaChangedRectangle] else {
                   return
               }
