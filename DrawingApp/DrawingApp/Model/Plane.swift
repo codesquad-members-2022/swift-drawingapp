@@ -14,6 +14,7 @@ class Plane {
     static let addRectangle : Notification.Name = Notification.Name("addRectangle")
     static let searchRectangle : Notification.Name = Notification.Name("searchRectangle")
     static let updateAlpha : Notification.Name = Notification.Name("updateAlpha")
+    static let changeColor : Notification.Name = Notification.Name("changeColor")
     
     subscript(index: Int) -> Rectangle? {
         if index < rectangleCount {
@@ -54,5 +55,6 @@ class Plane {
     func changeRandomColor(to randomColor : Color?) {
         guard let randomColor = randomColor else {return}
         self.selectedRectangle?.backGroundColor = randomColor
+        NotificationCenter.default.post(name: Plane.changeColor, object: self, userInfo: ["color":randomColor])
     }
 }

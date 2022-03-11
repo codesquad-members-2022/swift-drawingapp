@@ -24,6 +24,7 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidAdd(_:)), name: Plane.addRectangle, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidSearch(_:)), name: Plane.searchRectangle, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidUpdated(_:)), name: Plane.updateAlpha , object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(planeDidChanged(_:)), name: Plane.changeColor, object: nil)
     }
     
     func initialScreenSetUp() {
@@ -119,7 +120,8 @@ extension ViewController {
         self.rectangleViewBoard.updateAlpha(alpha: alpha)
     }
     
-    func plane(didChanged color: Color) {
+    @objc func planeDidChanged(_ notification: Notification) {
+        guard let color = notification.userInfo?["color"] as? Color else {return}
         rectangleViewBoard.updateColor(color: color)
     }
 }
