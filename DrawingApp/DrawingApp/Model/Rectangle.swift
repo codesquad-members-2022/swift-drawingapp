@@ -8,7 +8,7 @@
 import Foundation
 
 class Rectangle: Shape {
-    private let id: String
+    let id: String
 
     private var size: Size
     
