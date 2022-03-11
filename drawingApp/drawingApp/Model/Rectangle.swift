@@ -53,8 +53,8 @@ class Rectangle {
         self.alpha = alpha
     }
     
-    func randomizeColor () {
-        self.color = Color.getRandomColor()
+    func updateColor (_ color: Color) {
+        self.color = color
     }
     
     func updateAlpha (_ alpha: Alpha) {

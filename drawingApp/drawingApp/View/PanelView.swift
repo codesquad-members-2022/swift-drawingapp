@@ -7,9 +7,10 @@
 
 import Foundation
 import UIKit
+
 protocol PanelViewDelegate {
     func didTabRondomizeColor()
-    func didTabChangeAlpha()
+    func didTabChangeAlpha(from : UIStepper)
 }
 
 class PanelView : UIView {
@@ -20,7 +21,7 @@ class PanelView : UIView {
     private var alphaLabel : UILabel!
     private var colorTitleLabel : UILabel!
     private var transparencyLabel : UILabel!
-    private let defaultAlphaValue = "0.0"
+    private let defaultAlphaValue = "0"
     private let defaultColorValue = "#000000"
 
     var delegate : PanelViewDelegate?
@@ -43,8 +44,11 @@ class PanelView : UIView {
         loadSubViews()
     }
     
-    func updateAlphaLable(newAlphaValue : String) {
-        self.alphaLabel.text = newAlphaValue
+    func updateAlpha(newAlphaValue : Double) {
+        if let newValue = Alpha(rawValue: Int(newAlphaValue * 10.0)) {
+            self.alphaLabel.text = "\(newValue.rawValue)" //Displays 1~10
+            self.alphaStepper.value = newValue.value * 10.0 
+        }
     }
     
     func updateRomdomizeColorButton(newColor : String) {
@@ -87,10 +91,10 @@ class PanelView : UIView {
         self.colorRondomizeButton = UIButton()
         self.alphaStepper = UIStepper()
         
-        colorRondomizeButton.addTarget(colorRondomizeButton, action: #selector(didTabColorRondomizeButton), for: .touchUpInside)
-        alphaStepper.addTarget(colorRondomizeButton, action: #selector(didTabAlphaStepper), for: .valueChanged)
+        colorRondomizeButton.addTarget(target, action: #selector(didTabColorRondomizeButton), for: .touchUpInside)
+        alphaStepper.addTarget(target, action: #selector(didTabAlphaStepper), for: .valueChanged)
         
-        alphaStepper.minimumValue = 0
+        alphaStepper.minimumValue = 1
         alphaStepper.maximumValue = 10
         alphaStepper.wraps = false
         alphaStepper.stepValue = 1
@@ -99,17 +103,17 @@ class PanelView : UIView {
         colorRondomizeButton.layer.cornerRadius = 10
         colorRondomizeButton.setTitle("", for: .normal)
        
-       
         colorRondomizeButton.frame = CGRect(x: self.bounds.minX + 20, y: self.bounds.minY + 70.0, width: 160, height: 50)
         alphaStepper.frame = CGRect(x: self.bounds.minX + 100, y: self.bounds.minY + 190.0, width: 160, height: 50)
     }
     
     
-    @objc func didTabColorRondomizeButton() {
+    @objc func didTabColorRondomizeButton(sender: UIButton) {
         delegate?.didTabRondomizeColor()
+        
     }
-    @objc func didTabAlphaStepper() {
-        delegate?.didTabChangeAlpha()
+    @objc func didTabAlphaStepper(sender: UIStepper) {
+        delegate?.didTabChangeAlpha(from: sender)
     }
     
 }
