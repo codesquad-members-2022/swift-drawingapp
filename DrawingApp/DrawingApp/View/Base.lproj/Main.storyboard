@@ -13,14 +13,14 @@
             <objects>
                 <viewController id="l8x-Ot-BnL" customClass="CanvasViewController" customModule="DrawingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xo9-MY-jyf">
-                        <rect key="frame" x="0.0" y="0.0" width="859.5" height="820"/>
+                        <rect key="frame" x="0.0" y="0.0" width="860" height="820"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="g98-d2-ots">
-                                <rect key="frame" x="330" y="688" width="200" height="80"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="g98-d2-ots">
+                                <rect key="frame" x="280" y="688" width="300" height="80"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I43-gx-lAf">
-                                        <rect key="frame" x="0.0" y="0.0" width="96" height="80"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="94.5" height="80"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="tinted" image="rectangle" catalog="system" imagePlacement="top" title="사각형">
                                             <color key="baseForegroundColor" systemColor="labelColor"/>
@@ -37,7 +37,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3cB-Gg-zBo">
-                                        <rect key="frame" x="104" y="0.0" width="96" height="80"/>
+                                        <rect key="frame" x="102.5" y="0.0" width="94.5" height="80"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="tinted" image="photo.artframe" catalog="system" imagePlacement="top" title="사진">
                                             <color key="baseForegroundColor" systemColor="labelColor"/>
@@ -53,9 +53,26 @@
                                             <action selector="addPhotoPressed:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="wG9-JK-1Q4"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K5x-AO-ZR2">
+                                        <rect key="frame" x="205" y="0.0" width="95" height="80"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="tinted" image="character.textbox" catalog="system" imagePlacement="top" title="텍스트">
+                                            <color key="baseForegroundColor" systemColor="labelColor"/>
+                                            <color key="baseBackgroundColor" systemColor="systemGray2Color"/>
+                                        </buttonConfiguration>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="addLabelPressed:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="bqm-52-9RR"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="RZc-sp-zfs"/>
+                                    <constraint firstAttribute="width" constant="300" id="RZc-sp-zfs"/>
                                     <constraint firstAttribute="height" constant="80" id="pzx-hE-hPR"/>
                                 </constraints>
                             </stackView>
@@ -315,6 +332,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="character.textbox" catalog="system" width="128" height="91"/>
         <image name="photo.artframe" catalog="system" width="128" height="93"/>
         <image name="rectangle" catalog="system" width="128" height="93"/>
         <systemColor name="labelColor">
