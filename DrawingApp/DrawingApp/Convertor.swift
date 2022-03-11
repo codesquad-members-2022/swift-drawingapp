@@ -18,8 +18,22 @@ struct Convertor {
         let B = CGFloat(color.blue) / 255
         return UIColor(red: R, green: G, blue: B, alpha: 1)
     }
+
+}
+
+extension UIColor  {
     
-    static func convertColor(from color: UIColor) -> Color {
-        return Color(R: Int(color.ciColor.red) * 255, G: Int(color.ciColor.green) * 255, B: Int(color.ciColor.blue) * 255)
+    func convertHex() -> String {
+
+        let components = self.cgColor.components
+        let r: CGFloat = components?[0] ?? 0.0
+        let g: CGFloat = components?[1] ?? 0.0
+        let b: CGFloat = components?[2] ?? 0.0
+
+        let hexString = String.init(format: "#%02lX%02lX%02lX", lroundf(Float(r * 255)), lroundf(Float(g * 255)), lroundf(Float(b * 255)))
+        return hexString
+
     }
+    
+    
 }
