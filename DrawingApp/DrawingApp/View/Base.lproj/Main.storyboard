@@ -306,7 +306,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="text here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Lq-9V-Ggh">
+                                            <textField opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" verticalCompressionResistancePriority="751" contentHorizontalAlignment="left" contentVerticalAlignment="top" borderStyle="roundedRect" placeholder="text here" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5Lq-9V-Ggh">
                                                 <rect key="frame" x="0.0" y="31" width="260" height="100"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="Y1B-KQ-4wv"/>
@@ -337,6 +337,7 @@
                         <outlet property="heightLabel" destination="ubJ-QB-EFN" id="o0W-xV-kF8"/>
                         <outlet property="heightStpper" destination="4ie-rP-488" id="ip0-Ly-nRZ"/>
                         <outlet property="isSizeFixedRatio" destination="2Qc-zv-VS2" id="y9n-fM-50p"/>
+                        <outlet property="textField" destination="5Lq-9V-Ggh" id="roY-7H-1rj"/>
                         <outlet property="widthLabel" destination="cui-9b-0N1" id="31D-rP-gB1"/>
                         <outlet property="widthStepper" destination="DQI-ty-EwO" id="KxO-PF-EiG"/>
                         <outlet property="xOriginLabel" destination="zYy-U1-iTh" id="IOn-fm-cCw"/>

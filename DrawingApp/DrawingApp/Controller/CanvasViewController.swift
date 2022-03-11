@@ -49,6 +49,7 @@ extension CanvasViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(didMutateAlpha(_:)), name: Plane.Event.mutateAlphaViewModel, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(didMutateOrigin(_:)), name: Plane.Event.mutateOriginViewModel, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(didMutateSize(_:)), name: Plane.Event.mutateSizeViewModel, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didMutateText(_:)), name: Plane.Event.mutateTextViewModel, object: plane)
     }
     
     private func observePanel() {
@@ -56,6 +57,7 @@ extension CanvasViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(colorButtonPressed(_:)), name: PanelViewController.Event.colorButtonPressed, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(originStepperChanged(_:)), name: PanelViewController.Event.originStepperChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(sizeStepperChanged(_:)), name: PanelViewController.Event.sizeStpperChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(textFieldChanged(_:)), name: PanelViewController.Event.textFieldChanged, object: nil)
     }
     
     private func setUpRecognizer() {
@@ -223,6 +225,19 @@ extension CanvasViewController {
         guard let mutated = notification.userInfo?[Plane.InfoKey.mutated] as? ViewModel else { return }
         let mutatedUIView = search(for: mutated)
         mutatedUIView?.frame.size = CGSize(with: mutated.size)
+    }
+    
+    @objc func textFieldChanged(_ notification: Notification) {
+        guard let text = notification.userInfo?[PanelViewController.InfoKey.newText] as? String else { return }
+        plane.set(to: text)
+    }
+    
+    @objc func didMutateText(_ notification: Notification) {
+        guard let selected = plane.selected,
+              let mutatedUIView = search(for: selected) as? UILabel,
+              let newText = notification.userInfo?[Plane.InfoKey.new] as? String else { return }
+        mutatedUIView.text = newText
+        resizeToFit(selected, for: mutatedUIView)
     }
 }
 

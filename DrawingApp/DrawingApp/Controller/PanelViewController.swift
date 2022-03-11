@@ -28,23 +28,29 @@ class PanelViewController: UIViewController {
     
     private var aspectRatio: Double?
    
+    @IBOutlet weak var textField: UITextField!
+    
     enum Event {
         static let sliderChanged = Notification.Name("sliderChanged")
         static let colorButtonPressed = Notification.Name("colorButtonPressed")
         static let originStepperChanged = Notification.Name("originStepperChanged")
         static let sizeStpperChanged = Notification.Name("sizeStpperChanged")
+        static let textFieldChanged = Notification.Name("textFieldChanged")
     }
     
     enum InfoKey {
         static let sliderValue = "value"
         static let newOrigin = "origin"
         static let newSize = "size"
+        static let newText = "text"
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         observePlane()
         observeCanvas()
+        
+        textField.addTarget(self, action: #selector(textFieldChanged(_:)), for: .editingChanged)
     }
     
     private func observePlane() {
@@ -61,27 +67,36 @@ class PanelViewController: UIViewController {
 }
 
 // MARK: - Use case: Display properties of selected view
+
 extension PanelViewController {
     @objc func didSelectViewModel(_ notification: Notification) {
-
         guard let selected = notification.userInfo?[Plane.InfoKey.new] as? ViewModel else {
+            // Clear all panel when nothing selected
             clearPanel()
             return
         }
         
+        // Every ViewModel should display size & origin
         displaySize(selected)
         displayOrigin(selected)
         
-        if let colorMutableViewModel = selected as? ColorMutable {
-            displayColor(colorMutableViewModel)
+        // Display Property & Enable related controls when ViewModel is mutable
+        if let colorMutable = selected as? ColorMutable {
+            displayColor(colorMutable)
         } else {
             clearColorButton()
         }
         
-        if let alphaMutableViewModel = selected as? AlphaMutable {
-            displayAlpha(alphaMutableViewModel)
+        if let alphaMutable = selected as? AlphaMutable {
+            displayAlpha(alphaMutable)
         } else {
             clearAlphaSlider()
+        }
+        
+        if let textMutable = selected as? TextMutable {
+            displayText(textMutable)
+        } else {
+            clearTextField()
         }
     }
     
@@ -139,6 +154,10 @@ extension PanelViewController {
         
     }
     
+    private func displayText(_ selected: TextMutable) {
+        textField.text = selected.text
+    }
+    
     private func displayTemporaryOrigin(_ origin: Point) {
         let selectedX = origin.x
         let selectedY = origin.y
@@ -183,6 +202,11 @@ extension PanelViewController {
         
         xOriginStepper.isEnabled = false
         yOriginStepper.isEnabled = false
+    }
+    
+    private func clearTextField() {
+        textField.text = ""
+        textField.isEnabled = false
     }
 }
 
@@ -242,5 +266,9 @@ extension PanelViewController {
     @objc func didMutateSize(_ notification: Notification) {
         guard let mutated = notification.userInfo?[Plane.InfoKey.mutated] as? ViewModel else { return }
         displaySize(mutated)
+    }
+    
+    @objc func textFieldChanged(_ sender: UITextField) {
+        NotificationCenter.default.post(name: PanelViewController.Event.textFieldChanged, object: self, userInfo: [PanelViewController.InfoKey.newText: textField.text ?? ""])
     }
 }
