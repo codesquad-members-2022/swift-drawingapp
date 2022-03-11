@@ -46,7 +46,7 @@ class MainViewController: UIViewController{
 
 extension MainViewController{
     @IBAction func makeRandomRectangle(_ sender: Any) {
-        let rectangleValue = rectFactory.makeRandomRectanglePosition(viewWidth: self.rightAttributerView.frame.minX, viewHeight: self.rectangleButton.frame.minY)
+        let rectangleValue = rectFactory.makePosition(viewWidth: self.rightAttributerView.frame.minX, viewHeight: self.rectangleButton.frame.minY)
         plane.addValue(rectangle: rectangleValue)
     }
     
@@ -74,7 +74,7 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage{
-            let imageValue = rectFactory.makeRandomImagePosition(image: MyImage(image: pickedImage), viewWidth: self.rightAttributerView.frame.minX, viewHeight: self.rectangleButton.frame.minY)
+            let imageValue = rectFactory.makePosition(image: MyImage(image: pickedImage), viewWidth: self.rightAttributerView.frame.minX, viewHeight: self.rectangleButton.frame.minY)
             plane.addValue(image: imageValue)
         }
 
@@ -127,7 +127,7 @@ extension MainViewController{
 extension MainViewController {
     @objc func tapGesture(_ gesture: UITapGestureRecognizer){
         let touchPoint = gesture.location(in: self.view)
-        plane.findRectangle(withX: touchPoint.x, withY: touchPoint.y)
+        plane.findValue(withX: touchPoint.x, withY: touchPoint.y)
         
         return
     }
