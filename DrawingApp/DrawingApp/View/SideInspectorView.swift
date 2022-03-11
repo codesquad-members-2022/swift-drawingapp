@@ -62,7 +62,6 @@ class SideInspectorView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setLayout()
-        self.clipsToBounds = true
     }
     
     required init?(coder: NSCoder) {

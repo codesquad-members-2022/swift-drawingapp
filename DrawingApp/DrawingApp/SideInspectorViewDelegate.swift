@@ -9,5 +9,6 @@ import Foundation
 import UIKit
 
 protocol SideInspectorViewDelegate {
+    /// 사각형 버튼이 탭되면 사각형 뷰 생성
     func sideInspectorView(_ sideInspectorView: SideInspectorView, buttonDidTapped: UIButton)
 }
