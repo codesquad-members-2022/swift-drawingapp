@@ -22,4 +22,13 @@ struct Plane {
         }
         return nil
     }
+    
+    func isThereARectangle(point: Point) -> Bool {
+        for rectangle in rectangleArray {
+            if rectangle.isContainPoint(point: point) {
+                return true
+            }
+        }
+        return false
+    }
 }
