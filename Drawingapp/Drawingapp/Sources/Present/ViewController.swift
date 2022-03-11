@@ -179,7 +179,22 @@ extension ViewController: UIGestureRecognizerDelegate {
     
     @objc private func panGusture(sender: UITapGestureRecognizer) {
         let location = sender.location(in: sender.view)
-        self.plane.onPanGustureAction(state: sender.state, point: Point(x: location.x, y: location.y))
+        
+        var state: Plane.PanGustureState?
+        
+        switch sender.state {
+        case .began: state = .began
+        case .changed: state = .changed
+        case .ended: state = .ended
+        default:
+            break
+        }
+        
+        guard let state = state else {
+            return
+        }
+        
+        self.plane.onPanGustureAction(state: state, point: Point(x: location.x, y: location.y))
     }
 }
 

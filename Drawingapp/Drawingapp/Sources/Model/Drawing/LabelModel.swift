@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 class LabelModel: DrawingModel, Textable {
     public private(set) var font: Font

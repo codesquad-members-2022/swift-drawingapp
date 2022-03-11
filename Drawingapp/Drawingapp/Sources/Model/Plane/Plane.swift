@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 protocol PlaneAction {
     func touchPoint(_ point: Point)
@@ -16,7 +15,7 @@ protocol PlaneAction {
     func sizeIncrease(width: Double, height: Double)
     func alphaChange(_ alpha: Alpha)
     func colorChange()
-    func onPanGustureAction(state: UIGestureRecognizer.State, point: Point)
+    func onPanGustureAction(state: Plane.PanGustureState, point: Point)
 }
 
 protocol PlaneDelegate {
@@ -138,7 +137,7 @@ extension Plane: PlaneAction {
         }
     }
     
-    func onPanGustureAction(state: UIGestureRecognizer.State, point: Point) {
+    func onPanGustureAction(state: PanGustureState, point: Point) {
         switch state {
         case .began:
             self.touchPoint(point)
@@ -223,5 +222,9 @@ extension Plane {
     enum ParamKey {
         static let drawingModel = "drawingModel"
         static let dragPoint = "dragPoint"
+    }
+    
+    enum PanGustureState {
+        case began, changed, ended
     }
 }
