@@ -97,7 +97,9 @@ extension ViewController {
         
         self.planeView.addSubview(rectangleView)
         self.rectangleMap.updateValue(rectangleView, forKey: rectangle)
+        rectangleView.animateScale(CGFloat(1.2), duration: 0.15, delay: 0)
     }
+    
     
     @objc func rectangleDataDidChanged(_ notification: Notification) {
         guard let rectangle = self.plane.currentItem else { return }
