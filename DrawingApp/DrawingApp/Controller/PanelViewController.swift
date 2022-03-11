@@ -124,6 +124,7 @@ extension PanelViewController {
     }
     
     private func displaySize(_ selected: ViewModel) {
+        isSizeFixedRatio.isEnabled = true
         widthStepper.isEnabled = true
         heightStpper.isEnabled = true
         
@@ -155,6 +156,7 @@ extension PanelViewController {
     }
     
     private func displayText(_ selected: TextMutable) {
+        textField.isEnabled = true
         textField.text = selected.text
     }
     
@@ -194,6 +196,7 @@ extension PanelViewController {
         
         widthStepper.isEnabled = false
         heightStpper.isEnabled = false
+        isSizeFixedRatio.isEnabled = false
     }
     
     private func clearOriginStepper() {
