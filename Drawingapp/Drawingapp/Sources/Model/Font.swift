@@ -20,3 +20,10 @@ struct Font: CustomStringConvertible {
         UIFont(name: name, size: size)
     }
 }
+
+extension Font {
+    static var names = ["AppleSDGothicNeo-Bold","AppleSDGothicNeo-Light",
+                 "AppleSDGothicNeo-Medium", "AppleSDGothicNeo-Regular",
+                 "AppleSDGothicNeo-SemiBold", "AppleSDGothicNeo-Thin",
+                 "AppleSDGothicNeo-UltraLight"]
+}
