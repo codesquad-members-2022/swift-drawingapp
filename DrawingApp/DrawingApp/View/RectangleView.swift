@@ -59,4 +59,21 @@ class RectangleView: UIView {
         self.layer.borderWidth = 0
         self.layer.borderColor = .none
     }
+    
+    func animateScale(_ scale: CGFloat, duration: Double, delay: Double) {
+        let originCenter = self.center
+        let originSize = self.frame.size
+        
+        UIView.animate(withDuration: duration, delay: delay, options: .curveEaseIn, animations: {
+            let scaledSize = CGSize(width: originSize.width * scale, height: originSize.height * scale)
+            self.frame.size = scaledSize
+            self.center = originCenter
+        }) { done in
+            UIView.animate(withDuration: duration, animations: {
+                self.frame.size = originSize
+                self.center = originCenter
+            })
+            
+        }
+    }
 }
