@@ -8,17 +8,9 @@
 import Foundation
 import UIKit
 
-protocol PlaneDelegate {
-    func plane(didAdd rectangle: Rectangle)
-    func plane(didSearch rectangle: Rectangle, at index: Int)
-    func plane(didUpdated alpha : Alpha)
-    func plane(didChanged color : Color)
-}
-
 class Plane {
     private var rectangles : [Rectangle] = []
     private var selectedRectangle : Rectangle?
-    var delegate : PlaneDelegate?
     
     subscript(index: Int) -> Rectangle? {
         if index < rectangleCount {
@@ -34,7 +26,6 @@ class Plane {
     
     func addRectangle(rectangle: Rectangle) {
         self.rectangles.append(rectangle)
-        delegate?.plane(didAdd: rectangle)
     }
     
     func searchRectangle(at position : Position) {
@@ -47,18 +38,15 @@ class Plane {
         }
         guard let target = selectedRectangle else {return}
         if let selectedIndex = rectangles.lastIndex(of: target) {
-            delegate?.plane(didSearch: target, at: selectedIndex)
         }
     }
     
     func updateAlphaValue(with alpha: Alpha) {
         self.selectedRectangle?.alpha = alpha
-        delegate?.plane(didUpdated: alpha)
     }
     
     func changeRandomColor(to randomColor : Color?) {
         guard let randomColor = randomColor else {return}
         self.selectedRectangle?.backGroundColor = randomColor
-        delegate?.plane(didChanged: randomColor)
     }
 }
