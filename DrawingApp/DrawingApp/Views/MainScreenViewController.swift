@@ -18,7 +18,8 @@ final class MainScreenViewController: UIViewController, MainScreenDelegate, UIGe
     static let rectangleViewTouched = Notification.Name(rawValue: "rectangleViewTouched")
     
     @IBOutlet var tapGesture: UITapGestureRecognizer!
-    private var current: Rectangle?
+    private var rectangleViews = [Rectangle]()
+    private var selectedIndexes: Set<Int>?
     
     var delegate: MainScreenTapDelegate?
     override func viewDidLoad() {
@@ -74,6 +75,23 @@ final class MainScreenViewController: UIViewController, MainScreenDelegate, UIGe
                 self.setBackgroundColorObserve(userInfo)
             }
         }
+        
+        NotificationCenter.default.addObserver(
+            forName: Plane.selectStatusChanged,
+            object: Plane.self,
+            queue: .current)
+        { [weak self] noti in
+            guard
+                let self = self,
+                let userInfo = noti.userInfo as? [Plane.PostKey: Any]
+            else {
+                return
+            }
+            
+            OperationQueue.main.addOperation {
+                self.setRectangleStatusChange(userInfo)
+            }
+        }
     }
     
     // MARK: - Methods Process ObserverTask
@@ -85,17 +103,43 @@ final class MainScreenViewController: UIViewController, MainScreenDelegate, UIGe
             return
         }
         
-        view.addSubview(Rectangle(model: model, index: index))
+        let rect = Rectangle(model: model, index: index)
+        self.rectangleViews.append(rect)
+        view.addSubview(rect)
     }
     
     private func setValueObserve(_ userInfo: [Plane.PostKey: Any]) {
-        guard let model = userInfo[.model] as? RectangleProperty else { return }
-        current?.setValue(alpha: Float(model.alpha))
+        guard
+            let model = userInfo[.model] as? RectangleProperty,
+            let index = userInfo[.index] as? Int
+        else { return }
+        
+        rectangleViews.first(where: {$0.index == index})?
+            .setValue(alpha: Float(model.alpha))
     }
     
     private func setBackgroundColorObserve(_ userInfo: [Plane.PostKey: Any]) {
-        guard let model = userInfo[.model] as? RectangleProperty else { return }
-        current?.setBackgroundColor(using: model.rgbValue, alpha: model.alpha)
+        guard
+            let model = userInfo[.model] as? RectangleProperty,
+            let index = userInfo[.index] as? Int
+        else {
+            return
+        }
+        
+        rectangleViews.first(where: {$0.index == index})?
+            .setBackgroundColor(using: model.rgbValue, alpha: model.alpha)
+    }
+    
+    private func setRectangleStatusChange(_ userInfo: [Plane.PostKey: Any]) {
+        guard
+            let selectedIndex = userInfo[.index] as? Int
+        else {
+            return
+        }
+        
+        for rect in self.rectangleViews {
+            rect.isSelected = (rect.index == selectedIndex)
+        }
     }
     
     // MARK: - MainScreenDelegate implementations
@@ -113,11 +157,6 @@ final class MainScreenViewController: UIViewController, MainScreenDelegate, UIGe
     // MARK: - UIGestureRecognizerDelegate implementation
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touchedView = touches.first?.view as? Rectangle
-        current?.isSelected = false
-        current = touchedView
-        current?.isSelected = true
-        
-        // touchedView is nil when touched background
-        delegate?.mainScreenRectangleDidSelect(at: touchedView?.index)
+        delegate?.mainScreenDidSelect(at: touchedView?.index)
     }
 }

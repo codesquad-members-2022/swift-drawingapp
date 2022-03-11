@@ -11,16 +11,18 @@ import Foundation
 // MainScreenTapDelegate로 더 명확히 하였습니다.
 protocol MainScreenTapDelegate {
     // 델리게이트 패턴의 메소드는 어떤 요소가 언제 누가 선택되었는지 명시하기 위해 네이밍을 변경하였습니다.
-    func mainScreenRectangleDidSelect(at index: Int?)
+    func mainScreenDidSelect(at index: Int?)
 }
 
 /// ViewController와 MainScreenViewController 사이를 잇고, 생성된 사각형의 모델들을 저장하는 모델입니다.
 final class Plane: MainScreenTapDelegate {
     
     static let alphaDidChanged = Notification.Name.init(rawValue: "alphaDidChanged")
+    static let selectStatusChanged = Notification.Name.init(rawValue: "selectStatusChanged")
     
     private let factory = FactoryRectangleProperty()
     private var properties = [RectangleProperty]()
+    private var selectedIndex: Int?
     
     var screenDelegate: MainScreenDelegate?
     
@@ -72,7 +74,14 @@ final class Plane: MainScreenTapDelegate {
     }
     
     // MARK: - RectangleViewTapDelegate implementation
-    func mainScreenRectangleDidSelect(at index: Int?) {
+    func mainScreenDidSelect(at index: Int?) {
+        selectedIndex = index
+        NotificationCenter.default.post(
+            name: Plane.selectStatusChanged,
+            object: type(of: self),
+            userInfo: [PostKey.index: (selectedIndex ?? -1)]
+        )
+        
         var planeNoti = Notification(name: MainScreenViewController.rectangleViewTouched, object: self, userInfo: nil)
         if let index = index, properties.count-1 >= index {
             planeNoti.userInfo = [
@@ -121,5 +130,6 @@ final class Plane: MainScreenTapDelegate {
         case index = "index"
         case type = "type"
         case model = "model"
+        case select = "select"
     }
 }
