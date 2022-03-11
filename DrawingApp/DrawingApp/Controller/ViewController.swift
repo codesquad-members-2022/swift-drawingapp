@@ -38,7 +38,7 @@ class ViewController: UIViewController {
         view.addSubview(sideInspectorView)
         view.addSubview(addRectangleButton)
         
-        presentRectangleView.translatesAutoresizingMaskIntoConstraints = false
+        layoutPresentRectangleView()
         layoutSideInspectorView()
         layoutAddRectangleButton()
     }
@@ -49,6 +49,7 @@ class ViewController: UIViewController {
 extension ViewController {
     
     func layoutPresentRectangleView() {
+        presentRectangleView.translatesAutoresizingMaskIntoConstraints = false
         presentRectangleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         presentRectangleView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         presentRectangleView.trailingAnchor.constraint(equalTo: sideInspectorView.safeAreaLayoutGuide.leadingAnchor).isActive = true
