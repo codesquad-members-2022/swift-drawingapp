@@ -87,7 +87,7 @@ class InspectorSliderView: InspectorItemView {
     func bind(action: @escaping (Float) -> Void) {
         slider.addAction(UIAction{ _ in
             action(self.slider.value)
-        }, for: .touchUpInside)
+        }, for: .valueChanged)
     }
     
     func setMinMaxValue(min: Float, max: Float) {
