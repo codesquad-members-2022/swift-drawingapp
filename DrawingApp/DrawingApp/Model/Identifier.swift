@@ -39,12 +39,6 @@ class Identifier {
     }
 }
 
-extension Identifier: CustomStringConvertible {
-    var description: String {
-        return "\(self.firstToken)-\(self.secondToken)-\(self.thirdToken)"
-    }
-}
-
 extension Identifier {
     enum Bound {
         static let alphaNumeric = "abcdefghijklmnopqrstuvwxyz0123456789"
@@ -52,15 +46,20 @@ extension Identifier {
     }
 }
 
-extension Identifier: Equatable {
+extension Identifier: CustomStringConvertible {
+    var description: String {
+        return "\(self.firstToken)-\(self.secondToken)-\(self.thirdToken)"
+    }
+}
+
+extension Identifier: Hashable {
+    
     static func == (lhs: Identifier, rhs: Identifier) -> Bool {
         return lhs.firstToken == rhs.firstToken &&
         lhs.secondToken == rhs.secondToken &&
         lhs.thirdToken == rhs.thirdToken
     }
-}
-
-extension Identifier: Hashable {
+    
     func hash(into hasher: inout Hasher) {
         hasher.combine(firstToken)
         hasher.combine(secondToken)
