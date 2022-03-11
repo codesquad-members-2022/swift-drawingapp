@@ -182,71 +182,66 @@ extension ViewController: UIGestureRecognizerDelegate {
     
     @objc private func tapGusture(sender: UITapGestureRecognizer) {
         let location = sender.location(in: sender.view)
-        self.plane.touchPoint(Point(x: location.x, y: location.y))
+        self.plane.touchedPoint(Point(x: location.x, y: location.y))
     }
     
     @objc private func panGusture(sender: UITapGestureRecognizer) {
         let location = sender.location(in: sender.view)
         
-        var state: Plane.PanGustureState?
-        
         switch sender.state {
-        case .began: state = .began
-        case .changed: state = .changed
-        case .ended: state = .ended
+        case .began:
+            self.plane.beganDrag(point: Point(x: location.x, y: location.y))
+        case .changed:
+            self.plane.changedDrag(point: Point(x: location.x, y: location.y))
+        case .ended:
+            self.plane.endedDrag(point: Point(x: location.x, y: location.y))
         default:
             break
         }
-        
-        guard let state = state else {
-            return
-        }
-        
-        self.plane.drag(state: state, point: Point(x: location.x, y: location.y))
     }
 }
 
 extension ViewController: PlaneDelegate {
-    func getDrawingModelFactory() -> DrawingModelFactory {
+    func injectDrawingModelFactory() -> DrawingModelFactory {
         DrawingModelFactory(colorFactory: ColorFactory())
     }
     
-    func getScreenSize() -> Size {
+    func injectScreenSize() -> Size {
         Size(width: self.drawingBoard.frame.width, height: self.drawingBoard.frame.height)
     }
 }
 
 extension ViewController: InspectorDelegate {
-    func fontChange(name: String) {
+    func changeFont(name: String) {
         self.plane.changeFont(name: name)
     }
     
-    func colorChange() {
+    func changeColor() {
         self.plane.changeColor()
     }
     
-    func alphaChange(_ alpha: Alpha) {
-        self.plane.changeAlpha(alpha)
+    func changeAlpha(_ alpha: Alpha) {
+        self.plane.change(alpha)
     }
     
-    func originMove(x: Double, y: Double) {
-        self.plane.transform(translationX:x, y: y)
+    func transform(translationX: Double, y: Double) {
+        self.plane.transform(translationX:translationX, y: y)
     }
     
-    func sizeIncrease(width: Double, height: Double) {
+    func transform(width: Double, height: Double) {
         self.plane.transform(width: width, height: height)
     }
 }
 
 extension ViewController: TopMenuBarDelegate {
-    func makeRectangleButtonTapped() {
+    func makeRectangleTapped() {
         let screenSize = self.drawingBoard.frame.size
         let originX = Int.random(in: 0..<Int(screenSize.width))
         let originY = Int.random(in: 0..<Int(screenSize.height))
         self.plane.makeRectangleModel(origin: Point(x: originX, y: originY))
     }
     
-    func makePhotoButtonTapped() {
+    func makePhotoTapped() {
         var config = PHPickerConfiguration()
         config.selectionLimit = 1
         config.filter = .any(of: [.images])
@@ -255,7 +250,7 @@ extension ViewController: TopMenuBarDelegate {
         self.present(phpPicker, animated: true)
     }
     
-    func makeLabelButtonTapped() {
+    func makeLabelTapped() {
         let screenSize = self.drawingBoard.frame.size
         let originX = Int.random(in: 0..<Int(screenSize.width))
         let originY = Int.random(in: 0..<Int(screenSize.height))

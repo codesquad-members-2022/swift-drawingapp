@@ -9,11 +9,11 @@ import Foundation
 import UIKit
 
 protocol InspectorDelegate {
-    func colorChange()
-    func alphaChange(_ alpha: Alpha)
-    func originMove(x: Double, y: Double)
-    func sizeIncrease(width: Double, height: Double)
-    func fontChange(name: String)
+    func changeColor()
+    func changeAlpha(_ alpha: Alpha)
+    func transform(translationX: Double, y: Double)
+    func transform(width: Double, height: Double)
+    func changeFont(name: String)
 }
 
 class InspectorView: UIView {
@@ -92,53 +92,53 @@ class InspectorView: UIView {
     
     private func bind() {
         colorButton.button.addAction(UIAction{ _ in
-            self.delegate?.colorChange()
+            self.delegate?.changeColor()
         }, for: .touchUpInside)
         
         alphaSlider.slider.addAction(UIAction{ _ in
             if let alpha = Alpha.init(rawValue: Int(self.alphaSlider.slider.value)) {
-                self.delegate?.alphaChange(alpha)                
+                self.delegate?.changeAlpha(alpha)                
             }
         }, for: .valueChanged)
         
         //Origin
         originView.firstView.upButton.addAction(UIAction{ _ in
-            self.delegate?.originMove(x: Constants.originMoveValue, y: 0)
+            self.delegate?.transform(translationX: Constants.originMoveValue, y: 0)
         }, for: .touchUpInside)
         
         originView.firstView.downButton.addAction(UIAction{ _ in
-            self.delegate?.originMove(x: -Constants.originMoveValue, y: 0)
+            self.delegate?.transform(translationX: -Constants.originMoveValue, y: 0)
         }, for: .touchUpInside)
         
         originView.secondView.upButton.addAction(UIAction{ _ in
-            self.delegate?.originMove(x: 0, y: Constants.originMoveValue)
+            self.delegate?.transform(translationX: 0, y: Constants.originMoveValue)
         }, for: .touchUpInside)
         
         originView.secondView.downButton.addAction(UIAction{ _ in
-            self.delegate?.originMove(x: 0, y: -Constants.originMoveValue)
+            self.delegate?.transform(translationX: 0, y: -Constants.originMoveValue)
         }, for: .touchUpInside)
         
         //Size
         sizeView.firstView.upButton.addAction(UIAction{ _ in
-            self.delegate?.sizeIncrease(width: Constants.sizeIncreaseValue, height: 0)
+            self.delegate?.transform(width: Constants.sizeIncreaseValue, height: 0)
         }, for: .touchUpInside)
         
         sizeView.firstView.downButton.addAction(UIAction{ _ in
-            self.delegate?.sizeIncrease(width: -Constants.sizeIncreaseValue, height: 0)
+            self.delegate?.transform(width: -Constants.sizeIncreaseValue, height: 0)
         }, for: .touchUpInside)
         
         sizeView.secondView.upButton.addAction(UIAction{ _ in
-            self.delegate?.sizeIncrease(width: 0, height: Constants.sizeIncreaseValue)
+            self.delegate?.transform(width: 0, height: Constants.sizeIncreaseValue)
         }, for: .touchUpInside)
         
         sizeView.secondView.downButton.addAction(UIAction{ _ in
-            self.delegate?.sizeIncrease(width: 0, height: -Constants.sizeIncreaseValue)
+            self.delegate?.transform(width: 0, height: -Constants.sizeIncreaseValue)
         }, for: .touchUpInside)
         
         let fontMenus: [UIAction] =
         Font.names.map { name in
             UIAction(title: name, image: nil, handler: { _ in
-                self.delegate?.fontChange(name: name)
+                self.delegate?.changeFont(name: name)
             })
         }
         

@@ -9,9 +9,9 @@ import Foundation
 import UIKit
 
 protocol TopMenuBarDelegate {
-    func makeRectangleButtonTapped()
-    func makePhotoButtonTapped()
-    func makeLabelButtonTapped()
+    func makeRectangleTapped()
+    func makePhotoTapped()
+    func makeLabelTapped()
 }
 
 class TopMenuBarView: UIView {
@@ -66,15 +66,15 @@ class TopMenuBarView: UIView {
     
     private func bind() {
         makeRectangle.button.addAction(UIAction{ _ in
-            self.delegate?.makeRectangleButtonTapped()
+            self.delegate?.makeRectangleTapped()
         }, for: .touchUpInside)
         
         makePhoto.button.addAction(UIAction{ _ in
-            self.delegate?.makePhotoButtonTapped()
+            self.delegate?.makePhotoTapped()
         }, for: .touchUpInside)
         
         makeLabel.button.addAction(UIAction{ _ in
-            self.delegate?.makeLabelButtonTapped()
+            self.delegate?.makeLabelTapped()
         }, for: .touchUpInside)
     }
     
