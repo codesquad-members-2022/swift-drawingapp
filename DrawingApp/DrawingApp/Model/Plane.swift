@@ -33,18 +33,18 @@ class Plane:CustomStringConvertible{
             return
         }
         self.selectedRectangleIndex = self[rectangle.id]
-        NotificationCenter.default.post(name: NotificationName..rectangleFoundFromPlane, object: self, userInfo: [UserInfoKey.rectangleFound:rectangle])
+        NotificationCenter.default.post(name: NotificationName.rectangleFoundFromPlane, object: self, userInfo: [UserInfoKey.rectangleFound:rectangle])
     }
     
     func addRectangle(_ rectangle: Rectangle){
         self.rectangles.append(rectangle)
-        NotificationCenter.default.post(name: NotificationName..rectangleAdded, object: self, userInfo: [UserInfoKey.rectangleAdded: rectangle])
+        NotificationCenter.default.post(name: NotificationName.rectangleAdded, object: self, userInfo: [UserInfoKey.rectangleAdded: rectangle])
     }
     
     func updateRectangleColor(newColor: Rectangle.Color){
         guard let selectedRectangleIndex = self.selectedRectangleIndex else { return }
         self.rectangles[selectedRectangleIndex].backgroundColor = newColor
-        NotificationCenter.default.post(name: NotificationName..rectangleColorUpdated, object: self, userInfo: [UserInfoKey.rectangleColorUpdated:newColor])
+        NotificationCenter.default.post(name: NotificationName.rectangleColorUpdated, object: self, userInfo: [UserInfoKey.rectangleColorUpdated:newColor])
     }
     
     func updateRectangleAlpha(opacity: Int){
