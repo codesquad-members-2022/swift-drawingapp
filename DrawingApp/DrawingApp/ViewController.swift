@@ -12,7 +12,6 @@ class ViewController: UIViewController {
     
     private var plane = Plane()
     private var rectangleAndViewMap = [AnyHashable: RectangleViewable]()
-    private let notificationCenter = NotificationCenter.default
     private var selectedView: RectangleView?
     weak var generateRectangleButton: UIButton!
     weak var drawableAreaView: UIView!
@@ -124,10 +123,10 @@ class ViewController: UIViewController {
     }
     
     func setNotificationCenter() {
-        notificationCenter.addObserver(self, selector: #selector(planeDidAddRectangle(_:)), name: Plane.NotificationNames.didAddRectangle, object: plane)
-        notificationCenter.addObserver(self, selector: #selector(planeDidSpecifyRectangle(_:)), name: Plane.NotificationNames.didSpecifyRectangle, object: plane)
-        notificationCenter.addObserver(self, selector: #selector(planeDidChangeRectangleBackgroundColor(_:)), name: Plane.NotificationNames.didChangeRectangleBackgroundColor, object: plane)
-        notificationCenter.addObserver(self, selector: #selector(planeDidChangeRectangleAlpha(_:)), name: Plane.NotificationNames.didChangeRectangleAlpha, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(planeDidAddRectangle(_:)), name: Plane.NotificationNames.didAddRectangle, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(planeDidSpecifyRectangle(_:)), name: Plane.NotificationNames.didSpecifyRectangle, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(planeDidChangeRectangleBackgroundColor(_:)), name: Plane.NotificationNames.didChangeRectangleBackgroundColor, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(planeDidChangeRectangleAlpha(_:)), name: Plane.NotificationNames.didChangeRectangleAlpha, object: plane)
     }
 }
 
