@@ -23,11 +23,11 @@ class ViewController: UIViewController{
 
     
     private func initializeNotificationCenter(){
-        NotificationCenter.default.addObserver(self, selector: #selector(rectangleFoundFromPlane(_:)), name: .rectangleFoundFromPlane, object: self.plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(rectangleNotFoundFromPlane), name: .rectangleNotFoundFromPlane, object: self.plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(addingRectangleCompleted(_:)), name: .rectangleAdded, object: self.plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateSelectedRecntalgeViewColor(_:)), name: .rectangleColorUpdated , object: self.plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateSelectedRectangleViewAlpha(_:)), name: .rectangleAlphaUpdated, object: self.plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(rectangleFoundFromPlane(_:)), name: Plane.NotificationName.rectangleFoundFromPlane, object: self.plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(rectangleNotFoundFromPlane), name: Plane.NotificationName.rectangleNotFoundFromPlane, object: self.plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(addingRectangleCompleted(_:)), name: Plane.NotificationName.rectangleAdded, object: self.plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateSelectedRecntalgeViewColor(_:)), name: Plane.NotificationName.rectangleColorUpdated , object: self.plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateSelectedRectangleViewAlpha(_:)), name: Plane.NotificationName.rectangleAlphaUpdated, object: self.plane)
     }
     
     private func setGestureRecognizer(){
