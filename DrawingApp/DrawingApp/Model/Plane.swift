@@ -49,6 +49,6 @@ struct Plane {
             }
         }
         
-        delegate?.didSelectRectanlge(nil)
+        delegate?.didSelectEmptyView()
     }
 }

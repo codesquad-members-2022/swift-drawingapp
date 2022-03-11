@@ -96,9 +96,22 @@ extension ViewController {
 
 extension ViewController: PlaneDelegate {
     
-    func didSelectRectanlge(_ rectangle: Rectangle?) {
-
-        //최근에 선택되었던 사각형이 있다면
+    func didSelectRectanlge(_ rectangle: Rectangle) {
+        if let recentlySelectedRectangle = plane.recentlySelectedRectangle,
+           let recentlySelectedRectangleView = rectangleMap[recentlySelectedRectangle] {
+            recentlySelectedRectangleView.clearCorner()
+        }
+        
+        let rectangleView = rectangleMap[rectangle]
+        rectangleView?.toggleCorner()
+        
+        sideInspectorView.setBackgroundColorValueButtonTitle(by: rectangle.backGroundColor.getHexaData())
+        sideInspectorView.setBackgroundColorValueButtonColor(by: rectangle.getUIColor())
+        
+        plane.updateRecentlySelected(rectangle: rectangle)
+    }
+    
+    func didSelectEmptyView() {
         if let recentlySelectedRectangle = plane.recentlySelectedRectangle,
             let recentlySelectedRectangleView = rectangleMap[recentlySelectedRectangle] {
             
@@ -106,18 +119,6 @@ extension ViewController: PlaneDelegate {
             sideInspectorView.clearBackgroundColorValueButtonTitle()
             sideInspectorView.clearBackgroundColorValueButtonColor()
         }
-        
-        //터치이벤트 발생한 지점에 rectangle이 없거나, 그 rectangle의 value로 연결된 view가 없다면 return
-        guard let rectangle = rectangle, let rectangleView = rectangleMap[rectangle] else { return }
-        plane.updateRecentlySelected(rectangle: rectangle)
-        
-        rectangleView.toggleCorner()
-        sideInspectorView.setBackgroundColorValueButtonTitle(by: rectangle.backGroundColor.getHexaData())
-        sideInspectorView.setBackgroundColorValueButtonColor(by: rectangle.getUIColor())
-        //TODO: SideInspectorView에 선택된 사각형의 속성값 전달
-            // rectangle != nil -> status 전달
-            // rectangle == nil -> clear
-        
     }
     
     func didCreateRectangle(_ rectangle: Rectangle) {
