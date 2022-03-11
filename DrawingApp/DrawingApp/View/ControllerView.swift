@@ -15,6 +15,7 @@ protocol ControllerViewDelegate {
 
 class ControllerView: UIView {
 
+    @IBOutlet var backgroundButton: UIButton!
     var delegate: ControllerViewDelegate?
     
     override init(frame: CGRect){
@@ -38,4 +39,6 @@ class ControllerView: UIView {
     @IBAction func touchedBackgroundButton(_ sender: Any) {
         delegate?.backgroundButtonDidTouch()
     }
+    
+    
 }
