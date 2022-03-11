@@ -44,3 +44,9 @@ extension ColorRGB: CustomStringConvertible{
         return "#\(hexRGB)"
     }
 }
+
+extension ColorRGB: RGBColorMutable{
+    var colorRGB: ColorRGB {
+        return self
+    }
+}
