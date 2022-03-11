@@ -11,4 +11,5 @@ protocol PlaneDelegate {
     func didCreateRectangle(_ rectangle: Rectangle)
     func didSelectRectanlge(_ rectangle: Rectangle)
     func didSelectEmptyView()
+    func didUpdateRecentlySelectedRectangle(_ rectangle: Rectangle)
 }

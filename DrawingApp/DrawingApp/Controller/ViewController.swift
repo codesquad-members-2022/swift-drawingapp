@@ -105,9 +105,6 @@ extension ViewController: PlaneDelegate {
         let rectangleView = rectangleMap[rectangle]
         rectangleView?.toggleCorner()
         
-        sideInspectorView.setBackgroundColorValueButtonTitle(by: rectangle.backGroundColor.getHexaData())
-        sideInspectorView.setBackgroundColorValueButtonColor(by: rectangle.getUIColor())
-        
         plane.updateRecentlySelected(rectangle: rectangle)
     }
     
@@ -127,6 +124,11 @@ extension ViewController: PlaneDelegate {
         
         presentRectangleView.addSubview(rectangleView)
         rectangleMap[rectangle] = rectangleView
+    }
+    
+    func didUpdateRecentlySelectedRectangle(_ rectangle: Rectangle) {
+        sideInspectorView.setBackgroundColorValueButtonTitle(by: rectangle.backGroundColor.getHexaData())
+        sideInspectorView.setBackgroundColorValueButtonColor(by: rectangle.getUIColor())
     }
 }
 
