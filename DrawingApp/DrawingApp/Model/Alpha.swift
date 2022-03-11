@@ -7,8 +7,13 @@
 
 import Foundation
 
-enum Alpha: Int {
+enum Alpha: Int, Comparable {
+    
     case one = 1, two, three, four, five, six, seven, eight, nine, ten
+    
+    static func < (lhs: Alpha, rhs: Alpha) -> Bool {
+        return lhs.rawValue < rhs.rawValue
+    }
 }
 
 extension Alpha: CustomStringConvertible {
