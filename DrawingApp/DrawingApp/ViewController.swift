@@ -124,10 +124,10 @@ class ViewController: UIViewController {
     }
     
     func setNotificationCenter() {
-        notificationCenter.addObserver(self, selector: #selector(planeDidAddRectangle(_:)), name: .planeDidAddRectangle, object: plane)
-        notificationCenter.addObserver(self, selector: #selector(planeDidSpecifyRectangle(_:)), name: .planeDidSpecifyRectangle, object: plane)
-        notificationCenter.addObserver(self, selector: #selector(planeDidChangeRectangleBackgroundColor(_:)), name: .planeDidChangeRectangleBackgroundColor, object: plane)
-        notificationCenter.addObserver(self, selector: #selector(planeDidChangeRectangleAlpha(_:)), name: .planeDidChangeRectangleAlpha, object: plane)
+        notificationCenter.addObserver(self, selector: #selector(planeDidAddRectangle(_:)), name: Plane.didAddRectangle, object: plane)
+        notificationCenter.addObserver(self, selector: #selector(planeDidSpecifyRectangle(_:)), name: Plane.didSpecifyRectangle, object: plane)
+        notificationCenter.addObserver(self, selector: #selector(planeDidChangeRectangleBackgroundColor(_:)), name: Plane.didChangeRectangleBackgroundColor, object: plane)
+        notificationCenter.addObserver(self, selector: #selector(planeDidChangeRectangleAlpha(_:)), name: Plane.didChangeRectangleAlpha, object: plane)
     }
 }
 
