@@ -73,6 +73,8 @@ extension CanvasViewController {
     }
 }
 
+
+
 // MARK: - Use Case: Add New Rectangle
 
 extension CanvasViewController {
@@ -116,6 +118,14 @@ extension CanvasViewController {
         
         plane.addPhoto(data: imageData)
         picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - Use Case: Add New Label
+
+extension CanvasViewController {
+    @IBAction func addLabelPressed(_ sender: UIButton) {
+        plane.addLabel()
     }
 }
 
