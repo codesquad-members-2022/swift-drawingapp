@@ -21,6 +21,7 @@ class ViewController: UIViewController {
         rectanglePropertyChangeBoard.delegate = self
         rectangleViewBoard.delegate = self
         initialScreenSetUp()
+        NotificationCenter.default.addObserver(self, selector: #selector(planeDidAdd(_:)), name: Plane.addRectangle, object: nil)
     }
     
     func initialScreenSetUp() {
@@ -98,7 +99,8 @@ extension ViewController: PropertyChangeBoardDelegate {
 }
 
 extension ViewController {
-    func plane(didAdd rectangle: Rectangle) {
+    @objc func planeDidAdd(_ notification: Notification) {
+        guard let rectangle = notification.userInfo?["rectangle"] as? Rectangle else {return}
         let rectangleView = RectangleViewFactory.makeView(of: rectangle)
         self.rectangleViewBoard.addSubview(rectangleView)
     }
