@@ -23,6 +23,7 @@ class ViewController: UIViewController {
         initialScreenSetUp()
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidAdd(_:)), name: Plane.addRectangle, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidSearch(_:)), name: Plane.searchRectangle, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(planeDidUpdated(_:)), name: Plane.updateAlpha , object: nil)
     }
     
     func initialScreenSetUp() {
@@ -113,7 +114,8 @@ extension ViewController {
         self.rectanglePropertyChangeBoard.setPropertyBoard(with: rectangle)
     }
     
-    func plane(didUpdated alpha: Alpha) {
+    @objc func planeDidUpdated(_ notification: Notification) {
+        guard let alpha = notification.userInfo?["alpha"] as? Alpha else {return}
         self.rectangleViewBoard.updateAlpha(alpha: alpha)
     }
     
