@@ -13,6 +13,7 @@ class Plane {
     private var selectedRectangle : Rectangle?
     static let addRectangle : Notification.Name = Notification.Name("addRectangle")
     static let searchRectangle : Notification.Name = Notification.Name("searchRectangle")
+    static let updateAlpha : Notification.Name = Notification.Name("updateAlpha")
     
     subscript(index: Int) -> Rectangle? {
         if index < rectangleCount {
@@ -47,6 +48,7 @@ class Plane {
     
     func updateAlphaValue(with alpha: Alpha) {
         self.selectedRectangle?.alpha = alpha
+        NotificationCenter.default.post(name: Plane.updateAlpha, object: self, userInfo: ["alpha":alpha])
     }
     
     func changeRandomColor(to randomColor : Color?) {
