@@ -144,6 +144,15 @@ class ViewController: UIViewController {
             self.drawingViews[targetModel]?.update(size: size)
             self.inspectorView.update(size: size)
         }
+        
+        NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updateFont, object: targetModel, queue: nil) { notification in
+            guard let view = self.drawingViews[targetModel] as? Textable,
+                let font = notification.userInfo?[DrawingModel.ParamKey.font] as? Font else {
+                return
+            }
+            view.update(font: font)
+            self.inspectorView.update(font: font)
+        }
     }
     
     func layout() {
@@ -208,6 +217,10 @@ extension ViewController: PlaneDelegate {
 }
 
 extension ViewController: InspectorDelegate {
+    func fontChange(name: String) {
+        self.plane.fontChange(name: name)
+    }
+    
     func colorChange() {
         self.plane.colorChange()
     }

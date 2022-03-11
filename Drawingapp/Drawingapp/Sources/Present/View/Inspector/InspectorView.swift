@@ -13,6 +13,7 @@ protocol InspectorDelegate {
     func alphaChange(_ alpha: Alpha)
     func originMove(x: Double, y: Double)
     func sizeIncrease(width: Double, height: Double)
+    func fontChange(name: String)
 }
 
 class InspectorView: UIView {
@@ -63,8 +64,15 @@ class InspectorView: UIView {
         return inspectorView
     }()
     
+    private let fontButton: InspectorItemButtonView = {
+        let inspectorView = InspectorItemButtonView()
+        inspectorView.title.text = "Font"
+        inspectorView.translatesAutoresizingMaskIntoConstraints = false
+        return inspectorView
+    }()
+    
     private var items: [InspectorItemView] {
-        [colorButton, alphaSlider, originView, sizeView]
+        [colorButton, alphaSlider, originView, sizeView, fontButton]
     }
     
     var delegate: InspectorDelegate?
@@ -125,6 +133,18 @@ class InspectorView: UIView {
         sizeView.secondView.downButton.addAction(UIAction{ _ in
             self.delegate?.sizeIncrease(width: 0, height: -Constants.sizeIncreaseValue)
         }, for: .touchUpInside)
+        
+        let fontMenus: [UIAction] =
+        ["AppleSDGothicNeo-Bold", "AppleSDGothicNeo-Light","AppleSDGothicNeo-Medium",
+         "AppleSDGothicNeo-Regular", "AppleSDGothicNeo-SemiBold",
+         "AppleSDGothicNeo-Thin", "AppleSDGothicNeo-UltraLight"].map { name in
+            UIAction(title: name, image: nil, handler: { _ in
+                self.delegate?.fontChange(name: name)
+            })
+        }
+        
+        
+        fontButton.button.menu = UIMenu(title: "Font", image: nil, identifier: nil, options: .displayInline, children: fontMenus)
     }
     
     private func layout() {
@@ -155,6 +175,8 @@ class InspectorView: UIView {
             self.update(color: nil)
             break
         }
+        
+        self.fontButton.isHidden = (model as? LabelModel) == nil
     }
     
     func update(color: Color?) {
@@ -177,5 +199,9 @@ class InspectorView: UIView {
     func update(origin: Point) {
         originView.firstView.value.text = String(format: "%.1f", origin.x)
         originView.secondView.value.text = String(format: "%.1f", origin.y)
+    }
+    
+    func update(font: Font) {
+        fontButton.button.setTitle("\(font.name)", for: .normal)
     }
 }
