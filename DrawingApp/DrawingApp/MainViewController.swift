@@ -10,9 +10,6 @@ import OSLog
 
 final class MainViewController: UIViewController{
     
-    //NotificationCenter.default가 중복되는것 같아 private 상수로 선언했습니다.
-    private let defultNotificationCenter = NotificationCenter.default
-    
     //model
     private var plane = Plane()
     //view
@@ -109,25 +106,25 @@ extension MainViewController:UIGestureRecognizerDelegate {
     
     //MARK: -- NotificationCenter
     private func configureNotificationCenter() {
-        defultNotificationCenter.addObserver(
+        NotificationCenter.default.addObserver(
             self,
             selector:#selector(addRectangleView),
             name: Plane.NotificationName.didAddRectangle,
             object: plane )
         
-        defultNotificationCenter.addObserver(
+        NotificationCenter.default.addObserver(
             self,
             selector: #selector(findSelectedRectangle),
             name: Plane.NotificationName.didFindRectangle,
             object: plane )
         
-        defultNotificationCenter.addObserver(
+        NotificationCenter.default.addObserver(
             self,
             selector: #selector(changeAlpha),
             name: Plane.NotificationName.didchangeRectangleAlpha,
             object: plane )
         
-        defultNotificationCenter.addObserver(
+        NotificationCenter.default.addObserver(
             self,
             selector: #selector(changeColor),
             name: Plane.NotificationName.didChangeRectangleColor,
