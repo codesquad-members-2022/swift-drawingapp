@@ -39,6 +39,8 @@ extension ViewController: RectangleViewDelegate {
             
             if rectangleViews[selected] != selectedRectangleView {
                 selectedRectangleView?.layer.borderWidth = 0
+                controllerView.alphaSlider.setValue(Float(selectedRectangleView?.alpha ?? 1.0) * 10 , animated: true)
+                controllerView.backgroundButton.setTitle(selectedRectangleView?.backgroundColor?.convertHex(), for: .normal)
             }
             selectedRectangleView = rectangleViews[selected]
             selectedRectangleView?.layer.borderWidth = 5
@@ -73,7 +75,6 @@ extension ViewController: PlaneDelegate {
     func alpahDidChanged() {
         if let alpha = selectedRectangleView?.alpha {
             controllerView.alphaSlider.setValue(Float(alpha) * 10, animated: false)
-            
         }
     }
     
