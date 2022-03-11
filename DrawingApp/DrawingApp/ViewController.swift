@@ -136,7 +136,7 @@ extension ViewController {
         guard let addedRectangle = notification.userInfo?[Plane.UserIDKeys.addedRectangle] as? Rectangle else {return}
         os_log("\(addedRectangle)")
         
-        guard let newRectangleView = ViewFactory.makeRectangleView(of: addedRectangle) as? RectangleView else {return}
+        let newRectangleView = ViewFactory.makeRectangleView(of: addedRectangle)
         self.drawableAreaView.addSubview(newRectangleView)
         rectangleAndViewMap[addedRectangle] = newRectangleView
     }
