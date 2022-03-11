@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  MainViewController.swift
 //  DrawingApp
 //
 //  Created by 백상휘 on 2022/02/28.
@@ -7,7 +7,9 @@
 
 import UIKit
 
-final class ViewController: UIViewController {
+typealias MainAction = MainViewController.MainAction
+
+final class MainViewController: UIViewController {
     
     @IBOutlet weak var buttonSetRandomColor: UIButton!
     @IBOutlet weak var sliderSetAlpha: UISlider!
@@ -76,5 +78,17 @@ final class ViewController: UIViewController {
             plane.screenDelegate = vc
             vc.delegate = plane
         }
+    }
+    
+    /// root view의 액션 타입
+    ///
+    /// ViewController -> Plane -> MainScreenViewController
+    enum MainAction {
+        /// 무작위 색상 버튼을 선택
+        case ColorButtonPushed
+        /// 투명도 슬라이더 움직임
+        case SliderMoved
+        /// 사각형 추가 버튼을 선택
+        case AddButtonPushed
     }
 }

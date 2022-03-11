@@ -25,7 +25,7 @@ final class Plane: MainScreenTapDelegate {
     
     var screenDelegate: MainScreenDelegate?
     
-    private func sendNotification(_ model: RectangleProperty, at index: Int, as type: MainScreenAction) {
+    private func sendNotification(_ model: RectangleProperty, at index: Int, as type: MainAction) {
         NotificationCenter.default.post(
             name: Plane.RectangleControlAction,
             object: model,
@@ -108,18 +108,6 @@ final class Plane: MainScreenTapDelegate {
             && point.x+size.width <= rect.x
             && point.y+size.height <= rect.y
         }
-    }
-    
-    /// root view의 액션 타입
-    ///
-    /// ViewController -> Plane -> MainScreenViewController
-    enum MainScreenAction {
-        /// 무작위 색상 버튼을 선택
-        case ColorButtonPushed
-        /// 투명도 슬라이더 움직임
-        case SliderMoved
-        /// 사각형 추가 버튼을 선택
-        case AddButtonPushed
     }
     
     /// Notification을 post 할 때 userInfo에서 사용할 용도로 만든 Nested Type

@@ -310,8 +310,8 @@ addObserver 시 Name, Object는 모두 nil이 될 수 있습니다. 그러므로
 * 바로 위와 같은 메소드에서 append 하는 property라는 단어 또한 광범위.[x]
 * ```setRandomColor(at: Int)```는 이름이 애매함. return 이 있으면 get 이기도 한데 어딘가에 랜덤컬러를 넣는건지 반환하는건지 바꾸는건지 명확한 이름 선택 필요.(Naming)[x]
 * ```addProperties(_: RectangleProperty)```는 여러 속성들을 한꺼번에 바꾼다는 뜻으로 해석되는데 실제는 그렇지 않음. 이름 변경 필요.(Naming)[x]
-* MainScreenAction 타입은 Plane에 있을 필요가 있는지 고민 필요.(MVC)
-* RectRGBColor 에 propertyWrapper + init() 매개변수 타입 변경도 시도해보기.(OOP)
+* MainScreenAction 타입은 Plane에 있을 필요가 있는지 고민 필요.(MVC)[x]
+* RectRGBColor 에 propertyWrapper + init() 매개변수 타입 변경도 시도해보기.(OOP)[x]
 * ```extension Notification.Name``` 를 전체적으로 선언하였는데 좀 더 관련이 깊은 타입에 확장하는 것이 좋음. 응집력이 떨어짐. (OOP)
 * MainScreenViewController의 ```observeMainScreenAction(using handler: @escaping (Notification) -> Void)```는 굳이 MainScreenViewController 소스코드와 분리할 필요가 없어 보임. (부연설명, OOP)
 * Notification 의 object는 매우 중요하므로 정확히 명시하는게 좋다. (Observer Pattern)

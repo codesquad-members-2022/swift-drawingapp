@@ -37,7 +37,7 @@ final class MainScreenViewController: UIViewController, MainScreenDelegate, UIGe
             
             guard
                 let index = userInfo[.index] as? Int,
-                let type = userInfo[.type] as? Plane.MainScreenAction
+                let type = userInfo[.type] as? MainAction
             else {
                 return
             }
