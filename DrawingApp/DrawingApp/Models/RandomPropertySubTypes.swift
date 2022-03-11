@@ -47,13 +47,6 @@ struct RectRGBColor {
     @ColorValue var r: Double
     @ColorValue var g: Double
     @ColorValue var b: Double
-    
-    /// If you indicate RectRGBColor values bigger than maxValue(255), it will be definitely 0.
-    init?(r: Double, g: Double, b: Double) {
-        self.r = r
-        self.g = g
-        self.b = b
-    }
 }
 
 @propertyWrapper
@@ -69,6 +62,10 @@ struct ColorValue {
                 self._value = min(RectRGBColor.maxValue, newValue)
             }
         }
+    }
+    
+    init(value: Double) {
+        self._value = value
     }
 }
 
