@@ -130,7 +130,7 @@ class ViewController: UIViewController {
             self.inspectorView.update(alpha: alpha)
         }
         
-        NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updatePoint, object: targetModel, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: DrawingModel.NotifiName.updateOrigin, object: targetModel, queue: nil) { notification in
             guard let origin = notification.userInfo?[DrawingModel.ParamKey.origin] as? Point else {
                 return
             }
@@ -194,16 +194,16 @@ extension ViewController: PlaneDelegate {
 }
 
 extension ViewController: InspectorDelegate {
-    func colorChanged() {
-        self.plane.colorChanged()
+    func colorChange() {
+        self.plane.colorChange()
     }
     
-    func alphaChanged(_ alpha: Alpha) {
-        self.plane.alphaChanged(alpha)
+    func alphaChange(_ alpha: Alpha) {
+        self.plane.alphaChange(alpha)
     }
     
-    func originMoved(x: Double, y: Double) {
-        self.plane.originMoved(x:x, y: y)
+    func originMove(x: Double, y: Double) {
+        self.plane.originMove(x:x, y: y)
     }
     
     func sizeIncrease(width: Double, height: Double) {

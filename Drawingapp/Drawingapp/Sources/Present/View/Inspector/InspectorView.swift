@@ -9,9 +9,9 @@ import Foundation
 import UIKit
 
 protocol InspectorDelegate {
-    func colorChanged()
-    func alphaChanged(_ alpha: Alpha)
-    func originMoved(x: Double, y: Double)
+    func colorChange()
+    func alphaChange(_ alpha: Alpha)
+    func originMove(x: Double, y: Double)
     func sizeIncrease(width: Double, height: Double)
 }
 
@@ -82,30 +82,30 @@ class InspectorView: UIView {
     
     private func bind() {
         colorButton.button.addAction(UIAction{ _ in
-            self.delegate?.colorChanged()
+            self.delegate?.colorChange()
         }, for: .touchUpInside)
         
         alphaSlider.slider.addAction(UIAction{ _ in
             if let alpha = Alpha.init(rawValue: Int(self.alphaSlider.slider.value)) {
-                self.delegate?.alphaChanged(alpha)                
+                self.delegate?.alphaChange(alpha)                
             }
         }, for: .valueChanged)
         
         //Origin
         originView.firstView.upButton.addAction(UIAction{ _ in
-            self.delegate?.originMoved(x: Constants.originMoveValue, y: 0)
+            self.delegate?.originMove(x: Constants.originMoveValue, y: 0)
         }, for: .touchUpInside)
         
         originView.firstView.downButton.addAction(UIAction{ _ in
-            self.delegate?.originMoved(x: -Constants.originMoveValue, y: 0)
+            self.delegate?.originMove(x: -Constants.originMoveValue, y: 0)
         }, for: .touchUpInside)
         
         originView.secondView.upButton.addAction(UIAction{ _ in
-            self.delegate?.originMoved(x: 0, y: Constants.originMoveValue)
+            self.delegate?.originMove(x: 0, y: Constants.originMoveValue)
         }, for: .touchUpInside)
         
         originView.secondView.downButton.addAction(UIAction{ _ in
-            self.delegate?.originMoved(x: 0, y: -Constants.originMoveValue)
+            self.delegate?.originMove(x: 0, y: -Constants.originMoveValue)
         }, for: .touchUpInside)
         
         //Size
