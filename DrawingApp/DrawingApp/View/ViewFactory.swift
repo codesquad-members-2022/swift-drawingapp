@@ -47,7 +47,6 @@ enum ViewFactory {
         
         view.text = label.text
         view.font = UIFont.systemFont(ofSize: CGFloat(label.fontSize))
-        view.textColor = UIColor(with: label.fontColor)
         
         return view
     }
