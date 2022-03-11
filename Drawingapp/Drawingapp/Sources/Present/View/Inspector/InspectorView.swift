@@ -67,6 +67,7 @@ class InspectorView: UIView {
     private let fontButton: InspectorItemButtonView = {
         let inspectorView = InspectorItemButtonView()
         inspectorView.title.text = "Font"
+        inspectorView.button.titleLabel?.adjustsFontSizeToFitWidth = true
         inspectorView.translatesAutoresizingMaskIntoConstraints = false
         return inspectorView
     }()
@@ -135,14 +136,11 @@ class InspectorView: UIView {
         }, for: .touchUpInside)
         
         let fontMenus: [UIAction] =
-        ["AppleSDGothicNeo-Bold", "AppleSDGothicNeo-Light","AppleSDGothicNeo-Medium",
-         "AppleSDGothicNeo-Regular", "AppleSDGothicNeo-SemiBold",
-         "AppleSDGothicNeo-Thin", "AppleSDGothicNeo-UltraLight"].map { name in
+        Font.names.map { name in
             UIAction(title: name, image: nil, handler: { _ in
                 self.delegate?.fontChange(name: name)
             })
         }
-        
         
         fontButton.button.menu = UIMenu(title: "Font", image: nil, identifier: nil, options: .displayInline, children: fontMenus)
     }
@@ -171,6 +169,9 @@ class InspectorView: UIView {
         switch model {
         case let model as RectangleModel:
             self.update(color: model.color)
+        case let model as LabelModel:
+            self.update(color: nil)
+            self.update(font: model.font)
         default:
             self.update(color: nil)
             break
