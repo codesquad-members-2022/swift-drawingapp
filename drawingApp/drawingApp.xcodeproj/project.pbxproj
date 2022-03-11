@@ -24,6 +24,7 @@
 		B74322C627D0CB8400445645 /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322C527D0CB8400445645 /* RectangleView.swift */; };
 		B74322CC27D1B91C00445645 /* PanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322CB27D1B91C00445645 /* PanelView.swift */; };
 		B74322D127D2534200445645 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322D027D2534200445645 /* Utils.swift */; };
+		B74322E027DB39FF00445645 /* RandomGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74322DF27DB39FF00445645 /* RandomGenerator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		B74322C527D0CB8400445645 /* RectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
 		B74322CB27D1B91C00445645 /* PanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelView.swift; sourceTree = "<group>"; };
 		B74322D027D2534200445645 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		B74322DF27DB39FF00445645 /* RandomGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomGenerator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 				B74322BC27CF0C3400445645 /* Size.swift */,
 				B74322C027CF35F000445645 /* Alpha.swift */,
 				B74322BE27CF0C3D00445645 /* Point.swift */,
+				B74322DF27DB39FF00445645 /* RandomGenerator.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -260,6 +263,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B74322E027DB39FF00445645 /* RandomGenerator.swift in Sources */,
 				B74322BD27CF0C3400445645 /* Size.swift in Sources */,
 				B743229127CC5DF300445645 /* ViewController.swift in Sources */,
 				B74322C327CF5A0700445645 /* Plane.swift in Sources */,

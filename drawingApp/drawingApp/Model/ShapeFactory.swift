@@ -39,36 +39,12 @@ class ShapeFactory {
         self.maxX = planeWidth - self.width
         self.maxY = planeHeight - self.height
     }
-    //550e8400-e29b-41d4-a716–446655440000 의 UUID 형태에서 -> 29b-1d4-716 과 같은식으로 랜덤 id 생성.
-    func generateRandomId() -> String {
-        var UUID = UUID().uuidString.components(separatedBy: "-")
-        for i in 1..<4 {
-            UUID[i].removeFirst()
-        }
-        return UUID[1..<4].joined(separator:"-")
-    }
-
-    func generateRandomPoint() -> Point {
-        let x = Double.random(in: minX..<maxX)
-        let y = Double.random(in: minY..<maxY)
-        return Point(x: x, y: y)
-    }
     
-    
-    func generateRandomColor() -> Color {
-        return Color.getRandomColor()
-    }
-    
-    func generateRandomAlpha() -> Alpha {
-        return Alpha.allCases.randomElement()!
-    }
-    
-    
-    func makeRect() throws-> Rectangle{
+    func makeRect() throws -> Rectangle{
         if maxX <= minX || maxY <= minY {
             throw Errors.notValidScreenSize
         }
-       return  Rectangle(id: generateRandomId(), size: Size(width: width, height: height), point: generateRandomPoint(), color: Color.getRandomColor(), alpha: generateRandomAlpha())
+        return  Rectangle(id: RandomGenerator.makeId(), size: Size(width: width, height: height), point: RandomGenerator.makePoint(minPoint: Point(x: minX, y: minY), maxPoint: Point(x: maxX, y: maxY)), color: RandomGenerator.makeColor(), alpha: RandomGenerator.makeAlpha())
     }
     
     
