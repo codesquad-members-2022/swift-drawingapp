@@ -28,6 +28,9 @@
 		E081806B27D75324000633E1 /* RectangleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E081806227D7393C000633E1 /* RectangleModel.swift */; };
 		E081806D27D9CF13000633E1 /* InspectorUpDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E081806C27D9CF13000633E1 /* InspectorUpDownView.swift */; };
 		E081806F27DACD62000633E1 /* InspectorTwoUpDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E081806E27DACD62000633E1 /* InspectorTwoUpDownView.swift */; };
+		E081807127DB0A20000633E1 /* LabelModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E081807027DB0A20000633E1 /* LabelModel.swift */; };
+		E081807327DB0B4C000633E1 /* LabelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E081807227DB0B4C000633E1 /* LabelView.swift */; };
+		E081807527DB1068000633E1 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = E081807427DB1068000633E1 /* Font.swift */; };
 		E0D7D9DE27CC594D00A56635 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9DD27CC594D00A56635 /* AppDelegate.swift */; };
 		E0D7D9E027CC594D00A56635 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9DF27CC594D00A56635 /* SceneDelegate.swift */; };
 		E0D7D9E227CC594D00A56635 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7D9E127CC594D00A56635 /* ViewController.swift */; };
@@ -81,6 +84,9 @@
 		E081806427D73B03000633E1 /* RectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
 		E081806C27D9CF13000633E1 /* InspectorUpDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorUpDownView.swift; sourceTree = "<group>"; };
 		E081806E27DACD62000633E1 /* InspectorTwoUpDownView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorTwoUpDownView.swift; sourceTree = "<group>"; };
+		E081807027DB0A20000633E1 /* LabelModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelModel.swift; sourceTree = "<group>"; };
+		E081807227DB0B4C000633E1 /* LabelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelView.swift; sourceTree = "<group>"; };
+		E081807427DB1068000633E1 /* Font.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
 		E0D7D9DA27CC594D00A56635 /* Drawingapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Drawingapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E0D7D9DD27CC594D00A56635 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E0D7D9DF27CC594D00A56635 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -148,6 +154,7 @@
 				E03455AD27CF24560036988A /* DrawingView.swift */,
 				E081806427D73B03000633E1 /* RectangleView.swift */,
 				E034562C27D22FB60036988A /* PhotoView.swift */,
+				E081807227DB0B4C000633E1 /* LabelView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -192,6 +199,7 @@
 				E081805A27D719A8000633E1 /* DrawingModel.swift */,
 				E081805F27D71A9C000633E1 /* PhotoModel.swift */,
 				E081806227D7393C000633E1 /* RectangleModel.swift */,
+				E081807027DB0A20000633E1 /* LabelModel.swift */,
 			);
 			path = Drawing;
 			sourceTree = "<group>";
@@ -260,6 +268,7 @@
 				E0D7DA1627CC642800A56635 /* Size.swift */,
 				E0D7DA1F27CC656500A56635 /* Color.swift */,
 				E0D7DA2227CC67DF00A56635 /* Alpha.swift */,
+				E081807427DB1068000633E1 /* Font.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -486,8 +495,10 @@
 			files = (
 				E034560D27D0AC3A0036988A /* ColorFactory.swift in Sources */,
 				E0D7DA4827CDE3C800A56635 /* TopMenuItemView.swift in Sources */,
+				E081807527DB1068000633E1 /* Font.swift in Sources */,
 				E0D7DA1727CC642800A56635 /* Size.swift in Sources */,
 				E0D7DA4D27CDF28C00A56635 /* InspectorView.swift in Sources */,
+				E081807127DB0A20000633E1 /* LabelModel.swift in Sources */,
 				E081806F27DACD62000633E1 /* InspectorTwoUpDownView.swift in Sources */,
 				E0D7DA5127CDF6FE00A56635 /* InspectorSliderView.swift in Sources */,
 				E0D7DA2C27CCF83300A56635 /* Log.swift in Sources */,
@@ -509,6 +520,7 @@
 				E081806D27D9CF13000633E1 /* InspectorUpDownView.swift in Sources */,
 				E081806527D73B03000633E1 /* RectangleView.swift in Sources */,
 				E0D7DA5327CDF70D00A56635 /* InspectorItemView.swift in Sources */,
+				E081807327DB0B4C000633E1 /* LabelView.swift in Sources */,
 				E0D7D9E027CC594D00A56635 /* SceneDelegate.swift in Sources */,
 				E0D7DA2E27CD048C00A56635 /* Plane.swift in Sources */,
 			);
