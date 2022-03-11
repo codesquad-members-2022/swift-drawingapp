@@ -7,9 +7,11 @@
 
 import UIKit
 
-typealias MainAction = MainViewController.MainAction
-
 final class MainViewController: UIViewController {
+    
+    static let addButtonPushed = Notification.Name.init(rawValue: "addButtonPushed")
+    static let colorButtonPushed = Notification.Name.init(rawValue: "colorButtonPushed")
+    static let sliderMoved = Notification.Name.init(rawValue: "sliderMoved")
     
     @IBOutlet weak var buttonSetRandomColor: UIButton!
     @IBOutlet weak var sliderSetAlpha: UISlider!
@@ -25,26 +27,40 @@ final class MainViewController: UIViewController {
         defaultButtonColor = buttonSetRandomColor.backgroundColor
         
         NotificationCenter.default.addObserver(
-            forName: Plane.RectangleViewTouched,
-            object: nil,
-            queue: OperationQueue.main
+            forName: MainScreenViewController.rectangleViewTouched,
+            object: plane,
+            queue: .current
         ) { [weak self] noti in
             guard let self = self else { return }
             
             self.currentIndex = noti.userInfo?[Plane.PostKey.index] as? Int
-            
-            let button = self.buttonSetRandomColor
-            let slider = self.sliderSetAlpha
-            
-            guard let property = noti.object as? RectangleProperty else {
-                button?.backgroundColor = self.defaultButtonColor
-                slider?.setValue(0, animated: true)
-                return
+            OperationQueue.main.addOperation {
+                self.processRectangleTouchedObserve((noti.userInfo as? [Plane.PostKey: Any]))
             }
-            
-            button?.backgroundColor = property.rgbValue.getColor(alpha: property.alpha)
-            slider?.setValue(Float(property.alpha), animated: true)
         }
+        
+        NotificationCenter.default.addObserver(
+            forName: Plane.alphaDidChanged,
+            object: plane,
+            queue: .current
+        ) { [weak self] noti in
+            guard let self = self else { return }
+            
+            OperationQueue.main.addOperation {
+                self.processRectangleTouchedObserve((noti.userInfo as? [Plane.PostKey: Any]))
+            }
+        }
+    }
+    
+    private func processRectangleTouchedObserve(_ userInfo: [Plane.PostKey: Any]?) {
+        guard let model = userInfo?[.model] as? RectangleProperty else {
+            buttonSetRandomColor.backgroundColor = self.defaultButtonColor
+            sliderSetAlpha.setValue(0, animated: true)
+            return
+        }
+        
+        buttonSetRandomColor.backgroundColor = model.rgbValue.getColor(alpha: model.alpha)
+        sliderSetAlpha.setValue(Float(model.alpha), animated: true)
     }
     
     @IBAction func buttonForAddTouchUpInside(_ sender: UIButton) {
@@ -67,10 +83,6 @@ final class MainViewController: UIViewController {
         
         sender.value = round(sender.value)
         plane.setAlpha(value: sender.value, at: index)
-        
-        let color = buttonSetRandomColor.backgroundColor
-        buttonSetRandomColor.backgroundColor =
-            color?.withAlphaComponent(Double(sender.value)/RectRGBColor.maxAlpha)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -78,17 +90,5 @@ final class MainViewController: UIViewController {
             plane.screenDelegate = vc
             vc.delegate = plane
         }
-    }
-    
-    /// root view의 액션 타입
-    ///
-    /// ViewController -> Plane -> MainScreenViewController
-    enum MainAction {
-        /// 무작위 색상 버튼을 선택
-        case ColorButtonPushed
-        /// 투명도 슬라이더 움직임
-        case SliderMoved
-        /// 사각형 추가 버튼을 선택
-        case AddButtonPushed
     }
 }
