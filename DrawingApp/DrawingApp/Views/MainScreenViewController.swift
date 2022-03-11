@@ -18,17 +18,29 @@ final class MainScreenViewController: UIViewController, MainScreenDelegate, UIGe
     @IBOutlet var tapGesture: UITapGestureRecognizer!
     private var current: Rectangle?
     
-    var delegate: RectangleViewTapDelegate?
+    var delegate: MainScreenTapDelegate?
     override func viewDidLoad() {
         super.viewDidLoad()
-        observeMainScreenAction(using: { [weak self] noti in
+        NotificationCenter.default.addObserver(
+            forName: Plane.RectangleControlAction,
+            object: nil,
+            queue: OperationQueue.main
+        ) { [weak self] noti in
             guard let self = self else { return }
             
             guard
                 let model = noti.object as? RectangleProperty,
-                let index = noti.userInfo?["index"] as? Int,
-                let type = noti.userInfo?["type"] as? Plane.MainScreenAction
-            else { return }
+                let userInfo = noti.userInfo as? [Plane.PostKey: Any]
+            else {
+                return
+            }
+            
+            guard
+                let index = userInfo[.index] as? Int,
+                let type = userInfo[.type] as? Plane.MainScreenAction
+            else {
+                return
+            }
             
             switch type {
             case .AddButtonPushed:
@@ -38,7 +50,7 @@ final class MainScreenViewController: UIViewController, MainScreenDelegate, UIGe
             case .SliderMoved:
                 self.current?.setValue(alpha: Float(model.alpha))
             }
-        })
+        }
     }
     
     // MARK: - MainScreenDelegate implementations
@@ -61,6 +73,6 @@ final class MainScreenViewController: UIViewController, MainScreenDelegate, UIGe
         current?.isSelected = true
         
         // touchedView is nil when touched background
-        delegate?.changeCurrentSelected(at: touchedView?.index)
+        delegate?.mainScreenView(didSelect: touchedView?.index)
     }
 }

@@ -21,10 +21,15 @@ final class ViewController: UIViewController {
         super.viewDidLoad()
         
         defaultButtonColor = buttonSetRandomColor.backgroundColor
-        observeMainScreenTouched(using: { [weak self] noti in
+        
+        NotificationCenter.default.addObserver(
+            forName: Plane.RectangleViewTouched,
+            object: nil,
+            queue: OperationQueue.main
+        ) { [weak self] noti in
             guard let self = self else { return }
             
-            self.currentIndex = noti.userInfo?["index"] as? Int
+            self.currentIndex = noti.userInfo?[Plane.PostKey.index] as? Int
             
             let button = self.buttonSetRandomColor
             let slider = self.sliderSetAlpha
@@ -37,7 +42,7 @@ final class ViewController: UIViewController {
             
             button?.backgroundColor = property.rgbValue.getColor(alpha: property.alpha)
             slider?.setValue(Float(property.alpha), animated: true)
-        })
+        }
     }
     
     @IBAction func buttonForAddTouchUpInside(_ sender: UIButton) {
@@ -47,7 +52,7 @@ final class ViewController: UIViewController {
     @IBAction func buttonAdmitColorTouchUpInside(_ sender: UIButton) {
         guard
             let index = currentIndex,
-            let color = plane.setRandomColor(at: index)
+            let color = plane.resetRandomColor(at: index)
         else {
             return
         }

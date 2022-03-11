@@ -7,42 +7,46 @@
 
 import Foundation
 
-/// MainScreenViewController의 탭 신호를 Plane객체가 받기 위해 선언하는 Protocol입니다.
-protocol RectangleViewTapDelegate {
-    /// 해당 메소드를 구현하여, 터치된 뷰에 해당하는 모델을 parentViewController에 전달합니다.
-    ///
-    /// parentViewController에 전달을 위해 PlaneAdmitDelegate 를 호출하게 됩니다.
-    func changeCurrentSelected(at index: Int?)
+// RectangleViewTapDelegate는 문맥 상 어떤 객체에 메시지를 보내는지 확실치 않아서
+// MainScreenTapDelegate로 더 명확히 하였습니다.
+protocol MainScreenTapDelegate {
+    // 델리게이트 패턴의 메소드는 어떤 요소가 언제 누가 선택되었는지 명시하기 위해 네이밍을 변경하였습니다.
+    func mainScreenView(didSelect index: Int?)
 }
 
 /// ViewController와 MainScreenViewController 사이를 잇고, 생성된 사각형의 모델들을 저장하는 모델입니다.
-final class Plane: RectangleViewTapDelegate {
+final class Plane: MainScreenTapDelegate {
+    
+    static let RectangleViewTouched = Notification.Name(rawValue: "RectangleViewTouched")
+    static let RectangleControlAction = Notification.Name(rawValue: "RectangleControlAction")
     
     private let factory = FactoryRectangleProperty()
     private var properties = [RectangleProperty]()
     
     var screenDelegate: MainScreenDelegate?
     
-    // Plane 객체는 같은 방식으로 Notification을 보내는 것이 좋다고 생각해서
-    // Notification post 만 하는 메소드를 따로 빼서 사용하도록 하였습니다.
     private func sendNotification(_ model: RectangleProperty, at index: Int, as type: MainScreenAction) {
-        NotificationCenter.default.post(name: .MainScreenAction, object: model, userInfo: ["index": index, "type": type])
+        NotificationCenter.default.post(
+            name: Plane.RectangleControlAction,
+            object: model,
+            userInfo: [PostKey.index: index, PostKey.type: type]
+        )
     }
     
     // MARK: - MainScreenDelegate implementation
     func addRectangle() {
         guard
-            let factoryProperty = screenDelegate?.getScreenViewProperty(),
-            let property = factory.makeRandomView(as: "Subview #\(properties.count)", property: factoryProperty)
+            let randomRectangleProperty = screenDelegate?.getScreenViewProperty(),
+            let rectangleViewProperty = factory.makeRandomView(as: "Subview #\(properties.count)", property: randomRectangleProperty)
         else {
                 return
         }
-        properties.append(property)
+        properties.append(rectangleViewProperty)
         
-        sendNotification(property, at: properties.endIndex-1, as: .AddButtonPushed)
+        sendNotification(rectangleViewProperty, at: properties.endIndex-1, as: .AddButtonPushed)
     }
     
-    func setRandomColor(at index: Int) -> RectRGBColor? {
+    func resetRandomColor(at index: Int) -> RectRGBColor? {
         guard
             properties.count-1 >= index,
             let color = properties[index].resetRGBColor()
@@ -64,19 +68,20 @@ final class Plane: RectangleViewTapDelegate {
     }
     
     // MARK: - RectangleViewTapDelegate implementation
-    func changeCurrentSelected(at index: Int?) {
-        
-        guard let index = index else {
-            NotificationCenter.default.post(name: .MainScreenTouched, object: nil, userInfo: nil)
+    func mainScreenView(didSelect index: Int?) {
+        guard
+            let index = index,
+            properties.count-1 >= index
+        else {
+            NotificationCenter.default.post(name: Plane.RectangleViewTouched, object: nil, userInfo: nil)
             return
         }
-        let model = properties.count-1 >= index ? properties[index] : nil
         
-        NotificationCenter.default.post(name: .MainScreenTouched, object: model, userInfo: ["index": index as Any])
+        NotificationCenter.default.post(name: Plane.RectangleViewTouched, object: properties[index], userInfo: [PostKey.index: index])
     }
     
     // MARK: - Plane no using Interface
-    func addProperties(_ model: RectangleProperty) {
+    func addProperty(_ model: RectangleProperty) {
         properties.append(model)
     }
     
@@ -115,5 +120,13 @@ final class Plane: RectangleViewTapDelegate {
         case SliderMoved
         /// 사각형 추가 버튼을 선택
         case AddButtonPushed
+    }
+    
+    /// Notification을 post 할 때 userInfo에서 사용할 용도로 만든 Nested Type
+    ///
+    /// Plane 객체 내의 static let 등을 이용하여 만들 수도 있지만
+    enum PostKey: String {
+        case index = "index"
+        case type = "type"
     }
 }
