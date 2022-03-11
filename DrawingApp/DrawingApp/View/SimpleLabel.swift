@@ -8,7 +8,6 @@
 import UIKit
 
 class SimpleLabel: UILabel {
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.configure()
@@ -25,7 +24,7 @@ class SimpleLabel: UILabel {
         self.configure()
     }
     
-    func configure() {
+    private func configure() {
         self.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleTopMargin, .flexibleLeftMargin, .flexibleBottomMargin, .flexibleRightMargin]
         self.adjustsFontSizeToFitWidth = true
         self.sizeToFit()
