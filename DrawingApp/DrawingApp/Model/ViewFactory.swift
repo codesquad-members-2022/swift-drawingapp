@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class ViewFactory {
-    static func makeRectangleView(of rectangle: Rectangle) -> RectangleView {
+    static func makeRectangleView(of rectangle: Rectangle) -> RectangleViewable {
         let point = rectangle.point
         let size = rectangle.size
         let frame = CGRect(x: point.x, y: point.y, width: size.width, height: size.height)
