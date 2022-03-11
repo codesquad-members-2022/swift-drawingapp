@@ -19,7 +19,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         rectanglePropertyChangeBoard.delegate = self
-        plane.delegate = self
         rectangleViewBoard.delegate = self
         initialScreenSetUp()
     }
@@ -98,7 +97,7 @@ extension ViewController: PropertyChangeBoardDelegate {
     }
 }
 
-extension ViewController: PlaneDelegate {
+extension ViewController {
     func plane(didAdd rectangle: Rectangle) {
         let rectangleView = RectangleViewFactory.makeView(of: rectangle)
         self.rectangleViewBoard.addSubview(rectangleView)
