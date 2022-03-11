@@ -3,8 +3,8 @@ import Foundation
 struct Plane:CustomStringConvertible{
     
     private var notificationCenter = NotificationCenter.default
-    private var rectangles:[Rectangle.Id:Rectangle] = [:]
-    private(set) var selectedRectangleId: Rectangle.Id?
+    private var rectangles:[Rectangle] = []
+    private var selectedRectangleIndex: Int?
     var count: Int{
         return rectangles.count
     }
@@ -14,34 +14,32 @@ struct Plane:CustomStringConvertible{
     
     mutating func findMatchingRectangleModel(x: Double, y: Double){
         guard let rectangle = self[x,y] else {
-            self.selectedRectangleId = nil
+            self.selectedRectangleIndex = nil
             self.notificationCenter.post(name: .rectangleNotFoundFromPlane, object: nil)
             return
         }
-        self.selectedRectangleId = rectangle.id
+        self.selectedRectangleIndex = self[rectangle.id]
         self.notificationCenter.post(name: .rectangleFoundFromPlane, object: rectangle, userInfo: nil)
     }
     
     mutating func addRectangle(_ rectangle: Rectangle){
-        self.rectangles[rectangle.id] = rectangle
+        self.rectangles.append(rectangle)
         self.notificationCenter.post(name: .rectangleAdded, object: rectangle, userInfo: nil)
     }
     
     mutating func updateRectangleColor(newColor: Rectangle.Color){
-        guard let selectedRectangleId = self.selectedRectangleId else { return }
-        guard let rectangle = self.rectangles[selectedRectangleId] else { return }
-        rectangle.backgroundColor = newColor
+        guard let selectedRectangleIndex = self.selectedRectangleIndex else { return }
+        self.rectangles[selectedRectangleIndex].backgroundColor = newColor
         self.notificationCenter.post(name: .rectangleColorUpdated, object: newColor)
     }
     
     mutating func updateRectangleAlpha(opacity: Int){
         var opacity = opacity
-        guard let selectedRectangleId = self.selectedRectangleId else { return }
-        guard let rectangle = self.rectangles[selectedRectangleId] else { return }
+        guard let selectedRectangleIndex = self.selectedRectangleIndex else { return }
         if(opacity == 10){
             opacity = opacity - 1
         }
-        rectangle.alpha = Rectangle.Alpha.allCases[opacity]
+        self.rectangles[selectedRectangleIndex].alpha = Rectangle.Alpha.allCases[opacity]
         self.notificationCenter.post(name: .rectangleAlphaUpdated, object: opacity)
     }
     
@@ -58,17 +56,18 @@ struct Plane:CustomStringConvertible{
         return false
     }
     
-    subscript(id: Rectangle.Id)-> Rectangle?{
-        if let rectangle = rectangles[id]{
-            return rectangle
+    subscript(id: Rectangle.Id)-> Int?{
+        for index in 0..<rectangles.count {
+            if(rectangles[index].id == id){
+                return index
+            }
         }
         return nil
     }
     
     subscript(x: Double = 0, y: Double = 0)-> Rectangle?{
   
-        for id in self.rectangles.keys{
-            guard let rectangle = rectangles[id] else { continue }
+        for rectangle in self.rectangles.reversed(){
             if(isRectangleInsideTheRange(x: x, y: y, rectangle: rectangle)){
                 return rectangle
             }
