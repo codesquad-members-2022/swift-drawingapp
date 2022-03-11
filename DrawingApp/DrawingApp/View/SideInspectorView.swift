@@ -9,9 +9,23 @@ import UIKit
 
 class SideInspectorView: UIStackView {
     
-    //MARK: Create Components
+    func setBackgroundColorValueButtonTitle(by newText: String) {
+        backgroundColorValueButton.setTitle(newText, for: .normal)
+    }
+
+    func clearBackgroundColorValueButtonTitle() {
+        backgroundColorValueButton.setTitle("", for: .normal)
+    }
+
+    func setBackgroundColorValueButtonColor(by newColor: UIColor) {
+        backgroundColorValueButton.backgroundColor = newColor
+    }
+
+    func clearBackgroundColorValueButtonColor() {
+        backgroundColorValueButton.backgroundColor = .systemGray5
+    }
     
-    //TODO: VC로부터 값 받아서 Set or Clear 메소드 구현
+    //MARK: Create Components
     
     private let backgroundMenuStackView: UIStackView = {
         let stackView = UIStackView()
