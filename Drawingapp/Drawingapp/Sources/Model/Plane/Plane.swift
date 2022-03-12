@@ -18,6 +18,7 @@ protocol PlaneAction {
     func beganDrag(point: Point)
     func changedDrag(point: Point)
     func endedDrag(point: Point)
+    func selectedModel(_ model: DrawingModel)
 }
 
 protocol PlaneDelegate {
@@ -114,6 +115,20 @@ extension Plane: PlaneAction {
     
     private func sendDidSelectModel(_ model: DrawingModel) {
         NotificationCenter.default.post(name: Plane.Event.didSelectedDrawingModel, object: self, userInfo: [ParamKey.drawingModel:model])
+    }
+    
+    func selectedModel(_ model: DrawingModel) {
+        guard let prevSelectModel = self.selectedModel else {
+            sendDidSelectModel(model)
+            self.selectedModel = model
+            return
+        }
+        
+        if model != prevSelectModel {
+            sendDidDisSelectModel(prevSelectModel)
+            sendDidSelectModel(model)
+            self.selectedModel = model
+        }
     }
     
     func touchPoint(_ point: Point) {
