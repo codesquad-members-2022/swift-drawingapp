@@ -10,8 +10,8 @@ import Foundation
 public class Plane {
     
     //Point를 기반으로 Dictionary를 만듬으로써 View에서 TapGesture로 좌표값을 넘겼을때 그에 해당하는 Rectangle을 찾을 수있다.
-    var rectangles:[Point:Rectangle] = [:]
-    var selectedRectangle:Rectangle?
+    private var rectangles:[Point:Rectangle] = [:]
+    private var selectedRectangle:Rectangle?
     
     var count:Int {
         self.rectangles.count
@@ -71,16 +71,15 @@ public class Plane {
                 object: self,
                 userInfo: [Plane.UserInfoKey.foundRectangle:foundRectangle]
             )
-            
         } else {
             self.selectedRectangle = nil
+            
             NotificationCenter.default.post(
                 name: Plane.NotificationName.didFindRectangle,
                 object: self,
                 userInfo: [Plane.UserInfoKey.foundRectangle:selectedRectangle as Any]
             )
         }
-
     }
     
     //Plane.UserInfoKey와 같이 Plane과 관련있게 하고싶어서 Nested Enum을 선언했습니다.
@@ -93,7 +92,7 @@ public class Plane {
     
     //enum과 Struct사이에서 고민을 했으나 static let으로 선언하고 case로 선언을 하지 않을 것이라면 Struct가 더 알맞다고 생각했습니다.
     struct NotificationName {
-        static let didchangeRectangleAlpha = Notification.Name("didchangeRectangleAlpha")
+        static let didchangeRectangleAlpha = Notification.Name("didChangeRectangleAlpha")
         static let didChangeRectangleColor = Notification.Name("didChangeRectangleColor")
         static let didAddRectangle = Notification.Name("didAddRectangle")
         static let didFindRectangle = Notification.Name("didFindRectangle")
