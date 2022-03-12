@@ -49,31 +49,6 @@ class Rectangle: CustomStringConvertible{
         }
     }
     
-    struct Color:Equatable, CustomStringConvertible{
-        var r: Double = 0
-        var g: Double = 0
-        var b: Double = 0
-        var description: String{
-            return "r:\(Int(r*255)),g:\(Int(g*255)),b:\(Int(b*255))"
-        }
-        
-        init(r: Double, g: Double, b: Double){
-            self.r = adjustRange(value: r)/255
-            self.g = adjustRange(value: g)/255
-            self.b = adjustRange(value: b)/255
-        }
-        
-        private func adjustRange(value: Double)-> Double{
-            if(value<0){
-                return Double(0)
-            }else if(value>255){
-                return Double(255)
-            }else{
-                return value
-            }
-        }
-    }
-    
     struct Alpha: CustomStringConvertible{
         enum Opacity:Float, CaseIterable{
             
@@ -113,17 +88,15 @@ class Rectangle: CustomStringConvertible{
     var id: Id
     var size: Size
     var point: Point
-    var backgroundColor: Color
     var alpha: Alpha
     var description: String{
-        return "(\(id)), \(size), \(point), \(backgroundColor), \(alpha)"
+        return "(\(id)), \(size), \(point), \(alpha)"
     }
     
-    init(id: Id, size: Size, point: Point, backgroundColor: Color, alpha: Alpha){
+    init(id: Id, size: Size, point: Point, alpha: Alpha){
         self.id = id
         self.size = size
         self.point = point
-        self.backgroundColor = backgroundColor
         self.alpha = alpha
     }
     
