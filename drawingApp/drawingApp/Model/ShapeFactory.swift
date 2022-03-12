@@ -48,10 +48,17 @@ class ShapeFactory {
     }
     
     
-    enum Errors : Error {
-        case notValidScreenSize
+}
+
+
+enum Errors : Error, CustomStringConvertible {
+    case notValidScreenSize
+    var description: String {
+        switch self {
+        case .notValidScreenSize :
+            return "Not able make shape with given screen size"
+        }
     }
     
 }
-
 
