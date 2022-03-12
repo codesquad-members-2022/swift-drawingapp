@@ -70,26 +70,40 @@ class ViewController: UIViewController {
                 let drawView = DrawingViewFactory.make(model: model)
                 self.drawingBoard.addSubview(drawView)
                 self.drawingViews[model] = drawView
-                self.hierarchyView.append(drawingModel: model)
+                self.hierarchyView.updateView()
             }
             self.bindObserver(targetModel: model)
         }
         
         NotificationCenter.default.addObserver(forName: Plane.Event.didSelecteDrawingModel, object: nil, queue: nil) { notification in
-            guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
+            guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
+                    let index = notification.userInfo?[Plane.ParamKey.index] as? Int else {
                 return
             }
             self.inspectorView.setHidden(false)
             self.inspectorView.update(model: model)
+            self.hierarchyView.selectIndex(index)
             self.drawingViews[model]?.selected(is: true)
         }
         
         NotificationCenter.default.addObserver(forName: Plane.Event.didDeselecteDrawingModel, object: nil, queue: nil) { notification in
-            guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
+            guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
+                  let index = notification.userInfo?[Plane.ParamKey.index] as? Int else {
                 return
             }
             self.inspectorView.setHidden(true)
+            self.hierarchyView.deSelecteIndex(index)
             self.drawingViews[model]?.selected(is: false)
+        }
+        
+        NotificationCenter.default.addObserver(forName: Plane.Event.didMoveModel, object: nil, queue: nil) { notification in
+            guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
+                  let index = notification.userInfo?[Plane.ParamKey.index] as? Int,
+                  let targetView = self.drawingViews[model] else {
+                return
+            }
+            self.drawingBoard.insertSubview(targetView, at: index)
+            self.hierarchyView.updateView()
         }
         
         NotificationCenter.default.addObserver(forName: Plane.Event.didBeganDrag, object: nil, queue: nil) { notification in
@@ -218,12 +232,35 @@ extension ViewController: UIGestureRecognizerDelegate {
 }
 
 extension ViewController: HierarchyDelegate {
-    func selectedCell(model: DrawingModel) {
-        self.plane.selecteModel(model)
+    func injectCount() -> Int {
+        self.plane.count
+    }
+    
+    func injectModel(to: IndexPath) -> DrawingModel? {
+        guard let model = self.plane[to.row] else {
+            return nil
+        }
+        return model
+    }
+    
+    func injectSelectIndex() -> Int? {
+        self.plane.selectIndex
+    }
+    
+    func selectedCell(index: IndexPath) {
+        self.plane.selecteCell(index: index.row)
+    }
+    
+    func move(to: Plane.MoveTo, index: IndexPath) {
+        self.plane.move(to: to, index: index.row)
     }
 }
 
 extension ViewController: PlaneDelegate {
+    func updateModels(_ models: [DrawingModel]) {
+        
+    }
+    
     func injectDrawingModelFactory() -> DrawingModelFactory {
         DrawingModelFactory(colorFactory: ColorFactory())
     }

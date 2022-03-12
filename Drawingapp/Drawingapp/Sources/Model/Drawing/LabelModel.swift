@@ -16,11 +16,11 @@ class LabelModel: DrawingModel, Textable {
         "id: ( \(id) ), \(origin), \(size), alpha: \(alpha), text: \(text)"
     }
     
-    init(id: String, origin: Point, size: Size, alpha: Alpha, text: String, font: Font, fontColor: Color) {
+    init(id: String, index: Int, origin: Point, size: Size, alpha: Alpha, text: String, font: Font, fontColor: Color) {
         self.text = text
         self.font = font
         self.fontColor = fontColor
-        super.init(id: id, origin: origin, size: size, alpha: alpha)
+        super.init(id: id, index: index, origin: origin, size: size, alpha: alpha)
     }
     
     func update(text: String) {

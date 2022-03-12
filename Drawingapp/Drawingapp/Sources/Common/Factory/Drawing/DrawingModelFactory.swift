@@ -10,6 +10,9 @@ import UIKit
 
 class DrawingModelFactory {
     private let colorFactory: ColorFactory
+    private static var rectangleModelCounting: Int = 0
+    private static var photoModelCounting: Int = 0
+    private static var labelModelCounting: Int = 0
     
     init(colorFactory: ColorFactory) {
         self.colorFactory = colorFactory
@@ -20,14 +23,16 @@ class DrawingModelFactory {
         let size = Size(width: 150, height: 120)
         let color = colorFactory.makeRandomColor()
         let alpha = Alpha.allCases.randomElement() ?? .transpar10
-        return RectangleModel(id: id, origin: origin, size: size, color: color, alpha: alpha)
+        Self.rectangleModelCounting += 1
+        return RectangleModel(id: id, index: Self.rectangleModelCounting, origin: origin, size: size, color: color, alpha: alpha)
     }
     
     func makePhotoModel(origin: Point, url: URL) -> PhotoModel {
         let id = makeId()
         let size = Size(width: 150, height: 120)
         let alpha = Alpha.transpar10
-        return PhotoModel(id: id, origin: origin, size: size, alpha: alpha, url: url)
+        Self.photoModelCounting += 1
+        return PhotoModel(id: id, index: Self.photoModelCounting,origin: origin, size: size, alpha: alpha, url: url)
     }
     
     func makeLabelModel(origin: Point) -> LabelModel {
@@ -40,8 +45,9 @@ class DrawingModelFactory {
         let text = makeRandomText()
         let labelSize = NSString(string: text).size(withAttributes: [.font:uiFont])
         let size = Size(width: labelSize.width + 10, height: labelSize.height + 10)
+        Self.labelModelCounting += 1
         
-        return LabelModel(id: id, origin: origin, size: size, alpha: alpha, text: text, font: font, fontColor: fontColor)
+        return LabelModel(id: id, index: Self.labelModelCounting,origin: origin, size: size, alpha: alpha, text: text, font: font, fontColor: fontColor)
     }
     
     func makeId() -> String {
