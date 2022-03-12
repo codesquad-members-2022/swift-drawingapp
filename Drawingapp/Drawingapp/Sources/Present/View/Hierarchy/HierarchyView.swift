@@ -87,6 +87,14 @@ class HierarchyView: UIView {
         layerTableView.reloadData()
     }
     
+    func selectModel(_ model: DrawingModel) {
+        
+    }
+    
+    func deSelecteModel(_ model: DrawingModel) {
+        
+    }
+    
     private func cellTouchEvent(model: DrawingModel) {
         delegate?.selectedCell(model: model)
     }

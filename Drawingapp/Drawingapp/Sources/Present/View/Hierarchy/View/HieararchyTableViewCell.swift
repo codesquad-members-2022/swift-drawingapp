@@ -42,13 +42,13 @@ class HieararchyTableViewCell: UITableViewCell {
         self.addSubview(icon)
         self.addSubview(name)
         
-        icon.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 5).isActive = true
+        icon.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 15).isActive = true
         icon.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        icon.widthAnchor.constraint(equalToConstant: 40).isActive = true
-        icon.heightAnchor.constraint(equalToConstant: 40).isActive = true
+        icon.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        icon.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
-        name.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 10).isActive = true
-        name.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
+        name.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 5).isActive = true
+        name.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -5).isActive = true
         name.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
     }
     
