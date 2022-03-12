@@ -18,8 +18,8 @@ protocol PlaneAction {
     func beganDrag(point: Point)
     func changedDrag(point: Point)
     func endedDrag(point: Point)
-    func selecteModel(_ model: DrawingModel)
-    func deselecteModel(_ model: DrawingModel)
+    func selecteCell(index: Int)
+    func move(to type: Plane.MoveTo, index: Int)
 }
 
 protocol PlaneDelegate {
@@ -43,6 +43,14 @@ class Plane {
         drawingModels.count
     }
     
+    var selectIndex: Int? {
+        guard let model = self.selectedModel,
+              let index = drawingModels.firstIndex(of: model) else {
+            return nil
+        }
+        return index
+    }
+    
     subscript(index: Int) -> DrawingModel? {
         if index >= 0 && index <= drawingModels.count {
             return drawingModels[index]
@@ -51,8 +59,7 @@ class Plane {
     }
     
     private func selected(point: Point) -> DrawingModel? {
-        let models = drawingModels.reversed()
-        for model in models {
+        for model in drawingModels {
             if model.isSelected(by: point) {
                 return model
             }
@@ -100,40 +107,63 @@ extension Plane: MakeModelAction {
     }
     
     private func didMakeDrawingModel(model: DrawingModel) {
-        self.drawingModels.append(model)
+        self.drawingModels.insert(model, at: 0)
         NotificationCenter.default.post(name: Plane.Event.didMakeDrawingModel, object: self, userInfo: [ParamKey.drawingModel:model])
-        
     }
 }
 
 extension Plane: PlaneAction {
+    
     private func sendDidDeselectModel(_ model: DrawingModel?) {
-        guard let model = model else {
+        guard let model = model,
+              let index = drawingModels.firstIndex(of: model) else {
             return
         }
-        NotificationCenter.default.post(name: Plane.Event.didDeselecteDrawingModel, object: self, userInfo: [ParamKey.drawingModel:model])
+        
+        NotificationCenter.default.post(name: Plane.Event.didDeselecteDrawingModel, object: self, userInfo: [ParamKey.drawingModel: model, ParamKey.index: index])
     }
     
     private func sendDidSelectModel(_ model: DrawingModel) {
-        NotificationCenter.default.post(name: Plane.Event.didSelecteDrawingModel, object: self, userInfo: [ParamKey.drawingModel:model])
+        guard let index = drawingModels.firstIndex(of: model) else {
+            return
+        }
+        NotificationCenter.default.post(name: Plane.Event.didSelecteDrawingModel, object: self, userInfo: [ParamKey.drawingModel:model, ParamKey.index: index])
     }
     
-    func selecteModel(_ model: DrawingModel) {
+    func selecteCell(index: Int) {
+        let selectModel = self.drawingModels[index]
+        
         guard let prevSelectModel = self.selectedModel else {
-            sendDidSelectModel(model)
-            self.selectedModel = model
+            sendDidSelectModel(selectModel)
+            self.selectedModel = selectModel
             return
         }
         
-        if model != prevSelectModel {
+        if selectModel != prevSelectModel {
             sendDidDeselectModel(prevSelectModel)
-            sendDidSelectModel(model)
-            self.selectedModel = model
+            sendDidSelectModel(selectModel)
+            self.selectedModel = selectModel
         }
     }
     
-    func deselecteModel(_ model: DrawingModel) {
+    func move(to type: MoveTo, index: Int) {
+        let targetModel = self.drawingModels.remove(at: index)
+        var moveIndex = 0
+
+        switch type {
+        case .front:
+            moveIndex = 0
+        case .forward:
+            moveIndex = index == 0 ? 0 : index - 1
+        case .last:
+            moveIndex = self.drawingModels.count
+        case .back:
+            moveIndex = index >= self.drawingModels.count - 1 ? self.drawingModels.count - 1 : index + 1
+        }
+        let moveViewIndex = self.drawingModels.count - moveIndex
+        self.drawingModels.insert(targetModel, at: moveIndex)
         
+        NotificationCenter.default.post(name: Plane.Event.didMoveModel, object: self, userInfo: [ParamKey.drawingModel:targetModel, ParamKey.index: moveViewIndex])
     }
     
     func touchPoint(_ point: Point) {
@@ -233,10 +263,16 @@ extension Plane {
         static let didBeganDrag = NSNotification.Name("didBeganDrag")
         static let didChangedDrag = NSNotification.Name("didChangedDrag")
         static let didEndedDrag = NSNotification.Name("didEndedDrag")
+        static let didMoveModel = NSNotification.Name("didMoveModel")
     }
     
     enum ParamKey {
         static let drawingModel = "drawingModel"
         static let dragPoint = "dragPoint"
+        static let index = "index"
+    }
+    
+    enum MoveTo {
+        case front, forward, last, back
     }
 }

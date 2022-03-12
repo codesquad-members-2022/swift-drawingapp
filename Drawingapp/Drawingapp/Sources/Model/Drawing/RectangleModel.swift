@@ -14,9 +14,9 @@ class RectangleModel: DrawingModel, Colorable {
         "id: ( \(id) ), \(origin), \(size), \(color), alpha: \(alpha)"
     }
     
-    init(id: String, origin: Point, size: Size, color: Color, alpha: Alpha) {
+    init(id: String, index: Int, origin: Point, size: Size, color: Color, alpha: Alpha) {
         self.color = color
-        super.init(id: id, origin: origin, size: size, alpha: alpha)
+        super.init(id: id, index: index, origin: origin, size: size, alpha: alpha)
     }
     
     func update(color: Color) {

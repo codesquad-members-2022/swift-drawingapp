@@ -9,7 +9,11 @@ import Foundation
 import UIKit
 
 protocol HierarchyDelegate {
-    func selectedCell(model: DrawingModel)
+    func selectedCell(index: IndexPath)
+    func move(to: Plane.MoveTo, index: IndexPath)
+    func injectCount() -> Int
+    func injectModel(to: IndexPath) -> DrawingModel?
+    func injectSelectIndex() -> Int?
 }
 
 class HierarchyView: UIView {
@@ -42,7 +46,6 @@ class HierarchyView: UIView {
     }()
     
     var delegate: HierarchyDelegate?
-    private var drawingModels = [DrawingModel]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -82,50 +85,60 @@ class HierarchyView: UIView {
         layerTableView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
     }
     
-    func append(drawingModel: DrawingModel) {
-        drawingModels.append(drawingModel)
-        layerTableView.reloadData()
+    func updateView() {
+        self.layerTableView.reloadData()
+        if let selectModel = self.delegate?.injectSelectIndex() {
+            self.layerTableView.selectRow(at: IndexPath(row: selectModel, section: 0), animated: false, scrollPosition: .none)
+        }
     }
     
-    func selectModel(_ model: DrawingModel) {
-        
+    func selectIndex(_ index: Int) {
+        layerTableView.selectRow(at: IndexPath(row: index, section: 0), animated: false, scrollPosition: .none)
     }
     
-    func deSelecteModel(_ model: DrawingModel) {
-        
-    }
-    
-    private func cellTouchEvent(model: DrawingModel) {
-        delegate?.selectedCell(model: model)
+    func deSelecteIndex(_ index: Int) {
+        layerTableView.deselectRow(at: IndexPath(row: index, section: 0), animated: false)
     }
 }
 
 extension HierarchyView: UITableViewDelegate {
-    //높이를 얼만큼 할꺼야?
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         50
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.delegate?.selectedCell(model: self.drawingModels[indexPath.row])
     }
 }
 
 extension HierarchyView: UITableViewDataSource {
-    
-    //몇개를 만들꺼야?
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        drawingModels.count
+        guard let count = self.delegate?.injectCount() else {
+            return 0
+        }
+        return count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "HieararchyTableViewCell") as? HieararchyTableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "HieararchyTableViewCell") as? HieararchyTableViewCell,
+              let model = self.delegate?.injectModel(to: indexPath) else {
             return UITableViewCell()
         }
-        cell.setView(model: self.drawingModels[indexPath.row])
-        
+        cell.setView(model: model)
+        cell.delegate = self
         return cell
     }
 }
 
+extension HierarchyView: HieararchyCellDelegate {
+    func selectCell(_ cell: HieararchyTableViewCell) {
+        guard let indexPath = self.layerTableView.indexPath(for: cell) else {
+            return
+        }
+        self.delegate?.selectedCell(index: indexPath)
+    }
+    
+    func move(to: Plane.MoveTo, cell: HieararchyTableViewCell) {
+        guard let indexPath = self.layerTableView.indexPath(for: cell) else {
+            return
+        }
+        self.delegate?.move(to: to, index: indexPath)
+    }
+}

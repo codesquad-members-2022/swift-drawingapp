@@ -23,6 +23,7 @@ protocol Textable {
 
 class DrawingModel: CustomStringConvertible, Equatable, Hashable {
     let id: String
+    let index: Int
     public private(set) var size: Size
     public private(set) var origin: Point
     public private(set) var alpha: Alpha
@@ -39,8 +40,9 @@ class DrawingModel: CustomStringConvertible, Equatable, Hashable {
         lhs.id == rhs.id
     }
         
-    init(id: String, origin: Point, size: Size, alpha: Alpha) {
+    init(id: String, index: Int, origin: Point, size: Size, alpha: Alpha) {
         self.id = id
+        self.index = index
         self.origin = origin
         self.size = size
         self.alpha = alpha
