@@ -42,9 +42,9 @@ class Plane:CustomStringConvertible{
         NotificationCenter.default.post(name: NotificationName.rectangleAdded, object: self, userInfo: [UserInfoKey.rectangleAdded: rectangle])
     }
     
-    func updateRectangleColor(newColor: Rectangle.Color){
+    func updateRectangleColor(newColor: ColorRectangle.Color){
         guard let selectedRectangleIndex = self.selectedRectangleIndex else { return }
-        let selectedRectangle = self.rectangles[selectedRectangleIndex]
+        guard let selectedRectangle = self.rectangles[selectedRectangleIndex] as? ColorRectangle else { return }
         selectedRectangle.backgroundColor = newColor
         NotificationCenter.default.post(name: NotificationName.rectangleColorUpdated, object: self, userInfo: [UserInfoKey.rectangleColorUpdated:newColor])
     }
