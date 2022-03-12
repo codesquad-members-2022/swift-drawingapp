@@ -18,17 +18,26 @@ class ViewController: UIViewController {
     
     let topMenuBarView: TopMenuBarView = {
         let topMenuBarView = TopMenuBarView()
-        topMenuBarView.backgroundColor = UIColor(red: 200.0 / 255.0, green: 200.0 / 255.0, blue: 1, alpha: 1)
-        topMenuBarView.layer.cornerRadius = 5
         topMenuBarView.translatesAutoresizingMaskIntoConstraints = false
+        topMenuBarView.backgroundColor = UIColor(red: 245 / 255.0, green: 1, blue: 250 / 255.0, alpha: 1)
+        topMenuBarView.layer.cornerRadius = 5
+        topMenuBarView.layer.borderColor = UIColor.black.cgColor
+        topMenuBarView.layer.borderWidth = 1
         return topMenuBarView
     }()
     
     let inspectorView: InspectorView = {
         let inspectorView = InspectorView()
-        inspectorView.backgroundColor = UIColor(red: 200.0 / 255.0, green: 200.0 / 255.0, blue: 1, alpha: 1)
+        inspectorView.backgroundColor = UIColor(red: 245 / 255.0, green: 1, blue: 250 / 255.0, alpha: 1)
         inspectorView.translatesAutoresizingMaskIntoConstraints = false
         return inspectorView
+    }()
+    
+    let hierarchyView: HierarchyView = {
+        let hierarchyView = HierarchyView()
+        hierarchyView.translatesAutoresizingMaskIntoConstraints = false
+        hierarchyView.backgroundColor = UIColor(red: 245 / 255.0, green: 1, blue: 250 / 255.0, alpha: 1)
+        return hierarchyView
     }()
     
     let plane = Plane()
@@ -42,6 +51,7 @@ class ViewController: UIViewController {
         
         inspectorView.delegate = self
         topMenuBarView.delegate = self
+        hierarchyView.delegate = self
         plane.delegate = self
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGusture))
@@ -60,6 +70,7 @@ class ViewController: UIViewController {
                 let drawView = DrawingViewFactory.make(model: model)
                 self.drawingBoard.addSubview(drawView)
                 self.drawingViews[model] = drawView
+                self.hierarchyView.append(drawingModel: model)
             }
             self.bindObserver(targetModel: model)
         }
@@ -107,7 +118,6 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(forName: Plane.Event.didEndedDrag, object: nil, queue: nil) { notification in
             self.dummyView?.removeFromSuperview()
             self.dummyView = nil
-            
         }
     }
     
@@ -161,10 +171,11 @@ class ViewController: UIViewController {
         self.view.addSubview(drawingBoard)
         self.view.addSubview(inspectorView)
         self.view.addSubview(topMenuBarView)
+        self.view.addSubview(hierarchyView)
         
         drawingBoard.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         drawingBoard.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
-        drawingBoard.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        drawingBoard.leftAnchor.constraint(equalTo: self.hierarchyView.rightAnchor).isActive = true
         drawingBoard.rightAnchor.constraint(equalTo: inspectorView.leftAnchor).isActive = true
         
         inspectorView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
@@ -175,6 +186,11 @@ class ViewController: UIViewController {
         topMenuBarView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
         topMenuBarView.centerXAnchor.constraint(equalTo: self.drawingBoard.centerXAnchor).isActive = true
         topMenuBarView.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        
+        hierarchyView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+        hierarchyView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
+        hierarchyView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
+        hierarchyView.widthAnchor.constraint(equalToConstant: 200).isActive = true
     }
 }
 
@@ -198,6 +214,12 @@ extension ViewController: UIGestureRecognizerDelegate {
         default:
             break
         }
+    }
+}
+
+extension ViewController: HierarchyDelegate {
+    func selectedCell(model: DrawingModel) {
+        self.plane.selectedModel(model)
     }
 }
 

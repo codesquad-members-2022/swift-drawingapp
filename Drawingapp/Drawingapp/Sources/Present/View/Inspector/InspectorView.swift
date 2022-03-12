@@ -23,6 +23,13 @@ class InspectorView: UIView {
         static let sizeIncreaseValue = 5.0
     }
     
+    let leftBar: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .black
+        return view
+    }()
+    
     private let itemStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -124,6 +131,7 @@ class InspectorView: UIView {
     }
     
     private func layout() {
+        self.addSubview(leftBar)
         self.addSubview(itemStackView)
         items.forEach {
             itemStackView.addArrangedSubview($0)
@@ -133,6 +141,11 @@ class InspectorView: UIView {
         itemStackView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
         itemStackView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10).isActive = true
         itemStackView.bottomAnchor.constraint(equalTo: items[items.count - 1].bottomAnchor).isActive = true
+        
+        leftBar.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        leftBar.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        leftBar.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        leftBar.widthAnchor.constraint(equalToConstant: 1).isActive = true
     }
     
     func setHidden(_ hidden: Bool) {
