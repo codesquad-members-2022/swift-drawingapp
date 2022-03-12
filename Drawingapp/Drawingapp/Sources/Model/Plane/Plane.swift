@@ -18,7 +18,8 @@ protocol PlaneAction {
     func beganDrag(point: Point)
     func changedDrag(point: Point)
     func endedDrag(point: Point)
-    func selectedModel(_ model: DrawingModel)
+    func selecteModel(_ model: DrawingModel)
+    func deselecteModel(_ model: DrawingModel)
 }
 
 protocol PlaneDelegate {
@@ -106,18 +107,18 @@ extension Plane: MakeModelAction {
 }
 
 extension Plane: PlaneAction {
-    private func sendDidDisSelectModel(_ model: DrawingModel?) {
+    private func sendDidDeselectModel(_ model: DrawingModel?) {
         guard let model = model else {
             return
         }
-        NotificationCenter.default.post(name: Plane.Event.didDisSelectedDrawingModel, object: self, userInfo: [ParamKey.drawingModel:model])
+        NotificationCenter.default.post(name: Plane.Event.didDeselecteDrawingModel, object: self, userInfo: [ParamKey.drawingModel:model])
     }
     
     private func sendDidSelectModel(_ model: DrawingModel) {
-        NotificationCenter.default.post(name: Plane.Event.didSelectedDrawingModel, object: self, userInfo: [ParamKey.drawingModel:model])
+        NotificationCenter.default.post(name: Plane.Event.didSelecteDrawingModel, object: self, userInfo: [ParamKey.drawingModel:model])
     }
     
-    func selectedModel(_ model: DrawingModel) {
+    func selecteModel(_ model: DrawingModel) {
         guard let prevSelectModel = self.selectedModel else {
             sendDidSelectModel(model)
             self.selectedModel = model
@@ -125,15 +126,19 @@ extension Plane: PlaneAction {
         }
         
         if model != prevSelectModel {
-            sendDidDisSelectModel(prevSelectModel)
+            sendDidDeselectModel(prevSelectModel)
             sendDidSelectModel(model)
             self.selectedModel = model
         }
     }
     
+    func deselecteModel(_ model: DrawingModel) {
+        
+    }
+    
     func touchPoint(_ point: Point) {
         guard let selectModel = self.selected(point: point) else {
-            sendDidDisSelectModel(self.selectedModel)
+            sendDidDeselectModel(self.selectedModel)
             self.selectedModel = nil
             return
         }
@@ -145,7 +150,7 @@ extension Plane: PlaneAction {
         }
         
         if selectModel != prevSelectModel {
-            sendDidDisSelectModel(prevSelectModel)
+            sendDidDeselectModel(prevSelectModel)
             sendDidSelectModel(selectModel)
             self.selectedModel = selectModel
         }
@@ -222,8 +227,8 @@ extension Plane: PlaneAction {
 
 extension Plane {
     enum Event {
-        static let didDisSelectedDrawingModel = NSNotification.Name("didDisSelectedDrawingModel")
-        static let didSelectedDrawingModel = NSNotification.Name("didSelectedDrawingModel")
+        static let didDeselecteDrawingModel = NSNotification.Name("didDeselecteDrawingModel")
+        static let didSelecteDrawingModel = NSNotification.Name("didSelecteDrawingModel")
         static let didMakeDrawingModel = NSNotification.Name("didMakeDrawingModel")
         static let didBeganDrag = NSNotification.Name("didBeganDrag")
         static let didChangedDrag = NSNotification.Name("didChangedDrag")

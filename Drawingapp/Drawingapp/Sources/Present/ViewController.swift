@@ -75,7 +75,7 @@ class ViewController: UIViewController {
             self.bindObserver(targetModel: model)
         }
         
-        NotificationCenter.default.addObserver(forName: Plane.Event.didSelectedDrawingModel, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: Plane.Event.didSelecteDrawingModel, object: nil, queue: nil) { notification in
             guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
                 return
             }
@@ -84,7 +84,7 @@ class ViewController: UIViewController {
             self.drawingViews[model]?.selected(is: true)
         }
         
-        NotificationCenter.default.addObserver(forName: Plane.Event.didDisSelectedDrawingModel, object: nil, queue: nil) { notification in
+        NotificationCenter.default.addObserver(forName: Plane.Event.didDeselecteDrawingModel, object: nil, queue: nil) { notification in
             guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
                 return
             }
@@ -219,7 +219,7 @@ extension ViewController: UIGestureRecognizerDelegate {
 
 extension ViewController: HierarchyDelegate {
     func selectedCell(model: DrawingModel) {
-        self.plane.selectedModel(model)
+        self.plane.selecteModel(model)
     }
 }
 
