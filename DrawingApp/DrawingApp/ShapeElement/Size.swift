@@ -32,3 +32,7 @@ struct Size:CustomStringConvertible{
     }
     
 }
+
+extension Size:Equatable {
+    
+}

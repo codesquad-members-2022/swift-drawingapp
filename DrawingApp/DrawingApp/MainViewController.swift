@@ -98,7 +98,8 @@ extension MainViewController:UIGestureRecognizerDelegate {
         //Plane에게 touch된 View의 origin좌표를 넘겨준다.
         let x:Double = touchedView.frame.origin.x
         let y:Double = touchedView.frame.origin.y
-        plane.findSeletedRectangle(x: x, y: y)
+        let size:Size = Size(width: touchedView.frame.size.width, height: touchedView.frame.size.height)
+        plane.findSeletedRectangle(x: x, y: y, size: size)
         
         return true
     }
