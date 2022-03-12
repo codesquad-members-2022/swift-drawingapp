@@ -28,10 +28,16 @@ class StylerView: UIView{
         self.rectangleColorValueField.setTitle("", for: .normal)
     }
     
-    func updateRectangleInfo(r: Double, g: Double, b: Double, opacity: Float, hexString: String){
+    func updateColorRectangleInfo(r: Double, g: Double, b: Double, opacity: Float, hexString: String){
         self.rectangleColorValueField.setTitle(hexString, for: .normal)
         self.rectangleColorValueField.titleLabel?.textAlignment = .center
         self.rectangleColorValueField.backgroundColor = UIColor(red: r, green: g, blue: b, alpha: 1)
+        self.rectangleAlphaSlider.value = opacity
+    }
+    
+    func updateImageRectangleInfo(opacity: Float){
+        self.rectangleColorValueField.setTitle("", for: .normal)
+        self.rectangleColorValueField.backgroundColor = .darkGray
         self.rectangleAlphaSlider.value = opacity
     }
     
