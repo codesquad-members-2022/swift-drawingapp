@@ -1,7 +1,8 @@
 import UIKit
 import OSLog
 
-typealias RectangleView = UIView
+typealias ColorRectangleView = UIView
+typealias ImageRectangleView = UIImageView
 class ViewController: UIViewController{
     
     private var logger: Logger = Logger()
@@ -64,8 +65,20 @@ class ViewController: UIViewController{
     @objc func addingRectangleCompleted(_ notification: Notification) {
         guard let rectangle = notification.userInfo?[Plane.UserInfoKey.rectangleAdded] as? Rectangle else { return }
         guard let canvasView = self.canvasView else { return }
-        let rectangleView = RectangleViewFactory.createRectangleView(rectangle: rectangle)
-        canvasView.insertSubview(rectangleView, belowSubview: canvasView.generatingButton)
+        
+        if let rectangleView = createRectangleView(rectangle: rectangle){
+            canvasView.insertSubview(rectangleView, belowSubview: canvasView.generatingButton)
+        }
+        
+    }
+    
+    private func createRectangleView(rectangle: Rectangle)-> UIView?{
+        if rectangle is ColorRectangle{
+            return RectangleViewFactory.createColorRectangleView(rectangle: rectangle as! ColorRectangle)
+        }else if rectangle is ImageRectangle{
+            return RectangleViewFactory.createImageRectangleView(rectangle: rectangle as! ImageRectangle)
+        }
+        return nil
     }
     
     @objc func rectangleFoundFromPlane(_ notification: Notification){
@@ -75,17 +88,31 @@ class ViewController: UIViewController{
     }
     
     private func updateViewWithSelectedRectangleModel(rectangle: Rectangle, selectedRectangleIndex: Int){
-        guard let stylerView = self.stylerView else { return }
         guard let canvasView = self.canvasView else { return }
         let rectangleView = canvasView.subviews[selectedRectangleIndex]
         
+        if rectangle is ColorRectangle{
+            self.updateColorRectangleInfo(rectangle: rectangle)
+        }else{
+            self.updateImageRectangleInfo(rectangle: rectangle)
+        }
+        canvasView.updateSelectedRectangleView(subView: rectangleView)
+    }
+    
+    private func updateColorRectangleInfo(rectangle: Rectangle){
+        guard let stylerView = self.stylerView else { return }
+        let rectangle = rectangle as! ColorRectangle
         let r = rectangle.backgroundColor.r
         let g = rectangle.backgroundColor.g
         let b = rectangle.backgroundColor.b
         let opacity = rectangle.alpha.opacity.rawValue
         let hexString = "#\(String(Int(r*255), radix: 16))\(String(Int(g*255), radix: 16))\(String(Int(b*255), radix: 16))"
-        stylerView.updateRectangleInfo(r: r, g: g, b: b, opacity: opacity, hexString: hexString)
-        canvasView.updateSelectedRectangleView(subView: rectangleView)
+        stylerView.updateColorRectangleInfo(r: r, g: g, b: b, opacity: opacity, hexString: hexString)
+    }
+    
+    private func updateImageRectangleInfo(rectangle: Rectangle){
+        guard let stylerView = self.stylerView else { return }
+        stylerView.updateImageRectangleInfo(opacity: rectangle.alpha.opacity.rawValue)
     }
     
     @objc func rectangleNotFoundFromPlane(){
@@ -96,7 +123,7 @@ class ViewController: UIViewController{
     }
     
     @objc func updateSelectedRecntalgeViewColor(_ notification: Notification){
-        guard let newColor = notification.userInfo?[Plane.UserInfoKey.rectangleColorUpdated] as? Rectangle.Color else { return }
+        guard let newColor = notification.userInfo?[Plane.UserInfoKey.rectangleColorUpdated] as? ColorRectangle.Color else { return }
         guard let stylerView = self.stylerView else { return }
         guard let canvasView = self.canvasView else { return }
         
@@ -120,20 +147,49 @@ extension ViewController: UIGestureRecognizerDelegate{
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         let touchedPoint = touch.location(in: self.canvasView)
         self.plane.findMatchingRectangleModel(x: touchedPoint.x, y: touchedPoint.y)
+        
         return true
     }
 }
 
-extension ViewController: CanvasViewDelegate{
+extension ViewController: CanvasViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     func creatingRectangleRequested(){
         guard let canvasView = self.canvasView else { return }
-        let rectangle = RectangleFactory.createRenctangle(maxX: canvasView.bounds.maxX - 50,
+        let rectangle = RectangleFactory.createColorRenctangle(maxX: canvasView.bounds.maxX - 50,
                                                           maxY: canvasView.bounds.maxY - 250,
                                                           minWidth: 150,
                                                           minHeight: 150,
                                                           maxWidth: 180,
                                                           maxHeight: 180)
+        plane.addRectangle(rectangle)
+    }
+    
+    func pickingImageRequested(){
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        self.present(imagePicker,animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage
+        picker.dismiss(animated: true, completion: nil)
+        if let image = pickedImage{
+            createImageRectangle(pickedImage: image)
+        }
+    }
+    
+    private func createImageRectangle(pickedImage: UIImage){
+        guard let canvasView = self.canvasView else { return }
+        guard let imageData = pickedImage.pngData() else { return }
+        let rectangle = RectangleFactory.createImageRectangle(maxX: canvasView.bounds.maxX - 50,
+                                                          maxY: canvasView.bounds.maxY - 250,
+                                                          minWidth: 150,
+                                                          minHeight: 150,
+                                                          maxWidth: 180,
+                                                          maxHeight: 180,
+                                                          image: imageData)
         plane.addRectangle(rectangle)
     }
 

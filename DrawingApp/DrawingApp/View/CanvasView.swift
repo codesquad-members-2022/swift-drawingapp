@@ -14,6 +14,7 @@ class CanvasView: UIView{
         setGeneratingButton()
         setPhotoButton()
         setGeneratingButtonAction()
+        setPhotoButtonAction()
     }
         
     required init?(coder: NSCoder) {
@@ -85,9 +86,22 @@ class CanvasView: UIView{
         self.generatingButton.addAction(buttonAction, for: .touchDown)
     }
     
+    private func setPhotoButtonAction(){
+        let buttonAction:UIAction = UIAction(title:""){_ in
+            self.sendPickingImageRequest()
+        }
+        self.photoButton.addAction(buttonAction, for: .touchDown)
+    }
+    
     private func sendCreatingRectangleRequest(){
         if let delegate = self.delegate{
             delegate.creatingRectangleRequested()
+        }
+    }
+    
+    private func sendPickingImageRequest(){
+        if let delegate = self.delegate{
+            delegate.pickingImageRequested()
         }
     }
 
