@@ -25,9 +25,7 @@ struct Plane{
     }
     subscript(index: Int) -> Rectangle?{
         get {
-            guard numberOfRect > index else {
-                return nil
-            }
+            guard numberOfRect > index , -1 > index else {return nil}
             return rectangles[index]
         }
     }

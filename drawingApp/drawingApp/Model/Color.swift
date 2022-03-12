@@ -31,4 +31,8 @@ struct Color : CustomStringConvertible {
         
     }
     
+    var tohexString : String {
+        let rgb:Int = (Int)(self.red)<<16 | (Int)(self.green)<<8 | (Int)(self.blue)<<0
+        return String(format:"#%06x", rgb)
+    }
 }

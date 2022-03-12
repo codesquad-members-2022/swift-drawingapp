@@ -47,7 +47,6 @@ class ViewController: UIViewController {
         let tapGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapTriggered))
         tapGuestureRecognizer.numberOfTapsRequired = 1
         self.view.addGestureRecognizer(tapGuestureRecognizer)
-
     }
     
     func setupDelegates(){
@@ -62,13 +61,16 @@ class ViewController: UIViewController {
         rectangleGenerationButton.setTitle("사각형", for: .normal)
         panelView.frame = CGRect(x: screenWdith - panelWidth, y: view.safeAreaInsets.top, width: panelWidth, height: screenHeight)
     }
-    
+   
     //MARK: 사용자가 사각형 버튼을 누르면 plane 구역안에 뷰를 생성 시켜줄 팩토리 를 이용하여 모델생성 및 plane 에 추가.
     @objc func createRectangleModel() {
         do {
             let rectModel = try ShapeFactory(planeWidth: screenWdith - panelWidth, planeHeight: screenHeight - buttonHeight, shapeSize: Size(width: 130, height: 120)).makeRect()
             plane.append(rectModel)
-        }catch{
+        }catch Errors.notValidScreenSize{
+            os_log(.error , "\(Errors.notValidScreenSize)")
+        }catch {
+            os_log(.error , "Unknown Error Occurred!")
         }
     }
     
