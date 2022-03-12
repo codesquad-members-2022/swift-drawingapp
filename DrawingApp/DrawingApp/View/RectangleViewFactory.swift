@@ -3,8 +3,18 @@ import UIKit
 
 class RectangleViewFactory{
     
-    static func createRectangleView(rectangle: Rectangle)-> RectangleView{
-        let rectangleView = RectangleView(frame: CGRect(x: rectangle.point.x,
+    static func createImageRectangleView(rectangle: ImageRectangle)-> ImageRectangleView{
+        let rectangleView = ImageRectangleView(frame: CGRect(x: rectangle.point.x,
+                                                              y: rectangle.point.y,
+                                                              width: rectangle.size.width,
+                                                              height: rectangle.size.height))
+                                        
+        rectangleView.image = UIImage(data: rectangle.backgroundImage)
+        return rectangleView
+    }
+    
+    static func createColorRectangleView(rectangle: ColorRectangle)-> ColorRectangleView{
+        let rectangleView = ColorRectangleView(frame: CGRect(x: rectangle.point.x,
                                                  y: rectangle.point.y,
                                                  width: rectangle.size.width,
                                                  height: rectangle.size.height))
