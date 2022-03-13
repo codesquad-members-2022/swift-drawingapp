@@ -18,7 +18,7 @@ class RectangleView: UIView {
     }
     
     
-    func updateColor(with model: Rectangle) {
+    func updateColor(with model: Model) {
         self.backgroundColor = UIColor(red: model.color.red.scaleRGB, green: model.color.green.scaleRGB, blue: model.color.blue.scaleRGB, alpha: model.alpha.value)
     }
     
