@@ -10,6 +10,7 @@
 		D031063727D5A84300FCAEA7 /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D031063627D5A84300FCAEA7 /* Identifier.swift */; };
 		D0662AB727DAF18700F2B2CD /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0662AB627DAF18700F2B2CD /* CanvasView.swift */; };
 		D0662AB927DAF3C000F2B2CD /* TotalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0662AB827DAF3C000F2B2CD /* TotalView.swift */; };
+		D0662ABD27DB1D2900F2B2CD /* TotalViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0662ABC27DB1D2900F2B2CD /* TotalViewDelegate.swift */; };
 		D06D5D6F27D6E8060031D3BF /* DrawingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D5D6E27D6E8060031D3BF /* DrawingAppTests.swift */; };
 		D06D5D7627D6ED6A0031D3BF /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D5D7527D6ED6A0031D3BF /* Plane.swift */; };
 		D0872B8027D1A41200085C86 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0872B7F27D1A41200085C86 /* Rectangle.swift */; };
@@ -45,6 +46,7 @@
 		D031063627D5A84300FCAEA7 /* Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
 		D0662AB627DAF18700F2B2CD /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		D0662AB827DAF3C000F2B2CD /* TotalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalView.swift; sourceTree = "<group>"; };
+		D0662ABC27DB1D2900F2B2CD /* TotalViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalViewDelegate.swift; sourceTree = "<group>"; };
 		D06D5D6C27D6E8060031D3BF /* DrawingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D06D5D6E27D6E8060031D3BF /* DrawingAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingAppTests.swift; sourceTree = "<group>"; };
 		D06D5D7527D6ED6A0031D3BF /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
@@ -129,6 +131,7 @@
 				D0872B8B27D1F15100085C86 /* RectangleError.swift */,
 				D0E4EA8A27D7C17600906F76 /* UIColor+Extension.swift */,
 				D0FEF18E27D9BCA600A90C4B /* SideInspectorViewDelegate.swift */,
+				D0662ABC27DB1D2900F2B2CD /* TotalViewDelegate.swift */,
 			);
 			path = DrawingApp;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 				D06D5D7627D6ED6A0031D3BF /* Plane.swift in Sources */,
 				D031063727D5A84300FCAEA7 /* Identifier.swift in Sources */,
 				D0662AB727DAF18700F2B2CD /* CanvasView.swift in Sources */,
+				D0662ABD27DB1D2900F2B2CD /* TotalViewDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
