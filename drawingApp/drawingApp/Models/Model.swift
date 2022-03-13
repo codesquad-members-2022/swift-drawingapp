@@ -23,27 +23,40 @@
 import Foundation
 import OSLog
 
+protocol Drawable {
+    var id : String {get}
+    var size : Size {get}
+    var point : Point {get}
+    var color : Color {get}
+    var alpha : Alpha {get}
+    var isSelected : Bool {get}
+    func updateColor (_ color: Color)
+    func updateAlpha (_ alpha: Alpha)
+    func toggleSelected()
+    func selectedStatus() -> Bool
+}
+
+
+
 //뷰에 나타날 사각형의 데이터.
-class Rectangle {
-     
-    
-    
+class Model : Drawable  {
+        
     //사각형에 대한 모든 속성을 가지고 있다
-    let `id` : String
+    let id : String
     let size : Size
     let point : Point
     var color : Color {
         didSet {
-            os_log(.debug, "사각형 색상 변경감지: \(oldValue) -> \(self.color)")
+            os_log(.debug, "모델 색상 변경감지: \(oldValue) -> \(self.color)")
         }
     }
     var alpha : Alpha {
         didSet {
-            os_log(.debug, "사각형 알파 변경감지: \(oldValue) -> \(self.alpha)")
+            os_log(.debug, "모델 알파 변경감지: \(oldValue) -> \(self.alpha)")
         }
     }
     
-    private var isSelected = false
+    private (set) var isSelected = false
     
     init (id: String, size:Size , point: Point, color: Color, alpha : Alpha) {
         self.id = id
@@ -75,20 +88,20 @@ class Rectangle {
 
 
 //형태 : (fxd-0fz-4b9), X:10,Y:200, W150, H120, R:245, G:0, B:245, Alpha: 9
-extension Rectangle : CustomStringConvertible {
+extension Model : CustomStringConvertible {
     var description: String {
         return "(\(id)), \(point), \(size), \(color), \(alpha)"
     }
 }
 
 //비교가능 하게 만들기
-extension Rectangle : Equatable {
-    static func == (lhs: Rectangle, rhs: Rectangle) -> Bool {
+extension Model : Equatable {
+    static func == (lhs: Model, rhs: Model) -> Bool {
         return lhs.id == rhs.id
     }
 }
 //hash 값 생성
-extension Rectangle : Hashable {
+extension Model : Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }
