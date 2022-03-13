@@ -12,7 +12,7 @@ class ViewController: UIViewController {
     
     private var plane = Plane()
     private var rectangleAndViewMap = [AnyHashable: RectangleViewable]()
-    private var selectedView: RectangleView?
+    private var selectedView: RectangleViewable?
     weak var generateRectangleButton: UIButton!
     weak var drawableAreaView: UIView!
     @IBOutlet weak var statusView: UIView!
@@ -179,7 +179,7 @@ extension ViewController {
         updateStatusViewElement(with: newAlphaValue)
     }
     
-    private func updateSelectedView(_ selectedView: RectangleView) {
+    private func updateSelectedView(_ selectedView: RectangleViewable) {
         self.selectedView?.layer.borderWidth = 0
         
         self.selectedView = selectedView

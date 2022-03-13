@@ -8,6 +8,10 @@
 import UIKit
 
 protocol RectangleViewable {
+    var frame: CGRect {get set}
+    var alpha: CGFloat {get set}
+    var backgroundColor: UIColor? {get set}
+    var layer: CALayer {get}
     func changeBackgroundColor(to newColor: UIColor)
     func changeAlphaValue(to newAlphaValue: CGFloat)
 }
