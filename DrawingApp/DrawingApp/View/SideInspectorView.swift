@@ -12,21 +12,25 @@ class SideInspectorView: UIView {
     var delegate: SideInspectorViewDelegate? // TotalView에 뷰 변경 기능을 위임하기 위한 delegate 속성
 
     // TODO: component 속성 정의
+    let colorButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("#000000", for: .normal)
+        button.setTitleColor(.black, for: .normal)
+        button.backgroundColor = .systemGray5
+        button.layer.cornerRadius = 12
+        button.layer.borderWidth = 3
+        button.layer.borderColor = UIColor.systemGray3.cgColor
+        button.addTarget(self, action: #selector(colorButtonDidTapped(_:)), for: .touchUpInside)
+        return button
+    }()
+    
     let backgroundColorLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "배경색"
         label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
-    }()
-    
-    let backgroundColorValueView: BackgroundColorView = {
-        let view = BackgroundColorView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.layer.cornerRadius = 12
-        view.layer.borderWidth = 3
-        view.layer.borderColor = UIColor.systemGray4.cgColor
-        return view
     }()
     
     let alphaLabel: UILabel = {
@@ -54,6 +58,10 @@ class SideInspectorView: UIView {
         return button
     }()
     
+    @objc func colorButtonDidTapped(_ sender: UIButton) {
+        
+    }
+    
     @objc func createRectangleButtonTapped(_ sender: UIButton) {
         delegate?.sideInspectorViewDidTappedRectangleButton()
     }
@@ -72,8 +80,8 @@ class SideInspectorView: UIView {
     // TODO: set layout
     func setLayout() {
         backgroundColor = .systemGray5
+        addSubview(colorButton)
         addSubview(backgroundColorLabel)
-        addSubview(backgroundColorValueView)
         addSubview(alphaLabel)
         addSubview(alphaSlider)
         addSubview(createRectangleButton)
@@ -83,18 +91,18 @@ class SideInspectorView: UIView {
             backgroundColorLabel.heightAnchor.constraint(equalToConstant: 50),
             backgroundColorLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: 20),
             backgroundColorLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+
+            colorButton.heightAnchor.constraint(equalToConstant: 60),
+            colorButton.topAnchor.constraint(equalTo: self.backgroundColorLabel.bottomAnchor),
+            colorButton.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20),
+            colorButton.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20),
             
-            backgroundColorValueView.topAnchor.constraint(equalTo: self.backgroundColorLabel.bottomAnchor),
-            backgroundColorValueView.leadingAnchor.constraint(equalTo: self.backgroundColorLabel.leadingAnchor),
-            backgroundColorValueView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            backgroundColorValueView.heightAnchor.constraint(equalToConstant: 50),
-            
-            alphaLabel.topAnchor.constraint(equalTo: self.backgroundColorValueView.bottomAnchor, constant: 20),
+            alphaLabel.topAnchor.constraint(equalTo: self.colorButton.bottomAnchor, constant: 20),
             alphaLabel.leadingAnchor.constraint(equalTo: self.backgroundColorLabel.leadingAnchor),
             
             alphaSlider.topAnchor.constraint(equalTo: self.alphaLabel.bottomAnchor, constant: 10),
             alphaSlider.leadingAnchor.constraint(equalTo: self.backgroundColorLabel.leadingAnchor),
-            alphaSlider.trailingAnchor.constraint(equalTo: self.backgroundColorValueView.trailingAnchor),
+            alphaSlider.trailingAnchor.constraint(equalTo: self.colorButton.trailingAnchor),
             
             createRectangleButton.leadingAnchor.constraint(equalTo: self.backgroundColorLabel.leadingAnchor),
             createRectangleButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
