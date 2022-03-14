@@ -24,7 +24,7 @@
     
 ### 결과 화면
 - 정상 작동.gif
-<img src = "https://user-images.githubusercontent.com/44107696/158095607-4e05abaf-1fd9-47b6-b314-0e65b577e7c7.gif" width="710" height="570">
+<img src = "https://user-images.githubusercontent.com/44107696/158097368-6fd0e3ac-a4ea-480f-91d6-4aeded158269.gif" width="710" height="570">
 
 
 ------

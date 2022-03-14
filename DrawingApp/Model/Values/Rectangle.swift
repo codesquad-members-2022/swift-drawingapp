@@ -7,20 +7,12 @@
 
 import Foundation
 
-final class Rectangle: RectValue, Hashable, CustomStringConvertible{
+final class Rectangle: RectValue, CustomStringConvertible{
     private(set) var color: RGBColor
     
     var description: String{
         let description = "[\(id)] : (X: \(point.x), Y:\(point.y)) / (W: \(size.width), H:\(size.height)) / (R: \(color.red), G: \(color.green), B: \(color.blue)) / Alpha: \(alpha)"
         return description
-    }
-    
-    static func == (lhs: Rectangle, rhs: Rectangle) -> Bool {
-        return lhs.id == rhs.id && lhs.size == rhs.size && lhs.point == rhs.point && lhs.color == rhs.color && lhs.alpha == rhs.alpha
-    }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine("\(id):\(madeTime)")
     }
     
     func changeColor(color: RGBColor){

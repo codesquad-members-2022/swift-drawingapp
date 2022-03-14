@@ -1,5 +1,5 @@
 //
-//  Sub.swift
+//  Plane.swift
 //  DrawingApp
 //
 //  Created by juntaek.oh on 2022/03/11.
@@ -21,6 +21,7 @@ final class Plane{
     }
     
     private var values: [RectValue] = []
+    private(set) var selectedValue: RectValue?
     
     subscript(index: Int) -> RectValue?{
         guard values.count > index && index >= 0 else{
@@ -41,6 +42,10 @@ final class Plane{
     
     func count() -> Int{
         return values.count
+    }
+    
+    func getSelectedValue(value: RectValue?){
+        self.selectedValue = value
     }
     
     func findValue(withX: Double, withY: Double){
