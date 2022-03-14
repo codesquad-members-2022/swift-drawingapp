@@ -50,12 +50,23 @@ class Plane {
         layers.count
     }
     
+    func layerCount(of layerType: LayerType) -> Int {
+        switch layerType {
+        case .rectangle:
+            return rectangleCount
+        case .photo:
+            return photoCount
+        case .label:
+            return labelCount
+        }
+    }
+    
     subscript(index: Int) -> Layer? {
         return (0..<layers.count).contains(index) ? layers[index] : nil
     }
     
     func add(layerType: LayerType, data: Data? = nil) {
-        guard let newLayer = LayerFactory.makeRandom(layerType, from: data) else { return }
+        guard let newLayer = LayerFactory.makeRandom(layerType, titleOrder: layerCount(of: layerType)+1, from: data) else { return }
         layers.append(newLayer)
         NotificationCenter.default.post(name: Plane.Event.didAddLayer, object: self, userInfo: [Plane.InfoKey.added: newLayer])
     }

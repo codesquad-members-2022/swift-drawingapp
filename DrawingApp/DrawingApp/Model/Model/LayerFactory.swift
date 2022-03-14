@@ -7,14 +7,8 @@
 
 import Foundation
 
-enum LayerType {
-    case rectangle
-    case photo
-    case label
-}
-
 enum LayerFactory {
-    static func makeRandom(_ layerType: LayerType, from data: Data? = nil) -> Layer? {
+    static func makeRandom(_ layerType: LayerType, titleOrder: Int, from data: Data? = nil) -> Layer? {
         // Common property to initialize Layer
         let ID = ID.random()
         let origin = Point.random()
@@ -24,14 +18,14 @@ enum LayerFactory {
         switch layerType {
         case .rectangle:
             let color = Color.random()
-            return Rectangle(id: ID, origin: origin, size: size, color: color, alpha: alpha)
+            return Rectangle(title: "\(layerType) \(titleOrder)", id: ID, origin: origin, size: size, color: color, alpha: alpha)
         case .photo:
             guard let data = data else { return nil }
-            return Photo(id: ID, origin: origin, size: size, photo: data, alpha: alpha)
+            return Photo(title: "\(layerType) \(titleOrder)", id: ID, origin: origin, size: size, photo: data, alpha: alpha)
         case .label:
             let text = dummyString()
             let fontSize = Float.random(in: 16...32)
-            return Label(id: ID, origin: origin, size: size, text: text, fontSize: fontSize)
+            return Label(title: "\(layerType) \(titleOrder)", id: ID, origin: origin, size: size, text: text, fontSize: fontSize)
         }
     }
     
@@ -40,5 +34,24 @@ enum LayerFactory {
         let dummyArray = lorem.components(separatedBy: " ")
         let randomIndex = Int.random(in: 0..<dummyArray.count-5)
         return dummyArray[randomIndex..<randomIndex+5].joined(separator: " ")
+    }
+}
+
+enum LayerType {
+    case rectangle
+    case photo
+    case label
+}
+
+extension LayerType: CustomStringConvertible {
+    var description: String {
+        switch self {
+        case .rectangle:
+            return "Rect"
+        case .photo:
+            return "Photo"
+        case .label:
+            return "Text"
+        }
     }
 }

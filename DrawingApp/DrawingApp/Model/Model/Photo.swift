@@ -12,19 +12,10 @@ class Photo: Layer {
     private(set) var data: Data
     private(set) var alpha: Alpha
 
-    init(id: ID, origin: Point, size: Size, photo: Data, alpha: Alpha) {
+    init(title: String, id: ID, origin: Point, size: Size, photo: Data, alpha: Alpha) {
         self.data = photo
         self.alpha = alpha
-        super.init(id: id, origin: origin, size: size)
-    }
-    
-    static func random(from data: Data) -> Photo {
-        let photoID = ID.random()
-        let origin = Point.random()
-        let size = Size.standard()
-        let alpha = Alpha.random()
-        
-        return Photo(id: photoID, origin: origin, size: size, photo: data, alpha: alpha)
+        super.init(title: title, id: id, origin: origin, size: size)
     }
 }
 
