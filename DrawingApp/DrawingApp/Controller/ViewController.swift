@@ -157,13 +157,12 @@ extension ViewController: CanvasViewDelegate, UIImagePickerControllerDelegate, U
     
     func creatingRectangleRequested(){
         guard let canvasView = self.canvasView else { return }
-        let rectangle = RectangleFactory.createColorRenctangle(maxX: canvasView.bounds.maxX - 50,
-                                                          maxY: canvasView.bounds.maxY - 250,
-                                                          minWidth: 150,
-                                                          minHeight: 150,
-                                                          maxWidth: 180,
-                                                          maxHeight: 180)
-        plane.addRectangle(rectangle)
+        plane.addColorRectangle(maxX: canvasView.bounds.maxX - 50,
+                                maxY: canvasView.bounds.maxY - 250,
+                                minWidth: 150,
+                                minHeight: 150,
+                                maxWidth: 180,
+                                maxHeight: 180)
     }
     
     func pickingImageRequested(){
@@ -184,14 +183,13 @@ extension ViewController: CanvasViewDelegate, UIImagePickerControllerDelegate, U
     private func createImageRectangle(pickedImage: UIImage){
         guard let canvasView = self.canvasView else { return }
         guard let imageData = pickedImage.pngData() else { return }
-        let rectangle = RectangleFactory.createImageRectangle(maxX: canvasView.bounds.maxX - 50,
-                                                          maxY: canvasView.bounds.maxY - 250,
-                                                          minWidth: 150,
-                                                          minHeight: 150,
-                                                          maxWidth: 180,
-                                                          maxHeight: 180,
-                                                          image: imageData)
-        plane.addRectangle(rectangle)
+        plane.addImageRectangle(maxX: canvasView.bounds.maxX - 50,
+                                maxY: canvasView.bounds.maxY - 250,
+                                minWidth: 150,
+                                minHeight: 150,
+                                maxWidth: 180,
+                                maxHeight: 180,
+                                image: imageData)
     }
 
 }
