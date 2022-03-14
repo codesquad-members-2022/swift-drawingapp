@@ -23,5 +23,11 @@ class PhotoRectangleView: RectangleView {
     
     func setImage(image : UIImage) {
         self.photoImageView.image = image
+        self.addSubview(photoImageView)
+        photoImageView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
+        photoImageView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+        photoImageView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        photoImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        
     }
 }
