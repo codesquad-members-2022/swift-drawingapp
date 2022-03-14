@@ -41,13 +41,13 @@ class RectangleView: UIImageView {
     }
     
     func setBackgroundColor(with alpha: Alpha) {
-        let alphaValue = alpha.convert(using: CGFloat.self) / 10
+        let alphaValue = alpha.convert(using: CGFloat.self)
         let color = self.backgroundColor?.withAlphaComponent(alphaValue)
         self.backgroundColor = color
     }
     
     func setAlpha(alpha: Alpha) {
-        self.alpha = alpha.convert(using: CGFloat.self) / 10
+        self.alpha = alpha.convert(using: CGFloat.self)
     }
     
     func setBorder(width: Int, radius: Int = 0, color: UIColor?) {

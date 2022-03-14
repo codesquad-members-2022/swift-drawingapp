@@ -44,9 +44,9 @@ class ControlPanelView: UIView {
     
     private func configureAlphaSlider() {
         self.alphaSlider.frame.size.width = 200
-        self.alphaSlider.maximumValue = 10
-        self.alphaSlider.minimumValue = 1
-        self.alphaSlider.value = 5
+        self.alphaSlider.maximumValue = 1.0
+        self.alphaSlider.minimumValue = 0.1
+        self.alphaSlider.value = 0.5
         self.alphaSlider.autoresizingMask = [.flexibleWidth, .flexibleHeight, .flexibleTopMargin, .flexibleLeftMargin, .flexibleBottomMargin, .flexibleRightMargin]
         self.alphaSlider.addTarget(self, action: #selector(self.handleOnChangeAlpha), for: .valueChanged)
         

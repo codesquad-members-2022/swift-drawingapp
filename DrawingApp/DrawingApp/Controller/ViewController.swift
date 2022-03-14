@@ -77,8 +77,10 @@ extension ViewController: ControlPanelViewDelegate {
     }
     
     func controlPanelDidMoveAlphaSlider(_ sender: UISlider) {
+        let value = sender.value.toFixed(digits: 1)
+        
         guard let rectangle = self.plane.currentItem else { return }
-        guard let alpha = Alpha(rawValue: Int(sender.value)) else { return }
+        guard let alpha = Alpha(rawValue: value) else { return }
         
         rectangle.setAlpha(alpha)
     }
