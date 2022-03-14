@@ -45,6 +45,7 @@
 		BCE3CBA127CC6D90004F2AFE /* DrawingAppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE3CBA027CC6D90004F2AFE /* DrawingAppUITests.swift */; };
 		BCE3CBA327CC6D90004F2AFE /* DrawingAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE3CBA227CC6D90004F2AFE /* DrawingAppUITestsLaunchTests.swift */; };
 		BCF9B77B27DEEAC8008B4879 /* ViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF9B77A27DEEAC8008B4879 /* ViewModelFactory.swift */; };
+		BCF9B77C27DEF092008B4879 /* ViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF9B77A27DEEAC8008B4879 /* ViewModelFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -409,6 +410,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC1806C627CF51600057679D /* Point.swift in Sources */,
+				BCF9B77C27DEF092008B4879 /* ViewModelFactory.swift in Sources */,
 				BC802D5E27D60092002BD536 /* ViewModel.swift in Sources */,
 				BC1806C727CF51620057679D /* Size.swift in Sources */,
 				BC1806C827CF51650057679D /* Alpha.swift in Sources */,

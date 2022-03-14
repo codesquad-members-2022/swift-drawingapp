@@ -55,10 +55,10 @@ class PanelViewController: UIViewController {
     
     private func observePlane() {
         NotificationCenter.default.addObserver(self, selector: #selector(didSelectViewModel(_:)), name: Plane.Event.didSelectViewModel, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didSetColor(_:)), name: Plane.Event.didSetColor, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didSetAlpha(_:)), name: Plane.Event.didSetAlpha, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didSetSize(_:)), name: Plane.Event.didSetSize, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didSetOrigin(_:)), name: Plane.Event.didSetOrigin, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeColor(_:)), name: Plane.Event.didChangeColor, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeAlpha(_:)), name: Plane.Event.didChangeAlpha, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeSize(_:)), name: Plane.Event.didChangeSize, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeOrigin(_:)), name: Plane.Event.didChangeOrigin, object: nil)
     }
     
     private func observeCanvas() {
@@ -221,7 +221,7 @@ extension PanelViewController {
         NotificationCenter.default.post(name: PanelViewController.Event.didTouchColorButton, object: self)
     }
     
-    @objc func didSetColor(_ notification: Notification) {
+    @objc func didChangeColor(_ notification: Notification) {
         guard let plane = notification.object as? Plane else { return }
         guard let mutated = plane.selected as? ColorMutable else { return }
         displayColor(mutated)
@@ -231,7 +231,7 @@ extension PanelViewController {
         NotificationCenter.default.post(name: PanelViewController.Event.didChangeSlider, object: self, userInfo: [PanelViewController.InfoKey.value: sender.value])
     }
     
-    @objc func didSetAlpha(_ notification: Notification) {
+    @objc func didChangeAlpha(_ notification: Notification) {
         guard let plane = notification.object as? Plane else { return }
         guard let mutated = plane.selected as? AlphaMutable else { return }
         displayAlpha(mutated)
@@ -247,8 +247,8 @@ extension PanelViewController {
         NotificationCenter.default.post(name: PanelViewController.Event.didTouchOriginStepper, object: self, userInfo: [PanelViewController.InfoKey.origin: newOrigin])
     }
     
-    @objc func didSetOrigin(_ notification: Notification) {
-        guard let mutated = notification.userInfo?[Plane.InfoKey.set] as? ViewModel else { return }
+    @objc func didChangeOrigin(_ notification: Notification) {
+        guard let mutated = notification.userInfo?[Plane.InfoKey.changed] as? ViewModel else { return }
         displayOrigin(mutated)
     }
     
@@ -266,8 +266,8 @@ extension PanelViewController {
         NotificationCenter.default.post(name: PanelViewController.Event.didTouchSizeStepper, object: self, userInfo: [PanelViewController.InfoKey.size: newSize])
     }
     
-    @objc func didSetSize(_ notification: Notification) {
-        guard let mutated = notification.userInfo?[Plane.InfoKey.set] as? ViewModel else { return }
+    @objc func didChangeSize(_ notification: Notification) {
+        guard let mutated = notification.userInfo?[Plane.InfoKey.changed] as? ViewModel else { return }
         displaySize(mutated)
     }
     
