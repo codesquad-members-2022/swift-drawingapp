@@ -158,13 +158,14 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidSpecifyRectangle(_:)), name: Plane.NotificationNames.didSpecifyRectangle, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidChangeRectangleBackgroundColor(_:)), name: Plane.NotificationNames.didChangeRectangleBackgroundColor, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidChangeRectangleAlpha(_:)), name: Plane.NotificationNames.didChangeRectangleAlpha, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(planeDidAddPhoto(_:)), name: Plane.NotificationNames.didAddPhoto, object: plane)
     }
 }
 
 extension ViewController {
     
     @objc func planeDidAddRectangle(_ notification: Notification) {
-        guard let addedRectangle = notification.userInfo?[Plane.UserIDKeys.addedRectangle] as? Rectangle else {return}
+        guard let addedRectangle = notification.userInfo?[Plane.UserInfoKeys.addedRectangle] as? Rectangle else {return}
         os_log("\(addedRectangle)")
         
         let newRectangleView = ViewFactory.makeRectangleView(of: addedRectangle)
@@ -172,8 +173,17 @@ extension ViewController {
         rectangleAndViewMap[addedRectangle] = newRectangleView
     }
     
+    @objc func planeDidAddPhoto(_ notification: Notification) {
+        guard let addedPhoto = notification.userInfo?[Plane.UserInfoKeys.addedPhoto] as? Photo else {return}
+        os_log("\(addedPhoto)")
+        
+        let newPhotoView = ViewFactory.makePhotoView(of: addedPhoto)
+        self.drawableAreaView.addSubview(newPhotoView)
+        rectangleAndViewMap[addedPhoto] = newPhotoView
+    }
+    
     @objc func planeDidSpecifyRectangle(_ notification: Notification) {
-        guard let specifiedRectangle = notification.userInfo?[Plane.UserIDKeys.specifiedRectangle] as? Rectangle,
+        guard let specifiedRectangle = notification.userInfo?[Plane.UserInfoKeys.specifiedRectangle] as? Rectangle,
               let matchedView = rectangleAndViewMap[specifiedRectangle] else {
                   initializeViewsInTouchedEmptySpaceCondition()
                   return
@@ -187,7 +197,7 @@ extension ViewController {
     }
     
     @objc func planeDidChangeRectangleBackgroundColor(_ notification: Notification) {
-        guard let backgroundColorChangedRectangle = notification.userInfo?[Plane.UserIDKeys.changedRectangle] as? Rectangle,
+        guard let backgroundColorChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? Rectangle,
               let matchedView = rectangleAndViewMap[backgroundColorChangedRectangle] else {
                   return
               }
@@ -199,7 +209,7 @@ extension ViewController {
     }
     
     @objc func planeDidChangeRectangleAlpha(_ notification: Notification) {
-        guard let alphaChangedRectangle = notification.userInfo?[Plane.UserIDKeys.changedRectangle] as? Rectangle,
+        guard let alphaChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? Rectangle,
               let matchedView = rectangleAndViewMap[alphaChangedRectangle] else {
                   return
               }
@@ -259,6 +269,24 @@ extension ViewController {
     private func updateAlphaSlider(alpha: Float) {
         alphaSlider.isEnabled = true
         alphaSlider.setValue(alpha, animated: true)
+    }
+}
+
+extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        let pointLimit = (Double(self.drawableAreaView.frame.width),
+                          Double(self.drawableAreaView.frame.height))
+        
+        if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            guard let image = image.pngData() else {return}
+            self.plane.addNewPhoto(in: pointLimit, with: image)
+        } else if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            guard let image = image.pngData() else {return}
+            self.plane.addNewPhoto(in: pointLimit, with: image)
+        }
+        
+        picker.dismiss(animated: true, completion: nil)
     }
 }
 
