@@ -53,6 +53,13 @@ struct Plane {
         delegate?.didSelectEmptyView()
     }
     
+    mutating func changeBackgroundColor() {
+        guard let recentlySelectedRectangle = recentlySelectedRectangle else { return }
+        let randomColor = RandomRectangleFactory.generateRandomColor()
+        recentlySelectedRectangle.changeBackgroundColor(by: randomColor)
+        delegate?.didUpdateRecentlySelectedRectangleBackgroundColor(recentlySelectedRectangle)
+    }
+    
     mutating func upAlphaValue() {
         guard let recentlySelectedRectangle = recentlySelectedRectangle else { return }
         recentlySelectedRectangle.upAlphaLevel()

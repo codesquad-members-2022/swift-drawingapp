@@ -26,6 +26,7 @@ class ViewController: UIViewController {
         
         //Add Action
         addRectangleButton.addTarget(self, action: #selector(addRectangleButtonTouched), for: .touchUpInside)
+        sideInspectorView.backgroundColorValueButton.addTarget(self, action: #selector(backgroundColorValueButtonTouched), for: .touchUpInside)
         sideInspectorView.alphaPlusButton.addTarget(self, action: #selector(alphaPlusButtonTouched), for: .touchUpInside)
         sideInspectorView.alphaMinusButton.addTarget(self, action: #selector(alphaMinusButtonTouched), for: .touchUpInside)
         
@@ -93,6 +94,10 @@ extension ViewController {
         plane.searchRectangle(on: coordinate)
     }
     
+    @objc func backgroundColorValueButtonTouched() {
+        plane.changeBackgroundColor()
+    }
+    
     @objc func alphaPlusButtonTouched() {
         plane.upAlphaValue()
     }
@@ -138,9 +143,19 @@ extension ViewController: PlaneDelegate {
     }
     
     func didUpdateRecentlySelectedRectangle(_ rectangle: Rectangle) {
-        sideInspectorView.setBackgroundColorValueButtonTitle(by: rectangle.backGroundColor.getHexaData())
+        sideInspectorView.setBackgroundColorValueButtonTitle(by: rectangle.getColorHexaValue())
         sideInspectorView.setBackgroundColorValueButtonColor(by: rectangle.getUIColor())
         sideInspectorView.setAlphaValueLabelText(by: rectangle.getTransparency())
+    }
+    
+    func didUpdateRecentlySelectedRectangleBackgroundColor(_ rectangle: Rectangle) {
+        guard let selectedRectangleView = rectangleMap[rectangle] else { return }
+        let newColor = rectangle.getUIColor()
+        let newColorHexaValue = rectangle.getColorHexaValue()
+        
+        selectedRectangleView.changeBackgroundColor(by: newColor)
+        sideInspectorView.setBackgroundColorValueButtonColor(by: newColor)
+        sideInspectorView.setBackgroundColorValueButtonTitle(by: newColorHexaValue)
     }
     
     func didUpdateRecentlySelectedRectangleAlpha(_ rectangle: Rectangle) {

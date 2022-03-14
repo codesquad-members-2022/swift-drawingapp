@@ -34,7 +34,7 @@ class RectangleView: UIView {
     }
     
     
-    //MARK: Configure Components
+    //MARK: Functions
     
     private func configureView() {
         translatesAutoresizingMaskIntoConstraints = false
@@ -58,5 +58,9 @@ class RectangleView: UIView {
     
     func changeAlpha(to alphaLevel: CGFloat) {
         alpha = alphaLevel
+    }
+    
+    func changeBackgroundColor(by color: UIColor) {
+        backgroundColor = color
     }
 }

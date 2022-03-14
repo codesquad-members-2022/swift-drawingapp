@@ -68,7 +68,7 @@ class SideInspectorView: UIStackView {
         return label
     }()
     
-    private let backgroundColorValueButton: UIButton = {
+    let backgroundColorValueButton: UIButton = {
         let button = UIButton()
         button.setTitle("#000000", for: .normal)
         button.backgroundColor = .systemGray2
