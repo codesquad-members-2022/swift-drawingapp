@@ -26,9 +26,12 @@ extension Shapable {
         let red = backGroundColor.red / Color.Range.upper
         let green = backGroundColor.green / Color.Range.upper
         let blue = backGroundColor.blue / Color.Range.upper
-        let alpha = alpha.value
         
-        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
+        return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
+    }
+    
+    func getAlpha() -> CGFloat {
+        return CGFloat(alpha.value)
     }
     
     func getFrame() -> CGRect {

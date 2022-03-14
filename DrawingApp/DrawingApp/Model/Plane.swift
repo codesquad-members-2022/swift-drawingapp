@@ -52,4 +52,16 @@ struct Plane {
         
         delegate?.didSelectEmptyView()
     }
+    
+    mutating func upAlphaValue() {
+        guard let recentlySelectedRectangle = recentlySelectedRectangle else { return }
+        recentlySelectedRectangle.upAlphaLevel()
+        delegate?.didUpdateRecentlySelectedRectangleAlpha(recentlySelectedRectangle)
+    }
+    
+    mutating func downAlphaValue() {
+        guard let recentlySelectedRectangle = recentlySelectedRectangle else { return }
+        recentlySelectedRectangle.downAlphaLevel()
+        delegate?.didUpdateRecentlySelectedRectangleAlpha(recentlySelectedRectangle)
+    }
 }
