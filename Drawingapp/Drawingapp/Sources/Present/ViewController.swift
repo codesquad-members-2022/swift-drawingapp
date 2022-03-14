@@ -49,9 +49,9 @@ class ViewController: UIViewController {
     }
     
     private func bind() {
+        drawingBoardBind()
         topMenuBind()
         inspectorBind()
-        gustureBind()
         hierarchyBind()
         plane.delegate = self
     }
@@ -115,14 +115,11 @@ extension ViewController {
     }
 }
 
-//MARK: Gusture
-extension ViewController {
-    private func gustureBind() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGusture))
-        self.drawingBoard.addGestureRecognizer(tapGesture)
-        
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGusture))
-        self.drawingBoard.addGestureRecognizer(panGesture)
+//MARK: DrawingBoard
+extension ViewController: DrawingBoardDelegate {
+    
+    private func drawingBoardBind() {
+        self.drawingBoard.delegate = self
         
         NotificationCenter.default.addObserver(forName: Plane.Event.didBeganDrag, object: nil, queue: nil, using: didBeganDrag)
                 
@@ -131,25 +128,20 @@ extension ViewController {
         NotificationCenter.default.addObserver(forName: Plane.Event.didEndedDrag, object: nil, queue: nil, using: didEndedDrag)
     }
     
-    //MARK: Input
-    @objc private func tapGusture(sender: UITapGestureRecognizer) {
-        let location = sender.location(in: sender.view)
-        self.plane.tapGusturePoint(Point(x: location.x, y: location.y))
+    func tapGusturePoint(_ point: Point) {
+        self.plane.tapGusturePoint(point)
     }
     
-    @objc private func panGusture(sender: UITapGestureRecognizer) {
-        let location = sender.location(in: sender.view)
-        let point = Point(x: location.x, y: location.y)
-        switch sender.state {
-        case .began:
-            self.plane.beganDragPoint(point)
-        case .changed:
-            self.plane.changedDragPoint(point)
-        case .ended:
-            self.plane.endedDragPoint(point)
-        default:
-            break
-        }
+    func beganDragPoint(_ point: Point) {
+        self.plane.beganDragPoint(point)
+    }
+    
+    func changedDragPoint(_ point: Point) {
+        self.plane.changedDragPoint(point)
+    }
+    
+    func endedDragPoint(_ point: Point) {
+        self.plane.endedDragPoint(point)
     }
     
     //MARK: Output

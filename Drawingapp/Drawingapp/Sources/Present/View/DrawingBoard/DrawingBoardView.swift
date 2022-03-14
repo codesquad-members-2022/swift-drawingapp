@@ -8,9 +8,57 @@
 import Foundation
 import UIKit
 
+protocol DrawingBoardDelegate {
+    func tapGusturePoint(_ point: Point)
+    func beganDragPoint(_ point: Point)
+    func changedDragPoint(_ point: Point)
+    func endedDragPoint(_ point: Point)
+}
+
 class DrawingBoardView: UIView {
+    var delegate: DrawingBoardDelegate?
+    
     private var drawingViews: [DrawingModel:DrawingView] = [:]
     private var dummyView: UIView?
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        bind()
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        bind()
+    }
+    
+    private func bind() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGusture))
+        self.addGestureRecognizer(tapGesture)
+        
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGusture))
+        self.addGestureRecognizer(panGesture)
+        
+    }
+    
+    @objc private func tapGusture(sender: UITapGestureRecognizer) {
+        let location = sender.location(in: sender.view)
+        self.delegate?.tapGusturePoint(Point(x: location.x, y: location.y))
+    }
+    
+    @objc private func panGusture(sender: UITapGestureRecognizer) {
+        let location = sender.location(in: sender.view)
+        let point = Point(x: location.x, y: location.y)
+        switch sender.state {
+        case .began:
+            self.delegate?.beganDragPoint(point)
+        case .changed:
+            self.delegate?.changedDragPoint(point)
+        case .ended:
+            self.delegate?.endedDragPoint(point)
+        default:
+            break
+        }
+    }
     
     func didMakeDrawingModel(model: DrawingModel) {
         let drawView = DrawingViewFactory.make(model: model)
