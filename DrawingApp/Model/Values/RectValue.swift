@@ -14,6 +14,10 @@ class RectValue{
     private(set) var point: MyPoint
     private(set) var alpha: Alpha
     
+    func changePoint(point: MyPoint){
+        self.point = point
+    }
+    
     func changeAlpha(alpha: Alpha){
         self.alpha = alpha
     }
