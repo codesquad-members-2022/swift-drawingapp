@@ -16,11 +16,13 @@ class ViewController: UIViewController {
     let addPhotoButton = UIButton()
    
     let plane = Plane()
+    let photoImages = PhotoImages()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         rectanglePropertyChangeBoard.delegate = self
         rectangleViewBoard.delegate = self
+        photoImages.deleagate = self
         initialScreenSetUp()
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidAdd(_:)), name: Plane.NotificationName.addRectangle, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidSearch(_:)), name: Plane.NotificationName.searchRectangle, object: plane)
@@ -128,7 +130,7 @@ extension ViewController {
     }
     
     @objc func planeDidSearch(_ notification: Notification) {
-        guard let index = notification.userInfo?["index"] as? Int else {return}
+        guard let index = notification.userInfo?[Plane.NotificationKeyValue.index] as? Int else {return}
         guard let rectangle = notification.userInfo?[Plane.NotificationKeyValue.rectangle] as? Rectangle else {return}
         self.rectangleViewBoard.setSelectedRectangleView(at: index)
         self.rectanglePropertyChangeBoard.setPropertyBoard(with: rectangle)
@@ -149,4 +151,12 @@ extension ViewController: RectangleViewBoardDelegate {
     func rectangleViewBoard(didUpdated color: Color) {
         rectanglePropertyChangeBoard.updateColorButton(color: color)
     }
+}
+
+extension ViewController: PhotoImagesDelegate {
+    func photoImages(didAdd image: UIImage) {
+        
+    }
+    
+    
 }
