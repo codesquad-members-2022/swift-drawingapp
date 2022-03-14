@@ -187,18 +187,13 @@ extension MainViewController{
         }
     }
     
-    private func touchedViewFrame<T: RectValue>(selected: T){
-        if let rectangle = selected as? Rectangle{
-            let view = customUIViews[rectangle]
-            view?.layer.borderColor = UIColor.cyan.cgColor
-            view?.layer.borderWidth = 3
-            
-        } else if let image = selected as? Image{
-            let view = customUIViews[image]
-            view?.layer.borderColor = UIColor.cyan.cgColor
-            view?.layer.borderWidth = 3
+    private func touchedViewFrame(selected: RectValue){
+        guard let view = customUIViews[selected] else{
+            return
         }
         
+        view.layer.borderColor = UIColor.cyan.cgColor
+        view.layer.borderWidth = 3
     }
     
     private func noneDisplaySliderValue(){
@@ -208,15 +203,12 @@ extension MainViewController{
     }
     
     private func noneTouchedViewFrame(){
-        if let rectangle = plane.selectedValue as? Rectangle{
-            let view = customUIViews[rectangle]
-            view?.layer.borderColor = .none
-            view?.layer.borderWidth = 0
-        } else if let image = plane.selectedValue as? Image{
-            let view = customUIViews[image]
-            view?.layer.borderColor = .none
-            view?.layer.borderWidth = 0
+        guard let value = plane.selectedValue else{
+            return
         }
+        let view = customUIViews[value]
+        view?.layer.borderColor = .none
+        view?.layer.borderWidth = 0
         
         plane.getSelectedValue(value: nil)
     }
@@ -245,52 +237,35 @@ extension MainViewController {
     }
     
     private func makeExtraView(){
-        if let rectangle = plane.selectedValue as? Rectangle{
-            panGestureExtraView = RectangleView(frame: CGRect(x: rectangle.point.x, y: rectangle.point.y, width: rectangle.size.width, height: rectangle.size.height))
-            
-            guard let extraView = panGestureExtraView as? RectangleView else{
-                return
-            }
-            
-            extraView.backgroundColor = UIColor(red: rectangle.color.redValue(), green: rectangle.color.greenValue(), blue: rectangle.color.blueValue(), alpha: 0.5)
-
+        guard let value = plane.selectedValue, let view = customUIViews[value] else{
+            return
+        }
+        
+        panGestureExtraView = viewFactory.copyExtraView(view: view)
+        
+        if let extraView = panGestureExtraView{
             self.view.addSubview(extraView)
-        } else if let image = plane.selectedValue as? Image{
-            panGestureExtraView = ImageView(frame: CGRect(x: image.point.x, y: image.point.y, width: image.size.width, height: image.size.height))
-            
-            guard let extraImage = panGestureExtraView as? ImageView else{
-                return
-            }
-            
-            extraImage.image = image.image.image
-            extraImage.alpha = 0.5
-            
-            self.view.addSubview(extraImage)
         }
     }
     
     private func moveExtraView(moveDistance: CGPoint){
-        if let extraView = panGestureExtraView as? RectangleView{
-            extraView.movingCenterPosition(x: moveDistance.x, y: moveDistance.y)
-        } else if let extraImage = panGestureExtraView as? ImageView{
-            extraImage.movingCenterPosition(x: moveDistance.x, y: moveDistance.y)
+        guard let extraView = panGestureExtraView else{
+            return
         }
+        
+        extraView.movingExtraViewCenterPosition(view: extraView, x: moveDistance.x, y: moveDistance.y)
     }
     
     private func changeViewPoint(){
-        if let extraView = panGestureExtraView, let rectangle = plane.selectedValue as? Rectangle, let rectangleView = customUIViews[rectangle] as? RectangleView{
-            rectangleView.changeCenterPositon(x: extraView.center.x, y: extraView.center.y)
-            rectangle.changePoint(point: MyPoint(x: extraView.frame.origin.x, y: extraView.frame.origin.y))
-            
-            extraView.removeFromSuperview()
-            panGestureExtraView = nil
-        } else if let extraImage = panGestureExtraView, let image = plane.selectedValue as? Image, let imageView = customUIViews[image] as? ImageView{
-            imageView.changeCenterPositon(x: extraImage.center.x, y: extraImage.center.y)
-            image.changePoint(point: MyPoint(x: extraImage.frame.origin.x, y: extraImage.frame.origin.y))
-            
-            extraImage.removeFromSuperview()
-            panGestureExtraView = nil
+        guard let extraView = panGestureExtraView, let selectValue = plane.selectedValue, let view = customUIViews[selectValue] else{
+            return
         }
+        
+        view.changeOriginalViewCenterPositon(view: view, x: extraView.center.x, y: extraView.center.y)
+        selectValue.changePoint(point: MyPoint(x: extraView.frame.origin.x, y: extraView.frame.origin.y))
+        
+        extraView.removeFromSuperview()
+        panGestureExtraView = nil
     }
 }
 

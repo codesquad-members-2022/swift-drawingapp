@@ -6,8 +6,21 @@
 //
 
 import Foundation
+import UIKit
 
 protocol ViewDragable{
-    func movingCenterPosition(x: Double, y: Double)
-    func changeCenterPositon(x: Double, y: Double)
+    func movingExtraViewCenterPosition(view: UIView, x: Double, y: Double)
+    func changeOriginalViewCenterPositon(view: UIView, x: Double, y: Double)
+}
+
+extension ViewDragable{
+    func movingExtraViewCenterPosition(view: UIView, x: Double, y: Double){
+        view.center.x += x
+        view.center.y += y
+    }
+    
+    func changeOriginalViewCenterPositon(view: UIView, x: Double, y: Double){
+        view.center.x = x
+        view.center.y = y
+    }
 }
