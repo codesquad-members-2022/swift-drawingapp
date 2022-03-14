@@ -8,7 +8,19 @@
 import Foundation
 
 struct Gallery {
-    var countItems: Int {
-        return 0
+    private var items = [URL: Data]()
+    
+    var count: Int {
+        return items.count
+    }
+    
+    subscript(url url: URL) -> Data? {
+        get {
+            return self.items[url]
+        }
+        set {
+            guard self.items[url] == nil else { return }
+            self.items[url] = newValue
+        }
     }
 }
