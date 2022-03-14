@@ -11,29 +11,13 @@ class DrawingViewFactory {
     static func make(model: DrawingModel) -> DrawingView {
         switch model {
         case let model as PhotoModel:
-            return makePhotoView(model: model)
+            return PhotoView(point: model.origin, size: model.size, alpha: model.alpha, imageUrl: model.imageUrl)
         case let model as RectangleModel:
-            return makeRectangleView(model: model)
+            return RectangleView(point: model.origin, size: model.size, alpha: model.alpha, color: model.color)
         case let model as LabelModel:
-            return makeLabelView(model: model)
+            return LabelView(point: model.origin, size: model.size, alpha: model.alpha, text: model.text, font: model.font, fontColor: model.fontColor)
         default:
-            return makeDrawingView(model: model)
+            return DrawingView(point: model.origin, size: model.size, alpha: model.alpha)
         }
-    }
-    
-    static func makeDrawingView(model: DrawingModel) -> DrawingView {
-        DrawingView(point: model.origin, size: model.size, alpha: model.alpha)
-    }
-    
-    static func makeRectangleView(model: RectangleModel) -> RectangleView {
-        RectangleView(point: model.origin, size: model.size, alpha: model.alpha, color: model.color)
-    }
-    
-    static func makePhotoView(model: PhotoModel) -> PhotoView {
-        PhotoView(point: model.origin, size: model.size, alpha: model.alpha, imageUrl: model.imageUrl)
-    }
-    
-    static func makeLabelView(model: LabelModel) -> LabelView {
-        LabelView(point: model.origin, size: model.size, alpha: model.alpha, text: model.text, font: model.font, fontColor: model.fontColor)
     }
 }

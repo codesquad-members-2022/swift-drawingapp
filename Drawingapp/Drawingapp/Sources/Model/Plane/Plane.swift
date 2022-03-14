@@ -33,9 +33,7 @@ protocol PlaneAction {
 }
 
 protocol PlaneMakeModel {
-    func makeRectangleModel(origin: Point)
-    func makePhotoModel(origin: Point, url: URL)
-    func makeLabelModel(origin: Point)
+    func makeModel(modelType: DrawingModel.Type, url: URL?)
 }
 
 class Plane {
@@ -106,28 +104,14 @@ class Plane {
 }
 
 extension Plane: PlaneMakeModel {
-    func makeRectangleModel(origin: Point) {
-        guard let model = self.delegate?.getDrawingModelFactory().makeRectangleModel(origin: origin) else {
+    func makeModel(modelType: DrawingModel.Type, url: URL? = nil) {
+        guard let model = self.delegate?.getDrawingModelFactory().makeModel(modelType: modelType, url) else {
             return
         }
-        didMakeDrawingModel(model: model)
+        didMakeModel(model)
     }
     
-    func makePhotoModel(origin: Point, url: URL) {
-        guard let model = self.delegate?.getDrawingModelFactory().makePhotoModel(origin: origin, url: url) else {
-            return
-        }
-        didMakeDrawingModel(model: model)
-    }
-    
-    func makeLabelModel(origin: Point) {
-        guard let model = self.delegate?.getDrawingModelFactory().makeLabelModel(origin: origin) else {
-            return
-        }
-        didMakeDrawingModel(model: model)
-    }
-    
-    private func didMakeDrawingModel(model: DrawingModel) {
+    private func didMakeModel(_ model: DrawingModel) {
         self.drawingModels.insert(model, at: 0)
         NotificationCenter.default.post(name: Plane.Event.didMakeDrawingModel, object: self, userInfo: [ParamKey.drawingModel:model])
     }
