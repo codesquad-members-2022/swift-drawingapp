@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     let rectangleViewBoard = RectangleViewBoard()
     let rectanglePropertyChangeBoard = PropertyChangeBoard()
     let addRectangleButton = UIButton()
+    let addPhotoButton = UIButton()
    
     let plane = Plane()
     
@@ -73,9 +74,27 @@ class ViewController: UIViewController {
             addRectangleButton.addTarget(self, action: #selector(addNewRectangle), for: .touchUpInside)
         }
         
+        func layoutAddPhotoButton() {
+            view.addSubview(addPhotoButton)
+            addPhotoButton.translatesAutoresizingMaskIntoConstraints = false
+            
+            addPhotoButton.setTitle("사진 추가", for: .normal)
+            addPhotoButton.setTitleColor(.black, for: .normal)
+            
+            addPhotoButton.layer.borderWidth = 1
+            addPhotoButton.layer.borderColor = UIColor.black.cgColor
+            addPhotoButton.layer.cornerRadius = 10
+            
+            addPhotoButton.topAnchor.constraint(equalTo: rectangleViewBoard.bottomAnchor, constant: 10).isActive = true
+            addPhotoButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor).isActive = true
+            addPhotoButton.widthAnchor.constraint(equalTo: rectangleViewBoard.widthAnchor, multiplier: 0.1).isActive = true
+            addPhotoButton.leftAnchor.constraint(equalTo: addRectangleButton.rightAnchor, constant: 10).isActive = true
+        }
+        
         layoutViewBoard()
         layoutPropertyBoard()
         layoutAddRectangleButton()
+        layoutAddPhotoButton()
     }
     
     @objc func addNewRectangle() {
