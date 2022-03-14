@@ -18,6 +18,9 @@ class MainViewController: UIViewController{
     private var imageUIViews = [Image : ImageView]()
     private var selectedValue: RectValue?
     
+    private var panGestureExtraView: RectangleView?
+    private var panGestureExtraImageView: ImageView?
+    
     @IBOutlet weak var rectangleButton: UIButton!
     @IBOutlet weak var albumButton: UIButton!
     
@@ -55,7 +58,7 @@ extension MainViewController{
         guard let rectangleValue = notification.userInfo?[Plane.NotificationName.userInfoKeyRectangle] as? Rectangle else { return }
         
         let rectangleView = RectangleView(frame: CGRect(x: rectangleValue.point.x, y: rectangleValue.point.y, width: rectangleValue.size.width, height: rectangleValue.size.height))
-        rectangleView.backgroundColor = UIColor(red: rectangleValue.color.redValue(), green: rectangleValue.color.blueValue(), blue: rectangleValue.color.greenValue(), alpha: rectangleValue.alpha.showValue())
+        rectangleView.backgroundColor = UIColor(red: rectangleValue.color.redValue(), green: rectangleValue.color.greenValue(), blue: rectangleValue.color.blueValue(), alpha: rectangleValue.alpha.showValue())
         rectangleView.restorationIdentifier = rectangleValue.id
         
         self.view.addSubview(rectangleView)
@@ -228,8 +231,62 @@ extension MainViewController{
 extension MainViewController {
     @objc func dragGesture(_ gesture: UIPanGestureRecognizer){
         let moveDistance = gesture.translation(in: self.view)
+        
+        switch gesture.state{
+        case .began:
+            let touchPoint = gesture.location(in: self.view)
+            plane.findValue(withX: touchPoint.x, withY: touchPoint.y)
+            
+            if let rectangle = selectedValue as? Rectangle{
+                panGestureExtraView = RectangleView(frame: CGRect(x: rectangle.point.x, y: rectangle.point.y, width: rectangle.size.width, height: rectangle.size.height))
+                
+                guard let extraView = panGestureExtraView else{
+                    return
+                }
+                
+                extraView.backgroundColor = UIColor(red: rectangle.color.redValue(), green: rectangle.color.greenValue(), blue: rectangle.color.blueValue(), alpha: 0.5)
+
+                self.view.addSubview(extraView)
+            } else if let image = selectedValue as? Image{
+                panGestureExtraImageView = ImageView(frame: CGRect(x: image.point.x, y: image.point.y, width: image.size.width, height: image.size.height))
+                
+                guard let extraImage = panGestureExtraImageView else{
+                    return
+                }
+                
+                extraImage.image = image.image.image
+                extraImage.alpha = 0.5
+                
+                self.view.addSubview(extraImage)
+            }
+        case .changed:
+            if let extraView = panGestureExtraView{
+                extraView.center.x += moveDistance.x
+                extraView.center.y += moveDistance.y
+                gesture.setTranslation(.zero, in: self.view)
+            } else if let extraImage = panGestureExtraImageView{
+                extraImage.center.x += moveDistance.x
+                extraImage.center.y += moveDistance.y
+                gesture.setTranslation(.zero, in: self.view)
+            }
+        case .ended:
+            if let extraView = panGestureExtraView, let rectangle = selectedValue as? Rectangle{
+                rectangleUIViews[rectangle]?.center.x = extraView.center.x
+                rectangleUIViews[rectangle]?.center.y = extraView.center.y
+                
+                extraView.removeFromSuperview()
+                panGestureExtraView = nil
+            } else if let extraImage = panGestureExtraImageView, let image = selectedValue as? Image{
+                imageUIViews[image]?.center.x = extraImage.center.x
+                imageUIViews[image]?.center.y = extraImage.center.y
+                
+                extraImage.removeFromSuperview()
+                panGestureExtraImageView = nil
+            }
+        default:
+            return
+        }
     }
-    
 }
 
 
