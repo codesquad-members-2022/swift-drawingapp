@@ -9,10 +9,6 @@ import UIKit
 
 final class MainViewController: UIViewController {
     
-    static let addButtonPushed = Notification.Name.init(rawValue: "addButtonPushed")
-    static let colorButtonPushed = Notification.Name.init(rawValue: "colorButtonPushed")
-    static let sliderMoved = Notification.Name.init(rawValue: "sliderMoved")
-    
     @IBOutlet weak var buttonSetRandomColor: UIButton!
     @IBOutlet weak var sliderSetAlpha: UISlider!
     
@@ -27,7 +23,7 @@ final class MainViewController: UIViewController {
         defaultButtonColor = buttonSetRandomColor.backgroundColor
         
         NotificationCenter.default.addObserver(
-            forName: MainScreenViewController.rectangleViewTouched,
+            forName: Plane.rectangleViewTouched,
             object: plane,
             queue: .current
         ) { [weak self] noti in

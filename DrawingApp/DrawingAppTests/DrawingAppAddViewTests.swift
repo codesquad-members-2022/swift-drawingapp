@@ -13,9 +13,9 @@ class DrawingAppAddViewTests: XCTestCase {
     func testRectangleProperty() throws {
         
         let factory = FactoryRectangleProperty()
-        let factoryProperties = FactoryProperties.init(maxX: 300, maxY: 300, width: RectangleDefaultSize.width.rawValue, height: RectangleDefaultSize.height.rawValue)
+        let factoryProperties = RectangleRect.init(maxX: 300, maxY: 300, width: RectangleDefaultSize.width.rawValue, height: RectangleDefaultSize.height.rawValue)
         
-        guard let testModel = factory.makeRandomView(as: "TestView", property: factoryProperties) else {
+        guard let testModel = factory.makeRandomRectangleModel(as: "TestView", rectangleRect: factoryProperties) else {
             XCTFail("[ERROR] Make testModel failed.")
             return
         }
