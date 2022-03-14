@@ -140,6 +140,8 @@ extension ViewController: PlaneDelegate {
         sideInspectorView.clearBackgroundColorValueButtonTitle()
         sideInspectorView.clearBackgroundColorValueButtonColor()
         sideInspectorView.clearAlphaValueLabelText()
+        
+        plane.clearRecentlySelectedRectangle()
     }
     
     func didUpdateRecentlySelectedRectangle(_ rectangle: Rectangle) {
@@ -168,7 +170,7 @@ extension ViewController: PlaneDelegate {
     func didUpdateRecentlySelectedRectangleAlpha(_ rectangle: Rectangle) {
         guard let selectedRectangleView = rectangleMap[rectangle] else { return }
         let newAlpha = CGConverter.toCGFloat(from: rectangle.alpha)
-        print(CGFloat(rectangle.alpha.value))
+        
         selectedRectangleView.changeAlpha(to: newAlpha)
         sideInspectorView.setAlphaValueLabelText(by: rectangle.alpha.value)
         
