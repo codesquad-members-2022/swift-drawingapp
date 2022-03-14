@@ -62,11 +62,11 @@ extension RectangleFactory: RectangleFactoryResponse{
 }
 
 protocol RectangleMutable{
-    var rectangle: Rectangle { get }
+    func getRandomRectangle() -> Rectangle
 }
 
 protocol RGBColorMutable{
-    var colorRGB: ColorRGB { get }
+    func getRandomColorRGb() -> ColorRGB
 }
 
 enum RandomMax: Int{

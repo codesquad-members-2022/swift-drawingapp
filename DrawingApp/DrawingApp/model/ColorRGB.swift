@@ -46,7 +46,7 @@ extension ColorRGB: CustomStringConvertible{
 }
 
 extension ColorRGB: RGBColorMutable{
-    var colorRGB: ColorRGB {
+    func getRandomColorRGb() -> ColorRGB {
         return self
     }
 }

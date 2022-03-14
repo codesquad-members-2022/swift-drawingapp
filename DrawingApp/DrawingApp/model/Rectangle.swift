@@ -37,8 +37,8 @@ extension Rectangle: CustomStringConvertible{
     }
 }
 
-extension Rectangle: RectangleMutable{
-    var rectangle: Rectangle {
+extension Rectangle: RectangleMutable{    
+    func getRandomRectangle() -> Rectangle {
         return self
     }
 }
