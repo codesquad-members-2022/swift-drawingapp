@@ -57,9 +57,8 @@ class Plane{
 
     func selectModel(tapCoordinate: Point) {
         
-        let reversedArray = self.models.reversed() //가장 위에 있는 모델을 찾기 위해서.
         var detectedModel : Model?
-        for model in reversedArray {
+        for model in models {
             let minX = model.point.x
             let minY = model.point.y
             let maxX = model.point.x + model.size.width
@@ -73,23 +72,16 @@ class Plane{
         selectedModel = detectedModel
     }
     
-    func randomizeColor(on model: Model){
-        model.updateColor(RandomGenerator.makeColor())
-        delegate?.didRandomizeColor(model: model)
+    func randomizeColorOnSelectedModel(){
+        guard let targetModel = selectedModel else{return}
+        targetModel.updateColor(RandomGenerator.makeColor())
+        delegate?.didRandomizeColor(model: targetModel)
     }
     
-    func changeAlpha(on model : Model, with alpha: Alpha?){
-        if let newAlpha = alpha {
-            model.updateAlpha(newAlpha)
-            delegate?.didChangeAlpha(model: model)
-        }
+    func changeAlphaOnSelectedModel(to alpha: Alpha?){
+        guard let newAlpha = alpha , let targetModel = selectedModel else{return}
+        targetModel.updateAlpha(newAlpha)
+        delegate?.didChangeAlpha(model: targetModel)
     }
-    
-//    func getSelectedModel() -> Drawable? {
-//        for model in models {
-//            if model.selectedStatus() {return model}
-//        }
-//        return nil
-//    }
-    
+
 }
