@@ -77,8 +77,7 @@ class ViewController: UIViewController {
     
     func createRectangleView (with model: Model) {
   
-        let rectView = RectangleView(frame: CGRect(x: model.point.x.trim, y: model.point.y.trim, width: model.size.width, height: model.size.height))
-        rectView.backgroundColor = UIColor(red: model.color.red.scaleRGB, green: model.color.green.scaleRGB, blue: model.color.blue.scaleRGB, alpha: model.alpha.value)
+        let rectView = Factory.makeView(with: model)
 
         rectangleList.updateValue(rectView, forKey: model)
         view.addSubview(rectView)
@@ -86,9 +85,8 @@ class ViewController: UIViewController {
     
     //MARK: 사각형 뷰 선택에 따른 테두리 및 패널 뷰처리 함수.
     func updateHighlight(from model: Model) {
-        if let rectView = rectangleList[model] {
-            rectView.configure(isSelected: model.selectedStatus())
-        }
+        guard let rectView = rectangleList[model] else {return}
+        rectView.configure(isSelected: model.selectedStatus())
     }
   
     
