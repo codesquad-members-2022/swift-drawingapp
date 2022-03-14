@@ -3,15 +3,34 @@
 
 | 날짜       | 번호   | 내용                             | 비고                                             |
 | ---------- | :----- | ------------------------------| ---------------------------------------------- |
+| 2022.03.14 | Step05 | 터치와 드래그                    | 추가된 View들에 대한 드래그 기능 구현                   |
 | 2022.03.11 | Step04 | 사진 추가하기                    | UIImagePickerController를 활용한 앨범 사진 View 추가  |
 | 2022.03.08 | Step03 | 관찰자(Observer) 패턴 적용        | Step02 단계에서 구현한 기능 Observer패턴과 결합         |
 | 2022.03.04 | Step02 | 속성 변경 동작                   | 사각형 속성 조정 컨트롤 뷰 및 관련 기능 구현              |
 | 2022.02.28 | Step01 | 아이패드 앱 프로젝트               | 사각형 View 랜덤 생성 관련 Model, VC 구현             |
 
 ------
+## [Step05] 
+### Description
+- 추가된 View들에 대해서 드래그 기능 구현 
+
+### Task
+- [x] PangGestureRecognizer를 활용하여 드래그 기능 구현
+- [x] 드래그 시, 투명도 0.5의 임시 뷰 생성
+- [x] 생성된 임시뷰가 드래그에 맞춰서 이동 진행
+- [x] 드래그를 마치면 임시뷰 삭제 후, 해당 위치로 실제 뷰가 이동
+    -[x] 내부 데이터의 Point도 동시 변경
+- [x] 드래그 관련 메서드를 가진 ViewDragable 프로토콜 작성
+    
+### 결과 화면
+- 정상 작동.gif
+<img src = "https://user-images.githubusercontent.com/44107696/158095607-4e05abaf-1fd9-47b6-b314-0e65b577e7c7.gif" width="710" height="570">
+
+
+------
 ## [Step04] 
 ### Description
-- 앨범에서 선택한 사진이 View에 추가되고 
+- 앨범에서 선택한 사진이 View에 추가되도록 구현 
 
 ### Task
 - [x] UIImagePickerController 사용
