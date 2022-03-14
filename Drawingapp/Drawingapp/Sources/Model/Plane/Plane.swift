@@ -139,6 +139,12 @@ extension Plane: PlaneChanged {
             return
         }
         model.update(alpha: alpha)
+        
+        let userInfo: [AnyHashable : Any] = [
+            ParamKey.drawingModel: self.selectedModel,
+            ParamKey.alpha: alpha
+        ]
+        NotificationCenter.default.post(name: Event.didUpdateAlpha, object: self, userInfo: userInfo)
     }
     
     func change(color: Color) {
@@ -146,27 +152,52 @@ extension Plane: PlaneChanged {
             return
         }
         model.update(color: color)
+        
+        let userInfo: [AnyHashable : Any] = [
+            ParamKey.drawingModel: self.selectedModel,
+            ParamKey.color: color
+        ]
+        NotificationCenter.default.post(name: Event.didUpdateColor, object: self, userInfo: userInfo)
     }
     
     func change(fontName: String) {
         guard let labelModel = self.selectedModel as? LabelModel else {
             return
         }
-        labelModel.update(font: Font(name: fontName, size: labelModel.font.size))
+        let font = Font(name: fontName, size: labelModel.font.size)
+        labelModel.update(font: font)
+        
+        let userInfo: [AnyHashable : Any] = [
+            ParamKey.drawingModel: self.selectedModel,
+            ParamKey.font: font
+        ]
+        NotificationCenter.default.post(name: Event.didUpdateFont, object: self, userInfo: userInfo)
     }
     
     func transform(translationX: Double, y: Double) {
         guard let model = self.selectedModel else {
             return
         }
-        model.originMove(x: translationX, y: y)
+        model.update(x: translationX, y: y)
+        
+        let userInfo: [AnyHashable : Any] = [
+            ParamKey.drawingModel: self.selectedModel,
+            ParamKey.origin: model.origin
+        ]
+        NotificationCenter.default.post(name: Event.didUpdateOrigin, object: self, userInfo: userInfo)
     }
     
     func transform(width: Double, height: Double) {
         guard let model = self.selectedModel else {
             return
         }
-        model.sizeIncrease(width: width, height: height)
+        model.update(width: width, height: height)
+        
+        let userInfo: [AnyHashable : Any] = [
+            ParamKey.drawingModel: self.selectedModel,
+            ParamKey.size: model.size
+        ]
+        NotificationCenter.default.post(name: Event.didUpdateSize, object: self, userInfo: userInfo)
     }
 }
 
@@ -270,12 +301,30 @@ extension Plane {
         static let didChangedDrag = NSNotification.Name("didChangedDrag")
         static let didEndedDrag = NSNotification.Name("didEndedDrag")
         static let didMoveModel = NSNotification.Name("didMoveModel")
+        
+        static let didUpdateColor = NSNotification.Name("didUpdateColor")
+        static let didUpdateOrigin = NSNotification.Name("didUpdateOrigin")
+        static let didUpdateSize = NSNotification.Name("didUpdateSize")
+        static let didUpdateAlpha = NSNotification.Name("didUpdateAlpha")
+        static let didUpdateImageUrl = NSNotification.Name("didUpdateImageUrl")
+        static let didUpdateText = NSNotification.Name("didUpdateText")
+        static let didUpdateFont = NSNotification.Name("didUpdateFont")
+        static let didUpdateFontColor = NSNotification.Name("didUpdateFontColor")
     }
     
     enum ParamKey {
         static let drawingModel = "drawingModel"
         static let dragPoint = "dragPoint"
         static let index = "index"
+        static let id = "id"
+        static let alpha = "alpha"
+        static let origin = "origin"
+        static let size = "size"
+        static let color = "color"
+        static let imageUrl = "imageUrl"
+        static let text = "text"
+        static let font = "font"
+        static let fontColor = "fontColor"
     }
     
     enum MoveTo {

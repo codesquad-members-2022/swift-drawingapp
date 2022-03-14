@@ -48,135 +48,14 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         bind()
         layout()
-        
-        inspectorView.delegate = self
-        topMenuBarView.delegate = self
-        hierarchyView.delegate = self
-        plane.delegate = self
-        
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGusture))
-        self.drawingBoard.addGestureRecognizer(tapGesture)
-        
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGusture))
-        self.drawingBoard.addGestureRecognizer(panGesture)
     }
     
     func bind() {
-        NotificationCenter.default.addObserver(forName: Plane.Event.didMakeDrawingModel, object: nil, queue: nil) { notification in
-            guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
-                return
-            }
-            DispatchQueue.main.async {
-                let drawView = DrawingViewFactory.make(model: model)
-                self.drawingBoard.addSubview(drawView)
-                self.drawingViews[model] = drawView
-                self.hierarchyView.updateView()
-            }
-            self.bindObserver(targetModel: model)
-        }
-        
-        NotificationCenter.default.addObserver(forName: Plane.Event.didSelecteDrawingModel, object: nil, queue: nil) { notification in
-            guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
-                    let index = notification.userInfo?[Plane.ParamKey.index] as? Int else {
-                return
-            }
-            self.inspectorView.setHidden(false)
-            self.inspectorView.update(model: model)
-            self.hierarchyView.selectIndex(index)
-            self.drawingViews[model]?.selected(is: true)
-        }
-        
-        NotificationCenter.default.addObserver(forName: Plane.Event.didDeselecteDrawingModel, object: nil, queue: nil) { notification in
-            guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
-                  let index = notification.userInfo?[Plane.ParamKey.index] as? Int else {
-                return
-            }
-            self.inspectorView.setHidden(true)
-            self.hierarchyView.deSelecteIndex(index)
-            self.drawingViews[model]?.selected(is: false)
-        }
-        
-        NotificationCenter.default.addObserver(forName: Plane.Event.didMoveModel, object: nil, queue: nil) { notification in
-            guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
-                  let index = notification.userInfo?[Plane.ParamKey.index] as? Int,
-                  let targetView = self.drawingViews[model] else {
-                return
-            }
-            self.drawingBoard.insertSubview(targetView, at: index)
-            self.hierarchyView.updateView()
-        }
-        
-        NotificationCenter.default.addObserver(forName: Plane.Event.didBeganDrag, object: nil, queue: nil) { notification in
-            guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
-                  let selectView = self.drawingViews[model],
-                  let snapshotView = selectView.snapshotView() else {
-                return
-            }
-            
-            self.drawingBoard.addSubview(snapshotView)
-            snapshotView.alpha = 0.5
-            snapshotView.isHidden = true
-            self.dummyView = snapshotView
-        }
-                
-        NotificationCenter.default.addObserver(forName: Plane.Event.didChangedDrag, object: nil, queue: nil) { notification in
-            guard let point = notification.userInfo?[Plane.ParamKey.dragPoint] as? Point,
-                  let dummyView = self.dummyView else {
-                return
-            }
-            dummyView.isHidden = false
-            dummyView.frame.origin = CGPoint(x: point.x, y: point.y)
-            self.inspectorView.update(origin: Point(x: point.x, y: point.y))
-        }
-        
-        NotificationCenter.default.addObserver(forName: Plane.Event.didEndedDrag, object: nil, queue: nil) { notification in
-            self.dummyView?.removeFromSuperview()
-            self.dummyView = nil
-        }
-    }
-    
-    func bindObserver(targetModel: DrawingModel) {
-        NotificationCenter.default.addObserver(forName: DrawingModel.Event.updateColor, object: targetModel, queue: nil) { notification in
-            guard let view = self.drawingViews[targetModel] as? Colorable,
-                  let color = notification.userInfo?[DrawingModel.ParamKey.color] as? Color else {
-                return
-            }
-            view.update(color: color)
-            self.inspectorView.update(color: color)
-        }
-        
-        NotificationCenter.default.addObserver(forName: DrawingModel.Event.updateAlpha, object: targetModel, queue: nil) { notification in
-            guard let alpha = notification.userInfo?[DrawingModel.ParamKey.alpha] as? Alpha else {
-                return
-            }
-            self.drawingViews[targetModel]?.update(alpha: alpha)
-            self.inspectorView.update(alpha: alpha)
-        }
-        
-        NotificationCenter.default.addObserver(forName: DrawingModel.Event.updateOrigin, object: targetModel, queue: nil) { notification in
-            guard let origin = notification.userInfo?[DrawingModel.ParamKey.origin] as? Point else {
-                return
-            }
-            self.drawingViews[targetModel]?.update(origin: origin)
-            self.inspectorView.update(origin: origin)
-        }
-        
-        NotificationCenter.default.addObserver(forName: DrawingModel.Event.updateSize, object: targetModel, queue: nil) { notification in
-            guard let size = notification.userInfo?[DrawingModel.ParamKey.size] as? Size else {
-                return
-            }
-            self.drawingViews[targetModel]?.update(size: size)
-            self.inspectorView.update(size: size)
-        }
-        
-        NotificationCenter.default.addObserver(forName: DrawingModel.Event.updateFont, object: targetModel, queue: nil) { notification in
-            guard let view = self.drawingViews[targetModel] as? Textable,
-                let font = notification.userInfo?[DrawingModel.ParamKey.font] as? Font else {
-                return
-            }
-            view.update(font: font)
-            self.inspectorView.update(font: font)
-        }
+        topMenuBind()
+        inspectorBind()
+        gustureBind()
+        hierarchyBind()
+        plane.delegate = self
     }
     
     func layout() {
@@ -208,8 +87,57 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UIGestureRecognizerDelegate {
+extension ViewController: PlaneDelegate {
+    func getDrawingModelFactory() -> DrawingModelFactory {
+        DrawingModelFactory(colorFactory: ColorFactory())
+    }
     
+    func getScreenSize() -> Size {
+        Size(width: self.drawingBoard.frame.width, height: self.drawingBoard.frame.height)
+    }
+}
+
+//MARK: Common
+extension ViewController {
+    private func didSelecteDrawingModel(notification: Notification) {
+        guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
+                let index = notification.userInfo?[Plane.ParamKey.index] as? Int else {
+            return
+        }
+        self.inspectorView.setHidden(false)
+        self.inspectorView.update(model: model)
+        self.hierarchyView.selectIndex(index)
+        self.drawingViews[model]?.selected(is: true)
+    }
+    
+    private func didDeselecteDrawingModel(notification: Notification) {
+        guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
+              let index = notification.userInfo?[Plane.ParamKey.index] as? Int else {
+            return
+        }
+        self.inspectorView.setHidden(true)
+        self.hierarchyView.deSelecteIndex(index)
+        self.drawingViews[model]?.selected(is: false)
+    }
+}
+
+//MARK: Gusture
+extension ViewController {
+    func gustureBind() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGusture))
+        self.drawingBoard.addGestureRecognizer(tapGesture)
+        
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panGusture))
+        self.drawingBoard.addGestureRecognizer(panGesture)
+        
+        NotificationCenter.default.addObserver(forName: Plane.Event.didBeganDrag, object: nil, queue: nil, using: didBeganDrag)
+                
+        NotificationCenter.default.addObserver(forName: Plane.Event.didChangedDrag, object: nil, queue: nil, using: didChangedDrag)
+        
+        NotificationCenter.default.addObserver(forName: Plane.Event.didEndedDrag, object: nil, queue: nil, using: didEndedDrag)
+    }
+    
+    //MARK: Input
     @objc private func tapGusture(sender: UITapGestureRecognizer) {
         let location = sender.location(in: sender.view)
         self.plane.tapGusturePoint(Point(x: location.x, y: location.y))
@@ -229,9 +157,46 @@ extension ViewController: UIGestureRecognizerDelegate {
             break
         }
     }
+    
+    //MARK: Output
+    private func didBeganDrag(notification: Notification) {
+        guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
+              let selectView = self.drawingViews[model],
+              let snapshotView = selectView.snapshotView() else {
+            return
+        }
+        
+        self.drawingBoard.addSubview(snapshotView)
+        snapshotView.alpha = 0.5
+        snapshotView.isHidden = true
+        self.dummyView = snapshotView
+    }
+    
+    private func didChangedDrag(notification: Notification) {
+        guard let point = notification.userInfo?[Plane.ParamKey.dragPoint] as? Point,
+              let dummyView = self.dummyView else {
+            return
+        }
+        dummyView.isHidden = false
+        dummyView.frame.origin = CGPoint(x: point.x, y: point.y)
+        self.inspectorView.update(origin: Point(x: point.x, y: point.y))
+    }
+    
+    private func didEndedDrag(notification: Notification) {
+        self.dummyView?.removeFromSuperview()
+        self.dummyView = nil
+    }
 }
 
+//MARK: Hierarchy
 extension ViewController: HierarchyDelegate {
+    func hierarchyBind() {
+        hierarchyView.delegate = self
+        
+        NotificationCenter.default.addObserver(forName: Plane.Event.didMoveModel, object: nil, queue: nil, using: didMoveModel)
+    }
+    
+    //MARK: inject
     func getCount() -> Int {
         self.plane.count
     }
@@ -247,6 +212,7 @@ extension ViewController: HierarchyDelegate {
         self.plane.selectIndex
     }
     
+    //MARK: Input
     func selectedCell(index: IndexPath) {
         self.plane.selecteModel(index: index.row)
     }
@@ -254,19 +220,35 @@ extension ViewController: HierarchyDelegate {
     func move(to: Plane.MoveTo) {
         self.plane.move(to: to)
     }
+    
+    //MARK: Output
+    private func didMoveModel(notification: Notification) {
+        guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
+              let index = notification.userInfo?[Plane.ParamKey.index] as? Int,
+              let targetView = self.drawingViews[model] else {
+            return
+        }
+        self.drawingBoard.insertSubview(targetView, at: index)
+        self.hierarchyView.updateView()
+    }
 }
 
-extension ViewController: PlaneDelegate {    
-    func getDrawingModelFactory() -> DrawingModelFactory {
-        DrawingModelFactory(colorFactory: ColorFactory())
+//MARK: Inspector
+extension ViewController: InspectorDelegate {
+    func inspectorBind() {
+        inspectorView.delegate = self
+        NotificationCenter.default.addObserver(forName: Plane.Event.didUpdateColor, object: nil, queue: nil, using: didUpdateColor)
+        
+        NotificationCenter.default.addObserver(forName: Plane.Event.didUpdateAlpha, object: nil, queue: nil, using: didUpdateAlpha)
+        
+        NotificationCenter.default.addObserver(forName: Plane.Event.didUpdateOrigin, object: nil, queue: nil, using: didUpdateOrigin)
+        
+        NotificationCenter.default.addObserver(forName: Plane.Event.didUpdateSize, object: nil, queue: nil, using: didUpdateSize)
+        
+        NotificationCenter.default.addObserver(forName: Plane.Event.didUpdateFont, object: nil, queue: nil, using: didUpdateFont)
     }
     
-    func getScreenSize() -> Size {
-        Size(width: self.drawingBoard.frame.width, height: self.drawingBoard.frame.height)
-    }
-}
-
-extension ViewController: InspectorDelegate {
+    //MARK: Input
     func changeFont(name: String) {
         self.plane.change(fontName: name)
     }
@@ -286,9 +268,69 @@ extension ViewController: InspectorDelegate {
     func transform(width: Double, height: Double) {
         self.plane.transform(width: width, height: height)
     }
+    
+    //MARK: Output
+    func didUpdateColor(notification: Notification) {
+        guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
+              let colableView = self.drawingViews[model] as? Colorable,
+              let color = notification.userInfo?[Plane.ParamKey.color] as? Color else {
+            return
+        }
+        colableView.update(color: color)
+        self.inspectorView.update(color: color)
+    }
+    
+    func didUpdateAlpha(notification: Notification) {
+        guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
+              let alpha = notification.userInfo?[Plane.ParamKey.alpha] as? Alpha else {
+            return
+        }
+        self.drawingViews[model]?.update(alpha: alpha)
+        self.inspectorView.update(alpha: alpha)
+    }
+    
+    func didUpdateOrigin(notification: Notification) {
+        guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
+              let origin = notification.userInfo?[Plane.ParamKey.origin] as? Point else {
+            return
+        }
+        self.drawingViews[model]?.update(origin: origin)
+        self.inspectorView.update(origin: origin)
+    }
+    
+    func didUpdateSize(notification: Notification) {
+        guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
+              let size = notification.userInfo?[Plane.ParamKey.size] as? Size else {
+            return
+        }
+        self.drawingViews[model]?.update(size: size)
+        self.inspectorView.update(size: size)
+    }
+    
+    func didUpdateFont(notification: Notification) {
+        guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
+              let textable = self.drawingViews[model] as? Textable,
+            let font = notification.userInfo?[Plane.ParamKey.font] as? Font else {
+            return
+        }
+        textable.update(font: font)
+        self.inspectorView.update(font: font)
+    }
 }
 
-extension ViewController: TopMenuBarDelegate {
+//MARK: TopMenu
+extension ViewController: TopMenuBarDelegate, PHPickerViewControllerDelegate {
+    private func topMenuBind() {
+        topMenuBarView.delegate = self
+        
+        NotificationCenter.default.addObserver(forName: Plane.Event.didMakeDrawingModel, object: nil, queue: nil, using: didMakeDrawingModel)
+        
+        NotificationCenter.default.addObserver(forName: Plane.Event.didSelecteDrawingModel, object: nil, queue: nil, using: didSelecteDrawingModel)
+        
+        NotificationCenter.default.addObserver(forName: Plane.Event.didDeselecteDrawingModel, object: nil, queue: nil, using: didDeselecteDrawingModel)
+    }
+    
+    //MARK: Input
     func makeRectangleTapped() {
         let screenSize = self.drawingBoard.frame.size
         let originX = Int.random(in: 0..<Int(screenSize.width))
@@ -311,9 +353,7 @@ extension ViewController: TopMenuBarDelegate {
         let originY = Int.random(in: 0..<Int(screenSize.height))
         self.plane.makeLabelModel(origin: Point(x: originX, y: originY))
     }
-}
-
-extension ViewController: PHPickerViewControllerDelegate {
+    
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         picker.dismiss(animated: true)
         
@@ -322,9 +362,7 @@ extension ViewController: PHPickerViewControllerDelegate {
         }
         
         itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.image.identifier) { url, error in
-            guard let url = url else {
-                return
-            }
+            guard let url = url else { return }
             
             let fileManager = FileManager.default
             let destination = fileManager.temporaryDirectory.appendingPathComponent(url.lastPathComponent)
@@ -341,6 +379,20 @@ extension ViewController: PHPickerViewControllerDelegate {
             } catch {
                 Log.error("image Load Fail: \(url)")
             }
+        }
+    }
+    
+    //MARK: Output
+    private func didMakeDrawingModel(notification: Notification) {
+        guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
+            return
+        }
+        
+        DispatchQueue.main.async {
+            let drawView = DrawingViewFactory.make(model: model)
+            self.drawingBoard.addSubview(drawView)
+            self.drawingViews[model] = drawView
+            self.hierarchyView.updateView()
         }
     }
 }
