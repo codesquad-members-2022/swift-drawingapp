@@ -8,8 +8,7 @@
 import UIKit
 
 class ViewController: UIViewController {
-    var sideInspectorViewDelegate: SideInspectorViewDelegate?
-    
+
     let canvasView: CanvasView = {
         let view = CanvasView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +58,7 @@ class ViewController: UIViewController {
 // TODO: 입력을 처리하는 곳에서는 뷰 -> 뷰컨트롤러 -> 모델로 들어가는 입력 흐름만 처리                                                           
 // TODO: 아래 뷰를 생성하는 출력 흐름 분리해야함! 모델에서 뷰 컨트롤러를 거쳐서 다시 뷰를 추가하는 흐름. 모델 -> 뷰컨트롤러 -> 뷰 를 만들기
 extension ViewController: SideInspectorViewDelegate {
-    func sideInspectorViewDidTappedButton() {
+    func sideInspectorViewDidTappedRectangleButton() {
         // VC가 모델에게 사각형 만들라고 시킴
         plane.createRectangle()
     }
