@@ -12,8 +12,8 @@ protocol PlaneDelegate {
     func didSelectRectanlge(_ rectangle: Rectangle)
     func didSelectEmptyView()
     
-    func didUpdateRecentlySelectedRectangle(_ rectangle: Rectangle)
+    func didUpdateSelectedRectangle(_ rectangle: Rectangle)
     
-    func didUpdateRecentlySelectedRectangleBackgroundColor(_ rectangle: Rectangle)
-    func didUpdateRecentlySelectedRectangleAlpha(_ rectangle: Rectangle)
+    func didUpdateSelectedRectangleBackgroundColor(_ rectangle: Rectangle)
+    func didUpdateSelectedRectangleAlpha(_ rectangle: Rectangle)
 }
