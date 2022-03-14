@@ -27,7 +27,7 @@ struct RectangleFactory {
         
         guard let randomAlpha = randomAlpha else {return nil}
 
-        return PhotoRectangle(size: Size(width: 150, height: 120), position: randomPosition, backGroundImage: image, alpha: randomAlpha)
+        return PhotoRectangle(size: Size(width: 150, height: 120), position: randomPosition, image: image, alpha: randomAlpha)
     }
     
     
