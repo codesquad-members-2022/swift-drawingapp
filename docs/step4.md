@@ -10,6 +10,10 @@
 - [x] 표시된 이미지의 투명도 값 변경
 - [x] 사진데이터 처리 관리 뷰 또는 뷰 모델 선언
 
+## 데모
+
+<image src="../images/step4.gif" width="300px">
+
 ## 학습 키워드
 
 - OptionSet
