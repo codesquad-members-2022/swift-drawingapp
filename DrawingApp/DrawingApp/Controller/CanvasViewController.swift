@@ -34,6 +34,14 @@ class CanvasViewController: UIViewController,
         setUpTapRecognizer()
         
         photoPicker.delegate = self
+        setClosureToLayerTableVC()
+    }
+    
+    private func setClosureToLayerTableVC() {
+        guard let layerTableVC = splitViewController?.viewController(for: .supplementary) as? LayerTableViewController else { return }
+        layerTableVC.didSelectRowHandler = { index in
+            self.plane.select(at: index)
+        }
     }
 }
 
