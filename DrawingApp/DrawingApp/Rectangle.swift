@@ -159,3 +159,10 @@ extension Rectangle: Hashable {
         hasher.combine(self.id)
     }
 }
+
+extension Rectangle {
+    mutating func changeColor() -> Rectangle {
+        self.color.random()
+        return self
+    }
+}

@@ -52,7 +52,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <size key="titleShadowOffset" width="1" height="1"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="#FFFFFF#" cornerStyle="fixed"/>
+                                        <buttonConfiguration key="configuration" style="plain" cornerStyle="fixed"/>
                                         <connections>
                                             <action selector="colorButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="pfZ-qv-fyD"/>
                                         </connections>
