@@ -194,6 +194,9 @@ extension ViewController {
         updateAlphaSlider(alpha: Float(matchedView.alpha))
         updateMinusAlphaValueButton(with: Float(matchedView.alpha))
         updatePlusAlphaValueButton(with: Float(matchedView.alpha))
+        if let specifiedPhoto = specifiedRectangle as? Photo {
+            self.backgroundColorButton.isHidden = true
+        }
     }
     
     @objc func planeDidChangeRectangleBackgroundColor(_ notification: Notification) {
@@ -229,6 +232,7 @@ extension ViewController {
     
     private func updateBackgroundButton(color: BackgroundColor, alpha: Alpha) {
         backgroundColorButton.isEnabled = true
+        backgroundColorButton.isHidden = false
         backgroundColorButton.setTitle(color.hexCode, for: .normal)
         let buttonBackgroundColor = color.convertToUIColor(with: alpha.value)
         backgroundColorButton.backgroundColor = buttonBackgroundColor
