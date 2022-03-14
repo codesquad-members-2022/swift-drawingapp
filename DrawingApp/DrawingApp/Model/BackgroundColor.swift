@@ -8,10 +8,10 @@
 import Foundation
 
 struct BackgroundColor: Equatable {
-    let r: Int
-    let g: Int
-    let b: Int
-    static let possibleColorValues = 0...255
+    let r: UInt8
+    let g: UInt8
+    let b: UInt8
+    static let possibleColorValues = UInt8(0)...UInt8(255)
     var hexCode: String {
         let hexR = String(Int(r), radix: 16).uppercased()
         let hexG = String(Int(g), radix: 16).uppercased()
@@ -20,28 +20,18 @@ struct BackgroundColor: Equatable {
         return "#\(hexR)\(hexG)\(hexB)"
     }
     
-    init?(r: Int, g: Int, b: Int) {
-        let colorValues = [r, g, b]
-        let min = BackgroundColor.possibleColorValues.min() ?? 0
-        let max = BackgroundColor.possibleColorValues.max() ?? 255
-        
-        for colorValue in colorValues {
-            if colorValue > max || colorValue < min {
-                return nil
-            }
-        }
-        
-        self.r = colorValues[0]
-        self.g = colorValues[1]
-        self.b = colorValues[2]
+    init(r: UInt8, g: UInt8, b: UInt8) {
+        self.r = r
+        self.g = g
+        self.b = b
     }
     
     static func random() -> BackgroundColor {
-        let randomR = Int.random(in: possibleColorValues)
-        let randomG = Int.random(in: possibleColorValues)
-        let randomB = Int.random(in: possibleColorValues)
+        let randomR = UInt8.random(in: possibleColorValues)
+        let randomG = UInt8.random(in: possibleColorValues)
+        let randomB = UInt8.random(in: possibleColorValues)
         
-        return BackgroundColor(r: randomR, g: randomG, b: randomB) ?? BackgroundColor(r: 0, g: 0, b: 0)!
+        return BackgroundColor(r: randomR, g: randomG, b: randomB)
     }
 
 }
