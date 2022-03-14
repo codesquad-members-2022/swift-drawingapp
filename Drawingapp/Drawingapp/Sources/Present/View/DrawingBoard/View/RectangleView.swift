@@ -9,10 +9,11 @@ import Foundation
 import UIKit
 
 class RectangleView: DrawingView, Colorable {
-    
-    init(point: Point, size: Size, alpha: Alpha, color: Color) {
-        super.init(point: point, size: size, alpha: alpha)
-        self.update(color: color)
+    required init(model: DrawingModel) {
+        super.init(model: model)
+        if let rectangleModel = model as? RectangleModel {
+            self.update(color: rectangleModel.color)
+        }
     }
     
     required init?(coder: NSCoder) {
