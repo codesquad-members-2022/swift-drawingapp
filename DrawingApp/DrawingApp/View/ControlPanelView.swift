@@ -89,4 +89,8 @@ class ControlPanelView: UIView {
     func setColorButtonTitle(title: String) {
         self.colorButton.setTitle(title, for: .normal)
     }
+    
+    func setColorButtonAccess(enable: Bool) {
+        self.colorButton.isEnabled = enable
+    }
 }
