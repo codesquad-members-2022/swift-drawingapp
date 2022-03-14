@@ -14,12 +14,8 @@ class MainViewController: UIViewController{
     private let rightAttributerView = RightAttributerView()
     private let imagePicker = UIImagePickerController()
     
-    private var rectangleUIViews = [Rectangle : RectangleView]()
-    private var imageUIViews = [Image : ImageView]()
-    private var selectedValue: RectValue?
-    
-    private var panGestureExtraView: RectangleView?
-    private var panGestureExtraImageView: ImageView?
+    private var customUIViews = [RectValue : UIView]()
+    private var panGestureExtraView: UIView?
     
     @IBOutlet weak var rectangleButton: UIButton!
     @IBOutlet weak var albumButton: UIButton!
@@ -62,7 +58,7 @@ extension MainViewController{
         rectangleView.restorationIdentifier = rectangleValue.id
         
         self.view.addSubview(rectangleView)
-        rectangleUIViews[rectangleValue] = rectangleView
+        customUIViews[rectangleValue] = rectangleView
         
         os_log("%@", "\(rectangleValue.description)")
     }
@@ -98,7 +94,7 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
         imageView.image = imageValue.image.image
         
         self.view.addSubview(imageView)
-        imageUIViews[imageValue] = imageView
+        customUIViews[imageValue] = imageView
         
         os_log("%@", "\(imageValue.description)")
     }
@@ -141,13 +137,13 @@ extension MainViewController {
             return
         }
         
-        if let _ = selectedValue{
+        if let _ = plane.selectedValue{
             noneTouchedViewFrame()
         }
         
         displaySliderValue(selected: rectangle)
         touchedViewFrame(selected: rectangle)
-        selectedValue = rectangle
+        plane.getSelectedValue(value: rectangle)
     }
     
     @objc func showImageTouchedView(_ notification: Notification){
@@ -155,13 +151,13 @@ extension MainViewController {
             return
         }
         
-        if let _ = selectedValue{
+        if let _ = plane.selectedValue{
             noneTouchedViewFrame()
         }
         
         displaySliderValue(selected: image)
         touchedViewFrame(selected: image)
-        selectedValue = image
+        plane.getSelectedValue(value: image)
     }
     
     @objc private func showNonTouchedView(){
@@ -191,12 +187,12 @@ extension MainViewController{
     
     private func touchedViewFrame<T: RectValue>(selected: T){
         if let rectangle = selected as? Rectangle{
-            let view = rectangleUIViews[rectangle]
+            let view = customUIViews[rectangle]
             view?.layer.borderColor = UIColor.cyan.cgColor
             view?.layer.borderWidth = 3
             
         } else if let image = selected as? Image{
-            let view = imageUIViews[image]
+            let view = customUIViews[image]
             view?.layer.borderColor = UIColor.cyan.cgColor
             view?.layer.borderWidth = 3
         }
@@ -210,18 +206,17 @@ extension MainViewController{
     }
     
     private func noneTouchedViewFrame(){
-        if let rectangle = selectedValue as? Rectangle{
-            let view = rectangleUIViews[rectangle]
+        if let rectangle = plane.selectedValue as? Rectangle{
+            let view = customUIViews[rectangle]
             view?.layer.borderColor = .none
             view?.layer.borderWidth = 0
-            self.selectedValue = nil
-            
-        } else if let image = selectedValue as? Image{
-            let view = imageUIViews[image]
+        } else if let image = plane.selectedValue as? Image{
+            let view = customUIViews[image]
             view?.layer.borderColor = .none
             view?.layer.borderWidth = 0
-            self.selectedValue = nil
         }
+        
+        plane.getSelectedValue(value: nil)
     }
 }
 
@@ -248,20 +243,20 @@ extension MainViewController {
     }
     
     private func makeExtraView(){
-        if let rectangle = selectedValue as? Rectangle{
+        if let rectangle = plane.selectedValue as? Rectangle{
             panGestureExtraView = RectangleView(frame: CGRect(x: rectangle.point.x, y: rectangle.point.y, width: rectangle.size.width, height: rectangle.size.height))
             
-            guard let extraView = panGestureExtraView else{
+            guard let extraView = panGestureExtraView as? RectangleView else{
                 return
             }
             
             extraView.backgroundColor = UIColor(red: rectangle.color.redValue(), green: rectangle.color.greenValue(), blue: rectangle.color.blueValue(), alpha: 0.5)
 
             self.view.addSubview(extraView)
-        } else if let image = selectedValue as? Image{
-            panGestureExtraImageView = ImageView(frame: CGRect(x: image.point.x, y: image.point.y, width: image.size.width, height: image.size.height))
+        } else if let image = plane.selectedValue as? Image{
+            panGestureExtraView = ImageView(frame: CGRect(x: image.point.x, y: image.point.y, width: image.size.width, height: image.size.height))
             
-            guard let extraImage = panGestureExtraImageView else{
+            guard let extraImage = panGestureExtraView as? ImageView else{
                 return
             }
             
@@ -273,26 +268,26 @@ extension MainViewController {
     }
     
     private func moveExtraView(moveDistance: CGPoint){
-        if let extraView = panGestureExtraView{
+        if let extraView = panGestureExtraView as? RectangleView{
             extraView.movingCenterPosition(x: moveDistance.x, y: moveDistance.y)
-        } else if let extraImage = panGestureExtraImageView{
+        } else if let extraImage = panGestureExtraView as? ImageView{
             extraImage.movingCenterPosition(x: moveDistance.x, y: moveDistance.y)
         }
     }
     
     private func changeViewPoint(){
-        if let extraView = panGestureExtraView, let rectangle = selectedValue as? Rectangle{
-            rectangleUIViews[rectangle]?.changeCenterPositon(x: extraView.center.x, y: extraView.center.y)
+        if let extraView = panGestureExtraView, let rectangle = plane.selectedValue as? Rectangle, let rectangleView = customUIViews[rectangle] as? RectangleView{
+            rectangleView.changeCenterPositon(x: extraView.center.x, y: extraView.center.y)
             rectangle.changePoint(point: MyPoint(x: extraView.frame.origin.x, y: extraView.frame.origin.y))
             
             extraView.removeFromSuperview()
             panGestureExtraView = nil
-        } else if let extraImage = panGestureExtraImageView, let image = selectedValue as? Image{
-            imageUIViews[image]?.changeCenterPositon(x: extraImage.center.x, y: extraImage.center.y)
+        } else if let extraImage = panGestureExtraView, let image = plane.selectedValue as? Image, let imageView = customUIViews[image] as? ImageView{
+            imageView.changeCenterPositon(x: extraImage.center.x, y: extraImage.center.y)
             image.changePoint(point: MyPoint(x: extraImage.frame.origin.x, y: extraImage.frame.origin.y))
             
             extraImage.removeFromSuperview()
-            panGestureExtraImageView = nil
+            panGestureExtraView = nil
         }
     }
 }
@@ -322,7 +317,7 @@ extension MainViewController: UIColorSliderDelegate{
     }
     
     func changeRectangleColor(){
-        guard let rectangle = selectedValue as? Rectangle, let rectView = rectangleUIViews[rectangle] else{
+        guard let rectangle = plane.selectedValue as? Rectangle, let rectView = customUIViews[rectangle] else{
             return
         }
         
@@ -333,14 +328,14 @@ extension MainViewController: UIColorSliderDelegate{
     }
     
     func changeRectangleAlpha(){
-        if let rectangle = selectedValue as? Rectangle{
-            let rectView = rectangleUIViews[rectangle]
+        if let rectangle = plane.selectedValue as? Rectangle{
+            let rectView = customUIViews[rectangle]
         
             rectangle.changeAlpha(alpha: rightAttributerView.alphaValue)
             rectView?.backgroundColor = rectView?.backgroundColor?.withAlphaComponent(rectangle.alpha.showValue())
             
-        } else if let image = selectedValue as? Image{
-            let imageView = imageUIViews[image]
+        } else if let image = plane.selectedValue as? Image{
+            let imageView = customUIViews[image]
         
             image.changeAlpha(alpha: rightAttributerView.alphaValue)
             imageView?.alpha = image.alpha.showValue()
