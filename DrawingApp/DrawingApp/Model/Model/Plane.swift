@@ -54,22 +54,10 @@ class Plane {
         return (0..<viewModels.count).contains(index) ? viewModels[index] : nil
     }
     
-    func addRectangle() {
-        let newRectangle = Rectangle.random()
-        viewModels.append(newRectangle)
-        NotificationCenter.default.post(name: Plane.Event.didAddViewModel, object: self, userInfo: [Plane.InfoKey.added: newRectangle])
-    }
-    
-    func addPhoto(data: Data) {
-        let newPhoto = Photo.random(from: data)
-        viewModels.append(newPhoto)
-        NotificationCenter.default.post(name: Plane.Event.didAddViewModel, object: self, userInfo: [Plane.InfoKey.added: newPhoto])
-    }
-    
-    func addLabel() {
-        let newLabel = Label.random()
-        viewModels.append(newLabel)
-        NotificationCenter.default.post(name: Plane.Event.didAddViewModel, object: self, userInfo: [Plane.InfoKey.added: newLabel])
+    func add(viewModelType: ViewModelType, data: Data? = nil) {
+        guard let newViewModel = ViewModelFactory.makeRandom(viewModelType, from: data) else { return }
+        viewModels.append(newViewModel)
+        NotificationCenter.default.post(name: Plane.Event.didAddViewModel, object: self, userInfo: [Plane.InfoKey.added: newViewModel])
     }
     
     func tap(on point: Point) {
