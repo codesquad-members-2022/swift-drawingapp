@@ -125,7 +125,7 @@ extension CanvasViewController {
     }
 }
 
-// MARK: - Use Case: Add New Label
+// MARK: - Use Case: Touch label button (Input) & Add New Label (Output)
 
 extension CanvasViewController {
     @IBAction func didTouchLabelButton(_ sender: UIButton) {
@@ -139,7 +139,7 @@ extension CanvasViewController {
     }
 }
 
-// MARK: - Use Case: Select CanvasView
+// MARK: - Use Case: Tap CanvasView (Input) & Select ViewModel (Output)
 
 extension CanvasViewController {
     
@@ -176,7 +176,7 @@ extension CanvasViewController {
     }
 }
 
-// MARK: - Use Case: Change CanvasView
+// MARK: - Use Case: Touch Color Button (Input) & Change Color (Output)
 
 extension CanvasViewController {
     
@@ -190,6 +190,11 @@ extension CanvasViewController {
         let mutatedUIView = search(for: selected)
         mutatedUIView?.backgroundColor = UIColor(with: newColor)
     }
+}
+
+// MARK: - Use Case: Change slider (Input) & Change Alpha (Output)
+
+extension CanvasViewController {
     
     @objc func didChangeSlider(_ notification: Notification) {
         guard let value = notification.userInfo?[PanelViewController.InfoKey.value] as? Float else { return }
@@ -206,6 +211,12 @@ extension CanvasViewController {
         mutatedUIView?.alpha = CGFloat(with: newAlpha)
     }
     
+}
+
+// MARK: - Use Case: Touch origin stepper (Input) & Change origin (Output)
+
+extension CanvasViewController {
+
     @objc func didTouchOriginStepper(_ notification: Notification) {
         guard let origin = notification.userInfo?[PanelViewController.InfoKey.origin] as? Point else { return }
         plane.changeSelected(toOrigin: origin)
@@ -216,6 +227,12 @@ extension CanvasViewController {
         let mutatedCavnasView = search(for: mutated)
         mutatedCavnasView?.frame.origin = CGPoint(with: mutated.origin)
     }
+}
+
+// MARK: - Use Case: Touch size stepper slider (Input) & Change size (Output)
+
+extension CanvasViewController {
+
     
     @objc func didTouchSizeStepper(_ notification: Notification) {
         guard let size = notification.userInfo?[PanelViewController.InfoKey.size] as? Size else { return }
@@ -227,6 +244,12 @@ extension CanvasViewController {
         let mutatedUIView = search(for: mutated)
         mutatedUIView?.frame.size = CGSize(with: mutated.size)
     }
+}
+
+// MARK: - Use Case: Edit textfield (Input) & Change text (Output)
+
+extension CanvasViewController {
+
     
     @objc func didEditTextField(_ notification: Notification) {
         guard let text = notification.userInfo?[PanelViewController.InfoKey.text] as? String else { return }
@@ -242,7 +265,7 @@ extension CanvasViewController {
     }
 }
 
-// MARK: - Use Case: Drag CanvasView
+// MARK: - Use Case: Drag layer (Input) & Change origin (Outpu)
 
 extension CanvasViewController {
     
@@ -262,7 +285,8 @@ extension CanvasViewController {
         guard let gestureView = gesture.view,
               gesture.state == .began else { return }
         
-        let temporaryView = ViewFactory.clone(gestureView)
+        guard let temporaryView = gestureView.copy() as? UIView else { return }
+        
         self.temporaryView = temporaryView
         view.addSubview(temporaryView)
     }
