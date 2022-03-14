@@ -46,6 +46,7 @@
 		BCE3CBA327CC6D90004F2AFE /* DrawingAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE3CBA227CC6D90004F2AFE /* DrawingAppUITestsLaunchTests.swift */; };
 		BCF9B77B27DEEAC8008B4879 /* ViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF9B77A27DEEAC8008B4879 /* ViewModelFactory.swift */; };
 		BCF9B77C27DEF092008B4879 /* ViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF9B77A27DEEAC8008B4879 /* ViewModelFactory.swift */; };
+		BCF9B77E27DEFAB9008B4879 /* ViewCopyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF9B77D27DEFAB9008B4879 /* ViewCopyExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,6 +98,7 @@
 		BCE3CBA227CC6D90004F2AFE /* DrawingAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BCE3CBAF27CC6E84004F2AFE /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		BCF9B77A27DEEAC8008B4879 /* ViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelFactory.swift; sourceTree = "<group>"; };
+		BCF9B77D27DEFAB9008B4879 /* ViewCopyExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCopyExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 			children = (
 				BC1806BC27CF3E4C0057679D /* Log.swift */,
 				BC1806D627D095E30057679D /* UIColorExtension.swift */,
+				BCF9B77D27DEFAB9008B4879 /* ViewCopyExtension.swift */,
 				BC1806D827D0D3D10057679D /* ConverterExtension.swift */,
 			);
 			path = Common;
@@ -389,6 +392,7 @@
 				BC1806D727D095E30057679D /* UIColorExtension.swift in Sources */,
 				BC1806BD27CF3E4C0057679D /* Log.swift in Sources */,
 				BCE3CB8427CC6D8E004F2AFE /* CanvasViewController.swift in Sources */,
+				BCF9B77E27DEFAB9008B4879 /* ViewCopyExtension.swift in Sources */,
 				BC802D5B27D5F96F002BD536 /* ViewModel.swift in Sources */,
 				BC1806C127CF41AE0057679D /* Size.swift in Sources */,
 				BC1806BF27CF40970057679D /* Alpha.swift in Sources */,
