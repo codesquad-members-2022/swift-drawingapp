@@ -45,7 +45,7 @@ class Plane:CustomStringConvertible{
     func updateRectangleColor(newColor: ColorRectangle.Color){
         guard let selectedRectangleIndex = self.selectedRectangleIndex else { return }
         guard let selectedRectangle = self.rectangles[selectedRectangleIndex] as? ColorRectangle else { return }
-        selectedRectangle.backgroundColor = newColor
+        selectedRectangle.updateBackgroundColor(newColor: newColor)
         NotificationCenter.default.post(name: NotificationName.rectangleColorUpdated, object: self, userInfo: [UserInfoKey.rectangleColorUpdated:newColor])
     }
     
