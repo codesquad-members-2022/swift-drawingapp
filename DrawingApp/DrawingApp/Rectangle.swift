@@ -97,7 +97,7 @@ struct Rectangle: CustomStringConvertible {
         var y: Double = 0.0
         
         mutating func random() {
-            let randomX: Double = Double.random(in: 20...1010)
+            let randomX: Double = Double.random(in: 20...738)
             let randomY: Double = Double.random(in: 24...680)
             self.x = randomX
             self.y = randomY
