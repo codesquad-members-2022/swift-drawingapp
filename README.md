@@ -178,3 +178,115 @@ ViewDidLoad까지는 뷰 컨트롤러가 만들어질때 한번만 호출된다.
 하지만 ViewWillAppear이후로는 여러번 불릴 수 있다.
 그렇기 때문에 ViewDidLoad를 마지막 시점으로 사용되는 것이다.
 ViewWillAppear에 넣으면 보일떄마다 뷰가 추가되면서 겹칠수도 있다!
+
+- - -
+`질문거리`
+- 간편 생성자 vs 기존 생성자 활용
+이전 피드백을 주신부분에 `RectangleView에 별다른 속성과 메서드가 없다면 기본 생성자를 활용하는 방법을 생각해보자`가 있었다.
+하지만,,RetangleView는 UIView의 서브클래스이기 때문에 기존 생성자에는 init(frame:)등이 있는데
+이 메서드(기존생성자)를 사용하면 init할 때 제가 정의한 Rectangle이나 RGB같은 값을 매개변수로 가지고 오는것이 힘들었다.
+그렇기에, init 후에 한번더 처리해주어야 한다는 단점이 있다고 생각이 되었다.
+하지만, 간편 생성자로 생성할 경우 기존 생성자와 간편생성자 모두 사용이 가능해진다.
+대신,이 때 만약 기존생성자를 사용할 경우 RectangleView의 네이밍과는 다른 의미의 사각형을 만들 여지를 줄수 있다고 생각이 됬다.
+따라서,RetangleViewFactory클래스를 만든다음 Static함수로 makeRetangleView를 만들어서
+리턴을 하면 될거 같다는 생각을 해보았다. `Model이 아닌 View를 만드는 factory`
+이후, Factory로 RectangleView를 만들고 나니 RectangleView에는 아무런 속성과 메서드가 없어서 UIView와 다를 바가 없었다
+makeRetangleView메서드에서 UIView를 리턴하여 만드는 것은 이상하다고 생각이 되어 결국 원상태로 돌아왔다..
+
+- `마스터님의 코멘트`
+뷰를 생성하는데에 있어서는 항상 딜레마이다. 따라서, 이런 부분은 정답은 없고, 장단점이 있다.
+그냥 View.init을 써도 되지만 이게 길어지고 처리 로직이 길어지면 귀찮아 지기때문이다.
+하지만, 내가 짠 코드는 다른 사람이 사용을 할때를 생각해보아야한다.
+다른 사람들은 내가 만들어놓은 간편생성자를 사용해야 한다고 생각을 못할 수 있다.
+특히 UIView는 스토리보드에서 생성할 수도 있고, Xib로 만들어놓을 수도 있는데 그런 경우는 간편 생성자를 호출하지 않는다.
+이런 것을 고려해보면 내가 편하자고 만들어 놓는다면 다른 사람이 전혀 사용할 수 없는 코드가 될 수 도 있다.
+결론. `항상 내 코드를 나만 쓴다고 생각하지말자, 다른 환경에서도 재사용이 가능한가를 생각하자.`
+
+- - -
+`Step04`
+
+### 학습목표
+- MVC패턴에서 Model과 Controller의 직접 참조를 끊기 위해 ObserverPattern을 학습, 적용
+- NotificationCenter 동작 방식을 학습, 적용
+
+- - -
+### 요구사항
+- [X] Viewcontroller는 ViewDidLoad에서 observe를 등록한다
+
+- [X] 새로운 사각형을 추가하거나 속성 바뀔 때마다 Notification을 받아서 화면을 업데이트한다.
+
+- [X] 속성을 바꾸면 해당 모델 값이 변할 때 마다 Plane 모델 객체에서는 변화에 대해 NotificationCenter에 post한다.
+- [X] 모든 동작은 이전 단계와 동일하게 동작해야 한다.사각형
+
+- - -
+- NotificationCenter
+	observe하고 observer들에게 Notification을 post해주는 중간다리 역할을 하는 Center.
+	observe(관찰)이라고 했지만 작동 방식을 보면 observer들이 subscrip(구독)을 하는 형태로 볼 수도 있다 왜냐하면, Post보내는 입장에서는 어떤 observer가 이 posting을 받을지 모르기 때문이다.
+이때문에, Model이 ViewController에게 post해주고 ViewController가 observe하는 입장이라면
+`Model은 ViewController를 몰라도 된다`, 즉 어떤 이벤트가 발생했다고 그냥 NotificationCenter에게 알려주면 NotificationCenter는 알아서 구독하고 있는 어떤한 Observer들에게 Noti를 전달할 것임.
+(느슨한관계)
+![](https://images.velog.io/images/seob9999/post/0e8186cc-c3ab-43bc-b60e-baec3fe08ddc/%E1%84%89%E1%85%B3%E1%84%8F%E1%85%B3%E1%84%85%E1%85%B5%E1%86%AB%E1%84%89%E1%85%A3%E1%86%BA%202022-03-14%20%E1%84%8B%E1%85%A9%E1%84%8C%E1%85%A5%E1%86%AB%209.41.19.png)
+[그림출처](https://daheenallwhite.github.io/ios/2019/10/13/Notification-Center/)
+
+- 사용법(예제코드)
+
+`Observer로 등록하기.`
+~~~swift
+        NotificationCenter.default.addObserver(
+            self,
+            selector:#selector(addRectangleView),
+            name:Notification.Name.init(rawValue: "addRectangle"),
+            object: plane )
+~~~
+- `default Notification Center에 observer로 add`한다.
+누가? `self`== ViewController
+`selector` -> 필요하다면 실행할 함수. @objc 함수가 필요하다
+매개변수 타입으로 Notification을 넣어주면 notification으로 넘어 온 값을 사용 할 수있다.
+~~~swift
+    @objc func addRectangleView(_ notification:Notification) {
+        guard let newRectangle = notification.userInfo?[Plane.UserInfoKey.addedRectangle] as? Rectangle else { return }
+...
+...
+~~~
+
+`name` -> 어떤 Noti를 받을 것인지에 대한 식별자이다. Post하는 쪽에서 이름을 만든다.NotificationName을 제대로 써주지 않으면 Noti를 아무리 보내도 잘 받을 수 없다.
+하지만 기본 생성자를 쓰면 저렇게 하드코딩이 되어있는 것을 확인 할 수 있는데, 이 Enum이나 static let으로 그런 실수를 줄이도록 노력해보자.
+`object` -> 어떤 인스턴스에서 발생하는 noti를 받을 것인지에 대한 것이다. 
+따라서 이 객체에서 생기는 변화(정보)를 받을 수 있다.
+예제의 plane은 Plane타입의 인스턴스인데 이를 통해서 ViewController는 모델 Plane의 인스턴스를 알고 있어야 하기 때문에(변수로 가지고 있어야하기때문에) oberve 하는 쪽(ViewController)는 posting하는 쪽(plan)을 알고 있어야한다.
+`참고` 만약 object에 nil을 넣는다면, NotificationCenter에 있는 모든 Noti를 받을 수 있다. 
+
+
+`Notification Post하기`
+~~~swift
+        NotificationCenter.default.post(
+                name: Notification.Name.init(rawValue: "addRectangle"),
+                object: self,
+                userInfo:[Plane.UserInfoKey.addedRectangle: rectangle]
+        )
+~~~
+
+- `default NotificationCenter에 post한다`
+`name` Post시 정하는 Notification의 이름이자 식별자
+`object` 보낼 객체 == self 즉 자기 자신을 보낸다.
+이때, 중요한것은 post와 observe할때 object를 잘 구분해야 한다는 것이다.
+post시 사용하는 object매개변수는 `보낼 객체` add observe시. `받을 객체`
+`userInfo`:어떤 정보를 보내줄 지 key value로 이루어진 dicionary이다.
+Key값으로는 Dictionary이기때문에 Hashable을 채택한 타입이라면 무엇이든 가능하다.
+- `참고`: userInfo는 nil이 가능하며, object를 통해서도 정보를 전달 할 수 있긴 있다.
+Ex)받는 쪽에서 object.proerty 등등.. 하지만 별로 권장되지 않는다고 한다.
+
+- - -
+
+`고민 및 해결`
+
+- NotificationCenter를 사용할때 Name과 userInfo의 Key값을 하드코딩 하기 대신 Extension과 enum으로 처리를 시도했었다..
+이때 NotificationCenter에 Extension을 할지 Plane에 Extension을 할지 고민이 있었고,
+조원들과 공유한 결과 Plane의 Notification이기 때문에 Plane에 넣어주는것이 맞다고 생각하여 적용.
+
+- Notification.Name과 userInfo에 들어가는 key의 네이밍을 같게 하는 편이 좋을까? 
+고민끝에 Name은 말그대로 Noti의 이름이기 때문에 이 Noti의 Identity를 나타내는 것이기 때문에 어떤 변화가 일어났냐? 에초점을 두는 편으로 해보았고, userInfo에 들어가는 Key는 Value를 찾기위한 Key로 생각이 되기 때문에 Value와 관련된 네이밍을 생각해보았다.
+	
+   Ex) 색이 바뀌었을떄,
+Noti의 이름 -> DidChangedRectangleColor (사각형의 색상이 바뀌었다)
+바뀐 색상을 찾기위한 key -> changedColor (바뀐 색상은?)
