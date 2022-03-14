@@ -11,7 +11,8 @@ import os
 class DrawingViewController: UIViewController{
     private let logger = Logger()
     private var plane: RectangleChangeable?
-    private lazy var rectangleAddButton = RectangleAddButton(frame: CGRect(x: view.center.x - 50, y: view.frame.maxY - 144.0, width: 100, height: 100))
+    private lazy var rectangleAddButton = RectangleAddButton(frame: CGRect(x: view.center.x - 100, y: view.frame.maxY - 144.0, width: 100, height: 100))
+    private lazy var imageAddButton = ImageAddButton(frame: CGRect(x: view.center.x, y: view.frame.maxY - 144.0, width: 100, height: 100))
     private var drawingDelegate: DrawingDelegate?
     private var rectangleViews: [String: RectangleView] = [:]
     
@@ -20,6 +21,7 @@ class DrawingViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(rectangleAddButton)
+        view.addSubview(imageAddButton)
         setRectangleButtonEvent()
         let viewTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(viewTappedGesture))
         view.addGestureRecognizer(viewTapGesture)
@@ -53,10 +55,15 @@ class DrawingViewController: UIViewController{
     
     private func setRectangleButtonEvent(){
         rectangleAddButton.addTarget(self, action: #selector(rectangleAddButtonTapped), for: .touchUpInside)
+        imageAddButton.addTarget(self, action: #selector(imageAddButtonTapped), for: .touchUpInside)
     }
     
     @objc func rectangleAddButtonTapped(sender: Any){
         plane?.addRandomRectangle()
+    }
+    
+    @objc func imageAddButtonTapped(sender: Any){
+        // add action when imagebutton Tapped
     }
     
     @objc private func addRectangleView(_ notification: Notification){

@@ -10,6 +10,7 @@
 		7207F20F27D090D100713C5E /* PropertySetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7207F20E27D090D100713C5E /* PropertySetViewController.swift */; };
 		7207F21127D098D500713C5E /* PropertyDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7207F21027D098D500713C5E /* PropertyDelegate.swift */; };
 		7207F21327D0B42600713C5E /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7207F21227D0B42600713C5E /* SplitViewController.swift */; };
+		722923ED27DEDEDC004C434C /* ImageAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722923EC27DEDEDC004C434C /* ImageAddButton.swift */; };
 		72400F2527CC5D1800D24138 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72400F2427CC5D1800D24138 /* AppDelegate.swift */; };
 		72400F2927CC5D1800D24138 /* DrawingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72400F2827CC5D1800D24138 /* DrawingViewController.swift */; };
 		72400F2C27CC5D1800D24138 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72400F2A27CC5D1800D24138 /* Main.storyboard */; };
@@ -45,6 +46,7 @@
 		7207F20E27D090D100713C5E /* PropertySetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertySetViewController.swift; sourceTree = "<group>"; };
 		7207F21027D098D500713C5E /* PropertyDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyDelegate.swift; sourceTree = "<group>"; };
 		7207F21227D0B42600713C5E /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
+		722923EC27DEDEDC004C434C /* ImageAddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAddButton.swift; sourceTree = "<group>"; };
 		72400F2127CC5D1800D24138 /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72400F2427CC5D1800D24138 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		72400F2827CC5D1800D24138 /* DrawingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingViewController.swift; sourceTree = "<group>"; };
@@ -162,6 +164,7 @@
 				7207F20E27D090D100713C5E /* PropertySetViewController.swift */,
 				72C4FDF327CC5FB300CE5D25 /* RectangleView.swift */,
 				72A40E1527CCB32A002D076C /* RectangleAddButton.swift */,
+				722923EC27DEDEDC004C434C /* ImageAddButton.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 				72400F2527CC5D1800D24138 /* AppDelegate.swift in Sources */,
 				7207F21327D0B42600713C5E /* SplitViewController.swift in Sources */,
 				7272910927D1DEB300361536 /* RectangleChangeable.swift in Sources */,
+				722923ED27DEDEDC004C434C /* ImageAddButton.swift in Sources */,
 				72A40E1C27CCBB87002D076C /* Rectangle.swift in Sources */,
 				7295F32D27D1A9C200C1BDFB /* DrawingDelegate.swift in Sources */,
 				72C0A7C527CF386400A4035F /* ViewSize.swift in Sources */,
