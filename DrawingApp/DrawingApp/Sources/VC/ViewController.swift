@@ -21,8 +21,7 @@ class ViewController: UIViewController {
         
         let test = UIView.init(frame: CGRect(x: newRectangle.point.x, y: newRectangle.point.y, width: newRectangle.size.width, height: newRectangle.size.height))
         
-        let util = Util(color: newRectangle.color, alpha: newRectangle.alpha)
-        test.backgroundColor = util.getUIColor()
+        test.backgroundColor = Convert.getUIColor(color: newRectangle.color, alpha: newRectangle.alpha)
         self.view.addSubview(test)
 
     }
