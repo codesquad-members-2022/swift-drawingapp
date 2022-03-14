@@ -212,7 +212,7 @@ extension ViewController: UIGestureRecognizerDelegate {
     
     @objc private func tapGusture(sender: UITapGestureRecognizer) {
         let location = sender.location(in: sender.view)
-        self.plane.touchPoint(Point(x: location.x, y: location.y))
+        self.plane.tapGusturePoint(Point(x: location.x, y: location.y))
     }
     
     @objc private func panGusture(sender: UITapGestureRecognizer) {
@@ -248,19 +248,15 @@ extension ViewController: HierarchyDelegate {
     }
     
     func selectedCell(index: IndexPath) {
-        self.plane.selecteCell(index: index.row)
+        self.plane.selecteModel(index: index.row)
     }
     
-    func move(to: Plane.MoveTo, index: IndexPath) {
-        self.plane.move(to: to, index: index.row)
+    func move(to: Plane.MoveTo) {
+        self.plane.move(to: to)
     }
 }
 
-extension ViewController: PlaneDelegate {
-    func updateModels(_ models: [DrawingModel]) {
-        
-    }
-    
+extension ViewController: PlaneDelegate {    
     func injectDrawingModelFactory() -> DrawingModelFactory {
         DrawingModelFactory(colorFactory: ColorFactory())
     }
@@ -272,15 +268,15 @@ extension ViewController: PlaneDelegate {
 
 extension ViewController: InspectorDelegate {
     func changeFont(name: String) {
-        self.plane.changeFont(name: name)
+        self.plane.change(fontName: name)
     }
     
     func changeColor() {
-        self.plane.changeColor()
+        self.plane.change(color: Color(using: RandomColorGenerator()))
     }
     
     func changeAlpha(_ alpha: Alpha) {
-        self.plane.changeAlpha(alpha)
+        self.plane.change(alpha: alpha)
     }
     
     func transform(translationX: Double, y: Double) {

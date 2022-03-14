@@ -7,27 +7,32 @@
 
 import Foundation
 
-protocol PlaneAction {
-    var delegate: PlaneDelegate? {get set}
-    func touchPoint(_ point: Point)
-    func changeAlpha(_ alpha: Alpha)
-    func changeColor()
-    func changeFont(name: String)
-    func transform(translationX: Double, y: Double)
-    func transform(width: Double, height: Double)
-    func beganDrag(point: Point)
-    func changedDrag(point: Point)
-    func endedDrag(point: Point)
-    func selecteCell(index: Int)
-    func move(to type: Plane.MoveTo, index: Int)
-}
-
 protocol PlaneDelegate {
     func injectDrawingModelFactory() -> DrawingModelFactory
     func injectScreenSize() -> Size
 }
 
-protocol MakeModelAction {
+protocol PlaneChanged {
+    func change(alpha: Alpha)
+    func change(color: Color)
+    func change(fontName: String)
+    func transform(translationX: Double, y: Double)
+    func transform(width: Double, height: Double)
+}
+
+protocol PlaneGusture {
+    func tapGusturePoint(_ point: Point)
+    func beganDrag(point: Point)
+    func changedDrag(point: Point)
+    func endedDrag(point: Point)
+}
+
+protocol PlaneAction {
+    func selecteModel(index: Int)
+    func move(to type: Plane.MoveTo)
+}
+
+protocol PlaneMakeModel {
     func makeRectangleModel(origin: Point)
     func makePhotoModel(origin: Point, url: URL)
     func makeLabelModel(origin: Point)
@@ -67,6 +72,22 @@ class Plane {
         return nil
     }
     
+    private func sendDidDeselectModel(_ model: DrawingModel?) {
+        guard let model = model,
+              let index = drawingModels.firstIndex(of: model) else {
+            return
+        }
+        
+        NotificationCenter.default.post(name: Plane.Event.didDeselecteDrawingModel, object: self, userInfo: [ParamKey.drawingModel: model, ParamKey.index: index])
+    }
+    
+    private func sendDidSelectModel(_ model: DrawingModel) {
+        guard let index = drawingModels.firstIndex(of: model) else {
+            return
+        }
+        NotificationCenter.default.post(name: Plane.Event.didSelecteDrawingModel, object: self, userInfo: [ParamKey.drawingModel:model, ParamKey.index: index])
+    }
+    
     private func calibrateScreenInOrigin(to point: Point, size: Size) -> Point? {
         guard let screenSize = self.delegate?.injectScreenSize() else {
             return nil
@@ -84,7 +105,7 @@ class Plane {
     }
 }
 
-extension Plane: MakeModelAction {
+extension Plane: PlaneMakeModel {
     func makeRectangleModel(origin: Point) {
         guard let model = self.delegate?.injectDrawingModelFactory().makeRectangleModel(origin: origin) else {
             return
@@ -112,61 +133,45 @@ extension Plane: MakeModelAction {
     }
 }
 
-extension Plane: PlaneAction {
-    
-    private func sendDidDeselectModel(_ model: DrawingModel?) {
-        guard let model = model,
-              let index = drawingModels.firstIndex(of: model) else {
+extension Plane: PlaneChanged {
+    func change(alpha: Alpha) {
+        guard let model = self.selectedModel else {
             return
         }
-        
-        NotificationCenter.default.post(name: Plane.Event.didDeselecteDrawingModel, object: self, userInfo: [ParamKey.drawingModel: model, ParamKey.index: index])
+        model.update(alpha: alpha)
     }
     
-    private func sendDidSelectModel(_ model: DrawingModel) {
-        guard let index = drawingModels.firstIndex(of: model) else {
+    func change(color: Color) {
+        guard let model = self.selectedModel as? Colorable else {
             return
         }
-        NotificationCenter.default.post(name: Plane.Event.didSelecteDrawingModel, object: self, userInfo: [ParamKey.drawingModel:model, ParamKey.index: index])
+        model.update(color: color)
     }
     
-    func selecteCell(index: Int) {
-        let selectModel = self.drawingModels[index]
-        
-        guard let prevSelectModel = self.selectedModel else {
-            sendDidSelectModel(selectModel)
-            self.selectedModel = selectModel
+    func change(fontName: String) {
+        guard let labelModel = self.selectedModel as? LabelModel else {
             return
         }
-        
-        if selectModel != prevSelectModel {
-            sendDidDeselectModel(prevSelectModel)
-            sendDidSelectModel(selectModel)
-            self.selectedModel = selectModel
-        }
+        labelModel.update(font: Font(name: fontName, size: labelModel.font.size))
     }
     
-    func move(to type: MoveTo, index: Int) {
-        let targetModel = self.drawingModels.remove(at: index)
-        var moveIndex = 0
+    func transform(translationX: Double, y: Double) {
+        guard let model = self.selectedModel else {
+            return
+        }
+        model.originMove(x: translationX, y: y)
+    }
+    
+    func transform(width: Double, height: Double) {
+        guard let model = self.selectedModel else {
+            return
+        }
+        model.sizeIncrease(width: width, height: height)
+    }
+}
 
-        switch type {
-        case .front:
-            moveIndex = 0
-        case .forward:
-            moveIndex = index == 0 ? 0 : index - 1
-        case .last:
-            moveIndex = self.drawingModels.count
-        case .back:
-            moveIndex = index >= self.drawingModels.count - 1 ? self.drawingModels.count - 1 : index + 1
-        }
-        let moveViewIndex = self.drawingModels.count - moveIndex
-        self.drawingModels.insert(targetModel, at: moveIndex)
-        
-        NotificationCenter.default.post(name: Plane.Event.didMoveModel, object: self, userInfo: [ParamKey.drawingModel:targetModel, ParamKey.index: moveViewIndex])
-    }
-    
-    func touchPoint(_ point: Point) {
+extension Plane: PlaneGusture {
+    func tapGusturePoint(_ point: Point) {
         guard let selectModel = self.selected(point: point) else {
             sendDidDeselectModel(self.selectedModel)
             self.selectedModel = nil
@@ -187,7 +192,7 @@ extension Plane: PlaneAction {
     }
     
     func beganDrag(point: Point) {
-        self.touchPoint(point)
+        self.tapGusturePoint(point)
         guard let dragModel = self.selectedModel else {
             return
         }
@@ -211,47 +216,48 @@ extension Plane: PlaneAction {
         dragModel.update(origin: Point(x: newOrigin.x, y: newOrigin.y))
         NotificationCenter.default.post(name: Plane.Event.didEndedDrag, object: self, userInfo: nil)
     }
-    
-    func transform(translationX: Double, y: Double) {
-        guard let model = self.selectedModel else {
+}
+
+extension Plane: PlaneAction {
+    func move(to move: MoveTo) {
+        guard let selectModel = self.selectedModel,
+        let targetIndex = self.drawingModels.firstIndex(of: selectModel) else {
             return
         }
-        model.originMove(x: translationX, y: y)
+        self.drawingModels.remove(at: targetIndex)
+        
+        var moveIndex = 0
+
+        switch move {
+        case .front:
+            moveIndex = 0
+        case .forward:
+            moveIndex = targetIndex == 0 ? 0 : targetIndex - 1
+        case .last:
+            moveIndex = self.drawingModels.count
+        case .back:
+            moveIndex = targetIndex >= self.drawingModels.count - 1 ? self.drawingModels.count - 1 : targetIndex + 1
+        }
+        let moveViewIndex = self.drawingModels.count - moveIndex
+        self.drawingModels.insert(selectModel, at: moveIndex)
+        
+        NotificationCenter.default.post(name: Plane.Event.didMoveModel, object: self, userInfo: [ParamKey.drawingModel:selectModel, ParamKey.index: moveViewIndex])
     }
     
-    func updateSize(_ size: Size) {
-        guard let model = self.selectedModel else {
+    func selecteModel(index: Int) {
+        let selectModel = self.drawingModels[index]
+        
+        guard let prevSelectModel = self.selectedModel else {
+            sendDidSelectModel(selectModel)
+            self.selectedModel = selectModel
             return
         }
-        model.update(size: size)
-    }
-    
-    func transform(width: Double, height: Double) {
-        guard let model = self.selectedModel else {
-            return
+        
+        if selectModel != prevSelectModel {
+            sendDidDeselectModel(prevSelectModel)
+            sendDidSelectModel(selectModel)
+            self.selectedModel = selectModel
         }
-        model.sizeIncrease(width: width, height: height)
-    }
-    
-    func changeColor() {
-        guard let model = self.selectedModel as? Colorable else {
-            return
-        }
-        model.update(color: Color(using: RandomColorGenerator()))
-    }
-    
-    func changeAlpha(_ alpha: Alpha) {
-        guard let model = self.selectedModel else {
-            return
-        }
-        model.update(alpha: alpha)
-    }
-    
-    func changeFont(name: String) {
-        guard let labelModel = self.selectedModel as? LabelModel else {
-            return
-        }
-        labelModel.update(font: Font(name: name, size: labelModel.font.size))
     }
 }
 
