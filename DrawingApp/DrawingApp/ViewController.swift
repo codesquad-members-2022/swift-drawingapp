@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     private var rectangleAndViewMap = [AnyHashable: RectangleViewable]()
     private var selectedView: RectangleViewable?
     weak var generateRectangleButton: UIButton!
+    weak var generateImageRectangleButton: UIButton!
     weak var drawableAreaView: UIView!
     @IBOutlet weak var statusView: UIView!
     @IBOutlet weak var backgroundColorButton: UIButton!
@@ -28,8 +29,9 @@ class ViewController: UIViewController {
         
         backgroundColorButton.setTitle("배경색 버튼", for: .disabled)
         
-        addGenerateRectangleButton()
         addDrawableAreaView()
+        addGenerateRectangleButton()
+        addGenerateImageRectangleButton()
         
         initializeViewsInTouchedEmptySpaceCondition()
         
@@ -44,11 +46,40 @@ class ViewController: UIViewController {
         let generateButton = UIButton(type: .custom, primaryAction: buttonUIAction)
         let buttonWidth = 100.0
         let buttonHeight = 100.0
-        let buttonX = (self.view.frame.size.width/2.0) - (buttonWidth/2.0)
+        let spacing = 0.5
+        let buttonX = (self.drawableAreaView.frame.size.width/2.0) - (buttonWidth + spacing)
         let buttonY = self.view.frame.size.height - buttonHeight
+        let buttonImageConfiguration = UIImage.SymbolConfiguration.init(hierarchicalColor: .black)
+        let buttonImage = UIImage(systemName: "rectangle", withConfiguration: buttonImageConfiguration)
         generateButton.frame = CGRect(x: buttonX, y: buttonY, width: buttonWidth, height: buttonHeight)
-        generateButton.backgroundColor = .gray
-        generateButton.setTitle("사각형 생성", for: .normal)
+        generateButton.backgroundColor = .systemGray6
+        generateButton.setImage(buttonImage, for: .normal)
+        generateButton.layer.cornerRadius = 15
+        
+        self.generateRectangleButton = generateButton
+        self.view.addSubview(generateButton)
+    }
+    
+    func addGenerateImageRectangleButton() {
+        let buttonUIAction = UIAction { _ in
+            let imagePicker = UIImagePickerController()
+            imagePicker.sourceType = .photoLibrary
+            imagePicker.allowsEditing = true
+            imagePicker.delegate = self
+            self.present(imagePicker, animated: true)
+        }
+        let generateButton = UIButton(type: .custom, primaryAction: buttonUIAction)
+        let buttonWidth = 100.0
+        let buttonHeight = 100.0
+        let spacing = 0.5
+        let buttonX = (self.drawableAreaView.frame.size.width/2.0) + spacing
+        let buttonY = self.view.frame.size.height - buttonHeight
+        let buttonImageConfiguration = UIImage.SymbolConfiguration.init(hierarchicalColor: .black)
+        let buttonImage = UIImage(systemName: "photo", withConfiguration: buttonImageConfiguration)
+        generateButton.frame = CGRect(x: buttonX, y: buttonY, width: buttonWidth, height: buttonHeight)
+        generateButton.backgroundColor = .systemGray6
+        generateButton.setImage(buttonImage, for: .normal)
+        generateButton.layer.cornerRadius = 15
         
         self.generateRectangleButton = generateButton
         self.view.addSubview(generateButton)
