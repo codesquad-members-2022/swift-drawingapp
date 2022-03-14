@@ -20,6 +20,7 @@ struct Rectangle: CustomStringConvertible {
         case nine
         case ten
         
+        
         static func random() -> Self  {
             let randomInt = Int.random(in: 1...10)
             var alpha: Alpha = .one
@@ -47,11 +48,30 @@ struct Rectangle: CustomStringConvertible {
             }
             return alpha
         }
-        mutating func goVivid() {
-            //TODO: enum "Comparable" 프로토콜 조사
-        }
-        mutating func goMuddy() {
-            //TODO: enum "Comparable" 프로토콜 조사
+        
+        mutating func change(_ alpha: Int) {
+            switch alpha {
+            case 1:
+                self = .one
+            case 2:
+                self = .two
+            case 3:
+                self = .three
+            case 4:
+                self = .four
+            case 5:
+                self = .five
+            case 6:
+                self = .six
+            case 7:
+                self = .seven
+            case 8:
+                self = .eight
+            case 9:
+                self = .nine
+            default:
+                self = .ten
+            }
         }
     }
     
@@ -163,6 +183,10 @@ extension Rectangle: Hashable {
 extension Rectangle {
     mutating func changeColor() -> Rectangle {
         self.color.random()
+        return self
+    }
+    mutating func changeAlpha(_ alpha: Int) -> Rectangle {
+        self.alpha.change(alpha)
         return self
     }
 }
