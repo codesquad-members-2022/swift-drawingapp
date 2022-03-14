@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class SideInspectorView: UIView {
-    var delegate: SideInspectorViewDelegate? // TotalView에 뷰 변경 기능을 위임하기 위한 delegate 속성
+    var delegate: SideInspectorViewDelegate? // VC에 뷰 변경 기능을 위임하기 위한 delegate 속성
 
     // TODO: component 속성 정의
     let colorButton: UIButton = {
@@ -59,7 +59,7 @@ class SideInspectorView: UIView {
     }()
     
     @objc func colorButtonDidTapped(_ sender: UIButton) {
-        
+        delegate?.sideInspectorViewDidTappedColorButton(sender)
     }
     
     @objc func createRectangleButtonTapped(_ sender: UIButton) {
