@@ -217,14 +217,14 @@ extension ViewController: UIGestureRecognizerDelegate {
     
     @objc private func panGusture(sender: UITapGestureRecognizer) {
         let location = sender.location(in: sender.view)
-        
+        let point = Point(x: location.x, y: location.y)
         switch sender.state {
         case .began:
-            self.plane.beganDrag(point: Point(x: location.x, y: location.y))
+            self.plane.beganDragPoint(point)
         case .changed:
-            self.plane.changedDrag(point: Point(x: location.x, y: location.y))
+            self.plane.changedDragPoint(point)
         case .ended:
-            self.plane.endedDrag(point: Point(x: location.x, y: location.y))
+            self.plane.endedDragPoint(point)
         default:
             break
         }
