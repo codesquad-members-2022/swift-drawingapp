@@ -7,7 +7,7 @@
 
 
 //Image가 들어가있는 Rectangle, 기본 plane Rectangle들을 Rectangle로 묶어서 Factory메서드를 사용할수 있을것 같아 선언했습니다.
-final class RectangleFactory {
+final class RectangleFactory:RectangleCreator {
     
     func makeRectangle(type:Rectangle.Type) -> Rectangle {
         let id = IDFactory.makeRandomID()
