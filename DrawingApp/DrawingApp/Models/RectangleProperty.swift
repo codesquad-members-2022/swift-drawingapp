@@ -28,7 +28,7 @@ final class RectangleProperty: RectanglePropertyCreator {
         self.alpha = alpha
     }
     
-    init(as name: String, using id: String, from properties: FactoryProperties, color: RectRGBColor, alpha: Double) {
+    init(as name: String, using id: String, from properties: RectangleRect, color: RectRGBColor, alpha: Double) {
         self.name = name
         self.id = id
         self.point = RectOrigin(x: properties.maxX, y: properties.maxY)

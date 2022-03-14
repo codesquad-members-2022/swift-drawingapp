@@ -9,19 +9,25 @@ import Foundation
 
 // RectangleViewTapDelegate는 문맥 상 어떤 객체에 메시지를 보내는지 확실치 않아서
 // MainScreenTapDelegate로 더 명확히 하였습니다.
-protocol MainScreenTapDelegate {
+protocol MainSceneTapDelegate {
     // 델리게이트 패턴의 메소드는 어떤 요소가 언제 누가 선택되었는지 명시하기 위해 네이밍을 변경하였습니다.
-    func mainScreenDidSelect(at index: Int?)
+    func mainSceneDidSelect(at index: Int?)
 }
 
 /// ViewController와 MainScreenViewController 사이를 잇고, 생성된 사각형의 모델들을 저장하는 모델입니다.
-final class Plane: MainScreenTapDelegate {
+final class Plane: MainSceneTapDelegate {
     
+    // MARK: - Notification Names
+    static let addButtonPushed = Notification.Name.init(rawValue: "addButtonPushed")
+    static let colorButtonPushed = Notification.Name.init(rawValue: "colorButtonPushed")
+    static let sliderMoved = Notification.Name.init(rawValue: "sliderMoved")
     static let alphaDidChanged = Notification.Name.init(rawValue: "alphaDidChanged")
     static let selectStatusChanged = Notification.Name.init(rawValue: "selectStatusChanged")
+    static let rectangleViewTouched = Notification.Name(rawValue: "rectangleViewTouched")
     
+    // MARK: - Models for Rectangle View
     private let factory = FactoryRectangleProperty()
-    private var properties = [RectangleProperty]()
+    private var rectangleModels = [RectangleProperty]()
     private var selectedIndex: Int?
     
     var mainSceneDelegate: MainSceneDelegate?
@@ -29,7 +35,7 @@ final class Plane: MainScreenTapDelegate {
     private func sendNotificationToScreen(using name: Notification.Name, sends model: RectangleProperty, at index: Int) {
         NotificationCenter.default.post(
             name: name,
-            object: type(of: self),
+            object: self,
             userInfo: [PostKey.index: index, PostKey.model: model]
         )
     }
@@ -37,35 +43,35 @@ final class Plane: MainScreenTapDelegate {
     // MARK: - MainScreenDelegate implementation
     func addRectangle() {
         guard
-            let randomRectangleProperty = mainSceneDelegate?.getScreenViewProperty(),
-            let rectangleViewProperty = factory.makeRandomView(as: "Subview #\(properties.count)", property: randomRectangleProperty)
+            let sceneRect = mainSceneDelegate?.getRect(),
+            let rectangleModel = factory.makeRandomRectangleModel(as: "Subview #\(rectangleModels.count)", rectangleRect: sceneRect)
         else {
-                return
+            return
         }
-        properties.append(rectangleViewProperty)
+        rectangleModels.append(rectangleModel)
         
-        sendNotificationToScreen(using: MainViewController.addButtonPushed, sends: rectangleViewProperty, at: properties.endIndex-1)
+        sendNotificationToScreen(using: Plane.addButtonPushed, sends: rectangleModel, at: rectangleModels.endIndex-1)
     }
     
     func resetRandomColor(at index: Int) -> RectRGBColor? {
         guard
-            properties.count-1 >= index,
-            let color = properties[index].resetRGBColor()
+            rectangleModels.count-1 >= index,
+            let color = rectangleModels[index].resetRGBColor()
         else {
             return nil
         }
         
-        sendNotificationToScreen(using: MainViewController.colorButtonPushed, sends: properties[index], at: index)
+        sendNotificationToScreen(using: Plane.colorButtonPushed, sends: rectangleModels[index], at: index)
         
         return color
     }
     
     func setAlpha(value: Float, at index: Int) {
-        guard properties.count-1 >= index else { return }
-        let model = properties[index]
+        guard rectangleModels.count-1 >= index else { return }
+        let model = rectangleModels[index]
         model.setAlpha(Double(value))
         
-        sendNotificationToScreen(using: MainViewController.sliderMoved, sends: model, at: index)
+        sendNotificationToScreen(using: Plane.sliderMoved, sends: model, at: index)
         NotificationCenter.default.post(
             name: Plane.alphaDidChanged,
             object: self,
@@ -74,19 +80,19 @@ final class Plane: MainScreenTapDelegate {
     }
     
     // MARK: - RectangleViewTapDelegate implementation
-    func mainScreenDidSelect(at index: Int?) {
+    func mainSceneDidSelect(at index: Int?) {
         selectedIndex = index
         NotificationCenter.default.post(
             name: Plane.selectStatusChanged,
-            object: type(of: self),
+            object: self,
             userInfo: [PostKey.index: (selectedIndex ?? -1)]
         )
         
-        var planeNoti = Notification(name: MainScreenViewController.rectangleViewTouched, object: self, userInfo: nil)
-        if let index = index, properties.count-1 >= index {
+        var planeNoti = Notification(name: Plane.rectangleViewTouched, object: self, userInfo: nil)
+        if let index = index, rectangleModels.count-1 >= index {
             planeNoti.userInfo = [
                 PostKey.index: index,
-                PostKey.model: properties[index]
+                PostKey.model: rectangleModels[index]
             ]
         }
         
@@ -95,23 +101,23 @@ final class Plane: MainScreenTapDelegate {
     
     // MARK: - Plane no using Interface
     func addProperty(_ model: RectangleProperty) {
-        properties.append(model)
+        rectangleModels.append(model)
     }
     
     func getRectangleCount() -> Int {
-        properties.count
+        rectangleModels.count
     }
     
     func getRectangleProperty(at index: Int) -> RectangleProperty? {
-        guard properties.count-1 >= index else {
+        guard rectangleModels.count-1 >= index else {
             return nil
         }
         
-        return properties[index]
+        return rectangleModels[index]
     }
     
     func hasAnyRectangle(in rect: RectOrigin) -> Bool {
-        properties.contains {
+        rectangleModels.contains {
             
             let point = $0.point
             let size = $0.size
