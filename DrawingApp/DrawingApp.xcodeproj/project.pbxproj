@@ -25,6 +25,7 @@
 		02D5541A27CC606300291B27 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D5541927CC606300291B27 /* Point.swift */; };
 		02D5541C27CC6CE100291B27 /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D5541B27CC6CE100291B27 /* BackgroundColor.swift */; };
 		02F8198B27DEE9B70084F0AD /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F8198A27DEE9B70084F0AD /* Photo.swift */; };
+		02F8198D27DEEBA00084F0AD /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F8198C27DEEBA00084F0AD /* PhotoView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		02D5541927CC606300291B27 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		02D5541B27CC6CE100291B27 /* BackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColor.swift; sourceTree = "<group>"; };
 		02F8198A27DEE9B70084F0AD /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
+		02F8198C27DEEBA00084F0AD /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 			isa = PBXGroup;
 			children = (
 				023A3A4027D2F45100F56686 /* RectangleView.swift */,
+				02F8198C27DEEBA00084F0AD /* PhotoView.swift */,
 			);
 			name = View;
 			path = DrawingApp/View;
@@ -259,6 +262,7 @@
 				02F8198B27DEE9B70084F0AD /* Photo.swift in Sources */,
 				02D5540627CC5E7D00291B27 /* ViewController.swift in Sources */,
 				02D5541827CC5FF200291B27 /* Size.swift in Sources */,
+				02F8198D27DEEBA00084F0AD /* PhotoView.swift in Sources */,
 				02D5541A27CC606300291B27 /* Point.swift in Sources */,
 				02D5540227CC5E7D00291B27 /* AppDelegate.swift in Sources */,
 				02D5540427CC5E7D00291B27 /* SceneDelegate.swift in Sources */,

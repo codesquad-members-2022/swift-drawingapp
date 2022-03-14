@@ -21,6 +21,19 @@ class ViewFactory {
         
         return newView
     }
+    
+    static func makePhotoView(of photo: Photo) -> RectangleViewable & UIView {
+        let point = photo.point
+        let size = photo.size
+        let frame = CGRect(x: point.x, y: point.y, width: size.width, height: size.height)
+        let alpha = CGFloat(photo.alpha.value)
+        let image = photo.image
+        
+        let newView = PhotoView(frame: frame, alpha: alpha, image: UIImage(data: image) ?? UIImage())
+        
+        return newView
+    }
+    
 }
 
 extension BackgroundColor {
