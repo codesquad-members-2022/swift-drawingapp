@@ -36,6 +36,10 @@ extension Color {
         static let lower = 0.0
         static let upper = 255.0
     }
+    
+    enum Alpha {
+        static let `default` = 1.0
+    }
 }
 
 extension Color: CustomStringConvertible {
