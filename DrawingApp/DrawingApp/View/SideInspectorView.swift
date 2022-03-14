@@ -55,7 +55,7 @@ class SideInspectorView: UIView {
     }()
     
     @objc func createRectangleButtonTapped(_ sender: UIButton) {
-        delegate?.sideInspectorView(self, buttonDidTapped: sender)
+        delegate?.sideInspectorViewDidTappedButton()
     }
     
     // TODO: init

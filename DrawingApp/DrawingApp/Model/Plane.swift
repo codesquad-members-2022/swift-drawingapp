@@ -8,6 +8,8 @@
 import Foundation
 
 struct Plane {
+    var delegate: PlaneDelegate?
+    
     private var rectangles = [Rectangle]()
     var rectangleCount: Int {
         return rectangles.count
@@ -17,7 +19,11 @@ struct Plane {
         return rectangles[index]
     }
     
-    mutating func addRectangle(_ rectangle: Rectangle) {
+    mutating func createRectangle() {
+        let factory = RectangleFactory()
+        let rectangle = factory.createRectangle()
         rectangles.append(rectangle)
+        
+        delegate?.planeDidAddedRectangle(rectangle)
     }
 }
