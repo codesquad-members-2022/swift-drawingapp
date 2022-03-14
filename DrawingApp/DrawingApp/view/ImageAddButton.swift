@@ -1,28 +1,28 @@
 //
-//  SquareAddButton.swift
+//  ImageAddButton.swift
 //  DrawingApp
 //
-//  Created by 김동준 on 2022/02/28.
+//  Created by 김동준 on 2022/03/14.
 //
 
 import Foundation
 import UIKit
 
-class RectangleAddButton: UIButton{
+class ImageAddButton: UIButton{
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setRectangleAddButtonProperty()
+        setImageAddButtonProperty()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setRectangleAddButtonProperty()
+        setImageAddButtonProperty()
     }
     
     private lazy var shapeImageView = UIImageView(frame: CGRect(x: 25, y: 20, width: 50, height: 40))
     private lazy var shapeNameLabel = UILabel(frame: CGRect(x: 10, y: 60, width: 80, height: 30))
     
-    private func setRectangleAddButtonProperty(){
+    func setImageAddButtonProperty(){
         backgroundColor = .white
         setShapeImageViewProperty()
         setShapeNameLabelProperty()
@@ -32,11 +32,11 @@ class RectangleAddButton: UIButton{
     }
     
     private func setShapeImageViewProperty(){
-        shapeImageView.image = UIImage(systemName: "rectangle")
+        shapeImageView.image = UIImage(systemName: "photo")
     }
 
     private func setShapeNameLabelProperty(){
-        shapeNameLabel.text = "사각형"
+        shapeNameLabel.text = "사진"
         shapeNameLabel.textAlignment = .center
     }
     
