@@ -10,7 +10,7 @@ import Foundation
 struct Plane {
     var delegate: PlaneDelegate?
     
-    private var rectangles = [Rectangle]()
+    private(set) var rectangles = [Rectangle]()
     var rectangleCount: Int {
         return rectangles.count
     }
