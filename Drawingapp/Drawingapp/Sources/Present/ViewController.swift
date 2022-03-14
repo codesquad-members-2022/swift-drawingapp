@@ -40,7 +40,7 @@ class ViewController: UIViewController {
         return hierarchyView
     }()
     
-    let plane = Plane()
+    let plane = Plane(modelFactory: DrawingModelFactory())
     var drawingViews: [DrawingModel:DrawingView] = [:]
     var dummyView: UIView?
     
@@ -88,10 +88,6 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: PlaneDelegate {
-    func getDrawingModelFactory() -> DrawingModelFactory {
-        DrawingModelFactory(colorFactory: ColorFactory())
-    }
-    
     func getScreenSize() -> Size {
         Size(width: self.drawingBoard.frame.width, height: self.drawingBoard.frame.height)
     }

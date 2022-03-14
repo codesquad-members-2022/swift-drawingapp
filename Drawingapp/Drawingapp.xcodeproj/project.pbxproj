@@ -10,13 +10,11 @@
 		E03455AE27CF24560036988A /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03455AD27CF24560036988A /* DrawingView.swift */; };
 		E03455B327CF25520036988A /* InspectorItemButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03455B227CF25520036988A /* InspectorItemButtonView.swift */; };
 		E03455B727CF2A1A0036988A /* DrawingViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E03455B627CF2A1A0036988A /* DrawingViewFactory.swift */; };
-		E034560D27D0AC3A0036988A /* ColorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034560C27D0AC3A0036988A /* ColorFactory.swift */; };
 		E034561627D1ADF30036988A /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1827CC643000A56635 /* Point.swift */; };
 		E034561727D1ADF30036988A /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1627CC642800A56635 /* Size.swift */; };
 		E034561827D1ADF30036988A /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA2D27CD048C00A56635 /* Plane.swift */; };
 		E034561927D1ADF30036988A /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA2227CC67DF00A56635 /* Alpha.swift */; };
 		E034561A27D1ADF30036988A /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA1F27CC656500A56635 /* Color.swift */; };
-		E034561C27D1ADFD0036988A /* ColorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034560C27D0AC3A0036988A /* ColorFactory.swift */; };
 		E034562027D1AE020036988A /* DrawingModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA2827CCDC9200A56635 /* DrawingModelFactory.swift */; };
 		E034562D27D22FB60036988A /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E034562C27D22FB60036988A /* PhotoView.swift */; };
 		E081805B27D719A9000633E1 /* DrawingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E081805A27D719A8000633E1 /* DrawingModel.swift */; };
@@ -56,6 +54,7 @@
 		E0D7DA4D27CDF28C00A56635 /* InspectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA4C27CDF28C00A56635 /* InspectorView.swift */; };
 		E0D7DA5127CDF6FE00A56635 /* InspectorSliderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA5027CDF6FE00A56635 /* InspectorSliderView.swift */; };
 		E0D7DA5327CDF70D00A56635 /* InspectorItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA5227CDF70D00A56635 /* InspectorItemView.swift */; };
+		E0D9D78927DF428200FB7C3E /* ColorGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D9D78827DF428200FB7C3E /* ColorGenerator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,7 +78,6 @@
 		E03455AD27CF24560036988A /* DrawingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingView.swift; sourceTree = "<group>"; };
 		E03455B227CF25520036988A /* InspectorItemButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InspectorItemButtonView.swift; sourceTree = "<group>"; };
 		E03455B627CF2A1A0036988A /* DrawingViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingViewFactory.swift; sourceTree = "<group>"; };
-		E034560C27D0AC3A0036988A /* ColorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorFactory.swift; sourceTree = "<group>"; };
 		E034562C27D22FB60036988A /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
 		E081805A27D719A8000633E1 /* DrawingModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingModel.swift; sourceTree = "<group>"; };
 		E081805F27D71A9C000633E1 /* PhotoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoModel.swift; sourceTree = "<group>"; };
@@ -117,6 +115,7 @@
 		E0D7DA4C27CDF28C00A56635 /* InspectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorView.swift; sourceTree = "<group>"; };
 		E0D7DA5027CDF6FE00A56635 /* InspectorSliderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorSliderView.swift; sourceTree = "<group>"; };
 		E0D7DA5227CDF70D00A56635 /* InspectorItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorItemView.swift; sourceTree = "<group>"; };
+		E0D9D78827DF428200FB7C3E /* ColorGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorGenerator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,7 +165,6 @@
 		E03455B827CF2A880036988A /* Factory */ = {
 			isa = PBXGroup;
 			children = (
-				E03455BC27CF2B360036988A /* TypeData */,
 				E03455B927CF2AA90036988A /* Drawing */,
 			);
 			path = Factory;
@@ -179,14 +177,6 @@
 				E03455B627CF2A1A0036988A /* DrawingViewFactory.swift */,
 			);
 			path = Drawing;
-			sourceTree = "<group>";
-		};
-		E03455BC27CF2B360036988A /* TypeData */ = {
-			isa = PBXGroup;
-			children = (
-				E034560C27D0AC3A0036988A /* ColorFactory.swift */,
-			);
-			path = TypeData;
 			sourceTree = "<group>";
 		};
 		E034561327D0F1C40036988A /* View */ = {
@@ -338,6 +328,7 @@
 			children = (
 				E03455B827CF2A880036988A /* Factory */,
 				E0D7DA2B27CCF83300A56635 /* Log.swift */,
+				E0D9D78827DF428200FB7C3E /* ColorGenerator.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -515,7 +506,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E081807E27DCAF08000633E1 /* HieararchyTableViewCell.swift in Sources */,
-				E034560D27D0AC3A0036988A /* ColorFactory.swift in Sources */,
 				E0D7DA4827CDE3C800A56635 /* TopMenuItemView.swift in Sources */,
 				E081807527DB1068000633E1 /* Font.swift in Sources */,
 				E0D7DA1727CC642800A56635 /* Size.swift in Sources */,
@@ -535,6 +525,7 @@
 				E081806327D7393C000633E1 /* RectangleModel.swift in Sources */,
 				E081805B27D719A9000633E1 /* DrawingModel.swift in Sources */,
 				E081806027D71A9C000633E1 /* PhotoModel.swift in Sources */,
+				E0D9D78927DF428200FB7C3E /* ColorGenerator.swift in Sources */,
 				E03455B327CF25520036988A /* InspectorItemButtonView.swift in Sources */,
 				E0D7DA2927CCDC9200A56635 /* DrawingModelFactory.swift in Sources */,
 				E0D7D9E227CC594D00A56635 /* ViewController.swift in Sources */,
@@ -552,7 +543,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E034561C27D1ADFD0036988A /* ColorFactory.swift in Sources */,
 				E034561627D1ADF30036988A /* Point.swift in Sources */,
 				E081806B27D75324000633E1 /* RectangleModel.swift in Sources */,
 				E034561727D1ADF30036988A /* Size.swift in Sources */,

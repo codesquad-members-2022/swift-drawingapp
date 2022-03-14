@@ -8,8 +8,11 @@
 import Foundation
 
 protocol PlaneDelegate {
-    func getDrawingModelFactory() -> DrawingModelFactory
     func getScreenSize() -> Size
+}
+
+protocol PlaneModelFactoryBase {
+    func make(modelType: DrawingModel.Type, _ data: [Any]) -> DrawingModel
 }
 
 protocol PlaneChanged {
@@ -41,6 +44,7 @@ class Plane {
     
     private var drawingModels: [DrawingModel] = []
     private var selectedModel: DrawingModel?
+    private var modelFactory: PlaneModelFactoryBase?
     
     var count: Int {
         drawingModels.count
@@ -59,6 +63,10 @@ class Plane {
             return drawingModels[index]
         }
         return nil
+    }
+    
+    init(modelFactory: PlaneModelFactoryBase) {
+        self.modelFactory = modelFactory
     }
     
     private func selected(point: Point) -> DrawingModel? {
@@ -105,13 +113,9 @@ class Plane {
 
 extension Plane: PlaneMakeModel {
     func makeModel(modelType: DrawingModel.Type, url: URL? = nil) {
-        guard let model = self.delegate?.getDrawingModelFactory().makeModel(modelType: modelType, url) else {
+        guard let model = self.modelFactory?.make(modelType: modelType, [url]) else {
             return
         }
-        didMakeModel(model)
-    }
-    
-    private func didMakeModel(_ model: DrawingModel) {
         self.drawingModels.insert(model, at: 0)
         NotificationCenter.default.post(name: Plane.Event.didMakeDrawingModel, object: self, userInfo: [ParamKey.drawingModel:model])
     }

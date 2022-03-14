@@ -1,22 +1,11 @@
 //
-//  ColorFactory.swift
+//  ColorGenerator.swift
 //  Drawingapp
 //
-//  Created by seongha shin on 2022/03/03.
+//  Created by seongha shin on 2022/03/14.
 //
 
 import Foundation
-
-class ColorFactory {
-    func make<T: ColorValueGenerator>(using generator: T) -> Color {
-        return Color(using: generator)
-    }
-    
-    func makeRandomColor() -> Color {
-        let ramdomGenerator = RandomColorGenerator()
-        return self.make(using: ramdomGenerator)
-    }
-}
 
 protocol ColorValueGenerator {
     var colorR: UInt8 { get }
