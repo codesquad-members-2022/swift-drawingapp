@@ -10,8 +10,8 @@ import Foundation
 public class Plane {
     
     //Point를 기반으로 Dictionary를 만듬으로써 View에서 TapGesture로 좌표값을 넘겼을때 그에 해당하는 Rectangle을 찾을 수있다.
-    private var rectangles:[Point:Rectangle] = [:]
-    private var selectedRectangle:Rectangle?
+    private var rectangles:[Point:PlaneRectangle] = [:]
+    private var selectedRectangle:PlaneRectangle?
     
     var count:Int {
         self.rectangles.count
@@ -41,7 +41,7 @@ public class Plane {
         )
     }
     
-    func addRectangle(rectangle:Rectangle) {
+    func addRectangle(rectangle:PlaneRectangle) {
         //Double로 만들어지는 Point값이 소수점에서 미세한 차이가 생길 수 있어서 round로 한번 변환을 시켰습니다.
         let x = round(rectangle.origin.x)
         let y = round(rectangle.origin.y)

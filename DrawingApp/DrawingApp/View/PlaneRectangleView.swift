@@ -1,5 +1,5 @@
 //
-//  RectangleView.swift
+//  PlaneRectangleView.swift
 //  DrawingApp
 //
 //  Created by 박진섭 on 2022/03/05.
@@ -7,9 +7,9 @@
 
 import UIKit
 
-final class RectangleView:UIView {
+final class PlaneRectangleView:UIView {
     
-    convenience init(rect: Rectangle, rgb:RGB, alpha:Alpha) {
+    convenience init(rect: PlaneRectangle, rgb:RGB, alpha:Alpha) {
         let x = rect.origin.x
         let y = rect.origin.y
         
