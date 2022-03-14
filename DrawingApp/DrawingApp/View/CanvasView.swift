@@ -94,15 +94,11 @@ class CanvasView: UIView{
     }
     
     private func sendCreatingRectangleRequest(){
-        if let delegate = self.delegate{
-            delegate.creatingRectangleRequested()
-        }
+        delegate?.creatingRectangleRequested()
     }
     
     private func sendPickingImageRequest(){
-        if let delegate = self.delegate{
-            delegate.pickingImageRequested()
-        }
+        delegate?.pickingImageRequested()
     }
 
 }
