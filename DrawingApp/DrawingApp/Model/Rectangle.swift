@@ -11,10 +11,10 @@ class Rectangle {
     let id : Id = Id()
     var size : Size
     var position : Position
-    var backGroundColor : Color
+    var backGroundColor : Color?
     var alpha : Alpha
     
-    init(size: Size, position : Position, color : Color, alpha : Alpha) {
+    init(size: Size, position : Position, color : Color?, alpha : Alpha) {
         self.size = size
         self.position = position
         self.backGroundColor = color
@@ -33,6 +33,6 @@ extension Rectangle : CustomStringConvertible, Equatable {
     }
     
     var description: String {
-        return "(\(self.id)), \(position), \(self.size), \(self.backGroundColor) , \(self.alpha)"
+        return "(\(self.id)), \(position), \(self.size), \(String(describing: self.backGroundColor)) , \(self.alpha)"
     }
 }
