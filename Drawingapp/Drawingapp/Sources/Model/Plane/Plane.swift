@@ -8,8 +8,8 @@
 import Foundation
 
 protocol PlaneDelegate {
-    func injectDrawingModelFactory() -> DrawingModelFactory
-    func injectScreenSize() -> Size
+    func getDrawingModelFactory() -> DrawingModelFactory
+    func getScreenSize() -> Size
 }
 
 protocol PlaneChanged {
@@ -89,7 +89,7 @@ class Plane {
     }
     
     private func calibrateScreenInOrigin(to point: Point, size: Size) -> Point? {
-        guard let screenSize = self.delegate?.injectScreenSize() else {
+        guard let screenSize = self.delegate?.getScreenSize() else {
             return nil
         }
         
@@ -107,21 +107,21 @@ class Plane {
 
 extension Plane: PlaneMakeModel {
     func makeRectangleModel(origin: Point) {
-        guard let model = self.delegate?.injectDrawingModelFactory().makeRectangleModel(origin: origin) else {
+        guard let model = self.delegate?.getDrawingModelFactory().makeRectangleModel(origin: origin) else {
             return
         }
         didMakeDrawingModel(model: model)
     }
     
     func makePhotoModel(origin: Point, url: URL) {
-        guard let model = self.delegate?.injectDrawingModelFactory().makePhotoModel(origin: origin, url: url) else {
+        guard let model = self.delegate?.getDrawingModelFactory().makePhotoModel(origin: origin, url: url) else {
             return
         }
         didMakeDrawingModel(model: model)
     }
     
     func makeLabelModel(origin: Point) {
-        guard let model = self.delegate?.injectDrawingModelFactory().makeLabelModel(origin: origin) else {
+        guard let model = self.delegate?.getDrawingModelFactory().makeLabelModel(origin: origin) else {
             return
         }
         didMakeDrawingModel(model: model)
