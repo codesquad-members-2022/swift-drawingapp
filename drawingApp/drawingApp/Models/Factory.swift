@@ -18,13 +18,18 @@
 
 
 import Foundation
+import UIKit
 
-//모형을 만들어주는 팩토리
 struct Factory {
        
-    static func makeRect(planePoint : Point, planeSize : Size, modelSize : Size) -> Model{
+    static func makeRect(planePoint : Point, planeSize : Size, modelSize : Size) -> Model {
         return  Model(id: RandomGenerator.makeId(), size: Size(width: modelSize.width, height: modelSize.height), point: RandomGenerator.makePoint(minPoint: Point(x: planePoint.x, y: planePoint.y), maxPoint: Point(x: planeSize.width - modelSize.width, y: planeSize.height - modelSize.height)), color: RandomGenerator.makeColor(), alpha: RandomGenerator.makeAlpha())
     }
     
-    
+    static func makeView(with model : Model) -> RectangleView {
+        let modelView = RectangleView(frame: CGRect(x: model.point.x.trim, y: model.point.y.trim, width: model.size.width, height: model.size.height))
+        
+        modelView.backgroundColor = UIColor(red: model.color.red.scaleRGB, green: model.color.green.scaleRGB, blue: model.color.blue.scaleRGB, alpha: model.alpha.value)
+        return modelView
+    }
 }
