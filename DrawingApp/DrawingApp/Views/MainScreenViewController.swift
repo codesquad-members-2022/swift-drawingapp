@@ -8,12 +8,12 @@
 import UIKit
 
 /// Plane에 전달된 Model 혹은 Model에 해당하는 프로퍼티들로 MainScreenViewController의 subviews를 변경합니다.
-protocol MainScreenDelegate {
+protocol MainSceneDelegate {
     /// Plane이 모델을 생성할 때 최대 X, Y 값을 참고하기 MainScreenViewController.view의 프로퍼티를 요청할 시 사용합니다.
     func getScreenViewProperty() -> FactoryProperties
 }
 
-final class MainScreenViewController: UIViewController, MainScreenDelegate, UIGestureRecognizerDelegate {
+final class MainScreenViewController: UIViewController, MainSceneDelegate, UIGestureRecognizerDelegate {
     
     static let rectangleViewTouched = Notification.Name(rawValue: "rectangleViewTouched")
     
