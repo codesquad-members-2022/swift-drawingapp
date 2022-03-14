@@ -7,7 +7,11 @@
 
 import UIKit
 
-class RectangleView: UIView {
+class RectangleView: UIImageView {
+    var hasImageContent: Bool {
+        return self.image != nil
+    }
+    
     // MARK: - Initialisers
     override init(frame: CGRect) {
         super.init(frame: frame)

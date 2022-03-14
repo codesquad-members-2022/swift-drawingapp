@@ -14,7 +14,8 @@ class ViewController: UIViewController {
     @IBOutlet weak var planeView: PlaneView!
     
     // MARK: - Property for Model
-    private var plane = Plane()
+    private let plane = Plane()
+    private var gallery = Gallery()
     private var rectangleMap = [Rectangle: RectangleView]()
     
     // MARK: - View Life Cycle Methods
@@ -42,7 +43,9 @@ class ViewController: UIViewController {
 // MARK: - PlaneView To ViewController
 extension ViewController: PlaneViewDelegate {
     func planeViewDidTapped(_ sender: UITapGestureRecognizer) {
-        self.plane.unselectItem()
+        if self.plane.currentItem != nil {
+            self.plane.unselectItem()
+        }
     }
     
     func planeViewDidPressRectangleAddButton() {
@@ -100,10 +103,14 @@ extension ViewController {
         guard let rectangle = notification.object as? Rectangle else { return }
         
         let rectangleView = RectangleView(with: rectangle)
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleOnTapRectangleView))
         
+        if let data = rectangle.image {
+            rectangleView.image = UIImage(data: data)
+        }
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleOnTapRectangleView))
         rectangleView.addGestureRecognizer(tap)
-        rectangleView.accessibilityIdentifier = rectangle.id
+        rectangleView.isUserInteractionEnabled = true
         
         self.planeView.addSubview(rectangleView)
         self.rectangleMap.updateValue(rectangleView, forKey: rectangle)
@@ -116,8 +123,14 @@ extension ViewController {
         guard let rectangleView = self.rectangleMap[rectangle] else { return }
         
         if let alpha = notification.userInfo?[Rectangle.NotificationKey.alpha] as? Alpha {
-            rectangleView.setBackgroundColor(with: alpha)
+            if rectangleView.hasImageContent {
+                rectangleView.setAlpha(alpha: alpha)
+            } else {
+                rectangleView.setBackgroundColor(with: alpha)
+            }
         }
+        
+        guard rectangleView.hasImageContent == false else { return }
         
         if let color = notification.userInfo?[Rectangle.NotificationKey.color] as? Color {
             rectangleView.setBackgroundColor(color: color, alpha: rectangle.alpha)
@@ -135,7 +148,8 @@ extension ViewController {
         
         rectangleView.setBorder(width: 2, color: .blue)
         
-        self.controlPanelView.setColorButtonTitle(title: hexString)
+        self.controlPanelView.setColorButtonAccess(enable: !rectangleView.hasImageContent)
+        self.controlPanelView.setColorButtonTitle(title: rectangleView.hasImageContent ? "None" : hexString)
         self.controlPanelView.setAlphaSliderValue(value: rectangle.alpha)
     }
     
@@ -153,30 +167,38 @@ extension ViewController: PHPickerViewControllerDelegate {
         self.dismiss(animated: true)
         
         let group = DispatchGroup()
-        var images = [UIImage]()
+        var collection = [Data]()
         
         for result in results {
             let itemProvider = result.itemProvider
-            
+        
             guard itemProvider.canLoadObject(ofClass: UIImage.self) else { continue }
             
             group.enter()
             
-            itemProvider.loadObject(ofClass: UIImage.self) { image, error in
+            itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.image.identifier) { url, error in
                 defer {
                     group.leave()
                 }
                 
-                guard let image = image as? UIImage, error == nil else { return }
-                images.append(image)
+                guard let url = url, error == nil else { return }
+                
+                self.gallery[url: url] = try? Data(contentsOf: url)
+                
+                guard let data = self.gallery[url: url] else { return }
+                
+                collection.append(data)
             }
         }
         
-        group.notify(queue: DispatchQueue.global()) {
-            // TODO: 이미지 모델 생성
-            for image in images {
+        group.notify(queue: DispatchQueue.global(), execute: {
+            for data in collection {
+                let imageRectangle = RectangleFactory.makeRandomRectangle(with: data)
                 
+                DispatchQueue.main.async {
+                    self.plane.append(item: imageRectangle)
+                }
             }
-        }
+        })
     }
 }
