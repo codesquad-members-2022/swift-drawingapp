@@ -226,65 +226,73 @@ extension MainViewController{
 }
 
 
-// MARK: - Use case: Click Rectangle / Image View
+// MARK: - Use case: Drag Rectangle / Image View
 
 extension MainViewController {
     @objc func dragGesture(_ gesture: UIPanGestureRecognizer){
         let moveDistance = gesture.translation(in: self.view)
-        
+    
         switch gesture.state{
         case .began:
             let touchPoint = gesture.location(in: self.view)
             plane.findValue(withX: touchPoint.x, withY: touchPoint.y)
-            
-            if let rectangle = selectedValue as? Rectangle{
-                panGestureExtraView = RectangleView(frame: CGRect(x: rectangle.point.x, y: rectangle.point.y, width: rectangle.size.width, height: rectangle.size.height))
-                
-                guard let extraView = panGestureExtraView else{
-                    return
-                }
-                
-                extraView.backgroundColor = UIColor(red: rectangle.color.redValue(), green: rectangle.color.greenValue(), blue: rectangle.color.blueValue(), alpha: 0.5)
-
-                self.view.addSubview(extraView)
-            } else if let image = selectedValue as? Image{
-                panGestureExtraImageView = ImageView(frame: CGRect(x: image.point.x, y: image.point.y, width: image.size.width, height: image.size.height))
-                
-                guard let extraImage = panGestureExtraImageView else{
-                    return
-                }
-                
-                extraImage.image = image.image.image
-                extraImage.alpha = 0.5
-                
-                self.view.addSubview(extraImage)
-            }
+            makeExtraView()
         case .changed:
-            if let extraView = panGestureExtraView{
-                extraView.center.x += moveDistance.x
-                extraView.center.y += moveDistance.y
-                gesture.setTranslation(.zero, in: self.view)
-            } else if let extraImage = panGestureExtraImageView{
-                extraImage.center.x += moveDistance.x
-                extraImage.center.y += moveDistance.y
-                gesture.setTranslation(.zero, in: self.view)
-            }
+            moveExtraView(moveDistance: moveDistance)
+            gesture.setTranslation(.zero, in: self.view)
         case .ended:
-            if let extraView = panGestureExtraView, let rectangle = selectedValue as? Rectangle{
-                rectangleUIViews[rectangle]?.center.x = extraView.center.x
-                rectangleUIViews[rectangle]?.center.y = extraView.center.y
-                
-                extraView.removeFromSuperview()
-                panGestureExtraView = nil
-            } else if let extraImage = panGestureExtraImageView, let image = selectedValue as? Image{
-                imageUIViews[image]?.center.x = extraImage.center.x
-                imageUIViews[image]?.center.y = extraImage.center.y
-                
-                extraImage.removeFromSuperview()
-                panGestureExtraImageView = nil
-            }
+            changeViewPoint()
         default:
             return
+        }
+    }
+    
+    private func makeExtraView(){
+        if let rectangle = selectedValue as? Rectangle{
+            panGestureExtraView = RectangleView(frame: CGRect(x: rectangle.point.x, y: rectangle.point.y, width: rectangle.size.width, height: rectangle.size.height))
+            
+            guard let extraView = panGestureExtraView else{
+                return
+            }
+            
+            extraView.backgroundColor = UIColor(red: rectangle.color.redValue(), green: rectangle.color.greenValue(), blue: rectangle.color.blueValue(), alpha: 0.5)
+
+            self.view.addSubview(extraView)
+        } else if let image = selectedValue as? Image{
+            panGestureExtraImageView = ImageView(frame: CGRect(x: image.point.x, y: image.point.y, width: image.size.width, height: image.size.height))
+            
+            guard let extraImage = panGestureExtraImageView else{
+                return
+            }
+            
+            extraImage.image = image.image.image
+            extraImage.alpha = 0.5
+            
+            self.view.addSubview(extraImage)
+        }
+    }
+    
+    private func moveExtraView(moveDistance: CGPoint){
+        if let extraView = panGestureExtraView{
+            extraView.movingCenterPosition(x: moveDistance.x, y: moveDistance.y)
+        } else if let extraImage = panGestureExtraImageView{
+            extraImage.movingCenterPosition(x: moveDistance.x, y: moveDistance.y)
+        }
+    }
+    
+    private func changeViewPoint(){
+        if let extraView = panGestureExtraView, let rectangle = selectedValue as? Rectangle{
+            rectangleUIViews[rectangle]?.changeCenterPositon(x: extraView.center.x, y: extraView.center.y)
+            rectangle.changePoint(point: MyPoint(x: extraView.frame.origin.x, y: extraView.frame.origin.y))
+            
+            extraView.removeFromSuperview()
+            panGestureExtraView = nil
+        } else if let extraImage = panGestureExtraImageView, let image = selectedValue as? Image{
+            imageUIViews[image]?.changeCenterPositon(x: extraImage.center.x, y: extraImage.center.y)
+            image.changePoint(point: MyPoint(x: extraImage.frame.origin.x, y: extraImage.frame.origin.y))
+            
+            extraImage.removeFromSuperview()
+            panGestureExtraImageView = nil
         }
     }
 }
