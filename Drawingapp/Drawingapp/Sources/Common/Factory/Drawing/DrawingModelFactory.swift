@@ -10,46 +10,33 @@ import UIKit
 
 class DrawingModelFactory {
     private let colorFactory: ColorFactory
-    private static var rectangleModelCounting: Int = 0
-    private static var photoModelCounting: Int = 0
-    private static var labelModelCounting: Int = 0
     
     init(colorFactory: ColorFactory) {
         self.colorFactory = colorFactory
     }
     
-    func makeRectangleModel(origin: Point) -> RectangleModel {
+    func makeModel(modelType: DrawingModel.Type, _ url: URL? = nil) -> DrawingModel {
         let id = makeId()
         let size = Size(width: 150, height: 120)
-        let color = colorFactory.makeRandomColor()
         let alpha = Alpha.allCases.randomElement() ?? .transpar10
-        Self.rectangleModelCounting += 1
-        return RectangleModel(id: id, index: Self.rectangleModelCounting, origin: origin, size: size, color: color, alpha: alpha)
-    }
-    
-    func makePhotoModel(origin: Point, url: URL) -> PhotoModel {
-        let id = makeId()
-        let size = Size(width: 150, height: 120)
-        let alpha = Alpha.transpar10
-        Self.photoModelCounting += 1
-        return PhotoModel(id: id, index: Self.photoModelCounting,origin: origin, size: size, alpha: alpha, url: url)
-    }
-    
-    func makeLabelModel(origin: Point) -> LabelModel {
-        let id = makeId()
-        let font = Font(name: "AppleSDGothicNeo-Regular", size: 16)
-        let fontColor = colorFactory.makeRandomColor()
-        let alpha = Alpha.allCases.randomElement() ?? .transpar10
+        let origin = Point(x: Int.random(in: 0..<500), y: Int.random(in: 0..<500))
         
-        let uiFont = UIFont(name: font.name, size: font.size)
-        let text = makeRandomText()
-        let labelSize = NSString(string: text).size(withAttributes: [.font:uiFont])
-        let size = Size(width: labelSize.width + 10, height: labelSize.height + 10)
-        Self.labelModelCounting += 1
-        
-        return LabelModel(id: id, index: Self.labelModelCounting,origin: origin, size: size, alpha: alpha, text: text, font: font, fontColor: fontColor)
+        switch modelType{
+        case is RectangleModel.Type:
+            let color = colorFactory.makeRandomColor()
+            return RectangleModel(id: id, index: 0, origin: origin, size: size, color: color, alpha: alpha)
+        case is PhotoModel.Type:
+            return PhotoModel(id: id, index: 0 ,origin: origin, size: size, alpha: alpha, url: url)
+        case is LabelModel.Type:
+            let font = Font(name: "AppleSDGothicNeo-Regular", size: 16)
+            let fontColor = colorFactory.makeRandomColor()
+            let text = makeRandomText()
+            return LabelModel(id: id, index: 0, origin: origin, size: size, alpha: alpha, text: text, font: font, fontColor: fontColor)
+        default:
+            return DrawingModel(id: id, index: 0, origin: origin, size: size, alpha: alpha)
+        }
     }
-    
+        
     func makeId() -> String {
         let chars = "abcdefghijklmnopqrstuvwxyz0123456789"
         return String((0..<3).reduce(""){ id, _ in

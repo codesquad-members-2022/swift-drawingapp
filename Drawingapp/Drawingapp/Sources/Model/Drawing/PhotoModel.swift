@@ -14,7 +14,7 @@ class PhotoModel: DrawingModel, Imageable {
         "id: ( \(id) ), \(origin), \(size), alpha: \(alpha), url: \(imageUrl)"
     }
     
-    init(id: String, index: Int, origin: Point, size: Size, alpha: Alpha, url: URL) {
+    init(id: String, index: Int, origin: Point, size: Size, alpha: Alpha, url: URL?) {
         self.imageUrl = url
         super.init(id: id, index: index, origin: origin, size: size, alpha: alpha)
     }

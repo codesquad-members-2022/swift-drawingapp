@@ -332,10 +332,7 @@ extension ViewController: TopMenuBarDelegate, PHPickerViewControllerDelegate {
     
     //MARK: Input
     func makeRectangleTapped() {
-        let screenSize = self.drawingBoard.frame.size
-        let originX = Int.random(in: 0..<Int(screenSize.width))
-        let originY = Int.random(in: 0..<Int(screenSize.height))
-        self.plane.makeRectangleModel(origin: Point(x: originX, y: originY))
+        self.plane.makeModel(modelType: RectangleModel.self)
     }
     
     func makePhotoTapped() {
@@ -348,10 +345,7 @@ extension ViewController: TopMenuBarDelegate, PHPickerViewControllerDelegate {
     }
     
     func makeLabelTapped() {
-        let screenSize = self.drawingBoard.frame.size
-        let originX = Int.random(in: 0..<Int(screenSize.width))
-        let originY = Int.random(in: 0..<Int(screenSize.height))
-        self.plane.makeLabelModel(origin: Point(x: originX, y: originY))
+        self.plane.makeModel(modelType: LabelModel.self)
     }
     
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
@@ -371,11 +365,7 @@ extension ViewController: TopMenuBarDelegate, PHPickerViewControllerDelegate {
                     try? fileManager.removeItem(at: destination)
                 }
                 try? fileManager.copyItem(at: url, to: destination)
-                
-                let screenSize = UIScreen.main.bounds.size
-                let originX = Int.random(in: 0..<Int(screenSize.width))
-                let originY = Int.random(in: 0..<Int(screenSize.height))
-                self.plane.makePhotoModel(origin: Point(x: originX, y: originY), url: destination)
+                self.plane.makeModel(modelType: PhotoModel.self, url: url)
             } catch {
                 Log.error("image Load Fail: \(url)")
             }
