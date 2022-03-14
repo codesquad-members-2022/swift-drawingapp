@@ -22,15 +22,15 @@ class Plane{
     
     private func addRectangle() -> Rectangle{
         let rectangleMutable = rectangleFactory.randomRectangle()
-        let rectangle = rectangleMutable.rectangle
-        self.rectangles[rectangle.point] = rectangle.rectangle
+        let rectangle = rectangleMutable.getRandomRectangle()
+        self.rectangles[rectangle.point] = rectangle
         self.selectedRectangle = rectangle
         return rectangle
     }
     
     private func changeRectangleColor(){
         let colorMuatble = rectangleFactory.randomRGBColor()
-        let rgbValue = colorMuatble.colorRGB
+        let rgbValue = colorMuatble.getRandomColorRGb()
         selectedRectangle?.resetColor(rgbValue: rgbValue)
     }
     
