@@ -232,8 +232,15 @@ extension Plane: PlaneGusture {
               let newOrigin = self.calibrateScreenInOrigin(to: point, size: dragModel.size) else {
             return
         }
-        dragModel.update(origin: Point(x: newOrigin.x, y: newOrigin.y))
+        let origin = Point(x: newOrigin.x, y: newOrigin.y)
+        dragModel.update(origin: origin)
         NotificationCenter.default.post(name: Plane.Event.didEndedDrag, object: self, userInfo: nil)
+        
+        let userInfo: [AnyHashable : Any] = [
+            ParamKey.drawingModel: dragModel,
+            ParamKey.origin: origin
+        ]
+        NotificationCenter.default.post(name: Event.didUpdateOrigin, object: self, userInfo: userInfo)
     }
 }
 
