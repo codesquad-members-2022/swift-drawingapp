@@ -25,7 +25,5 @@ class PhotoModel: DrawingModel, Imageable {
         }
         
         self.imageUrl = imageUrl
-        let userInfo: [AnyHashable : Any] = [ParamKey.imageUrl:imageUrl]
-        NotificationCenter.default.post(name: Event.updateImageUrl, object: self, userInfo: userInfo)
     }
 }

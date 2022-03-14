@@ -21,7 +21,5 @@ class RectangleModel: DrawingModel, Colorable {
     
     func update(color: Color) {
         self.color = color
-        let userInfo: [AnyHashable : Any] = [ParamKey.color:color]
-        NotificationCenter.default.post(name: Event.updateColor, object: self, userInfo: userInfo)
     }
 }

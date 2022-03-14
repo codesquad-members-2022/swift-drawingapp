@@ -25,19 +25,13 @@ class LabelModel: DrawingModel, Textable {
     
     func update(text: String) {
         self.text = text
-        let userInfo: [AnyHashable : Any] = [ParamKey.text:text]
-        NotificationCenter.default.post(name: Event.updateText, object: self, userInfo: userInfo)
     }
     
     func update(font: Font) {
         self.font = font
-        let userInfo: [AnyHashable : Any] = [ParamKey.font:font]
-        NotificationCenter.default.post(name: Event.updateFont, object: self, userInfo: userInfo)
     }
     
     func update(fontColor: Color) {
         self.fontColor = fontColor
-        let userInfo: [AnyHashable : Any] = [ParamKey.fontColor:fontColor]
-        NotificationCenter.default.post(name: Event.updateFontColor, object: self, userInfo: userInfo)
     }
 }

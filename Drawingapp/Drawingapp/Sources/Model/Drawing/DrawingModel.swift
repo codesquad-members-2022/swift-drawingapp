@@ -58,53 +58,20 @@ class DrawingModel: CustomStringConvertible, Equatable, Hashable {
     
     func update(alpha: Alpha) {
         self.alpha = alpha
-        NotificationCenter.default.post(name: Event.updateAlpha, object: self, userInfo: [ParamKey.alpha:alpha])
     }
     
     func update(origin: Point) {
         self.origin = origin
-        NotificationCenter.default.post(name: Event.updateOrigin, object: self, userInfo: [ParamKey.origin:self.origin])
     }
     
-    func originMove(x: Double, y: Double) {
+    func update(x: Double, y: Double) {
         let originX = origin.x + x < 1 ? 1 : origin.x + x
         let originY = origin.y + y < 1 ? 1 : origin.y + y
-        let moveOrigin = Point(x: originX, y: originY)
-        update(origin: moveOrigin)
+        update(origin: Point(x: originX, y: originY))
     }
     
-    func update(size: Size) {
-        self.size = size
-        NotificationCenter.default.post(name: Event.updateSize, object: self, userInfo: [ParamKey.size:self.size])
-    }
-    
-    func sizeIncrease(width: Double, height: Double) {
+    func update(width: Double, height: Double) {
         let sizeIncrease = Size(width: size.width + width, height: size.height + height)
-        update(size: sizeIncrease)
-    }
-}
-
-extension DrawingModel {
-    enum Event {
-        static let updateColor = NSNotification.Name("updateColor")
-        static let updateOrigin = NSNotification.Name("updateOrigin")
-        static let updateSize = NSNotification.Name("updateSize")
-        static let updateAlpha = NSNotification.Name("updateAlpha")
-        static let updateImageUrl = NSNotification.Name("updateImageUrl")
-        static let updateText = NSNotification.Name("updateText")
-        static let updateFont = NSNotification.Name("updateFont")
-        static let updateFontColor = NSNotification.Name("updateFontColor")
-    }
-    
-    enum ParamKey {
-        static let id = "id"
-        static let alpha = "alpha"
-        static let origin = "origin"
-        static let size = "size"
-        static let color = "color"
-        static let imageUrl = "imageUrl"
-        static let text = "text"
-        static let font = "font"
-        static let fontColor = "fontColor"
+        self.size = sizeIncrease
     }
 }
