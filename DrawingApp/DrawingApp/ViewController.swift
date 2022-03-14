@@ -14,7 +14,9 @@ class ViewController: UIViewController {
     let rectanglePropertyChangeBoard = PropertyChangeBoard()
     let addRectangleButton = UIButton()
     let addPhotoButton = UIButton()
-   
+    
+    let imagePickerController = UIImagePickerController()
+    
     let plane = Plane()
     let photoImages = PhotoImages()
     
@@ -23,6 +25,7 @@ class ViewController: UIViewController {
         rectanglePropertyChangeBoard.delegate = self
         rectangleViewBoard.delegate = self
         photoImages.deleagate = self
+        imagePickerController.delegate = self
         initialScreenSetUp()
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidAdd(_:)), name: Plane.NotificationName.addRectangle, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidSearch(_:)), name: Plane.NotificationName.searchRectangle, object: plane)
@@ -41,7 +44,7 @@ class ViewController: UIViewController {
             self.rectangleViewBoard.topAnchor.constraint(equalTo: safeArea.topAnchor).isActive = true
             self.rectangleViewBoard.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.9).isActive = true
             self.rectangleViewBoard.widthAnchor.constraint(equalTo: safeArea.widthAnchor, multiplier: 0.8).isActive = true
-                        
+            
             let tap = UITapGestureRecognizer(target: self, action: #selector(ViewController.tapRectangleViewBoard(_:)))
             self.rectangleViewBoard.addGestureRecognizer(tap)
             self.rectangleViewBoard.clipsToBounds = true
@@ -91,6 +94,8 @@ class ViewController: UIViewController {
             addPhotoButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor).isActive = true
             addPhotoButton.widthAnchor.constraint(equalTo: rectangleViewBoard.widthAnchor, multiplier: 0.1).isActive = true
             addPhotoButton.leftAnchor.constraint(equalTo: addRectangleButton.rightAnchor, constant: 10).isActive = true
+            
+            addPhotoButton.addTarget(self, action: #selector(selectPhotoButtonTouched), for: .touchUpInside)
         }
         
         layoutViewBoard()
@@ -109,6 +114,26 @@ class ViewController: UIViewController {
         let touchedPosition = Position(x: touchedLocation.x, y: touchedLocation.y)
         plane.searchRectangle(at: touchedPosition)
     }
+    
+    @objc func selectPhotoButtonTouched(_ sender: Any) {
+            let pickerAlert = UIAlertController(title: "사진 가져오기", message: "", preferredStyle: .actionSheet )
+
+            let libraryOption = UIAlertAction(title: "앨범", style: .default){
+                _ in self.present(self.imagePickerController, animated: true)
+            }
+            let cancelOption = UIAlertAction(title: "취소", style: .cancel)
+            
+            pickerAlert.addAction(libraryOption)
+            pickerAlert.addAction(cancelOption)
+            
+            if let popoverController = pickerAlert.popoverPresentationController {
+                popoverController.sourceView = self.view
+                popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+                popoverController.permittedArrowDirections = []
+            }
+            self.present(pickerAlert, animated: true, completion: nil)
+        }
+
 }
 
 extension ViewController: PropertyChangeBoardDelegate {
@@ -124,13 +149,13 @@ extension ViewController: PropertyChangeBoardDelegate {
 
 extension ViewController {
     @objc func planeDidAdd(_ notification: Notification) {
-        if let rectangle = notification.userInfo?[Plane.NotificationKeyValue.rectangle] as? Rectangle {
-            guard let rectangleView = RectangleViewFactory.makeView(of: rectangle) else {return}
-            self.rectangleViewBoard.addSubview(rectangleView)
-        }
         if let photoRectangle = notification.userInfo?[Plane.NotificationKeyValue.rectangle] as? PhotoRectangle {
             guard let photoRectangleView = RectangleViewFactory.makePhotoView(of: photoRectangle) else {return}
             self.rectangleViewBoard.addSubview(photoRectangleView)
+        }
+        if let rectangle = notification.userInfo?[Plane.NotificationKeyValue.rectangle] as? Rectangle {
+            guard let rectangleView = RectangleViewFactory.makeView(of: rectangle) else {return}
+            self.rectangleViewBoard.addSubview(rectangleView)
         }
     }
     
@@ -163,6 +188,13 @@ extension ViewController: PhotoImagesDelegate {
         guard let photoRectangle = RectangleFactory.makePhotoRectangle(in: (800,570), image: image) else {return}
         plane.addRectangle(rectangle: photoRectangle)
     }
-    
-    
+}
+
+extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            photoImages.addImage(image: image)
+        }
+        dismiss(animated: true)
+    }
 }

@@ -59,6 +59,8 @@ class PropertyChangeBoard : UIView {
         self.colorChangeButton.layer.borderColor = UIColor.black.cgColor
         self.colorChangeButton.layer.cornerRadius = 10
         self.colorChangeButton.setTitleColor(.black, for: .normal)
+        self.colorChangeButton.setTitle("None", for: .disabled)
+        self.colorChangeButton.setTitleColor(.gray, for: .disabled)
         
         self.colorChangeButton.topAnchor.constraint(equalTo: self.colorLabel.bottomAnchor, constant: 10).isActive = true
         self.colorChangeButton.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.05).isActive = true
@@ -97,8 +99,13 @@ class PropertyChangeBoard : UIView {
     
     func setPropertyBoard(with rectangle: Rectangle?) {
         guard let alpha = rectangle?.alpha.transparency else {return}
-        guard let color = rectangle?.backGroundColor else {return}
         self.alphaChangeSlider.value = Float(alpha)
+        
+        guard let color = rectangle?.backGroundColor else {
+            self.colorChangeButton.isEnabled = false
+            return
+        }
+        self.colorChangeButton.isEnabled = true
         updateColorButton(color: color)
     }
     
