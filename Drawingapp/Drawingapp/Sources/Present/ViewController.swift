@@ -232,18 +232,18 @@ extension ViewController: UIGestureRecognizerDelegate {
 }
 
 extension ViewController: HierarchyDelegate {
-    func injectCount() -> Int {
+    func getCount() -> Int {
         self.plane.count
     }
     
-    func injectModel(to: IndexPath) -> DrawingModel? {
+    func getModel(to: IndexPath) -> DrawingModel? {
         guard let model = self.plane[to.row] else {
             return nil
         }
         return model
     }
     
-    func injectSelectIndex() -> Int? {
+    func getSelectIndex() -> Int? {
         self.plane.selectIndex
     }
     
@@ -257,11 +257,11 @@ extension ViewController: HierarchyDelegate {
 }
 
 extension ViewController: PlaneDelegate {    
-    func injectDrawingModelFactory() -> DrawingModelFactory {
+    func getDrawingModelFactory() -> DrawingModelFactory {
         DrawingModelFactory(colorFactory: ColorFactory())
     }
     
-    func injectScreenSize() -> Size {
+    func getScreenSize() -> Size {
         Size(width: self.drawingBoard.frame.width, height: self.drawingBoard.frame.height)
     }
 }
