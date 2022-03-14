@@ -18,11 +18,13 @@ class LabelView: DrawingView, Textable {
         return label
     }()
     
-    init(point: Point, size: Size, alpha: Alpha, text: String, font: Font, fontColor: Color) {
-        super.init(point: point, size: size, alpha: alpha)
-        self.update(text: text)
-        self.update(font: font)
-        self.update(fontColor: fontColor)
+    required init(model: DrawingModel) {
+        super.init(model: model)
+        if let labelModel = model as? LabelModel {
+            self.update(text: labelModel.text)
+            self.update(font: labelModel.font)
+            self.update(fontColor: labelModel.fontColor)
+        }
     }
     
     required init?(coder: NSCoder) {

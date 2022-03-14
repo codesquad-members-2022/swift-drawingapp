@@ -16,9 +16,11 @@ class PhotoView: DrawingView, Imageable {
         return imageView
     }()
     
-    init(point: Point, size: Size, alpha: Alpha, imageUrl: URL?) {
-        super.init(point: point, size: size, alpha: alpha)
-        self.update(imageUrl: imageUrl)
+    required init(model: DrawingModel) {
+        super.init(model: model)
+        if let photoModel = model as? PhotoModel {
+            self.update(imageUrl: photoModel.imageUrl)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -38,6 +40,6 @@ class PhotoView: DrawingView, Imageable {
         guard let url = imageUrl else {
             return
         }
-        self.photoView.image = UIImage(contentsOfFile: url.path)
+        self.photoView.image = UIImage(contentsOfFile: url.path) 
     }
 }

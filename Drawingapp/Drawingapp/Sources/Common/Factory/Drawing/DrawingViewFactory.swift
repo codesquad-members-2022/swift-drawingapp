@@ -8,16 +8,19 @@
 import Foundation
 
 class DrawingViewFactory {
+    
+    static let modelToIdentifier: Dictionary<ObjectIdentifier, DrawingView.Type> = [
+        ObjectIdentifier(DrawingModel.self): DrawingView.self,
+        ObjectIdentifier(RectangleModel.self): RectangleView.self,
+        ObjectIdentifier(PhotoModel.self): PhotoView.self,
+        ObjectIdentifier(LabelModel.self): LabelView.self
+    ]
+    
     static func make(model: DrawingModel) -> DrawingView {
-        switch model {
-        case let model as PhotoModel:
-            return PhotoView(point: model.origin, size: model.size, alpha: model.alpha, imageUrl: model.imageUrl)
-        case let model as RectangleModel:
-            return RectangleView(point: model.origin, size: model.size, alpha: model.alpha, color: model.color)
-        case let model as LabelModel:
-            return LabelView(point: model.origin, size: model.size, alpha: model.alpha, text: model.text, font: model.font, fontColor: model.fontColor)
-        default:
-            return DrawingView(point: model.origin, size: model.size, alpha: model.alpha)
+        if let viewType = Self.modelToIdentifier[ObjectIdentifier(type(of: model.self))] {
+            return viewType.init(model: model)
         }
+        
+        return DrawingView.init(model: model)
     }
 }
