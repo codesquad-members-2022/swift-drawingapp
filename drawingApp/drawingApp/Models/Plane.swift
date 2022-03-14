@@ -33,12 +33,12 @@ class Plane{
             delegate?.didSelectModel(currentModel: selectedModel, previousModel : oldValue)
         }
     }
-    var numberOfRect : Int {
+    var numberOfModel : Int {
         self.models.count
     }
     subscript(index: Int) -> Model?{
         get {
-            guard numberOfRect > index , -1 > index else {return nil}
+            guard numberOfModel > index , -1 > index else {return nil}
             return models[index]
         }
     }
@@ -50,8 +50,8 @@ class Plane{
     
     
     func addModel() {
-        let newRectangle = Factory.makeRect(planePoint: point, planeSize: size, modelSize: Size(width: 130, height: 120))
-        self.models.append(newRectangle)
+        let newModel = Factory.makeRect(planePoint: point, planeSize: size, modelSize: Size(width: 130, height: 120))
+        self.models.append(newModel)
         delegate?.didAppendModel(model: models.last)
     }
 
