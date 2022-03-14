@@ -8,12 +8,18 @@
 import Foundation
 import UIKit
 
+
 protocol PanelViewDelegate {
     func didTabRondomizeColor()
     func didTabChangeAlpha(sender : UIStepper)
 }
 
-class PanelView : UIView {
+protocol Observer {
+    func updateAlpha(newAlphaValue : Double)
+    func updateRomdomizeColorButton(newColor : String)
+    
+}
+class PanelView : UIView , Observer {
     
     private var colorRondomizeButton : UIButton!
     private var alphaStepper : UIStepper!

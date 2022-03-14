@@ -7,6 +7,7 @@
 
 import UIKit
 import OSLog
+
 class ViewController: UIViewController {
     
     //Model
@@ -35,6 +36,7 @@ class ViewController: UIViewController {
         setupHandlers()
         setupDelegates()
         setupLayout()
+        addObservers ()
     }
     
     
@@ -75,13 +77,40 @@ class ViewController: UIViewController {
         plane.selectModel(tapCoordinate : Point(x: tappedPoint.x, y: tappedPoint.y))
     }
     
-    func createRectangleView (with model: Model) {
-  
-        let modelView = Factory.makeView(with: model)
+    
+    
+    //MARK: Add Observers
+    func addObservers () {
+        //Plane 에서 오는 post 를 받을 옵저버 생성 및 액션 지정.
+        NotificationCenter.default.addObserver(self, selector: #selector(createModelView), name: .DidMakeModel, object: plane
+        )
+ 
+    }
+    
+    
+    @objc func createModelView(notification: Notification) {
+        guard let newModel = notification.userInfo?[UserInfo.model] else {return}
+        guard let model = newModel as? Model else {return}
 
+        let modelView = Factory.makeView(with: model)
         rectangleList.updateValue(modelView, forKey: model)
         view.addSubview(modelView)
     }
+    
+    @objc func didChangeColor(notification: Notification) {
+        
+    }
+    @objc func did(notification: Notification) {
+        
+    }
+    
+    
+    
+//    func createRectangleView (with model: Model) {
+//        let modelView = Factory.makeView(with: model)
+//        rectangleList.updateValue(modelView, forKey: model)
+//        view.addSubview(modelView)
+//    }
     
     //MARK: 사각형 뷰 선택에 따른 테두리 및 패널 뷰처리 함수.
     func updateHighlight(from model: Model) {
@@ -139,10 +168,10 @@ extension ViewController : PlaneDelegate {
     }
 
 
-    func didAppendModel(model: Model?) {
-        guard let appendedModel = model else{return}
-        createRectangleView(with : appendedModel)
-    }
+//    func didAppendModel(model: Model?) {
+//        guard let appendedModel = model else{return}
+//        createRectangleView(with : appendedModel)
+//    }
 
     func didRandomizeColor(model: Model) {
         manageAmendingViews(by: model, operation: colorRandomization)

@@ -11,15 +11,14 @@ import UIKit
 
 
 protocol PlaneDelegate {
-    func didAppendModel(model: Model?)
+//    func didAppendModel(model: Model?)
     func didSelectModel(currentModel: Model?, previousModel : Model?)
     func didRandomizeColor(model : Model)
     func didChangeAlpha(model: Model)
     
 }
 
-class Plane{
-    
+class Plane {
     var delegate : PlaneDelegate?
     private var models = [Model]()
     private let size: Size
@@ -52,7 +51,7 @@ class Plane{
     func addModel() {
         let newModel = Factory.makeRect(planePoint: point, planeSize: size, modelSize: Size(width: 130, height: 120))
         self.models.append(newModel)
-        delegate?.didAppendModel(model: models.last)
+        NotificationCenter.default.post(name: .DidMakeModel, object: self, userInfo: [UserInfo.model: newModel])
     }
 
     func selectModel(tapCoordinate: Point) {
@@ -85,3 +84,5 @@ class Plane{
     }
 
 }
+
+
