@@ -51,7 +51,7 @@ class ViewController: UIViewController {
     }
     
     func setupDelegates(){
-        panelView.delegate = self
+//        panelView.delegate = self
         plane.delegate = self
     }
 
@@ -71,8 +71,8 @@ class ViewController: UIViewController {
 
     //MARK: 사용자가 ViewController 를 터치했을때 좌표를 기준으로 사각형을 찾음.
     @objc func tapTriggered(sender: UITapGestureRecognizer) {
-        let point = sender.location(in: self.view)
-        plane.searchForModel(tabCoordX: point.x, tabCoordY: point.y)
+        let tappedPoint = sender.location(in: self.view)
+        plane.selectModel(tapCoordinate : Point(x: tappedPoint.x, y: tappedPoint.y))
     }
     
     func createRectangleView (with model: Model) {
@@ -85,20 +85,6 @@ class ViewController: UIViewController {
     }
     
     //MARK: 사각형 뷰 선택에 따른 테두리 및 패널 뷰처리 함수.
-    func manageSelectingViews(on models: [Model]) {
-        var parsedModels = models
-        
-        if models.last!.selectedStatus() == false {
-            parsedModels = models.reversed()
-        }
-      
-        for model in parsedModels {
-            updateHighlight(from:model)
-            updatePanel(from : model)
-        }
-                
-    }
-
     func updateHighlight(from model: Model) {
         if let rectView = rectangleList[model] {
             rectView.configure(isSelected: model.selectedStatus())
@@ -130,10 +116,9 @@ class ViewController: UIViewController {
 
 
     func alphaModification(on model : Model){
-        if let rectView = rectangleList[model] {
-         rectView.updateAlpha(newAlpha: model.alpha.value)
-         updatePanel(from: model)
-        }
+        guard let rectView = rectangleList[model] else {return}
+        rectView.updateAlpha(newAlpha: model.alpha.value)
+        updatePanel(from: model)
         
     }
 
@@ -141,14 +126,23 @@ class ViewController: UIViewController {
 
 // 출력 관련 델리게이션 함수
 extension ViewController : PlaneDelegate {
-    
-    func didSearchForModel(detectedModel: Model?) {
-        if let model = detectedModel  {
+    func didSelectModel(currentModel: Model?, previousModel : Model?) {
+        guard let currentlySelectedModel = currentModel else {
+            if let previouslySelectedModel = previousModel {
+                updateHighlight(from: previouslySelectedModel)
+            }
             panelView.setDefaultPanelValues()
-        }else {
-            manageSelectingViews(on: detectedModel)
+            return
         }
+            
+        if let previouslySelectedModel = previousModel {
+            updateHighlight(from: previouslySelectedModel)
+        }
+        updateHighlight(from: currentlySelectedModel)
+        updatePanel(from: currentlySelectedModel)
+
     }
+
 
     func didAppendModel(model: Model?) {
         if let appendedModel = model {
@@ -168,17 +162,17 @@ extension ViewController : PlaneDelegate {
 }
 
 //입력 관련 델리게이션 함수 
-extension ViewController : PanelViewDelegate {
-//    func didTabRondomizeColor() {
-//        if let selectedModel = plane.getSelectedModel(){
-//            plane.randomizeColor(on: selectedModel)
-//        }
-//    }
-//    
-//    func didTabChangeAlpha(from: UIStepper) {
-//        if let selectedModel = plane.getSelectedModel(){
-//            plane.changeAlpha(on: selectedModel, with: Alpha(rawValue: Int(from.value)))
-//        }
-//    }
-}
+//extension ViewController : PanelViewDelegate {
+////    func didTabRondomizeColor() {
+////        if let selectedModel = plane.getSelectedModel(){
+////            plane.randomizeColor(on: selectedModel)
+////        }
+////    }
+////
+////    func didTabChangeAlpha(from: UIStepper) {
+////        if let selectedModel = plane.getSelectedModel(){
+////            plane.changeAlpha(on: selectedModel, with: Alpha(rawValue: Int(from.value)))
+////        }
+////    }
+//}
 
