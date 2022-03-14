@@ -9,16 +9,32 @@ import UIKit
 
 struct Convert {
     
-    static func getUIColor(color: Color, alpha: Alpha) -> UIColor {
+    static func toUIColor(color: Color, alpha: Alpha) -> UIColor {
         return UIColor(red: color.r / 255, green: color.g / 255, blue: color.b / 255, alpha: alpha.value)
     }
     
-    static func getCGSize(size: Size) -> CGSize {
+    static func toCGSize(size: Size) -> CGSize {
         return CGSize(width: size.width, height: size.height)
     }
     
-    static func getCGPoint(point: Point) -> CGPoint {
+    static func toCGPoint(point: Point) -> CGPoint {
         return CGPoint(x: point.x, y: point.y)
+    }
+    
+}
+
+extension UIColor {
+    
+    func toHex() -> String? {
+        guard let components = cgColor.components, components.count >= 3 else {
+            return nil
+        }
+        
+        let r = Float(components[0])
+        let g = Float(components[1])
+        let b = Float(components[2])
+        
+        return String(format: "%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255))
     }
     
 }

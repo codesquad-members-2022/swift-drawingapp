@@ -21,7 +21,13 @@ class ViewController: UIViewController {
         
         let test = UIView.init(frame: CGRect(x: newRectangle.point.x, y: newRectangle.point.y, width: newRectangle.size.width, height: newRectangle.size.height))
         
-        test.backgroundColor = Convert.getUIColor(color: newRectangle.color, alpha: newRectangle.alpha)
+        let check = Convert.toUIColor(color: newRectangle.color, alpha: newRectangle.alpha)
+        
+        test.backgroundColor = check
+        print(check.toHex() ?? "")
+        
+        
+        
         self.view.addSubview(test)
 
     }
