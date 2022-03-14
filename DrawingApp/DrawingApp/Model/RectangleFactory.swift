@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 class RectangleFactory {
     
@@ -21,7 +20,7 @@ class RectangleFactory {
         return newRectangle
     }
     
-    public static func makePhoto(in frame: (width: Double, height: Double), image: UIImage) -> Rectangularable {
+    public static func makePhoto(in frame: (width: Double, height: Double), image: Data) -> Rectangularable {
         let size = Size(width: 150, height: 120)
         let point = Point.random(in: frame)
         let alpha = Alpha.random()

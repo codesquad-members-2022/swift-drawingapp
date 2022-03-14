@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 class Photo: Rectangularable {
     private let id: ID
@@ -14,7 +13,7 @@ class Photo: Rectangularable {
     private(set) var point: Point
     private(set) var backgroundColor: BackgroundColor
     private(set) var alpha: Alpha
-    private(set) var image: UIImage
+    private(set) var image: Data
     
     func isPointInArea(_ point: Point) -> Bool {
         return point.x >= self.point.x && point.x <= self.point.x + self.size.width &&
@@ -29,7 +28,7 @@ class Photo: Rectangularable {
         self.alpha = newAlpha
     }
     
-    init(id: ID, size: Size, point: Point, image: UIImage, alpha: Alpha) {
+    init(id: ID, size: Size, point: Point, image: Data, alpha: Alpha) {
         self.id = id
         self.size = size
         self.point = point
