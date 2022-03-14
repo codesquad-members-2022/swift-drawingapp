@@ -12,9 +12,10 @@ import UIKit
 
 protocol PlaneDelegate {
     func didAppendModel(model: Model?)
-    func didSearchForModel(detectedModel: Model?)
+    func didSelectModel(currentModel: Model?, previousModel : Model?)
     func didRandomizeColor(model : Model)
     func didChangeAlpha(model: Model)
+    
 }
 
 class Plane{
@@ -23,7 +24,15 @@ class Plane{
     private var models = [Model]()
     private let size: Size
     private let point: Point
-    private var selectedModel : Model?
+    private var selectedModel : Model? {
+        didSet {
+            //pre -> false, current -> ture
+            if selectedModel != oldValue {
+                oldValue?.configureSelected(to: false)
+            }
+            delegate?.didSelectModel(currentModel: selectedModel, previousModel : oldValue)
+        }
+    }
     var numberOfRect : Int {
         self.models.count
     }
@@ -45,13 +54,10 @@ class Plane{
         self.models.append(newRectangle)
         delegate?.didAppendModel(model: models.last)
     }
-    
-    
-    
-    
-    func searchForModel(tabCoordX x : Double, tabCoordY y: Double) {
+
+    func selectModel(tapCoordinate: Point) {
         
-        let reversedArray = self.models.reversed()
+        let reversedArray = self.models.reversed() //가장 위에 있는 모델을 찾기 위해서.
         var detectedModel : Model?
         for model in reversedArray {
             let minX = model.point.x
@@ -59,12 +65,12 @@ class Plane{
             let maxX = model.point.x + model.size.width
             let maxY = model.point.y + model.size.height
             
-            if (minX <= x && maxX >= x && minY <= y && maxY >= y){
+            if (minX <= tapCoordinate.x && maxX >= tapCoordinate.x && minY <= tapCoordinate.y && maxY >= tapCoordinate.y){
+                model.toggleSelected()
                 detectedModel = model
             }
         }
-        delegate?.didSearchForModel(detectedModel: detectedModel)
-        
+        selectedModel = detectedModel
     }
     
     func randomizeColor(on model: Model){

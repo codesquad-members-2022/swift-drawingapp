@@ -33,6 +33,7 @@ protocol Drawable {
     func updateColor (_ color: Color)
     func updateAlpha (_ alpha: Alpha)
     func toggleSelected()
+    func configureSelected(to: Bool)
     func selectedStatus() -> Bool
 }
 
@@ -78,10 +79,14 @@ class Model : Drawable  {
         self.isSelected = !isSelected
     }
     
+    func configureSelected(to newState: Bool){
+        self.isSelected = newState
+    }
+    
     func selectedStatus() -> Bool {
         isSelected
     }
-
+    
    
     
 }
