@@ -15,9 +15,9 @@ class ViewController: UIViewController {
     }
 
     @IBAction func createRectangle(_ sender: UIButton) {
-        let logger = Logger()
         let newRectangle = Factory.createRectangle()
-        logger.info("\(newRectangle)")
+    
+        OSLog.log(message: newRectangle.description)
         
         let test = UIView.init(frame: CGRect(x: newRectangle.point.x, y: newRectangle.point.y, width: newRectangle.size.width, height: newRectangle.size.height))
         
