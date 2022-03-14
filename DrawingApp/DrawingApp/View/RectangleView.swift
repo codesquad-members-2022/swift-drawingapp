@@ -60,7 +60,7 @@ class RectangleView: UIView {
         alpha = alphaLevel
     }
     
-    func changeBackgroundColor(by color: UIColor) {
-        backgroundColor = color
+    func changeBackgroundColor(by newColor: UIColor) {
+        backgroundColor = newColor
     }
 }
