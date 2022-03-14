@@ -50,7 +50,7 @@ class ViewController: UIViewController {
         layout()
     }
     
-    func bind() {
+    private func bind() {
         topMenuBind()
         inspectorBind()
         gustureBind()
@@ -58,7 +58,7 @@ class ViewController: UIViewController {
         plane.delegate = self
     }
     
-    func layout() {
+    private func layout() {
         let safeAreaGuide = self.view.safeAreaLayoutGuide
         
         self.view.addSubview(drawingBoard)
@@ -119,7 +119,7 @@ extension ViewController {
 
 //MARK: Gusture
 extension ViewController {
-    func gustureBind() {
+    private func gustureBind() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapGusture))
         self.drawingBoard.addGestureRecognizer(tapGesture)
         
@@ -186,7 +186,7 @@ extension ViewController {
 
 //MARK: Hierarchy
 extension ViewController: HierarchyDelegate {
-    func hierarchyBind() {
+    private func hierarchyBind() {
         hierarchyView.delegate = self
         
         NotificationCenter.default.addObserver(forName: Plane.Event.didMoveModel, object: nil, queue: nil, using: didMoveModel)
@@ -231,7 +231,7 @@ extension ViewController: HierarchyDelegate {
 
 //MARK: Inspector
 extension ViewController: InspectorDelegate {
-    func inspectorBind() {
+    private func inspectorBind() {
         inspectorView.delegate = self
         NotificationCenter.default.addObserver(forName: Plane.Event.didUpdateColor, object: nil, queue: nil, using: didUpdateColor)
         
@@ -266,7 +266,7 @@ extension ViewController: InspectorDelegate {
     }
     
     //MARK: Output
-    func didUpdateColor(notification: Notification) {
+    private func didUpdateColor(notification: Notification) {
         guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
               let colableView = self.drawingViews[model] as? Colorable,
               let color = notification.userInfo?[Plane.ParamKey.color] as? Color else {
@@ -276,7 +276,7 @@ extension ViewController: InspectorDelegate {
         self.inspectorView.update(color: color)
     }
     
-    func didUpdateAlpha(notification: Notification) {
+    private func didUpdateAlpha(notification: Notification) {
         guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
               let alpha = notification.userInfo?[Plane.ParamKey.alpha] as? Alpha else {
             return
@@ -285,7 +285,7 @@ extension ViewController: InspectorDelegate {
         self.inspectorView.update(alpha: alpha)
     }
     
-    func didUpdateOrigin(notification: Notification) {
+    private func didUpdateOrigin(notification: Notification) {
         guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
               let origin = notification.userInfo?[Plane.ParamKey.origin] as? Point else {
             return
@@ -294,7 +294,7 @@ extension ViewController: InspectorDelegate {
         self.inspectorView.update(origin: origin)
     }
     
-    func didUpdateSize(notification: Notification) {
+    private func didUpdateSize(notification: Notification) {
         guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
               let size = notification.userInfo?[Plane.ParamKey.size] as? Size else {
             return
@@ -303,7 +303,7 @@ extension ViewController: InspectorDelegate {
         self.inspectorView.update(size: size)
     }
     
-    func didUpdateFont(notification: Notification) {
+    private func didUpdateFont(notification: Notification) {
         guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
               let textable = self.drawingViews[model] as? Textable,
             let font = notification.userInfo?[Plane.ParamKey.font] as? Font else {

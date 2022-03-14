@@ -15,33 +15,33 @@ protocol TopMenuBarDelegate {
 }
 
 class TopMenuBarView: UIView {
-    let stackView: UIStackView = {
+    private let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.spacing = 5
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     
-    let makeRectangle: TopMenuItemView = {
+    private let makeRectangle: TopMenuItemView = {
         let itemView = TopMenuItemView()
         itemView.backgroundColor = .clear
-        itemView.icon.image = UIImage(named: "ic_square")
+        itemView.setIcon(name: "ic_square")
         itemView.translatesAutoresizingMaskIntoConstraints = false
         return itemView
     }()
     
-    let makePhoto: TopMenuItemView = {
+    private let makePhoto: TopMenuItemView = {
         let itemView = TopMenuItemView()
         itemView.backgroundColor = .clear
-        itemView.icon.image = UIImage(named: "ic_photo")
+        itemView.setIcon(name: "ic_photo")
         itemView.translatesAutoresizingMaskIntoConstraints = false
         return itemView
     }()
     
-    let makeLabel: TopMenuItemView = {
+    private let makeLabel: TopMenuItemView = {
         let itemView = TopMenuItemView()
         itemView.backgroundColor = .clear
-        itemView.icon.image = UIImage(named: "ic_text")
+        itemView.setIcon(name: "ic_text")
         itemView.translatesAutoresizingMaskIntoConstraints = false
         return itemView
     }()
@@ -65,17 +65,17 @@ class TopMenuBarView: UIView {
     }
     
     private func bind() {
-        makeRectangle.button.addAction(UIAction{ _ in
+        makeRectangle.bind {
             self.delegate?.makeRectangleTapped()
-        }, for: .touchUpInside)
+        }
         
-        makePhoto.button.addAction(UIAction{ _ in
+        makePhoto.bind {
             self.delegate?.makePhotoTapped()
-        }, for: .touchUpInside)
-        
-        makeLabel.button.addAction(UIAction{ _ in
+        }
+    
+        makeLabel.bind {
             self.delegate?.makeLabelTapped()
-        }, for: .touchUpInside)
+        }
     }
     
     private func layout() {

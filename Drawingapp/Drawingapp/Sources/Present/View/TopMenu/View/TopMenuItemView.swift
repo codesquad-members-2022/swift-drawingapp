@@ -9,13 +9,13 @@ import Foundation
 import UIKit
 
 class TopMenuItemView: UIView {
-    let icon: UIImageView = {
+    private let icon: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    let button: UIButton = {
+    private let button: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -43,5 +43,15 @@ class TopMenuItemView: UIView {
         button.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         button.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         button.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
+    }
+    
+    func bind(action: @escaping () -> Void) {
+        button.addAction(UIAction{ _ in
+            action()
+        }, for: .touchUpInside)
+    }
+    
+    func setIcon(name: String) {
+        icon.image = UIImage(named: name)
     }
 }

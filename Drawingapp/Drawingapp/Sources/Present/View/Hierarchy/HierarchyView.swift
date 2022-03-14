@@ -116,7 +116,6 @@ extension HierarchyView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "HieararchyTableViewCell") as? HieararchyTableViewCell,
               let model = self.delegate?.getModel(to: indexPath) else {
             return UITableViewCell()
