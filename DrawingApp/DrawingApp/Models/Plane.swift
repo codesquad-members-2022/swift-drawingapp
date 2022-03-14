@@ -24,7 +24,7 @@ final class Plane: MainScreenTapDelegate {
     private var properties = [RectangleProperty]()
     private var selectedIndex: Int?
     
-    var screenDelegate: MainScreenDelegate?
+    var mainSceneDelegate: MainSceneDelegate?
     
     private func sendNotificationToScreen(using name: Notification.Name, sends model: RectangleProperty, at index: Int) {
         NotificationCenter.default.post(
@@ -37,7 +37,7 @@ final class Plane: MainScreenTapDelegate {
     // MARK: - MainScreenDelegate implementation
     func addRectangle() {
         guard
-            let randomRectangleProperty = screenDelegate?.getScreenViewProperty(),
+            let randomRectangleProperty = mainSceneDelegate?.getScreenViewProperty(),
             let rectangleViewProperty = factory.makeRandomView(as: "Subview #\(properties.count)", property: randomRectangleProperty)
         else {
                 return
