@@ -27,6 +27,30 @@ class Rectangle: Shapable {
         self.backGroundColor = backGroundColor
         self.alpha = alpha
     }
+    
+    func getTransparency() -> Float {
+        return Float(alpha.value)
+    }
+
+    func canAlphaLevelUp() -> Bool {
+        return !alpha.isMaxLevel
+    }
+    
+    func canAlphaLevelDown() -> Bool {
+        return !alpha.isMinLevel
+    }
+    
+    func upAlphaLevel() {
+        if canAlphaLevelUp(), let nextAlphaLevel = alpha.nextLevel {
+            alpha = nextAlphaLevel
+        }
+    }
+    
+    func downAlphaLevel() {
+        if canAlphaLevelDown(), let previousAlphaLevel = alpha.previousLevel {
+            alpha = previousAlphaLevel
+        }
+    }
 }
 
 extension Rectangle: Hashable {

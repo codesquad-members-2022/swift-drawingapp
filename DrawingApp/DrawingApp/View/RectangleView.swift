@@ -7,6 +7,10 @@
 
 import UIKit
 
+//TODO: 뷰팩토리로 변경
+    //뷰팩토리 -> 다형성으로 알아서 처리 되도록 상위타입으로 넘겨줌
+    //받을때는 자신이 조건식으로 업캐스팅해봐서 맞는 타입에 처리
+
 class RectangleView: UIView {
     
     private var isHighlighted: Bool = false
@@ -23,10 +27,12 @@ class RectangleView: UIView {
         configureView()
     }
     
-    convenience init(frame: CGRect, color: UIColor) {
+    convenience init(frame: CGRect, backgroundColor: UIColor, alpha: CGFloat) {
         self.init(frame: frame)
-        self.backgroundColor = color
+        self.backgroundColor = backgroundColor
+        self.alpha = alpha
     }
+    
     
     //MARK: Configure Components
     
@@ -48,5 +54,9 @@ class RectangleView: UIView {
     
     func toggleCorner() {
         isHighlighted ? clearCorner() : highlightCorner()
+    }
+    
+    func changeAlpha(to alphaLevel: CGFloat) {
+        alpha = alphaLevel
     }
 }

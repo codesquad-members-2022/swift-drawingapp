@@ -7,9 +7,9 @@
 
 import Foundation
 
-enum Alpha: Double {
+enum Alpha: Int {
     
-    case level1
+    case level1 = 1
     case level2
     case level3
     case level4
@@ -20,29 +20,11 @@ enum Alpha: Double {
     case level9
     case level10
     
-    var value: Double {
-        switch(self) {
-        case .level1:
-            return 0.1
-        case .level2:
-            return 0.2
-        case .level3:
-            return 0.3
-        case .level4:
-            return 0.4
-        case .level5:
-            return 0.5
-        case .level6:
-            return 0.6
-        case .level7:
-            return 0.7
-        case .level8:
-            return 0.8
-        case .level9:
-            return 0.9
-        case .level10:
-            return 1.0
-        }
+    static let minLevel = level1
+    static let maxLevel = level10
+    
+    var value: Float {
+        return Float(self.rawValue) / Float(Alpha.maxLevel.rawValue)
     }
 }
 
@@ -56,5 +38,27 @@ extension Alpha: CaseIterable {
     static var random: Alpha {
         var shuffledAllCases = Alpha.allCases.shuffled()
         return shuffledAllCases.removeLast()
+    }
+    
+    var isMaxLevel: Bool {
+        return self.rawValue == Alpha.maxLevel.rawValue
+    }
+    
+    var isMinLevel: Bool {
+        return self.rawValue == Alpha.minLevel.rawValue
+    }
+    
+    var nextLevel: Alpha? {
+        let alphaCases = Alpha.allCases
+        
+        guard let currentIndex = alphaCases.firstIndex(of: self) else { return nil }
+        return alphaCases[alphaCases.index(after: currentIndex)]
+    }
+    
+    var previousLevel: Alpha? {
+        let alphaCases = Alpha.allCases
+        
+        guard let currentIndex = alphaCases.firstIndex(of: self) else { return nil }
+        return alphaCases[alphaCases.index(before: currentIndex)]
     }
 }

@@ -25,19 +25,33 @@ class SideInspectorView: UIStackView {
         backgroundColorValueButton.backgroundColor = .systemGray5
     }
     
+    func setAlphaValueLabelText(by text: Float) {
+        alphaValueLabel.text = "\(text)"
+    }
+    
+    func clearAlphaValueLabelText() {
+        alphaValueLabel.text = "0"
+    }
+    
+    func disableAlphaPlusButton() {
+        alphaPlusButton.isEnabled = false
+    }
+    
+    func enableAlphaPlusButton() {
+        alphaPlusButton.isEnabled = true
+    }
+    
+    func disableAlphaMinusButton() {
+        alphaMinusButton.isEnabled = false
+    }
+    
+    func enableAlphaMinusButton() {
+        alphaMinusButton.isEnabled = true
+    }
+    
     //MARK: Create Components
     
     private let backgroundMenuStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.alignment = .leading
-        stackView.distribution = .equalSpacing
-        stackView.spacing = 10
-        return stackView
-    }()
-    
-    private let alphaMenuStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
@@ -64,6 +78,24 @@ class SideInspectorView: UIStackView {
         return button
     }()
     
+    private let alphaMenuStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.distribution = .equalSpacing
+        stackView.spacing = 10
+        return stackView
+    }()
+    
+    private let alphaValueStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        return stackView
+    }()
+    
     private let alphaLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -71,9 +103,28 @@ class SideInspectorView: UIStackView {
         return label
     }()
     
-    private let alphaSlider: UISlider = {
-        let slider = UISlider()
-        return slider
+    private let alphaValueLabel: UILabel = {
+        let label = UILabel()
+        label.text = "0"
+        label.backgroundColor = .systemGray5
+        label.textAlignment = .center
+        return label
+    }()
+    
+    let alphaPlusButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("+", for: .normal)
+        button.setTitleColor(.systemBlue, for: .normal)
+        button.backgroundColor = .systemGray4
+        return button
+    }()
+    
+    let alphaMinusButton: UIButton = {
+        let button = UIButton()
+        button.setTitle("-", for: .normal)
+        button.setTitleColor(.systemRed, for: .normal)
+        button.backgroundColor = .systemGray4
+        return button
     }()
     
     //MARK: Initialize
@@ -81,23 +132,11 @@ class SideInspectorView: UIStackView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         configureView()
-        
-        self.addSubview(backgroundMenuStackView)
-        self.addSubview(alphaMenuStackView)
-        
-        layoutBackgroundMenuStackView()
-        layoutAlphaMenuStackView()
     }
     
     required init(coder: NSCoder) {
         super.init(coder: coder)
         configureView()
-        
-        self.addSubview(backgroundMenuStackView)
-        self.addSubview(alphaMenuStackView)
-        
-        layoutBackgroundMenuStackView()
-        layoutAlphaMenuStackView()
     }
     
     //MARK: Configure Components
@@ -105,23 +144,18 @@ class SideInspectorView: UIStackView {
     private func configureView() {
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .systemGray6
-    }
-    
-    private func layoutAlphaMenuStackView() {
-        alphaMenuStackView.topAnchor.constraint(equalTo: backgroundMenuStackView.bottomAnchor, constant: 30).isActive = true
-        alphaMenuStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30).isActive = true
-        alphaMenuStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30).isActive = true
         
-        alphaMenuStackView.addArrangedSubview(alphaLabel)
+        self.addSubview(backgroundMenuStackView)
+        self.addSubview(alphaMenuStackView)
         
-        alphaMenuStackView.addArrangedSubview(alphaSlider)
-        layoutAlphaSlider()
+        layoutBackgroundMenuStackView()
+        layoutAlphaMenuStackView()
     }
     
     private func layoutBackgroundMenuStackView() {
         backgroundMenuStackView.topAnchor.constraint(equalTo: self.topAnchor, constant: 30).isActive = true
-        backgroundMenuStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 30).isActive = true
-        backgroundMenuStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -30).isActive = true
+        backgroundMenuStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
+        backgroundMenuStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
         
         backgroundMenuStackView.addArrangedSubview(backgroundColorLabel)
         
@@ -135,8 +169,22 @@ class SideInspectorView: UIStackView {
         backgroundColorValueButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
     }
     
-    private func layoutAlphaSlider() {
-        alphaSlider.leadingAnchor.constraint(equalTo: alphaMenuStackView.leadingAnchor).isActive = true
-        alphaSlider.trailingAnchor.constraint(equalTo: alphaMenuStackView.trailingAnchor).isActive = true
+    private func layoutAlphaMenuStackView() {
+        alphaMenuStackView.topAnchor.constraint(equalTo: backgroundMenuStackView.bottomAnchor, constant: 30).isActive = true
+        alphaMenuStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20).isActive = true
+        alphaMenuStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -20).isActive = true
+        
+        alphaMenuStackView.addArrangedSubview(alphaLabel)
+        alphaMenuStackView.addArrangedSubview(alphaValueStackView)
+        layoutAlphaValueStackView()
+    }
+    
+    private func layoutAlphaValueStackView() {
+        alphaValueStackView.leadingAnchor.constraint(equalTo: alphaMenuStackView.leadingAnchor).isActive = true
+        alphaValueStackView.trailingAnchor.constraint(equalTo: alphaMenuStackView.trailingAnchor).isActive = true
+        
+        alphaValueStackView.addArrangedSubview(alphaPlusButton)
+        alphaValueStackView.addArrangedSubview(alphaValueLabel)
+        alphaValueStackView.addArrangedSubview(alphaMinusButton)
     }
 }

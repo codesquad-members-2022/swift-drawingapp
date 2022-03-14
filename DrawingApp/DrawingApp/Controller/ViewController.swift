@@ -24,7 +24,10 @@ class ViewController: UIViewController {
         
         setUpViews()
         
+        //Add Action
         addRectangleButton.addTarget(self, action: #selector(addRectangleButtonTouched), for: .touchUpInside)
+        sideInspectorView.alphaPlusButton.addTarget(self, action: #selector(alphaPlusButtonTouched), for: .touchUpInside)
+        sideInspectorView.alphaMinusButton.addTarget(self, action: #selector(alphaMinusButtonTouched), for: .touchUpInside)
         
         //Add Gesture Recognizer
         let presentRectangleViewTap = UITapGestureRecognizer(target: self, action: #selector(handlePresentRectangleViewTap(_:)))
@@ -79,7 +82,6 @@ extension ViewController {
         let rectangleViewYBound = presentRectangleView.frame.height - Size.Range.height
 
         let newRectangle = RandomRectangleFactory.createRandomRectangle(xBound: rectangleViewXBound, yBound: rectangleViewYBound)
-        
         plane.append(newRectangle: newRectangle)
     }
 
@@ -89,6 +91,14 @@ extension ViewController {
         let location = tap.location(in: presentRectangleView)
         let coordinate = (Double(location.x), Double(location.y))
         plane.searchRectangle(on: coordinate)
+    }
+    
+    @objc func alphaPlusButtonTouched() {
+        plane.upAlphaValue()
+    }
+    
+    @objc func alphaMinusButtonTouched() {
+        plane.downAlphaValue()
     }
 }
 
@@ -104,7 +114,6 @@ extension ViewController: PlaneDelegate {
         
         let rectangleView = rectangleMap[rectangle]
         rectangleView?.toggleCorner()
-        
         plane.updateRecentlySelected(rectangle: rectangle)
     }
     
@@ -115,12 +124,14 @@ extension ViewController: PlaneDelegate {
         recentlySelectedRectangleView.clearCorner()
         sideInspectorView.clearBackgroundColorValueButtonTitle()
         sideInspectorView.clearBackgroundColorValueButtonColor()
+        sideInspectorView.clearAlphaValueLabelText()
     }
     
     func didCreateRectangle(_ rectangle: Rectangle) {
-        let color = rectangle.getUIColor()
+        let backgroundColor = rectangle.getUIColor()
         let frame = rectangle.getFrame()
-        let rectangleView = RectangleView(frame: frame, color: color)
+        let alpha = rectangle.getAlpha()
+        let rectangleView = RectangleView(frame: frame, backgroundColor: backgroundColor, alpha: alpha)
         
         presentRectangleView.addSubview(rectangleView)
         rectangleMap[rectangle] = rectangleView
@@ -129,6 +140,26 @@ extension ViewController: PlaneDelegate {
     func didUpdateRecentlySelectedRectangle(_ rectangle: Rectangle) {
         sideInspectorView.setBackgroundColorValueButtonTitle(by: rectangle.backGroundColor.getHexaData())
         sideInspectorView.setBackgroundColorValueButtonColor(by: rectangle.getUIColor())
+        sideInspectorView.setAlphaValueLabelText(by: rectangle.getTransparency())
     }
+    
+    func didUpdateRecentlySelectedRectangleAlpha(_ rectangle: Rectangle) {
+        guard let selectedRectangleView = rectangleMap[rectangle] else { return }
+        
+        selectedRectangleView.changeAlpha(to: CGFloat(rectangle.getTransparency()))
+        sideInspectorView.setAlphaValueLabelText(by: rectangle.getTransparency())
+        
+        if !rectangle.canAlphaLevelUp() {
+            sideInspectorView.disableAlphaPlusButton()
+        }
+        else if !rectangle.canAlphaLevelDown() {
+            sideInspectorView.disableAlphaMinusButton()
+        }
+        else {
+            sideInspectorView.enableAlphaPlusButton()
+            sideInspectorView.enableAlphaMinusButton()
+        }
+    }
+    
 }
 
