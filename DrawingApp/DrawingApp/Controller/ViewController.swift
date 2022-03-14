@@ -9,6 +9,7 @@ class ViewController: UIViewController{
     private var canvasView: CanvasView?
     private var stylerView: StylerView?
     private var plane: Plane = Plane()
+    private var rectangleDictionary:[Rectangle.Id:UIView] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,6 +68,7 @@ class ViewController: UIViewController{
         guard let canvasView = self.canvasView else { return }
         
         if let rectangleView = createRectangleView(rectangle: rectangle){
+            self.rectangleDictionary[rectangle.id] = rectangleView
             canvasView.insertSubview(rectangleView, belowSubview: canvasView.generatingButton)
         }
         
@@ -83,13 +85,12 @@ class ViewController: UIViewController{
     
     @objc func rectangleFoundFromPlane(_ notification: Notification){
         guard let rectangle = notification.userInfo?[Plane.UserInfoKey.rectangleFound] as? Rectangle else { return }
-        guard let selectedRectangleIndex = notification.userInfo?[Plane.UserInfoKey.selectedRectangleIndex] as? Int else { return }
-        self.updateViewWithSelectedRectangleModel(rectangle: rectangle, selectedRectangleIndex: selectedRectangleIndex)
+        self.updateViewWithSelectedRectangleModel(rectangle: rectangle)
     }
     
-    private func updateViewWithSelectedRectangleModel(rectangle: Rectangle, selectedRectangleIndex: Int){
+    private func updateViewWithSelectedRectangleModel(rectangle: Rectangle){
         guard let canvasView = self.canvasView else { return }
-        let rectangleView = canvasView.subviews[selectedRectangleIndex]
+        guard let rectangleView = self.rectangleDictionary[rectangle.id] else { return }
         
         if rectangle is ColorRectangle{
             self.updateColorRectangleInfo(rectangle: rectangle)

@@ -33,8 +33,7 @@ class Plane:CustomStringConvertible{
             NotificationCenter.default.post(name: NotificationName.rectangleNotFoundFromPlane, object: self, userInfo: nil)
             return
         }
-        guard let selectedRectangleIndex = self.selectedRectangleIndex else { return }
-        NotificationCenter.default.post(name: NotificationName.rectangleFoundFromPlane, object: self, userInfo: [UserInfoKey.rectangleFound:rectangle, UserInfoKey.selectedRectangleIndex:selectedRectangleIndex])
+        NotificationCenter.default.post(name: NotificationName.rectangleFoundFromPlane, object: self, userInfo: [UserInfoKey.rectangleFound:rectangle])
     }
     
     func addRectangle(_ rectangle: Rectangle){
