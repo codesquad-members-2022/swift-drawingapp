@@ -87,7 +87,7 @@ final class MainViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? MainScreenViewController {
-            plane.screenDelegate = vc
+            plane.mainSceneDelegate = vc
             vc.delegate = plane
         }
     }
