@@ -42,6 +42,20 @@
 * 드로잉 뷰에서 선택/해제 시 하이어라키뷰도 같이 선택/해제 된다
 * Cell 2초 터치 시 메뉴가 출력되고, 맨앞, 앞, 맨뒤, 뒤 로 이동이 가능하다
 
+### 결과화면
+
+* 오브젝트 생성 시 하이어라키뷰에 출력 및 인덱싱
+
+<img src="https://user-images.githubusercontent.com/5019378/158173350-061ce532-9717-4197-b213-6b3f7d0d42e6.gif" alt="Simulator Screen Recording - iPad Pro (12 9-inch) (5th generation) - 2022-03-14 at 21 31 59" style="zoom: 200%;" />
+
+* 드로잉뷰 선택 시 하이어라키뷰도 같이 선택, 하이어라키 뷰 선택 시 드로잉뷰도 같이 선택
+
+  <img src="https://user-images.githubusercontent.com/5019378/158173529-ad751d35-dc37-41cb-92f5-6012451b06dd.gif" alt="Simulator Screen Recording - iPad Pro (12 9-inch) (5th generation) - 2022-03-14 at 21 32 31" style="zoom:150%;" />
+
+* 서브 메뉴에서 맨앞, 앞, 맨뒤, 뒤 이동 시 그에 따른 그리기 순서 변경
+
+  <img src="https://user-images.githubusercontent.com/5019378/158173662-c3d5f4eb-0ad4-4805-afef-85534ec392be.gif" alt="Simulator Screen Recording - iPad Pro (12 9-inch) (5th generation) - 2022-03-14 at 21 33 22" style="zoom:150%;" />
+
 ------
 
 ## [Step7] 텍스트 추가하기
