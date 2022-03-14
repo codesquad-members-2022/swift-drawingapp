@@ -155,7 +155,7 @@ extension ViewController: RectangleViewBoardDelegate {
 
 extension ViewController: PhotoImagesDelegate {
     func photoImages(didAdd image: UIImage) {
-        
+        let photoRectangle = RectangleFactory.makePhotoRectangle(in: (800,570), image: image)
     }
     
     
