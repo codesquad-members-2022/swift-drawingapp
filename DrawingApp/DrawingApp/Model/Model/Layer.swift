@@ -8,12 +8,13 @@
 import Foundation
 
 class Layer {
-    
+    private(set) var title: String
     private(set) var id: ID
     private(set) var origin: Point
     private(set) var size: Size
     
-    init(id: ID, origin: Point, size: Size) {
+    init(title: String, id: ID, origin: Point, size: Size) {
+        self.title = title
         self.id = id
         self.origin = origin
         self.size = size

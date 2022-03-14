@@ -9,6 +9,12 @@ import UIKit
 
 class LayerTableViewController: UITableViewController {
     
+    enum identifier {
+        static let cell = "LayerCell"
+    }
+    
+    private var layers: [Layer] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -18,22 +24,32 @@ class LayerTableViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return layers.count
     }
     
     @objc func didAddLayer(_ notification: Notification) {
-        
+        guard let newLayer = notification.userInfo?[Plane.InfoKey.added] as? Layer else { return }
+        layers.append(newLayer)
+        tableView.reloadData()
     }
 
-    /*
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: LayerTableViewController.identifier.cell, for: indexPath)
 
-        // Configure the cell...
-
+        let layer = layers[indexPath.row]
+        var config = cell.defaultContentConfiguration()
+        config.text = layer.title
+        
+        if let symbol = ViewFactory.createSymbol(from: layer) {
+            config.image = symbol
+        }
+        
+        cell.contentConfiguration = config
+        
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.

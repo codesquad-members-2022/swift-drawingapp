@@ -50,4 +50,17 @@ enum ViewFactory {
         
         return view
     }
+    
+    static func createSymbol(from layer: Layer) -> UIImage? {
+        switch layer {
+        case _ as Rectangle:
+            return UIImage(systemName: "rectangle")
+        case _ as Photo:
+            return UIImage(systemName: "photo.artframe")
+        case _ as Label:
+            return UIImage(systemName: "character.textbox")
+        default:
+            return nil
+        }
+    }
 }
