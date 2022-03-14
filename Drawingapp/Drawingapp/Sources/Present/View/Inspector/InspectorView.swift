@@ -17,7 +17,6 @@ protocol InspectorDelegate {
 }
 
 class InspectorView: UIView {
-    
     private enum Constants {
         static let originMoveValue = 5.0
         static let sizeIncreaseValue = 5.0
