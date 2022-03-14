@@ -18,11 +18,11 @@ final class PlaneRectangle:CustomStringConvertible,Rectangle {
     var rgb:RGB
     var alpha:Alpha
     
-    init(id:ID,origin:Point,size:Size,backGroundColor:RGB, alpha:Alpha) {
+    init(id:ID,origin:Point,size:Size,rgb:RGB, alpha:Alpha) {
         self.id = id
         self.origin = origin
         self.size = size
-        self.rgb = backGroundColor
+        self.rgb = rgb
         self.alpha = alpha
     }
     

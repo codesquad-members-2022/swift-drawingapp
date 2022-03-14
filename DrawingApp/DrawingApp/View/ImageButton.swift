@@ -7,7 +7,7 @@
 
 import UIKit
 
-//button을 정의하는 코드가 너무 길어져서 ViewController에서 Button을 분리해서 선언했습니다.
+//ImageButton
 final class ImageButton:UIButton {
     
     override init(frame: CGRect) {
@@ -25,7 +25,7 @@ final class ImageButton:UIButton {
     }
     
     
-    //사각형 추가 버튼
+    //이미지 사각형 추가 버튼
     private func configureImageButton() {
         self.tintColor = .black
         
@@ -44,12 +44,12 @@ final class ImageButton:UIButton {
     }
     
     
-    //버튼 액션 - highLigted
+    //이미지 추가 사각형 버튼 액션 - highLigted
     private func configureImageButtonTapped() {
         let squareImage = UIImage(systemName: "photo")
         let highlightedImage = UIImage(systemName: "photo.fill")
         
-        //사각형 버튼 터치시 변화를 보여주기 위해 선언함.
+        //버튼 터치시 변화를 보여주기 위해 선언함.
         self.configurationUpdateHandler = { button in
             var configuration = button.configuration
             configuration?.image = button.isHighlighted ? highlightedImage : squareImage

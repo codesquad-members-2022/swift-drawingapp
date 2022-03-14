@@ -7,6 +7,7 @@
 
 import Foundation
 
+//TODO: Something deal with ImageRectangle
 class Image {
     
     private var rectangles:[Point:ImageRectangle] = [:]
@@ -15,10 +16,4 @@ class Image {
     var count:Int {
         self.rectangles.count
     }
-    
-    
-    
-    
-    
-    
 }
