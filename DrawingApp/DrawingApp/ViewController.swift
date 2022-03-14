@@ -21,10 +21,10 @@ class ViewController: UIViewController {
         rectanglePropertyChangeBoard.delegate = self
         rectangleViewBoard.delegate = self
         initialScreenSetUp()
-        NotificationCenter.default.addObserver(self, selector: #selector(planeDidAdd(_:)), name: Plane.addRectangle, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(planeDidSearch(_:)), name: Plane.searchRectangle, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(planeDidUpdated(_:)), name: Plane.updateAlpha , object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(planeDidChanged(_:)), name: Plane.changeColor, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(planeDidAdd(_:)), name: Plane.NotificationName.addRectangle, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(planeDidSearch(_:)), name: Plane.NotificationName.searchRectangle, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(planeDidUpdated(_:)), name: Plane.NotificationName.updateAlpha , object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(planeDidChanged(_:)), name: Plane.NotificationName.changeColor, object: nil)
     }
     
     func initialScreenSetUp() {
