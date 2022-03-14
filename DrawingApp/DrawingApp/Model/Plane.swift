@@ -11,7 +11,7 @@ struct Plane {
     
     var delegate: PlaneDelegate?
     private var rectangles: [Rectangle] = []
-    private(set) var recentlySelectedRectangle: Rectangle?
+    private(set) var selected: Rectangle?
     
     subscript(index: Int) -> Rectangle {
         return rectangles[index]
@@ -21,9 +21,9 @@ struct Plane {
         return rectangles.count
     }
     
-    mutating func updateRecentlySelected(rectangle: Rectangle) {
-        recentlySelectedRectangle = rectangle
-        delegate?.didUpdateRecentlySelectedRectangle(rectangle)
+    mutating func updateSelected(rectangle: Rectangle) {
+        selected = rectangle
+        delegate?.didUpdateSelectedRectangle(rectangle)
     }
     
     mutating func append(newRectangle: Rectangle) {
@@ -54,25 +54,25 @@ struct Plane {
     }
     
     mutating func changeBackgroundColor() {
-        guard let recentlySelectedRectangle = recentlySelectedRectangle else { return }
+        guard let selectedRectangle = selected else { return }
         let randomColor = RandomRectangleFactory.generateRandomColor()
-        recentlySelectedRectangle.changeBackgroundColor(by: randomColor)
-        delegate?.didUpdateRecentlySelectedRectangleBackgroundColor(recentlySelectedRectangle)
+        selectedRectangle.changeBackgroundColor(by: randomColor)
+        delegate?.didUpdateSelectedRectangleBackgroundColor(selectedRectangle)
     }
     
     mutating func upAlphaValue() {
-        guard let recentlySelectedRectangle = recentlySelectedRectangle else { return }
-        recentlySelectedRectangle.upAlphaLevel()
-        delegate?.didUpdateRecentlySelectedRectangleAlpha(recentlySelectedRectangle)
+        guard let selectedRectangle = selected else { return }
+        selectedRectangle.upAlphaLevel()
+        delegate?.didUpdateSelectedRectangleAlpha(selectedRectangle)
     }
     
     mutating func downAlphaValue() {
-        guard let recentlySelectedRectangle = recentlySelectedRectangle else { return }
-        recentlySelectedRectangle.downAlphaLevel()
-        delegate?.didUpdateRecentlySelectedRectangleAlpha(recentlySelectedRectangle)
+        guard let selectedRectangle = selected else { return }
+        selectedRectangle.downAlphaLevel()
+        delegate?.didUpdateSelectedRectangleAlpha(selectedRectangle)
     }
     
-    mutating func clearRecentlySelectedRectangle() {
-        recentlySelectedRectangle = nil
+    mutating func clearSelectedRectangle() {
+        selected = nil
     }
 }
