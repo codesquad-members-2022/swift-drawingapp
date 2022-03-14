@@ -71,4 +71,8 @@ struct Plane {
         recentlySelectedRectangle.downAlphaLevel()
         delegate?.didUpdateRecentlySelectedRectangleAlpha(recentlySelectedRectangle)
     }
+    
+    mutating func clearRecentlySelectedRectangle() {
+        recentlySelectedRectangle = nil
+    }
 }
