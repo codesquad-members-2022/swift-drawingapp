@@ -14,7 +14,7 @@ protocol ShapeBuilder {
 enum RectangleFactory: ShapeBuilder {
     static func makeRectangle(x: Double = 0, y: Double = 0, width: Double = 30, height: Double = 30) -> Rectangle {
         let id = IdentifierFactory.makeTypeRandomly()
-        return Rectangle(id: id, x: x, y: y, width: width, height: height, alpha: .opaque)
+        return Rectangle(id: id, x: x, y: y, width: width, height: height, color: .white, alpha: .opaque)
     }
     
     static func makeRandomRectangle() -> Rectangle {
@@ -25,6 +25,14 @@ enum RectangleFactory: ShapeBuilder {
         let alpha = Alpha.randomElement()
         
         return Rectangle(id: id, origin: point, size: size, color: color, alpha: alpha)
+    }
+    
+    static func makeRandomRectangle(with image: Data) -> Rectangle {
+        let id = IdentifierFactory.makeTypeRandomly()
+        let point = PointFactory.makeTypeRandomly()
+        let size = SizeFactory.makeType(width: 150, height: 120)
+        
+        return Rectangle(id: id, origin: point, size: size, image: image)
     }
     
     static func makeShape() -> Shapable {

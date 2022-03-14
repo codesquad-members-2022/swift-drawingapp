@@ -25,9 +25,12 @@ class Rectangle: Shapable, Hashable {
         }
     }
     
+    private(set) var image: Data?
+    
     let id: String
     let size: Size
     let origin: Point
+    
     
     var diagonalPoint: Point {
         return Point(x: self.origin.x + self.size.width, y: self.origin.y + self.size.height)
@@ -50,6 +53,24 @@ class Rectangle: Shapable, Hashable {
         self.alpha = alpha
     }
     
+    init(id: String, origin: Point, size: Size, image: Data? = nil) {
+        self.id = id
+        self.origin = origin
+        self.size = size
+        self.backgroundColor = .white
+        self.alpha = .opaque
+        self.image = image
+    }
+    
+    init(id: String, x: Double, y: Double, width: Double, height: Double, image: Data? = nil) {
+        self.id = id
+        self.origin = Point(x: x, y: y)
+        self.size = Size(width: width, height: height)
+        self.backgroundColor = .white
+        self.alpha = .opaque
+        self.image = image
+    }
+    
     func contains(point: Point) -> Bool {
         let maxX = self.origin.x + self.size.width
         let maxY = self.origin.y + self.size.height
@@ -66,6 +87,10 @@ class Rectangle: Shapable, Hashable {
     
     func setAlpha(_ alpha: Alpha) {
         self.alpha = alpha
+    }
+    
+    func setImage(with data: Data) {
+        self.image = data
     }
 }
 
