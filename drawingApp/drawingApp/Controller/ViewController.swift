@@ -77,16 +77,16 @@ class ViewController: UIViewController {
     
     func createRectangleView (with model: Model) {
   
-        let rectView = Factory.makeView(with: model)
+        let modelView = Factory.makeView(with: model)
 
-        rectangleList.updateValue(rectView, forKey: model)
-        view.addSubview(rectView)
+        rectangleList.updateValue(modelView, forKey: model)
+        view.addSubview(modelView)
     }
     
     //MARK: 사각형 뷰 선택에 따른 테두리 및 패널 뷰처리 함수.
     func updateHighlight(from model: Model) {
-        guard let rectView = rectangleList[model] else {return}
-        rectView.configure(isSelected: model.selectedStatus())
+        guard let modelView = rectangleList[model] else {return}
+        modelView.configure(isSelected: model.selectedStatus())
     }
   
     
@@ -106,15 +106,15 @@ class ViewController: UIViewController {
     }
     
     func colorRandomization(on model: Model) {
-        guard let rectView = rectangleList[model] else {return}
-        rectView.updateColor(with: model)
+        guard let modelView = rectangleList[model] else {return}
+        modelView.updateColor(with: model)
         panelView.updateRomdomizeColorButton(newColor: model.color.tohexString)
     }
 
 
     func alphaModification(on model : Model){
-        guard let rectView = rectangleList[model] else {return}
-        rectView.updateAlpha(newAlpha: model.alpha.value)
+        guard let modelView = rectangleList[model] else {return}
+        modelView.updateAlpha(newAlpha: model.alpha.value)
         panelView.updateAlpha(newAlphaValue: model.alpha.value)
     }
 
