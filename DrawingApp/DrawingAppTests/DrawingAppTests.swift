@@ -31,14 +31,13 @@ class DrawingAppTests: XCTestCase {
     
     func testRectangleIsAddedToPlane() {
         let rectangle = sut.createRectangle()
-        sut2.addRectangle(rectangle)
+        sut2.createRectangle()
         XCTAssertEqual(sut2.rectangleCount, 1)
     }
     
     
     func testPlaneSubscript() {
-        let rectangle = sut.createRectangle()
-        sut2.addRectangle(rectangle)
-        XCTAssertEqual(rectangle, sut2[0])
+        let rectangle = sut2.createRectangle()
+        XCTAssertEqual(sut2.rectangles.first!, sut2[0])
     }
 }
