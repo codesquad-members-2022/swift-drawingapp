@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Rectangle: ViewModel {
+class Rectangle: Layer {
     
     private(set) var color: Color
     private(set) var alpha: Alpha

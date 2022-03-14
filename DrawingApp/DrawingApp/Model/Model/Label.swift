@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Label: ViewModel {
+class Label: Layer {
     private(set) var text: String
     private(set) var fontSize: Float
     

@@ -54,7 +54,7 @@ class PanelViewController: UIViewController {
     }
     
     private func observePlane() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didSelectViewModel(_:)), name: Plane.Event.didSelectViewModel, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didSelectLayer(_:)), name: Plane.Event.didSelectLayer, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeColor(_:)), name: Plane.Event.didChangeColor, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeAlpha(_:)), name: Plane.Event.didChangeAlpha, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeSize(_:)), name: Plane.Event.didChangeSize, object: nil)
@@ -69,18 +69,18 @@ class PanelViewController: UIViewController {
 // MARK: - Use case: Display properties of selected view
 
 extension PanelViewController {
-    @objc func didSelectViewModel(_ notification: Notification) {
-        guard let selected = notification.userInfo?[Plane.InfoKey.selected] as? ViewModel else {
+    @objc func didSelectLayer(_ notification: Notification) {
+        guard let selected = notification.userInfo?[Plane.InfoKey.selected] as? Layer else {
             // Clear all panel when nothing selected
             clearPanel()
             return
         }
         
-        // Every ViewModel should display size & origin
+        // Every Layer should display size & origin
         displaySize(selected)
         displayOrigin(selected)
         
-        // Display Property & Enable related controls when ViewModel is mutable
+        // Display Property & Enable related controls when Layer is mutable
         if let colorMutable = selected as? ColorMutable {
             displayColor(colorMutable)
         } else {
@@ -123,7 +123,7 @@ extension PanelViewController {
         AlphaLabel.text = selectedAlphaString
     }
     
-    private func displaySize(_ selected: ViewModel) {
+    private func displaySize(_ selected: Layer) {
         isSizeFixedRatio.isEnabled = true
         widthStepper.isEnabled = true
         heightStpper.isEnabled = true
@@ -140,7 +140,7 @@ extension PanelViewController {
         aspectRatio = selected.aspectRatio
     }
     
-    private func displayOrigin(_ selected: ViewModel) {
+    private func displayOrigin(_ selected: Layer) {
         xOriginStepper.isEnabled = true
         yOriginStepper.isEnabled = true
         
@@ -213,7 +213,7 @@ extension PanelViewController {
     }
 }
 
-// MARK: - Use case: Set View & ViewModel using Controls
+// MARK: - Use case: Set View & Layer using Controls
 
 extension PanelViewController {
     
@@ -248,7 +248,7 @@ extension PanelViewController {
     }
     
     @objc func didChangeOrigin(_ notification: Notification) {
-        guard let mutated = notification.userInfo?[Plane.InfoKey.changed] as? ViewModel else { return }
+        guard let mutated = notification.userInfo?[Plane.InfoKey.changed] as? Layer else { return }
         displayOrigin(mutated)
     }
     
@@ -267,7 +267,7 @@ extension PanelViewController {
     }
     
     @objc func didChangeSize(_ notification: Notification) {
-        guard let mutated = notification.userInfo?[Plane.InfoKey.changed] as? ViewModel else { return }
+        guard let mutated = notification.userInfo?[Plane.InfoKey.changed] as? Layer else { return }
         displaySize(mutated)
     }
     

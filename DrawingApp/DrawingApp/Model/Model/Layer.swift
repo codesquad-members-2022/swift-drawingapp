@@ -1,5 +1,5 @@
 //
-//  ViewModel.swift
+//  Layer.swift
 //  DrawingApp
 //
 //  Created by Bumgeun Song on 2022/03/07.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ViewModel {
+class Layer {
     
     private(set) var id: ID
     private(set) var origin: Point
@@ -42,8 +42,8 @@ class ViewModel {
     }
 }
 
-extension ViewModel: Hashable {
-    static func == (lhs: ViewModel, rhs: ViewModel) -> Bool {
+extension Layer: Hashable {
+    static func == (lhs: Layer, rhs: Layer) -> Bool {
         lhs.id == rhs.id
     }
     
