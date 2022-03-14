@@ -71,6 +71,12 @@ class Plane {
         NotificationCenter.default.post(name: Plane.Event.didAddLayer, object: self, userInfo: [Plane.InfoKey.added: newLayer])
     }
     
+    func select(at index: Int) {
+        let unselected = selected
+        self.selected = layers[index]
+        NotificationCenter.default.post(name: Plane.Event.didSelectLayer, object: self, userInfo: [Plane.InfoKey.unselected: unselected as Any, Plane.InfoKey.selected: selected as Any])
+    }
+    
     func tap(on point: Point) {
         let unselected = selected
         self.selected = layers.last(where: { layer in
