@@ -143,8 +143,7 @@ extension ViewController {
     
     @objc func planeDidSpecifyRectangle(_ notification: Notification) {
         guard let specifiedRectangle = notification.userInfo?[Plane.UserIDKeys.specifiedRectangle] as? Rectangle,
-              let matchedView = rectangleAndViewMap[specifiedRectangle],
-              let matchedView = matchedView as? RectangleView else {
+              let matchedView = rectangleAndViewMap[specifiedRectangle] else {
                   initializeViewsInTouchedEmptySpaceCondition()
                   return
               }
