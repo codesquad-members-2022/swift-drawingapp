@@ -22,9 +22,9 @@ protocol PlaneChanged {
 
 protocol PlaneGusture {
     func tapGusturePoint(_ point: Point)
-    func beganDrag(point: Point)
-    func changedDrag(point: Point)
-    func endedDrag(point: Point)
+    func beganDragPoint(_ point: Point)
+    func changedDragPoint(_ point: Point)
+    func endedDragPoint(_ point: Point)
 }
 
 protocol PlaneAction {
@@ -191,7 +191,7 @@ extension Plane: PlaneGusture {
         }
     }
     
-    func beganDrag(point: Point) {
+    func beganDragPoint(_ point: Point) {
         self.tapGusturePoint(point)
         guard let dragModel = self.selectedModel else {
             return
@@ -199,7 +199,7 @@ extension Plane: PlaneGusture {
         NotificationCenter.default.post(name: Plane.Event.didBeganDrag, object: self, userInfo: [ParamKey.drawingModel:dragModel])
     }
     
-    func changedDrag(point: Point) {
+    func changedDragPoint(_ point: Point) {
         guard let dragModel = self.selectedModel,
               let newOrigin = self.calibrateScreenInOrigin(to: point, size: dragModel.size) else {
             return
@@ -208,7 +208,7 @@ extension Plane: PlaneGusture {
         NotificationCenter.default.post(name: Plane.Event.didChangedDrag, object: self, userInfo: [ParamKey.dragPoint:Point(x: newOrigin.x, y: newOrigin.y)])
     }
     
-    func endedDrag(point: Point) {
+    func endedDragPoint(_ point: Point) {
         guard let dragModel = self.selectedModel,
               let newOrigin = self.calibrateScreenInOrigin(to: point, size: dragModel.size) else {
             return
