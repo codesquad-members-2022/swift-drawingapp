@@ -124,9 +124,14 @@ extension ViewController: PropertyChangeBoardDelegate {
 
 extension ViewController {
     @objc func planeDidAdd(_ notification: Notification) {
-        guard let rectangle = notification.userInfo?[Plane.NotificationKeyValue.rectangle] as? Rectangle else {return}
-        let rectangleView = RectangleViewFactory.makeView(of: rectangle)
-        self.rectangleViewBoard.addSubview(rectangleView)
+        if let rectangle = notification.userInfo?[Plane.NotificationKeyValue.rectangle] as? Rectangle {
+            guard let rectangleView = RectangleViewFactory.makeView(of: rectangle) else {return}
+            self.rectangleViewBoard.addSubview(rectangleView)
+        }
+        if let photoRectangle = notification.userInfo?[Plane.NotificationKeyValue.rectangle] as? PhotoRectangle {
+            guard let photoRectangleView = RectangleViewFactory.makePhotoView(of: photoRectangle) else {return}
+            self.rectangleViewBoard.addSubview(photoRectangleView)
+        }
     }
     
     @objc func planeDidSearch(_ notification: Notification) {
@@ -155,7 +160,8 @@ extension ViewController: RectangleViewBoardDelegate {
 
 extension ViewController: PhotoImagesDelegate {
     func photoImages(didAdd image: UIImage) {
-        let photoRectangle = RectangleFactory.makePhotoRectangle(in: (800,570), image: image)
+        guard let photoRectangle = RectangleFactory.makePhotoRectangle(in: (800,570), image: image) else {return}
+        plane.addRectangle(rectangle: photoRectangle)
     }
     
     
