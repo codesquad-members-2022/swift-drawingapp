@@ -34,7 +34,7 @@ class RandomRectangleFactory {
         return Rectangle(identifier: generateRandomIdentifier(),
                          size: Size(width: Size.Range.width, height: Size.Range.height),
                          point: generateRandomPoint(xBound: xBound, yBound: yBound),
-                         backGroundColor: generateRandomColor(),
+                         backgroundColor: generateRandomColor(),
                          alpha: Alpha.random)
     }
 }

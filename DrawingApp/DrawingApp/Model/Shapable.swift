@@ -12,20 +12,28 @@ protocol Shapable: CustomStringConvertible {
     var id: Identifier { get }
     var size: Size { get }
     var point: Point { get }
-    var backGroundColor: Color { get }
+    var backgroundColor: Color { get }
     var alpha: Alpha { get }
 }
 
 extension Shapable {
     
     var description: String {
-        return "(\(self.id)), \(self.point), \(self.size), \(self.backGroundColor)"
+        return "(\(self.id)), \(self.point), \(self.size), \(self.backgroundColor)"
+    }
+    
+    func getColorHexaValue() -> String {
+        let red = Int(backgroundColor.red)
+        let green = Int(backgroundColor.green)
+        let blue = Int(backgroundColor.blue)
+        
+        return "\(String(format: "#%02X%02X%02X", red, green, blue))"
     }
     
     func getUIColor() -> UIColor {
-        let red = backGroundColor.red / Color.Range.upper
-        let green = backGroundColor.green / Color.Range.upper
-        let blue = backGroundColor.blue / Color.Range.upper
+        let red = backgroundColor.red / Color.Range.upper
+        let green = backgroundColor.green / Color.Range.upper
+        let blue = backgroundColor.blue / Color.Range.upper
         
         return UIColor(red: red, green: green, blue: blue, alpha: 1.0)
     }

@@ -12,20 +12,24 @@ class Rectangle: Shapable {
     private(set) var id: Identifier
     private(set) var size: Size
     private(set) var point: Point
-    private(set) var backGroundColor: Color
+    private(set) var backgroundColor: Color
     private(set) var alpha: Alpha
     
     init(identifier: Identifier,
          size: Size = Size(width: 150, height: 120),
          point: Point,
-         backGroundColor: Color,
+         backgroundColor: Color,
          alpha: Alpha)
     {
         self.id = identifier
         self.size = size
         self.point = point
-        self.backGroundColor = backGroundColor
+        self.backgroundColor = backgroundColor
         self.alpha = alpha
+    }
+    
+    func changeBackgroundColor(by backgroundColor: Color) {
+        self.backgroundColor = backgroundColor
     }
     
     func getTransparency() -> Float {

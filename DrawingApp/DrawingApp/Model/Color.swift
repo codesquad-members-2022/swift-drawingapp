@@ -29,10 +29,6 @@ class Color {
         
         self.init(validRed: red, validGreen: green, validBlue: blue)
     }
-    
-    func getHexaData() -> String {
-        return "\(String(format: "#%02X%02X%02X", Int(red), Int(green), Int(blue)))"
-    }
 }
 
 extension Color {
