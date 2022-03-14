@@ -77,7 +77,6 @@ class RectangleView: UIImageView {
                 self.frame.size = originSize
                 self.center = originCenter
             })
-            
         }
     }
 }
