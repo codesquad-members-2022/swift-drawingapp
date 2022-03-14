@@ -35,17 +35,15 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(self.rectangleDataDidCreated), name: .RectangleDataDidCreated, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(self.rectangleDataDidChanged), name: .RectangleDataDidUpdated, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.planeDidDidSelectItem), name: .PlaneDidSelectItem, object: self.plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.planeDidDidUnselectItem), name: .PlaneDidUnselectItem, object: self.plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.planeDidSelectItem), name: .PlaneDidSelectItem, object: self.plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(self.planeDidUnselectItem), name: .PlaneDidUnselectItem, object: self.plane)
     }
 }
 
 // MARK: - PlaneView To ViewController
 extension ViewController: PlaneViewDelegate {
     func planeViewDidTapped(_ sender: UITapGestureRecognizer) {
-        if self.plane.currentItem != nil {
-            self.plane.unselectItem()
-        }
+        self.plane.unselectItem()
     }
     
     func planeViewDidPressRectangleAddButton() {
@@ -124,16 +122,17 @@ extension ViewController {
     @objc private func rectangleDataDidChanged(_ notification: Notification) {
         guard let rectangle = self.plane.currentItem else { return }
         guard let rectangleView = self.rectangleMap[rectangle] else { return }
+        let hasImage = rectangle.image != nil
         
         if let alpha = notification.userInfo?[Rectangle.NotificationKey.alpha] as? Alpha {
-            if rectangleView.hasImageContent {
+            if hasImage {
                 rectangleView.setAlpha(alpha: alpha)
             } else {
                 rectangleView.setBackgroundColor(with: alpha)
             }
         }
         
-        guard rectangleView.hasImageContent == false else { return }
+        guard hasImage == false else { return }
         
         if let color = notification.userInfo?[Rectangle.NotificationKey.color] as? Color {
             rectangleView.setBackgroundColor(color: color, alpha: rectangle.alpha)
@@ -144,19 +143,20 @@ extension ViewController {
 
 // MARK: - Plane Model to ViewController
 extension ViewController {
-    @objc private func planeDidDidSelectItem(_ notification: Notification) {
+    @objc private func planeDidSelectItem(_ notification: Notification) {
         guard let rectangle = notification.userInfo?[Plane.NotificationKey.select] as? Rectangle else { return }
         guard let rectangleView = self.rectangleMap[rectangle] else { return }
         let hexString = UIColor(with: rectangle.backgroundColor).toHexString()
         
         rectangleView.setBorder(width: 2, color: .blue)
         
-        self.controlPanelView.setColorButtonAccess(enable: !rectangleView.hasImageContent)
-        self.controlPanelView.setColorButtonTitle(title: rectangleView.hasImageContent ? "None" : hexString)
+        let hasImage = rectangle.image != nil
+        self.controlPanelView.setColorButtonAccess(enable: hasImage)
+        self.controlPanelView.setColorButtonTitle(title: hasImage ? "None" : hexString)
         self.controlPanelView.setAlphaSliderValue(value: rectangle.alpha)
     }
     
-    @objc private func planeDidDidUnselectItem(_ notification: Notification) {
+    @objc private func planeDidUnselectItem(_ notification: Notification) {
         guard let rectangle = notification.userInfo?[Plane.NotificationKey.unselect] as? Rectangle else { return }
         guard let rectangleView = self.rectangleMap[rectangle] else { return }
         

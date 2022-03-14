@@ -49,7 +49,9 @@ class Plane {
     }
     
     func unselectItem() {
-        self.currentItem = nil
+        if self.currentItem != nil {
+            self.currentItem = nil
+        }
     }
 }
 
