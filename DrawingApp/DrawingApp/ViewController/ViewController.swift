@@ -12,6 +12,14 @@ class ViewController: UIViewController {
         guard let thisRectView = self.selectedView else {
             return
         }
+        var willBeChangedRectangle: Rectangle
+        for (key, value) in viewDictionary {
+            if value === thisRectView {
+                willBeChangedRectangle = key
+                plane.changeColorOfRectangle(willBeChangedRectangle)
+                return
+            }
+        }
     }
     
     @IBAction func rectangleButtonTouched(_ sender: Any) {
@@ -25,7 +33,9 @@ class ViewController: UIViewController {
         // 플레인의 대행 처리는 뷰컨트롤러가 맡겠다.
         plane.addedRectangleDelegate = self
         plane.touchedRectangleDelegate = self
+        plane.colorDelegate = self
         BackgroundViewTouched()
+        colorButton.setTitle("#FFFFFF", for: .normal)
     }
 }
 
@@ -38,7 +48,7 @@ extension ViewController: UIGestureRecognizerDelegate {
         @objc func handleTap(_ sender: UITapGestureRecognizer) {
             let viewPoint: CGPoint = sender.location(in: self.view)
             let rectPoint: Rectangle.Point = Rectangle.Point(x: viewPoint.x, y: viewPoint.y)
-            plane.TouchedRectangle(at: rectPoint)
+            plane.touchedRectangle(at: rectPoint)
         }
 }
 
@@ -52,7 +62,7 @@ extension ViewController: RectangleAddedDelegate {
 }
 
 extension ViewController: RectangleTouchedDelegate {
-    func TouchedRectangle(rectangle: Rectangle) {
+    func touchedRectangle(rectangle: Rectangle) {
         if let view = self.selectedView {
             view.layer.borderWidth = .zero
         }
@@ -68,7 +78,18 @@ extension ViewController: RectangleTouchedDelegate {
             }
         }
         if let rect = rectangle {
-            self.colorButton.titleLabel?.text = "#\(rect.getColor().showRGBVlaue())"
+            colorButton.setTitle("#\(rect.getColor().showRGBVlaue())", for: .normal)
+
         }
+    }
+}
+
+extension ViewController: PlaneColorChangeDelegate {
+    func didChangeColor(rectangle: Rectangle) {
+        if let view = viewDictionary[rectangle] {
+            view.backgroundColor = UIColor(red: CGFloat(rectangle.getColor().R)/255.0, green: CGFloat(rectangle.getColor().G)/255.0, blue: CGFloat(rectangle.getColor().B)/255.0, alpha: CGFloat(rectangle.getAlpha().rawValue)/10.0)
+            self.viewDictionary.updateValue(view, forKey: rectangle)
+        }
+        colorButton.setTitle("#\(rectangle.getColor().showRGBVlaue())", for: .normal)
     }
 }

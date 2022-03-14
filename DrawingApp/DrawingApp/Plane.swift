@@ -6,7 +6,11 @@ protocol RectangleAddedDelegate {
     func didMakeRectangle(rectangle: Rectangle)
 }
 protocol RectangleTouchedDelegate {
-    func TouchedRectangle(rectangle: Rectangle)
+    func touchedRectangle(rectangle: Rectangle)
+}
+
+protocol PlaneColorChangeDelegate {
+    func didChangeColor(rectangle: Rectangle)
 }
 
 class Plane {
@@ -16,6 +20,7 @@ class Plane {
     // 추후에 이 델리게이트를 "자기"라고 self로 지정하는 녀석이 나타날 때 사용할 속성
     var addedRectangleDelegate :RectangleAddedDelegate?
     var touchedRectangleDelegate : RectangleTouchedDelegate?
+    var colorDelegate: PlaneColorChangeDelegate?
     
     var rectangleCount: Int {
         return rectangleArray.count
@@ -54,11 +59,17 @@ class Plane {
         return (false,99999)
     }
     
-    func TouchedRectangle(at point: Rectangle.Point) {
+    func touchedRectangle(at point: Rectangle.Point) {
         let touchedResult = isTouchedOnRectangle(at: point)
         guard touchedResult.bool == true else {
             return
         }
-        touchedRectangleDelegate?.TouchedRectangle(rectangle: rectangleArray[touchedResult.index])
+        touchedRectangleDelegate?.touchedRectangle(rectangle: rectangleArray[touchedResult.index])
+    }
+    
+    func changeColorOfRectangle(_ rectangle: Rectangle) {
+        var oldRectangle = rectangle
+        let newRectangle = oldRectangle.changeColor()
+        self.colorDelegate?.didChangeColor(rectangle: newRectangle)
     }
 }
