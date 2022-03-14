@@ -63,6 +63,9 @@ extension ViewController: SideInspectorViewDelegate {
         plane.createRectangle()
     }
     
+    func sideInspectorViewDidTappedColorButton(_ sender: UIButton) {
+        // 버튼 색상 눌렀을 때 동작 구현
+    }
 }
 
 extension ViewController: PlaneDelegate {
