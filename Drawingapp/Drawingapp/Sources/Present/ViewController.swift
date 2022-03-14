@@ -361,7 +361,7 @@ extension ViewController: TopMenuBarDelegate, PHPickerViewControllerDelegate {
                     try? fileManager.removeItem(at: destination)
                 }
                 try? fileManager.copyItem(at: url, to: destination)
-                self.plane.makeModel(modelType: PhotoModel.self, url: url)
+                self.plane.makeModel(modelType: PhotoModel.self, url: destination)
             } catch {
                 Log.error("image Load Fail: \(url)")
             }
