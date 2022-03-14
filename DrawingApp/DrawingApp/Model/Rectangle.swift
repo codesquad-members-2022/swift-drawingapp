@@ -8,6 +8,9 @@
 import Foundation
 
 protocol Rectangularable {
+    var size: Size {get}
+    var backgroundColor: BackgroundColor {get}
+    var alpha: Alpha {get}
     func isPointInArea(_ point: Point) -> Bool
     func changeBackgroundColor(to newColor: BackgroundColor)
     func changeAlphaValue(to newAlpha: Alpha)
