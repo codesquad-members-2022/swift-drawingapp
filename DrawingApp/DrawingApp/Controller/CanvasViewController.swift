@@ -66,7 +66,7 @@ extension CanvasViewController {
     }
     
     private func setUpInitialModels() {
-        (0..<4).forEach { _ in plane.addRectangle() }
+        (0..<4).forEach { _ in plane.add(viewModelType: .rectangle) }
     }
     
     private func setUpTapRecognizer() {
@@ -82,7 +82,7 @@ extension CanvasViewController {
 extension CanvasViewController {
     
     @IBAction func didTouchRectangleButton(_ sender: UIButton) {
-        plane.addRectangle()
+        plane.add(viewModelType: .rectangle)
     }
     
     @objc func didAddViewModel(_ notification: Notification) {
@@ -120,7 +120,7 @@ extension CanvasViewController {
         guard let image = info[.originalImage] as? UIImage,
               let imageData = image.pngData() else { return }
         
-        plane.addPhoto(data: imageData)
+        plane.add(viewModelType: .photo, data: imageData)
         picker.dismiss(animated: true, completion: nil)
     }
 }
@@ -129,7 +129,7 @@ extension CanvasViewController {
 
 extension CanvasViewController {
     @IBAction func didTouchLabelButton(_ sender: UIButton) {
-        plane.addLabel()
+        plane.add(viewModelType: .label)
     }
     
     // Set viewModel to fit intrinsic content size
