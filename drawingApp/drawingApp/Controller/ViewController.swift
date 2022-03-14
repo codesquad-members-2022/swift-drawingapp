@@ -51,7 +51,7 @@ class ViewController: UIViewController {
     }
     
     func setupDelegates(){
-//        panelView.delegate = self
+        panelView.delegate = self
         plane.delegate = self
     }
 
@@ -108,18 +108,16 @@ class ViewController: UIViewController {
     }
     
     func colorRandomization(on model: Model) {
-        if let rectView = rectangleList[model] {
-            rectView.updateColor(with: model)
-            updatePanel(from: model)
-        }
+        guard let rectView = rectangleList[model] else {return}
+        rectView.updateColor(with: model)
+        panelView.updateRomdomizeColorButton(newColor: model.color.tohexString)
     }
 
 
     func alphaModification(on model : Model){
         guard let rectView = rectangleList[model] else {return}
         rectView.updateAlpha(newAlpha: model.alpha.value)
-        updatePanel(from: model)
-        
+        panelView.updateAlpha(newAlphaValue: model.alpha.value)
     }
 
 }
@@ -140,14 +138,12 @@ extension ViewController : PlaneDelegate {
         }
         updateHighlight(from: currentlySelectedModel)
         updatePanel(from: currentlySelectedModel)
-
     }
 
 
     func didAppendModel(model: Model?) {
-        if let appendedModel = model {
-            createRectangleView(with : appendedModel)
-        }
+        guard let appendedModel = model else{return}
+        createRectangleView(with : appendedModel)
     }
 
     func didRandomizeColor(model: Model) {
@@ -162,17 +158,13 @@ extension ViewController : PlaneDelegate {
 }
 
 //입력 관련 델리게이션 함수 
-//extension ViewController : PanelViewDelegate {
-////    func didTabRondomizeColor() {
-////        if let selectedModel = plane.getSelectedModel(){
-////            plane.randomizeColor(on: selectedModel)
-////        }
-////    }
-////
-////    func didTabChangeAlpha(from: UIStepper) {
-////        if let selectedModel = plane.getSelectedModel(){
-////            plane.changeAlpha(on: selectedModel, with: Alpha(rawValue: Int(from.value)))
-////        }
-////    }
-//}
+extension ViewController : PanelViewDelegate {
+    func didTabRondomizeColor() {
+        plane.randomizeColorOnSelectedModel()
+    }
+
+    func didTabChangeAlpha(sender : UIStepper) {
+        plane.changeAlphaOnSelectedModel(to: Alpha(rawValue: Int(sender.value)))
+    }
+}
 

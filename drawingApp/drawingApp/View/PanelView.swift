@@ -10,7 +10,7 @@ import UIKit
 
 protocol PanelViewDelegate {
     func didTabRondomizeColor()
-    func didTabChangeAlpha(from : UIStepper)
+    func didTabChangeAlpha(sender : UIStepper)
 }
 
 class PanelView : UIView {
@@ -113,7 +113,7 @@ class PanelView : UIView {
         
     }
     @objc func didTabAlphaStepper(sender: UIStepper) {
-        delegate?.didTabChangeAlpha(from: sender)
+        delegate?.didTabChangeAlpha(sender: sender)
     }
     
 }
