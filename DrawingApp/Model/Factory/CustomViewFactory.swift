@@ -36,4 +36,25 @@ final class CustomViewFactory{
     func setViewID(value: RectValue) -> String{
         return value.id
     }
+    
+    func copyExtraView(view: UIView) -> UIView{
+        var extraView = UIView()
+        
+        if let rectView = view as? RectangleView{
+            let extraRectView = RectangleView()
+            extraRectView.frame = view.frame
+            extraRectView.backgroundColor = rectView.backgroundColor
+            extraRectView.backgroundColor?.withAlphaComponent(1)
+            extraView = extraRectView
+        } else if let imageView = view as? ImageView{
+            let extraImageView = ImageView(frame: CGRect())
+            extraImageView.frame = view.frame
+            extraImageView.image = imageView.image
+            extraView = extraImageView
+        }
+        
+        extraView.alpha = 0.5
+        
+        return extraView
+    }
 }
