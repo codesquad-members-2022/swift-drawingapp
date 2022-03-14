@@ -9,15 +9,31 @@ import Foundation
 import UIKit
 
 final class CustomViewFactory{
-    func makeRectangleView(value: Rectangle) -> RectangleView{
+    func makeViewFrame(value: Rectangle) -> RectangleView{
         let rectangleView = RectangleView(frame: CGRect(x: value.point.x, y: value.point.y, width: value.size.width, height: value.size.height))
-        rectangleView.backgroundColor = UIColor(red: value.color.redValue(), green: value.color.greenValue(), blue: value.color.blueValue(), alpha: value.alpha.showValue())
-        rectangleView.restorationIdentifier = value.id
         
         return rectangleView
     }
     
-    func makeBackgroundColor(){
+    func makeViewFrame(value: Image) -> ImageView{
+        let imageView = ImageView(frame: CGRect(x: value.point.x, y: value.point.y, width: value.size.width, height: value.size.height))
         
+        return imageView
+    }
+    
+    func setRectangleViewBackgroundColor(value: Rectangle) -> UIColor{
+        return UIColor(red: value.color.redValue(), green: value.color.greenValue(), blue: value.color.blueValue(), alpha: value.alpha.showValue())
+    }
+    
+    func setImageViewInnerImage(value: Image) -> UIImage {
+        return value.image.image
+    }
+    
+    func setImageViewAlpha(value: Image) -> Double{
+        return value.alpha.showValue()
+    }
+    
+    func setViewID(value: RectValue) -> String{
+        return value.id
     }
 }

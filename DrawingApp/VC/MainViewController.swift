@@ -11,6 +11,7 @@ import os
 class MainViewController: UIViewController{
     private var plane = Plane()
     private let rectFactory = RectangleFactory()
+    private let viewFactory = CustomViewFactory()
     private let rightAttributerView = RightAttributerView()
     private let imagePicker = UIImagePickerController()
     
@@ -53,9 +54,9 @@ extension MainViewController{
     @objc func addRectangleView(_ notification: Notification){
         guard let rectangleValue = notification.userInfo?[Plane.NotificationName.userInfoKeyRectangle] as? Rectangle else { return }
         
-        let rectangleView = RectangleView(frame: CGRect(x: rectangleValue.point.x, y: rectangleValue.point.y, width: rectangleValue.size.width, height: rectangleValue.size.height))
-        rectangleView.backgroundColor = UIColor(red: rectangleValue.color.redValue(), green: rectangleValue.color.greenValue(), blue: rectangleValue.color.blueValue(), alpha: rectangleValue.alpha.showValue())
-        rectangleView.restorationIdentifier = rectangleValue.id
+        let rectangleView = viewFactory.makeViewFrame(value: rectangleValue)
+        rectangleView.backgroundColor = viewFactory.setRectangleViewBackgroundColor(value: rectangleValue)
+        rectangleView.restorationIdentifier = viewFactory.setViewID(value: rectangleValue)
         
         self.view.addSubview(rectangleView)
         customUIViews[rectangleValue] = rectangleView
@@ -88,10 +89,11 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
     @objc func addImageRectangleView(_ notification: Notification){
         guard let imageValue = notification.userInfo?[Plane.NotificationName.userInfoKeyImage] as? Image else { return }
         
-        let imageView = ImageView(frame: CGRect(x: imageValue.point.x, y: imageValue.point.y, width: imageValue.size.width, height: imageValue.size.height))
+        let imageView = viewFactory.makeViewFrame(value: imageValue)
         
-        imageView.alpha = imageValue.alpha.showValue()
-        imageView.image = imageValue.image.image
+        imageView.alpha = viewFactory.setImageViewAlpha(value: imageValue)
+        imageView.image = viewFactory.setImageViewInnerImage(value: imageValue)
+        imageView.restorationIdentifier = viewFactory.setViewID(value: imageValue)
         
         self.view.addSubview(imageView)
         customUIViews[imageValue] = imageView
