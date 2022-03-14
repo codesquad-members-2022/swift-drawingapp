@@ -19,8 +19,8 @@ struct Gallery {
             return self.items[url]
         }
         set {
-            guard self.items[url] == nil else { return }
-            self.items[url] = newValue
+            guard let data = newValue, self.items[url] == nil else { return }
+            self.items[url] = data
         }
     }
 }
