@@ -16,6 +16,7 @@
 		D255617127CF42A000B4F9D7 /* RightAttributerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255617027CF42A000B4F9D7 /* RightAttributerView.swift */; };
 		D255617327CF492F00B4F9D7 /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255617227CF492F00B4F9D7 /* RectangleView.swift */; };
 		D255617C27CFBB8F00B4F9D7 /* PlaneTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D255617B27CFBB8F00B4F9D7 /* PlaneTest.swift */; };
+		D258493E27DEDF6500B32D95 /* ViewDragable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258493D27DEDF6500B32D95 /* ViewDragable.swift */; };
 		D26D915727CC67E8007507AE /* MySize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26D915627CC67E8007507AE /* MySize.swift */; };
 		D26D915927CC6D87007507AE /* RectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26D915827CC6D87007507AE /* RectangleFactory.swift */; };
 		D26D916327CD03B0007507AE /* RectangleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26D916227CD03B0007507AE /* RectangleTest.swift */; };
@@ -55,6 +56,7 @@
 		D255617027CF42A000B4F9D7 /* RightAttributerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RightAttributerView.swift; sourceTree = "<group>"; };
 		D255617227CF492F00B4F9D7 /* RectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
 		D255617B27CFBB8F00B4F9D7 /* PlaneTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneTest.swift; sourceTree = "<group>"; };
+		D258493D27DEDF6500B32D95 /* ViewDragable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDragable.swift; sourceTree = "<group>"; };
 		D26D915627CC67E8007507AE /* MySize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySize.swift; sourceTree = "<group>"; };
 		D26D915827CC6D87007507AE /* RectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactory.swift; sourceTree = "<group>"; };
 		D26D916027CD03B0007507AE /* RectangleTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RectangleTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -139,6 +141,7 @@
 				D255617027CF42A000B4F9D7 /* RightAttributerView.swift */,
 				D255617227CF492F00B4F9D7 /* RectangleView.swift */,
 				D285468F27D744A30040488F /* ImageView.swift */,
+				D258493C27DEDEFF00B32D95 /* Protocol */,
 				D24BDFF527D65669006FB721 /* Delegate */,
 			);
 			path = View;
@@ -150,6 +153,14 @@
 				D273EAE127CC5C6500DCDF78 /* MainViewController.swift */,
 			);
 			path = VC;
+			sourceTree = "<group>";
+		};
+		D258493C27DEDEFF00B32D95 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				D258493D27DEDF6500B32D95 /* ViewDragable.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		D26D916127CD03B0007507AE /* RectangleTest */ = {
@@ -356,6 +367,7 @@
 				D255615E27CEFA7000B4F9D7 /* Alpha.swift in Sources */,
 				D273EAE027CC5C6500DCDF78 /* SceneDelegate.swift in Sources */,
 				D26D915727CC67E8007507AE /* MySize.swift in Sources */,
+				D258493E27DEDF6500B32D95 /* ViewDragable.swift in Sources */,
 				D273EAF327CC5DA000DCDF78 /* Rectangle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
