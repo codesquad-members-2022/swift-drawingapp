@@ -103,25 +103,25 @@ extension ViewController: PropertyChangeBoardDelegate {
 
 extension ViewController {
     @objc func planeDidAdd(_ notification: Notification) {
-        guard let rectangle = notification.userInfo?["rectangle"] as? Rectangle else {return}
+        guard let rectangle = notification.userInfo?[Plane.NotificationKeyValue.rectangle] as? Rectangle else {return}
         let rectangleView = RectangleViewFactory.makeView(of: rectangle)
         self.rectangleViewBoard.addSubview(rectangleView)
     }
     
     @objc func planeDidSearch(_ notification: Notification) {
         guard let index = notification.userInfo?["index"] as? Int else {return}
-        guard let rectangle = notification.userInfo?["rectangle"] as? Rectangle else {return}
+        guard let rectangle = notification.userInfo?[Plane.NotificationKeyValue.rectangle] as? Rectangle else {return}
         self.rectangleViewBoard.setSelectedRectangleView(at: index)
         self.rectanglePropertyChangeBoard.setPropertyBoard(with: rectangle)
     }
     
     @objc func planeDidUpdated(_ notification: Notification) {
-        guard let alpha = notification.userInfo?["alpha"] as? Alpha else {return}
+        guard let alpha = notification.userInfo?[Plane.NotificationKeyValue.alpha] as? Alpha else {return}
         self.rectangleViewBoard.updateAlpha(alpha: alpha)
     }
     
     @objc func planeDidChanged(_ notification: Notification) {
-        guard let color = notification.userInfo?["color"] as? Color else {return}
+        guard let color = notification.userInfo?[Plane.NotificationKeyValue.color] as? Color else {return}
         rectangleViewBoard.updateColor(color: color)
     }
 }

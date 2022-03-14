@@ -19,6 +19,13 @@ class Plane {
         static let changeColor : Notification.Name = Notification.Name("changeColor")
     }
     
+    enum NotificationKeyValue {
+        static let rectangle = "rectangle"
+        static let index = "index"
+        static let alpha = "alpha"
+        static let color = "color"
+    }
+    
     subscript(index: Int) -> Rectangle? {
         if index < rectangleCount {
             let targetRectangle = rectangles[index]
@@ -33,7 +40,7 @@ class Plane {
     
     func addRectangle(rectangle: Rectangle) {
         self.rectangles.append(rectangle)
-        NotificationCenter.default.post(name: Plane.NotificationName.addRectangle, object: self, userInfo: ["rectangle":rectangle])
+        NotificationCenter.default.post(name: Plane.NotificationName.addRectangle, object: self, userInfo: [Plane.NotificationKeyValue.rectangle:rectangle])
     }
     
     func searchRectangle(at position : Position) {
@@ -46,18 +53,18 @@ class Plane {
         }
         guard let targetRectangle = selectedRectangle else {return}
         if let selectedIndex = rectangles.lastIndex(of: targetRectangle) {
-            NotificationCenter.default.post(name: Plane.NotificationName.searchRectangle, object: self, userInfo: ["rectangle":targetRectangle, "index": selectedIndex])
+            NotificationCenter.default.post(name: Plane.NotificationName.searchRectangle, object: self, userInfo: [Plane.NotificationKeyValue.rectangle:targetRectangle, Plane.NotificationKeyValue.index: selectedIndex])
         }
     }
     
     func updateAlphaValue(with alpha: Alpha) {
         self.selectedRectangle?.alpha = alpha
-        NotificationCenter.default.post(name: Plane.NotificationName.updateAlpha, object: self, userInfo: ["alpha":alpha])
+        NotificationCenter.default.post(name: Plane.NotificationName.updateAlpha, object: self, userInfo: [Plane.NotificationKeyValue.alpha:alpha])
     }
     
     func changeRandomColor(to randomColor : Color?) {
         guard let randomColor = randomColor else {return}
         self.selectedRectangle?.backGroundColor = randomColor
-        NotificationCenter.default.post(name: Plane.NotificationName.changeColor, object: self, userInfo: ["color":randomColor])
+        NotificationCenter.default.post(name: Plane.NotificationName.changeColor, object: self, userInfo: [Plane.NotificationKeyValue.color:randomColor])
     }
 }
