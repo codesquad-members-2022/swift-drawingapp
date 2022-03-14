@@ -60,7 +60,7 @@ class DrawingViewController: UIViewController{
     }
     
     @objc private func addRectangleView(_ notification: Notification){
-        guard let rectangle = notification.userInfo?[PlaneNotificationKey.rectangle] as? Rectangle else {
+        guard let rectangle = notification.userInfo?[Plane.NotificationKey.rectangle] as? Rectangle else {
             return
         }
         let rectangleView = RectangleView(size: rectangle.size, point: rectangle.point)
@@ -81,14 +81,14 @@ class DrawingViewController: UIViewController{
     }
     
     @objc private func selectedRectangle(_ notification: Notification){
-        guard let rectangle = notification.userInfo?[PlaneNotificationKey.rectangle] as? Rectangle else {
+        guard let rectangle = notification.userInfo?[Plane.NotificationKey.rectangle] as? Rectangle else {
             return
         }
         drawingDelegate?.drawingViewDidSelecteRectangle(rectangle: rectangle)
     }
     
     @objc private func rectangleColorChanged(_ notification: Notification){
-        guard let rectangle = notification.userInfo?[PlaneNotificationKey.rectangle] as? Rectangle else {
+        guard let rectangle = notification.userInfo?[Plane.NotificationKey.rectangle] as? Rectangle else {
             return
         }
         rectangleViews[rectangle.uniqueId]?.setRGBColor(rgb: rectangle.color)
@@ -96,7 +96,7 @@ class DrawingViewController: UIViewController{
     }
     
     @objc private func rectangleAlphaChanged(_ notification: Notification){
-        guard let rectangle = notification.userInfo?[PlaneNotificationKey.rectangle] as? Rectangle else {
+        guard let rectangle = notification.userInfo?[Plane.NotificationKey.rectangle] as? Rectangle else {
             return
         }
         rectangleViews[rectangle.uniqueId]?.setAlpha(alpha: rectangle.alpha)
