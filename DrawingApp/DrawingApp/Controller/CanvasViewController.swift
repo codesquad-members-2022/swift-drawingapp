@@ -12,8 +12,8 @@ class CanvasViewController: UIViewController,
                             UINavigationControllerDelegate {
     
     private var plane = Plane()
-    private var viewModelMap = [ViewModel: UIView]()
-    private var viewMap = [UIView: ViewModel]()
+    private var layerMap = [Layer: UIView]()
+    private var viewMap = [UIView: Layer]()
     private let photoPicker = UIImagePickerController()
     private var temporaryView: UIView?
     
@@ -43,8 +43,8 @@ class CanvasViewController: UIViewController,
 extension CanvasViewController {
     
     private func observePlane() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didAddViewModel(_:)), name: Plane.Event.didAddViewModel, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(didSelectViewModel(_:)), name: Plane.Event.didSelectViewModel, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didAddLayer(_:)), name: Plane.Event.didAddLayer, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didSelectLayer(_:)), name: Plane.Event.didSelectLayer, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeColor(_:)), name: Plane.Event.didChangeColor, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeAlpha(_:)), name: Plane.Event.didChangeAlpha, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeOrigin(_:)), name: Plane.Event.didChangeOrigin, object: plane)
@@ -66,7 +66,7 @@ extension CanvasViewController {
     }
     
     private func setUpInitialModels() {
-        (0..<4).forEach { _ in plane.add(viewModelType: .rectangle) }
+        (0..<4).forEach { _ in plane.add(layerType: .rectangle) }
     }
     
     private func setUpTapRecognizer() {
@@ -82,28 +82,28 @@ extension CanvasViewController {
 extension CanvasViewController {
     
     @IBAction func didTouchRectangleButton(_ sender: UIButton) {
-        plane.add(viewModelType: .rectangle)
+        plane.add(layerType: .rectangle)
     }
     
-    @objc func didAddViewModel(_ notification: Notification) {
-        guard let newViewModel = notification.userInfo?[Plane.InfoKey.added] as? ViewModel else { return }
-        guard let newView = ViewFactory.create(from: newViewModel) else { return }
+    @objc func didAddLayer(_ notification: Notification) {
+        guard let newLayer = notification.userInfo?[Plane.InfoKey.added] as? Layer else { return }
+        guard let newView = ViewFactory.create(from: newLayer) else { return }
         
-        map(newView, to: newViewModel)
+        map(newView, to: newLayer)
         
-        if newView is UILabel { resizeToFit(newViewModel, for: newView) }
+        if newView is UILabel { resizeToFit(newLayer, for: newView) }
         
         view.addSubview(newView)
         setupPanRecognizer(newView)
     }
     
-    private func createView(from viewModel: ViewModel) -> UIView? {
-        return ViewFactory.create(from: viewModel)
+    private func createView(from layer: Layer) -> UIView? {
+        return ViewFactory.create(from: layer)
     }
     
-    private func map(_ view: UIView, to viewModel: ViewModel) {
-        viewModelMap[viewModel] = view
-        viewMap[view] = viewModel
+    private func map(_ view: UIView, to layer: Layer) {
+        layerMap[layer] = view
+        viewMap[view] = layer
     }
 }
 
@@ -120,7 +120,7 @@ extension CanvasViewController {
         guard let image = info[.originalImage] as? UIImage,
               let imageData = image.pngData() else { return }
         
-        plane.add(viewModelType: .photo, data: imageData)
+        plane.add(layerType: .photo, data: imageData)
         picker.dismiss(animated: true, completion: nil)
     }
 }
@@ -129,17 +129,17 @@ extension CanvasViewController {
 
 extension CanvasViewController {
     @IBAction func didTouchLabelButton(_ sender: UIButton) {
-        plane.add(viewModelType: .label)
+        plane.add(layerType: .label)
     }
     
-    // Set viewModel to fit intrinsic content size
-    private func resizeToFit(_ viewModel: ViewModel, for view: UIView) {
+    // Set Layer to fit intrinsic content size
+    private func resizeToFit(_ layer: Layer, for view: UIView) {
         let fitSize = Size(width: view.intrinsicContentSize.width, height: view.intrinsicContentSize.height)
-        plane.change(viewModel: viewModel, toSize: fitSize)
+        plane.change(layer: layer, toSize: fitSize)
     }
 }
 
-// MARK: - Use Case: Tap CanvasView (Input) & Select ViewModel (Output)
+// MARK: - Use Case: Tap CanvasView (Input) & Select Layer (Output)
 
 extension CanvasViewController {
     
@@ -149,20 +149,20 @@ extension CanvasViewController {
         plane.tap(on: tappedPoint)
     }
     
-    @objc func didSelectViewModel(_ notification: Notification) {
-        if let new = notification.userInfo?[Plane.InfoKey.selected] as? ViewModel {
+    @objc func didSelectLayer(_ notification: Notification) {
+        if let new = notification.userInfo?[Plane.InfoKey.selected] as? Layer {
             guard let newView = search(for: new) else { return }
             changeBorder(newView)
         }
         
-        if let old = notification.userInfo?[Plane.InfoKey.unselected] as? ViewModel {
+        if let old = notification.userInfo?[Plane.InfoKey.unselected] as? Layer {
             guard let oldView = search(for: old) else { return }
             clearBorder(oldView)
         }
     }
     
-    private func search(for viewModel: ViewModel) -> UIView? {
-        return viewModelMap[viewModel]
+    private func search(for layer: Layer) -> UIView? {
+        return layerMap[layer]
     }
     
     private func changeBorder(_ view: UIView) {
@@ -223,7 +223,7 @@ extension CanvasViewController {
     }
     
     @objc func didChangeOrigin(_ notification: Notification) {
-        guard let mutated = notification.userInfo?[Plane.InfoKey.changed] as? ViewModel else { return }
+        guard let mutated = notification.userInfo?[Plane.InfoKey.changed] as? Layer else { return }
         let mutatedCavnasView = search(for: mutated)
         mutatedCavnasView?.frame.origin = CGPoint(with: mutated.origin)
     }
@@ -240,7 +240,7 @@ extension CanvasViewController {
     }
     
     @objc func didChangeSize(_ notification: Notification) {
-        guard let mutated = notification.userInfo?[Plane.InfoKey.changed] as? ViewModel else { return }
+        guard let mutated = notification.userInfo?[Plane.InfoKey.changed] as? Layer else { return }
         let mutatedUIView = search(for: mutated)
         mutatedUIView?.frame.size = CGSize(with: mutated.size)
     }
@@ -311,18 +311,18 @@ extension CanvasViewController {
     
     private func endPan(_ gesture: UIPanGestureRecognizer) {
         guard let gestureView = gesture.view,
-              let gestureViewModel = viewMap[gestureView],
+              let gestureLayer = viewMap[gestureView],
               let temporaryView = temporaryView,
               gesture.state == .ended else { return }
         
         let lastOrigin = Point(x: temporaryView.frame.origin.x,
                                y: temporaryView.frame.origin.y)
         
-        plane.change(viewModel: gestureViewModel, toOrigin: lastOrigin)
+        plane.change(layer: gestureLayer, toOrigin: lastOrigin)
         temporaryView.removeFromSuperview()
     }
     
-    private func search(for view: UIView) -> ViewModel? {
+    private func search(for view: UIView) -> Layer? {
         return viewMap[view]
     }
 }

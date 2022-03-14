@@ -13,9 +13,9 @@ class PlaneTests: XCTestCase {
     private var plane = Plane()
     
     override func setUp() {
-        (0..<5).forEach { _ in plane.add(viewModelType: .rectangle) }
-        (0..<5).forEach { _ in plane.add(viewModelType: .photo, data: Data()) }
-        (0..<5).forEach { _ in plane.add(viewModelType: .label) }
+        (0..<5).forEach { _ in plane.add(LayerType: .rectangle) }
+        (0..<5).forEach { _ in plane.add(LayerType: .photo, data: Data()) }
+        (0..<5).forEach { _ in plane.add(LayerType: .label) }
         super.setUp()
     }
     
@@ -26,24 +26,24 @@ class PlaneTests: XCTestCase {
     
     func testAddRectangle() throws {
         let plane = Plane()
-        plane.add(viewModelType: .rectangle)
+        plane.add(LayerType: .rectangle)
         XCTAssertEqual(plane.rectangleCount, 1)
     }
     
     func testAddPhoto() throws {
         let plane = Plane()
-        plane.add(viewModelType: .photo, data: Data())
+        plane.add(LayerType: .photo, data: Data())
         XCTAssertEqual(plane.photoCount, 1)
     }
     
     func testAddLabel() throws {
         let plane = Plane()
-        plane.add(viewModelType: .label)
+        plane.add(LayerType: .label)
         XCTAssertEqual(plane.labelCount, 1)
     }
     
     func testSelect() {
-        for testIndex in 0..<plane.viewModelCount {
+        for testIndex in 0..<plane.LayerCount {
             guard let testPoint = plane[testIndex]?.center else { return }
             plane.tap(on: testPoint)
             XCTAssertNotNil(plane.selected)
@@ -105,23 +105,23 @@ class PlaneTests: XCTestCase {
         XCTAssertEqual(plane.selected?.size.height, size.height)
     }
     
-    func testChangeViewModelOrigin() {
-        for i in 0..<plane.viewModelCount {
+    func testChangeLayerOrigin() {
+        for i in 0..<plane.LayerCount {
             let point = Point.random()
-            guard let viewModel = plane[i] else { return }
-            plane.change(viewModel: viewModel, toOrigin: point)
-            XCTAssertEqual(viewModel.origin.x, point.x)
-            XCTAssertEqual(viewModel.origin.y, point.y)
+            guard let Layer = plane[i] else { return }
+            plane.change(Layer: Layer, toOrigin: point)
+            XCTAssertEqual(Layer.origin.x, point.x)
+            XCTAssertEqual(Layer.origin.y, point.y)
         }
     }
     
-    func testChangeViewModelSize() {
-        for i in 0..<plane.viewModelCount {
+    func testChangeLayerSize() {
+        for i in 0..<plane.LayerCount {
             let size = Size(width: Double.random(in: 1...300), height: Double.random(in: 1...300))
-            guard let viewModel = plane[i] else { return }
-            plane.change(viewModel: viewModel, toSize: size)
-            XCTAssertEqual(viewModel.size.width, size.width)
-            XCTAssertEqual(viewModel.size.height, size.height)
+            guard let Layer = plane[i] else { return }
+            plane.change(Layer: Layer, toSize: size)
+            XCTAssertEqual(Layer.size.width, size.width)
+            XCTAssertEqual(Layer.size.height, size.height)
         }
     }
 }

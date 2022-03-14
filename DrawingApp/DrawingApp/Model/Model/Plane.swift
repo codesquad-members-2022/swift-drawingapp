@@ -9,8 +9,8 @@ import Foundation
 
 class Plane {
     enum Event {
-        static let didAddViewModel = Notification.Name("didAddViewModel")
-        static let didSelectViewModel = Notification.Name("didSelectViewModel")
+        static let didAddLayer = Notification.Name("didAddLayer")
+        static let didSelectLayer = Notification.Name("didSelectLayer")
         static let didChangeColor = Notification.Name("didChangeColor")
         static let didChangeAlpha = Notification.Name("didChangeAlpha")
         static let didChangeOrigin = Notification.Name("didChangeOrigin")
@@ -25,47 +25,47 @@ class Plane {
         static let changed = "changed"
     }
     
-    private var viewModels: [ViewModel] = [] {
+    private var layers: [Layer] = [] {
         didSet {
-            guard let newModel = viewModels.last else { return }
+            guard let newModel = layers.last else { return }
             Log.info("Added: \(newModel)")
         }
     }
     
-    var selected: ViewModel?
+    var selected: Layer?
     
     var rectangleCount: Int {
-        viewModels.filter { $0 is Rectangle }.count
+        layers.filter { $0 is Rectangle }.count
     }
     
     var photoCount: Int {
-        viewModels.filter { $0 is Photo }.count
+        layers.filter { $0 is Photo }.count
     }
     
     var labelCount: Int {
-        viewModels.filter { $0 is Label }.count
+        layers.filter { $0 is Label }.count
     }
     
-    var viewModelCount: Int {
-        viewModels.count
+    var layerCount: Int {
+        layers.count
     }
     
-    subscript(index: Int) -> ViewModel? {
-        return (0..<viewModels.count).contains(index) ? viewModels[index] : nil
+    subscript(index: Int) -> Layer? {
+        return (0..<layers.count).contains(index) ? layers[index] : nil
     }
     
-    func add(viewModelType: ViewModelType, data: Data? = nil) {
-        guard let newViewModel = ViewModelFactory.makeRandom(viewModelType, from: data) else { return }
-        viewModels.append(newViewModel)
-        NotificationCenter.default.post(name: Plane.Event.didAddViewModel, object: self, userInfo: [Plane.InfoKey.added: newViewModel])
+    func add(layerType: LayerType, data: Data? = nil) {
+        guard let newLayer = LayerFactory.makeRandom(layerType, from: data) else { return }
+        layers.append(newLayer)
+        NotificationCenter.default.post(name: Plane.Event.didAddLayer, object: self, userInfo: [Plane.InfoKey.added: newLayer])
     }
     
     func tap(on point: Point) {
         let unselected = selected
-        self.selected = viewModels.last(where: { viewModel in
-            viewModel.contains(point)
+        self.selected = layers.last(where: { layer in
+            layer.contains(point)
         })
-        NotificationCenter.default.post(name: Plane.Event.didSelectViewModel, object: self, userInfo: [Plane.InfoKey.unselected: unselected as Any, Plane.InfoKey.selected: selected as Any])
+        NotificationCenter.default.post(name: Plane.Event.didSelectLayer, object: self, userInfo: [Plane.InfoKey.unselected: unselected as Any, Plane.InfoKey.selected: selected as Any])
     }
     
     func changeSelected(toColor: Color = Color.random()) {
@@ -87,24 +87,24 @@ class Plane {
     }
     
     func changeSelected(toOrigin: Point) {
-        guard let viewModel = selected else { return }
-        viewModel.set(to: toOrigin)
-        NotificationCenter.default.post(name: Plane.Event.didChangeOrigin, object: self, userInfo: [Plane.InfoKey.changed: viewModel])
+        guard let layer = selected else { return }
+        layer.set(to: toOrigin)
+        NotificationCenter.default.post(name: Plane.Event.didChangeOrigin, object: self, userInfo: [Plane.InfoKey.changed: layer])
     }
     
     func changeSelected(toSize: Size) {
-        guard let viewModel = selected else { return }
-        viewModel.set(to: toSize)
-        NotificationCenter.default.post(name: Plane.Event.didChangeSize, object: self, userInfo: [Plane.InfoKey.changed: viewModel])
+        guard let layer = selected else { return }
+        layer.set(to: toSize)
+        NotificationCenter.default.post(name: Plane.Event.didChangeSize, object: self, userInfo: [Plane.InfoKey.changed: layer])
     }
     
-    func change(viewModel: ViewModel, toOrigin: Point) {
-        viewModel.set(to: toOrigin)
-        NotificationCenter.default.post(name: Plane.Event.didChangeOrigin, object: self, userInfo: [Plane.InfoKey.changed: viewModel])
+    func change(layer: Layer, toOrigin: Point) {
+        layer.set(to: toOrigin)
+        NotificationCenter.default.post(name: Plane.Event.didChangeOrigin, object: self, userInfo: [Plane.InfoKey.changed: layer])
     }
     
-    func change(viewModel: ViewModel, toSize: Size) {
-        viewModel.set(to: toSize)
-        NotificationCenter.default.post(name: Plane.Event.didChangeSize, object: self, userInfo: [Plane.InfoKey.changed: viewModel])
+    func change(layer: Layer, toSize: Size) {
+        layer.set(to: toSize)
+        NotificationCenter.default.post(name: Plane.Event.didChangeSize, object: self, userInfo: [Plane.InfoKey.changed: layer])
     }
 }

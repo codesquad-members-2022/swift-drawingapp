@@ -1,5 +1,5 @@
 //
-//  ViewModelFactory.swift
+//  LayerFactory.swift
 //  DrawingApp
 //
 //  Created by Bumgeun Song on 2022/03/14.
@@ -7,21 +7,21 @@
 
 import Foundation
 
-enum ViewModelType {
+enum LayerType {
     case rectangle
     case photo
     case label
 }
 
-enum ViewModelFactory {
-    static func makeRandom(_ viewModelType: ViewModelType, from data: Data? = nil) -> ViewModel? {
-        // Common property to initialize viewModel
+enum LayerFactory {
+    static func makeRandom(_ layerType: LayerType, from data: Data? = nil) -> Layer? {
+        // Common property to initialize Layer
         let ID = ID.random()
         let origin = Point.random()
         let size = Size.standard()
         let alpha = Alpha.random()
         
-        switch viewModelType {
+        switch layerType {
         case .rectangle:
             let color = Color.random()
             return Rectangle(id: ID, origin: origin, size: size, color: color, alpha: alpha)

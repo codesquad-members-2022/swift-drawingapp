@@ -8,8 +8,8 @@
 import UIKit
 
 enum ViewFactory {
-    static func create(from viewModel: ViewModel) -> UIView? {
-        switch viewModel {
+    static func create(from Layer: Layer) -> UIView? {
+        switch Layer {
         case let rectangle as Rectangle:
             return createView(from: rectangle)
         case let photo as Photo:

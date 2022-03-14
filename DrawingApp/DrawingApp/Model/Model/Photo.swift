@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Photo: ViewModel {
+class Photo: Layer {
     
     private(set) var data: Data
     private(set) var alpha: Alpha
