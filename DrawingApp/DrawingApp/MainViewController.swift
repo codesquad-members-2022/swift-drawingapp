@@ -16,14 +16,16 @@ final class MainViewController: UIViewController{
     private var detailView = DetailView(frame: .zero)       //생성시 오해를 막고 기존 생성자와 관련있게 하기 위해 frame에 .zero를 대입했습니다.
     private var rectangleButton:UIButton = RectangleButton(frame: .zero)
     private var imageButton:UIButton = ImageButton(frame: .zero)
+    //Factory
+    private let rectangleFactory = RectangleFactory()
     
-    //그려진 retangleView를 모델(Rectangle)을 Key로 찾는 Dictionary로 만들어서 모델과 매칭을 시켜주었습니다.
-    private var retangleViews = [Rectangle:RectangleView]()
-    //선택된 rectangleView
-    private var seletedRectangleView:RectangleView?
+    //그려진 PlaneRetangleView를 모델(Rectangle)을 Key로 찾는 Dictionary로 만들어서 모델과 매칭을 시켜주었습니다.
+    private var retangleViews = [PlaneRectangle:PlaneRectangleView]()
+    //선택된 PlaneRectangleView
+    private var seletedRectangleView:PlaneRectangleView?
     
     private let imagePicker = UIImagePickerController()
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,15 +66,16 @@ final class MainViewController: UIViewController{
         
         imageButton.layer.zPosition = 1.0
         imageButton.frame = CGRect(x: x, y: y, width: width, height: height)
-//        imageButton.addAction(imageInputToView(), for: .touchUpInside)
+        imageButton.addAction(addImageRectangleAction(), for: .touchUpInside)
     }
     
-//    private func imageInputToView() -> UIAction {
-//        let action:UIAction = { _ in
-//
-//        }
-//        return action
-//    }
+    private func addImageRectangleAction() -> UIAction {
+        let action = UIAction {[weak self] _ in
+            guard let rect = self?.rectangleFactory.makePlaneRectangle() else { return }
+            self?.plane.addRectangle(rectangle: rect)    //모델에 rectangle을 추가
+        }
+        return action
+    }
     
     
     //사각형 추가 버튼 Frame정의 및 Action추가.
@@ -90,16 +93,9 @@ final class MainViewController: UIViewController{
     
     //버튼 액션 - 사각형 추가
     private func addRectangleAction() -> UIAction {
-        let action = UIAction {_ in
-            let id = IDFactory.makeRandomID()
-            let size = Size(width: 150, height: 120)
-            let point = Point.random()
-            let rgb = RGB.random()
-            let alpha = Alpha.random()
-            
-            let rect = Rectangle(id: id, origin: point, size: size, backGroundColor: rgb, alpha: alpha)
-            
-            self.plane.addRectangle(rectangle: rect)    //모델에 rectangle을 추가
+        let action = UIAction {[weak self] _ in
+            guard let rect = self?.rectangleFactory.makePlaneRectangle() else { return }
+            self?.plane.addRectangle(rectangle: rect)    //모델에 rectangle을 추가
         }
         return action
     }
@@ -175,9 +171,9 @@ extension MainViewController:UIGestureRecognizerDelegate {
     
     //addRectagnleView
     @objc func addRectangleView(_ notification:Notification) {
-        guard let newRectangle = notification.userInfo?[Plane.UserInfoKey.addedRectangle] as? Rectangle else { return }
+        guard let newRectangle = notification.userInfo?[Plane.UserInfoKey.addedRectangle] as? PlaneRectangle else { return }
         
-        let rectangleView = RectangleView(rect: newRectangle, rgb: newRectangle.rgb, alpha: newRectangle.alpha)
+        let rectangleView = PlaneRectangleView(rect: newRectangle, rgb: newRectangle.rgb, alpha: newRectangle.alpha)
         view.addSubview(rectangleView)
         
         self.retangleViews[newRectangle] = rectangleView
@@ -190,7 +186,7 @@ extension MainViewController:UIGestureRecognizerDelegate {
     @objc func findSelectedRectangle(_ notification:Notification) {
         seletedRectangleView?.layer.borderWidth = .zero
         
-        guard let seletedRectangle = notification.userInfo?[Plane.UserInfoKey.foundRectangle] as? Rectangle else { return }
+        guard let seletedRectangle = notification.userInfo?[Plane.UserInfoKey.foundRectangle] as? PlaneRectangle else { return }
         
         let rectangleView = self.retangleViews[seletedRectangle]
         self.seletedRectangleView = rectangleView
