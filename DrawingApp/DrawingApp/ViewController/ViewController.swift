@@ -6,6 +6,19 @@ class ViewController: UIViewController {
     var viewDictionary: [Rectangle : UIView] = [:]
     var selectedView: UIView?
     
+    @IBOutlet weak var alphaSlider: UISlider!
+    @IBAction func draggedAlphaSlider(_ sender: UISlider) {
+        guard let view = selectedView else {
+            return
+        }
+        let value = Int(sender.value)
+        for (rect, rectView) in viewDictionary {
+            if rectView === view {
+                plane.changeAlpha(rect, value)
+                return
+            }
+        }
+    }
     @IBOutlet weak var colorButton: UIButton!
     
     @IBAction func colorButtonTouched(_ sender: UIButton) {
@@ -34,8 +47,12 @@ class ViewController: UIViewController {
         plane.addedRectangleDelegate = self
         plane.touchedRectangleDelegate = self
         plane.colorDelegate = self
+        plane.alphaDelegate = self
         BackgroundViewTouched()
         colorButton.setTitle("#FFFFFF", for: .normal)
+        alphaSlider.minimumValue = 1
+        alphaSlider.maximumValue = 10
+        alphaSlider.value = 5
     }
 }
 
@@ -79,17 +96,26 @@ extension ViewController: RectangleTouchedDelegate {
         }
         if let rect = rectangle {
             colorButton.setTitle("#\(rect.getColor().showRGBVlaue())", for: .normal)
-
+            alphaSlider.value = Float(rect.getAlpha().rawValue)
         }
     }
 }
 
 extension ViewController: PlaneColorChangeDelegate {
-    func didChangeColor(rectangle: Rectangle) {
+    func changeColorAndAlpha(_ rectangle: Rectangle) {
         if let view = viewDictionary[rectangle] {
             view.backgroundColor = UIColor(red: CGFloat(rectangle.getColor().R)/255.0, green: CGFloat(rectangle.getColor().G)/255.0, blue: CGFloat(rectangle.getColor().B)/255.0, alpha: CGFloat(rectangle.getAlpha().rawValue)/10.0)
             self.viewDictionary.updateValue(view, forKey: rectangle)
         }
+    }
+    func didChangeColor(rectangle: Rectangle) {
+        changeColorAndAlpha(rectangle)
         colorButton.setTitle("#\(rectangle.getColor().showRGBVlaue())", for: .normal)
+    }
+}
+extension ViewController : PlaneAlaphaChangeDelegate {
+    func didChangeAlpha(_ rectangle: Rectangle) {
+        changeColorAndAlpha(rectangle)
+        alphaSlider.value = Float(rectangle.getAlpha().rawValue)
     }
 }

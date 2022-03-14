@@ -12,6 +12,9 @@ protocol RectangleTouchedDelegate {
 protocol PlaneColorChangeDelegate {
     func didChangeColor(rectangle: Rectangle)
 }
+protocol PlaneAlaphaChangeDelegate {
+    func didChangeAlpha(_ rectangle: Rectangle)
+}
 
 class Plane {
     private var rectangleArray: [Rectangle] = []
@@ -21,6 +24,7 @@ class Plane {
     var addedRectangleDelegate :RectangleAddedDelegate?
     var touchedRectangleDelegate : RectangleTouchedDelegate?
     var colorDelegate: PlaneColorChangeDelegate?
+    var alphaDelegate: PlaneAlaphaChangeDelegate?
     
     var rectangleCount: Int {
         return rectangleArray.count
@@ -71,5 +75,10 @@ class Plane {
         var oldRectangle = rectangle
         let newRectangle = oldRectangle.changeColor()
         self.colorDelegate?.didChangeColor(rectangle: newRectangle)
+    }
+    func changeAlpha(_ rectangle: Rectangle, _ alpha: Int) {
+        var willChangeRectangle = rectangle
+        willChangeRectangle = willChangeRectangle.changeAlpha(alpha)
+        alphaDelegate?.didChangeAlpha(willChangeRectangle)
     }
 }
