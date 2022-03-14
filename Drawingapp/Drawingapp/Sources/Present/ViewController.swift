@@ -9,8 +9,8 @@ import UIKit
 import PhotosUI
 
 class ViewController: UIViewController {
-    let drawingBoard: UIView = {
-        let view = UIView()
+    let drawingBoard: DrawingBoardView = {
+        let view = DrawingBoardView()
         view.backgroundColor = .white
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
@@ -41,8 +41,6 @@ class ViewController: UIViewController {
     }()
     
     let plane = Plane(modelFactory: DrawingModelFactory())
-    var drawingViews: [DrawingModel:DrawingView] = [:]
-    var dummyView: UIView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -103,7 +101,7 @@ extension ViewController {
         self.inspectorView.setHidden(false)
         self.inspectorView.update(model: model)
         self.hierarchyView.selectIndex(index)
-        self.drawingViews[model]?.selected(is: true)
+        self.drawingBoard.select(model: model)
     }
     
     private func didDeselecteDrawingModel(notification: Notification) {
@@ -113,7 +111,7 @@ extension ViewController {
         }
         self.inspectorView.setHidden(true)
         self.hierarchyView.deSelecteIndex(index)
-        self.drawingViews[model]?.selected(is: false)
+        self.drawingBoard.deselect(model: model)
     }
 }
 
@@ -156,31 +154,22 @@ extension ViewController {
     
     //MARK: Output
     private func didBeganDrag(notification: Notification) {
-        guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
-              let selectView = self.drawingViews[model],
-              let snapshotView = selectView.snapshotView() else {
+        guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel else {
             return
         }
-        
-        self.drawingBoard.addSubview(snapshotView)
-        snapshotView.alpha = 0.5
-        snapshotView.isHidden = true
-        self.dummyView = snapshotView
+        self.drawingBoard.didBeganDrag(model: model)
     }
     
     private func didChangedDrag(notification: Notification) {
-        guard let point = notification.userInfo?[Plane.ParamKey.dragPoint] as? Point,
-              let dummyView = self.dummyView else {
+        guard let point = notification.userInfo?[Plane.ParamKey.dragPoint] as? Point else {
             return
         }
-        dummyView.isHidden = false
-        dummyView.frame.origin = CGPoint(x: point.x, y: point.y)
-        self.inspectorView.update(origin: Point(x: point.x, y: point.y))
+        self.drawingBoard.didChangedDrag(point: point)
+        self.inspectorView.update(origin: point)
     }
     
     private func didEndedDrag(notification: Notification) {
-        self.dummyView?.removeFromSuperview()
-        self.dummyView = nil
+        self.drawingBoard.didEndedDrag()
     }
 }
 
@@ -189,7 +178,7 @@ extension ViewController: HierarchyDelegate {
     private func hierarchyBind() {
         hierarchyView.delegate = self
         
-        NotificationCenter.default.addObserver(forName: Plane.Event.didMoveModel, object: nil, queue: nil, using: didMoveModel)
+        NotificationCenter.default.addObserver(forName: Plane.Event.didMoveModel, object: nil, queue: nil, using: didChangeSubviewIndex)
     }
     
     //MARK: inject
@@ -218,13 +207,12 @@ extension ViewController: HierarchyDelegate {
     }
     
     //MARK: Output
-    private func didMoveModel(notification: Notification) {
+    private func didChangeSubviewIndex(notification: Notification) {
         guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
-              let index = notification.userInfo?[Plane.ParamKey.index] as? Int,
-              let targetView = self.drawingViews[model] else {
+              let index = notification.userInfo?[Plane.ParamKey.index] as? Int else {
             return
         }
-        self.drawingBoard.insertSubview(targetView, at: index)
+        self.drawingBoard.didChangeSubviewIndex(target: model, index: index)
         self.hierarchyView.updateView()
     }
 }
@@ -268,11 +256,10 @@ extension ViewController: InspectorDelegate {
     //MARK: Output
     private func didUpdateColor(notification: Notification) {
         guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
-              let colableView = self.drawingViews[model] as? Colorable,
               let color = notification.userInfo?[Plane.ParamKey.color] as? Color else {
             return
         }
-        colableView.update(color: color)
+        self.drawingBoard.didUpdate(model: model, color: color)
         self.inspectorView.update(color: color)
     }
     
@@ -281,7 +268,7 @@ extension ViewController: InspectorDelegate {
               let alpha = notification.userInfo?[Plane.ParamKey.alpha] as? Alpha else {
             return
         }
-        self.drawingViews[model]?.update(alpha: alpha)
+        self.drawingBoard.didUpdate(model: model, alpha: alpha)
         self.inspectorView.update(alpha: alpha)
     }
     
@@ -290,7 +277,7 @@ extension ViewController: InspectorDelegate {
               let origin = notification.userInfo?[Plane.ParamKey.origin] as? Point else {
             return
         }
-        self.drawingViews[model]?.update(origin: origin)
+        self.drawingBoard.didUpdate(model: model, origin: origin)
         self.inspectorView.update(origin: origin)
     }
     
@@ -299,17 +286,16 @@ extension ViewController: InspectorDelegate {
               let size = notification.userInfo?[Plane.ParamKey.size] as? Size else {
             return
         }
-        self.drawingViews[model]?.update(size: size)
+        self.drawingBoard.didUpdate(model: model, size: size)
         self.inspectorView.update(size: size)
     }
     
     private func didUpdateFont(notification: Notification) {
         guard let model = notification.userInfo?[Plane.ParamKey.drawingModel] as? DrawingModel,
-              let textable = self.drawingViews[model] as? Textable,
             let font = notification.userInfo?[Plane.ParamKey.font] as? Font else {
             return
         }
-        textable.update(font: font)
+        self.drawingBoard.didUpdate(model: model, font: font)
         self.inspectorView.update(font: font)
     }
 }
@@ -375,9 +361,7 @@ extension ViewController: TopMenuBarDelegate, PHPickerViewControllerDelegate {
         }
         
         DispatchQueue.main.async {
-            let drawView = DrawingViewFactory.make(model: model)
-            self.drawingBoard.addSubview(drawView)
-            self.drawingViews[model] = drawView
+            self.drawingBoard.didMakeDrawingModel(model: model)
             self.hierarchyView.updateView()
         }
     }
