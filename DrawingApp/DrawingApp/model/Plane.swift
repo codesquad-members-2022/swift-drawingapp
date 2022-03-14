@@ -55,52 +55,52 @@ class Plane{
 }
 extension Plane: RectangleChangeable{
     func addRandomRectangle(){
-        NotificationCenter.default.post(name: Plane.NotiEvent.addedRectangle, object: self, userInfo: [Plane.NotificationKey.rectangle : addRectangle()])
+        NotificationCenter.default.post(name: Plane.Notification.Event.addedRectangle, object: self, userInfo: [Plane.Notification.Key.rectangle : addRectangle()])
     }
     
     func changeRectangleRandomColor(){
         guard let selectedRectangle = self.selectedRectangle else { return }
         changeRectangleColor()
-        NotificationCenter.default.post(name: Plane.NotiEvent.changedRectangleColor, object: self, userInfo:  [Plane.NotificationKey.rectangle : selectedRectangle])
+        NotificationCenter.default.post(name: Plane.Notification.Event.changedRectangleColor, object: self, userInfo:  [Plane.Notification.Key.rectangle : selectedRectangle])
     }
     
     func selectTargetRectangle(point: ViewPoint){
         selectedRectangle(point: point)
         guard let selectedRectangle = selectedRectangle else { return }
-        NotificationCenter.default.post(name: Plane.NotiEvent.selectedRectangle, object: self, userInfo:  [Plane.NotificationKey.rectangle : selectedRectangle])
+        NotificationCenter.default.post(name: Plane.Notification.Event.selectedRectangle, object: self, userInfo:  [Plane.Notification.Key.rectangle : selectedRectangle])
     }
     
     func deSelectTargetRectangle(){
         deselectedRectangle()
-        NotificationCenter.default.post(name: Plane.NotiEvent.deselectedRectangle, object: self)
+        NotificationCenter.default.post(name: Plane.Notification.Event.deselectedRectangle, object: self)
     }
     
     func pluseRectangleAlpha() {
         guard let selectedRectangle = selectedRectangle else { return }
         plusAlpha()
-        NotificationCenter.default.post(name: Plane.NotiEvent.updateRectangleAlpha, object: self, userInfo: [Plane.NotificationKey.rectangle : selectedRectangle])
+        NotificationCenter.default.post(name: Plane.Notification.Event.updateRectangleAlpha, object: self, userInfo: [Plane.Notification.Key.rectangle : selectedRectangle])
     }
     
     func minusRectangleAlpha() {
         guard let selectedRectangle = selectedRectangle else { return }
         minusAlpha()
-        NotificationCenter.default.post(name: Plane.NotiEvent.updateRectangleAlpha, object: self, userInfo: [Plane.NotificationKey.rectangle : selectedRectangle])
+        NotificationCenter.default.post(name: Plane.Notification.Event.updateRectangleAlpha, object: self, userInfo: [Plane.Notification.Key.rectangle : selectedRectangle])
     }
     
     func rectangleCount() -> Int{
         return rectangles.count
     }
     
-    enum NotiEvent{
-        static let addedRectangle = Notification.Name.init("addedRectangle")
-        static let selectedRectangle = Notification.Name.init("selectedRectangle")
-        static let deselectedRectangle = Notification.Name.init("deselectedRectangle")
-        static let changedRectangleColor = Notification.Name.init("changedRectangleColor")
-        static let updateRectangleAlpha = Notification.Name.init("updateRectangleAlpha")
-    }
-    
-    enum NotificationKey{
-        case rectangle
+    enum Notification{
+        enum Key{
+            case rectangle
+        }
+        enum Event{
+            static let addedRectangle = Foundation.Notification.Name.init("addedRectangle")
+            static let selectedRectangle = Foundation.Notification.Name.init("selectedRectangle")
+            static let deselectedRectangle = Foundation.Notification.Name.init("deselectedRectangle")
+            static let changedRectangleColor = Foundation.Notification.Name.init("changedRectangleColor")
+            static let updateRectangleAlpha = Foundation.Notification.Name.init("updateRectangleAlpha")
+        }
     }
 }
-
