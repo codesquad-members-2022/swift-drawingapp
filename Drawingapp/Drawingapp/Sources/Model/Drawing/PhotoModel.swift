@@ -23,7 +23,6 @@ class PhotoModel: DrawingModel, Imageable {
         guard let imageUrl = imageUrl else {
             return
         }
-        
         self.imageUrl = imageUrl
     }
 }

@@ -14,20 +14,20 @@ protocol HieararchyCellDelegate {
 }
 
 class HieararchyTableViewCell: UITableViewCell {
-    let icon: UIImageView = {
+    private let icon: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
-    let name: UILabel = {
+    private let name: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.textAlignment = .center
         return label
     }()
     
-    let button: UIButton = {
+    private let button: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -49,7 +49,7 @@ class HieararchyTableViewCell: UITableViewCell {
         layout()
     }
     
-    func bind() {
+    private func bind() {
         let cellMenus: [UIAction] = [
             UIAction(title: "맨 뒤로 보내기", image: nil, handler: { _ in
                 self.delegate?.move(to: .last, cell: self)
