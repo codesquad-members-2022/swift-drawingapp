@@ -16,6 +16,7 @@ final class MainViewController: UIViewController{
     private var detailView = DetailView(frame: .zero)       //생성시 오해를 막고 기존 생성자와 관련있게 하기 위해 frame에 .zero를 대입했습니다.
     private var rectangleButton:UIButton = RectangleButton(frame: .zero)
     private var imageButton:UIButton = ImageButton(frame: .zero)
+    
     //Factory
     private let rectangleFactory = RectangleFactory()
     
@@ -23,9 +24,6 @@ final class MainViewController: UIViewController{
     private var retangleViews = [PlaneRectangle:PlaneRectangleView]()
     //선택된 PlaneRectangleView
     private var seletedRectangleView:PlaneRectangleView?
-    
-    private let imagePicker = UIImagePickerController()
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,17 +64,7 @@ final class MainViewController: UIViewController{
         
         imageButton.layer.zPosition = 1.0
         imageButton.frame = CGRect(x: x, y: y, width: width, height: height)
-        imageButton.addAction(addImageRectangleAction(), for: .touchUpInside)
     }
-    
-    private func addImageRectangleAction() -> UIAction {
-        let action = UIAction {[weak self] _ in
-            guard let rect = self?.rectangleFactory.makePlaneRectangle() else { return }
-            self?.plane.addRectangle(rectangle: rect)    //모델에 rectangle을 추가
-        }
-        return action
-    }
-    
     
     //사각형 추가 버튼 Frame정의 및 Action추가.
     private func configureRectangleButton() {
@@ -94,8 +82,8 @@ final class MainViewController: UIViewController{
     //버튼 액션 - 사각형 추가
     private func addRectangleAction() -> UIAction {
         let action = UIAction {[weak self] _ in
-            guard let rect = self?.rectangleFactory.makePlaneRectangle() else { return }
-            self?.plane.addRectangle(rectangle: rect)    //모델에 rectangle을 추가
+            guard let rect = self?.rectangleFactory.makeRectangle(type: PlaneRectangle.self) else { return }
+            self?.plane.addRectangle(rectangle: rect as! PlaneRectangle)    //모델에 rectangle을 추가
         }
         return action
     }
