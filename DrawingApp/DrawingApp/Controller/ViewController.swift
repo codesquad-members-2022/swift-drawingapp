@@ -111,6 +111,16 @@ extension ViewController {
 
 extension ViewController: PlaneDelegate {
     
+    func didCreateRectangle(_ rectangle: Rectangle) {
+        let backgroundColor = rectangle.getUIColor()
+        let frame = rectangle.getFrame()
+        let alpha = rectangle.getAlpha()
+        let rectangleView = RectangleView(frame: frame, backgroundColor: backgroundColor, alpha: alpha)
+        
+        presentRectangleView.addSubview(rectangleView)
+        rectangleMap[rectangle] = rectangleView
+    }
+    
     func didSelectRectanlge(_ rectangle: Rectangle) {
         if let recentlySelectedRectangle = plane.recentlySelectedRectangle,
            let recentlySelectedRectangleView = rectangleMap[recentlySelectedRectangle] {
@@ -132,20 +142,14 @@ extension ViewController: PlaneDelegate {
         sideInspectorView.clearAlphaValueLabelText()
     }
     
-    func didCreateRectangle(_ rectangle: Rectangle) {
-        let backgroundColor = rectangle.getUIColor()
-        let frame = rectangle.getFrame()
-        let alpha = rectangle.getAlpha()
-        let rectangleView = RectangleView(frame: frame, backgroundColor: backgroundColor, alpha: alpha)
-        
-        presentRectangleView.addSubview(rectangleView)
-        rectangleMap[rectangle] = rectangleView
-    }
-    
     func didUpdateRecentlySelectedRectangle(_ rectangle: Rectangle) {
-        sideInspectorView.setBackgroundColorValueButtonTitle(by: rectangle.getColorHexaValue())
-        sideInspectorView.setBackgroundColorValueButtonColor(by: rectangle.getUIColor())
-        sideInspectorView.setAlphaValueLabelText(by: rectangle.getTransparency())
+        let newColor = rectangle.getUIColor()
+        let newColorHexaValue = rectangle.getColorHexaValue()
+        let newAlpha = rectangle.getTransparency()
+        
+        sideInspectorView.setBackgroundColorValueButtonTitle(by: newColorHexaValue)
+        sideInspectorView.setBackgroundColorValueButtonColor(by: newColor)
+        sideInspectorView.setAlphaValueLabelText(by: newAlpha)
     }
     
     func didUpdateRecentlySelectedRectangleBackgroundColor(_ rectangle: Rectangle) {
@@ -160,9 +164,10 @@ extension ViewController: PlaneDelegate {
     
     func didUpdateRecentlySelectedRectangleAlpha(_ rectangle: Rectangle) {
         guard let selectedRectangleView = rectangleMap[rectangle] else { return }
+        let newAlpha = rectangle.getTransparency()
         
-        selectedRectangleView.changeAlpha(to: CGFloat(rectangle.getTransparency()))
-        sideInspectorView.setAlphaValueLabelText(by: rectangle.getTransparency())
+        selectedRectangleView.changeAlpha(to: CGFloat(newAlpha))
+        sideInspectorView.setAlphaValueLabelText(by: newAlpha)
         
         if !rectangle.canAlphaLevelUp() {
             sideInspectorView.disableAlphaPlusButton()

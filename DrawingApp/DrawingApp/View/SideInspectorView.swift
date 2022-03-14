@@ -9,46 +9,6 @@ import UIKit
 
 class SideInspectorView: UIStackView {
     
-    func setBackgroundColorValueButtonTitle(by newText: String) {
-        backgroundColorValueButton.setTitle(newText, for: .normal)
-    }
-
-    func clearBackgroundColorValueButtonTitle() {
-        backgroundColorValueButton.setTitle("", for: .normal)
-    }
-
-    func setBackgroundColorValueButtonColor(by newColor: UIColor) {
-        backgroundColorValueButton.backgroundColor = newColor
-    }
-
-    func clearBackgroundColorValueButtonColor() {
-        backgroundColorValueButton.backgroundColor = .systemGray5
-    }
-    
-    func setAlphaValueLabelText(by text: Float) {
-        alphaValueLabel.text = "\(text)"
-    }
-    
-    func clearAlphaValueLabelText() {
-        alphaValueLabel.text = "0"
-    }
-    
-    func disableAlphaPlusButton() {
-        alphaPlusButton.isEnabled = false
-    }
-    
-    func enableAlphaPlusButton() {
-        alphaPlusButton.isEnabled = true
-    }
-    
-    func disableAlphaMinusButton() {
-        alphaMinusButton.isEnabled = false
-    }
-    
-    func enableAlphaMinusButton() {
-        alphaMinusButton.isEnabled = true
-    }
-    
     //MARK: Create Components
     
     private let backgroundMenuStackView: UIStackView = {
@@ -186,5 +146,47 @@ class SideInspectorView: UIStackView {
         alphaValueStackView.addArrangedSubview(alphaPlusButton)
         alphaValueStackView.addArrangedSubview(alphaValueLabel)
         alphaValueStackView.addArrangedSubview(alphaMinusButton)
+    }
+    
+    //MARK: Functions
+    
+    func setBackgroundColorValueButtonTitle(by text: String) {
+        backgroundColorValueButton.setTitle(text, for: .normal)
+    }
+
+    func clearBackgroundColorValueButtonTitle() {
+        backgroundColorValueButton.setTitle("", for: .normal)
+    }
+
+    func setBackgroundColorValueButtonColor(by color: UIColor) {
+        backgroundColorValueButton.backgroundColor = color
+    }
+
+    func clearBackgroundColorValueButtonColor() {
+        backgroundColorValueButton.backgroundColor = .systemGray5
+    }
+    
+    func setAlphaValueLabelText(by text: Float) {
+        alphaValueLabel.text = "\(text)"
+    }
+    
+    func clearAlphaValueLabelText() {
+        alphaValueLabel.text = "0"
+    }
+    
+    func disableAlphaPlusButton() {
+        alphaPlusButton.isEnabled = false
+    }
+    
+    func enableAlphaPlusButton() {
+        alphaPlusButton.isEnabled = true
+    }
+    
+    func disableAlphaMinusButton() {
+        alphaMinusButton.isEnabled = false
+    }
+    
+    func enableAlphaMinusButton() {
+        alphaMinusButton.isEnabled = true
     }
 }
