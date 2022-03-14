@@ -8,20 +8,20 @@
 import Foundation
 
 protocol AlphaBuilder {
-    init(_ value: Int)
+    init(_ value: Float)
 }
 
-enum Alpha: Int {
-    case transparent = 1
-    case two
-    case three
-    case four
-    case five
-    case six
-    case seven
-    case eight
-    case nine
-    case opaque
+enum Alpha: Float {
+    case transparent = 0.1
+    case two = 0.2
+    case three = 0.3
+    case four = 0.4
+    case five = 0.5
+    case six = 0.6
+    case seven = 0.7
+    case eight = 0.8
+    case nine = 0.9
+    case opaque = 1.0
     
     func convert<T: AlphaBuilder>(using Convertor: T.Type) -> T {
         return Convertor.init(self.rawValue)

@@ -19,7 +19,7 @@ extension UIColor {
     }
     
     convenience init(with color: Color, alpha: Alpha = .opaque) {
-        let alphaValue = alpha.convert(using: CGFloat.self) / 10
+        let alphaValue = alpha.convert(using: CGFloat.self)
         self.init(red: color.red / 255, green: color.green / 255, blue: color.blue / 255, alpha: alphaValue)
     }
     

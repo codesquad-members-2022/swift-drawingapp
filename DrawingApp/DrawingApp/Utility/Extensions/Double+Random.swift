@@ -8,13 +8,13 @@
 import Foundation
 
 extension Double {
-    static func random(in range: ClosedRange<Double>, digits: Int) -> Double {
-        let value = Double.random(in: range)
+    static func random(in range: ClosedRange<Self>, digits: Int) -> Self {
+        let value = Self.random(in: range)
         return value.toFixed(digits: digits)
     }
     
-    func toFixed(digits: Int) -> Double {
-        let divisor = pow(10, Double(digits))
+    func toFixed(digits: Int) -> Self {
+        let divisor = pow(10, Self.init(digits))
         return (self * divisor).rounded() / divisor
     }
 }
