@@ -24,6 +24,7 @@
 		02D5541827CC5FF200291B27 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D5541727CC5FF200291B27 /* Size.swift */; };
 		02D5541A27CC606300291B27 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D5541927CC606300291B27 /* Point.swift */; };
 		02D5541C27CC6CE100291B27 /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02D5541B27CC6CE100291B27 /* BackgroundColor.swift */; };
+		02F8198B27DEE9B70084F0AD /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02F8198A27DEE9B70084F0AD /* Photo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		02D5541727CC5FF200291B27 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		02D5541927CC606300291B27 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		02D5541B27CC6CE100291B27 /* BackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColor.swift; sourceTree = "<group>"; };
+		02F8198A27DEE9B70084F0AD /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 				0200342D27D0837F0032EEA4 /* Plane.swift */,
 				02A7161B27CCF63C00034A70 /* RectangleFactory.swift */,
 				02D5541527CC5FB000291B27 /* Rectangle.swift */,
+				02F8198A27DEE9B70084F0AD /* Photo.swift */,
 				02B9D2A027CF37E600A7185E /* id.swift */,
 				02D5541B27CC6CE100291B27 /* BackgroundColor.swift */,
 				02D5541727CC5FF200291B27 /* Size.swift */,
@@ -253,6 +256,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				02F8198B27DEE9B70084F0AD /* Photo.swift in Sources */,
 				02D5540627CC5E7D00291B27 /* ViewController.swift in Sources */,
 				02D5541827CC5FF200291B27 /* Size.swift in Sources */,
 				02D5541A27CC606300291B27 /* Point.swift in Sources */,
