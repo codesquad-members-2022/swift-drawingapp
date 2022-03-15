@@ -39,9 +39,14 @@ class CanvasViewController: UIViewController,
     
     private func setClosureToLayerTableVC() {
         guard let layerTableVC = splitViewController?.viewController(for: .supplementary) as? LayerTableViewController else { return }
-        layerTableVC.didSelectRowHandler = { index in
-            self.plane.select(at: index)
+        layerTableVC.didSelectRowHandler = { selected in
+            self.plane.select(layer: selected)
         }
+        
+        layerTableVC.didMoveLayerHandler = { fromIndex, to in
+            self.plane.swapLayer(fromIndex: fromIndex, to: to)
+        }
+        
     }
 }
 
@@ -58,6 +63,7 @@ extension CanvasViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeOrigin(_:)), name: Plane.Event.didChangeOrigin, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeSize(_:)), name: Plane.Event.didChangeSize, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeText(_:)), name: Plane.Event.didChangeText, object: plane)
+        
     }
     
     private func observePanel() {
@@ -273,7 +279,7 @@ extension CanvasViewController {
     }
 }
 
-// MARK: - Use Case: Drag layer (Input) & Change origin (Outpu)
+// MARK: - Use Case: Drag layer (Input) & Change origin (Output)
 
 extension CanvasViewController {
     
@@ -332,5 +338,13 @@ extension CanvasViewController {
     
     private func search(for view: UIView) -> Layer? {
         return viewMap[view]
+    }
+}
+
+// MARK: - Use Case: Reorder Layers
+
+extension CanvasViewController {
+    @objc func didReorderLayers() {
+        // TBD...
     }
 }

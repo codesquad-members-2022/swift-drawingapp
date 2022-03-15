@@ -14,21 +14,25 @@ class LayerTableViewController: UITableViewController {
     }
     
     private var layers: [Layer] = []
-    var didSelectRowHandler: ((Int) -> ())?
+    private var previousSelected: IndexPath?
+    
+    var didSelectRowHandler: ((Layer?) -> ())?
+    var didMoveLayerHandler: ((Int, Int) -> ())?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        tableView.isEditing = true
-        tableView.allowsSelectionDuringEditing = true
+        tableView.register(LayerTableViewCell.self, forCellReuseIdentifier: "layerTableViewCell")
+        //        tableView.isEditing = true
+        //        tableView.allowsSelectionDuringEditing = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(didAddLayer(_:)), name: Plane.Event.didAddLayer, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didSelectLayer(_:)), name: Plane.Event.didSelectLayer, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didReorderLayer(_:)), name: Plane.Event.didReorderLayer, object: nil)
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return layers.count
     }
@@ -40,45 +44,70 @@ class LayerTableViewController: UITableViewController {
     }
     
     @objc func didSelectLayer(_ notification: Notification) {
-        if let old = notification.userInfo?[Plane.InfoKey.unselected] as? Layer, let row = layers.firstIndex(of: old) {
-            let indexPath = IndexPath.init(row: Int(row), section: 0)
-            tableView.cellForRow(at: indexPath)?.setHighlighted(false, animated: false)
-            tableView.deselectRow(at: indexPath, animated: false)
-        }
-        
-        if let new = notification.userInfo?[Plane.InfoKey.selected] as? Layer, let row = layers.firstIndex(of: new) {
-            let indexPath = IndexPath.init(row: Int(row), section: 0)
-            tableView.selectRow(at: indexPath, animated: false, scrollPosition: .middle)
-            tableView.cellForRow(at: indexPath)?.setHighlighted(true, animated: false)
-        }
+        guard let selected = notification.userInfo?[Plane.InfoKey.selected] as? Layer, let index = layers.firstIndex(of: selected)  else { return }
+        let indexPath = IndexPath(row: index, section: 0)
+        tableView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
+    }
+    
+    @objc func didReorderLayer(_ notification: Notification) {
+        guard let reorderedLayers = notification.userInfo?[Plane.InfoKey.changed] as? [Layer] else { return }
+        self.layers = reorderedLayers
+        tableView.reloadData()
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: LayerTableViewController.identifier.cell, for: indexPath)
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "layerTableViewCell", for: indexPath)
+        
         let layer = layers[indexPath.row]
+        cell.selectionStyle = .none
+        cell.backgroundConfiguration?.backgroundColor = .clear
         
         var config = cell.defaultContentConfiguration()
         config.text = layer.title
-
+        
         if let symbol = ViewFactory.createSymbol(from: layer) {
             config.image = symbol
         }
-        
         cell.contentConfiguration = config
         
         return cell
     }
     
+    
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        didSelectRowHandler?(indexPath.row)
+        
+        // Will not select row because this method only handles input flow
+        tableView.deselectRow(at: indexPath, animated: false)
+        
+        let selectedLayer = layers[indexPath.row]
+        didSelectRowHandler?(selectedLayer)
     }
     
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        return .none
+    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        // 
     }
     
-    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
-        return false
-    }
+    // 해당 Row의 Layer가 이미 선택되어있는지 확인한다.
+    
+    //        if let previousCell = tableView.cellForRow(at: IndexPath(row: selectedFilterRow, section: indexPath.section)) {
+    //            tableView.deselectRow(at: indexPath, animated: false)
+    //        }
+    //        // 선택되어있으면 선택을 해제한다.
+    
+    // 선택이 안되어있으면 선택한다.
+    //        tableView.deselectRow(at: indexPath, animated: false)
+    //        didSelectRowHandler?(indexPath.row)
+    
+    
+    //    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+    //        return .none
+    //    }
+    //
+    //    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+    //        return false
+    //    }
+    //
+    //    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+    //        didMoveLayerHandler?(sourceIndexPath.row, destinationIndexPath.row)
+    //    }
 }

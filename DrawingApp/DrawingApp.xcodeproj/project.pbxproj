@@ -48,6 +48,7 @@
 		BCF9B77C27DEF092008B4879 /* LayerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF9B77A27DEEAC8008B4879 /* LayerFactory.swift */; };
 		BCF9B77E27DEFAB9008B4879 /* ViewCopyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF9B77D27DEFAB9008B4879 /* ViewCopyExtension.swift */; };
 		BCF9B78427DF2291008B4879 /* LayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF9B78327DF2291008B4879 /* LayerTableViewController.swift */; };
+		BCF9B78627E06B54008B4879 /* LayerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF9B78527E06B54008B4879 /* LayerTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -101,6 +102,7 @@
 		BCF9B77A27DEEAC8008B4879 /* LayerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerFactory.swift; sourceTree = "<group>"; };
 		BCF9B77D27DEFAB9008B4879 /* ViewCopyExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCopyExtension.swift; sourceTree = "<group>"; };
 		BCF9B78327DF2291008B4879 /* LayerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerTableViewController.swift; sourceTree = "<group>"; };
+		BCF9B78527E06B54008B4879 /* LayerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +234,7 @@
 			children = (
 				BCE3CB8327CC6D8E004F2AFE /* CanvasViewController.swift */,
 				BCF9B78327DF2291008B4879 /* LayerTableViewController.swift */,
+				BCF9B78527E06B54008B4879 /* LayerTableViewCell.swift */,
 				BC1806CC27CF565D0057679D /* PanelViewController.swift */,
 			);
 			path = Controller;
@@ -394,6 +397,7 @@
 				BC1806D927D0D3D10057679D /* ConverterExtension.swift in Sources */,
 				BC1806D727D095E30057679D /* UIColorExtension.swift in Sources */,
 				BC1806BD27CF3E4C0057679D /* Log.swift in Sources */,
+				BCF9B78627E06B54008B4879 /* LayerTableViewCell.swift in Sources */,
 				BCE3CB8427CC6D8E004F2AFE /* CanvasViewController.swift in Sources */,
 				BCF9B77E27DEFAB9008B4879 /* ViewCopyExtension.swift in Sources */,
 				BCF9B78427DF2291008B4879 /* LayerTableViewController.swift in Sources */,
