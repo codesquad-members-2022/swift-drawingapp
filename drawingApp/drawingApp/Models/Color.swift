@@ -5,9 +5,14 @@
 //  Created by Kai Kim on 2022/03/02.
 //
 
+
+
+
 import Foundation
 //Color (RGB) 타입 정의
 struct Color : CustomStringConvertible {
+    typealias Element = Self
+
     let red : Double
     let green : Double
     let blue : Double
@@ -35,4 +40,6 @@ struct Color : CustomStringConvertible {
         let rgb:Int = (Int)(self.red)<<16 | (Int)(self.green)<<8 | (Int)(self.blue)<<0
         return String(format:"#%06x", rgb)
     }
+    
+
 }

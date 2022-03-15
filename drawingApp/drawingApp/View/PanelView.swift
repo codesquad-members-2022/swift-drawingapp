@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 
-class PanelView : UIView  {
+class PanelView : UIView {
     
     var colorRondomizeButton : UIButton!
     var alphaStepper : UIStepper!
@@ -20,8 +20,7 @@ class PanelView : UIView  {
     private let defaultAlphaValue = "0"
     private let defaultColorValue = "#000000"
 
-//    var delegate : PanelViewDelegate?
-    
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.systemGray3

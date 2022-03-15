@@ -186,3 +186,76 @@ ViewController : viewDidLoad 에서 4개의 사각형을 만든다.
 
 
 
+<details>
+<summary> STEP3 : 관찰자(Observer) 패턴 </summary>
+
+## [작업 목록]
+
+- [X] Delegation Pattern 에서 Observer Pattern 으로 바꾼다
+- [X] 
+- [X] 터치 이벤트 동작을 이해하고 원하는 곳에서 처리할 수 있다
+- [X] 뷰 속성 중에 배경색과 투명도를 바꿔서 다시 그릴 수 있다
+
+## [작업 기록]
+### → [Observer Pattern]
+
+- 어떠한 하나의 대상을 관찰하는 Observer 들 에게 상태가 변경될때마다 boardcast 해주는 1:M communicaion 패턴이다. 
+
+→ Subject(Publisher) 관찰을 당하는 대상 : Publisher 인터페이스
+- Observer 들을 소유함
+- Observer 추가, 제거하는 인터페이스 제공
+
+→ Concrete Subject(Publisher) , 구현 클래스
+- Concrete Observer 객체의 상태를 저장한다.
+- 상태가 변경되면 Observer 에게 알린다.
+
+→ Observer(Subscriber) : 인터페이스
+- 객체의 변경사항을 알려야하는 객체에 대한 Update 인터페이스 제공
+
+→ Concrete Subscriber : 구현 클래스 
+- Concrete Subject 객체에 대한 참조 유지
+- Subject 의 상태와 일관성 유지
+- 객체의 상태와 일관성을 유지하기위해 update 인터페이스 구현
+
+  <p align="center">
+   <img src="https://user-images.githubusercontent.com/36659877/158290712-c15fd326-29a4-4316-8673-e5614e917856.png" width="350" height="450"> 
+  </p>
+
+→ NotificationCenter  [참조](https://daheenallwhite.github.io/ios/2019/10/13/Notification-Center/) 
+- NotificationCenter 클래스는 Observer pattern 에서 observer 를 등록하고, notification 을 주는 역할만 빼서 추상화 레벨을 올린 구현체이다.
+
+→ Notification
+- NotificationCenter 에 지정된 모든 옵저버들에게 전파할 정보를 가지는 컨테이너이다.
+
+→ Notification.Name 
+- 특정한 이벤트를 알릴수 있고 Notification 을 구별하는 식별자다.
+ 
+ ![image](https://user-images.githubusercontent.com/36659877/158292355-5ea87709-3ed8-4bf7-b661-e9cb1d966947.png)
+
+
+### → [Loose Coupling by Factory Pattern]
+
+producible
+
+
+
+## [선택 학습]
+→ 모델과 컨트롤러가 직접 참조하지 않고 느슨하게 연결된 (loosed coupled) 구조가 왜 좋은지 토론한다
+- Coupling 의 정의 
+    - 서로 상호작용하는 시스템들간의 의존성을 의미한다. 
+
+- Tight Coupling 
+    - 다른 오브젝트에 대한 상당히 많은 정보를 필요하고 두 객체간의 인터페이스들에게 서로 높은 의존성을 가지고 있다. 강하게 결합된 객체들을 변경하는 것은 많은 다른 객체들의 변경을 요구한다. 프로젝트가 커지면 유지보수가 힘들다.
+    - 
+     
+- Loose Coupling
+    - 하나의 변경이 다른 객체의 변경을 요구하는 위험을 줄여준다. 느슨한 결합은 시스템을 더욱 쉽게 유지 할 수 있도록 만들고 시스템의 유연성이 증가한다. 
+     
+    
+- Observer Pattern 의 Loose Coupling 한 장점 
+    - Concrete Observer 와 Subject 는 Protocol (인터페이스) 로 구현되기 때문에, 실질적인 구현 클래스가 무엇인지 알 필요가 없다. 
+    - subject 는 어떤 observer 가 자신을 subscribe 하고 있는지 몰라도 notify 만 한다면 observer 들은 새로 업데이트된 값을 받아서 쓸수 있다. 
+    
+- 모델과 컨트롤러가 직접 참조하지 않고 느슨하게 연결돼있다면 유지보수와, 모듈 테스트, 확장, 병렬 개발등의 장점이 있다. 
+
+</details>
