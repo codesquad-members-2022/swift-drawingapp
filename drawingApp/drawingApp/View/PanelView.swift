@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 
-class PanelView : UIView {
+class PanelView : UIView  {
     
     var colorRondomizeButton : UIButton!
     var alphaStepper : UIStepper!
@@ -42,7 +42,7 @@ class PanelView : UIView {
     func updateAlpha(newAlphaValue : Double) {
         if let newValue = Alpha(rawValue: Int(newAlphaValue * 10.0)) {
             self.alphaLabel.text = "\(newValue.rawValue)" //Displays 1~10
-            self.alphaStepper.value = newValue.value * 10.0 
+            self.alphaStepper.value = newValue.scaledValue * 10.0 
         }
     }
     

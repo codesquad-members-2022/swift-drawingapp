@@ -12,7 +12,6 @@ class ViewController: UIViewController {
     
     //Model
     private var plane : ModelManagable?
-    
     //Views
     private let rectangleGenerationButton = UIButton()
     private var panelView = PanelView()
@@ -151,7 +150,7 @@ class ViewController: UIViewController {
         if colorChanged {
           modelView.updateColor(with: modifiedModel)
         }else{
-          modelView.updateAlpha(newAlpha: modifiedModel.alpha.value)
+          modelView.updateAlpha(newAlpha: modifiedModel.alpha.scaledValue)
         }
     }
     
@@ -161,7 +160,7 @@ class ViewController: UIViewController {
         if colorChanged {
             panelView.updateRomdomizeColorButton(newColor: modifiedModel.color.tohexString)
         }else{
-            panelView.updateAlpha(newAlphaValue: modifiedModel.alpha.value)
+            panelView.updateAlpha(newAlphaValue: modifiedModel.alpha.scaledValue)
         }
     }
         
@@ -175,7 +174,7 @@ class ViewController: UIViewController {
     
     private func updatePanel(from model: Model) {
         if model.selectedStatus() {
-            panelView.updateAlpha(newAlphaValue: model.alpha.value)
+            panelView.updateAlpha(newAlphaValue: model.alpha.scaledValue)
             panelView.updateRomdomizeColorButton(newColor: model.color.tohexString)
         }
         else{
