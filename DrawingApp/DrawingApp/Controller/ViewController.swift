@@ -10,12 +10,12 @@ import OSLog
 
 class ViewController: UIViewController {
     
-    private var presentRectangleView = UIView()
+    private var presentShapeView = UIView()
     private var sideInspectorView = SideInspectorView()
     private var addRectangleButton = AddRectangleButton()
     
     private var plane = Plane()
-    private var rectangleMap = [Rectangle : RectangleView]()
+    private var shapeMap = [BasicShape: BasicShapeView]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,14 +31,14 @@ class ViewController: UIViewController {
         sideInspectorView.alphaMinusButton.addTarget(self, action: #selector(alphaMinusButtonTouched), for: .touchUpInside)
         
         //Add Gesture Recognizer
-        let presentRectangleViewTap = UITapGestureRecognizer(target: self, action: #selector(handlePresentRectangleViewTap(_:)))
-        presentRectangleView.addGestureRecognizer(presentRectangleViewTap)
+        let presentRectangleViewTap = UITapGestureRecognizer(target: self, action: #selector(handlePresentShapeViewTap(_:)))
+        presentShapeView.addGestureRecognizer(presentRectangleViewTap)
     }
     
     //MARK: Set Up Views
     
     func setUpViews() {
-        view.addSubview(presentRectangleView)
+        view.addSubview(presentShapeView)
         view.addSubview(sideInspectorView)
         view.addSubview(addRectangleButton)
         
@@ -53,15 +53,15 @@ class ViewController: UIViewController {
 extension ViewController {
     
     func layoutPresentRectangleView() {
-        presentRectangleView.translatesAutoresizingMaskIntoConstraints = false
-        presentRectangleView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        presentRectangleView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        presentRectangleView.trailingAnchor.constraint(equalTo: sideInspectorView.safeAreaLayoutGuide.leadingAnchor).isActive = true
-        presentRectangleView.bottomAnchor.constraint(equalTo: addRectangleButton.topAnchor).isActive = true
+        presentShapeView.translatesAutoresizingMaskIntoConstraints = false
+        presentShapeView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        presentShapeView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        presentShapeView.trailingAnchor.constraint(equalTo: sideInspectorView.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        presentShapeView.bottomAnchor.constraint(equalTo: addRectangleButton.topAnchor).isActive = true
     }
     
     func layoutAddRectangleButton() {
-        addRectangleButton.centerXAnchor.constraint(equalTo: presentRectangleView.centerXAnchor).isActive = true
+        addRectangleButton.centerXAnchor.constraint(equalTo: presentShapeView.centerXAnchor).isActive = true
         addRectangleButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         addRectangleButton.widthAnchor.constraint(equalToConstant: 100).isActive = true
         addRectangleButton.heightAnchor.constraint(equalToConstant: 100).isActive = true
@@ -79,19 +79,17 @@ extension ViewController {
 
 extension ViewController {
     @objc func addRectangleButtonTouched() {
-        let rectangleViewXBound = presentRectangleView.frame.width - Size.Range.width
-        let rectangleViewYBound = presentRectangleView.frame.height - Size.Range.height
-
-        let newRectangle = RandomRectangleFactory.createRandomRectangle(xBound: rectangleViewXBound, yBound: rectangleViewYBound)
-        plane.append(newRectangle: newRectangle)
+        let rectangleViewXBound = presentShapeView.frame.width - Size.Range.width
+        let rectangleViewYBound = presentShapeView.frame.height - Size.Range.height
+        plane.addRectangle(bound: (rectangleViewXBound, rectangleViewYBound), by: RandomRectangleFactory.self)
     }
-
-    @objc func handlePresentRectangleViewTap(_ tap: UITapGestureRecognizer) {
+    
+    @objc func handlePresentShapeViewTap(_ tap: UITapGestureRecognizer) {
         guard tap.state == .ended else { return }
         
-        let location = tap.location(in: presentRectangleView)
+        let location = tap.location(in: presentShapeView)
         let coordinate = (Double(location.x), Double(location.y))
-        plane.searchRectangle(on: coordinate)
+        plane.searchTopShape(on: coordinate)
     }
     
     @objc func backgroundColorValueButtonTouched() {
@@ -111,73 +109,86 @@ extension ViewController {
 
 extension ViewController: PlaneDelegate {
     
-    func didCreateRectangle(_ rectangle: Rectangle) {
-        let color = CGConverter.toUIColor(from: rectangle.backgroundColor)
-        let frame = CGConverter.toCGRect(from: (rectangle.point, rectangle.size))
-        let alpha = CGConverter.toCGFloat(from: rectangle.alpha)
-        let rectangleView = RectangleView(frame: frame, backgroundColor: color, alpha: alpha)
-//        let rectangleView = ViewFactory.createView(frame: frame, backgroundColor: backgroundColor, alpha: alpha)
-        presentRectangleView.addSubview(rectangleView)
-        rectangleMap[rectangle] = rectangleView
+    func didCreateShape(_ shape: BasicShape) {
+
+        if let shape = shape as? BasicShape & Colorable & Alphable {
+            let frame = CGConverter.toCGRect(from: (shape.point, shape.size))
+            let color = CGConverter.toUIColor(from: shape.backgroundColor)
+            let alpha = CGConverter.toCGFloat(from: shape.alpha)
+            let shapeView = ViewFactory.createRectangleView(frame: frame, backgroundColor: color, alpha: alpha)
+            
+            shapeMap[shape] = shapeView
+            presentShapeView.addSubview(shapeView)
+        }
+        else {
+            let frame = CGConverter.toCGRect(from: (shape.point, shape.size))
+            let shapeView = ViewFactory.createBasicShapeView(frame: frame)
+            
+            shapeMap[shape] = shapeView
+            presentShapeView.addSubview(shapeView)
+        }
     }
     
-    func didSelectRectanlge(_ rectangle: Rectangle) {
-        if let selectedRectangle = plane.selected,
-           let selectedRectangleView = rectangleMap[selectedRectangle] {
-            selectedRectangleView.clearCorner()
+    func didSelectShape(_ shape: BasicShape) {
+        if let selectedShape = plane.selected,
+           let selectedShapeView = shapeMap[selectedShape] {
+            selectedShapeView.clearCorner()
         }
         
-        let rectangleView = rectangleMap[rectangle]
-        rectangleView?.toggleCorner()
-        plane.updateSelected(rectangle: rectangle)
+        let shapeView = shapeMap[shape]
+        shapeView?.toggleCorner()
+        plane.updateSelected(shape: shape)
     }
     
     func didSelectEmptyView() {
-        guard let selectedRectangle = plane.selected,
-            let selectedRectangleView = rectangleMap[selectedRectangle] else { return }
+        guard let selectedShape = plane.selected,
+            let selectedShapeView = shapeMap[selectedShape] else { return }
         
-        selectedRectangleView.clearCorner()
+        selectedShapeView.clearCorner()
         sideInspectorView.clearBackgroundColorValueButtonTitle()
         sideInspectorView.clearBackgroundColorValueButtonColor()
         sideInspectorView.clearAlphaValueLabelText()
         
-        plane.clearSelectedRectangle()
+        plane.clearSelected()
     }
     
-    func didUpdateSelectedRectangle(_ rectangle: Rectangle) {
-        let newColor = CGConverter.toUIColor(from: rectangle.backgroundColor)
-        let newColorHexaValue = rectangle.hexaValue
-        let newAlpha = CGConverter.toCGFloat(from: rectangle.alpha)
+    func didChangeSelectedShape(_ shape: BasicShape) {
+        if let shape = shape as? Colorable {
+            let newColor = CGConverter.toUIColor(from: shape.backgroundColor)
+            let newColorHexaValue = shape.hexaValue
+            sideInspectorView.setBackgroundColorValueButtonColor(by: newColor)
+            sideInspectorView.setBackgroundColorValueButtonTitle(by: newColorHexaValue)
+        }
         
-        sideInspectorView.setBackgroundColorValueButtonTitle(by: newColorHexaValue)
+        if let shape = shape as? Alphable {
+            let newAlpha = CGConverter.toCGFloat(from: shape.alpha)
+            sideInspectorView.setAlphaValueLabelText(by: Float(newAlpha))
+            sideInspectorView.enableAlphaPlusButton()
+            sideInspectorView.enableAlphaMinusButton()
+        }
+    }
+    
+    func didUpdateSelectedShapeBackgroundColor(_ shape: BasicShape & Colorable) {
+        guard let selectedShapeView = shapeMap[shape] as? ViewColorChangable else { return }
+        let newColor = CGConverter.toUIColor(from: shape.backgroundColor)
+        let newColorHexaValue = shape.hexaValue
+        
+        selectedShapeView.changeBackgroundColor(by: newColor)
         sideInspectorView.setBackgroundColorValueButtonColor(by: newColor)
-        
-        sideInspectorView.setAlphaValueLabelText(by: Float(newAlpha))
-        sideInspectorView.enableAlphaPlusButton()
-        sideInspectorView.enableAlphaMinusButton()
-    }
-    
-    func didUpdateSelectedRectangleBackgroundColor(_ rectangle: Rectangle) {
-        guard let selectedRectangleView = rectangleMap[rectangle] else { return }
-        let newColor = CGConverter.toUIColor(from: rectangle.backgroundColor)
-        let newColorHexaValue = rectangle.hexaValue
-        
-        selectedRectangleView.changeBackgroundColor(by: newColor)
-        sideInspectorView.setBackgroundColorValueButtonColor(by: newColor)
         sideInspectorView.setBackgroundColorValueButtonTitle(by: newColorHexaValue)
     }
     
-    func didUpdateSelectedRectangleAlpha(_ rectangle: Rectangle) {
-        guard let selectedRectangleView = rectangleMap[rectangle] else { return }
-        let newAlpha = CGConverter.toCGFloat(from: rectangle.alpha)
+    func didUpdateSelectedShapeAlpha(_ shape: BasicShape & Alphable) {
+        guard let selectedShapeView = shapeMap[shape] as? ViewAlphaChangable else { return }
+        let newAlpha = CGConverter.toCGFloat(from: shape.alpha)
         
-        selectedRectangleView.changeAlpha(to: newAlpha)
-        sideInspectorView.setAlphaValueLabelText(by: rectangle.alpha.value)
+        selectedShapeView.changeAlpha(to: newAlpha)
+        sideInspectorView.setAlphaValueLabelText(by: shape.alpha.value)
         
-        if !rectangle.canAlphaLevelUp() {
+        if !shape.canAlphaLevelUp() {
             sideInspectorView.disableAlphaPlusButton()
         }
-        else if !rectangle.canAlphaLevelDown() {
+        else if !shape.canAlphaLevelDown() {
             sideInspectorView.disableAlphaMinusButton()
         }
         else {
@@ -187,4 +198,3 @@ extension ViewController: PlaneDelegate {
     }
     
 }
-
