@@ -10,9 +10,11 @@ import Foundation
 class Alpha {
     var transparency : Double
     
-    static let alphaRange = 0.1...1
-    init? (transparency : Double) {
-        guard Alpha.alphaRange.contains(transparency) else {return nil}
+    enum Range {
+        static let min : Double = 0.1
+        static let max : Double = 1
+    }
+    init (transparency : Double) {
         self.transparency = transparency
     }
 }

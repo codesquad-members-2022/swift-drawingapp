@@ -13,7 +13,7 @@ struct RectangleViewFactory {
     static func makeView(of rectangle : Rectangle) -> RectangleView? {
         let size = rectangle.size
         let position = rectangle.position
-        guard let color = rectangle.backgroundColor else {return nil}
+        let color = rectangle.backgroundColor
         let alpha = rectangle.alpha
         let rectangleFrame = CGRect(x: position.x , y: position.y, width: size.width, height: size.height)
         return RectangleView(frame: rectangleFrame, color: color, alpha: alpha)

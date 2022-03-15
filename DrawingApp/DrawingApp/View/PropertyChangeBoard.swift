@@ -117,7 +117,7 @@ class PropertyChangeBoard : UIView {
     }
     
     @objc func moveAlphaSlider() {
-        guard let updatedAlpha = Alpha(transparency: Double(self.alphaChangeSlider.value)) else {return}
+        let updatedAlpha = Alpha(transparency: Double(self.alphaChangeSlider.value))
         delegate?.propertyChangeBoard(didChanged: updatedAlpha)
     }
     
