@@ -8,7 +8,7 @@
 import Foundation
 
 struct Plane {
-    private var rectangleArray = Array<Rectangle>()
+    private var rectangleArray: Array<Shape> = Array<Rectangle>()
     
     var rectangleCount: Int {
         get {
@@ -17,10 +17,16 @@ struct Plane {
     }
     
     subscript(index: Int) -> Rectangle? {
-        if index < rectangleCount {
-            return rectangleArray[index]
+        if index < rectangleCount, rectangleArray[index] is Rectangle {
+            return rectangleArray[index] as? Rectangle
         }
         return nil
+    }
+    
+    mutating func addRectangle(_ rectangle: Shape) {
+        if rectangle is Rectangle {
+            rectangleArray.append(rectangle)
+        }
     }
     
     func isThereARectangle(point: Point) -> Bool {
