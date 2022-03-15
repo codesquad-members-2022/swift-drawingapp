@@ -33,11 +33,7 @@ class Rectangle {
 
 extension Rectangle : CustomStringConvertible, Equatable {
     static func == (lhs: Rectangle, rhs: Rectangle) -> Bool {
-         return lhs.id === rhs.id &&
-                lhs.size === rhs.size &&
-                lhs.position === rhs.position &&
-                lhs.backgroundColor === rhs.backgroundColor &&
-                lhs.alpha === rhs.alpha
+         return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
     }
     
     var description: String {
