@@ -68,7 +68,8 @@ extension ViewController: PlaneViewDelegate {
 extension ViewController: ControlPanelViewDelegate {
     func controlPanelDidPressColorButton() {
         guard let rectangle = self.plane.currentItem else { return }
-        guard let color = UIColor.random().convert(using: Color.self, multiplier: 255) else { return }
+        
+        let color = ColorFactory.makeTypeRandomly()
         
         rectangle.setBackgroundColor(color)
     }
@@ -150,7 +151,7 @@ extension ViewController {
         rectangleView.setBorder(width: 2, color: .blue)
         
         let hasImage = rectangle.image != nil
-        self.controlPanelView.setColorButtonAccess(enable: hasImage)
+        self.controlPanelView.setColorButtonAccess(enable: !hasImage)
         self.controlPanelView.setColorButtonTitle(title: hasImage ? "None" : hexString)
         self.controlPanelView.setAlphaSliderValue(value: rectangle.alpha)
     }
