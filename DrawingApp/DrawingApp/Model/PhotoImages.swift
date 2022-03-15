@@ -6,30 +6,29 @@
 //
 
 import Foundation
-import UIKit
 
 protocol PhotoImagesDelegate {
-    func photoImages(didAdd image: UIImage)
+    func photoImages(didAdd data: Data)
 }
 
 class PhotoImages {
-    private var images : [UIImage] = []
+    private var imageDatas : [Data] = []
     var deleagate : PhotoImagesDelegate?
     
-    subscript(index: Int) -> UIImage? {
+    subscript(index: Int) -> Data? {
         if index < imagesCount {
-            let targetImage = images[index]
+            let targetImage = imageDatas[index]
             return targetImage
         }
         return nil
     }
     
     var imagesCount : Int {
-        return images.count
+        return imageDatas.count
     }
     
-    func addImage(image: UIImage) {
-        self.images.append(image)
-        deleagate?.photoImages(didAdd: image)
+    func addImage(by data: Data) {
+        self.imageDatas.append(data)
+        deleagate?.photoImages(didAdd: data)
     }
 }

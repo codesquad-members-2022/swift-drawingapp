@@ -184,16 +184,17 @@ extension ViewController: RectangleViewBoardDelegate {
 }
 
 extension ViewController: PhotoImagesDelegate {
-    func photoImages(didAdd image: UIImage) {
-        guard let photoRectangle = RectangleFactory.makePhotoRectangle(in: (800,570), image: image) else {return}
+    func photoImages(didAdd imageData: Data) {
+        guard let photoRectangle = RectangleFactory.makePhotoRectangle(in: (800,570), imageData: imageData) else {return}
         plane.addRectangle(rectangle: photoRectangle)
     }
 }
 
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            photoImages.addImage(image: image)
+    private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) throws{
+        if let imageUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL {
+            let data = try Data(contentsOf: imageUrl)
+            photoImages.addImage(by : data)
         }
         dismiss(animated: true)
     }

@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 struct RectangleFactory {
 
@@ -21,13 +20,13 @@ struct RectangleFactory {
         return Rectangle(size: Size(width: 150, height: 120), position: randomPosition, color: randomColor, alpha: randomAlpha)
     }
     
-    static func makePhotoRectangle(in screenSize : (Double, Double), image: UIImage) -> PhotoRectangle? {
+    static func makePhotoRectangle(in screenSize : (Double, Double), imageData: Data) -> PhotoRectangle? {
         let randomPosition = RandomGenerator.generatePosition(screenSize: screenSize)
         let randomAlpha = RandomGenerator.generateAlpha()
         
         guard let randomAlpha = randomAlpha else {return nil}
 
-        return PhotoRectangle(size: Size(width: 150, height: 120), position: randomPosition, image: image, alpha: randomAlpha)
+        return PhotoRectangle(size: Size(width: 150, height: 120), position: randomPosition, imageData: imageData, alpha: randomAlpha)
     }
     
     

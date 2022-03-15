@@ -15,14 +15,14 @@ class PhotoRectangleView: RectangleView {
         return imageView
     }()
     
-    convenience init(from rectangleFrame: CGRect, image: UIImage, alpha: Alpha) {
+    convenience init(from rectangleFrame: CGRect, imageData: Data, alpha: Alpha) {
         self.init(frame: rectangleFrame)
-        setImage(image: image)
+        setImage(imageData: imageData)
         setAlpha(alpha: alpha)
     }
     
-    func setImage(image : UIImage) {
-        self.photoImageView.image = image
+    func setImage(imageData : Data) {
+        self.photoImageView.image = UIImage(data: imageData)
         self.addSubview(photoImageView)
         photoImageView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         photoImageView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
