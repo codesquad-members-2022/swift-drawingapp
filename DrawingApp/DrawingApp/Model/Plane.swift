@@ -20,7 +20,7 @@ public class Plane {
     
     func change(alpha:Alpha){
         guard let selectedRectangle = selectedRectangle else { return }
-        selectedRectangle.alpha = alpha
+        selectedRectangle.changeAlpha(alpha)
         
         NotificationCenter.default.post(
             name: Plane.NotificationName.didchangeRectangleAlpha,
@@ -32,7 +32,7 @@ public class Plane {
     
     func change(color:RGB) {
         guard let selectedRectangle = selectedRectangle else { return }
-        selectedRectangle.rgb = color
+        selectedRectangle.changeColor(color)
         
         NotificationCenter.default.post(
             name: Plane.NotificationName.didChangeRectangleColor,
@@ -71,7 +71,7 @@ public class Plane {
         NotificationCenter.default.post(
             name: Plane.NotificationName.didFindRectangle,
             object: self,
-            userInfo: [Plane.UserInfoKey.foundRectangle:foundRectangle as Any]
+            userInfo: [Plane.UserInfoKey.foundRectangle:foundRectangle]
         )
     }
     
@@ -98,7 +98,7 @@ public class Plane {
     
     
     
-    //Plane.UserInfoKey와 같이 Plane과 관련있게 하고싶어서 Nested Enum을 선언했습니다.
+    //Plane.UserInfoKey와 같이 Plane과 관련있게 하고싶어서 Nested Enum을 선언
     enum UserInfoKey {
         case addedRectangle
         case foundRectangle
@@ -106,7 +106,7 @@ public class Plane {
         case changedAlpha
     }
     
-    //enum과 Struct사이에서 고민을 했으나 static let으로 선언하고 case로 선언을 하지 않을 것이라면 Struct가 더 알맞다고 생각했습니다.
+   //NotificationNames
     struct NotificationName {
         static let didchangeRectangleAlpha = Notification.Name("didChangeRectangleAlpha")
         static let didChangeRectangleColor = Notification.Name("didChangeRectangleColor")

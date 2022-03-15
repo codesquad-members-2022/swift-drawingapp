@@ -8,11 +8,11 @@
 
 final class PlaneRectangle:Rectangle {
         
-    private var id:ID
-    private var origin:Point
-    private var size:Size
-    private var rgb:RGB
-    private var alpha:Alpha
+    private let id:ID
+    private(set) var origin:Point
+    private(set) var size:Size
+    private(set) var rgb:RGB
+    private(set) var alpha:Alpha
     
     init(id:ID,origin:Point,size:Size,rgb:RGB, alpha:Alpha) {
         self.id = id
@@ -33,6 +33,11 @@ final class PlaneRectangle:Rectangle {
     func changeAlpha(_ alpha: Alpha) {
         self.alpha = alpha
     }
+    
+    func changeColor(_ rgb:RGB) {
+        self.rgb = rgb
+    }
+    
     
 }
 
