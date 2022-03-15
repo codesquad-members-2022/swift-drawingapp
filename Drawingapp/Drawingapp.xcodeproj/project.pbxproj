@@ -296,7 +296,6 @@
 		E0D7DA0E27CC5A4700A56635 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
-				E0D9D79027E0717D00FB7C3E /* Protocol */,
 				E0D7DA0D27CC5A4100A56635 /* Model */,
 				E0D7DA1027CC5A6E00A56635 /* Present */,
 				E0D7DA2727CCDC7900A56635 /* Common */,
@@ -336,6 +335,7 @@
 		E0D7DA2727CCDC7900A56635 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				E0D9D79027E0717D00FB7C3E /* Protocol */,
 				E03455B827CF2A880036988A /* Factory */,
 				E0D7DA2B27CCF83300A56635 /* Log.swift */,
 				E0D9D78827DF428200FB7C3E /* ColorGenerator.swift */,
