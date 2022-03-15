@@ -101,7 +101,7 @@ extension ViewController: RectangleTouchedDelegate {
     }
 }
 
-extension ViewController: PlaneColorChangeDelegate {
+extension ViewController: RectangleColorChangeDelegate {
     func changeColorAndAlpha(_ rectangle: Rectangle) {
         if let view = viewDictionary[rectangle] {
             view.backgroundColor = UIColor(red: CGFloat(rectangle.getColor().R)/255.0, green: CGFloat(rectangle.getColor().G)/255.0, blue: CGFloat(rectangle.getColor().B)/255.0, alpha: CGFloat(rectangle.getAlpha().rawValue)/10.0)
@@ -113,8 +113,8 @@ extension ViewController: PlaneColorChangeDelegate {
         colorButton.setTitle("#\(rectangle.getColor().showRGBVlaue())", for: .normal)
     }
 }
-extension ViewController : PlaneAlaphaChangeDelegate {
-    func didChangeAlpha(_ rectangle: Rectangle) {
+extension ViewController : RectangleAlaphaChangeDelegate {
+    func didChangeAlpha(rectangle: Rectangle) {
         changeColorAndAlpha(rectangle)
         alphaSlider.value = Float(rectangle.getAlpha().rawValue)
     }

@@ -1,18 +1,19 @@
 import Foundation
 
+//TODO: 델리게이트 네이밍을 통일된 기준으로 만들기
 protocol RectangleAddedDelegate {
-    func didMakeRectangle(rectangle: Rectangle)
+    func didMakeRectangle(rectangle : Rectangle)
 }
 
 protocol RectangleTouchedDelegate {
     func touchedRectangle(rectangle: Rectangle)
 }
 
-protocol PlaneColorChangeDelegate {
+protocol RectangleColorChangeDelegate {
     func didChangeColor(rectangle: Rectangle)
 }
-protocol PlaneAlaphaChangeDelegate {
-    func didChangeAlpha(_ rectangle: Rectangle)
+protocol RectangleAlaphaChangeDelegate {
+    func didChangeAlpha(rectangle: Rectangle)
 }
 
 class Plane {
@@ -20,8 +21,8 @@ class Plane {
 
     var addedRectangleDelegate :RectangleAddedDelegate?
     var touchedRectangleDelegate : RectangleTouchedDelegate?
-    var colorDelegate: PlaneColorChangeDelegate?
-    var alphaDelegate: PlaneAlaphaChangeDelegate?
+    var colorDelegate: RectangleColorChangeDelegate?
+    var alphaDelegate: RectangleAlaphaChangeDelegate?
     
     var rectangleCount: Int {
         return rectangleArray.count
@@ -55,7 +56,6 @@ class Plane {
                 index += 1
             }
         }
-        //TODO: 안쓰는 값을 깔끔하게 정리
         return (false,99999)
     }
     
@@ -75,6 +75,6 @@ class Plane {
     func changeAlpha(_ rectangle: Rectangle, _ alpha: Int) {
         var willChangeRectangle = rectangle
         willChangeRectangle = willChangeRectangle.changeAlpha(alpha)
-        alphaDelegate?.didChangeAlpha(willChangeRectangle)
+        alphaDelegate?.didChangeAlpha(rectangle: willChangeRectangle)
     }
 }
