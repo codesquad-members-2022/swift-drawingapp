@@ -11,7 +11,6 @@ class Plane{
     private var customViewModelFactory: CustomViewFactoryResponse
     private var models: [ViewPoint: CustomViewEntity] = [:]
     private(set) var selectedModel: CustomViewEntity?
-    private(set) var selectedCustomViewType: CustomViewType = .none
     
     subscript(point: ViewPoint) -> CustomViewEntity?{
         return models[point]
@@ -26,7 +25,6 @@ class Plane{
         let rectangle = rectangleMutable.getRandomRectangle()
         self.models[rectangle.point] = rectangle
         self.selectedModel = rectangle
-        selectedCustomViewType = .rectangle
         NotificationCenter.default.post(name: Plane.Notification.Event.addedRectangle, object: self, userInfo: [Plane.Notification.Key.rectangle : rectangle])
     }
     
@@ -35,7 +33,6 @@ class Plane{
         let photo = photoMutable.getRandomPhoto()
         self.models[photo.point] = photo
         self.selectedModel = photo
-        selectedCustomViewType = .photo
         NotificationCenter.default.post(name: Plane.Notification.Event.addedPhoto, object: self, userInfo: [Plane.Notification.Key.photo : photo])
     }
     
@@ -51,9 +48,7 @@ class Plane{
     
     private func selectedCustomView(point: ViewPoint){
         self.selectedModel = models[point]
-        print("selected Something")
         if let photo = selectedModel as? Photo{
-            print("its photo")
             NotificationCenter.default.post(name: Plane.Notification.Event.selectedPhoto, object: self, userInfo: [Plane.Notification.Key.photo : photo])
         }
         if let rectangle = selectedModel as? Rectangle{
@@ -66,7 +61,6 @@ class Plane{
     
     private func deselectedCustomView(){
         self.selectedModel = nil
-        self.selectedCustomViewType = .none
         NotificationCenter.default.post(name: Plane.Notification.Event.deselectedCustomView, object: self)
     }
     
