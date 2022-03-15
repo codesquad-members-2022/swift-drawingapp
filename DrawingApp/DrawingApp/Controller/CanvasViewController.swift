@@ -43,8 +43,8 @@ class CanvasViewController: UIViewController,
             self.plane.select(layer: selected)
         }
         
-        layerTableVC.didMoveLayerHandler = { fromIndex, to in
-            self.plane.swapLayer(fromIndex: fromIndex, to: to)
+        layerTableVC.didMoveRowHandler = { fromIndex, toIndex in
+            self.plane.reorderLayer(from: fromIndex, to: toIndex)
         }
         
     }
@@ -63,6 +63,7 @@ extension CanvasViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeOrigin(_:)), name: Plane.Event.didChangeOrigin, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeSize(_:)), name: Plane.Event.didChangeSize, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeText(_:)), name: Plane.Event.didChangeText, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didReorderLayer(_:)), name: Plane.Event.didReorderLayer, object: nil)
         
     }
     
@@ -344,7 +345,16 @@ extension CanvasViewController {
 // MARK: - Use Case: Reorder Layers
 
 extension CanvasViewController {
-    @objc func didReorderLayers() {
-        // TBD...
+    @objc func didReorderLayer(_ notification: Notification) {
+        guard let reorderedLayers = notification.userInfo?[Plane.InfoKey.changed] as? [Layer] else { return }
+
+        for subView in view.subviews {
+            subView.removeFromSuperview()
+        }
+        
+        for layer in reorderedLayers {
+            guard let layerView = layerMap[layer] else { return }
+            view.addSubview(layerView)
+        }
     }
 }

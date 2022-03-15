@@ -24,6 +24,8 @@ class Plane {
         static let selected = "selected"
         static let unselected = "unselected"
         static let changed = "changed"
+        static let fromIndex = "from"
+        static let toIndex = "to"
     }
     
     private var layers: [Layer] = [] {
@@ -79,9 +81,10 @@ class Plane {
         NotificationCenter.default.post(name: Plane.Event.didSelectLayer, object: self, userInfo: [Plane.InfoKey.unselected: unselected as Any, Plane.InfoKey.selected: selected as Any])
     }
     
-    func swapLayer(fromIndex: Int, to: Int) {
-        layers.swapAt(fromIndex, to)
-        NotificationCenter.default.post(name: Plane.Event.didReorderLayer, object: self, userInfo: [Plane.InfoKey.added: layers])
+    func reorderLayer(from: Int, to: Int) {
+        layers.insert(layers.remove(at: from), at: to)
+        
+        NotificationCenter.default.post(name: Plane.Event.didReorderLayer, object: self, userInfo: [Plane.InfoKey.changed: layers])
     }
     
     func tap(on point: Point) {
