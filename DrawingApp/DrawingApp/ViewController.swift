@@ -148,11 +148,8 @@ extension ViewController: PropertyChangeBoardDelegate {
 extension ViewController {
     @objc func planeDidAdd(_ notification: Notification) {
         if let rectangle = notification.userInfo?[Plane.NotificationKeyValue.rectangle] as? Rectangle {
-            if let photoRectangleView = RectangleViewFactory.makePhotoView(of: rectangle) {
+            if let photoRectangleView = RectangleViewFactory.makeView(of: rectangle) {
                 self.rectangleViewBoard.addSubview(photoRectangleView)
-            }
-            if let rectangleView = RectangleViewFactory.makeView(of: rectangle) {            
-                self.rectangleViewBoard.addSubview(rectangleView)
             }
         }
     }

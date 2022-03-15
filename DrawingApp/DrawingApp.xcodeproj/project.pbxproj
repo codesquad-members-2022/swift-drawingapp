@@ -100,7 +100,6 @@
 				6C0479CC27E06EEA00C5E1BF /* Clamping.swift */,
 				6C2F1DE327CCB7510025803A /* Position.swift */,
 				6CD0B2F527CC6824009F5E9E /* RectangleFactory.swift */,
-				6C0A108B27DA372100AC3272 /* RectangleViewFactory.swift */,
 				6C2F1DE927CCC15A0025803A /* Alpha.swift */,
 				6C2F1DE727CCBEE40025803A /* Size.swift */,
 				6C2F1DDF27CCB4F80025803A /* Id.swift */,
@@ -115,6 +114,7 @@
 				6C5F3A0327DF38C7001BD523 /* PhotoRectangleView.swift */,
 				6C0A105027D60B4600AC3272 /* PropertyChangeBoard.swift */,
 				6C0A105327D6F4F100AC3272 /* RectangleView.swift */,
+				6C0A108B27DA372100AC3272 /* RectangleViewFactory.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
