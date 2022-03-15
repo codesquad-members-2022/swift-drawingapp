@@ -49,6 +49,8 @@ final class Plane: MainSceneTapDelegate {
             return
         }
         
+        rectangleModels.append(rectangleModel)
+        
         var notificationInfo = [
             PostKey.index: rectangleModels.endIndex,
             PostKey.model: rectangleModel
@@ -58,7 +60,6 @@ final class Plane: MainSceneTapDelegate {
             notificationInfo.updateValue(viewProperty, forKey: PostKey.viewProperty)
         }
         
-        rectangleModels.append(rectangleModel)
         NotificationCenter.default.post(
             name: Plane.addViewButtonPushed,
             object: self,
@@ -67,6 +68,7 @@ final class Plane: MainSceneTapDelegate {
     }
     
     func resetRandomColor(at index: Int) -> RectRGBColor? {
+        // hasViewProperty가 true일 경우 색상을 적용할 필요가 없는 것으로 판단합니다.
         guard rectangleModels[index].hasViewProperty == false else { return nil }
         guard
             rectangleModels.count-1 >= index,
@@ -151,6 +153,5 @@ final class Plane: MainSceneTapDelegate {
         case type = "type"
         case model = "model"
         case viewProperty = "viewProperty"
-        case select = "select"
     }
 }
