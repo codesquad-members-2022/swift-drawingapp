@@ -21,16 +21,6 @@ final class RectangleProperty: RectanglePropertyCreator {
     
     private(set) var hasViewProperty = false
     
-    init(as name: String, using id: String, at point: RectOrigin, size: RectSize, color: RectRGBColor, alpha: Double, hasViewProperty: Bool = false) {
-        self.name = name
-        self.id = id
-        self.point = point
-        self.size = size
-        self.rgbValue = color
-        self.alpha = alpha
-        self.hasViewProperty = hasViewProperty
-    }
-    
     init(as name: String, using id: String, from properties: RectangleRect, color: RectRGBColor, alpha: Double, hasViewProperty: Bool = false) {
         self.name = name
         self.id = id
