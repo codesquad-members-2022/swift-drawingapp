@@ -53,7 +53,7 @@ class ViewController: UIViewController {
         topMenuBind()
         inspectorBind()
         hierarchyBind()
-        plane.delegate = self
+        plane.dataSource = self
     }
     
     private func layout() {
@@ -85,7 +85,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: PlaneDelegate {
+extension ViewController: PlaneDataSource {
     func getScreenSize() -> Size {
         Size(width: self.drawingBoard.frame.width, height: self.drawingBoard.frame.height)
     }

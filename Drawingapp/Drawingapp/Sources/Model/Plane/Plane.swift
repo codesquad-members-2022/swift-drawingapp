@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol PlaneDelegate {
+protocol PlaneDataSource {
     func getScreenSize() -> Size
 }
 
@@ -44,9 +44,9 @@ class Plane {
     private var selectedModel: DrawingModel?
     private var modelFactory: PlaneModelFactoryBase?
     
-    var delegate: PlaneDelegate? {
+    var dataSource: PlaneDataSource? {
         didSet {
-            screenSize = delegate?.getScreenSize()
+            screenSize = dataSource?.getScreenSize()
         }
     }
     
