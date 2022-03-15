@@ -34,17 +34,14 @@ class Plane {
     }
     
     public func specifyRectangle(point: Point) -> Result<AnyRectangularable, PlaneError> {
-        for rectangle in rectangles.reversed() {
-            if rectangle.isPointInArea(point) {
-                self.specifiedRectangle = rectangle
-                NotificationCenter.default.post(name: Plane.NotificationNames.didSpecifyRectangle, object: self, userInfo: [Plane.UserInfoKeys.specifiedRectangle: rectangle])
-                return .success(rectangle)
-            }
+        guard let specifiedRectangle = findRectangle(above: point)  else {
+            self.specifiedRectangle = nil
+            NotificationCenter.default.post(name: Plane.NotificationNames.didSpecifyRectangle, object: self)
+            return .failure(.cannotSpecifyRectangleError)
         }
-        self.specifiedRectangle = nil
-        NotificationCenter.default.post(name: Plane.NotificationNames.didSpecifyRectangle, object: self)
-        return .failure(.cannotSpecifyRectangleError)
-        
+        self.specifiedRectangle = specifiedRectangle
+        NotificationCenter.default.post(name: Plane.NotificationNames.didSpecifyRectangle, object: self, userInfo: [Plane.UserInfoKeys.specifiedRectangle: specifiedRectangle])
+        return .success(specifiedRectangle)
     }
     
     public func addNewRectangle(in frame: (width: Double, height: Double)) {
@@ -79,6 +76,15 @@ class Plane {
         specifiedRectangle.changeAlphaValue(to: newAlpha)
         NotificationCenter.default.post(name: Plane.NotificationNames.didChangeRectangleAlpha, object: self, userInfo: [Plane.UserInfoKeys.changedRectangle: specifiedRectangle])
         return .success(specifiedRectangle)
+    }
+    
+    private func findRectangle(above point: Point) -> AnyRectangularable? {
+        for rectangle in rectangles.reversed() {
+            if rectangle.isPointInArea(point) {
+                return rectangle
+            }
+        }
+        return nil
     }
 
 }
