@@ -190,13 +190,10 @@ extension ViewController {
               }
         
         updateSelectedView(matchedView)
-        updateBackgroundButton(color: specifiedRectangle.backgroundColor, alpha: specifiedRectangle.alpha)
+        updateBackgroundColorButton(with: specifiedRectangle)
         updateAlphaSlider(alpha: Float(matchedView.alpha))
         updateMinusAlphaValueButton(with: Float(matchedView.alpha))
         updatePlusAlphaValueButton(with: Float(matchedView.alpha))
-        if let specifiedPhoto = specifiedRectangle as? Photo {
-            self.backgroundColorButton.isHidden = true
-        }
     }
     
     @objc func planeDidChangeRectangleBackgroundColor(_ notification: Notification) {
@@ -208,7 +205,7 @@ extension ViewController {
         let newBackgroundColor = backgroundColorChangedRectangle.backgroundColor
         matchedView.changeBackgroundColor(to: newBackgroundColor.convertToUIColor())
         let previousAlpha = backgroundColorChangedRectangle.alpha
-        updateBackgroundButton(color: newBackgroundColor, alpha: previousAlpha)
+        updateBackgroundColorButton(with: backgroundColorChangedRectangle)
     }
     
     @objc func planeDidChangeRectangleAlpha(_ notification: Notification) {
@@ -230,11 +227,11 @@ extension ViewController {
         selectedView.layer.borderColor = UIColor.black.cgColor
     }
     
-    private func updateBackgroundButton(color: BackgroundColor, alpha: Alpha) {
+    private func updateBackgroundColorButton(with rectangle: Rectangularable) {
         backgroundColorButton.isEnabled = true
-        backgroundColorButton.isHidden = false
-        backgroundColorButton.setTitle(color.hexCode, for: .normal)
-        let buttonBackgroundColor = color.convertToUIColor(with: alpha.value)
+        backgroundColorButton.isHidden = rectangle.backgroundColorButtonShouldBecomeHidden()
+        backgroundColorButton.setTitle(rectangle.backgroundColor.hexCode, for: .normal)
+        let buttonBackgroundColor = rectangle.backgroundColor.convertToUIColor(with: rectangle.alpha.value)
         backgroundColorButton.backgroundColor = buttonBackgroundColor
     }
     
