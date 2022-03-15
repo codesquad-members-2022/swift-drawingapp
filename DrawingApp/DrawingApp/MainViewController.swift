@@ -22,9 +22,12 @@ final class MainViewController: UIViewController{
     //선택된 PlaneRectangleView
     private var seletedRectangleView:PlaneRectangleView?
     
+    //factory
+    private var rectanagleCreator:RectangleCreator? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupRectangleFactory(factory: RectangleFactory.init())
         
         configureNotificationCenter()
         
@@ -34,6 +37,12 @@ final class MainViewController: UIViewController{
         configureTapGesture()
         addViews()
     }
+    
+    //Factory setup
+    private func setupRectangleFactory(factory:RectangleCreator) {
+        self.rectanagleCreator = factory
+    }
+    
     
     //TapGesture
     private func configureTapGesture() {
@@ -75,13 +84,13 @@ final class MainViewController: UIViewController{
         rectangleButton.layer.zPosition = 1.0                                //생성되는 사각형에 겹쳐서 안보이는 경우를 막기위해 zPosition을 주었다.
         
         rectangleButton.frame = CGRect(x: x, y: y, width: width, height: height)
-        rectangleButton.addAction(addRectangleAction(rectangleFactory: RectangleFactory() ), for: .touchUpInside)
+        rectangleButton.addAction(addRectangleAction(), for: .touchUpInside)
     }
     
     //버튼 액션 - 사각형 추가
-    private func addRectangleAction(rectangleFactory:RectangleCreator) -> UIAction {
+    private func addRectangleAction() -> UIAction {
         let action = UIAction {[weak self] _ in
-            let rect = rectangleFactory.makeRectangle(type: PlaneRectangle.self)
+            let rect = self?.rectanagleCreator?.makeRectangle(type: PlaneRectangle.self)
             self?.plane.addRectangle(rectangle: rect as! PlaneRectangle)    //모델에 rectangle을 추가
         }
         return action
