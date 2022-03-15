@@ -39,6 +39,7 @@ class CanvasViewController: UIViewController,
     
     private func setClosureToLayerTableVC() {
         guard let layerTableVC = splitViewController?.viewController(for: .supplementary) as? LayerTableViewController else { return }
+        
         layerTableVC.didSelectRowHandler = { selected in
             self.plane.select(layer: selected)
         }
@@ -46,7 +47,6 @@ class CanvasViewController: UIViewController,
         layerTableVC.didMoveRowHandler = { fromIndex, toIndex in
             self.plane.reorderLayer(from: fromIndex, to: toIndex)
         }
-        
     }
 }
 
@@ -345,13 +345,14 @@ extension CanvasViewController {
 // MARK: - Use Case: Reorder Layers
 
 extension CanvasViewController {
+    
     @objc func didReorderLayer(_ notification: Notification) {
-        guard let reorderedLayers = notification.userInfo?[Plane.InfoKey.changed] as? [Layer], let from = notification.userInfo?[Plane.InfoKey.fromIndex] as? Int, let to = notification.userInfo?[Plane.InfoKey.toIndex] as? Int else { return }
+        guard let reorderedLayers = notification.userInfo?[Plane.InfoKey.changed] as? [Layer] else { return }
 
-        
         for view in viewMap.keys {
             view.removeFromSuperview()
         }
+        
         for layer in reorderedLayers {
             guard let layerView = layerMap[layer] else { return }
             view.addSubview(layerView)

@@ -19,7 +19,6 @@ class LayerTableViewController: UITableViewController {
     var didSelectRowHandler: ((Layer?) -> ())?
     var didMoveRowHandler: ((Int, Int) -> ())?
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -50,17 +49,20 @@ extension LayerTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "StoryBoardLayerCell", for: indexPath)
         
-        let layer = layers[indexPath.row]
         cell.selectionStyle = .none
         cell.backgroundConfiguration?.backgroundColor = .clear
         
         var config = cell.defaultContentConfiguration()
+        
+        let layer = layers[indexPath.row]
         config.text = layer.title
         config.textProperties.color = .black
         
         if let symbol = ViewFactory.createSymbol(from: layer) {
             config.image = symbol
+            config.imageProperties.tintColor = .black
         }
+        
         cell.contentConfiguration = config
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(_:)))
