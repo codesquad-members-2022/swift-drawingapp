@@ -8,8 +8,8 @@
 import Foundation
 
 class Size {
-    var Width: Double
-    var Height: Double
+    private(set) var Width: Double
+    private(set) var Height: Double
 
     init(width: Double, height: Double) {
         self.Width = width
