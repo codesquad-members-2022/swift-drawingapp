@@ -224,10 +224,14 @@ extension MainViewController {
             return
         }
         
-        panGestureExtraView = CustomViewFactory.copyExtraView(view: view)
-        
-        if let extraView = panGestureExtraView{
+        if let rectView = view as? RectangleView, let extraView = rectView.copy() as? UIView{
+            panGestureExtraView = extraView
             self.view.addSubview(extraView)
+        } else if let imageView = view as? ImageView, let extraView = imageView.copy() as? UIView{
+            panGestureExtraView = extraView
+            self.view.addSubview(extraView)
+        } else{
+            os_log("Can't copy the view")
         }
     }
     

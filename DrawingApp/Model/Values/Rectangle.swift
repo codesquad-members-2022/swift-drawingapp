@@ -11,7 +11,7 @@ final class Rectangle: RectValue, CustomStringConvertible{
     private(set) var color: RGBColor
     
     var description: String{
-        let description = "[\(id)] : (X: \(point.x), Y:\(point.y)) / (W: \(size.width), H:\(size.height)) / (R: \(color.red), G: \(color.green), B: \(color.blue)) / Alpha: \(alpha)"
+        let description = "[\(showValueId())] : (X: \(point.x), Y:\(point.y)) / (W: \(size.width), H:\(size.height)) / (R: \(color.red), G: \(color.green), B: \(color.blue)) / Alpha: \(alpha)"
         return description
     }
     

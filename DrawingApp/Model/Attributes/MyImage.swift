@@ -9,7 +9,11 @@ import Foundation
 import UIKit
 
 struct MyImage: Equatable{
-    let image: UIImage
+    private let image: UIImage
+    
+    func showUIImage() -> UIImage{
+        return image
+    }
     
     func imageInfo() -> String{
         image.description
