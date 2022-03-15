@@ -15,28 +15,9 @@ protocol PlaneModelFactoryBase {
     func make(modelType: DrawingModel.Type, counting: Int, _ data: [Any]) -> DrawingModel
 }
 
-protocol PlaneChanged {
-    func change(alpha: Alpha)
-    func change(color: Color)
-    func change(fontName: String)
-    func transform(translationX: Double, y: Double)
-    func transform(width: Double, height: Double)
-}
-
-protocol PlaneGusture {
-    func tapGusturePoint(_ point: Point)
-    func beganDragPoint(_ point: Point)
-    func changedDragPoint(_ point: Point)
-    func endedDragPoint(_ point: Point)
-}
-
 protocol PlaneAction {
     func selecteModel(index: Int)
     func move(to index: Int)
-}
-
-protocol PlaneMakeModel {
-    func makeModel(modelType: DrawingModel.Type, url: URL?)
 }
 
 class Plane {
@@ -123,13 +104,13 @@ class Plane {
     }
 }
 
-extension Plane: PlaneMakeModel {
-    func makeModel(modelType: DrawingModel.Type, url: URL? = nil) {
+extension Plane: Makeable {
+    func makeModel(type modelType: DrawingModel.Type, data: [Any] = []) {
         
         let counting = (modelCounting[ObjectIdentifier(modelType)] ?? 0) + 1
         modelCounting[ObjectIdentifier(modelType)] = counting
         
-        guard let model = self.modelFactory?.make(modelType: modelType, counting: counting,  [url]) else {
+        guard let model = self.modelFactory?.make(modelType: modelType, counting: counting, data) else {
             return
         }
         self.drawingModels.insert(model, at: 0)
@@ -137,8 +118,8 @@ extension Plane: PlaneMakeModel {
     }
 }
 
-extension Plane: PlaneChanged {
-    func change(alpha: Alpha) {
+extension Plane: Changable {
+    func changeAlpha(_ alpha: Alpha) {
         guard let model = self.selectedModel else {
             return
         }
@@ -151,7 +132,7 @@ extension Plane: PlaneChanged {
         NotificationCenter.default.post(name: Event.didUpdateAlpha, object: self, userInfo: userInfo)
     }
     
-    func change(color: Color) {
+    func changeColor(_ color: Color) {
         guard let model = self.selectedModel as? Colorable else {
             return
         }
@@ -164,7 +145,7 @@ extension Plane: PlaneChanged {
         NotificationCenter.default.post(name: Event.didUpdateColor, object: self, userInfo: userInfo)
     }
     
-    func change(fontName: String) {
+    func changeFontName(_ fontName: String) {
         guard let labelModel = self.selectedModel as? LabelModel else {
             return
         }
@@ -205,7 +186,7 @@ extension Plane: PlaneChanged {
     }
 }
 
-extension Plane: PlaneGusture {
+extension Plane: GusturePoint {
     func tapGusturePoint(_ point: Point) {
         guard let selectModel = self.selected(point: point) else {
             sendDidDeselectModel(self.selectedModel)

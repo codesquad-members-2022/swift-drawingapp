@@ -56,6 +56,9 @@
 		E0D7DA5327CDF70D00A56635 /* InspectorItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D7DA5227CDF70D00A56635 /* InspectorItemView.swift */; };
 		E0D9D78927DF428200FB7C3E /* ColorGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D9D78827DF428200FB7C3E /* ColorGenerator.swift */; };
 		E0D9D78B27DF5A1F00FB7C3E /* DrawingBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D9D78A27DF5A1F00FB7C3E /* DrawingBoardView.swift */; };
+		E0D9D79227E0719000FB7C3E /* Changable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D9D79127E0719000FB7C3E /* Changable.swift */; };
+		E0D9D79427E0734500FB7C3E /* GusturePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D9D79327E0734500FB7C3E /* GusturePoint.swift */; };
+		E0D9D79627E0737600FB7C3E /* Makeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D9D79527E0737600FB7C3E /* Makeable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -118,6 +121,9 @@
 		E0D7DA5227CDF70D00A56635 /* InspectorItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InspectorItemView.swift; sourceTree = "<group>"; };
 		E0D9D78827DF428200FB7C3E /* ColorGenerator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorGenerator.swift; sourceTree = "<group>"; };
 		E0D9D78A27DF5A1F00FB7C3E /* DrawingBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingBoardView.swift; sourceTree = "<group>"; };
+		E0D9D79127E0719000FB7C3E /* Changable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Changable.swift; sourceTree = "<group>"; };
+		E0D9D79327E0734500FB7C3E /* GusturePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GusturePoint.swift; sourceTree = "<group>"; };
+		E0D9D79527E0737600FB7C3E /* Makeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Makeable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,6 +296,7 @@
 		E0D7DA0E27CC5A4700A56635 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				E0D9D79027E0717D00FB7C3E /* Protocol */,
 				E0D7DA0D27CC5A4100A56635 /* Model */,
 				E0D7DA1027CC5A6E00A56635 /* Present */,
 				E0D7DA2727CCDC7900A56635 /* Common */,
@@ -375,6 +382,16 @@
 				E081806E27DACD62000633E1 /* InspectorTwoUpDownView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		E0D9D79027E0717D00FB7C3E /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				E0D9D79127E0719000FB7C3E /* Changable.swift */,
+				E0D9D79327E0734500FB7C3E /* GusturePoint.swift */,
+				E0D9D79527E0737600FB7C3E /* Makeable.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -512,6 +529,7 @@
 				E0D9D78B27DF5A1F00FB7C3E /* DrawingBoardView.swift in Sources */,
 				E0D7DA4827CDE3C800A56635 /* TopMenuItemView.swift in Sources */,
 				E081807527DB1068000633E1 /* Font.swift in Sources */,
+				E0D9D79427E0734500FB7C3E /* GusturePoint.swift in Sources */,
 				E0D7DA1727CC642800A56635 /* Size.swift in Sources */,
 				E0D7DA4D27CDF28C00A56635 /* InspectorView.swift in Sources */,
 				E081807127DB0A20000633E1 /* LabelModel.swift in Sources */,
@@ -520,6 +538,8 @@
 				E0D7DA5127CDF6FE00A56635 /* InspectorSliderView.swift in Sources */,
 				E0D7DA2C27CCF83300A56635 /* Log.swift in Sources */,
 				E034562D27D22FB60036988A /* PhotoView.swift in Sources */,
+				E0D9D79227E0719000FB7C3E /* Changable.swift in Sources */,
+				E0D9D79627E0737600FB7C3E /* Makeable.swift in Sources */,
 				E0D7DA2027CC656500A56635 /* Color.swift in Sources */,
 				E03455B727CF2A1A0036988A /* DrawingViewFactory.swift in Sources */,
 				E0D7DA4527CDE32300A56635 /* TopMenuBarView.swift in Sources */,
