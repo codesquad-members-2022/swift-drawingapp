@@ -84,14 +84,14 @@ class Plane {
             return
         }
         
-        NotificationCenter.default.post(name: Plane.Event.didDeselecteDrawingModel, object: self, userInfo: [ParamKey.drawingModel: model, ParamKey.index: index])
+        NotificationCenter.default.post(name: Plane.Event.didDeselecteModel, object: self, userInfo: [ParamKey.drawingModel: model, ParamKey.index: index])
     }
     
     private func sendDidSelectModel(_ model: DrawingModel) {
         guard let index = drawingModels.firstIndex(of: model) else {
             return
         }
-        NotificationCenter.default.post(name: Plane.Event.didSelecteDrawingModel, object: self, userInfo: [ParamKey.drawingModel:model, ParamKey.index: index])
+        NotificationCenter.default.post(name: Plane.Event.didSelecteModel, object: self, userInfo: [ParamKey.drawingModel:model, ParamKey.index: index])
     }
     
     private func calibrateScreenInOrigin(to point: Point, size: Size) -> Point? {
@@ -117,7 +117,7 @@ extension Plane: PlaneMakeModel {
             return
         }
         self.drawingModels.insert(model, at: 0)
-        NotificationCenter.default.post(name: Plane.Event.didMakeDrawingModel, object: self, userInfo: [ParamKey.drawingModel:model])
+        NotificationCenter.default.post(name: Plane.Event.didMakeModel, object: self, userInfo: [ParamKey.drawingModel:model])
     }
 }
 
@@ -279,9 +279,9 @@ extension Plane: PlaneAction {
 
 extension Plane {
     enum Event {
-        static let didDeselecteDrawingModel = NSNotification.Name("didDeselecteDrawingModel")
-        static let didSelecteDrawingModel = NSNotification.Name("didSelecteDrawingModel")
-        static let didMakeDrawingModel = NSNotification.Name("didMakeDrawingModel")
+        static let didDeselecteModel = NSNotification.Name("didDeselecteModel")
+        static let didSelecteModel = NSNotification.Name("didSelecteModel")
+        static let didMakeModel = NSNotification.Name("didMakeModel")
         static let didBeganDrag = NSNotification.Name("didBeganDrag")
         static let didChangedDrag = NSNotification.Name("didChangedDrag")
         static let didEndedDrag = NSNotification.Name("didEndedDrag")

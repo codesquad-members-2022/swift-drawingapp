@@ -299,11 +299,11 @@ extension ViewController: TopMenuBarDelegate, PHPickerViewControllerDelegate {
     private func topMenuBind() {
         topMenuBarView.delegate = self
         
-        NotificationCenter.default.addObserver(forName: Plane.Event.didMakeDrawingModel, object: nil, queue: nil, using: didMakeDrawingModel)
+        NotificationCenter.default.addObserver(forName: Plane.Event.didMakeModel, object: nil, queue: nil, using: didMakeDrawingModel)
         
-        NotificationCenter.default.addObserver(forName: Plane.Event.didSelecteDrawingModel, object: nil, queue: nil, using: didSelecteDrawingModel)
+        NotificationCenter.default.addObserver(forName: Plane.Event.didSelecteModel, object: nil, queue: nil, using: didSelecteDrawingModel)
         
-        NotificationCenter.default.addObserver(forName: Plane.Event.didDeselecteDrawingModel, object: nil, queue: nil, using: didDeselecteDrawingModel)
+        NotificationCenter.default.addObserver(forName: Plane.Event.didDeselecteModel, object: nil, queue: nil, using: didDeselecteDrawingModel)
     }
     
     //MARK: Input
