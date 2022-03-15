@@ -6,5 +6,5 @@
 //
 
 protocol RectangleCreator {
-    func makeRectangle(type:Rectangle.Type) -> Rectangle
+    func makeRectangle(type:Rectangle.Type) -> Rectangle 
 }
