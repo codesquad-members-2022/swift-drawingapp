@@ -21,7 +21,6 @@ struct Point {
 extension Point {
     enum Range {
         static let lower = 0.0
-        static let upper = 100.0
     }
 }
 

@@ -14,8 +14,8 @@ class RandomRectangleFactory {
     }
     
     static func generateRandomPoint(xBound: Double, yBound: Double) -> Point {
-        let randomX = round(Double.random(in: Point.Range.lower..<xBound))
-        let randomY = round(Double.random(in: Point.Range.lower..<yBound))
+        let randomX = round(Double.random(in: Point.Range.lower...xBound))
+        let randomY = round(Double.random(in: Point.Range.lower...yBound))
         
         return Point(x: randomX, y: randomY)
     }
@@ -32,8 +32,8 @@ class RandomRectangleFactory {
     
     static func createRandomRectangle(xBound: Double, yBound: Double) -> Rectangle {
         return Rectangle(identifier: generateRandomIdentifier(),
-                         size: Size(width: Size.Range.width, height: Size.Range.height),
                          point: generateRandomPoint(xBound: xBound, yBound: yBound),
+                         size: Size(width: Size.Range.width, height: Size.Range.height),
                          backgroundColor: generateRandomColor(),
                          alpha: Alpha.random)
     }
