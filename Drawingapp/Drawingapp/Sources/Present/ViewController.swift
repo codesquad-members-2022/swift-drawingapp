@@ -165,30 +165,15 @@ extension ViewController: DrawingBoardDelegate {
     }
 }
 
-//MARK: Hierarchy
+//MARK: HierarchyDelegate
 extension ViewController: HierarchyDelegate {
     private func hierarchyBind() {
         hierarchyView.delegate = self
+        hierarchyView.dataSource = self
         
         NotificationCenter.default.addObserver(forName: Plane.Event.didMoveModel, object: nil, queue: nil, using: didChangeSubviewIndex)
     }
-    
-    //MARK: inject
-    func getCount() -> Int {
-        self.plane.count
-    }
-    
-    func getModel(to: IndexPath) -> DrawingModel? {
-        guard let model = self.plane[to.row] else {
-            return nil
-        }
-        return model
-    }
-    
-    func getSelectIndex() -> Int? {
-        self.plane.selectIndex
-    }
-    
+        
     //MARK: Input
     func selectedCell(index: IndexPath) {
         self.plane.selecteModel(index: index.row)
@@ -206,6 +191,23 @@ extension ViewController: HierarchyDelegate {
         }
         self.drawingBoard.didChangeSubviewIndex(target: model, index: index)
         self.hierarchyView.updateView()
+    }
+}
+
+extension ViewController: HierarchyDataSource {
+    func getCount() -> Int {
+        self.plane.count
+    }
+    
+    func getModel(to: IndexPath) -> DrawingModel? {
+        guard let model = self.plane[to.row] else {
+            return nil
+        }
+        return model
+    }
+    
+    func getSelectIndex() -> Int? {
+        self.plane.selectIndex
     }
 }
 
