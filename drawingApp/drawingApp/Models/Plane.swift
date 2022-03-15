@@ -9,10 +9,12 @@ import Foundation
 import OSLog
 import UIKit
 
+
+
+
 class Plane {
-    private var models = [Model]()
-    private let size: Size
-    private let point: Point
+    private (set) var models = [Model]()
+    private (set) var modelFactory : ModelProducible
     private var selectedModel : Model? {
         didSet {
             //pre -> false, current -> ture
@@ -25,22 +27,22 @@ class Plane {
     }
     var numberOfModel : Int {
         self.models.count
+        
     }
-    subscript(index: Int) -> Model?{
+    subscript(index: UInt64) -> Modellable?{
         get {
-            guard numberOfModel > index , -1 > index else {return nil}
-            return models[index]
+            guard numberOfModel > index else {return nil}
+            return models[Int(index)]
         }
     }
     
-    init(planeSize : Size, safeAreaInsets: Point) {
-        self.size = planeSize
-        self.point = safeAreaInsets
+    required init(modelFactory : ModelProducible) {
+        self.modelFactory = modelFactory
     }
     
     
     func addModel() {
-        let newModel = Factory.makeRect(planePoint: point, planeSize: size, modelSize: Size(width: 130, height: 120))
+        let newModel = modelFactory.make(size: Size(width: 130, height: 120))
         self.models.append(newModel)
         NotificationCenter.default.post(name: .DidMakeModel, object: self, userInfo: [UserInfo.model: newModel])
     }

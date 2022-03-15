@@ -11,13 +11,15 @@ import OSLog
 class ViewController: UIViewController {
     
     //Model
-    private var plane : Plane!
+    private var plane : Plane?
     
     //Views
     private let rectangleGenerationButton = UIButton()
     private var panelView = PanelView()
     
-    
+    //ViewFactory
+    private var viewFactory : ViewProducible?
+  
     //View Constants
     let screenWdith = UIScreen.main.bounds.width
     let screenHeight = UIScreen.main.bounds.height
@@ -31,11 +33,13 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.plane = Plane(planeSize: Size(width: screenWdith - panelWidth, height: screenHeight - buttonHeight), safeAreaInsets: Point(x: 0, y:20))
+        self.plane = Plane(modelFactory: ModelFactory(referecePoint: Point(x: 0, y:20), boarderSize: Size(width: screenWdith - panelWidth, height: screenHeight - buttonHeight)))
+        
         setupSubViews()
         setupHandlers()
         setupLayout()
-        addObservers ()
+        addObservers()
+        setupFactory(viewFactory: ViewFactory())
     }
     
     
@@ -61,25 +65,29 @@ class ViewController: UIViewController {
         panelView.frame = CGRect(x: screenWdith - panelWidth, y: view.safeAreaInsets.top, width: panelWidth, height: screenHeight)
     }
    
+    func setupFactory(viewFactory : ViewProducible) {
+        self.viewFactory = viewFactory
+    }
+    
     //MARK: 사용자가 사각형 버튼을 누르면 plane 구역안에 뷰를 생성 시켜줄 팩토리 를 이용하여 모델생성 및 plane 에 추가.
     @objc func createRectangleModel() {
-        plane.addModel()
+        plane?.addModel()
     }
     
 
     //MARK: 사용자가 ViewController 를 터치했을때 좌표를 기준으로 사각형을 찾음.
     @objc func tapTriggered(sender: UITapGestureRecognizer) {
         let tappedPoint = sender.location(in: self.view)
-        plane.selectModel(tapCoordinate : Point(x: tappedPoint.x, y: tappedPoint.y))
+        plane?.selectModel(tapCoordinate : Point(x: tappedPoint.x, y: tappedPoint.y))
     }
     
     @objc func didTabColorRondomizeButton(sender: UIButton) {
-        plane.randomizeColorOnSelectedModel()
+        plane?.randomizeColorOnSelectedModel()
         
     }
     
     @objc func didTabAlphaStepper(sender: UIStepper) {
-        plane.changeAlphaOnSelectedModel(to: Alpha(rawValue: Int(sender.value)))
+        plane?.changeAlphaOnSelectedModel(to: Alpha(rawValue: Int(sender.value)))
     }
     
 
@@ -113,9 +121,10 @@ class ViewController: UIViewController {
     @objc func createModelView(notification: Notification) {
         guard let newModel = notification.userInfo?[UserInfo.model] else {return}
         guard let model = newModel as? Model else {return}
-        let modelView = Factory.makeView(with: model)
-        rectangleList.updateValue(modelView, forKey: model)
-        view.addSubview(modelView)
+        if let modelView = viewFactory?.make(model: model) as? RectangleView {
+            rectangleList.updateValue(modelView, forKey: model)
+            view.addSubview(modelView)
+        }
     }
     
     @objc func updateSelectedModel(notification: Notification) {
