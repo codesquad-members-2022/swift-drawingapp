@@ -2,18 +2,19 @@ import UIKit
 import OSLog
 
 class ViewController: UIViewController {
-    var plane: Plane = Plane()
-    var views: [Rectangle : UIView] = [:]
-    var selectedView: UIView?
+    private var plane: Plane = Plane()
+    private var rectangleAndViewContainer: [Rectangle : UIView] = [:]
+    private var selectedView: UIView?
     
     @IBOutlet weak var alphaSlider: UISlider!
-    
+    @IBOutlet weak var colorButton: UIButton!
+
     @IBAction func draggedAlphaSlider(_ sender: UISlider) {
         guard let view = selectedView else {
             return
         }
         let value = Int(sender.value)
-        for (rect, rectView) in views {
+        for (rect, rectView) in rectangleAndViewContainer {
             if rectView === view {
                 plane.changeAlpha(rect, value)
                 return
@@ -21,14 +22,12 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var colorButton: UIButton!
-    
     @IBAction func colorButtonTouched(_ sender: UIButton) {
         guard let thisRectView = self.selectedView else {
             return
         }
         var willBeChangedRectangle: Rectangle
-        for (key, value) in views {
+        for (key, value) in rectangleAndViewContainer {
             if value === thisRectView {
                 willBeChangedRectangle = key
                 plane.changeColorOfRectangle(willBeChangedRectangle)
@@ -61,12 +60,12 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         declareDelegates()
         initDetailView()
-        BackgroundViewTouched()
+        touchBackgroundView()
     }
 }
 
 extension ViewController: UIGestureRecognizerDelegate {
-        func BackgroundViewTouched() {
+        func touchBackgroundView() {
             let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
             self.view.addGestureRecognizer(tap)
         }
@@ -82,14 +81,14 @@ extension ViewController: RectangleAddedDelegate {
     func made(rectangle: Rectangle) {
         let rectView = UIView(frame: CGRect(x: rectangle.point.x, y: rectangle.point.y, width: rectangle.size.width, height: rectangle.size.height))
         rectView.backgroundColor = UIColor(red: CGFloat(rectangle.color.R)/255.0, green: CGFloat(rectangle.color.G)/255.0, blue: CGFloat(rectangle.color.B)/255.0, alpha: CGFloat(rectangle.alpha.rawValue)/10.0)
-        self.views[rectangle] = rectView
+        self.rectangleAndViewContainer[rectangle] = rectView
         self.view.addSubview(rectView)
     }
 }
 
 extension ViewController: RectangleTouchedDelegate {
     private func paintBorder(_ rectangle: Rectangle) {
-        let touchedView = self.views[rectangle]
+        let touchedView = self.rectangleAndViewContainer[rectangle]
         touchedView?.layer.borderWidth = 3.0
         touchedView?.layer.borderColor = UIColor.blue.cgColor
         self.selectedView = touchedView
@@ -97,7 +96,7 @@ extension ViewController: RectangleTouchedDelegate {
     
     private func showDetailOfColorAndAlpha() {
         var rectangle : Rectangle?
-        for (key, value) in views {
+        for (key, value) in rectangleAndViewContainer {
             if self.selectedView === value {
                 rectangle = key
                 break
@@ -119,12 +118,12 @@ extension ViewController: RectangleTouchedDelegate {
 
 extension ViewController: RectangleColorChangeDelegate {
     func changeColorAndAlpha(_ rectangle: Rectangle) {
-        let viewValue = views[rectangle]
-        views.removeValue(forKey: rectangle)
-        views[rectangle] = viewValue
-        if let view = views[rectangle] {
+        let viewValue = rectangleAndViewContainer[rectangle]
+        rectangleAndViewContainer.removeValue(forKey: rectangle)
+        rectangleAndViewContainer[rectangle] = viewValue
+        if let view = rectangleAndViewContainer[rectangle] {
             view.backgroundColor = UIColor(red: CGFloat(rectangle.color.R)/255.0, green: CGFloat(rectangle.color.G)/255.0, blue: CGFloat(rectangle.color.B)/255.0, alpha: CGFloat(rectangle.alpha.rawValue)/10.0)
-            self.views.updateValue(view, forKey: rectangle)
+            self.rectangleAndViewContainer.updateValue(view, forKey: rectangle)
         }
     }
     
