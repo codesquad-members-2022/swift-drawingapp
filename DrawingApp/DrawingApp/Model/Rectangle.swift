@@ -14,6 +14,7 @@ protocol Rectangularable {
     func isPointInArea(_ point: Point) -> Bool
     func changeBackgroundColor(to newColor: BackgroundColor)
     func changeAlphaValue(to newAlpha: Alpha)
+    func backgroundColorButtonShouldBecomeHidden() -> Bool
 }
 
 class Rectangle: Rectangularable {
@@ -50,6 +51,10 @@ class Rectangle: Rectangularable {
     
     func changeAlphaValue(to newAlpha: Alpha) {
         self.alpha = newAlpha
+    }
+    
+    func backgroundColorButtonShouldBecomeHidden() -> Bool {
+        return false
     }
 
 }

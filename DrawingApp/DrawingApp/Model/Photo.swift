@@ -14,4 +14,8 @@ class Photo: Rectangle {
         self.image = image
         super.init(id: id, size: size, point: point, backgroundColor: BackgroundColor.init(r: 0, g: 0, b: 0), alpha: alpha)
     }
+    
+    override func backgroundColorButtonShouldBecomeHidden() -> Bool {
+        return true
+    }
 }
