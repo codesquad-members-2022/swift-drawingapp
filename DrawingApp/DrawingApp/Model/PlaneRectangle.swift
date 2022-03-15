@@ -6,23 +6,31 @@
 //
 
 
-final class PlaneRectangle:CustomStringConvertible,Rectangle {
-    
-    var description: String {
-        return "\(id), \(origin), \(size),\(rgb), \(alpha)"
-    }
-    
-    var id:ID
-    var origin:Point
-    var size:Size
-    var rgb:RGB
-    var alpha:Alpha
+final class PlaneRectangle:Rectangle {
+        
+    private var id:ID
+    private var origin:Point
+    private var size:Size
+    private var rgb:RGB
+    private var alpha:Alpha
     
     init(id:ID,origin:Point,size:Size,rgb:RGB, alpha:Alpha) {
         self.id = id
         self.origin = origin
         self.size = size
         self.rgb = rgb
+        self.alpha = alpha
+    }
+    
+    func changeOrigin(_ origin: Point) {
+        self.origin = origin
+    }
+    
+    func changeSize(_ size: Size) {
+        self.size = size
+    }
+    
+    func changeAlpha(_ alpha: Alpha) {
         self.alpha = alpha
     }
     
@@ -33,7 +41,8 @@ extension PlaneRectangle:Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(self.id)
     }
+    //기본 사각형 속성 비교.
     static func == (lhs: PlaneRectangle, rhs: PlaneRectangle) -> Bool {
-        lhs.id == rhs.id
+        lhs.rgb == rhs.rgb && lhs.alpha == rhs.alpha && lhs.size == rhs.size
     }
 }
