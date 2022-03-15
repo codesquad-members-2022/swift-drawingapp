@@ -40,11 +40,17 @@ protocol PlaneMakeModel {
 }
 
 class Plane {
-    var delegate: PlaneDelegate?
-    
     private var drawingModels: [DrawingModel] = []
     private var selectedModel: DrawingModel?
     private var modelFactory: PlaneModelFactoryBase?
+    
+    var delegate: PlaneDelegate? {
+        didSet {
+            screenSize = delegate?.getScreenSize()
+        }
+    }
+    
+    private var screenSize: Size?
     
     var count: Int {
         drawingModels.count
@@ -95,7 +101,7 @@ class Plane {
     }
     
     private func calibrateScreenInOrigin(to point: Point, size: Size) -> Point? {
-        guard let screenSize = self.delegate?.getScreenSize() else {
+        guard let screenSize = self.screenSize else {
             return nil
         }
         
