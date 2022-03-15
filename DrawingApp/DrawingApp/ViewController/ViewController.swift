@@ -24,6 +24,14 @@ class ViewController: UIViewController {
         canvasView.delgate = self
         controllerView.delegate = self
     }
+    
+    func clear() {
+        selectedRectangleView?.layer.borderWidth = 0
+        selectedRectangleView = nil
+        plane.selectedRectangle = nil
+        controllerView.alphaSlider.setValue(0.0, animated: true)
+        controllerView.backgroundButton.setTitle("None", for: .normal)
+    }
 
 }
 // Delegate : View
@@ -36,32 +44,52 @@ extension ViewController: RectangleViewDelegate {
     func canvasDidTab(at point: CGPoint) {
         let touchedPoint = Point(x: point.x, y: point.y)
         if let selected = plane.ExistRectangle(at: touchedPoint) {
+            // 선택된게 있을때
+            plane.setSelectedRectangle(selected) // 모델에 추가 -> 델리게이트
+            selectedRectangleView = rectangleViews[selected]
+            
             
             // 다른 사각형을 선택했을때, 이전 사각형 테두리 지워주기
-            if rectangleViews[selected] != selectedRectangleView {
-                selectedRectangleView?.layer.borderWidth = 0
-            }
+//            if rectangleViews[selected] != selectedRectangleView {
+//                selectedRectangleView?.layer.borderWidth = 0
+//            }
             
             // 선택한 사각형에 대한 속성을 컨트롤러 뷰에 표현, 테두리 표시
-            selectedRectangleView = rectangleViews[selected]
-            controllerView.alphaSlider.setValue(Float(selectedRectangleView?.alpha ?? 1.0) * 10 , animated: true)
-            controllerView.backgroundButton.setTitle(selectedRectangleView?.backgroundColor?.convertHex(), for: .normal)
-            selectedRectangleView?.layer.borderWidth = 5
-            selectedRectangleView?.layer.borderColor = CGColor(red: 1, green: 0, blue: 0, alpha: 1)
+//            selectedRectangleView = rectangleViews[selected]
+//            controllerView.alphaSlider.setValue(Float(selectedRectangleView?.alpha ?? 1.0) * 10 , animated: true)
+//            controllerView.backgroundButton.setTitle(selectedRectangleView?.backgroundColor?.convertHex(), for: .normal)
+//            selectedRectangleView?.layer.borderWidth = 5
+//            selectedRectangleView?.layer.borderColor = CGColor(red: 1, green: 0, blue: 0, alpha: 1)
+            
+            
+            // 선택된 사각형이 없는 경우 이전 사각형 border 지우기
         } else {
-            selectedRectangleView?.layer.borderWidth = 0
+            clear()
+
         }
     }
 }
 
 // Delegate : Model
 extension ViewController: PlaneDelegate {
+    
+    func rectangleDidMutate(_ selected: Rectangle) {
+        selectedRectangleView?.layer.borderWidth = 0 // 이전 사각형테두리 지우기
+        selectedRectangleView = rectangleViews[selected]
+        selectedRectangleView?.layer.borderWidth = 5
+        
+//        selectedRectangleView?.backgroundColor?.withAlphaComponent(selectedRectangleView!.alpha)
+        
+        
+        
+        
+    }
+    
 
     func RectangleDidAdd(_ rectangle: Rectangle) {
         let rect = UIView(frame: CGRect(x: rectangle.position.x, y: rectangle.position.y, width: rectangle.size.width, height: rectangle.size.height))
-//        rect.backgroundColor = Convertor.convertColor(from: rectangle.backgroundColor)
-        let alpha = Double(rectangle.alpha.rawValue) * 0.1
-        let color = Convertor.convertColor(from: rectangle.backgroundColor, alpha: alpha)
+//        let alpha = Double(rectangle.alpha.rawValue) * 0.1
+        let color = Convertor.convertColor(from: rectangle.backgroundColor, alpha: rectangle.alpha)
         rect.backgroundColor = color
         
         self.canvasView.addSubview(rect)
@@ -70,15 +98,20 @@ extension ViewController: PlaneDelegate {
         rectangleViews[rectangle] = rect
     }
     
-    func BackgroundDidChanged() {
-        let hexString = selectedRectangleView?.backgroundColor?.convertHex()
+    func BackgroundDidChanged(_ rectangle: Rectangle) {
+        let hexString = Convertor.colorToHexString(rectangle.backgroundColor)
         controllerView.backgroundButton.setTitle(hexString, for: .normal)
+
+        let newColor = Convertor.convertColor(from: rectangle.backgroundColor, alpha: rectangle.alpha)
+        selectedRectangleView?.backgroundColor = newColor
+   
     }
     
-    func alpahDidChanged() {
-        if let alpha = selectedRectangleView?.alpha {
-            controllerView.alphaSlider.setValue(Float(alpha) * 10, animated: false)
-        }
+    func alpahDidChanged(_ rectangle: Rectangle) {
+        let alpha = rectangle.alpha
+        controllerView.alphaSlider.setValue(Float(alpha.rawValue), animated: true)
+        let newAlpha = Convertor.convertColor(from: rectangle.backgroundColor, alpha: rectangle.alpha)
+        selectedRectangleView?.backgroundColor = newAlpha
     }
     
 }
@@ -88,16 +121,12 @@ extension ViewController: ControllerViewDelegate {
     
     func backgroundButtonDidTouch() {
         let changedColor = Color.randomColor()
-        guard let selected = selectedRectangleView else { return }
-        selected.backgroundColor = Convertor.convertColor(from: changedColor, alpha: selected.alpha)
         plane.changeBackgroundColor(to: changedColor)
         
-        // 모델에게 해당 Rect의 색이 변경되었음을 알려주기
-        plane.selectedRectangle?.changedBackGroundColor(to: changedColor)
     }
     
     func alphaSliderDidChange(_ value: Float) {
-        selectedRectangleView?.alpha = CGFloat(value) / 10.0
+//        selectedRectangleView?.alpha = CGFloat(value) / 10.0
         plane.changeAlpha(value: Int(value))
         
     }
