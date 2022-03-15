@@ -18,13 +18,11 @@ class ViewController: UIViewController {
     let imagePickerController = UIImagePickerController()
     
     let plane = Plane()
-    let photoImages = PhotoImages()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         rectanglePropertyChangeBoard.delegate = self
         rectangleViewBoard.delegate = self
-        photoImages.deleagate = self
         imagePickerController.delegate = self
         initialScreenSetUp()
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidAdd(_:)), name: Plane.NotificationName.addRectangle, object: plane)
@@ -183,18 +181,12 @@ extension ViewController: RectangleViewBoardDelegate {
     }
 }
 
-extension ViewController: PhotoImagesDelegate {
-    func photoImages(didAdd imageData: Data) {
-        guard let photoRectangle = RectangleFactory.makePhotoRectangle(in: (800,570), imageData: imageData) else {return}
-        plane.addRectangle(rectangle: photoRectangle)
-    }
-}
-
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
         if let imageUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL {
             guard let data = try? Data(contentsOf: imageUrl) else {return}
-            photoImages.addImage(by : data)
+            guard let photoRectangle = RectangleFactory.makePhotoRectangle(in: (800,570), imageData: data) else {return}
+            plane.addRectangle(rectangle: photoRectangle)
         }
         dismiss(animated: true)
     }
