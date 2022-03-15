@@ -191,9 +191,9 @@ extension ViewController: PhotoImagesDelegate {
 }
 
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) throws{
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
         if let imageUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL {
-            let data = try Data(contentsOf: imageUrl)
+            guard let data = try? Data(contentsOf: imageUrl) else {return}
             photoImages.addImage(by : data)
         }
         dismiss(animated: true)
