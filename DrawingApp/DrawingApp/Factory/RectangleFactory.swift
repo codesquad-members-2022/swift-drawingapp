@@ -6,7 +6,7 @@
 //
 
 
-//Image가 들어가있는 Rectangle, 기본 plane Rectangle들을 Rectangle로 묶어서 Factory메서드를 사용할수 있을것 같아 선언했습니다.
+//Image가 들어가있는 Rectangle, 기본 plane Rectangle들을 Rectangle로 묶어서 Factory메서드를 사용할수 있을것 같아 선언
 final class RectangleFactory:RectangleCreator {
     
     func makeRectangle(type:Rectangle.Type) -> Rectangle {
@@ -16,10 +16,10 @@ final class RectangleFactory:RectangleCreator {
         let rgb = RGB.random()
         let alpha = Alpha.random()
         
-        //PlaneRectangle은 가장 기본이 되는 Rectangle로 생각하여 default값으로 두고 type을 처리했습니다.
+        //PlaneRectangle은 가장 기본이 되는 Rectangle로 생각하여 default값으로 두고 type을 처리
         switch ObjectIdentifier(type) {
         case ObjectIdentifier(ImageRectangle.self):
-            return ImageRectangle(id: id, origin: origin, size: size, rgb: rgb, alpha: alpha)
+            return ImageRectangle(id: id, origin: origin, size: size, alpha: alpha)
         default:
             return PlaneRectangle(id: id, origin: origin, size: size, rgb: rgb, alpha: alpha)
         }

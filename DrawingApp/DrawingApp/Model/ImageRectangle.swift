@@ -10,11 +10,11 @@ import UIKit
 //Rectangle의 구조를 따르지만, Image프로퍼티가 추가되어있는 Class가 ImageRectangle이라 생각하여 선언.
 final class ImageRectangle:Rectangle {
 
-    var id:ID
-    var origin:Point
-    var size:Size
-    var alpha:Alpha
-    var image:Data?
+    private let id:ID
+    private(set) var origin:Point
+    private(set) var size:Size
+    private(set) var alpha:Alpha
+    private(set) var image:Data?
         
     init(id: ID, origin: Point, size: Size ,alpha:Alpha) {
         self.id = id
