@@ -12,12 +12,20 @@ class Rectangle {
     var size : Size
     var position : Position
     var backgroundColor : Color?
+    var backgroundImage: Data?
     var alpha : Alpha
     
     init(size: Size, position : Position, color : Color?, alpha : Alpha) {
         self.size = size
         self.position = position
         self.backgroundColor = color
+        self.alpha = alpha
+    }
+    
+    init(size: Size, position: Position, imageData: Data, alpha: Alpha) {
+        self.size = size
+        self.position = position
+        self.backgroundImage = imageData
         self.alpha = alpha
     }
     
