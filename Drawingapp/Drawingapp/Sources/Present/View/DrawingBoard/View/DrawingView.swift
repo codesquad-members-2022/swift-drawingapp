@@ -15,9 +15,9 @@ class DrawingView: UIView {
         return view
     }()
     
-    required init(model: DrawingModel) {
-        super.init(frame: CGRect(x: model.origin.x, y: model.origin.y, width: model.size.width, height: model.size.height))
-        self.update(alpha: model.alpha)
+    required init(drawingable: Drawingable) {
+        super.init(frame: CGRect(x: drawingable.origin.x, y: drawingable.origin.y, width: drawingable.size.width, height: drawingable.size.height))
+        self.update(alpha: drawingable.alpha)
         layout()
     }
     

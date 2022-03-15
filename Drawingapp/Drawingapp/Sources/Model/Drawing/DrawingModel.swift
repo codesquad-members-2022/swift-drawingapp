@@ -7,17 +7,28 @@
 
 import Foundation
 
-protocol Colorable {
+protocol Drawingable {
+    var origin: Point { get }
+    var size: Size { get }
+    var alpha: Alpha { get }
+    
+    func update(alpha: Alpha)
+    func update(origin: Point)
+    func update(x: Double, y: Double)
+    func update(width: Double, height: Double)
+}
+
+protocol Colorable: Drawingable {
     var color: Color { get }
     func update(color: Color)
 }
 
-protocol Imageable {
+protocol Imageable: Drawingable {
     var imageUrl: URL? { get }
     func update(imageUrl: URL?)
 }
 
-protocol Textable {
+protocol Textable: Drawingable {
     var font: Font { get }
     var fontColor: Color { get }
     var text: String { get }
@@ -31,7 +42,7 @@ protocol Viewable {
     var iconName: String { get }
 }
 
-class DrawingModel: CustomStringConvertible, Equatable, Hashable {
+class DrawingModel: Drawingable, CustomStringConvertible, Equatable, Hashable {
     let id: String
     let index: Int
     public private(set) var size: Size

@@ -61,7 +61,7 @@ class DrawingBoardView: UIView {
     }
     
     func didMakeDrawingModel(model: DrawingModel) {
-        let drawView = DrawingViewFactory.make(model: model)
+        let drawView = DrawingViewFactory.make(drawingable: model)
         self.addSubview(drawView)
         self.drawingViews[model] = drawView
     }
