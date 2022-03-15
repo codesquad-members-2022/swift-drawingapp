@@ -31,9 +31,9 @@ class CanvasView: UIView {
     
     func drawRectangle(rectangle: Rectangle) {
         // 받은 직사각형을 CanvasView에 그려주기
-        let myView = UIView(frame: CGRect(x: rectangle.point.x, y: rectangle.point.y, width: rectangle.size.width, height: rectangle.size.height))
-        myView.backgroundColor = UIColor(hex: rectangle.backgroundColor.getHexValue())
-        addSubview(myView)
+        let rectangleView = RectangleView(frame: CGRect(x: rectangle.point.x, y: rectangle.point.y, width: rectangle.size.width, height: rectangle.size.height))
+        rectangleView.backgroundColor = UIColor(hex: rectangle.backgroundColor.getHexValue())
+        addSubview(rectangleView)
     }
     
     func setTapGesture() {
@@ -49,9 +49,11 @@ class CanvasView: UIView {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let touch = event?.allTouches?.first {
             let loc: CGPoint = touch.location(in: touch.view)
-            
+
             touchPositionOfX = loc.x
             touchPositionOfY = loc.y
+
+            let touchedView = touch.view
         }
     }
 }
