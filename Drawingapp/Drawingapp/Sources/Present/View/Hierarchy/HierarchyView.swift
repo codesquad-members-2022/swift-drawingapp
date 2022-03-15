@@ -10,7 +10,7 @@ import UIKit
 
 protocol HierarchyDelegate {
     func selectedCell(index: IndexPath)
-    func move(to: Plane.MoveTo)
+    func move(to: Int)
     func getCount() -> Int
     func getModel(to: IndexPath) -> DrawingModel?
     func getSelectIndex() -> Int?
@@ -134,11 +134,29 @@ extension HierarchyView: HieararchyCellDelegate {
         self.delegate?.selectedCell(index: indexPath)
     }
     
-    func move(to: Plane.MoveTo, cell: HieararchyTableViewCell) {
+    func move(to: MoveTo, cell: HieararchyTableViewCell) {
         guard let indexPath = self.layerTableView.indexPath(for: cell) else {
             return
         }
+        let totalCellCount = layerTableView.numberOfRows(inSection: 0) - 1
+        var moveValue = indexPath.row
+        switch to {
+        case .front:
+            moveValue = 0
+        case .last:
+            moveValue = totalCellCount
+        case .forward:
+            moveValue = indexPath.row == 0 ? 0 : indexPath.row - 1
+        case .back:
+            moveValue = indexPath.row >= totalCellCount ? totalCellCount : indexPath.row + 1
+        }
         self.delegate?.selectedCell(index: indexPath)
-        self.delegate?.move(to: to)
+        self.delegate?.move(to: moveValue)
+    }
+}
+
+extension HierarchyView {
+    enum MoveTo {
+        case front, forward, last, back
     }
 }
