@@ -21,7 +21,7 @@ class Plane {
         return shapes.count
     }
     
-    func addRectangle(bound: (x: Double, y: Double), by factoryType: RandomRectangleFactory.Type) {
+    func addRectangle(bound: (x: Double, y: Double), by factoryType: RandomShapeFactory.Type) {
         let newRectangle = factoryType.createRandomRectangle(xBound: bound.x, yBound: bound.y)
         shapes.append(newRectangle)
         delegate?.didCreateShape(newRectangle)
@@ -60,7 +60,7 @@ class Plane {
     
     func changeBackgroundColor() {
         guard let selectedShape = selected as? BasicShape & Colorable else { return }
-        let randomColor = RandomRectangleFactory.generateRandomColor()
+        let randomColor = RandomAttributeFactory.generateRandomColor()
         selectedShape.changeBackgroundColor(by: randomColor)
         delegate?.didUpdateSelectedShapeBackgroundColor(selectedShape)
     }

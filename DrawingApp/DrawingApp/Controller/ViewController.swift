@@ -81,7 +81,7 @@ extension ViewController {
     @objc func addRectangleButtonTouched() {
         let rectangleViewXBound = presentShapeView.frame.width - Size.Range.width
         let rectangleViewYBound = presentShapeView.frame.height - Size.Range.height
-        plane.addRectangle(bound: (rectangleViewXBound, rectangleViewYBound), by: RandomRectangleFactory.self)
+        plane.addRectangle(bound: (rectangleViewXBound, rectangleViewYBound), by: RandomShapeFactory.self)
     }
     
     @objc func handlePresentShapeViewTap(_ tap: UITapGestureRecognizer) {
@@ -110,7 +110,7 @@ extension ViewController {
 extension ViewController: PlaneDelegate {
     
     func didCreateShape(_ shape: BasicShape) {
-
+        
         if let shape = shape as? BasicShape & Colorable & Alphable {
             let frame = CGConverter.toCGRect(from: (shape.point, shape.size))
             let color = CGConverter.toUIColor(from: shape.backgroundColor)

@@ -15,6 +15,7 @@
 		1E02CA9327E020DE00B08B30 /* BasicShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E02CA9227E020DE00B08B30 /* BasicShape.swift */; };
 		1E02CA9627E05D9C00B08B30 /* BasicShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E02CA9527E05D9C00B08B30 /* BasicShapeView.swift */; };
 		1E02CAB827E07D2400B08B30 /* DrawingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E02CAB727E07D2400B08B30 /* DrawingAppTests.swift */; };
+		1E02CABF27E15EB500B08B30 /* RandomAttributeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E02CABE27E15EB500B08B30 /* RandomAttributeFactory.swift */; };
 		1E541E7827CCBC97000C8B50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E541E7727CCBC97000C8B50 /* AppDelegate.swift */; };
 		1E541E7A27CCBC97000C8B50 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E541E7927CCBC97000C8B50 /* SceneDelegate.swift */; };
 		1E541E7C27CCBC97000C8B50 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E541E7B27CCBC97000C8B50 /* ViewController.swift */; };
@@ -26,7 +27,7 @@
 		1E80BE7E27D6F96F004F77C1 /* AddRectangleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E80BE7D27D6F96F004F77C1 /* AddRectangleButton.swift */; };
 		1E80BE8027D6F97B004F77C1 /* SideInspectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E80BE7F27D6F97B004F77C1 /* SideInspectorView.swift */; };
 		1EE4CCE527CCFD44005EA3D4 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCE427CCFD44005EA3D4 /* Rectangle.swift */; };
-		1EE4CCE727CD0751005EA3D4 /* RandomRectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCE627CD0751005EA3D4 /* RandomRectangleFactory.swift */; };
+		1EE4CCE727CD0751005EA3D4 /* RandomShapeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCE627CD0751005EA3D4 /* RandomShapeFactory.swift */; };
 		1EE4CCE927CDDC96005EA3D4 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCE827CDDC96005EA3D4 /* Size.swift */; };
 		1EE4CCEB27CDDC9F005EA3D4 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCEA27CDDC9F005EA3D4 /* Point.swift */; };
 		1EE4CCED27CDDCA2005EA3D4 /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCEC27CDDCA2005EA3D4 /* Color.swift */; };
@@ -54,6 +55,7 @@
 		1E02CA9527E05D9C00B08B30 /* BasicShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicShapeView.swift; sourceTree = "<group>"; };
 		1E02CAB527E07D2400B08B30 /* DrawingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E02CAB727E07D2400B08B30 /* DrawingAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingAppTests.swift; sourceTree = "<group>"; };
+		1E02CABE27E15EB500B08B30 /* RandomAttributeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomAttributeFactory.swift; sourceTree = "<group>"; };
 		1E541E7427CCBC97000C8B50 /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E541E7727CCBC97000C8B50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1E541E7927CCBC97000C8B50 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -67,7 +69,7 @@
 		1E80BE7D27D6F96F004F77C1 /* AddRectangleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRectangleButton.swift; sourceTree = "<group>"; };
 		1E80BE7F27D6F97B004F77C1 /* SideInspectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideInspectorView.swift; sourceTree = "<group>"; };
 		1EE4CCE427CCFD44005EA3D4 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
-		1EE4CCE627CD0751005EA3D4 /* RandomRectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomRectangleFactory.swift; sourceTree = "<group>"; };
+		1EE4CCE627CD0751005EA3D4 /* RandomShapeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomShapeFactory.swift; sourceTree = "<group>"; };
 		1EE4CCE827CDDC96005EA3D4 /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		1EE4CCEA27CDDC9F005EA3D4 /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		1EE4CCEC27CDDCA2005EA3D4 /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
@@ -185,7 +187,8 @@
 		1E80BE5127D5FAD9004F77C1 /* Factory */ = {
 			isa = PBXGroup;
 			children = (
-				1EE4CCE627CD0751005EA3D4 /* RandomRectangleFactory.swift */,
+				1EE4CCE627CD0751005EA3D4 /* RandomShapeFactory.swift */,
+				1E02CABE27E15EB500B08B30 /* RandomAttributeFactory.swift */,
 				1E02CA7E27DF4F4B00B08B30 /* ViewFactory.swift */,
 			);
 			path = Factory;
@@ -308,7 +311,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1EE4CCE727CD0751005EA3D4 /* RandomRectangleFactory.swift in Sources */,
+				1EE4CCE727CD0751005EA3D4 /* RandomShapeFactory.swift in Sources */,
 				1E02CA7B27DEFEC700B08B30 /* Alphable.swift in Sources */,
 				1E541E7C27CCBC97000C8B50 /* ViewController.swift in Sources */,
 				1E541E7827CCBC97000C8B50 /* AppDelegate.swift in Sources */,
@@ -322,6 +325,7 @@
 				1E02CA8327DF5A8A00B08B30 /* CGConverter.swift in Sources */,
 				1E02CA7F27DF4F4B00B08B30 /* ViewFactory.swift in Sources */,
 				1EE4CCE527CCFD44005EA3D4 /* Rectangle.swift in Sources */,
+				1E02CABF27E15EB500B08B30 /* RandomAttributeFactory.swift in Sources */,
 				1E02CA7727DEFEB400B08B30 /* Colorable.swift in Sources */,
 				1E80BDF427D23EEB004F77C1 /* Plane.swift in Sources */,
 				1E02CA9627E05D9C00B08B30 /* BasicShapeView.swift in Sources */,
