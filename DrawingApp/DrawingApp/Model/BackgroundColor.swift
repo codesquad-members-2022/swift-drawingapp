@@ -11,7 +11,6 @@ struct BackgroundColor: Equatable {
     let r: UInt8
     let g: UInt8
     let b: UInt8
-    static let possibleColorValues = UInt8(0)...UInt8(255)
     var hexCode: String {
         let hexR = String(Int(r), radix: 16).uppercased()
         let hexG = String(Int(g), radix: 16).uppercased()
@@ -27,9 +26,9 @@ struct BackgroundColor: Equatable {
     }
     
     static func random() -> BackgroundColor {
-        let randomR = UInt8.random(in: possibleColorValues)
-        let randomG = UInt8.random(in: possibleColorValues)
-        let randomB = UInt8.random(in: possibleColorValues)
+        let randomR = UInt8.random(in: UInt8.min...UInt8.max)
+        let randomG = UInt8.random(in: UInt8.min...UInt8.max)
+        let randomB = UInt8.random(in: UInt8.min...UInt8.max)
         
         return BackgroundColor(r: randomR, g: randomG, b: randomB)
     }
