@@ -47,24 +47,17 @@ struct Plane{
     }
     
     func changeBackgroundColor(to color: Color){
-        selectedRectangle?.changedBackGroundColor(to: color)
-        // 배경색 모델이 바뀌었으므로 컨트롤러에게 전달
-        delegate?.BackgroundDidChanged(selectedRectangle!)
+        guard let selected = selectedRectangle else { return }
+        selected.changedBackGroundColor(to: color)
+        delegate?.BackgroundDidChanged(selected)
         
     }
     
     func changeAlpha(value : Int){
-        selectedRectangle?.changedAlpha(to: value)
-        delegate?.alpahDidChanged(selectedRectangle!)
+        guard let selected = selectedRectangle else { return }
+        selected.changedAlpha(to: value)
+        delegate?.alpahDidChanged(selected)
     }
-    
-//    func testrect(_ rectangle: Rectangle?) {
-//        if let rectangle = rectangle {
-//            delegate?.rectangleDidMutate(rectangle)
-//        } else {
-//            delegate?.rectangleDidMutate(nil)
-//        }
-//    }
   
     mutating func setSelectedRectangle(_ selected: Rectangle){
         if selected != selectedRectangle {
@@ -74,12 +67,5 @@ struct Plane{
             delegate?.alpahDidChanged(selected)
         }
     }
-    
-    
-    
-    
-    
- 
-
     
 }

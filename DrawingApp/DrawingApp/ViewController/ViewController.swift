@@ -44,28 +44,10 @@ extension ViewController: RectangleViewDelegate {
     func canvasDidTab(at point: CGPoint) {
         let touchedPoint = Point(x: point.x, y: point.y)
         if let selected = plane.ExistRectangle(at: touchedPoint) {
-            // 선택된게 있을때
-            plane.setSelectedRectangle(selected) // 모델에 추가 -> 델리게이트
+            plane.setSelectedRectangle(selected)
             selectedRectangleView = rectangleViews[selected]
-            
-            
-            // 다른 사각형을 선택했을때, 이전 사각형 테두리 지워주기
-//            if rectangleViews[selected] != selectedRectangleView {
-//                selectedRectangleView?.layer.borderWidth = 0
-//            }
-            
-            // 선택한 사각형에 대한 속성을 컨트롤러 뷰에 표현, 테두리 표시
-//            selectedRectangleView = rectangleViews[selected]
-//            controllerView.alphaSlider.setValue(Float(selectedRectangleView?.alpha ?? 1.0) * 10 , animated: true)
-//            controllerView.backgroundButton.setTitle(selectedRectangleView?.backgroundColor?.convertHex(), for: .normal)
-//            selectedRectangleView?.layer.borderWidth = 5
-//            selectedRectangleView?.layer.borderColor = CGColor(red: 1, green: 0, blue: 0, alpha: 1)
-            
-            
-            // 선택된 사각형이 없는 경우 이전 사각형 border 지우기
         } else {
-            clear()
-
+            clear()  // 선택된 사각형이 없는 경우
         }
     }
 }
@@ -77,24 +59,15 @@ extension ViewController: PlaneDelegate {
         selectedRectangleView?.layer.borderWidth = 0 // 이전 사각형테두리 지우기
         selectedRectangleView = rectangleViews[selected]
         selectedRectangleView?.layer.borderWidth = 5
-        
-//        selectedRectangleView?.backgroundColor?.withAlphaComponent(selectedRectangleView!.alpha)
-        
-        
-        
-        
     }
     
 
     func RectangleDidAdd(_ rectangle: Rectangle) {
         let rect = UIView(frame: CGRect(x: rectangle.position.x, y: rectangle.position.y, width: rectangle.size.width, height: rectangle.size.height))
-//        let alpha = Double(rectangle.alpha.rawValue) * 0.1
         let color = Convertor.convertColor(from: rectangle.backgroundColor, alpha: rectangle.alpha)
         rect.backgroundColor = color
-        
         self.canvasView.addSubview(rect)
         rect.isUserInteractionEnabled = false
-        
         rectangleViews[rectangle] = rect
     }
     
@@ -122,13 +95,10 @@ extension ViewController: ControllerViewDelegate {
     func backgroundButtonDidTouch() {
         let changedColor = Color.randomColor()
         plane.changeBackgroundColor(to: changedColor)
-        
     }
     
     func alphaSliderDidChange(_ value: Float) {
-//        selectedRectangleView?.alpha = CGFloat(value) / 10.0
         plane.changeAlpha(value: Int(value))
-        
     }
 }
 
