@@ -8,6 +8,11 @@
 import Foundation
 
 class ShapeFactory: ShapeCreator {
+    
+    func createRandomRectangle(point: Point) -> Shape {
+        return Rectangle(id: generateId(), point: point, size: Size(width: 150, height: 120), color: createRandomColor(), alpha: createRandomAlpha())
+    }
+    
     func createRectangle(point: Point, size: Size, color: Color, alpha: Alpha) -> Shape {
         let id = generateId()
         return Rectangle(id: id, point: point, size: size, color: color, alpha: alpha)
@@ -19,5 +24,9 @@ class ShapeFactory: ShapeCreator {
     
     private func createRandomColor() -> Color {
         return Color(r: Int.random(in: 0...255), g: Int.random(in: 0...255), b: Int.random(in: 0...255))
+    }
+    
+    private func createRandomAlpha() -> Alpha {
+        return Alpha(rawValue: Int.random(in: 1...10)) ?? Alpha.ten
     }
 }
