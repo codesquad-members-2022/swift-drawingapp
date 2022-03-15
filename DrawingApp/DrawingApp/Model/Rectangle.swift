@@ -7,72 +7,22 @@
 
 import Foundation
 
-protocol Rectangularable {
-    var size: Size {get}
+protocol BackgroundColorChangable {
     var backgroundColor: BackgroundColor {get}
-    var alpha: Alpha {get}
-    func isPointInArea(_ point: Point) -> Bool
+    
     func changeBackgroundColor(to newColor: BackgroundColor)
-    func changeAlphaValue(to newAlpha: Alpha)
-    func backgroundColorButtonShouldBecomeHidden() -> Bool
 }
 
-class Rectangle: Rectangularable {
-    private let id: ID
-    private(set) var size: Size
-    private(set) var point: Point
+class Rectangle: AnyRectangularable, BackgroundColorChangable {
     private(set) var backgroundColor: BackgroundColor
-    private(set) var alpha: Alpha
     
-    init(id: ID, width: Double, height: Double, x: Double, y: Double, backgroundColor: BackgroundColor, alpha: Alpha) {
-        self.id = id
-        size = Size(width: width, height: height)
-        point = Point(x: x, y: y)
+    init(size: Size, point: Point, backgroundColor: BackgroundColor, alpha: Alpha) {
         self.backgroundColor = backgroundColor
-        self.alpha = alpha
-    }
-    
-    init(id: ID, size: Size, point: Point, backgroundColor: BackgroundColor, alpha: Alpha) {
-        self.id = id
-        self.size = size
-        self.point = point
-        self.backgroundColor = backgroundColor
-        self.alpha = alpha
-    }
-    
-    func isPointInArea(_ point: Point) -> Bool {
-        return point.x >= self.point.x && point.x <= self.point.x + self.size.width &&
-            point.y >= self.point.y && point.y <= self.point.y + self.size.height
+        super.init(size: size, point: point, alpha: alpha)
     }
     
     func changeBackgroundColor(to newColor: BackgroundColor) {
         self.backgroundColor = newColor
     }
-    
-    func changeAlphaValue(to newAlpha: Alpha) {
-        self.alpha = newAlpha
-    }
-    
-    func backgroundColorButtonShouldBecomeHidden() -> Bool {
-        return false
-    }
 
-}
-
-extension Rectangle: CustomStringConvertible {
-    var description: String {
-        return "\(id) Rectangle, \(point), \(size), \(backgroundColor), \(alpha)"
-    }
-}
-
-extension Rectangle: Equatable {
-    static func == (lhs: Rectangle, rhs: Rectangle) -> Bool {
-        return lhs.id == rhs.id
-    }
-}
-
-extension Rectangle: Hashable {
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
 }

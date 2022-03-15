@@ -183,7 +183,7 @@ extension ViewController {
     }
     
     @objc func planeDidSpecifyRectangle(_ notification: Notification) {
-        guard let specifiedRectangle = notification.userInfo?[Plane.UserInfoKeys.specifiedRectangle] as? Rectangle,
+        guard let specifiedRectangle = notification.userInfo?[Plane.UserInfoKeys.specifiedRectangle] as? AnyRectangularable,
               let matchedView = rectangleAndViewMap[specifiedRectangle] else {
                   initializeViewsInTouchedEmptySpaceCondition()
                   return
@@ -197,19 +197,20 @@ extension ViewController {
     }
     
     @objc func planeDidChangeRectangleBackgroundColor(_ notification: Notification) {
-        guard let backgroundColorChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? Rectangle,
+        guard let backgroundColorChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? AnyRectangularable,
               let matchedView = rectangleAndViewMap[backgroundColorChangedRectangle] else {
                   return
               }
-        
-        let newBackgroundColor = backgroundColorChangedRectangle.backgroundColor
-        matchedView.changeBackgroundColor(to: newBackgroundColor.convertToUIColor())
+        if let backgroundColorChangedRectangle = backgroundColorChangedRectangle as? BackgroundColorChangable {
+            let newBackgroundColor = backgroundColorChangedRectangle.backgroundColor
+            matchedView.changeBackgroundColor(to: newBackgroundColor.convertToUIColor())
+        }
         let previousAlpha = backgroundColorChangedRectangle.alpha
         updateBackgroundColorButton(with: backgroundColorChangedRectangle)
     }
     
     @objc func planeDidChangeRectangleAlpha(_ notification: Notification) {
-        guard let alphaChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? Rectangle,
+        guard let alphaChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? AnyRectangularable,
               let matchedView = rectangleAndViewMap[alphaChangedRectangle] else {
                   return
               }
@@ -227,11 +228,14 @@ extension ViewController {
         selectedView.layer.borderColor = UIColor.black.cgColor
     }
     
-    private func updateBackgroundColorButton(with rectangle: Rectangularable) {
+    private func updateBackgroundColorButton(with rectangle: AnyRectangularable) {
+        backgroundColorButton.isHidden = rectangle.backgroundColorButtonShouldBecomeHidden
+        let currentAlphaValue = rectangle.alpha.value
+        
+        guard let rectangle = rectangle as? BackgroundColorChangable else {return}
         backgroundColorButton.isEnabled = true
-        backgroundColorButton.isHidden = rectangle.backgroundColorButtonShouldBecomeHidden()
         backgroundColorButton.setTitle(rectangle.backgroundColor.hexCode, for: .normal)
-        let buttonBackgroundColor = rectangle.backgroundColor.convertToUIColor(with: rectangle.alpha.value)
+        let buttonBackgroundColor = rectangle.backgroundColor.convertToUIColor(with: currentAlphaValue)
         backgroundColorButton.backgroundColor = buttonBackgroundColor
     }
     

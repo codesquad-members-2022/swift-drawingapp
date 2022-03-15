@@ -23,17 +23,17 @@ class Plane {
         static let addedPhoto = "addedPhoto"
     }
     
-    private var rectangles = [Rectangularable]()
-    private var specifiedRectangle: Rectangularable?
+    private var rectangles = [AnyRectangularable]()
+    private var specifiedRectangle: AnyRectangularable?
     var count: Int {
         return rectangles.count
     }
     
-    subscript(_ index: Int) -> Rectangularable? {
+    subscript(_ index: Int) -> AnyRectangularable? {
         return rectangles[index]
     }
     
-    public func specifyRectangle(point: Point) -> Result<Rectangularable, PlaneError> {
+    public func specifyRectangle(point: Point) -> Result<AnyRectangularable, PlaneError> {
         for rectangle in rectangles.reversed() {
             if rectangle.isPointInArea(point) {
                 self.specifiedRectangle = rectangle
@@ -59,16 +59,20 @@ class Plane {
         NotificationCenter.default.post(name: Plane.NotificationNames.didAddPhoto, object: self, userInfo: [Plane.UserInfoKeys.addedPhoto: newPhoto])
     }
     
-    public func changeBackgroundColor(to newColor: BackgroundColor) -> Result<Rectangularable, PlaneError> {
+    public func changeBackgroundColor(to newColor: BackgroundColor) -> Result<AnyRectangularable, PlaneError> {
         guard let specifiedRectangle = self.specifiedRectangle else {
             return .failure(.noSpecifiedRectangleToChangeError)
         }
-        specifiedRectangle.changeBackgroundColor(to: newColor)
-        NotificationCenter.default.post(name: Plane.NotificationNames.didChangeRectangleBackgroundColor, object: self, userInfo: [Plane.UserInfoKeys.changedRectangle: specifiedRectangle])
+        
+        if let specifiedRectangle = specifiedRectangle as? BackgroundColorChangable {
+            specifiedRectangle.changeBackgroundColor(to: newColor)
+            NotificationCenter.default.post(name: Plane.NotificationNames.didChangeRectangleBackgroundColor, object: self, userInfo: [Plane.UserInfoKeys.changedRectangle: specifiedRectangle])
+        }
+       
         return .success(specifiedRectangle)
     }
 
-    public func changeAlphaValue(to newAlpha: Alpha) -> Result<Rectangularable, PlaneError> {
+    public func changeAlphaValue(to newAlpha: Alpha) -> Result<AnyRectangularable, PlaneError> {
         guard let specifiedRectangle = self.specifiedRectangle else {
             return .failure(.noSpecifiedRectangleToChangeError)
         }

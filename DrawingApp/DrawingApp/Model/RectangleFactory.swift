@@ -9,24 +9,22 @@ import Foundation
 
 class RectangleFactory {
     
-    public static func makeRandomRectangle(in frame: (width: Double, height: Double)) -> Rectangularable {
+    public static func makeRandomRectangle(in frame: (width: Double, height: Double)) -> AnyRectangularable {
         let size = Size(width: 150, height: 120)
         let point = Point.random(in: frame)
         let backgroundColor = BackgroundColor.random()
         let alpha = Alpha.random()
-        let id = ID()
         
-        let newRectangle = Rectangle(id: id, size: size, point: point, backgroundColor: backgroundColor, alpha: alpha)
+        let newRectangle = Rectangle(size: size, point: point, backgroundColor: backgroundColor, alpha: alpha)
         return newRectangle
     }
     
-    public static func makePhoto(in frame: (width: Double, height: Double), image: Data) -> Rectangularable {
+    public static func makePhoto(in frame: (width: Double, height: Double), image: Data) -> AnyRectangularable {
         let size = Size(width: 150, height: 120)
         let point = Point.random(in: frame)
         let alpha = Alpha.random()
-        let id = ID()
         
-        let newPhoto = Photo(id: id, size: size, point: point, image: image, alpha: alpha)
+        let newPhoto = Photo(size: size, point: point, image: image, alpha: alpha)
         return newPhoto
     }
     
