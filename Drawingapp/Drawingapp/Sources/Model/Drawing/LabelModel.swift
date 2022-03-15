@@ -7,13 +7,21 @@
 
 import Foundation
 
-class LabelModel: DrawingModel, Textable {
+class LabelModel: DrawingModel, Textable, Viewable {
     public private(set) var font: Font
     public private(set) var fontColor: Color
     public private(set) var text: String
     
     override var description: String {
         "id: ( \(id) ), \(origin), \(size), alpha: \(alpha), text: \(text)"
+    }
+    
+    var displayName: String {
+        "Text \(index)"
+    }
+    
+    var iconName: String {
+        "ic_text"
     }
     
     init(id: String, index: Int, origin: Point, size: Size, alpha: Alpha, text: String, font: Font, fontColor: Color) {
