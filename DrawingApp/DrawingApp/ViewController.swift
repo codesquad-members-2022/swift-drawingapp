@@ -10,7 +10,7 @@ import UIKit
 class ViewController: UIViewController {
     
     var plane = Plane()
-    var selectedShape: Shape? = nil
+    var selectedView: UIView? = nil
     let shapeFactory = ShapeFactory()
     
     @IBOutlet weak var rectangleButton: UIButton!
@@ -30,10 +30,25 @@ class ViewController: UIViewController {
     }
 
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
-        print("didTapView", sender)
-        let touchCGPoint = sender.location(in: self.view)
-        let touchPoint = Point(x: touchCGPoint.x, y: touchCGPoint.y)
-        print(plane.isThereARectangle(point: touchPoint))
+        let touchedCGPoint = sender.location(in: self.view)
+        let touchedPoint = Point(x: touchedCGPoint.x, y: touchedCGPoint.y)
+        let touchedView = self.view.hitTest(touchedCGPoint, with: nil)
+        let isRectangleAtPoint = plane.isThereARectangle(point: touchedPoint)
+        if isRectangleAtPoint, selectedView == nil {
+            selectedView = touchedView
+            touchedView?.layer.borderWidth = 5
+            touchedView?.layer.borderColor = UIColor.blue.cgColor
+        }
+        if isRectangleAtPoint, selectedView != nil {
+            selectedView?.layer.borderWidth = 0
+            selectedView = touchedView
+            touchedView?.layer.borderWidth = 5
+            touchedView?.layer.borderColor = UIColor.blue.cgColor
+        }
+        if !isRectangleAtPoint {
+            selectedView?.layer.borderWidth = 0
+            selectedView = nil
+        }
     }
     
     @IBAction func drawRectangle(_ sender: Any) {
