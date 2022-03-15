@@ -8,12 +8,18 @@
 import Foundation
 import UIKit
 
-final class ImageView: UIImageView{
+final class ImageView: UIImageView, NSCopying{
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    func copy(with zone: NSZone? = nil) -> Any {
+        let imageView = ImageView(frame: self.frame)
+        imageView.image = self.image
+        return imageView
     }
 }

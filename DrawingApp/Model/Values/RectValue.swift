@@ -19,7 +19,8 @@ class RectValue: Hashable{
     }
     
     func hash(into hasher: inout Hasher) {
-        hasher.combine("\(id):\(madeTime)")
+        hasher.combine(id)
+        hasher.combine(madeTime)
     }
     
     func changePoint(point: MyPoint){
