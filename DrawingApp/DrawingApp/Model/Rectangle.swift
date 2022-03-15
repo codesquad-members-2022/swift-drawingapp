@@ -7,34 +7,30 @@
 
 import Foundation
 
-class Rectangle: Shapable {
+final class Rectangle: BasicShape {
     
-    private(set) var id: Identifier
-    private(set) var size: Size
-    private(set) var point: Point
     private(set) var backgroundColor: Color
     private(set) var alpha: Alpha
     
     init(identifier: Identifier,
-         size: Size = Size(width: 150, height: 120),
          point: Point,
+         size: Size = Size(width: 150, height: 120),
          backgroundColor: Color,
          alpha: Alpha)
     {
-        self.id = identifier
-        self.size = size
-        self.point = point
         self.backgroundColor = backgroundColor
         self.alpha = alpha
+        super.init(identifier: identifier, point: point, size: size)
     }
-    
+}
+
+extension Rectangle: Colorable {
     func changeBackgroundColor(by backgroundColor: Color) {
         self.backgroundColor = backgroundColor
     }
-    
-    func getTransparency() -> Float {
-        return Float(alpha.value)
-    }
+}
+
+extension Rectangle: Alphable {
 
     func canAlphaLevelUp() -> Bool {
         return !alpha.isMaxLevel
@@ -55,14 +51,5 @@ class Rectangle: Shapable {
             alpha = previousAlphaLevel
         }
     }
-}
-
-extension Rectangle: Hashable {
-    static func == (lhs: Rectangle, rhs: Rectangle) -> Bool {
-        return lhs.id == rhs.id
-    }
     
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
-    }
 }
