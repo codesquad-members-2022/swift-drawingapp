@@ -23,6 +23,3 @@ protocol Transformable {
     func transform(translationX: Double, y: Double)
     func transform(width: Double, height: Double)
 }
-
-protocol Changable: AlphaChangable, ColorChangable, FontChangable, Transformable {
-}

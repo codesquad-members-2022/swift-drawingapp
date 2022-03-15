@@ -118,7 +118,7 @@ extension Plane: Makeable {
     }
 }
 
-extension Plane: Changable {
+extension Plane: AlphaChangable, ColorChangable, FontChangable, Transformable {
     func changeAlpha(_ alpha: Alpha) {
         guard let model = self.selectedModel else {
             return
@@ -126,7 +126,7 @@ extension Plane: Changable {
         model.update(alpha: alpha)
         
         let userInfo: [AnyHashable : Any] = [
-            ParamKey.drawingModel: self.selectedModel,
+            ParamKey.drawingModel: model,
             ParamKey.alpha: alpha
         ]
         NotificationCenter.default.post(name: Event.didUpdateAlpha, object: self, userInfo: userInfo)
@@ -139,7 +139,7 @@ extension Plane: Changable {
         model.update(color: color)
         
         let userInfo: [AnyHashable : Any] = [
-            ParamKey.drawingModel: self.selectedModel,
+            ParamKey.drawingModel: model,
             ParamKey.color: color
         ]
         NotificationCenter.default.post(name: Event.didUpdateColor, object: self, userInfo: userInfo)
@@ -166,7 +166,7 @@ extension Plane: Changable {
         model.update(x: translationX, y: y)
         
         let userInfo: [AnyHashable : Any] = [
-            ParamKey.drawingModel: self.selectedModel,
+            ParamKey.drawingModel: model,
             ParamKey.origin: model.origin
         ]
         NotificationCenter.default.post(name: Event.didUpdateOrigin, object: self, userInfo: userInfo)
@@ -179,7 +179,7 @@ extension Plane: Changable {
         model.update(width: width, height: height)
         
         let userInfo: [AnyHashable : Any] = [
-            ParamKey.drawingModel: self.selectedModel,
+            ParamKey.drawingModel: model,
             ParamKey.size: model.size
         ]
         NotificationCenter.default.post(name: Event.didUpdateSize, object: self, userInfo: userInfo)
