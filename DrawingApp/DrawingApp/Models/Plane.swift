@@ -29,7 +29,19 @@ final class Plane: MainSceneTapDelegate {
     private let factory = FactoryRectangleProperty()
     private var rectangleModels = [RectangleProperty]()
     private var selectedIndex: Int?
-    var sceneRect: RectangleRect?
+    
+    var sceneRect: RectangleRect!
+    
+    init(sceneWidth: Double, sceneHeight: Double) {
+        let defaultSize = (RectangleDefaultSize.width.rawValue, RectangleDefaultSize.height.rawValue)
+        
+        sceneRect = RectangleRect(
+            maxX: (sceneWidth - defaultSize.0),
+            maxY: (sceneHeight - defaultSize.1),
+            width: defaultSize.0,
+            height: defaultSize.1
+        )
+    }
     
     private func sendNotificationToScreen(using name: Notification.Name, sends model: RectangleProperty, at index: Int) {
         NotificationCenter.default.post(
@@ -41,10 +53,7 @@ final class Plane: MainSceneTapDelegate {
     
     // MARK: - MainScreenDelegate implementation
     func addRectangle() {
-        guard
-            let sceneRect = sceneRect,
-            let rectangleModel = factory.makeRandomRectangleModel(as: "Subview #\(rectangleModels.count)", rectangleRect: sceneRect)
-        else {
+        guard let rectangleModel = factory.makeRandomRectangleModel(as: "Subview #\(rectangleModels.count)", rectangleRect: sceneRect) else {
             return
         }
         rectangleModels.append(rectangleModel)
