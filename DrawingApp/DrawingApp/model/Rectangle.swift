@@ -7,23 +7,12 @@
 
 import Foundation
 
-class Rectangle{
-    private(set) var uniqueId: String
+class Rectangle: CustomViewEntity{
     private(set) var color: ColorRGB
-    private(set) var point: ViewPoint
-    private(set) var size: ViewSize
-    private(set) var alpha: Double
     
     init(uniqueId: String, color: ColorRGB, point: ViewPoint, size: ViewSize, alpha: Double){
-        self.uniqueId = uniqueId
         self.color = color
-        self.point = point
-        self.size = size
-        self.alpha = alpha
-    }
-    
-    func changeAlphaValue(alpha: Double){
-        self.alpha = alpha
+        super.init(uniqueId: uniqueId, point: point, size: size, alpha: alpha)
     }
     
     func resetColor(rgbValue: ColorRGB){

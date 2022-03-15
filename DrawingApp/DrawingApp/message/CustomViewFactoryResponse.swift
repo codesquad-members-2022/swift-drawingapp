@@ -7,7 +7,8 @@
 
 import Foundation
 
-protocol RectangleFactoryResponse{
+protocol CustomViewFactoryResponse{
     func randomRectangle() -> RectangleMutable
     func randomRGBColor() -> RGBColorMutable
+    func randomPhoto(imageData: Data) -> PhotoMutable
 }
