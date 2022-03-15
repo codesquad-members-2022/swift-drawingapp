@@ -16,6 +16,7 @@ protocol ModelManagable {
     func selectModel(tapCoordinate: Point)
     func randomizeColorOnSelectedModel()
     func changeAlphaOnSelectedModel(to alpha: Alpha?)
+    subscript(index: UInt64) -> Modellable? {get}
     init(modelFactory : ModelProducible)
 }
 

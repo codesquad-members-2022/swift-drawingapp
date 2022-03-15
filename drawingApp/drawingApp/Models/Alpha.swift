@@ -23,7 +23,7 @@ enum Alpha : Int , CustomStringConvertible , CaseIterable{
     var description: String {
         "Alpha : \(self.rawValue)"
     }
-    var value : Double {
+    var scaledValue : Double {
         switch self {
         case .Clear :
             return 0.1
