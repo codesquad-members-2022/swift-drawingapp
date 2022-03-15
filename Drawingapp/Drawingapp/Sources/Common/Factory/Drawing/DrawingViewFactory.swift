@@ -16,10 +16,10 @@ class DrawingViewFactory {
         ObjectIdentifier(LabelModel.self): LabelView.self
     ]
     
-    static func make(model: DrawingModel) -> DrawingView {
-        if let viewType = Self.modelToViewType[ObjectIdentifier(type(of: model.self))] {
-            return viewType.init(model: model)
+    static func make(drawingable: Drawingable) -> DrawingView {
+        if let viewType = Self.modelToViewType[ObjectIdentifier(type(of: drawingable.self))] {
+            return viewType.init(drawingable: drawingable)
         }
-        return DrawingView.init(model: model)
+        return DrawingView.init(drawingable: drawingable)
     }
 }

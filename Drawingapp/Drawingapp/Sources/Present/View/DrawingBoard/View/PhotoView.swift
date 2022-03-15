@@ -16,9 +16,9 @@ class PhotoView: DrawingView {
         return imageView
     }()
     
-    required init(model: DrawingModel) {
-        super.init(model: model)
-        if let imageable = model as? Imageable {
+    required init(drawingable: Drawingable) {
+        super.init(drawingable: drawingable)
+        if let imageable = drawingable as? Imageable {
             self.update(imageUrl: imageable.imageUrl)
         }
     }

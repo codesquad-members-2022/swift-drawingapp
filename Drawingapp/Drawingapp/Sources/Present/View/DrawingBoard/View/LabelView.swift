@@ -18,9 +18,9 @@ class LabelView: DrawingView {
         return label
     }()
     
-    required init(model: DrawingModel) {
-        super.init(model: model)
-        if let textable = model as? Textable {
+    required init(drawingable: Drawingable) {
+        super.init(drawingable: drawingable)
+        if let textable = drawingable as? Textable {
             self.update(text: textable.text)
             self.update(font: textable.font)
             self.update(fontColor: textable.fontColor)
