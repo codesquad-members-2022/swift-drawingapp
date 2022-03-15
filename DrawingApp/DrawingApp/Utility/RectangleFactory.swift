@@ -27,7 +27,7 @@ enum RectangleFactory: ShapeBuilder {
         return Rectangle(id: id, origin: point, size: size, color: color, alpha: alpha)
     }
     
-    static func makeRandomRectangle(with image: Data) -> Rectangle {
+    static func makeRandomRectangle(with image: URL) -> Rectangle {
         let id = IdentifierFactory.makeTypeRandomly()
         let point = PointFactory.makeTypeRandomly()
         let size = SizeFactory.makeType(width: 150, height: 120)

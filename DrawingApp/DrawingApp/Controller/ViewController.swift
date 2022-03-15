@@ -15,7 +15,6 @@ class ViewController: UIViewController {
     
     // MARK: - Property for Model
     private let plane = Plane()
-    private var gallery = Gallery()
     private var rectangleMap = [Rectangle: RectangleView]()
     
     // MARK: - View Life Cycle Methods
@@ -32,11 +31,11 @@ class ViewController: UIViewController {
     }
     
     private func setObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(self.rectangleDataDidCreated), name: .RectangleDataDidCreated, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.rectangleDataDidChanged), name: .RectangleDataDidUpdated, object: nil)
+        NotificationCenter.default.addObserver(forName: .RectangleDataDidCreated, object: nil, queue: .main, using: self.rectangleDataDidCreated)
+        NotificationCenter.default.addObserver(forName: .RectangleDataDidUpdated, object: nil, queue: .main, using: self.rectangleDataDidChanged)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(self.planeDidSelectItem), name: .PlaneDidSelectItem, object: self.plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(self.planeDidUnselectItem), name: .PlaneDidUnselectItem, object: self.plane)
+        NotificationCenter.default.addObserver(forName: .PlaneDidSelectItem, object: self.plane, queue: .main, using: self.planeDidSelectItem)
+        NotificationCenter.default.addObserver(forName: .PlaneDidUnselectItem, object: self.plane, queue: .main, using: self.planeDidUnselectItem)
     }
 }
 
@@ -104,8 +103,8 @@ extension ViewController {
         
         let rectangleView = RectangleView(with: rectangle)
         
-        if let data = rectangle.image {
-            rectangleView.image = UIImage(data: data)
+        if let url = rectangle.image?.path {
+            rectangleView.image = UIImage(contentsOfFile: url)
         }
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleOnTapRectangleView))
@@ -169,39 +168,17 @@ extension ViewController: PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
         self.dismiss(animated: true)
         
-        let group = DispatchGroup()
-        var collection = [Data]()
-        
         for result in results {
             let itemProvider = result.itemProvider
-        
+            
             guard itemProvider.canLoadObject(ofClass: UIImage.self) else { continue }
             
-            group.enter()
-            
             itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.image.identifier) { url, error in
-                defer {
-                    group.leave()
-                }
-                
                 guard let url = url, error == nil else { return }
                 
-                self.gallery[url: url] = try? Data(contentsOf: url)
-                
-                guard let data = self.gallery[url: url] else { return }
-                
-                collection.append(data)
+                let imageRectangle = RectangleFactory.makeRandomRectangle(with: url)
+                self.plane.append(item: imageRectangle)
             }
         }
-        
-        group.notify(queue: DispatchQueue.global(), execute: {
-            for data in collection {
-                let imageRectangle = RectangleFactory.makeRandomRectangle(with: data)
-                
-                DispatchQueue.main.async {
-                    self.plane.append(item: imageRectangle)
-                }
-            }
-        })
     }
 }
