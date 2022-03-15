@@ -16,14 +16,14 @@ class Square : CustomStringConvertible {
     var B: Int = 0
     var A: Int = 0
 
-    init(_ id: String, _ size: Size, _ point: Point, _ r: Int, _ g: Int, _ b: Int, _ a: Int) {
+    init(id: String, size: Size, point: Point, r: Int, g: Int, b: Int, a: Int) {
         self.id = id
         self.size = size
         self.point = point
 
-        self.R = setRGBDegree(r)
-        self.G = setRGBDegree(g)
-        self.B = setRGBDegree(b)
+        self.R = setRGBDegree(deg: r)
+        self.G = setRGBDegree(deg: g)
+        self.B = setRGBDegree(deg: b)
         switch a {
         case ...0 :
             self.A = 0
@@ -34,7 +34,7 @@ class Square : CustomStringConvertible {
         }
     }
     
-    func setRGBDegree(_ deg: Int) -> Int {
+    func setRGBDegree(deg: Int) -> Int {
         switch deg {
         case ...0 :
             return 0

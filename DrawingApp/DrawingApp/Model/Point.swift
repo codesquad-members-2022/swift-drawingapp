@@ -11,8 +11,8 @@ class Point {
     var X: Double
     var Y: Double
 
-    init(_ inputX: Double, _ inputY: Double) {
-        self.X = inputX
-        self.Y = inputY
+    init(X: Double, Y: Double) {
+        self.X = X
+        self.Y = Y
     }
 }
