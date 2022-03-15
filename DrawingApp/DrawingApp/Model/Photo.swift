@@ -7,15 +7,19 @@
 
 import Foundation
 
-class Photo: Rectangle {
+protocol imageDataHavable {
+    var image: Data {get}
+}
+
+class Photo: AnyRectangularable, imageDataHavable {
     private(set) var image: Data
     
-    init(id: ID, size: Size, point: Point, image: Data, alpha: Alpha) {
-        self.image = image
-        super.init(id: id, size: size, point: point, backgroundColor: BackgroundColor.init(r: 0, g: 0, b: 0), alpha: alpha)
+    override var backgroundColorButtonShouldBecomeHidden: Bool {
+        return true
     }
     
-    override func backgroundColorButtonShouldBecomeHidden() -> Bool {
-        return true
+    init(size: Size, point: Point, image: Data, alpha: Alpha) {
+        self.image = image
+        super.init(size: size, point: point, alpha: alpha)
     }
 }
