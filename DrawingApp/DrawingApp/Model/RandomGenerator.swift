@@ -20,16 +20,24 @@ struct RandomGenerator {
         return Position(x: randomX, y: randomY)
     }
     
-    static func generateColor() -> Color? {
+    static func generateColor() -> Color {
         var randomInt: Int {
-            Color.colorRange.randomElement() ?? 0
+            (Color.Range.min...Color.Range.max).randomElement() ?? 0
         }
-        guard let randomColor = Color(red: randomInt, green: randomInt, blue: randomInt) else {return nil}
+        @Clamping(min: Color.Range.min, max: Color.Range.max) var randomRed: Int = randomInt
+        @Clamping(min: Color.Range.min, max: Color.Range.max) var randomGreen: Int = randomInt
+        @Clamping(min: Color.Range.min, max: Color.Range.max) var randomBlue: Int = randomInt
+        let randomColor = Color(red: randomRed, green: randomGreen, blue: randomBlue)
         return randomColor
     }
     
-    static func generateAlpha() -> Alpha? {
-        let randomTransparency = Double.random(in: Alpha.alphaRange)
+    static func generateAlpha() -> Alpha {
+        var randomDouble: Double {
+            Double.random(in: Alpha.Range.min...Alpha.Range.max)
+        }
+        
+        @Clamping(min: Alpha.Range.min, max: Alpha.Range.max) var randomTransparency = randomDouble
+        
         return Alpha(transparency: randomTransparency)
     }
     
