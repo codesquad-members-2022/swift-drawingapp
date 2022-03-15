@@ -8,7 +8,7 @@
 import Foundation
 import os
 
-class RectangleFactory{
+class CustomViewFactory{
     
     private func makeUiniqueId() -> String{
         let allString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -30,17 +30,15 @@ class RectangleFactory{
         return property.randomValue
     }
     
-    private func makeRandomRectangle() -> Rectangle{
-        let r = randomValue(property: .rgbRange)
-        let b = randomValue(property: .rgbRange)
-        let g = randomValue(property: .rgbRange)
+    private func makeRandomPoint() -> ViewPoint{
         let x = randomValue(property: .x)
         let y = randomValue(property: .y) + 44
-        let uniqueId = makeUiniqueId()
-        let color = ColorRGB(r: r, g: g, b: b)
-        let point = ViewPoint(x: x, y: y)
+        return ViewPoint(x: x, y: y)
+    }
+    
+    private func makeRandomRectangle() -> Rectangle{
         let size = ViewSize(width: 150, height: 120)
-        return Rectangle(uniqueId: uniqueId, color: color, point: point, size: size, alpha: 1.0)
+        return Rectangle(uniqueId: makeUiniqueId(), color: makeRandomColor(), point: makeRandomPoint(), size: size, alpha: 1.0)
     }
     
     private func makeRandomColor() -> ColorRGB{
@@ -49,15 +47,24 @@ class RectangleFactory{
         let g = randomValue(property: .rgbRange)
         return ColorRGB(r: r, g: g, b: b)
     }
+    
+    private func makeRandomPhoto(imageData: Data) -> Photo{
+        let size = ViewSize(width: 150, height: 150)
+        return Photo(imageData: imageData, uniqueId: makeUiniqueId(), point: makeRandomPoint(), size: size, alpha: 1.0)
+    }
 }
 
-extension RectangleFactory: RectangleFactoryResponse{
+extension CustomViewFactory: CustomViewFactoryResponse{
     func randomRectangle() -> RectangleMutable {
         return makeRandomRectangle()
     }
     
     func randomRGBColor() -> RGBColorMutable {
         return makeRandomColor()
+    }
+    
+    func randomPhoto(imageData: Data) -> PhotoMutable{
+        return makeRandomPhoto(imageData: imageData)
     }
 }
 
@@ -67,6 +74,10 @@ protocol RectangleMutable{
 
 protocol RGBColorMutable{
     func getRandomColorRGb() -> ColorRGB
+}
+
+protocol PhotoMutable{
+    func getRandomPhoto() -> Photo
 }
 
 enum RandomMax: Int{
