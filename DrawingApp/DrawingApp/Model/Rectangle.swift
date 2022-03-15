@@ -31,12 +31,16 @@ class Rectangle {
     
 }
 
-extension Rectangle : CustomStringConvertible, Equatable {
+extension Rectangle : CustomStringConvertible, Equatable, Hashable {
     static func == (lhs: Rectangle, rhs: Rectangle) -> Bool {
          return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
     }
     
     var description: String {
         return "(\(self.id)), \(position), \(self.size), \(String(describing: self.backgroundColor)) , \(self.alpha)"
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }

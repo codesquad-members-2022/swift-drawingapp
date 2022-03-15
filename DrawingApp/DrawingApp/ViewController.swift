@@ -10,10 +10,12 @@ import OSLog
 
 class ViewController: UIViewController {
     
-    let rectangleViewBoard = RectangleViewBoard()
-    let rectanglePropertyChangeBoard = PropertyChangeBoard()
-    let addRectangleButton = UIButton()
-    let addPhotoButton = UIButton()
+    private let rectangleViewBoard = RectangleViewBoard()
+    private let rectanglePropertyChangeBoard = PropertyChangeBoard()
+    private let addRectangleButton = UIButton()
+    private let addPhotoButton = UIButton()
+    
+    private var viewFinder : [Rectangle: RectangleView] = [:]
     
     let imagePickerController = UIImagePickerController()
     
@@ -149,15 +151,16 @@ extension ViewController {
     @objc func planeDidAdd(_ notification: Notification) {
         if let rectangle = notification.userInfo?[Plane.NotificationKeyValue.rectangle] as? Rectangle {
             if let photoRectangleView = RectangleViewFactory.makeView(of: rectangle) {
+                viewFinder[rectangle] = photoRectangleView
                 self.rectangleViewBoard.addSubview(photoRectangleView)
             }
         }
     }
     
     @objc func planeDidSearch(_ notification: Notification) {
-        guard let index = notification.userInfo?[Plane.NotificationKeyValue.index] as? Int else {return}
         guard let rectangle = notification.userInfo?[Plane.NotificationKeyValue.rectangle] as? Rectangle else {return}
-        self.rectangleViewBoard.setSelectedRectangleView(at: index)
+        let selectedView = viewFinder[rectangle]
+        self.rectangleViewBoard.setSelectedRectangleView(of: selectedView)
         self.rectanglePropertyChangeBoard.setPropertyBoard(with: rectangle)
     }
     
