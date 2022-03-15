@@ -43,7 +43,7 @@ class ViewController: UIViewController{
     
     private func setPanGestureRecognizer(){
         guard let canvasView = self.canvasView else { return }
-        let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleAction(_:)))
+        let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(panGestureRecognizer(_:)))
         canvasView.isUserInteractionEnabled = true
         canvasView.addGestureRecognizer(gestureRecognizer)
     }
@@ -169,7 +169,7 @@ extension ViewController: UIGestureRecognizerDelegate{
     }
     
     
-    @objc private func handleAction(_ sender: UIPanGestureRecognizer){
+    @objc private func panGestureRecognizer(_ sender: UIPanGestureRecognizer){
         guard let canvasView = canvasView else { return }
         let location = sender.location(in: canvasView)
    
