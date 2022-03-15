@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Square {
+class Square : CustomStringConvertible {
     var id: String
     var size: Size
     var point: Point
@@ -24,5 +24,9 @@ class Square {
         self.G = g
         self.B = b
         self.A = a
+    }
+    
+    var description: String {
+        return "(\(id)), X:\(point.X),Y:\(point.Y), W\(size.Width), H\(size.Height), R:\(R), G:\(G), B:\(B), Alpha: \(A)"
     }
 }
