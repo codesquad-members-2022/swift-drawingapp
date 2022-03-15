@@ -46,6 +46,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         bind()
         layout()
+        
+        plane.dataSource = self
     }
     
     private func bind() {
@@ -53,7 +55,6 @@ class ViewController: UIViewController {
         topMenuBind()
         inspectorBind()
         hierarchyBind()
-        plane.dataSource = self
     }
     
     private func layout() {
@@ -82,6 +83,8 @@ class ViewController: UIViewController {
         hierarchyView.leftAnchor.constraint(equalTo: self.view.leftAnchor).isActive = true
         hierarchyView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor).isActive = true
         hierarchyView.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        
+        self.drawingBoard.layoutIfNeeded()
     }
 }
 
