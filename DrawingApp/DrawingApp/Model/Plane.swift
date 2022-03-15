@@ -8,6 +8,7 @@ class Plane:CustomStringConvertible{
         case rectangleAdded = "rectangleAdded"
         case rectangleColorUpdated = "rectangleColorUpdated"
         case rectangleAlphaUpdated = "rectangleAlphaUpdated"
+        case rectanglePointUpdated = "rectanglePointUpdated"
     }
     
     struct NotificationName{
@@ -16,6 +17,7 @@ class Plane:CustomStringConvertible{
         static let rectangleNotFoundFromPlane = Notification.Name("rectangleNotFoundFromPlane")
         static let rectangleColorUpdated = Notification.Name("rectangleColorUpdated")
         static let rectangleAlphaUpdated = Notification.Name("rectangleAlphaUpdated")
+        static let rectanglePointUpdated = Notification.Name("rectanglePointUpdated")
     }
     
     private var rectangles:[Rectangle] = []
@@ -60,6 +62,14 @@ class Plane:CustomStringConvertible{
         let selectedRectangle = self.rectangles[selectedRectangleIndex]
         selectedRectangle.alpha = Rectangle.Alpha(opacity: opacity)
         NotificationCenter.default.post(name: NotificationName.rectangleAlphaUpdated, object: self, userInfo: [UserInfoKey.rectangleAlphaUpdated:opacity])
+    }
+    
+    func updateSelectedRectanglePoint(x: Double, y: Double){
+        guard let selectedRectangleIndex = self.selectedRectangleIndex else { return }
+        let selectedRectangle = self.rectangles[selectedRectangleIndex]
+        selectedRectangle.point.x = x
+        selectedRectangle.point.y = y
+        NotificationCenter.default.post(name: NotificationName.rectanglePointUpdated, object: self, userInfo: [UserInfoKey.rectanglePointUpdated:selectedRectangle])
     }
     
     private func isRectangleInsideTheRange(x: Double, y: Double, rectangle: Rectangle)-> Bool{

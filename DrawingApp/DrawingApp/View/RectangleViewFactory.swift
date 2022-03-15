@@ -24,4 +24,13 @@ class RectangleViewFactory{
                                                 alpha: CGFloat(rectangle.alpha.opacity.rawValue))
         return rectangleView
     }
+    
+    static func copyRectangleView(rectangle: Rectangle)-> UIView?{
+        if(rectangle is ColorRectangle){
+            return self.createColorRectangleView(rectangle: rectangle as! ColorRectangle)
+        }else if(rectangle is ImageRectangle){
+            return self.createImageRectangleView(rectangle: rectangle as! ImageRectangle)
+        }
+        return nil
+    }
 }

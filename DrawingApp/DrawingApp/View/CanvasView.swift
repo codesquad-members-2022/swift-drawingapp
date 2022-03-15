@@ -46,6 +46,11 @@ class CanvasView: UIView{
         selectedRectangleView.backgroundColor = newColor
     }
     
+    func updateSelectedRectanglePoint(point: CGPoint){
+        guard let selectedRectangleView = selectedRectangleView else { return }
+        selectedRectangleView.frame.origin = point
+    }
+    
     private func setGeneratingButton(){
         let buttonWidth = self.frame.width*0.15
         let buttonHeight = self.frame.height*0.15
@@ -100,5 +105,5 @@ class CanvasView: UIView{
     private func sendPickingImageRequest(){
         delegate?.pickingImageRequested()
     }
-
+    
 }
