@@ -7,33 +7,38 @@
 
 import Foundation
 
-struct Plane {
+class Plane {
     
     var delegate: PlaneDelegate?
-    private var rectangles: [Rectangle] = []
-    private(set) var selected: Rectangle?
+    private var shapes: [BasicShape] = []
+    private(set) var selected: BasicShape?
     
-    subscript(index: Int) -> Rectangle {
-        return rectangles[index]
+    subscript(index: Int) -> BasicShape {
+        return shapes[index]
     }
     
     var count: Int {
-        return rectangles.count
+        return shapes.count
     }
     
-    mutating func updateSelected(rectangle: Rectangle) {
-        selected = rectangle
-        delegate?.didUpdateSelectedRectangle(rectangle)
+    func addRectangle(bound: (x: Double, y: Double), by factoryType: RandomRectangleFactory.Type) {
+        let newRectangle = factoryType.createRandomRectangle(xBound: bound.x, yBound: bound.y)
+        shapes.append(newRectangle)
+        delegate?.didCreateShape(newRectangle)
     }
     
-    mutating func append(newRectangle: Rectangle) {
-        rectangles.append(newRectangle)
-        delegate?.didCreateRectangle(newRectangle)
+    func updateSelected(shape: BasicShape) {
+        selected = shape
+        delegate?.didChangeSelectedShape(shape)
     }
     
-    private func isRectangleExist(on coordinate: (x: Double, y: Double), target rectangle: Rectangle) -> Bool {
-        let xBound = (rectangle.point.x)...(rectangle.point.x + rectangle.size.width)
-        let yBound = (rectangle.point.y)...(rectangle.point.y + rectangle.size.height)
+    func clearSelected() {
+        selected = nil
+    }
+    
+    private func isShapeExist(on coordinate: (x: Double, y: Double), target shape: BasicShape) -> Bool {
+        let xBound = (shape.point.x)...(shape.point.x + shape.size.width)
+        let yBound = (shape.point.y)...(shape.point.y + shape.size.height)
         
         if (xBound ~= coordinate.x) && (yBound ~= coordinate.y) {
             return true
@@ -42,10 +47,10 @@ struct Plane {
         return false
     }
     
-    func searchRectangle(on coordinate: (x: Double, y: Double)) {
-        for rectangle in rectangles.reversed() {
-            if isRectangleExist(on: coordinate, target: rectangle) {
-                delegate?.didSelectRectanlge(rectangle)
+    func searchTopShape(on coordinate: (x: Double, y: Double)) {
+        for shape in shapes.reversed() {
+            if isShapeExist(on: coordinate, target: shape) {
+                delegate?.didSelectShape(shape)
                 return
             }
         }
@@ -53,26 +58,22 @@ struct Plane {
         delegate?.didSelectEmptyView()
     }
     
-    mutating func changeBackgroundColor() {
-        guard let selectedRectangle = selected else { return }
+    func changeBackgroundColor() {
+        guard let selectedShape = selected as? BasicShape & Colorable else { return }
         let randomColor = RandomRectangleFactory.generateRandomColor()
-        selectedRectangle.changeBackgroundColor(by: randomColor)
-        delegate?.didUpdateSelectedRectangleBackgroundColor(selectedRectangle)
+        selectedShape.changeBackgroundColor(by: randomColor)
+        delegate?.didUpdateSelectedShapeBackgroundColor(selectedShape)
     }
     
-    mutating func upAlphaValue() {
-        guard let selectedRectangle = selected else { return }
-        selectedRectangle.upAlphaLevel()
-        delegate?.didUpdateSelectedRectangleAlpha(selectedRectangle)
+    func upAlphaValue() {
+        guard let selectedShape = selected as? BasicShape & Alphable else { return }
+        selectedShape.upAlphaLevel()
+        delegate?.didUpdateSelectedShapeAlpha(selectedShape)
     }
     
-    mutating func downAlphaValue() {
-        guard let selectedRectangle = selected else { return }
-        selectedRectangle.downAlphaLevel()
-        delegate?.didUpdateSelectedRectangleAlpha(selectedRectangle)
-    }
-    
-    mutating func clearSelectedRectangle() {
-        selected = nil
+    func downAlphaValue() {
+        guard let selectedShape = selected as? BasicShape & Alphable else { return }
+        selectedShape.downAlphaLevel()
+        delegate?.didUpdateSelectedShapeAlpha(selectedShape)
     }
 }
