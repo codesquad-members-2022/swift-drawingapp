@@ -151,23 +151,23 @@ class InspectorView: UIView {
         self.itemStackView.isHidden = hidden
     }
     
-    func update(model: DrawingModel) {
+    func update(model: Drawingable) {
         self.update(alpha: model.alpha)
         self.update(size: model.size)
         self.update(origin: model.origin)
         
         switch model {
-        case let model as RectangleModel:
+        case let model as Colorable:
             self.update(color: model.color)
-        case let model as LabelModel:
+        case let model as Textable:
             self.update(color: nil)
-            self.update(font: model.font)
+            self.update(fontName: model.font.name)
         default:
             self.update(color: nil)
             break
         }
         
-        self.fontButton.isHidden = (model as? LabelModel) == nil
+        self.fontButton.isHidden = (model as? Textable) == nil
     }
     
     func update(color: Color?) {
@@ -190,7 +190,7 @@ class InspectorView: UIView {
         originView.setValues(firstValue: String(format: "%.1f", origin.x), secondValue: String(format: "%.1f", origin.y))
     }
     
-    func update(font: Font) {
-        fontButton.setTitle(title: "\(font.name)")
+    func update(fontName: String) {
+        fontButton.setTitle(title: "\(fontName)")
     }
 }

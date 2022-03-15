@@ -231,15 +231,15 @@ extension ViewController: InspectorDelegate {
     
     //MARK: Input
     func changeFont(name: String) {
-        self.plane.changeFontName(name)
+        self.plane.update(fontName: name)
     }
     
     func changeColor() {
-        self.plane.changeColor(Color(using: RandomColorGenerator()))
+        self.plane.update(color: Color(using: RandomColorGenerator()))
     }
     
     func changeAlpha(_ alpha: Alpha) {
-        self.plane.changeAlpha(alpha)
+        self.plane.update(alpha: alpha)
     }
     
     func transform(translationX: Double, y: Double) {
@@ -293,7 +293,7 @@ extension ViewController: InspectorDelegate {
             return
         }
         self.drawingBoard.didUpdate(model: model, font: font)
-        self.inspectorView.update(font: font)
+        self.inspectorView.update(fontName: font.name)
     }
 }
 

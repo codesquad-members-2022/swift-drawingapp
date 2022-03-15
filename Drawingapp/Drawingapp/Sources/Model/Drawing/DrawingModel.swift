@@ -30,11 +30,8 @@ protocol Imageable: Drawingable {
 
 protocol Textable: Drawingable {
     var font: Font { get }
-    var fontColor: Color { get }
     var text: String { get }
-    func update(text: String)
-    func update(font: Font)
-    func update(fontColor: Color)
+    func update(fontName: String)
 }
 
 protocol Viewable {

@@ -23,7 +23,6 @@ class LabelView: DrawingView {
         if let textable = drawingable as? Textable {
             self.update(text: textable.text)
             self.update(font: textable.font)
-            self.update(fontColor: textable.fontColor)
         }
     }
     
@@ -50,9 +49,5 @@ class LabelView: DrawingView {
                   return
               }
         self.labelView.font = uiFont
-    }
-    
-    func update(fontColor: Color) {
-        labelView.textColor = UIColor(red: CGFloat(fontColor.r) / 255, green: CGFloat(fontColor.g) / 255, blue: CGFloat(fontColor.b / 255), alpha: 1)
     }
 }

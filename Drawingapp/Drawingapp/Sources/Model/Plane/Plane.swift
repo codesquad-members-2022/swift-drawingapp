@@ -118,8 +118,8 @@ extension Plane: Makeable {
     }
 }
 
-extension Plane: AlphaChangable, ColorChangable, FontChangable, Transformable {
-    func changeAlpha(_ alpha: Alpha) {
+extension Plane: AlphaUpdatable, ColorUpdatable, FontUpdatable, Transformable {
+    func update(alpha: Alpha) {
         guard let model = self.selectedModel else {
             return
         }
@@ -132,7 +132,7 @@ extension Plane: AlphaChangable, ColorChangable, FontChangable, Transformable {
         NotificationCenter.default.post(name: Event.didUpdateAlpha, object: self, userInfo: userInfo)
     }
     
-    func changeColor(_ color: Color) {
+    func update(color: Color) {
         guard let model = self.selectedModel as? Colorable else {
             return
         }
@@ -145,16 +145,15 @@ extension Plane: AlphaChangable, ColorChangable, FontChangable, Transformable {
         NotificationCenter.default.post(name: Event.didUpdateColor, object: self, userInfo: userInfo)
     }
     
-    func changeFontName(_ fontName: String) {
+    func update(fontName: String) {
         guard let labelModel = self.selectedModel as? LabelModel else {
             return
         }
-        let font = Font(name: fontName, size: labelModel.font.size)
-        labelModel.update(font: font)
+        labelModel.update(fontName: fontName)
         
         let userInfo: [AnyHashable : Any] = [
-            ParamKey.drawingModel: self.selectedModel,
-            ParamKey.font: font
+            ParamKey.drawingModel: labelModel,
+            ParamKey.font: labelModel.font
         ]
         NotificationCenter.default.post(name: Event.didUpdateFont, object: self, userInfo: userInfo)
     }
@@ -290,7 +289,6 @@ extension Plane {
         static let didUpdateImageUrl = NSNotification.Name("didUpdateImageUrl")
         static let didUpdateText = NSNotification.Name("didUpdateText")
         static let didUpdateFont = NSNotification.Name("didUpdateFont")
-        static let didUpdateFontColor = NSNotification.Name("didUpdateFontColor")
     }
     
     enum ParamKey {
