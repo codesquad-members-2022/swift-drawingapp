@@ -6,13 +6,12 @@
 //
 
 import Foundation
-import UIKit
 
 class PhotoRectangle: Rectangle {
-    var backGroundImage : UIImage
+    var backGroundImage : Data
     
-    init(size: Size, position: Position, image: UIImage, alpha: Alpha) {
-        self.backGroundImage = image
+    init(size: Size, position: Position, imageData: Data, alpha: Alpha) {
+        self.backGroundImage = imageData
         super.init(size: size, position: position, color: nil, alpha: alpha)
     }
 }

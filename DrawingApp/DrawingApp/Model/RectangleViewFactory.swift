@@ -22,9 +22,9 @@ struct RectangleViewFactory {
     static func makePhotoView(of photoRectangle: PhotoRectangle) -> PhotoRectangleView? {
         let size = photoRectangle.size
         let position = photoRectangle.position
-        let image = photoRectangle.backGroundImage
+        let imageData = photoRectangle.backGroundImage
         let alpha = photoRectangle.alpha
         let rectangleFrame = CGRect(x: position.x , y: position.y, width: size.width, height: size.height)
-        return PhotoRectangleView(from: rectangleFrame, image: image, alpha: alpha)
+        return PhotoRectangleView(from: rectangleFrame, imageData: imageData, alpha: alpha)
     }
 }
