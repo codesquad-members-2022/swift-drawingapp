@@ -346,12 +346,12 @@ extension CanvasViewController {
 
 extension CanvasViewController {
     @objc func didReorderLayer(_ notification: Notification) {
-        guard let reorderedLayers = notification.userInfo?[Plane.InfoKey.changed] as? [Layer] else { return }
+        guard let reorderedLayers = notification.userInfo?[Plane.InfoKey.changed] as? [Layer], let from = notification.userInfo?[Plane.InfoKey.fromIndex] as? Int, let to = notification.userInfo?[Plane.InfoKey.toIndex] as? Int else { return }
 
-        for subView in view.subviews {
-            subView.removeFromSuperview()
-        }
         
+        for view in viewMap.keys {
+            view.removeFromSuperview()
+        }
         for layer in reorderedLayers {
             guard let layerView = layerMap[layer] else { return }
             view.addSubview(layerView)

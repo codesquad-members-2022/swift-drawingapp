@@ -82,9 +82,10 @@ class Plane {
     }
     
     func reorderLayer(from: Int, to: Int) {
+        guard 0 <= to, to < layerCount, 0 <= from, from < layerCount else { return }
         layers.insert(layers.remove(at: from), at: to)
         
-        NotificationCenter.default.post(name: Plane.Event.didReorderLayer, object: self, userInfo: [Plane.InfoKey.changed: layers])
+        NotificationCenter.default.post(name: Plane.Event.didReorderLayer, object: self, userInfo: [Plane.InfoKey.changed: layers, Plane.InfoKey.fromIndex: from, Plane.InfoKey.toIndex: to])
     }
     
     func tap(on point: Point) {
