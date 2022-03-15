@@ -27,8 +27,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         setNotificationCenter()
         
-        backgroundColorButton.setTitle("배경색 버튼", for: .disabled)
-        
         addDrawableAreaView()
         addGenerateRectangleButton()
         addGenerateImageRectangleButton()
@@ -112,7 +110,7 @@ class ViewController: UIViewController {
     private func initializeViewsInTouchedEmptySpaceCondition() {
         self.selectedView?.layer.borderWidth = 0
         self.selectedView = nil
-        backgroundColorButton.isEnabled = false
+        backgroundColorButton.isHidden = true
         backgroundColorButton.backgroundColor = .clear
         alphaSlider.isEnabled = false
         let alphaSliderCenterValue = (alphaSlider.minimumValue + alphaSlider.maximumValue) / 2
@@ -233,7 +231,6 @@ extension ViewController {
         let currentAlphaValue = rectangle.alpha.value
         
         guard let rectangle = rectangle as? BackgroundColorChangable else {return}
-        backgroundColorButton.isEnabled = true
         backgroundColorButton.setTitle(rectangle.backgroundColor.hexCode, for: .normal)
         let buttonBackgroundColor = rectangle.backgroundColor.convertToUIColor(with: currentAlphaValue)
         backgroundColorButton.backgroundColor = buttonBackgroundColor
