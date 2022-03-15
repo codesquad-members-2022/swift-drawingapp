@@ -7,25 +7,20 @@
 
 import UIKit
 
-/// Plane에 전달된 Model 혹은 Model에 해당하는 프로퍼티들로 MainScreenViewController의 subviews를 변경합니다.
-protocol MainSceneDelegate {
-    /// Plane이 모델을 생성할 때 최대 X, Y 값을 참고하기 MainScreenViewController.view의 프로퍼티를 요청할 시 사용합니다.
-    func getRect() -> RectangleRect
-}
-
-final class MainScreenViewController: UIViewController, MainSceneDelegate, UIGestureRecognizerDelegate {
+final class MainScreenViewController: UIViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet var tapGesture: UITapGestureRecognizer!
     private var rectangleViews = [Rectangle]()
     private var selectedIndexes: Set<Int>?
     
-    var delegate: MainSceneTapDelegate?
+    var rectangleDelegate: MainSceneTapDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(
             forName: Plane.addButtonPushed,
-            object: delegate,
+            object: rectangleDelegate,
             queue: .current
         ) { [weak self] noti in
             guard
@@ -42,7 +37,7 @@ final class MainScreenViewController: UIViewController, MainSceneDelegate, UIGes
         
         NotificationCenter.default.addObserver(
             forName: Plane.sliderMoved,
-            object: delegate,
+            object: rectangleDelegate,
             queue: .current
         ) { [weak self] noti in
             guard
@@ -59,7 +54,7 @@ final class MainScreenViewController: UIViewController, MainSceneDelegate, UIGes
         
         NotificationCenter.default.addObserver(
             forName: Plane.colorButtonPushed,
-            object: delegate,
+            object: rectangleDelegate,
             queue: .current
         ) { [weak self] noti in
             guard
@@ -76,7 +71,7 @@ final class MainScreenViewController: UIViewController, MainSceneDelegate, UIGes
         
         NotificationCenter.default.addObserver(
             forName: Plane.selectStatusChanged,
-            object: delegate,
+            object: rectangleDelegate,
             queue: .current)
         { [weak self] noti in
             guard
@@ -140,21 +135,9 @@ final class MainScreenViewController: UIViewController, MainSceneDelegate, UIGes
         }
     }
     
-    // MARK: - MainScreenDelegate implementations
-    func getRect() -> RectangleRect {
-        let frame = view.frame
-        let defaultSize = (RectangleDefaultSize.width.rawValue, RectangleDefaultSize.height.rawValue)
-        return RectangleRect(
-            maxX: (frame.width - defaultSize.0),
-            maxY: (frame.height - defaultSize.1),
-            width: defaultSize.0,
-            height: defaultSize.1
-        )
-    }
-    
     // MARK: - UIGestureRecognizerDelegate implementation
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let touchedView = touches.first?.view as? Rectangle
-        delegate?.mainSceneDidSelect(at: touchedView?.index)
+        rectangleDelegate?.didSelect(at: touchedView?.index)
     }
 }

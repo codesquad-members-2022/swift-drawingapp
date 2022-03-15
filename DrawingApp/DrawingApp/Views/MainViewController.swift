@@ -83,8 +83,17 @@ final class MainViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? MainScreenViewController {
-            plane.mainSceneDelegate = vc
-            vc.delegate = plane
+            let frame = vc.view.frame
+            let defaultSize = (RectangleDefaultSize.width.rawValue, RectangleDefaultSize.height.rawValue)
+            
+            plane.sceneRect = RectangleRect(
+                maxX: (frame.width - defaultSize.0),
+                maxY: (frame.height - defaultSize.1),
+                width: defaultSize.0,
+                height: defaultSize.1
+            )
+            
+            vc.rectangleDelegate = plane
         }
     }
 }
