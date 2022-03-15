@@ -15,7 +15,7 @@ struct Factory {
             return resultArray.joined(separator: "-")
         }
         let size = Rectangle.Size()
-        let point : Rectangle.Point = Rectangle.Point()
+        let point : Point = Point()
         let color : Rectangle.BackgroundColor = Rectangle.BackgroundColor()
         let alpha : Rectangle.Alpha = .random()
         return Rectangle(id: id, point: point, size: size, color: color, alpha: alpha)

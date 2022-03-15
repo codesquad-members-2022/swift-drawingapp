@@ -40,7 +40,7 @@ class Plane {
     }
     
     //MARK: Bound Gate
-    private func isTouchedOnRectangle(at point: Rectangle.Point) -> Rectangle? {
+    private func isTouchedOnRectangle(at point: Point) -> Rectangle? {
         var optionalRectangle: Rectangle?
         for rectangle in rectangles {
             if rectangle.isIncluded(point: point) {
@@ -50,7 +50,7 @@ class Plane {
         return optionalRectangle
     }
     
-    func touchedRectangle(at point: Rectangle.Point) {
+    func touchedRectangle(at point: Point) {
         guard let rectangle = isTouchedOnRectangle(at: point) else {
             return
         }

@@ -1,15 +1,5 @@
 import Foundation
 
-extension Rectangle.Point : Hashable {
-    static func ==(lhs: Rectangle.Point, rhs: Rectangle.Point) -> Bool {
-        return lhs.x == rhs.x && lhs.y == rhs.y
-    }
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(self.x)
-        hasher.combine(self.y)
-    }
-}
-
 struct Rectangle: CustomStringConvertible {
     enum Alpha: Int {
         case one = 1
@@ -115,27 +105,7 @@ struct Rectangle: CustomStringConvertible {
         let rangeOfY: ClosedRange<Double>
     }
     
-    struct Point {
-        var x: Double = 0.0
-        var y: Double = 0.0
-        
-        mutating func random() {
-            let randomX: Double = Double.random(in: 20...738)
-            let randomY: Double = Double.random(in: 24...680)
-            self.x = randomX
-            self.y = randomY
-        }
-        
-        init() {
-            random()
-        }
-        
-        init(x: Double, y: Double) {
-            self.x = x
-            self.y = y
-        }
-    }
-    
+   
     private(set) var id: String
     private(set) var point: Point
     private(set) var size : Size
