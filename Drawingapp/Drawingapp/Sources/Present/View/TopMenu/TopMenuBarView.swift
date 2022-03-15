@@ -25,7 +25,7 @@ class TopMenuBarView: UIView {
     private let makeRectangle: TopMenuItemView = {
         let itemView = TopMenuItemView()
         itemView.backgroundColor = .clear
-        itemView.setIcon(name: "ic_square")
+        itemView.setIcon(name: "ic_rectangle")
         itemView.translatesAutoresizingMaskIntoConstraints = false
         return itemView
     }()

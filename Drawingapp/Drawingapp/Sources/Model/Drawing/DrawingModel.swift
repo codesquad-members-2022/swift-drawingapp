@@ -21,6 +21,11 @@ protocol Textable {
     func update(fontColor: Color)
 }
 
+protocol Viewable {
+    var displayName: String { get }
+    var iconName: String { get }
+}
+
 class DrawingModel: CustomStringConvertible, Equatable, Hashable {
     let id: String
     let index: Int

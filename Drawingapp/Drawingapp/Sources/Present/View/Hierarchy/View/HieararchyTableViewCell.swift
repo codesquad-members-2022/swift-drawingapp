@@ -97,18 +97,10 @@ class HieararchyTableViewCell: UITableViewCell {
     }
     
     func setView(model: DrawingModel) {
-        switch model {
-        case _ as RectangleModel:
-            icon.image = UIImage(named: "ic_square")
-            name.text = "Rect \(model.index)"
-        case _ as PhotoModel:
-            icon.image = UIImage(named: "ic_photo")
-            name.text = "Photo \(model.index)"
-        case _ as LabelModel:
-            icon.image = UIImage(named: "ic_text")
-            name.text = "Text \(model.index)"
-        default:
+        guard let viewData = model as? Viewable else {
             return
         }
+        icon.image = UIImage(named: viewData.iconName)
+        name.text = viewData.displayName
     }
 }
