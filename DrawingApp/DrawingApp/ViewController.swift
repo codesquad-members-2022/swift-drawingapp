@@ -40,14 +40,20 @@ class ViewController: UIViewController {
         let bounds = UIScreen.main.bounds
         let randomX = Int.random(in: 1...Int(bounds.width))
         let randomY = Int.random(in: 1...Int(bounds.height))
-        print(randomX, randomY)
-        let rectangle = shapeFactory.createRandomRectangle(point: Point(x: Double(randomX), y: Double(randomY)))
+        let randomCGRed = CGFloat(Double.random(in: 0...255) / 255)
+        let randomCGGreen = CGFloat(Double.random(in: 0...255) / 255)
+        let randomCGBlue = CGFloat(Double.random(in: 0...255) / 255)
+        let randomCGAlpha = CGFloat(Double.random(in: 1...10) / 10)
         let rectangleView = UIView(frame: CGRect(x: randomX, y: randomY, width: 150, height: 120))
-        rectangleView.backgroundColor = UIColor(red: CGFloat(Double.random(in: 0...255) / 255),
-                                                green: CGFloat(Double.random(in: 0...255) / 255),
-                                                blue: CGFloat(Double.random(in: 0...255) / 255),
-                                                alpha: CGFloat(Double.random(in: 1...10) / 10))
+        rectangleView.backgroundColor = UIColor(red: randomCGRed, green: randomCGGreen, blue: randomCGBlue, alpha: randomCGAlpha)
         self.view.addSubview(rectangleView)
+        
+        let randomColor = Color(r: Int(randomCGRed * 255), g: Int(randomCGGreen * 255), b: Int(randomCGBlue * 255))
+        let randomAlpha: Alpha = Alpha(rawValue: Int(randomCGAlpha * 10))!
+        let rectangle = shapeFactory.createRectangle(
+            point: Point(x: Double(randomX), y: Double(randomY)),
+            size: Size(width: 150, height: 120),
+            color: randomColor, alpha: randomAlpha)
         plane.addRectangle(rectangle)
     }
     
