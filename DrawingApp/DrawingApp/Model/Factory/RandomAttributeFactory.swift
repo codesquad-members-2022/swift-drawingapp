@@ -1,13 +1,13 @@
 //
-//  RandomRectangleFactory.swift
+//  RandomAttributeFactory.swift
 //  DrawingApp
 //
-//  Created by 김상혁 on 2022/02/28.
+//  Created by 김상혁 on 2022/03/16.
 //
 
 import Foundation
 
-class RandomRectangleFactory {
+class RandomAttributeFactory {
     
     static func generateRandomIdentifier() -> Identifier {
         return Identifier()
@@ -28,13 +28,5 @@ class RandomRectangleFactory {
         let randomBlue = round(Double.random(in: validRange))
         
         return Color(validRed: randomRed, validGreen: randomGreen, validBlue: randomBlue)
-    }
-    
-    static func createRandomRectangle(xBound: Double, yBound: Double) -> Rectangle {
-        return Rectangle(identifier: generateRandomIdentifier(),
-                         point: generateRandomPoint(xBound: xBound, yBound: yBound),
-                         size: Size(width: Size.Range.width, height: Size.Range.height),
-                         backgroundColor: generateRandomColor(),
-                         alpha: Alpha.random)
     }
 }
