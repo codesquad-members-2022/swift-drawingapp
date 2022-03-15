@@ -8,13 +8,13 @@
 import Foundation
 
 class Square : CustomStringConvertible {
-    var id: String
-    var size: Size
-    var point: Point
-    var R: Int = 0
-    var G: Int = 0
-    var B: Int = 0
-    var A: Int = 0
+    private var id: String
+    private var size: Size
+    private var point: Point
+    private var R: Int = 0
+    private var G: Int = 0
+    private var B: Int = 0
+    private var A: Int = 0
 
     init(id: String, size: Size, point: Point, r: Int, g: Int, b: Int, a: Int) {
         self.id = id
