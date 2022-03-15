@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     
     //Views
     private let rectangleGenerationButton = UIButton()
-    private let panelView = PanelView()
+    private var panelView = PanelView()
     
     
     //View Constants
@@ -34,7 +34,6 @@ class ViewController: UIViewController {
         self.plane = Plane(planeSize: Size(width: screenWdith - panelWidth, height: screenHeight - buttonHeight), safeAreaInsets: Point(x: 0, y:20))
         setupSubViews()
         setupHandlers()
-        setupDelegates()
         setupLayout()
         addObservers ()
     }
@@ -50,11 +49,8 @@ class ViewController: UIViewController {
         let tapGuestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapTriggered))
         tapGuestureRecognizer.numberOfTapsRequired = 1
         self.view.addGestureRecognizer(tapGuestureRecognizer)
-    }
-    
-    func setupDelegates(){
-        panelView.delegate = self
-        plane.delegate = self
+        panelView.colorRondomizeButton.addTarget(target, action: #selector(didTabColorRondomizeButton), for: .touchUpInside)
+        panelView.alphaStepper.addTarget(target, action: #selector(didTabAlphaStepper), for: .valueChanged)
     }
 
     func setupLayout(){
@@ -77,49 +73,98 @@ class ViewController: UIViewController {
         plane.selectModel(tapCoordinate : Point(x: tappedPoint.x, y: tappedPoint.y))
     }
     
+    @objc func didTabColorRondomizeButton(sender: UIButton) {
+        plane.randomizeColorOnSelectedModel()
+        
+    }
     
+    @objc func didTabAlphaStepper(sender: UIStepper) {
+        plane.changeAlphaOnSelectedModel(to: Alpha(rawValue: Int(sender.value)))
+    }
+    
+
+
+
     
     //MARK: Add Observers
     func addObservers () {
         //Plane 에서 오는 post 를 받을 옵저버 생성 및 액션 지정.
         NotificationCenter.default.addObserver(self, selector: #selector(createModelView), name: .DidMakeModel, object: plane
         )
- 
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateSelectedModel), name: .DidSelectModel, object: plane
+        )
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateModelView), name: .DidChangeColor, object: plane
+        )
+        NotificationCenter.default.addObserver(self, selector: #selector(updatePanelView), name: .DidChangeColor, object: plane
+        )
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateModelView), name: .DidChangeAlpha, object: plane
+        )
+        NotificationCenter.default.addObserver(self, selector: #selector(updatePanelView), name: .DidChangeAlpha, object: plane
+        )
+        
+        
+
     }
     
     
     @objc func createModelView(notification: Notification) {
         guard let newModel = notification.userInfo?[UserInfo.model] else {return}
         guard let model = newModel as? Model else {return}
-
         let modelView = Factory.makeView(with: model)
         rectangleList.updateValue(modelView, forKey: model)
         view.addSubview(modelView)
     }
     
-    @objc func didChangeColor(notification: Notification) {
-        
+    @objc func updateSelectedModel(notification: Notification) {
+        guard let currentlySelectedModel = notification.userInfo?[UserInfo.currentModel] as? Model else {
+            if let previouslySelectedModel = notification.userInfo?[UserInfo.previousModel] as? Model {
+                updateHighlight(from: previouslySelectedModel)
+            }
+            panelView.setDefaultPanelValues()
+            return
+        }
+            
+        if let previouslySelectedModel = notification.userInfo?[UserInfo.previousModel] as? Model {
+            updateHighlight(from: previouslySelectedModel)
+        }
+        updateHighlight(from: currentlySelectedModel)
+        updatePanel(from: currentlySelectedModel)
     }
-    @objc func did(notification: Notification) {
-        
+    
+    
+    @objc func updateModelView(notification: Notification) {
+        guard let modifiedModel = notification.userInfo?[UserInfo.model] as? Model else {return}
+        guard let modelView = rectangleList[modifiedModel] else {return}
+        let colorChanged = notification.name == .DidChangeColor
+        if colorChanged {
+          modelView.updateColor(with: modifiedModel)
+        }else{
+          modelView.updateAlpha(newAlpha: modifiedModel.alpha.value)
+        }
     }
     
-    
-    
-//    func createRectangleView (with model: Model) {
-//        let modelView = Factory.makeView(with: model)
-//        rectangleList.updateValue(modelView, forKey: model)
-//        view.addSubview(modelView)
-//    }
-    
+    @objc func updatePanelView(notification: Notification) {
+        guard let modifiedModel = notification.userInfo?[UserInfo.model] as? Model else {return}
+        let colorChanged = notification.name == .DidChangeColor
+        if colorChanged {
+            panelView.updateRomdomizeColorButton(newColor: modifiedModel.color.tohexString)
+        }else{
+            panelView.updateAlpha(newAlphaValue: modifiedModel.alpha.value)
+        }
+    }
+        
+
     //MARK: 사각형 뷰 선택에 따른 테두리 및 패널 뷰처리 함수.
-    func updateHighlight(from model: Model) {
+    private func updateHighlight(from model: Model) {
         guard let modelView = rectangleList[model] else {return}
         modelView.configure(isSelected: model.selectedStatus())
     }
   
     
-    func updatePanel(from model: Model) {
+    private func updatePanel(from model: Model) {
         if model.selectedStatus() {
             panelView.updateAlpha(newAlphaValue: model.alpha.value)
             panelView.updateRomdomizeColorButton(newColor: model.color.tohexString)
@@ -130,68 +175,8 @@ class ViewController: UIViewController {
     }
     
     //MARK: 색상, 알파 수정에 대한 뷰처리 함수.
-    func manageAmendingViews(by model: Model, operation : (Model) -> ()){
+    private func manageAmendingViews(by model: Model, operation : (Model) -> ()){
         return operation(model)
     }
     
-    func colorRandomization(on model: Model) {
-        guard let modelView = rectangleList[model] else {return}
-        modelView.updateColor(with: model)
-        panelView.updateRomdomizeColorButton(newColor: model.color.tohexString)
-    }
-
-
-    func alphaModification(on model : Model){
-        guard let modelView = rectangleList[model] else {return}
-        modelView.updateAlpha(newAlpha: model.alpha.value)
-        panelView.updateAlpha(newAlphaValue: model.alpha.value)
-    }
-
 }
-
-// 출력 관련 델리게이션 함수
-extension ViewController : PlaneDelegate {
-    func didSelectModel(currentModel: Model?, previousModel : Model?) {
-        guard let currentlySelectedModel = currentModel else {
-            if let previouslySelectedModel = previousModel {
-                updateHighlight(from: previouslySelectedModel)
-            }
-            panelView.setDefaultPanelValues()
-            return
-        }
-            
-        if let previouslySelectedModel = previousModel {
-            updateHighlight(from: previouslySelectedModel)
-        }
-        updateHighlight(from: currentlySelectedModel)
-        updatePanel(from: currentlySelectedModel)
-    }
-
-
-//    func didAppendModel(model: Model?) {
-//        guard let appendedModel = model else{return}
-//        createRectangleView(with : appendedModel)
-//    }
-
-    func didRandomizeColor(model: Model) {
-        manageAmendingViews(by: model, operation: colorRandomization)
-    }
-    
-    func didChangeAlpha(model: Model) {
-        manageAmendingViews(by: model, operation: alphaModification)
-    }
-    
-    
-}
-
-//입력 관련 델리게이션 함수 
-extension ViewController : PanelViewDelegate {
-    func didTabRondomizeColor() {
-        plane.randomizeColorOnSelectedModel()
-    }
-
-    func didTabChangeAlpha(sender : UIStepper) {
-        plane.changeAlphaOnSelectedModel(to: Alpha(rawValue: Int(sender.value)))
-    }
-}
-
