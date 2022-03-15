@@ -17,9 +17,3 @@ protocol CustomEntitiesChangeable{
     func CustomViewAlpha()
     func rectangleCount() -> Int
 }
-
-enum CustomViewType{
-    case rectangle
-    case photo
-    case none
-}
