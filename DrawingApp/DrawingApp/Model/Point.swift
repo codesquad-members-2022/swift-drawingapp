@@ -19,7 +19,7 @@ struct Point: CustomStringConvertible{
 
     static func randomPoint() -> Point {
         let randomX = Double.random(in: 0...850.0)
-        let randomY = Double.random(in: 0...650.0)
+        let randomY = Double.random(in: 0...550.0)
         return Point(x: randomX, y: randomY)
     }
     
