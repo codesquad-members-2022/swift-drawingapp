@@ -51,9 +51,7 @@ class Plane {
             }
         }
         guard let targetRectangle = selectedRectangle else {return}
-        if let selectedIndex = rectangles.lastIndex(of: targetRectangle) {
-            NotificationCenter.default.post(name: Plane.NotificationName.searchRectangle, object: self, userInfo: [Plane.NotificationKeyValue.rectangle:targetRectangle, Plane.NotificationKeyValue.index: selectedIndex])
-        }
+        NotificationCenter.default.post(name: Plane.NotificationName.searchRectangle, object: self, userInfo: [Plane.NotificationKeyValue.rectangle:targetRectangle])
     }
     
     func updateAlphaValue(with alpha: Alpha) {

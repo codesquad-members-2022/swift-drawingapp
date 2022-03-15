@@ -24,12 +24,12 @@ class RectangleViewBoard: UIView {
         delegate?.rectangleViewBoard(didUpdated: color)
     }
     
-    func setSelectedRectangleView(at index: Int) {
+    func setSelectedRectangleView(of rectangleView: RectangleView?) {
         if self.selectedRectangleView != nil {
             self.selectedRectangleView?.layer.borderWidth = 0
             self.selectedRectangleView = nil
         }
-        self.selectedRectangleView = self.subviews[index] as? RectangleView
+        self.selectedRectangleView = rectangleView
         self.selectedRectangleView?.layer.borderWidth = 2
         self.selectedRectangleView?.layer.borderColor = UIColor.blue.cgColor
     }

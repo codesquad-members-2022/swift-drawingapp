@@ -22,7 +22,16 @@ class Id {
     }
 }
 
-extension Id : CustomStringConvertible {
+extension Id : CustomStringConvertible, Hashable {
+    static func == (lhs: Id, rhs: Id) -> Bool {
+        return ObjectIdentifier(lhs) == ObjectIdentifier(rhs)
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        let value = self.firstSection + self.secondSection + self.thirdSection
+        hasher.combine(value)
+    }
+    
     var description: String {
         return "\(firstSection)-\(secondSection)-\(thirdSection)"
     }
