@@ -20,6 +20,7 @@ final class RectangleView: UIView, NSCopying{
         let rectangleView = RectangleView(frame: self.frame)
         rectangleView.backgroundColor = self.backgroundColor
         rectangleView.backgroundColor?.withAlphaComponent(1)
+        rectangleView.alpha = 0.5
         return rectangleView
     }
 }

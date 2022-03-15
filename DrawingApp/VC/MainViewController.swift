@@ -224,20 +224,10 @@ extension MainViewController {
             return
         }
         
-        if let rectView = view as? RectangleView, let extraView = rectView.copy() as? UIView{
-            setExtraView(view: extraView)
-        } else if let imageView = view as? ImageView, let extraView = imageView.copy() as? UIView{
-            setExtraView(view: extraView)
-        } else{
-            os_log("Can't copy the view")
-        }
-    }
-    
-    private func setExtraView(view: UIView){
-        panGestureExtraView = view
-        panGestureExtraView?.alpha = 0.5
+        panGestureExtraView = view.copyCustomView()
         
         guard let extraView = panGestureExtraView else{
+            os_log("Can't copy CustomView")
             return
         }
         

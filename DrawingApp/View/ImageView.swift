@@ -20,6 +20,7 @@ final class ImageView: UIImageView, NSCopying{
     func copy(with zone: NSZone? = nil) -> Any {
         let imageView = ImageView(frame: self.frame)
         imageView.image = self.image
+        imageView.alpha = 0.5
         return imageView
     }
 }
