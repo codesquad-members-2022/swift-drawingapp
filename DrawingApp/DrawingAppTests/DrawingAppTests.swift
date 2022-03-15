@@ -24,9 +24,9 @@ class DrawingAppTests: XCTestCase {
         let rgb = RGB.random()
         let alpha = Alpha(1.2)
 
-        let testRectangle = Rectangle(id: id, origin: point, size: size, backGroundColor: rgb, alpha: alpha)
+        let testRectangle = PlaneRectangle(id: id, origin: point, size: size, rgb: rgb, alpha: alpha)
         sut.addRectangle(rectangle: testRectangle)
-        sut.findSeletedRectangle(x: round(testRectangle.origin.x), y: round(testRectangle.origin.y))
+        sut.findSeletedRectangle(x: round(testRectangle.origin.x), y: round(testRectangle.origin.y), size: size)
         
         let testAlpha = Alpha(2.3)
         sut.change(alpha: testAlpha)
@@ -43,9 +43,9 @@ class DrawingAppTests: XCTestCase {
         let rgb = RGB(red: 10, green: 10, blue: 10)
         let alpha = Alpha.random()
         
-        let testRectangle = Rectangle(id: id, origin: point, size: size, backGroundColor: rgb, alpha: alpha)
+        let testRectangle = PlaneRectangle(id: id, origin: point, size: size, rgb: rgb, alpha: alpha)
         sut.addRectangle(rectangle: testRectangle)
-        sut.findSeletedRectangle(x: round(testRectangle.origin.x), y: round(testRectangle.origin.y))
+        sut.findSeletedRectangle(x: round(testRectangle.origin.x), y: round(testRectangle.origin.y), size: size)
         
         let testRGB = RGB(red: 10, green: 11, blue: 12)
         sut.change(color: testRGB)
@@ -60,7 +60,7 @@ class DrawingAppTests: XCTestCase {
         let rgb = RGB.random()
         let alpha = Alpha.random()
         
-        let testRectangle = Rectangle(id: id, origin: point, size: size, backGroundColor: rgb, alpha: alpha)
+        let testRectangle = PlaneRectangle(id: id, origin: point, size: size, rgb: rgb, alpha: alpha)
         
         sut.addRectangle(rectangle: testRectangle)
         
@@ -75,7 +75,7 @@ class DrawingAppTests: XCTestCase {
         let rgb = RGB.random()
         let alpha = Alpha(0.5)
 
-        let testRectangle = Rectangle(id: id, origin: point, size: size, backGroundColor: rgb, alpha: alpha)
+        let testRectangle = PlaneRectangle(id: id, origin: point, size: size, rgb: rgb, alpha: alpha)
         let x = round(testRectangle.origin.x)
         let y = round(testRectangle.origin.y)
 
@@ -84,12 +84,12 @@ class DrawingAppTests: XCTestCase {
         let correctKey = Point(x: x, y: y)
         let inCorrectKey = Point(x: 12.456, y: 15.234)
 
-        sut.findSeletedRectangle(x: correctKey.x, y: correctKey.y)
+        sut.findSeletedRectangle(x: correctKey.x, y: correctKey.y, size: size)
         sut.change(alpha: Alpha(0.1))
         
         XCTAssertTrue(testRectangle.alpha == Alpha(0.1))
         
-        sut.findSeletedRectangle(x: inCorrectKey.x, y: inCorrectKey.y)
+        sut.findSeletedRectangle(x: inCorrectKey.x, y: inCorrectKey.y, size: size)
         sut.change(alpha: Alpha(0.7))
         
         XCTAssertFalse(testRectangle.alpha == Alpha(0.7))
