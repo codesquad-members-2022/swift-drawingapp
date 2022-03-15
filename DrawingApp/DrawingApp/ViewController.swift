@@ -10,6 +10,7 @@ import UIKit
 class ViewController: UIViewController {
     
     var plane = Plane()
+    var selectedShape: Shape? = nil
     let shapeFactory = ShapeFactory()
     
     @IBOutlet weak var rectangleButton: UIButton!
@@ -42,7 +43,10 @@ class ViewController: UIViewController {
         print(randomX, randomY)
         let rectangle = shapeFactory.createRandomRectangle(point: Point(x: Double(randomX), y: Double(randomY)))
         let rectangleView = UIView(frame: CGRect(x: randomX, y: randomY, width: 150, height: 120))
-        rectangleView.backgroundColor = .blue
+        rectangleView.backgroundColor = UIColor(red: CGFloat(Double.random(in: 0...255) / 255),
+                                                green: CGFloat(Double.random(in: 0...255) / 255),
+                                                blue: CGFloat(Double.random(in: 0...255) / 255),
+                                                alpha: CGFloat(Double.random(in: 1...10) / 10))
         self.view.addSubview(rectangleView)
         plane.addRectangle(rectangle)
     }
