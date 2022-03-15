@@ -9,20 +9,10 @@ import Foundation
 import UIKit
 
 
-protocol PanelViewDelegate {
-    func didTabRondomizeColor()
-    func didTabChangeAlpha(sender : UIStepper)
-}
-
-protocol Observer {
-    func updateAlpha(newAlphaValue : Double)
-    func updateRomdomizeColorButton(newColor : String)
+class PanelView : UIView  {
     
-}
-class PanelView : UIView , Observer {
-    
-    private var colorRondomizeButton : UIButton!
-    private var alphaStepper : UIStepper!
+    var colorRondomizeButton : UIButton!
+    var alphaStepper : UIStepper!
     
     private var alphaLabel : UILabel!
     private var colorTitleLabel : UILabel!
@@ -30,7 +20,7 @@ class PanelView : UIView , Observer {
     private let defaultAlphaValue = "0"
     private let defaultColorValue = "#000000"
 
-    var delegate : PanelViewDelegate?
+//    var delegate : PanelViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -97,8 +87,7 @@ class PanelView : UIView , Observer {
         self.colorRondomizeButton = UIButton()
         self.alphaStepper = UIStepper()
         
-        colorRondomizeButton.addTarget(target, action: #selector(didTabColorRondomizeButton), for: .touchUpInside)
-        alphaStepper.addTarget(target, action: #selector(didTabAlphaStepper), for: .valueChanged)
+       
         
         alphaStepper.minimumValue = 1
         alphaStepper.maximumValue = 10
@@ -114,12 +103,6 @@ class PanelView : UIView , Observer {
     }
     
     
-    @objc func didTabColorRondomizeButton(sender: UIButton) {
-        delegate?.didTabRondomizeColor()
-        
-    }
-    @objc func didTabAlphaStepper(sender: UIStepper) {
-        delegate?.didTabChangeAlpha(sender: sender)
-    }
+   
     
 }

@@ -9,17 +9,7 @@ import Foundation
 import OSLog
 import UIKit
 
-
-protocol PlaneDelegate {
-//    func didAppendModel(model: Model?)
-    func didSelectModel(currentModel: Model?, previousModel : Model?)
-    func didRandomizeColor(model : Model)
-    func didChangeAlpha(model: Model)
-    
-}
-
 class Plane {
-    var delegate : PlaneDelegate?
     private var models = [Model]()
     private let size: Size
     private let point: Point
@@ -29,7 +19,8 @@ class Plane {
             if selectedModel != oldValue {
                 oldValue?.configureSelected(to: false)
             }
-            delegate?.didSelectModel(currentModel: selectedModel, previousModel : oldValue)
+            NotificationCenter.default.post(name: .DidSelectModel, object: self, userInfo: [UserInfo.currentModel: selectedModel as Any, UserInfo.previousModel: oldValue as Any]
+            )
         }
     }
     var numberOfModel : Int {
@@ -74,13 +65,13 @@ class Plane {
     func randomizeColorOnSelectedModel(){
         guard let targetModel = selectedModel else{return}
         targetModel.updateColor(RandomGenerator.makeColor())
-        delegate?.didRandomizeColor(model: targetModel)
+        NotificationCenter.default.post(name: .DidChangeColor, object: self, userInfo: [UserInfo.model : targetModel])
     }
     
     func changeAlphaOnSelectedModel(to alpha: Alpha?){
         guard let newAlpha = alpha , let targetModel = selectedModel else{return}
         targetModel.updateAlpha(newAlpha)
-        delegate?.didChangeAlpha(model: targetModel)
+        NotificationCenter.default.post(name: .DidChangeAlpha, object: self, userInfo: [UserInfo.model : targetModel])
     }
 
 }
