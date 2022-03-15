@@ -16,45 +16,54 @@
                         <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RCz-wr-TeS" userLabel="AddButtonView">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RCz-wr-TeS" userLabel="AddButtonView">
                                 <rect key="frame" x="470" y="680" width="240" height="120"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f7g-y3-1RO" userLabel="ButtonForAdd">
-                                        <rect key="frame" x="72" y="12" width="96" height="96"/>
-                                        <color key="backgroundColor" systemColor="systemFillColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" secondItem="f7g-y3-1RO" secondAttribute="height" multiplier="1:1" id="2SG-7U-ob1"/>
-                                        </constraints>
-                                        <color key="tintColor" systemColor="labelColor"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" title="Add"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="8"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <action selector="buttonForAddTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="UB5-GV-AgJ"/>
-                                        </connections>
-                                    </button>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="2Z2-Vx-RxE">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="120"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f7g-y3-1RO" userLabel="ButtonForAdd">
+                                                <rect key="frame" x="0.0" y="0.0" width="119.5" height="120"/>
+                                                <color key="backgroundColor" systemColor="systemGray4Color"/>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Add"/>
+                                                <connections>
+                                                    <action selector="buttonForAddRectangleTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vSR-Mq-NEt"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="58C-wR-yXp">
+                                                <rect key="frame" x="120.5" y="0.0" width="119.5" height="120"/>
+                                                <color key="backgroundColor" systemColor="systemGray4Color"/>
+                                                <color key="tintColor" systemColor="labelColor"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="Photo"/>
+                                                <connections>
+                                                    <action selector="buttonForAddPhotoTouchUpInside:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uKW-bP-mBq"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </stackView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" systemColor="systemGray2Color"/>
                                 <constraints>
-                                    <constraint firstItem="f7g-y3-1RO" firstAttribute="centerY" secondItem="RCz-wr-TeS" secondAttribute="centerY" id="Dyk-gb-aV2"/>
+                                    <constraint firstAttribute="bottom" secondItem="2Z2-Vx-RxE" secondAttribute="bottom" id="0DE-Cm-gMG"/>
                                     <constraint firstAttribute="width" constant="240" id="JLN-dq-Igb"/>
-                                    <constraint firstItem="f7g-y3-1RO" firstAttribute="height" secondItem="RCz-wr-TeS" secondAttribute="height" multiplier="0.8" id="Lhe-T1-rJ8"/>
-                                    <constraint firstItem="f7g-y3-1RO" firstAttribute="centerX" secondItem="RCz-wr-TeS" secondAttribute="centerX" id="lPP-ki-ucj"/>
+                                    <constraint firstItem="2Z2-Vx-RxE" firstAttribute="leading" secondItem="RCz-wr-TeS" secondAttribute="leading" id="LES-Gp-XDn"/>
+                                    <constraint firstAttribute="trailing" secondItem="2Z2-Vx-RxE" secondAttribute="trailing" id="mPE-Db-fZk"/>
+                                    <constraint firstItem="2Z2-Vx-RxE" firstAttribute="top" secondItem="RCz-wr-TeS" secondAttribute="top" id="ola-IS-7a1"/>
                                     <constraint firstAttribute="height" constant="120" id="y0T-Of-Mxc"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                        <real key="value" value="2"/>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" systemColor="systemGrayColor"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                        <real key="value" value="6"/>
+                                        <integer key="value" value="8"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" systemColor="separatorColor"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <integer key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -166,7 +175,9 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="addButtonView" destination="RCz-wr-TeS" id="KSD-d0-W1e"/>
                         <outlet property="buttonSetRandomColor" destination="2ng-xD-0wc" id="m1t-47-bxt"/>
+                        <outlet property="panelView" destination="xbT-UA-4L1" id="oez-2f-SBl"/>
                         <outlet property="sliderSetAlpha" destination="wPH-ZG-4QO" id="Py8-0j-UDb"/>
                     </connections>
                 </viewController>
@@ -210,6 +221,12 @@
         </systemColor>
         <systemColor name="systemFillColor">
             <color red="0.47058823529411764" green="0.47058823529411764" blue="0.50196078431372548" alpha="0.20000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray2Color">
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

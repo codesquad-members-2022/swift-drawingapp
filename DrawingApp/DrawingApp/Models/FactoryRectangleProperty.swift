@@ -14,9 +14,9 @@ typealias RectangleDefaultSize = FactoryRectangleProperty.DefaultSize
 final class FactoryRectangleProperty: RectanglePropertyCreator {
     
     // MARK: - Make Model Of View.
-    func makeRandomRectangleModel(as name: String, rectangleRect: RectangleRect) -> RectangleProperty? {
+    func makeRandomRectangleModel(as name: String, rect: RectangleRect, hasViewProperty: Bool = false) -> RectangleProperty? {
         
-        let randomLocationProperties = getRandomPoint(from: rectangleRect)
+        let randomLocationProperties = getRandomPoint(from: rect)
         let randomColor = getRandomColor()
         let randomID = getRandomId()
         let randomAlpha = getRandomAlpha()
@@ -26,7 +26,8 @@ final class FactoryRectangleProperty: RectanglePropertyCreator {
             using: randomID,
             from: randomLocationProperties,
             color: randomColor,
-            alpha: randomAlpha
+            alpha: randomAlpha,
+            hasViewProperty: hasViewProperty
         )
     }
     

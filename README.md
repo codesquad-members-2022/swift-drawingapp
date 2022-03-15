@@ -329,17 +329,20 @@ addObserver 시 Name, Object는 모두 nil이 될 수 있습니다. 그러므로
 
 ---
 
-## Step 4 - Add Photo
+## Step 4 - Add Photo (완료: 2022.03.15 19:30)
 
 ### 추가할 기능
 
-* 디바이스 사진 앨범에서 사진을 가져와서 추가할 수 있는 버튼을 Add 버튼 옆에 추가한다.
+* 디바이스 사진 앨범에서 사진을 가져와서 추가할 수 있는 버튼을 Add 버튼 옆에 추가한다. (PhotoPicker 이용)
 * 사진은 기존의 사각형과 동일하게 작동하지만, 배경색에 대해서는 인터페이스 제공하지 않는다.
 
-### 정리해 볼 사항
+### 앱이 요구하는 권한
 
-* 사진을 가져오기 위한 권한을 상세히 알아본다.
+현재는 필요한 권한인 NSPhotoLibraryUsageDescription 만 정의하였습니다.
+
+1. NSPhotoLibraryAddUsageDescription(Privacy - Photo Library Additions Usage Description) = 사진 앱에 사진 등의 에셋을 추가하는 권한을 앱에 부여할 때 넣을 설명을 정의해둡니다.
+2. NSPhotoLibraryUsageDescription(Privacy - Photo LibraryUsageDescription) = 사진 앱의 모든 에셋에 접근하고 사용하려 할 때 넣을 설명을 정의한다.
 
 ### 결과 화면
 
-[Add 버튼 옆에 사진 버튼을 추가하고 동작화면을 캡처]
+<img src="DrawingApp/IMAGES/Step4_Result4.jpg" alt="Step4_Result4" width="500" />
