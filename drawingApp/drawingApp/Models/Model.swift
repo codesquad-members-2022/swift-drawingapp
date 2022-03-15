@@ -29,6 +29,9 @@ protocol Drawable {
     var point : Point {get}
     var color : Color {get}
     var alpha : Alpha {get}
+}
+
+protocol Modellable : Drawable {
     var isSelected : Bool {get}
     func updateColor (_ color: Color)
     func updateAlpha (_ alpha: Alpha)
@@ -38,9 +41,8 @@ protocol Drawable {
 }
 
 
-
 //뷰에 나타날 사각형의 데이터.
-class Model : Drawable  {
+class Model : Modellable  {
         
     //사각형에 대한 모든 속성을 가지고 있다
     let id : String
