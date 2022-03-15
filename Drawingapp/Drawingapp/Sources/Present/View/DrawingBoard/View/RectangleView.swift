@@ -8,11 +8,11 @@
 import Foundation
 import UIKit
 
-class RectangleView: DrawingView, Colorable {
+class RectangleView: DrawingView {
     required init(model: DrawingModel) {
         super.init(model: model)
-        if let rectangleModel = model as? RectangleModel {
-            self.update(color: rectangleModel.color)
+        if let colorable = model as? Colorable {
+            self.update(color: colorable.color)
         }
     }
     

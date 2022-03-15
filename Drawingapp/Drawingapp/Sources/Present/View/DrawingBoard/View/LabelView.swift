@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class LabelView: DrawingView, Textable {
+class LabelView: DrawingView {
     private let labelView: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -20,10 +20,10 @@ class LabelView: DrawingView, Textable {
     
     required init(model: DrawingModel) {
         super.init(model: model)
-        if let labelModel = model as? LabelModel {
-            self.update(text: labelModel.text)
-            self.update(font: labelModel.font)
-            self.update(fontColor: labelModel.fontColor)
+        if let textable = model as? Textable {
+            self.update(text: textable.text)
+            self.update(font: textable.font)
+            self.update(fontColor: textable.fontColor)
         }
     }
     
