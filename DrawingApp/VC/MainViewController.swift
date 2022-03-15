@@ -11,7 +11,6 @@ import os
 class MainViewController: UIViewController{
     private var plane = Plane()
     private let rectFactory = RectangleFactory()
-    private let viewFactory = CustomViewFactory()
     private let rightAttributerView = RightAttributerView()
     private let imagePicker = UIImagePickerController()
     
@@ -52,11 +51,11 @@ extension MainViewController{
     }
     
     @objc func addRectangleView(_ notification: Notification){
-        guard let rectangleValue = notification.userInfo?[Plane.NotificationName.userInfoKeyRectangle] as? Rectangle else { return }
+        guard let rectangleValue = notification.userInfo?[Plane.NotificationName.userInfoKey] as? Rectangle else { return }
         
-        let rectangleView = viewFactory.makeViewFrame(value: rectangleValue)
-        rectangleView.backgroundColor = viewFactory.setRectangleViewBackgroundColor(value: rectangleValue)
-        rectangleView.restorationIdentifier = viewFactory.setViewID(value: rectangleValue)
+        let rectangleView = CustomViewFactory.makeViewFrame(value: rectangleValue)
+        rectangleView.backgroundColor = CustomViewFactory.setRectangleViewBackgroundColor(value: rectangleValue)
+        rectangleView.restorationIdentifier = CustomViewFactory.setViewID(value: rectangleValue)
         
         self.view.addSubview(rectangleView)
         customUIViews[rectangleValue] = rectangleView
@@ -87,13 +86,13 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
     }
     
     @objc func addImageRectangleView(_ notification: Notification){
-        guard let imageValue = notification.userInfo?[Plane.NotificationName.userInfoKeyImage] as? Image else { return }
+        guard let imageValue = notification.userInfo?[Plane.NotificationName.userInfoKey] as? Image else { return }
         
-        let imageView = viewFactory.makeViewFrame(value: imageValue)
+        let imageView = CustomViewFactory.makeViewFrame(value: imageValue)
         
-        imageView.alpha = viewFactory.setImageViewAlpha(value: imageValue)
-        imageView.image = viewFactory.setImageViewInnerImage(value: imageValue)
-        imageView.restorationIdentifier = viewFactory.setViewID(value: imageValue)
+        imageView.alpha = CustomViewFactory.setImageViewAlpha(value: imageValue)
+        imageView.image = CustomViewFactory.setImageViewInnerImage(value: imageValue)
+        imageView.restorationIdentifier = CustomViewFactory.setViewID(value: imageValue)
         
         self.view.addSubview(imageView)
         customUIViews[imageValue] = imageView
@@ -113,9 +112,7 @@ extension MainViewController{
     }
     
     private func addGestureRecognizerObserver(){
-        NotificationCenter.default.addObserver(self, selector: #selector(showRectangleTouchedView(_:)), name: Plane.NotificationName.selectRectangle, object: plane)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(showImageTouchedView(_:)), name: Plane.NotificationName.selectImage, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(showTouchedCustomView(_:)), name: Plane.NotificationName.selectValue, object: plane)
     }
     
     private func addNoneTappedViewObserver(){
@@ -134,8 +131,8 @@ extension MainViewController {
         return
     }
     
-    @objc func showRectangleTouchedView(_ notification: Notification){
-        guard let rectangle = notification.userInfo?[Plane.NotificationName.userInfoKeyRectangle] as? Rectangle else{
+    @objc func showTouchedCustomView(_ notification: Notification){
+        guard let value = notification.userInfo?[Plane.NotificationName.userInfoKey] as? RectValue else{
             return
         }
         
@@ -143,23 +140,9 @@ extension MainViewController {
             noneTouchedViewFrame()
         }
         
-        displaySliderValue(selected: rectangle)
-        touchedViewFrame(selected: rectangle)
-        plane.getSelectedValue(value: rectangle)
-    }
-    
-    @objc func showImageTouchedView(_ notification: Notification){
-        guard let image = notification.userInfo?[Plane.NotificationName.userInfoKeyImage] as? Image else{
-            return
-        }
-        
-        if let _ = plane.selectedValue{
-            noneTouchedViewFrame()
-        }
-        
-        displaySliderValue(selected: image)
-        touchedViewFrame(selected: image)
-        plane.getSelectedValue(value: image)
+        displaySliderValue(selected: value)
+        touchedViewFrame(selected: value)
+        plane.getSelectedValue(value: value)
     }
     
     @objc private func showNonTouchedView(){
@@ -241,7 +224,7 @@ extension MainViewController {
             return
         }
         
-        panGestureExtraView = viewFactory.copyExtraView(view: view)
+        panGestureExtraView = CustomViewFactory.copyExtraView(view: view)
         
         if let extraView = panGestureExtraView{
             self.view.addSubview(extraView)

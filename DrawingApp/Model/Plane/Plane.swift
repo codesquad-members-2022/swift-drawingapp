@@ -10,14 +10,11 @@ import Foundation
 final class Plane{
     enum NotificationName{
         static let makeRectangle = Notification.Name("makeRectangle")
-        static let selectRectangle = Notification.Name("selectRectangle")
-        static let userInfoKeyRectangle: String = "rectangle"
-        
         static let makeImage = Notification.Name("makeImage")
-        static let selectImage = Notification.Name("selectImage")
-        static let userInfoKeyImage: String = "image"
-        
+        static let selectValue = Notification.Name("selectValue")
         static let noneSelect = Notification.Name("noneSelect")
+        
+        static let userInfoKey: String = "rectValue"
     }
     
     private var values: [RectValue] = []
@@ -32,12 +29,12 @@ final class Plane{
     
     func addValue(rectangle: Rectangle){
         self.values.append(rectangle)
-        NotificationCenter.default.post(name: Plane.NotificationName.makeRectangle, object: self, userInfo: [Plane.NotificationName.userInfoKeyRectangle : rectangle])
+        NotificationCenter.default.post(name: Plane.NotificationName.makeRectangle, object: self, userInfo: [Plane.NotificationName.userInfoKey : rectangle])
     }
     
     func addValue(image: Image){
         self.values.append(image)
-        NotificationCenter.default.post(name: Plane.NotificationName.makeImage, object: self, userInfo: [Plane.NotificationName.userInfoKeyImage : image])
+        NotificationCenter.default.post(name: Plane.NotificationName.makeImage, object: self, userInfo: [Plane.NotificationName.userInfoKey : image])
     }
     
     func count() -> Int{
@@ -65,10 +62,8 @@ final class Plane{
             break
         }
         
-        if let rectangle = findedValue as? Rectangle{
-            NotificationCenter.default.post(name: Plane.NotificationName.selectRectangle, object: self, userInfo: [Plane.NotificationName.userInfoKeyRectangle : rectangle])
-        } else if let image = findedValue as? Image{
-            NotificationCenter.default.post(name: Plane.NotificationName.selectImage, object: self, userInfo: [Plane.NotificationName.userInfoKeyImage : image])
+        if let value = findedValue{
+            NotificationCenter.default.post(name: Plane.NotificationName.selectValue, object: self, userInfo: [Plane.NotificationName.userInfoKey : value])
         } else{
             NotificationCenter.default.post(name: Plane.NotificationName.noneSelect, object: self)
         }

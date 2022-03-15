@@ -7,12 +7,18 @@
 
 import UIKit
 
-final class RectangleView: UIView{
+final class RectangleView: UIView, NSCopying{
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    func copy(with zone: NSZone? = nil) -> Any {
+        let rectangleView = RectangleView(frame: self.frame)
+        rectangleView.backgroundColor = self.backgroundColor
+        return rectangleView
     }
 }
