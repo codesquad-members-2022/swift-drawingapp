@@ -8,11 +8,11 @@
 import Foundation
 import UIKit
 
-class RectangleView: UIView{
-    init(size: ViewSize, point: ViewPoint){
-        super.init(frame: CGRect(x: point.x, y: point.y, width: size.width, height: size.height))
+class RectangleView: CustomBaseView{
+    override init(size: ViewSize, point: ViewPoint){
+        super.init(size: size, point: point)
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
@@ -21,8 +21,6 @@ class RectangleView: UIView{
         backgroundColor = UIColor(cgColor: CGColor(red: CGFloat(rgb.r)/255, green: CGFloat(rgb.g)/255, blue: CGFloat(rgb.b)/255, alpha: 1))
     }
     
-    func setAlpha(alpha: Double){
-        self.alpha = alpha
-    }
+    
 }
 
