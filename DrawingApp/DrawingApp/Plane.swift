@@ -1,12 +1,11 @@
 import Foundation
 
-//TODO: 델리게이트 네이밍을 통일된 기준으로 만들기
 protocol RectangleAddedDelegate {
-    func didMakeRectangle(rectangle : Rectangle)
+    func made(rectangle : Rectangle)
 }
 
 protocol RectangleTouchedDelegate {
-    func touchedRectangle(rectangle: Rectangle)
+    func touched(rectangle: Rectangle)
 }
 
 protocol RectangleColorChangeDelegate {
@@ -17,54 +16,45 @@ protocol RectangleAlaphaChangeDelegate {
 }
 
 class Plane {
-    private var rectangleArray: [Rectangle] = []
+    private var rectangles: [Rectangle] = []
 
     var addedRectangleDelegate :RectangleAddedDelegate?
-    var touchedRectangleDelegate : RectangleTouchedDelegate?
+    var rectangleTapDelegate : RectangleTouchedDelegate?
     var colorDelegate: RectangleColorChangeDelegate?
     var alphaDelegate: RectangleAlaphaChangeDelegate?
     
     var rectangleCount: Int {
-        return rectangleArray.count
+        return rectangles.count
     }
-    
-    var boundsOfRectangles: [Rectangle.Bound] {
-        var bounds: [Rectangle.Bound] = []
-        for rectangle in rectangleArray {
-            bounds.append(rectangle.rangeOfPoint())
-        }
-        return bounds
-    }
+
     
     func addRectangle() {
         let rectangle: Rectangle = Factory.createRandomRectangle()
-        rectangleArray.append(rectangle)
+        rectangles.append(rectangle)
         
-        addedRectangleDelegate?.didMakeRectangle(rectangle: rectangle)
+        addedRectangleDelegate?.made(rectangle: rectangle)
     }
     
     subscript(index: Int) -> Rectangle {
-        return rectangleArray[index]
+        return rectangles[index]
     }
     
-    func isTouchedOnRectangle(at point: Rectangle.Point) -> (bool: Bool, index: Int) {
-        var index = 0
-        for bound in boundsOfRectangles {
-            if bound.rangeOfX.contains(point.x) && bound.rangeOfY.contains(point.y) {
-                return (true, index)
-            } else {
-                index += 1
+    //MARK: Bound Gate
+    func isTouchedOnRectangle(at point: Rectangle.Point) -> Rectangle? {
+        var optionalRectangle: Rectangle?
+        for rectangle in rectangles {
+            if rectangle.isIncluded(point: point) {
+                optionalRectangle = rectangle
             }
         }
-        return (false,99999)
+        return optionalRectangle
     }
     
     func touchedRectangle(at point: Rectangle.Point) {
-        let touchedResult = isTouchedOnRectangle(at: point)
-        guard touchedResult.bool == true else {
+        guard let rectangle = isTouchedOnRectangle(at: point) else {
             return
         }
-        touchedRectangleDelegate?.touchedRectangle(rectangle: rectangleArray[touchedResult.index])
+        self.rectangleTapDelegate?.touched(rectangle: rectangle)
     }
     
     func changeColorOfRectangle(_ rectangle: Rectangle) {
@@ -72,6 +62,7 @@ class Plane {
         let newRectangle = oldRectangle.changeColor()
         self.colorDelegate?.didChangeColor(rectangle: newRectangle)
     }
+    
     func changeAlpha(_ rectangle: Rectangle, _ alpha: Int) {
         var willChangeRectangle = rectangle
         willChangeRectangle = willChangeRectangle.changeAlpha(alpha)
