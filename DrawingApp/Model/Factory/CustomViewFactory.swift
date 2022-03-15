@@ -26,7 +26,7 @@ final class CustomViewFactory{
     }
     
     static func setImageViewInnerImage(value: Image) -> UIImage {
-        return value.image.image
+        return value.showMyImage().showUIImage()
     }
     
     static func setImageViewAlpha(value: Image) -> Double{
@@ -34,21 +34,6 @@ final class CustomViewFactory{
     }
     
     static func setViewID(value: RectValue) -> String{
-        return value.id
-    }
-    
-    static func copyExtraView(view: UIView) -> UIView{
-        var extraView = UIView()
-        
-        if let rectView = view as? RectangleView, let extraRectView = rectView.copy() as? RectangleView{
-            extraRectView.backgroundColor?.withAlphaComponent(1)
-            extraView = extraRectView
-        } else if let imageView = view as? ImageView, let extraImageView = imageView.copy() as? ImageView{
-            extraView = extraImageView
-        }
-        
-        extraView.alpha = 0.5
-        
-        return extraView
+        return value.showValueId()
     }
 }

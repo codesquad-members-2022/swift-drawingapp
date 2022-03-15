@@ -8,7 +8,7 @@
 import Foundation
 
 final class Image: RectValue, CustomStringConvertible{
-    let image: MyImage
+    private let image: MyImage
     
     var description: String{
         let description = "[\(image.imageInfo())] : (X: \(point.x), Y:\(point.y)) / (W: \(size.width), H:\(size.height)) / Alpha: \(alpha)"
@@ -18,5 +18,9 @@ final class Image: RectValue, CustomStringConvertible{
     init(image: MyImage, id: String, size: MySize, point: MyPoint, alpha: Alpha){
         self.image = image
         super.init(id: id, size: size, point: point, alpha: alpha)
+    }
+    
+    func showMyImage() -> MyImage{
+        return image
     }
 }

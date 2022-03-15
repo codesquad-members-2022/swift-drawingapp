@@ -8,19 +8,23 @@
 import Foundation
 
 class RectValue: Hashable{
-    let id: String
-    let madeTime = Date()
+    private let id: String
+    private let madeTime = Date()
     private(set) var size: MySize
     private(set) var point: MyPoint
     private(set) var alpha: Alpha
     
     static func == (lhs: RectValue, rhs: RectValue) -> Bool {
-        return lhs.id == rhs.id && lhs.madeTime == rhs.madeTime
+        return lhs === rhs
     }
     
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
         hasher.combine(madeTime)
+    }
+    
+    func showValueId() -> String{
+        return id
     }
     
     func changePoint(point: MyPoint){
