@@ -10,19 +10,20 @@ class ViewController: UIViewController{
     private var stylerView: StylerView?
     private var plane: Plane = Plane()
     private var rectangleDictionary:[Rectangle.Id:UIView] = [:]
+    private var temporarySelectedRectangleView: UIView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeNotificationCenter()
         initializeAllUIViews()
         setGestureRecognizer()
+        setPanGestureRecognizer()
     }
 
     private func initializeAllUIViews(){
         setCanvasView()
         setStylerView()
     }
-
     
     private func initializeNotificationCenter(){
         NotificationCenter.default.addObserver(self, selector: #selector(rectangleFoundFromPlane(_:)), name: Plane.NotificationName.rectangleFoundFromPlane, object: self.plane)
@@ -30,6 +31,7 @@ class ViewController: UIViewController{
         NotificationCenter.default.addObserver(self, selector: #selector(addingRectangleCompleted(_:)), name: Plane.NotificationName.rectangleAdded, object: self.plane)
         NotificationCenter.default.addObserver(self, selector: #selector(updateSelectedRecntalgeViewColor(_:)), name: Plane.NotificationName.rectangleColorUpdated , object: self.plane)
         NotificationCenter.default.addObserver(self, selector: #selector(updateSelectedRectangleViewAlpha(_:)), name: Plane.NotificationName.rectangleAlphaUpdated, object: self.plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateSelectedRectangleViewPoint(_:)), name: Plane.NotificationName.rectanglePointUpdated, object: self.plane)
     }
     
     private func setGestureRecognizer(){
@@ -38,6 +40,14 @@ class ViewController: UIViewController{
         gestureRecognizer.delegate = self
         canvasView.addGestureRecognizer(gestureRecognizer)
     }
+    
+    private func setPanGestureRecognizer(){
+        guard let canvasView = self.canvasView else { return }
+        let gestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handleAction(_:)))
+        canvasView.isUserInteractionEnabled = true
+        canvasView.addGestureRecognizer(gestureRecognizer)
+    }
+
     
     private func setCanvasView(){
         let frame = CGRect(x: self.view.frame.minX,
@@ -140,18 +150,54 @@ class ViewController: UIViewController{
         
         canvasView.updateSelectedRectangleOpacity(opacity: opacity)
     }
+    
+    @objc func updateSelectedRectangleViewPoint(_ notification: Notification){
+        guard let canvasView = self.canvasView else { return }
+        guard let selectedRectangle = notification.userInfo?[Plane.UserInfoKey.rectanglePointUpdated] as? Rectangle else { return }
+        canvasView.updateSelectedRectanglePoint(point:CGPoint(x: selectedRectangle.point.x, y: selectedRectangle.point.y))
+    }
 
 }
 
 extension ViewController: UIGestureRecognizerDelegate{
+
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         let touchedPoint = touch.location(in: self.canvasView)
         self.plane.findMatchingRectangleModel(x: touchedPoint.x, y: touchedPoint.y)
-        
         return true
     }
+    
+    
+    @objc private func handleAction(_ sender: UIPanGestureRecognizer){
+        guard let canvasView = canvasView else { return }
+        let location = sender.location(in: canvasView)
+   
+        switch sender.state{
+        case .began:
+            guard let rectangle: Rectangle = self.plane[location.x, location.y] else { return }
+            if let view = RectangleViewFactory.copyRectangleView(rectangle: rectangle){
+                self.temporarySelectedRectangleView = view
+                canvasView.addSubview(view)
+            }
+        case .changed:
+            if let view = self.temporarySelectedRectangleView{
+                view.frame.origin = CGPoint(x: location.x, y: location.y)
+                view.alpha = 0.5
+            }
+        case .ended:
+            if let view = self.temporarySelectedRectangleView{
+                self.plane.updateSelectedRectanglePoint(x: view.frame.origin.x, y: view.frame.origin.y)
+                view.removeFromSuperview()
+            }
+            self.temporarySelectedRectangleView = nil
+        default:
+            return
+        }
+    }
+    
 }
+
 
 extension ViewController: CanvasViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
