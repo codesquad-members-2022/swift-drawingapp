@@ -11,7 +11,7 @@ class Size {
     var Width: Double
     var Height: Double
 
-    init(_ width: Double, _ height: Double) {
+    init(width: Double, height: Double) {
         self.Width = width
         self.Height = height
     }
