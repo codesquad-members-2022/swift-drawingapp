@@ -11,7 +11,7 @@ import OSLog
 class ViewController: UIViewController {
     
     //Model
-    private var plane : Plane?
+    private var plane : ModelManagable?
     
     //Views
     private let rectangleGenerationButton = UIButton()
