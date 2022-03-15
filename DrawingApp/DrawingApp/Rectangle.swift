@@ -1,5 +1,15 @@
 import Foundation
 
+extension Rectangle.Point : Hashable {
+    static func ==(lhs: Rectangle.Point, rhs: Rectangle.Point) -> Bool {
+        return lhs.x == rhs.x && lhs.y == rhs.y
+    }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(self.x)
+        hasher.combine(self.y)
+    }
+}
+
 struct Rectangle: CustomStringConvertible {
     enum Alpha: Int {
         case one = 1
@@ -125,28 +135,19 @@ struct Rectangle: CustomStringConvertible {
             self.y = y
         }
     }
-
-    var description: String {
-        return "(\(self.id)), X:\(self.point.x), Y:\(self.point.y), W\(self.size.width), H\(self.size.height), R\(self.color.R), G\(self.color.G), B\(self.color.B), Alpha: \(self.alpha.rawValue)"
-    }
     
-    private let id: String
-    private let point: Point
-    private let size : Size
-    private var color: BackgroundColor
-    private var alpha: Alpha
+    private(set) var id: String
+    private(set) var point: Point
+    private(set) var size : Size
+    private(set) var color: BackgroundColor
+    private(set) var alpha: Alpha
     
-    func getPoint() -> Point {
-        return point
-    }
-    func getSize() -> Size {
-        return size
-    }
-    func getColor() -> BackgroundColor {
-        return color
-    }
-    func getAlpha() -> Alpha {
-        return alpha
+    init(id: String, point: Point, size: Size, color : BackgroundColor, alpha: Alpha) {
+        self.id = id
+        self.point = point
+        self.size = size
+        self.color = color
+        self.alpha = alpha
     }
     
     func rangeOfPoint() -> Bound {
@@ -155,12 +156,8 @@ struct Rectangle: CustomStringConvertible {
         return Bound(rangeOfX: boundOfX, rangeOfY: boundOfY)
     }
     
-    init(id: String, point: Point, size: Size, color : BackgroundColor, alpha: Alpha) {
-        self.id = id
-        self.point = point
-        self.size = size
-        self.color = color
-        self.alpha = alpha
+    var description: String {
+        return "(\(self.id)), X:\(self.point.x), Y:\(self.point.y), W\(self.size.width), H\(self.size.height), R\(self.color.R), G\(self.color.G), B\(self.color.B), Alpha: \(self.alpha.rawValue)"
     }
 }
 
@@ -178,8 +175,17 @@ extension Rectangle {
         self.color.random()
         return self
     }
+    
     mutating func changeAlpha(_ alpha: Int) -> Rectangle {
         self.alpha.change(alpha)
         return self
+    }
+    
+    func isIncluded(point: Point) -> Bool{
+        let bound = rangeOfPoint()
+        if bound.rangeOfX.contains(point.x) && bound.rangeOfY.contains(point.y) {
+            return true
+        }
+        return false
     }
 }
