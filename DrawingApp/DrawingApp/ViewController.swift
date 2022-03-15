@@ -229,7 +229,7 @@ extension ViewController {
     }
     
     private func updateBackgroundColorButton(with rectangle: AnyRectangularable) {
-        backgroundColorButton.isHidden = rectangle.backgroundColorButtonShouldBecomeHidden
+        backgroundColorButton.isHidden = !(rectangle is BackgroundColorChangable)
         let currentAlphaValue = rectangle.alpha.value
         
         guard let rectangle = rectangle as? BackgroundColorChangable else {return}

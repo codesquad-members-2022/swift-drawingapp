@@ -12,7 +12,6 @@ protocol Rectangularable {
     var size: Size {get}
     var point: Point {get}
     var alpha: Alpha {get}
-    var backgroundColorButtonShouldBecomeHidden: Bool {get}
     func isPointInArea(_ point: Point) -> Bool
     func changeAlphaValue(to newAlpha: Alpha)
 }
@@ -22,10 +21,6 @@ class AnyRectangularable: Rectangularable {
     private(set) var size: Size
     private(set) var point: Point
     private(set) var alpha: Alpha
-    
-    var backgroundColorButtonShouldBecomeHidden: Bool {
-        return false
-    }
     
     init(size: Size, point: Point, alpha: Alpha) {
         self.id = ID()
