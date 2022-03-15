@@ -19,22 +19,26 @@ final class RectangleProperty: RectanglePropertyCreator {
     private(set) var rgbValue: RectRGBColor
     private(set) var alpha: Double
     
-    init(as name: String, using id: String, at point: RectOrigin, size: RectSize, color: RectRGBColor, alpha: Double) {
+    private(set) var hasViewProperty = false
+    
+    init(as name: String, using id: String, at point: RectOrigin, size: RectSize, color: RectRGBColor, alpha: Double, hasViewProperty: Bool = false) {
         self.name = name
         self.id = id
         self.point = point
         self.size = size
         self.rgbValue = color
         self.alpha = alpha
+        self.hasViewProperty = hasViewProperty
     }
     
-    init(as name: String, using id: String, from properties: RectangleRect, color: RectRGBColor, alpha: Double) {
+    init(as name: String, using id: String, from properties: RectangleRect, color: RectRGBColor, alpha: Double, hasViewProperty: Bool = false) {
         self.name = name
         self.id = id
         self.point = RectOrigin(x: properties.maxX, y: properties.maxY)
         self.size = RectSize(width: properties.width, height: properties.height)
         self.rgbValue = color
         self.alpha = alpha
+        self.hasViewProperty = hasViewProperty
     }
     
     // MARK: - Setter/Getter in model

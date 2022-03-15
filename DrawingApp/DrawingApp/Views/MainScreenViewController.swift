@@ -19,7 +19,7 @@ final class MainScreenViewController: UIViewController, UIGestureRecognizerDeleg
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(
-            forName: Plane.addButtonPushed,
+            forName: Plane.addViewButtonPushed,
             object: rectangleDelegate,
             queue: .current
         ) { [weak self] noti in
@@ -96,7 +96,7 @@ final class MainScreenViewController: UIViewController, UIGestureRecognizerDeleg
             return
         }
         
-        let rect = Rectangle(model: model, index: index)
+        let rect = Rectangle(model: model, index: index, backgroundImage: (userInfo[.viewProperty] as? UIImage))
         self.rectangleViews.append(rect)
         view.addSubview(rect)
     }
@@ -108,7 +108,7 @@ final class MainScreenViewController: UIViewController, UIGestureRecognizerDeleg
         else { return }
         
         rectangleViews.first(where: {$0.index == index})?
-            .setValue(alpha: Float(model.alpha))
+            .setValue(alpha: model.alpha)
     }
     
     private func setBackgroundColorObserve(_ userInfo: [Plane.PostKey: Any]) {

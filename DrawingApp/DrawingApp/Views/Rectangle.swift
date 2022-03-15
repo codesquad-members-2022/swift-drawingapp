@@ -21,12 +21,17 @@ final class Rectangle: UIView {
     }
     
     /// 모델에 따라 뷰를 만듭니다.
-    convenience init(model: RectangleProperty, index: Int) {
+    convenience init(model: RectangleProperty, index: Int, backgroundImage: UIImage? = nil) {
         let origin = CGPoint(x: model.point.x, y: model.point.y)
         let size = CGSize(width: model.size.width, height: model.size.height)
         self.init(frame: CGRect(origin: origin, size: size))
         self.index = index
-        setBackgroundColor(using: model.rgbValue, alpha: model.alpha)
+        
+        if model.hasViewProperty {
+            addBackgroundImage(using: backgroundImage, alpha: model.alpha)
+        } else {
+            setBackgroundColor(using: model.rgbValue, alpha: model.alpha)
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -38,11 +43,23 @@ final class Rectangle: UIView {
     }
     
     // MARK: - Methods Property Change
-    func setValue(alpha: Float) {
-        backgroundColor = backgroundColor?.withAlphaComponent((CGFloat(alpha / 10)))
+    func setValue(alpha: CGFloat) {
+        if let imageView = subviews.first(where: {type(of: $0) == UIImageView.self}) as? UIImageView {
+            imageView.alpha = alpha/10
+        } else {
+            backgroundColor = backgroundColor?.withAlphaComponent(alpha/10)
+        }
     }
     
     func setBackgroundColor(using color: RectRGBColor, alpha: Double) {
         backgroundColor = color.getColor(alpha: alpha)
+    }
+    
+    func addBackgroundImage(using image: UIImage?, alpha: Double) {
+        let imageView = UIImageView(frame: self.bounds)
+        imageView.contentMode = .scaleToFill
+        imageView.image = image
+        imageView.alpha = alpha/10
+        self.addSubview(imageView)
     }
 }
