@@ -21,6 +21,9 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" image="square" catalog="system" title="사각형"/>
+                                <connections>
+                                    <action selector="drawRectangle:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uWV-St-Uc3"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iqt-Mh-z2L">
                                 <rect key="frame" x="15" y="1071" width="95" height="32"/>
