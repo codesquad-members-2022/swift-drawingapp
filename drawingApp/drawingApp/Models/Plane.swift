@@ -9,10 +9,18 @@ import Foundation
 import OSLog
 import UIKit
 
+protocol ModelManagable {
+    var models : [Model] {get}
+    var modelFactory : ModelProducible {get}
+    func addModel()
+    func selectModel(tapCoordinate: Point)
+    func randomizeColorOnSelectedModel()
+    func changeAlphaOnSelectedModel(to alpha: Alpha?)
+    init(modelFactory : ModelProducible)
+}
 
 
-
-class Plane {
+class Plane : ModelManagable {
     private (set) var models = [Model]()
     private (set) var modelFactory : ModelProducible
     private var selectedModel : Model? {
