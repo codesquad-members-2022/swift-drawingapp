@@ -9,20 +9,18 @@ import UIKit
 
 class RectangleView: UIView {
 
-    override init(frame: CGRect) {
+    init(frame: CGRect, color: Color?, alpha: Alpha) {
         super.init(frame: frame)
+        setAlpha(alpha: alpha)
+        if let color = color {
+            setBackgroundColor(color: color)
+        }
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
     
-    convenience init(from rectangleFrame: CGRect, color: Color, alpha: Alpha) {
-        self.init(frame: rectangleFrame)
-        setBackgroundColor(color: color)
-        setAlpha(alpha: alpha)
-    }
-
     func setAlpha(alpha: Alpha) {
         self.alpha = alpha.transparency
     }

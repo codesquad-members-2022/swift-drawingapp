@@ -15,11 +15,14 @@ class PhotoRectangleView: RectangleView {
         return imageView
     }()
     
-    convenience init(from rectangleFrame: CGRect, imageData: Data, alpha: Alpha) {
-        self.init(frame: rectangleFrame)
+    init(from rectangleFrame: CGRect, imageData: Data, alpha: Alpha) {
+        super.init(frame: rectangleFrame, color: nil, alpha: alpha)
         layoutImageView()
         setImage(imageData: imageData)
-        setAlpha(alpha: alpha)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
     }
     
     private func layoutImageView() {
