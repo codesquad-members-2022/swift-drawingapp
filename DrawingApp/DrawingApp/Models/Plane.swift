@@ -30,19 +30,20 @@ final class Plane: MainSceneTapDelegate {
     private var rectangleModels = [RectangleProperty]()
     private var selectedIndex: Int?
     
+    // MARK: - Initialize Plane & sceneRect
     var sceneRect: RectangleRect!
-    
     init(sceneWidth: Double, sceneHeight: Double) {
-        let defaultSize = (RectangleDefaultSize.width.rawValue, RectangleDefaultSize.height.rawValue)
+        let rectSize = (width: RectangleDefaultSize.width.rawValue, height: RectangleDefaultSize.height.rawValue)
         
         sceneRect = RectangleRect(
-            maxX: (sceneWidth - defaultSize.0),
-            maxY: (sceneHeight - defaultSize.1),
-            width: defaultSize.0,
-            height: defaultSize.1
+            maxX: (sceneWidth - rectSize.width),
+            maxY: (sceneHeight - rectSize.height),
+            width: rectSize.width,
+            height: rectSize.height
         )
     }
     
+    // MARK: - Utility of sending notification
     private func sendNotificationToScreen(using name: Notification.Name, sends model: RectangleProperty, at index: Int) {
         NotificationCenter.default.post(
             name: name,
