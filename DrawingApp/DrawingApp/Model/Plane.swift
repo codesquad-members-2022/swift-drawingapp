@@ -41,18 +41,22 @@ public class Plane {
         )
     }
     
-    func addRectangle(rectangle:PlaneRectangle) {
-        //Double로 만들어지는 Point값이 소수점에서 미세한 차이가 생길 수 있어서 round로 한번 변환을 시켰습니다.
-        let x = round(rectangle.origin.x)
-        let y = round(rectangle.origin.y)
+    //사각형 생성,추가.
+    @discardableResult
+    func addRectangle(creator:RectangleCreator) -> PlaneRectangle{
+        let rect = creator.makeRectangle(type: PlaneRectangle.self) as! PlaneRectangle
+        //Double로 만들어지는 Point값이 소수점에서 미세한 차이가 생길 수 있어서 round로 한번 변환
+        let x = round(rect.origin.x)
+        let y = round(rect.origin.y)
         let key = Point(x: x, y: y)
         
-        rectangles[key] = rectangle
+        rectangles[key] = rect
         NotificationCenter.default.post(
                 name: Plane.NotificationName.didAddRectangle,
                 object: self,
-                userInfo:[Plane.UserInfoKey.addedRectangle: rectangle]
+                userInfo:[Plane.UserInfoKey.addedRectangle: rect]
         )
+        return rect
     }
     
     //특정 좌표에 맞는 retangle을 찾고 seletedRectangle에 대입합니다.
@@ -65,7 +69,7 @@ public class Plane {
         
         let key = Point(x: convertX, y: convertY)
         
-        guard let foundRectangle = rectangles[key] else { return  }
+        guard let foundRectangle = rectangles[key] else { return }
         self.selectedRectangle = foundRectangle
         
         NotificationCenter.default.post(

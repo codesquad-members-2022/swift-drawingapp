@@ -22,9 +22,6 @@ final class MainViewController: UIViewController{
     //선택된 PlaneRectangleView
     private var seletedRectangleView:PlaneRectangleView?
     
-    //factory
-    private var rectanagleCreator:RectangleCreator? = nil
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -36,12 +33,6 @@ final class MainViewController: UIViewController{
         configureTapGesture()
         addViews()
     }
-    
-    //Factory setup
-    private func setupRectangleFactory(creator:RectangleCreator) {
-        self.rectanagleCreator = creator
-    }
-    
     
     //TapGesture
     private func configureTapGesture() {
@@ -88,10 +79,8 @@ final class MainViewController: UIViewController{
     
     //버튼 액션 - 사각형 추가
     private func addRectangleAction(rectangleCreator:RectangleCreator) -> UIAction {
-        setupRectangleFactory(creator:rectangleCreator)
         let action = UIAction {[weak self] _ in
-            let rect = self?.rectanagleCreator?.makeRectangle(type: PlaneRectangle.self)
-            self?.plane.addRectangle(rectangle: rect as! PlaneRectangle)    //모델에 rectangle을 추가
+            self?.plane.addRectangle(creator: rectangleCreator)
         }
         return action
     }
