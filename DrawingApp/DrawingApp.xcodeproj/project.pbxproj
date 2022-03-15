@@ -16,20 +16,23 @@
 		72400F2C27CC5D1800D24138 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72400F2A27CC5D1800D24138 /* Main.storyboard */; };
 		72400F2E27CC5D1900D24138 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 72400F2D27CC5D1900D24138 /* Assets.xcassets */; };
 		72400F3127CC5D1900D24138 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 72400F2F27CC5D1900D24138 /* LaunchScreen.storyboard */; };
-		7272910927D1DEB300361536 /* RectangleChangeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7272910827D1DEB300361536 /* RectangleChangeable.swift */; };
+		726E1FD627E05D2D00218C3A /* PhotoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726E1FD527E05D2D00218C3A /* PhotoView.swift */; };
+		726E1FD827E0659300218C3A /* CustomViewEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726E1FD727E0659300218C3A /* CustomViewEntity.swift */; };
+		726E1FDA27E06D1200218C3A /* CustomBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726E1FD927E06D1200218C3A /* CustomBaseView.swift */; };
+		7272910927D1DEB300361536 /* CustomEntitiesChangeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7272910827D1DEB300361536 /* CustomEntitiesChangeable.swift */; };
 		7272916F27D2188600361536 /* DrawingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7272916E27D2188600361536 /* DrawingAppTests.swift */; };
 		7295F32D27D1A9C200C1BDFB /* DrawingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7295F32C27D1A9C200C1BDFB /* DrawingDelegate.swift */; };
 		72A40E1627CCB32A002D076C /* RectangleAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1527CCB32A002D076C /* RectangleAddButton.swift */; };
-		72A40E1A27CCBB3F002D076C /* RectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1927CCBB3F002D076C /* RectangleFactory.swift */; };
+		72A40E1A27CCBB3F002D076C /* CustomViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1927CCBB3F002D076C /* CustomViewFactory.swift */; };
 		72A40E1C27CCBB87002D076C /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1B27CCBB86002D076C /* Rectangle.swift */; };
 		72A40E2027CCD067002D076C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1F27CCD067002D076C /* SceneDelegate.swift */; };
 		72A40E2227CCDB88002D076C /* ColorRGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E2127CCDB88002D076C /* ColorRGB.swift */; };
 		72A40E2427CCDC48002D076C /* ViewPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E2327CCDC48002D076C /* ViewPoint.swift */; };
-		72A9943527DF00A7009EE784 /* PhotoPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A9943427DF00A7009EE784 /* PhotoPickerDelegate.swift */; };
 		72A9943727DF2BB6009EE784 /* PhotoPickerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A9943627DF2BB6009EE784 /* PhotoPickerDelegate.swift */; };
+		72AA37A327DF375500798474 /* Photo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72AA37A227DF375500798474 /* Photo.swift */; };
 		72C0A7C527CF386400A4035F /* ViewSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C0A7C427CF386400A4035F /* ViewSize.swift */; };
 		72C0A7C727CF425500A4035F /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C0A7C627CF425500A4035F /* Plane.swift */; };
-		72C0A7C927CF458F00A4035F /* RectangleMutable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C0A7C827CF458F00A4035F /* RectangleMutable.swift */; };
+		72C0A7C927CF458F00A4035F /* CustomViewFactoryResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C0A7C827CF458F00A4035F /* CustomViewFactoryResponse.swift */; };
 		72C4FDF427CC5FB300CE5D25 /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72C4FDF327CC5FB300CE5D25 /* RectangleView.swift */; };
 		72C4FDF627CC73EB00CE5D25 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 72C4FDF527CC73EB00CE5D25 /* README.md */; };
 /* End PBXBuildFile section */
@@ -56,21 +59,24 @@
 		72400F2D27CC5D1900D24138 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		72400F3027CC5D1900D24138 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		72400F3227CC5D1900D24138 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7272910827D1DEB300361536 /* RectangleChangeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleChangeable.swift; sourceTree = "<group>"; };
+		726E1FD527E05D2D00218C3A /* PhotoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoView.swift; sourceTree = "<group>"; };
+		726E1FD727E0659300218C3A /* CustomViewEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewEntity.swift; sourceTree = "<group>"; };
+		726E1FD927E06D1200218C3A /* CustomBaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomBaseView.swift; sourceTree = "<group>"; };
+		7272910827D1DEB300361536 /* CustomEntitiesChangeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomEntitiesChangeable.swift; sourceTree = "<group>"; };
 		7272916427D2187200361536 /* DrawingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7272916E27D2188600361536 /* DrawingAppTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingAppTests.swift; sourceTree = "<group>"; };
 		7295F32C27D1A9C200C1BDFB /* DrawingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingDelegate.swift; sourceTree = "<group>"; };
 		72A40E1527CCB32A002D076C /* RectangleAddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleAddButton.swift; sourceTree = "<group>"; };
-		72A40E1927CCBB3F002D076C /* RectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactory.swift; sourceTree = "<group>"; };
+		72A40E1927CCBB3F002D076C /* CustomViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewFactory.swift; sourceTree = "<group>"; };
 		72A40E1B27CCBB86002D076C /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 		72A40E1F27CCD067002D076C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		72A40E2127CCDB88002D076C /* ColorRGB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRGB.swift; sourceTree = "<group>"; };
 		72A40E2327CCDC48002D076C /* ViewPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewPoint.swift; sourceTree = "<group>"; };
-		72A9943427DF00A7009EE784 /* PhotoPickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerDelegate.swift; sourceTree = "<group>"; };
 		72A9943627DF2BB6009EE784 /* PhotoPickerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPickerDelegate.swift; sourceTree = "<group>"; };
+		72AA37A227DF375500798474 /* Photo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Photo.swift; sourceTree = "<group>"; };
 		72C0A7C427CF386400A4035F /* ViewSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewSize.swift; sourceTree = "<group>"; };
 		72C0A7C627CF425500A4035F /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
-		72C0A7C827CF458F00A4035F /* RectangleMutable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleMutable.swift; sourceTree = "<group>"; };
+		72C0A7C827CF458F00A4035F /* CustomViewFactoryResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewFactoryResponse.swift; sourceTree = "<group>"; };
 		72C4FDF327CC5FB300CE5D25 /* RectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
 		72C4FDF527CC73EB00CE5D25 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -124,7 +130,6 @@
 				72400F2D27CC5D1900D24138 /* Assets.xcassets */,
 				72400F2F27CC5D1900D24138 /* LaunchScreen.storyboard */,
 				72400F3227CC5D1900D24138 /* Info.plist */,
-				72A9943427DF00A7009EE784 /* PhotoPickerDelegate.swift */,
 			);
 			path = DrawingApp;
 			sourceTree = "<group>";
@@ -140,10 +145,10 @@
 		7295F32A27D1A95B00C1BDFB /* message */ = {
 			isa = PBXGroup;
 			children = (
-				72C0A7C827CF458F00A4035F /* RectangleMutable.swift */,
+				72C0A7C827CF458F00A4035F /* CustomViewFactoryResponse.swift */,
 				7207F21027D098D500713C5E /* PropertyDelegate.swift */,
 				7295F32C27D1A9C200C1BDFB /* DrawingDelegate.swift */,
-				7272910827D1DEB300361536 /* RectangleChangeable.swift */,
+				7272910827D1DEB300361536 /* CustomEntitiesChangeable.swift */,
 			);
 			path = message;
 			sourceTree = "<group>";
@@ -152,12 +157,14 @@
 			isa = PBXGroup;
 			children = (
 				72C0A7C627CF425500A4035F /* Plane.swift */,
-				72A40E1927CCBB3F002D076C /* RectangleFactory.swift */,
+				72A40E1927CCBB3F002D076C /* CustomViewFactory.swift */,
 				72A40E1B27CCBB86002D076C /* Rectangle.swift */,
 				72A40E2127CCDB88002D076C /* ColorRGB.swift */,
 				72A40E2327CCDC48002D076C /* ViewPoint.swift */,
 				72C0A7C427CF386400A4035F /* ViewSize.swift */,
 				72A9943627DF2BB6009EE784 /* PhotoPickerDelegate.swift */,
+				72AA37A227DF375500798474 /* Photo.swift */,
+				726E1FD727E0659300218C3A /* CustomViewEntity.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -171,6 +178,8 @@
 				72C4FDF327CC5FB300CE5D25 /* RectangleView.swift */,
 				72A40E1527CCB32A002D076C /* RectangleAddButton.swift */,
 				722923EC27DEDEDC004C434C /* ImageAddButton.swift */,
+				726E1FD527E05D2D00218C3A /* PhotoView.swift */,
+				726E1FD927E06D1200218C3A /* CustomBaseView.swift */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -277,21 +286,24 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				726E1FDA27E06D1200218C3A /* CustomBaseView.swift in Sources */,
+				72AA37A327DF375500798474 /* Photo.swift in Sources */,
 				72400F2927CC5D1800D24138 /* DrawingViewController.swift in Sources */,
 				7207F21127D098D500713C5E /* PropertyDelegate.swift in Sources */,
 				72A40E2427CCDC48002D076C /* ViewPoint.swift in Sources */,
 				72A40E1627CCB32A002D076C /* RectangleAddButton.swift in Sources */,
 				72400F2527CC5D1800D24138 /* AppDelegate.swift in Sources */,
 				7207F21327D0B42600713C5E /* SplitViewController.swift in Sources */,
-				7272910927D1DEB300361536 /* RectangleChangeable.swift in Sources */,
+				7272910927D1DEB300361536 /* CustomEntitiesChangeable.swift in Sources */,
+				726E1FD827E0659300218C3A /* CustomViewEntity.swift in Sources */,
 				72A9943727DF2BB6009EE784 /* PhotoPickerDelegate.swift in Sources */,
-				72A9943527DF00A7009EE784 /* PhotoPickerDelegate.swift in Sources */,
+				726E1FD627E05D2D00218C3A /* PhotoView.swift in Sources */,
 				722923ED27DEDEDC004C434C /* ImageAddButton.swift in Sources */,
 				72A40E1C27CCBB87002D076C /* Rectangle.swift in Sources */,
 				7295F32D27D1A9C200C1BDFB /* DrawingDelegate.swift in Sources */,
 				72C0A7C527CF386400A4035F /* ViewSize.swift in Sources */,
-				72C0A7C927CF458F00A4035F /* RectangleMutable.swift in Sources */,
-				72A40E1A27CCBB3F002D076C /* RectangleFactory.swift in Sources */,
+				72C0A7C927CF458F00A4035F /* CustomViewFactoryResponse.swift in Sources */,
+				72A40E1A27CCBB3F002D076C /* CustomViewFactory.swift in Sources */,
 				72C4FDF427CC5FB300CE5D25 /* RectangleView.swift in Sources */,
 				72A40E2027CCD067002D076C /* SceneDelegate.swift in Sources */,
 				72A40E2227CCDB88002D076C /* ColorRGB.swift in Sources */,
