@@ -59,6 +59,6 @@ extension AnyRectangularable: Equatable {
 
 extension AnyRectangularable: Hashable {
     func hash(into hasher: inout Hasher) {
-        hasher.combine(self)
+        hasher.combine(self.id)
     }
 }
