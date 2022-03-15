@@ -11,6 +11,9 @@ import UIKit
 protocol HierarchyDelegate {
     func selectedCell(index: IndexPath)
     func move(to: Int)
+}
+
+protocol HierarchyDataSource {
     func getCount() -> Int
     func getModel(to: IndexPath) -> DrawingModel?
     func getSelectIndex() -> Int?
@@ -46,6 +49,7 @@ class HierarchyView: UIView {
     }()
     
     var delegate: HierarchyDelegate?
+    var dataSource: HierarchyDataSource?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -87,7 +91,7 @@ class HierarchyView: UIView {
     
     func updateView() {
         self.layerTableView.reloadData()
-        if let selectModel = self.delegate?.getSelectIndex() {
+        if let selectModel = self.dataSource?.getSelectIndex() {
             self.layerTableView.selectRow(at: IndexPath(row: selectModel, section: 0), animated: false, scrollPosition: .none)
         }
     }
@@ -109,7 +113,7 @@ extension HierarchyView: UITableViewDelegate {
 
 extension HierarchyView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        guard let count = self.delegate?.getCount() else {
+        guard let count = self.dataSource?.getCount() else {
             return 0
         }
         return count
@@ -117,7 +121,7 @@ extension HierarchyView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "HieararchyTableViewCell") as? HieararchyTableViewCell,
-              let model = self.delegate?.getModel(to: indexPath) else {
+              let model = self.dataSource?.getModel(to: indexPath) else {
             return UITableViewCell()
         }
         cell.setView(model: model)
