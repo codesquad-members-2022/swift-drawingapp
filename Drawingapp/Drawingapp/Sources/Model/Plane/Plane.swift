@@ -12,7 +12,7 @@ protocol PlaneDataSource {
 }
 
 protocol PlaneModelFactoryBase {
-    func make(modelType: DrawingModel.Type, _ data: [Any]) -> DrawingModel
+    func make(modelType: DrawingModel.Type, counting: Int, _ data: [Any]) -> DrawingModel
 }
 
 protocol PlaneChanged {
@@ -44,13 +44,21 @@ class Plane {
     private var selectedModel: DrawingModel?
     private var modelFactory: PlaneModelFactoryBase?
     
-    var dataSource: PlaneDataSource? {
-        didSet {
-            screenSize = dataSource?.getScreenSize()
+    var dataSource: PlaneDataSource?
+    
+    private var _screenSize: Size?
+    private var screenSize: Size? {
+        if _screenSize == nil {
+            _screenSize = dataSource?.getScreenSize()
         }
+        return _screenSize
     }
     
-    private var screenSize: Size?
+    private var modelCounting: [ObjectIdentifier:Int] = [
+        ObjectIdentifier(RectangleModel.self): 0,
+        ObjectIdentifier(PhotoModel.self): 0,
+        ObjectIdentifier(LabelModel.self): 0
+    ]
     
     var count: Int {
         drawingModels.count
@@ -119,7 +127,11 @@ class Plane {
 
 extension Plane: PlaneMakeModel {
     func makeModel(modelType: DrawingModel.Type, url: URL? = nil) {
-        guard let model = self.modelFactory?.make(modelType: modelType, [url]) else {
+        
+        let counting = (modelCounting[ObjectIdentifier(modelType)] ?? 0) + 1
+        modelCounting[ObjectIdentifier(modelType)] = counting
+        
+        guard let model = self.modelFactory?.make(modelType: modelType, counting: counting,  [url]) else {
             return
         }
         self.drawingModels.insert(model, at: 0)
@@ -229,7 +241,6 @@ extension Plane: PlaneGusture {
               let newOrigin = self.calibrateScreenInOrigin(to: point, size: dragModel.size) else {
             return
         }
-        
         NotificationCenter.default.post(name: Plane.Event.didChangedDrag, object: self, userInfo: [ParamKey.dragPoint:Point(x: newOrigin.x, y: newOrigin.y)])
     }
     
