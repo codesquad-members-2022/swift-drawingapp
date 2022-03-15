@@ -45,10 +45,8 @@ class TopMenuItemView: UIView {
         button.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
     }
     
-    func bind(action: @escaping () -> Void) {
-        button.addAction(UIAction{ _ in
-            action()
-        }, for: .touchUpInside)
+    func bind(action: UIAction) {
+        button.addAction(action, for: .touchUpInside)
     }
     
     func setIcon(name: String) {
