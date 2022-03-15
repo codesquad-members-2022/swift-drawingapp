@@ -31,7 +31,7 @@ struct Plane {
     
     func isThereARectangle(point: Point) -> Bool {
         for rectangle in rectangleArray {
-            if rectangle.isContainPoint(point: point) {
+            if rectangle.isContainPoint(point) {
                 return true
             }
         }
