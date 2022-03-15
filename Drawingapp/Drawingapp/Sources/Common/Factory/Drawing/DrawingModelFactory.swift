@@ -9,21 +9,11 @@ import Foundation
 import UIKit
 
 class DrawingModelFactory: PlaneModelFactoryBase {
-    
-    private var modelCounting: [ObjectIdentifier:Int] = [
-        ObjectIdentifier(RectangleModel.self): 0,
-        ObjectIdentifier(PhotoModel.self): 0,
-        ObjectIdentifier(LabelModel.self): 0
-    ]
-    
-    func make(modelType: DrawingModel.Type, _ data: [Any] = []) -> DrawingModel {
+    func make(modelType: DrawingModel.Type, counting: Int, _ data: [Any] = []) -> DrawingModel {
         let id = makeId()
-        let size = Size(width: 150, height: 120)
+        var size = Size(width: 150, height: 120)
         let alpha = Alpha.allCases.randomElement() ?? .transpar10
         let origin = Point(x: Int.random(in: 0..<500), y: Int.random(in: 0..<500))
-        
-        let counting = (modelCounting[ObjectIdentifier(modelType)] ?? 0) + 1
-        modelCounting[ObjectIdentifier(modelType)] = counting
         
         switch modelType{
         case is RectangleModel.Type:
@@ -35,6 +25,9 @@ class DrawingModelFactory: PlaneModelFactoryBase {
             let font = Font(name: "AppleSDGothicNeo-Regular", size: 16)
             let fontColor = Color(using: RandomColorGenerator())
             let text = makeRandomText()
+            let uiFont = UIFont(name: font.name, size: font.size)
+            let labelSize = NSString(string: text).size(withAttributes: [.font:uiFont])
+            size = Size(width: labelSize.width + 10, height: labelSize.height + 10)
             return LabelModel(id: id, index: counting, origin: origin, size: size, alpha: alpha, text: text, font: font, fontColor: fontColor)
         default:
             return DrawingModel(id: id, index: counting, origin: origin, size: size, alpha: alpha)
