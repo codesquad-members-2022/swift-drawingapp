@@ -43,7 +43,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         self.colorButton.layer.borderWidth = 1.0
         self.colorButton.layer.borderColor = UIColor.darkGray.cgColor
-        // 플레인의 대행 처리는 뷰컨트롤러가 맡겠다.
+        
         plane.addedRectangleDelegate = self
         plane.touchedRectangleDelegate = self
         plane.colorDelegate = self
