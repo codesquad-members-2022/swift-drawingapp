@@ -16,15 +16,9 @@ struct RectangleViewFactory {
         let color = rectangle.backgroundColor
         let alpha = rectangle.alpha
         let rectangleFrame = CGRect(x: position.x , y: position.y, width: size.width, height: size.height)
+        if let imageData = rectangle.backgroundImage {
+            return PhotoRectangleView(from: rectangleFrame, imageData: imageData, alpha: alpha)
+        }
         return RectangleView(frame: rectangleFrame, color: color, alpha: alpha)
-    }
-    
-    static func makePhotoView(of photoRectangle: Rectangle) -> PhotoRectangleView? {
-        let size = photoRectangle.size
-        let position = photoRectangle.position
-        guard let imageData = photoRectangle.backgroundImage else {return nil}
-        let alpha = photoRectangle.alpha
-        let rectangleFrame = CGRect(x: position.x , y: position.y, width: size.width, height: size.height)
-        return PhotoRectangleView(from: rectangleFrame, imageData: imageData, alpha: alpha)
     }
 }
