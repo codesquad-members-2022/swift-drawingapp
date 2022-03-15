@@ -44,15 +44,13 @@ class Plane {
     private var selectedModel: DrawingModel?
     private var modelFactory: PlaneModelFactoryBase?
     
-    var dataSource: PlaneDataSource?
-    
-    private var _screenSize: Size?
-    private var screenSize: Size? {
-        if _screenSize == nil {
-            _screenSize = dataSource?.getScreenSize()
+    var dataSource: PlaneDataSource? {
+        didSet {
+            screenSize = dataSource?.getScreenSize()
         }
-        return _screenSize
     }
+    
+    private var screenSize: Size?
     
     private var modelCounting: [ObjectIdentifier:Int] = [
         ObjectIdentifier(RectangleModel.self): 0,
