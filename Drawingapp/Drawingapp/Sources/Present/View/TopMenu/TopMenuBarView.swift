@@ -65,17 +65,17 @@ class TopMenuBarView: UIView {
     }
     
     private func bind() {
-        makeRectangle.bind {
+        makeRectangle.bind(action: UIAction { _ in
             self.delegate?.makeRectangleTapped()
-        }
+        })
         
-        makePhoto.bind {
+        makePhoto.bind(action: UIAction { _ in
             self.delegate?.makePhotoTapped()
-        }
-    
-        makeLabel.bind {
+        })
+        
+        makeLabel.bind(action: UIAction { _ in
             self.delegate?.makeLabelTapped()
-        }
+        })
     }
     
     private func layout() {
