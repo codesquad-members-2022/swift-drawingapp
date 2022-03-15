@@ -10,7 +10,7 @@ import UIKit
 
 protocol HieararchyCellDelegate {
     func selectCell(_ cell: HieararchyTableViewCell)
-    func move(to: Plane.MoveTo, cell: HieararchyTableViewCell)
+    func move(to: HierarchyView.MoveTo, cell: HieararchyTableViewCell)
 }
 
 class HieararchyTableViewCell: UITableViewCell {

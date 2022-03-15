@@ -194,7 +194,7 @@ extension ViewController: HierarchyDelegate {
         self.plane.selecteModel(index: index.row)
     }
     
-    func move(to: Plane.MoveTo) {
+    func move(to: Int) {
         self.plane.move(to: to)
     }
     

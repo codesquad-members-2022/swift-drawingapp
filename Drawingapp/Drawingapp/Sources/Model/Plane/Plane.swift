@@ -32,7 +32,7 @@ protocol PlaneGusture {
 
 protocol PlaneAction {
     func selecteModel(index: Int)
-    func move(to type: Plane.MoveTo)
+    func move(to index: Int)
 }
 
 protocol PlaneMakeModel {
@@ -245,27 +245,17 @@ extension Plane: PlaneGusture {
 }
 
 extension Plane: PlaneAction {
-    func move(to move: MoveTo) {
+    func move(to index: Int) {
         guard let selectModel = self.selectedModel,
-        let targetIndex = self.drawingModels.firstIndex(of: selectModel) else {
+        let targetIndex = self.drawingModels.firstIndex(of: selectModel),
+        targetIndex != index else {
             return
         }
-        self.drawingModels.remove(at: targetIndex)
         
-        var moveIndex = 0
-
-        switch move {
-        case .front:
-            moveIndex = 0
-        case .forward:
-            moveIndex = targetIndex == 0 ? 0 : targetIndex - 1
-        case .last:
-            moveIndex = self.drawingModels.count
-        case .back:
-            moveIndex = targetIndex >= self.drawingModels.count - 1 ? self.drawingModels.count - 1 : targetIndex + 1
-        }
-        let moveViewIndex = self.drawingModels.count - moveIndex
-        self.drawingModels.insert(selectModel, at: moveIndex)
+        self.drawingModels.remove(at: targetIndex)
+        self.drawingModels.insert(selectModel, at: index)
+        
+        let moveViewIndex = self.drawingModels.count - 1 - index
         
         NotificationCenter.default.post(name: Plane.Event.didMoveModel, object: self, userInfo: [ParamKey.drawingModel:selectModel, ParamKey.index: moveViewIndex])
     }
@@ -320,9 +310,5 @@ extension Plane {
         static let text = "text"
         static let font = "font"
         static let fontColor = "fontColor"
-    }
-    
-    enum MoveTo {
-        case front, forward, last, back
     }
 }
