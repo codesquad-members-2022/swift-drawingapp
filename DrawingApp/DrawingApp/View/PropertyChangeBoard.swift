@@ -101,7 +101,7 @@ class PropertyChangeBoard : UIView {
         guard let alpha = rectangle?.alpha.transparency else {return}
         self.alphaChangeSlider.value = Float(alpha)
         
-        guard let color = rectangle?.backGroundColor else {
+        guard let color = rectangle?.backgroundColor else {
             self.colorChangeButton.isEnabled = false
             return
         }

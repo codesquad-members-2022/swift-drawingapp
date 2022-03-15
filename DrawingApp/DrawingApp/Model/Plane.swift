@@ -63,7 +63,7 @@ class Plane {
     
     func changeRandomColor(to randomColor : Color?) {
         guard let randomColor = randomColor else {return}
-        self.selectedRectangle?.backGroundColor = randomColor
+        self.selectedRectangle?.backgroundColor = randomColor
         NotificationCenter.default.post(name: Plane.NotificationName.changeColor, object: self, userInfo: [Plane.NotificationKeyValue.color:randomColor])
     }
 }
