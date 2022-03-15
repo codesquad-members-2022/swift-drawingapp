@@ -26,7 +26,7 @@ class Rectangle: Shape {
         self.alpha = alpha
     }
     
-    func isContainPoint(point: Point) -> Bool {
+    func isContainPoint(_ point: Point) -> Bool {
         let rectangleX = self.point.getCurrentX()
         let rectangleY = self.point.getCurrentY()
         var isContainX = (rectangleX...rectangleX + self.size.getCurrentWidth()).contains(point.getCurrentX())
