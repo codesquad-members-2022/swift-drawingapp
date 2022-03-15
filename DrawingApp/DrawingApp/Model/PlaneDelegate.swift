@@ -8,12 +8,13 @@
 import Foundation
 
 protocol PlaneDelegate {
-    func didCreateRectangle(_ rectangle: Rectangle)
-    func didSelectRectanlge(_ rectangle: Rectangle)
+    func didCreateShape(_ shape: BasicShape)
+    
+    func didSelectShape(_ shape: BasicShape)
     func didSelectEmptyView()
     
-    func didUpdateSelectedRectangle(_ rectangle: Rectangle)
+    func didChangeSelectedShape(_ shape: BasicShape)
     
-    func didUpdateSelectedRectangleBackgroundColor(_ rectangle: Rectangle)
-    func didUpdateSelectedRectangleAlpha(_ rectangle: Rectangle)
+    func didUpdateSelectedShapeBackgroundColor(_ shape: BasicShape & Colorable)
+    func didUpdateSelectedShapeAlpha(_ shape: BasicShape & Alphable)
 }
