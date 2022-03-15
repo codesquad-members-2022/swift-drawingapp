@@ -185,7 +185,6 @@
 		E034561327D0F1C40036988A /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E081807F27DCAF0D000633E1 /* View */,
 				E0D7DA4727CDE3C800A56635 /* TopMenuItemView.swift */,
 			);
 			path = View;
@@ -213,6 +212,7 @@
 		E081807A27DC4EA8000633E1 /* Hierarchy */ = {
 			isa = PBXGroup;
 			children = (
+				E081807F27DCAF0D000633E1 /* View */,
 				E081807B27DC4EDD000633E1 /* HierarchyView.swift */,
 			);
 			path = Hierarchy;
