@@ -17,16 +17,15 @@ final class MainViewController: UIViewController{
     private var rectangleButton:UIButton = RectangleButton(frame: .zero)
     private var imageButton:UIButton = ImageButton(frame: .zero)
     
-    //Factory
-    private let rectangleFactory = RectangleFactory()
-    
     //그려진 PlaneRetangleView를 모델(Rectangle)을 Key로 찾는 Dictionary로 만들어서 모델과 매칭을 시켜주었습니다.
     private var retangleViews = [PlaneRectangle:PlaneRectangleView]()
     //선택된 PlaneRectangleView
     private var seletedRectangleView:PlaneRectangleView?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         configureNotificationCenter()
         
         configureImageButton()
@@ -76,13 +75,13 @@ final class MainViewController: UIViewController{
         rectangleButton.layer.zPosition = 1.0                                //생성되는 사각형에 겹쳐서 안보이는 경우를 막기위해 zPosition을 주었다.
         
         rectangleButton.frame = CGRect(x: x, y: y, width: width, height: height)
-        rectangleButton.addAction(addRectangleAction(), for: .touchUpInside)
+        rectangleButton.addAction(addRectangleAction(rectangleFactory: RectangleFactory() ), for: .touchUpInside)
     }
     
     //버튼 액션 - 사각형 추가
-    private func addRectangleAction() -> UIAction {
+    private func addRectangleAction(rectangleFactory:RectangleCreator) -> UIAction {
         let action = UIAction {[weak self] _ in
-            guard let rect = self?.rectangleFactory.makeRectangle(type: PlaneRectangle.self) else { return }
+            let rect = rectangleFactory.makeRectangle(type: PlaneRectangle.self)
             self?.plane.addRectangle(rectangle: rect as! PlaneRectangle)    //모델에 rectangle을 추가
         }
         return action
