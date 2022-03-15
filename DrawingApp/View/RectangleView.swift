@@ -19,6 +19,7 @@ final class RectangleView: UIView, NSCopying{
     func copy(with zone: NSZone? = nil) -> Any {
         let rectangleView = RectangleView(frame: self.frame)
         rectangleView.backgroundColor = self.backgroundColor
+        rectangleView.backgroundColor?.withAlphaComponent(1)
         return rectangleView
     }
 }
