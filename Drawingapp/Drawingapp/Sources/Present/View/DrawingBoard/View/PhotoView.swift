@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class PhotoView: DrawingView, Imageable {
+class PhotoView: DrawingView {
     private let photoView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
@@ -18,8 +18,8 @@ class PhotoView: DrawingView, Imageable {
     
     required init(model: DrawingModel) {
         super.init(model: model)
-        if let photoModel = model as? PhotoModel {
-            self.update(imageUrl: photoModel.imageUrl)
+        if let imageable = model as? Imageable {
+            self.update(imageUrl: imageable.imageUrl)
         }
     }
     
