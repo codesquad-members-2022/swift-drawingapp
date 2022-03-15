@@ -17,14 +17,14 @@ class LayerTableViewController: UITableViewController {
     private var previousSelected: IndexPath?
     
     var didSelectRowHandler: ((Layer?) -> ())?
-    var didMoveLayerHandler: ((Int, Int) -> ())?
+    var didMoveRowHandler: ((Int, Int) -> ())?
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.register(LayerTableViewCell.self, forCellReuseIdentifier: "layerTableViewCell")
-        //        tableView.isEditing = true
-        //        tableView.allowsSelectionDuringEditing = true
+                tableView.isEditing = true
+                tableView.allowsSelectionDuringEditing = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(didAddLayer(_:)), name: Plane.Event.didAddLayer, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didSelectLayer(_:)), name: Plane.Event.didSelectLayer, object: nil)
@@ -84,30 +84,18 @@ class LayerTableViewController: UITableViewController {
     }
     
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
-        // 
+        //
     }
     
-    // 해당 Row의 Layer가 이미 선택되어있는지 확인한다.
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .none
+    }
     
-    //        if let previousCell = tableView.cellForRow(at: IndexPath(row: selectedFilterRow, section: indexPath.section)) {
-    //            tableView.deselectRow(at: indexPath, animated: false)
-    //        }
-    //        // 선택되어있으면 선택을 해제한다.
+    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
+        return false
+    }
     
-    // 선택이 안되어있으면 선택한다.
-    //        tableView.deselectRow(at: indexPath, animated: false)
-    //        didSelectRowHandler?(indexPath.row)
-    
-    
-    //    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-    //        return .none
-    //    }
-    //
-    //    override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
-    //        return false
-    //    }
-    //
-    //    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-    //        didMoveLayerHandler?(sourceIndexPath.row, destinationIndexPath.row)
-    //    }
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        didMoveRowHandler?(sourceIndexPath.row, destinationIndexPath.row)
+    }
 }
