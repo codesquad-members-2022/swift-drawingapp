@@ -16,6 +16,7 @@ class Plane {
         static let didChangeOrigin = Notification.Name("didChangeOrigin")
         static let didChangeSize = Notification.Name("didChangeSize")
         static let didChangeText = Notification.Name("didChangeText")
+        static let didReorderLayer = Notification.Name("didReorderLayer")
     }
     
     enum InfoKey {
@@ -71,10 +72,16 @@ class Plane {
         NotificationCenter.default.post(name: Plane.Event.didAddLayer, object: self, userInfo: [Plane.InfoKey.added: newLayer])
     }
     
-    func select(at index: Int) {
+    func select(layer: Layer?) {
         let unselected = selected
-        self.selected = layers[index]
+        self.selected = selected == layer ? nil : layer
+        
         NotificationCenter.default.post(name: Plane.Event.didSelectLayer, object: self, userInfo: [Plane.InfoKey.unselected: unselected as Any, Plane.InfoKey.selected: selected as Any])
+    }
+    
+    func swapLayer(fromIndex: Int, to: Int) {
+        layers.swapAt(fromIndex, to)
+        NotificationCenter.default.post(name: Plane.Event.didReorderLayer, object: self, userInfo: [Plane.InfoKey.added: layers])
     }
     
     func tap(on point: Point) {
