@@ -231,15 +231,15 @@ extension ViewController: InspectorDelegate {
     
     //MARK: Input
     func changeFont(name: String) {
-        self.plane.change(fontName: name)
+        self.plane.changeFontName(name)
     }
     
     func changeColor() {
-        self.plane.change(color: Color(using: RandomColorGenerator()))
+        self.plane.changeColor(Color(using: RandomColorGenerator()))
     }
     
     func changeAlpha(_ alpha: Alpha) {
-        self.plane.change(alpha: alpha)
+        self.plane.changeAlpha(alpha)
     }
     
     func transform(translationX: Double, y: Double) {
@@ -311,7 +311,7 @@ extension ViewController: TopMenuBarDelegate, PHPickerViewControllerDelegate {
     
     //MARK: Input
     func makeRectangleTapped() {
-        self.plane.makeModel(modelType: RectangleModel.self)
+        self.plane.makeModel(type: RectangleModel.self)
     }
     
     func makePhotoTapped() {
@@ -324,7 +324,7 @@ extension ViewController: TopMenuBarDelegate, PHPickerViewControllerDelegate {
     }
     
     func makeLabelTapped() {
-        self.plane.makeModel(modelType: LabelModel.self)
+        self.plane.makeModel(type: LabelModel.self)
     }
     
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
@@ -344,7 +344,7 @@ extension ViewController: TopMenuBarDelegate, PHPickerViewControllerDelegate {
                     try? fileManager.removeItem(at: destination)
                 }
                 try? fileManager.copyItem(at: url, to: destination)
-                self.plane.makeModel(modelType: PhotoModel.self, url: destination)
+                self.plane.makeModel(type: PhotoModel.self, data: [destination])
             } catch {
                 Log.error("image Load Fail: \(url)")
             }
