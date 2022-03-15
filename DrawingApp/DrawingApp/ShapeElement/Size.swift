@@ -5,7 +5,7 @@
 //  Created by 박진섭 on 2022/03/01.
 //
 
-struct Size:CustomStringConvertible{
+struct Size:CustomStringConvertible,Equatable{
     
     var description: String {
         "W\(width), H\(height)"
@@ -33,6 +33,3 @@ struct Size:CustomStringConvertible{
     
 }
 
-extension Size:Equatable {
-    
-}

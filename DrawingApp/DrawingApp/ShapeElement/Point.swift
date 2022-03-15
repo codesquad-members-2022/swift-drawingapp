@@ -5,7 +5,7 @@
 //  Created by 박진섭 on 2022/03/01.
 //
 
-struct Point:CustomStringConvertible {
+struct Point:CustomStringConvertible,Hashable {
     
     var description: String {
         "X:\(x), Y:\(y)"
@@ -29,9 +29,5 @@ struct Point:CustomStringConvertible {
         self.x = x
         self.y = y
     }
-    
-}
-
-extension Point:Hashable {
     
 }
