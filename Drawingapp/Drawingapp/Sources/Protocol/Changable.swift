@@ -7,16 +7,20 @@
 
 import Foundation
 
-protocol AlphaChangable {
-    func changeAlpha(_ alpha: Alpha)
+protocol AlphaUpdatable {
+    func update(alpha: Alpha)
 }
 
-protocol ColorChangable {
-    func changeColor(_ color: Color)
+protocol ColorUpdatable {
+    func update(color: Color)
 }
 
-protocol FontChangable {
-    func changeFontName(_ fontName: String)
+protocol FontUpdatable {
+    func update(fontName: String)
+}
+
+protocol ImageUpdatable {
+    func update(imageUrl: URL?)
 }
 
 protocol Transformable {

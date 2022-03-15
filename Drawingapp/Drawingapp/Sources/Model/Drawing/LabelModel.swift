@@ -9,7 +9,6 @@ import Foundation
 
 class LabelModel: DrawingModel, Textable, Viewable {
     public private(set) var font: Font
-    public private(set) var fontColor: Color
     public private(set) var text: String
     
     override var description: String {
@@ -27,19 +26,10 @@ class LabelModel: DrawingModel, Textable, Viewable {
     init(id: String, index: Int, origin: Point, size: Size, alpha: Alpha, text: String, font: Font, fontColor: Color) {
         self.text = text
         self.font = font
-        self.fontColor = fontColor
         super.init(id: id, index: index, origin: origin, size: size, alpha: alpha)
     }
     
-    func update(text: String) {
-        self.text = text
-    }
-    
-    func update(font: Font) {
-        self.font = font
-    }
-    
-    func update(fontColor: Color) {
-        self.fontColor = fontColor
+    func update(fontName: String) {
+        self.font = Font(name: fontName, size: self.font.size)
     }
 }
