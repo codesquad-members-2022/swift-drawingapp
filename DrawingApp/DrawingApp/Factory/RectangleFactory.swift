@@ -16,12 +16,7 @@ final class RectangleFactory:RectangleCreator {
         let rgb = RGB.random()
         let alpha = Alpha.random()
         
-        //PlaneRectangle은 가장 기본이 되는 Rectangle로 생각하여 default값으로 두고 type을 처리
-        switch ObjectIdentifier(type) {
-        case ObjectIdentifier(ImageRectangle.self):
-            return ImageRectangle(id: id, origin: origin, size: size, alpha: alpha)
-        default:
-            return PlaneRectangle(id: id, origin: origin, size: size, rgb: rgb, alpha: alpha)
-        }
+        //type에 따라 init
+        return type.init(id: id, origin: origin, size: size, rgb: rgb, alpha: alpha)
     }
 }
