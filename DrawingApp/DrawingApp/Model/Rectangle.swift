@@ -25,7 +25,7 @@ class Rectangle: Shapable, Hashable {
         }
     }
     
-    private(set) var image: Data?
+    private(set) var image: URL?
     
     let id: String
     let size: Size
@@ -53,7 +53,7 @@ class Rectangle: Shapable, Hashable {
         self.alpha = alpha
     }
     
-    init(id: String, origin: Point, size: Size, image: Data? = nil) {
+    init(id: String, origin: Point, size: Size, image: URL? = nil) {
         self.id = id
         self.origin = origin
         self.size = size
@@ -62,7 +62,7 @@ class Rectangle: Shapable, Hashable {
         self.image = image
     }
     
-    init(id: String, x: Double, y: Double, width: Double, height: Double, image: Data? = nil) {
+    init(id: String, x: Double, y: Double, width: Double, height: Double, image: URL? = nil) {
         self.id = id
         self.origin = Point(x: x, y: y)
         self.size = Size(width: width, height: height)
@@ -89,8 +89,8 @@ class Rectangle: Shapable, Hashable {
         self.alpha = alpha
     }
     
-    func setImage(with data: Data) {
-        self.image = data
+    func setImage(with url: URL) {
+        self.image = url
     }
 }
 
