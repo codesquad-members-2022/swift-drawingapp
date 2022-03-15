@@ -16,6 +16,7 @@
 		F5C730FB27CC7AB8001B4EFF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5C730F927CC7AB8001B4EFF /* Main.storyboard */; };
 		F5C730FD27CC7AB8001B4EFF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F5C730FC27CC7AB8001B4EFF /* Assets.xcassets */; };
 		F5C7310027CC7AB8001B4EFF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5C730FE27CC7AB8001B4EFF /* LaunchScreen.storyboard */; };
+		F5E3FD2B27E0F4150064883F /* SquareFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5E3FD2A27E0F4150064883F /* SquareFactory.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		F5C730FC27CC7AB8001B4EFF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F5C730FF27CC7AB8001B4EFF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F5C7310127CC7AB8001B4EFF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F5E3FD2A27E0F4150064883F /* SquareFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SquareFactory.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +51,7 @@
 				F5329F6127D9E70700B7706C /* Square.swift */,
 				F5329F6327D9EC8800B7706C /* Size.swift */,
 				F5329F6527D9EC9B00B7706C /* Point.swift */,
+				F5E3FD2A27E0F4150064883F /* SquareFactory.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -155,6 +158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F5E3FD2B27E0F4150064883F /* SquareFactory.swift in Sources */,
 				F5329F6227D9E70700B7706C /* Square.swift in Sources */,
 				F5329F6427D9EC8800B7706C /* Size.swift in Sources */,
 				F5329F6627D9EC9B00B7706C /* Point.swift in Sources */,
