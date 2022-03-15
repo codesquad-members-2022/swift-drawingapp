@@ -72,7 +72,7 @@ extension ViewController: UIGestureRecognizerDelegate {
         
         @objc func handleTap(_ sender: UITapGestureRecognizer) {
             let viewPoint: CGPoint = sender.location(in: self.view)
-            let rectPoint: Rectangle.Point = Rectangle.Point(x: viewPoint.x, y: viewPoint.y)
+            let rectPoint: Point = Point(x: viewPoint.x, y: viewPoint.y)
             plane.touchedRectangle(at: rectPoint)
         }
 }
