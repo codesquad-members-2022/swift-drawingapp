@@ -33,7 +33,3 @@ extension PhotoPickerDelegate: UIImagePickerControllerDelegate, UINavigationCont
         picker.dismiss(animated: true)
     }
 }
-
-protocol PhotoCallBack{
-    func photoCallBack(photo: UIImage)
-}

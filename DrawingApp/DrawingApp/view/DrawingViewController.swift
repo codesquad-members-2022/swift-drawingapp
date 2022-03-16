@@ -145,7 +145,7 @@ class DrawingViewController: UIViewController{
         guard let rectangle = notification.userInfo?[Plane.Notification.Key.rectangle] as? Rectangle else {
             return
         }
-        guard let rectangleView = customViews[rectangle.uniqueId] as? RectangleView else { return }
+        guard let rectangleView = customViews[rectangle] as? RectangleView else { return }
         rectangleView.setRGBColor(rgb: rectangle.getColorRGB())
         drawingDelegate?.drawingViewDidChangeColor(rectangleMutbale: rectangle)
     }
@@ -154,7 +154,7 @@ class DrawingViewController: UIViewController{
         guard let customModel = notification.userInfo?[Plane.Notification.Key.customViewEntity] as? CustomViewModel else {
             return
         }
-        customViews[customModel.uniqueId]?.setAlpha(alpha: customModel.alpha)
+        customViews[customModel]?.setAlpha(alpha: customModel.alpha)
         drawingDelegate?.drawingViewDidUpdateAlpha(customViewModelMutable: customModel)
     }
     
@@ -163,7 +163,7 @@ class DrawingViewController: UIViewController{
     }
     
     private func minusViewAlpha(){
-        plane?.CustomViewAlpha()
+        plane?.minusCustomViewAlpha()
     }
     
     @objc private func propertyAction(_ notification: Notification) {

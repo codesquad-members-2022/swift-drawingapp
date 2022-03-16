@@ -14,6 +14,6 @@ protocol PlaneModelsChangeable{
     func selectTargetCustomView(point: ViewPoint)
     func deSelectTargetCustomView()
     func plusCustomViewAlpha()
-    func CustomViewAlpha()
+    func minusCustomViewAlpha()
     func rectangleCount() -> Int
 }

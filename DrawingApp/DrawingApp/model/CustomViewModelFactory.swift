@@ -55,11 +55,11 @@ class CustomViewModelFactory{
 }
 
 extension CustomViewModelFactory: CustomViewFactoryResponse{
-    func randomRectangle() -> RectangleViewModelMutable {
+    func randomRectangleViewModel() -> RectangleViewModelMutable {
         return makeRandomRectangle()
     }
     
-    func randomPhoto(imageData: Data) -> PhotoViewModelMutable{
+    func randomPhotoViewModel(imageData: Data) -> PhotoViewModelMutable{
         return makeRandomPhoto(imageData: imageData)
     }
 }

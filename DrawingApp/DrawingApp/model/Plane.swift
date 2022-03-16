@@ -21,24 +21,24 @@ class Plane{
     }
     
     private func addRectangle(){
-        let rectangleMutable = customViewModelFactory.randomRectangle()
+        let rectangleMutable = customViewModelFactory.randomRectangleViewModel()
         models.append(rectangleMutable)
         self.selectedModel = rectangleMutable
         NotificationCenter.default.post(name: Plane.Notification.Event.addedRectangle, object: self, userInfo: [Plane.Notification.Key.rectangle : rectangleMutable])
     }
     
     private func addPhoto(imageData: Data){
-        let photoMutable = customViewModelFactory.randomPhoto(imageData: imageData)
+        let photoMutable = customViewModelFactory.randomPhotoViewModel(imageData: imageData)
         models.append(photoMutable)
         self.selectedModel = photoMutable
         NotificationCenter.default.post(name: Plane.Notification.Event.addedPhoto, object: self, userInfo: [Plane.Notification.Key.photo : photoMutable])
     }
     
     private func changeRectangleColor(){
-        guard let rectangle = selectedModel as? Rectangle else {
+        guard let rectangle = selectedModel as? RectangleViewModelMutable else {
             return
         }
-        let rectangleMutable = customViewModelFactory.randomRectangle()
+        let rectangleMutable = customViewModelFactory.randomRectangleViewModel()
         let rgbValue = rectangleMutable.getColorRGB()
         rectangle.resetColor(rgbValue: rgbValue)
         NotificationCenter.default.post(name: Plane.Notification.Event.changedRectangleColor, object: self, userInfo:  [Plane.Notification.Key.rectangle : rectangle])
@@ -85,6 +85,22 @@ class Plane{
         return nil
     }
     
+    enum Notification{
+        enum Key{
+            case rectangle
+            case photo
+            case customViewEntity
+        }
+        enum Event{
+            static let addedRectangle = Foundation.Notification.Name.init("addedRectangle")
+            static let selectedRectangle = Foundation.Notification.Name.init("selectedRectangle")
+            static let selectedPhoto = Foundation.Notification.Name.init("selectedPhoto")
+            static let deselectedCustomView = Foundation.Notification.Name.init("deselectedCustomView")
+            static let changedRectangleColor = Foundation.Notification.Name.init("changedRectangleColor")
+            static let updateCustomViewAlpha = Foundation.Notification.Name.init("updateRectangleAlpha")
+            static let addedPhoto = Foundation.Notification.Name.init("addedPhoto")
+        }
+    }
 }
 extension Plane: PlaneModelsChangeable{
     func deSelectTargetCustomView() {
@@ -111,28 +127,11 @@ extension Plane: PlaneModelsChangeable{
         changeRectangleColor()
     }
     
-    func CustomViewAlpha() {
+    func minusCustomViewAlpha() {
         minusAlpha()
     }
     
     func rectangleCount() -> Int{
         return models.count
-    }
-    
-    enum Notification{
-        enum Key{
-            case rectangle
-            case photo
-            case customViewEntity
-        }
-        enum Event{
-            static let addedRectangle = Foundation.Notification.Name.init("addedRectangle")
-            static let selectedRectangle = Foundation.Notification.Name.init("selectedRectangle")
-            static let selectedPhoto = Foundation.Notification.Name.init("selectedPhoto")
-            static let deselectedCustomView = Foundation.Notification.Name.init("deselectedCustomView")
-            static let changedRectangleColor = Foundation.Notification.Name.init("changedRectangleColor")
-            static let updateCustomViewAlpha = Foundation.Notification.Name.init("updateRectangleAlpha")
-            static let addedPhoto = Foundation.Notification.Name.init("addedPhoto")
-        }
     }
 }
