@@ -7,22 +7,38 @@
 
 import UIKit
 
+
 final class PlaneRectangleView:UIView {
     
-    convenience init(rect: PlaneRectangle, rgb:RGB, alpha:Alpha) {
-        let x = rect.origin.x
-        let y = rect.origin.y
-        
-        let width = rect.size.width
-        let height = rect.size.height
-        
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
+    func setupFrameWithPlaneRectangle(rect:Rectangle) {
+        guard let planeRectangle = rect as? PlaneRectangle else { return }
+        let x = planeRectangle.origin.x
+        let y = planeRectangle.origin.y
+        let width = planeRectangle.size.width
+        let height = planeRectangle.size.height
+        self.frame = CGRect(x: x, y: y, width: width, height: height)
+    }
+
+    func setupBackGroundColor(rgb:RGB, alpha:Alpha) {
         let red = rgb.red
         let green = rgb.green
         let blue = rgb.blue
-        
-        let alpha = alpha.value
-        
-        self.init(frame: CGRect(x: x, y: y, width: width, height: height))
-        self.backgroundColor = UIColor(red: CGFloat(red) / 255, green: CGFloat(green) / 255, blue: CGFloat(blue) / 255, alpha: CGFloat(alpha))
+        self.backgroundColor = UIColor(
+            red: CGFloat(red) / 255,
+            green: CGFloat(green) / 255,
+            blue: CGFloat(blue) / 255,
+            alpha: CGFloat(alpha.value)
+        )
     }
+
+    
+    
 }
