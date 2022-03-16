@@ -21,14 +21,14 @@ final class Rectangle: UIView {
     }
     
     /// 모델에 따라 뷰를 만듭니다.
-    convenience init(model: RectangleProperty, index: Int, backgroundImage: UIImage? = nil) {
+    convenience init(model: RectangleProperty, index: Int) {
         let origin = CGPoint(x: model.point.x, y: model.point.y)
         let size = CGSize(width: model.size.width, height: model.size.height)
         self.init(frame: CGRect(origin: origin, size: size))
         self.index = index
         
-        if model.hasViewProperty {
-            addBackgroundImage(using: backgroundImage, alpha: model.alpha)
+        if let data = model.backgroundImageData, let image = UIImage(data: data) {
+            addBackgroundImage(using: image, alpha: model.alpha)
         } else {
             setBackgroundColor(using: model.rgbValue, alpha: model.alpha)
         }

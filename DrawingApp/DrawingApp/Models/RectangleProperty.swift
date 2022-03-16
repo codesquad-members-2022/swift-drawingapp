@@ -19,16 +19,16 @@ final class RectangleProperty: RectanglePropertyCreator {
     private(set) var rgbValue: RectRGBColor
     private(set) var alpha: Double
     
-    private(set) var hasViewProperty = false
+    private(set) var backgroundImageData: Data?
     
-    init(as name: String, using id: String, from properties: RectangleRect, color: RectRGBColor, alpha: Double, hasViewProperty: Bool = false) {
+    init(as name: String, using id: String, from properties: RectangleRect, color rgbValue: RectRGBColor, alpha: Double, backgroundImageData: Data?) {
         self.name = name
         self.id = id
         self.point = RectOrigin(x: properties.maxX, y: properties.maxY)
         self.size = RectSize(width: properties.width, height: properties.height)
-        self.rgbValue = color
+        self.rgbValue = rgbValue
         self.alpha = alpha
-        self.hasViewProperty = hasViewProperty
+        self.backgroundImageData = backgroundImageData
     }
     
     // MARK: - Setter/Getter in model

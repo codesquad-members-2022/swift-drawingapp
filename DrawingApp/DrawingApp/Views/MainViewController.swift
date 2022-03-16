@@ -70,12 +70,12 @@ final class MainViewController: UIViewController, PHPickerViewControllerDelegate
     
     private func processRectangleTouchedObserve(_ userInfo: [Plane.PostKey: Any]?) {
         guard let model = userInfo?[.model] as? RectangleProperty else {
-            buttonSetRandomColor.backgroundColor = self.defaultButtonColor
+            buttonSetRandomColor.backgroundColor = defaultButtonColor
             sliderSetAlpha.setValue(0, animated: true)
             return
         }
         
-        let color = model.hasViewProperty ? defaultButtonColor : model.rgbValue.getColor(alpha: model.alpha)
+        let color = model.backgroundImageData != nil ? defaultButtonColor : model.rgbValue.getColor(alpha: model.alpha)
         buttonSetRandomColor.backgroundColor = color
         sliderSetAlpha.setValue(Float(model.alpha), animated: true)
     }
@@ -142,9 +142,9 @@ final class MainViewController: UIViewController, PHPickerViewControllerDelegate
             return
         }
         
-        itemProvider.loadObject(ofClass: UIImage.self) { result, error in
-            if error == nil, let result = result {
-                self.plane.addRectangle(with: result)
+        itemProvider.loadDataRepresentation(forTypeIdentifier: "public.image") { data, error in
+            if error == nil, let data = data {
+                self.plane.addRectangle(with: data)
             }
         }
     }

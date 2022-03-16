@@ -44,34 +44,33 @@ final class Plane: MainSceneTapDelegate {
     }
     
     // MARK: - MainScreenDelegate implementation
-    func addRectangle(with viewProperty: Any? = nil) {
-        guard let rectangleModel = factory.makeRandomRectangleModel(as: "Subview #\(rectangleModels.count)", rect: sceneRect, hasViewProperty: (viewProperty != nil)) else {
+    func addRectangle(with backgroundImageData: Data) {
+        guard let rectangleModel = factory.makeRandomRectangleModel(
+            as: "Subview #\(rectangleModels.count)",
+            rect: sceneRect,
+            imageData: backgroundImageData
+        ) else {
             return
         }
         
-        rectangleModels.append(rectangleModel)
-        
-        var notificationInfo = [
-            PostKey.index: rectangleModels.endIndex,
-            PostKey.model: rectangleModel
-        ] as [Plane.PostKey : Any]
-        
-        if let viewProperty = viewProperty {
-            notificationInfo.updateValue(viewProperty, forKey: PostKey.viewProperty)
+        addProperty(rectangleModel)
+    }
+    
+    func addRectangle() {
+        guard let rectangleModel = factory.makeRandomRectangleModel(
+            as: "Subview #\(rectangleModels.count)",
+            rect: sceneRect
+        ) else {
+            return
         }
         
-        NotificationCenter.default.post(
-            name: Plane.addViewButtonPushed,
-            object: self,
-            userInfo: notificationInfo
-        )
+        addProperty(rectangleModel)
     }
     
     func resetRandomColor(at index: Int) -> RectRGBColor? {
-        // hasViewProperty가 true일 경우 색상을 적용할 필요가 없는 것으로 판단합니다.
-        guard rectangleModels[index].hasViewProperty == false else { return nil }
         guard
             rectangleModels.count-1 >= index,
+            rectangleModels[index].backgroundImageData == nil,
             let color = rectangleModels[index].resetRGBColor()
         else {
             return nil
@@ -107,7 +106,7 @@ final class Plane: MainSceneTapDelegate {
         
         noti.name = Plane.rectangleViewTouched
         if let index = index, rectangleModels.count-1 >= index {
-            noti.userInfo?.updateValue(rectangleModels[index], forKey: PostKey.model)
+            noti.userInfo?[PostKey.model] = rectangleModels[index]
         } else {
             noti.userInfo = nil
         }
@@ -118,6 +117,15 @@ final class Plane: MainSceneTapDelegate {
     // MARK: - Plane no using Interface
     func addProperty(_ model: RectangleProperty) {
         rectangleModels.append(model)
+        
+        NotificationCenter.default.post(
+            name: Plane.addViewButtonPushed,
+            object: self,
+            userInfo: [
+                PostKey.index: rectangleModels.endIndex-1,
+                PostKey.model: model
+            ]
+        )
     }
     
     func getRectangleCount() -> Int {
@@ -152,6 +160,5 @@ final class Plane: MainSceneTapDelegate {
         case index = "index"
         case type = "type"
         case model = "model"
-        case viewProperty = "viewProperty"
     }
 }
