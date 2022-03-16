@@ -20,7 +20,7 @@ class Plane {
         }
     }
     
-    var countItems: Int {
+    var count: Int {
         return self.items.count
     }
     
@@ -28,12 +28,10 @@ class Plane {
         return self.items[id]
     }
     
-    /**
-     매개변수 point 를 포함하는 사각형을 찾아 반환합니다.
-     결과값이 없으면 nil 을 리턴, 여러개인 경우에는 첫번째 요소를 반환합니다.
-     */
     func findItemBy(point: Point) -> Rectangle? {
-        return Array(self.items.values).last(where: { item in
+        let models = Array(self.items.values)
+        
+        return models.last(where: { item in
             return item.contains(point: point)
         })
     }
@@ -57,7 +55,7 @@ class Plane {
 
 extension Plane: CustomStringConvertible {
     var description: String {
-        return "Count: \(self.countItems), Items: \(self.items.values.map { (id: $0.id, origin: $0.origin) })"
+        return "Count: \(self.count), Items: \(self.items.values.map { (id: $0.id, origin: $0.origin) })"
     }
 }
 

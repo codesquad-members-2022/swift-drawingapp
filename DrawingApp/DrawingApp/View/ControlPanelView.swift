@@ -43,6 +43,7 @@ class ControlPanelView: UIView {
     }
     
     private func configureAlphaSlider() {
+        self.alphaSlider.isEnabled = false
         self.alphaSlider.frame.size.width = 200
         self.alphaSlider.maximumValue = 1.0
         self.alphaSlider.minimumValue = 0.1
@@ -54,9 +55,8 @@ class ControlPanelView: UIView {
     }
         
     private func configureColorButton() {
-        let randomColor = UIColor.random()
-        
-        self.colorButton.setTitle(randomColor.toHexString(), for: .normal)
+        self.colorButton.isEnabled = false
+        self.colorButton.setTitle("None", for: .normal)
         self.colorButton.frame.size = CGSize(width: 200, height: 50)
         self.colorButton.addTarget(self, action: #selector(ControlPanelView.handleColorButtonPressed), for: .touchUpInside)
         
@@ -90,7 +90,17 @@ class ControlPanelView: UIView {
         self.colorButton.setTitle(title, for: .normal)
     }
     
-    func setColorButtonAccess(enable: Bool) {
+    func setColorButtonControllable(enable: Bool) {
         self.colorButton.isEnabled = enable
+    }
+    
+    func setAlphaSliderControllable(enable: Bool) {
+        self.alphaSlider.isEnabled = enable
+    }
+    
+    func reset() {
+        self.setColorButtonControllable(enable: false)
+        self.setAlphaSliderControllable(enable: false)
+        self.setColorButtonTitle(title: "None")
     }
 }

@@ -13,8 +13,11 @@ import Foundation
  이벤트의 종류가 늘어나면 도메인 별로 enum 으로 묶어 분리하여 관리 방법을 시도해보겠습니다.
  */
 extension Notification.Name {
-    static let RectangleDataDidCreated = Notification.Name("RectangleDataDidCreated")
-    static let RectangleDataDidUpdated = Notification.Name("RectangleDataDidUpdated")
+    static let RectangleModelDidCreated = Notification.Name("RectangleModelDidCreated")
+    static let RectangleModelDidUpdated = Notification.Name("RectangleModelDidUpdated")
+    
+    static let ImageRectangleModelDidCreated = Notification.Name("ImageRectangleModelDidCreated")
+    static let ImageRectangleModelDidUpdated = Notification.Name("ImageRectangleModelDidUpdated")
     
     static let PlaneDidSelectItem = Notification.Name("PlaneDidSelectItem")
     static let PlaneDidUnselectItem = Notification.Name("PlaneDidUnselectItem")
