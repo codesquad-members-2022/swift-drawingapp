@@ -153,7 +153,8 @@ class ViewController: UIViewController {
     private func initializeViewsInTouchedEmptySpaceCondition() {
         self.selectedView?.layer.borderWidth = 0
         self.selectedView = nil
-        backgroundColorButton.isHidden = true
+        backgroundColorButton.isEnabled = false
+        backgroundColorButton.setTitle("배경색 변경 불가", for: .disabled)
         backgroundColorButton.backgroundColor = .clear
         alphaSlider.isEnabled = false
         let alphaSliderCenterValue = (alphaSlider.minimumValue + alphaSlider.maximumValue) / 2
@@ -284,10 +285,13 @@ extension ViewController {
     }
     
     private func updateBackgroundColorButton(with rectangle: AnyRectangularable) {
-        backgroundColorButton.isHidden = !(rectangle is BackgroundColorChangable)
+        guard let rectangle = rectangle as? BackgroundColorChangable & AnyRectangularable else {
+            backgroundColorButton.isEnabled = false
+            backgroundColorButton.backgroundColor = .clear
+            return
+        }
+        backgroundColorButton.isEnabled = true
         let currentAlphaValue = rectangle.alpha.value
-        
-        guard let rectangle = rectangle as? BackgroundColorChangable else {return}
         backgroundColorButton.setTitle(rectangle.backgroundColor.hexCode, for: .normal)
         let buttonBackgroundColor = rectangle.backgroundColor.convertToUIColor(with: currentAlphaValue)
         backgroundColorButton.backgroundColor = buttonBackgroundColor
