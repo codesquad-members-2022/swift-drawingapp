@@ -7,12 +7,9 @@
 
 import Foundation
 
-protocol Imageable: Drawingable {
-    var imageUrl: URL? { get }
-    func update(imageUrl: URL?)
-}
-
 class PhotoModel: DrawingModel, Imageable, Viewable {
+    private static var makeCount: Int = 0
+    
     public private(set) var imageUrl: URL?
     
     override var description: String {
@@ -42,7 +39,8 @@ class PhotoModel: DrawingModel, Imageable, Viewable {
 
 extension PhotoModel: DrawingModelFactoryable {
     static func make(id: String, origin: Point, size: Size, alpha: Alpha, data: [Any]) -> DrawingModel {
+        makeCount += 1
         let url = data.isEmpty ? nil : data[0] as? URL
-        return PhotoModel.init(id: id, index: 0, origin: origin, size: size, alpha: alpha, url: url)
+        return PhotoModel.init(id: id, index: makeCount, origin: origin, size: size, alpha: alpha, url: url)
     }
 }

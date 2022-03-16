@@ -7,14 +7,6 @@
 
 import Foundation
 
-protocol PlaneDataSource {
-    func getScreenSize() -> Size
-}
-
-protocol PlaneModelFactoryBase {
-    func make(_ identifier: DrawingModelFactoryable.Type, data: [Any]) -> DrawingModel
-}
-
 protocol PlaneAction {
     func selecteModel(index: Int)
     func move(to index: Int)
@@ -24,20 +16,6 @@ class Plane {
     private var drawingModels: [DrawingModel] = []
     private var selectedModel: DrawingModel?
     private var modelFactory: PlaneModelFactoryBase?
-    
-    var dataSource: PlaneDataSource? {
-        didSet {
-            screenSize = dataSource?.getScreenSize()
-        }
-    }
-    
-    private var screenSize: Size?
-    
-    private var modelCounting: [ObjectIdentifier:Int] = [
-        ObjectIdentifier(RectangleModel.self): 0,
-        ObjectIdentifier(PhotoModel.self): 0,
-        ObjectIdentifier(LabelModel.self): 0
-    ]
     
     var count: Int {
         drawingModels.count
@@ -88,30 +66,16 @@ class Plane {
         NotificationCenter.default.post(name: Plane.Event.didSelecteModel, object: self, userInfo: [ParamKey.drawingModel:model, ParamKey.index: index])
     }
     
-    private func calibrateScreenInOrigin(to point: Point, size: Size) -> Point? {
-        guard let screenSize = self.screenSize else {
-            return nil
-        }
-        
-        var originX = point.x - size.width / 2
-        originX = originX < 1 ? 1 : originX
-        originX = originX + size.width > screenSize.width ? screenSize.width - size.width : originX
-        
-        var originY = point.y - size.height / 2
-        originY = originY < 1 ? 1 : originY
-        originY = originY + size.height > screenSize.height ? screenSize.height - size.height : originY
-        
-        return Point(x: originX, y: originY)
+    private func originToCenter(origin: Point, size: Size) -> Point? {
+        let centerX = origin.x - size.width / 2
+        let centerY = origin.y - size.height / 2
+        return Point(x: centerX, y: centerY)
     }
 }
 
 extension Plane: Makeable {
     func make(type modelType: DrawingModelFactoryable.Type, data: [Any] = []) {
-        
-        let counting = (modelCounting[ObjectIdentifier(modelType)] ?? 0) + 1
-        modelCounting[ObjectIdentifier(modelType)] = counting
-        
-        guard let model = self.modelFactory?.make(modelType, data: data) else {
+        guard let model = self.modelFactory?.make(factoryable: modelType, data: data) else {
             return
         }
         self.drawingModels.insert(model, at: 0)
@@ -217,7 +181,7 @@ extension Plane: GusturePoint {
     
     func changedDragPoint(_ point: Point) {
         guard let dragModel = self.selectedModel,
-              let newOrigin = self.calibrateScreenInOrigin(to: point, size: dragModel.size) else {
+              let newOrigin = self.originToCenter(origin: point, size: dragModel.size) else {
             return
         }
         NotificationCenter.default.post(name: Plane.Event.didChangedDrag, object: self, userInfo: [ParamKey.dragPoint:Point(x: newOrigin.x, y: newOrigin.y)])
@@ -225,7 +189,7 @@ extension Plane: GusturePoint {
     
     func endedDragPoint(_ point: Point) {
         guard let dragModel = self.selectedModel,
-              let newOrigin = self.calibrateScreenInOrigin(to: point, size: dragModel.size) else {
+              let newOrigin = self.originToCenter(origin: point, size: dragModel.size) else {
             return
         }
         let origin = Point(x: newOrigin.x, y: newOrigin.y)

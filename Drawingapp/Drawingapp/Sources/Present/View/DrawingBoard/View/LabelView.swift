@@ -20,7 +20,7 @@ class LabelView: DrawingView {
     
     required init(drawingable: Drawingable) {
         super.init(drawingable: drawingable)
-        if let textable = drawingable as? Textable {
+        if let textable = drawingable as? Labelable {
             self.update(text: textable.text)
             self.update(font: textable.font)
         }
