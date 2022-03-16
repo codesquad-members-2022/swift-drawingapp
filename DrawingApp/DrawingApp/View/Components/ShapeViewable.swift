@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol RectangleShapable: UIView {
+protocol ShapeViewable: UIView {
     func setBorder(width: Int, radius: Int, color: UIColor?)
     func removeBorder()
     func setBackgroundColor(color: Color, alpha: Alpha)
@@ -18,7 +18,7 @@ protocol RectangleShapable: UIView {
     func animateScale(_ scale: CGFloat, duration: Double, delay: Double)
 }
 
-extension RectangleShapable {
+extension ShapeViewable {
     func setBorder(width: Int, radius: Int = 0, color: UIColor?) {
         self.layer.cornerCurve = .continuous
         self.layer.cornerRadius = CGFloat(radius)

@@ -8,6 +8,7 @@
 import XCTest
 
 class DrawingAppTests: XCTestCase {
+    // MARK: - Size
     func testSize() {
         var size = Size(width: 30, height: 30)
         XCTAssertEqual(size.width, 30)
@@ -18,6 +19,7 @@ class DrawingAppTests: XCTestCase {
         XCTAssertEqual(size.height, 30.5)
     }
     
+    // MARK: - Point
     func testPoint() {
         var point = Point(x: 0, y: 10)
         XCTAssertEqual(point.x, 0)
@@ -28,8 +30,15 @@ class DrawingAppTests: XCTestCase {
         XCTAssertEqual(point.y, 27.5)
     }
     
+    func testPointConversion() {
+        let point = Point(x: 10, y: 10)
+        let result = point.convert(using: CGPoint.self)
+        XCTAssertEqual(point.x, result.x)
+    }
+    
+    // MARK: - Color
     func testColor() {
-        var color = Color(red: 0, green: 100, blue: 0) ?? .white
+        var color = Color(red: 0, green: 100, blue: 0)
         XCTAssertNotEqual(color, Color.white)
         XCTAssertEqual(color.red, 0)
         XCTAssertEqual(color.green, 100)
@@ -37,12 +46,11 @@ class DrawingAppTests: XCTestCase {
         
         color = .red
         XCTAssertEqual(color.red, 255.0)
-        
-        XCTAssertNil(Color(red: 260, green: 0, blue: 10))
     }
     
+    // MARK: - Alpha
     func testAlpha() {
-        var alpha = Alpha(rawValue: 5)
+        var alpha = Alpha(rawValue: 0.5)
         XCTAssertNotNil(alpha)
         XCTAssertEqual(alpha, .five)
         
@@ -50,6 +58,7 @@ class DrawingAppTests: XCTestCase {
         XCTAssertNil(alpha)
     }
     
+    // MARK: - Rectangle
     func testRectangle() {
         let rect = RectangleFactory.makeRectangle()
         XCTAssertEqual(rect.backgroundColor, .white)
@@ -70,18 +79,21 @@ class DrawingAppTests: XCTestCase {
         XCTAssertNotEqual(rect.id, secondRect.id)
     }
     
+    // MARK: - Plane
     func testPlane() {
-        var plane = Plane()
-        XCTAssertEqual(plane.countItems, 0)
+        let plane = Plane()
+        XCTAssertEqual(plane.count, 0)
         XCTAssertNil(plane.findItemBy(point: Point(x: 1, y: 1)))
         
         let rect = RectangleFactory.makeRectangle(x: 100, y: 100, width: 50, height: 50)
         plane.append(item: rect)
-        XCTAssertEqual(plane.countItems, 1)
-        XCTAssertEqual(plane[id: rect.id], rect)
+        XCTAssertEqual(plane.count, 1)
+        XCTAssertNotNil(plane[id: rect.id])
+        XCTAssertEqual(plane[id: rect.id] as! Rectangle, rect)
         
         let secondRect = RectangleFactory.makeRectangle(x: 0, y: 0, width: 50, height: 50)
         plane.append(item: secondRect)
-        XCTAssertEqual(plane.findItemBy(point: Point(x: 30, y: 10)), secondRect)
+        XCTAssertNotNil(plane.findItemBy(point: Point(x: 30, y: 10)))
+        XCTAssertEqual(plane.findItemBy(point: Point(x: 30, y: 10)) as! Rectangle, secondRect)
     }
 }
