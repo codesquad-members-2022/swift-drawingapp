@@ -105,7 +105,9 @@ final class MainScreenViewController: UIViewController, UIGestureRecognizerDeleg
         guard
             let model = userInfo[.model] as? RectangleProperty,
             let index = userInfo[.index] as? Int
-        else { return }
+        else {
+            return
+        }
         
         rectangleViews.first(where: {$0.index == index})?
             .setValue(alpha: model.alpha)
