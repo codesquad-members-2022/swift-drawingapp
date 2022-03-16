@@ -161,13 +161,11 @@ class ViewController: UIViewController{
 
 extension ViewController: UIGestureRecognizerDelegate{
 
-    
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         let touchedPoint = touch.location(in: self.canvasView)
         self.plane.findMatchingRectangleModel(x: touchedPoint.x, y: touchedPoint.y)
         return true
     }
-    
     
     @objc private func panGestureRecognizer(_ sender: UIPanGestureRecognizer){
         guard let canvasView = canvasView else { return }
@@ -197,7 +195,6 @@ extension ViewController: UIGestureRecognizerDelegate{
     }
     
 }
-
 
 extension ViewController: CanvasViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
