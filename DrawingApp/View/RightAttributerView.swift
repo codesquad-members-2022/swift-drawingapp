@@ -10,15 +10,22 @@ import UIKit
 final class RightAttributerView: UIView {
     private let colorTitle = UILabel()
     private let alphaTitle = UILabel()
+    private let positonTitle = UILabel()
+    private let sizeTitle = UILabel()
     
     private let colorNameRed = UILabel()
     private let colorNameGreen = UILabel()
     private let colorNameBlue = UILabel()
     
-    let redSlider = UISlider()
-    let greenSlider = UISlider()
-    let blueSlider = UISlider()
-    let alphaSlider = UISlider()
+    private let redSlider = UISlider()
+    private let greenSlider = UISlider()
+    private let blueSlider = UISlider()
+    private let alphaSlider = UISlider()
+
+    private let xPositionStepper = UIStepper()
+    private let yPositionStepper = UIStepper()
+    private let widthStepper = UIStepper()
+    private let heightStepper = UIStepper()
     
     var redValue: Double{
         return Double(redSlider.value)
@@ -70,6 +77,12 @@ extension RightAttributerView{
         alphaTitle.textColor = .black
         alphaTitle.font = .systemFont(ofSize: 17)
         alphaTitle.text = "투명도 : 10"
+        positonTitle.textColor = .black
+        positonTitle.font = .systemFont(ofSize: 17)
+        positonTitle.text = "위치"
+        sizeTitle.textColor = .black
+        sizeTitle.font = .systemFont(ofSize: 17)
+        sizeTitle.text = "크기"
         
         colorNameRed.textColor = .red
         colorNameRed.font = .systemFont(ofSize: 15)
@@ -94,6 +107,11 @@ extension RightAttributerView{
         alphaSlider.maximumValue = 1.0
         alphaSlider.value = 1.0
         alphaSlider.isContinuous = false
+        
+        widthStepper.minimumValue = 1
+        heightStepper.minimumValue = 1
+        xPositionStepper.minimumValue = 1
+        yPositionStepper.maximumValue = 30
     }
     
     private func layout(){

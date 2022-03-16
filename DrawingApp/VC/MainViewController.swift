@@ -247,8 +247,10 @@ extension MainViewController {
             return
         }
         
-        view.changeOriginalViewCenterPositon(view: view, x: extraView.center.x, y: extraView.center.y)
-        selectValue.changePoint(point: MyPoint(x: extraView.frame.origin.x, y: extraView.frame.origin.y))
+        if extraView.frame.maxX < self.rightAttributerView.frame.minX, extraView.frame.maxY < self.rectangleButton.frame.minY{
+            view.changeOriginalViewCenterPositon(view: view, x: extraView.center.x, y: extraView.center.y)
+            selectValue.changePoint(point: MyPoint(x: extraView.frame.origin.x, y: extraView.frame.origin.y))
+        }
         
         extraView.removeFromSuperview()
         panGestureExtraView = nil
