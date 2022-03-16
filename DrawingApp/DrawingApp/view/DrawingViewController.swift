@@ -94,11 +94,12 @@ class DrawingViewController: UIViewController{
         customView.setAlpha(alpha: rectangleViewModel.getAlpha())
         let viewTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(rectangleTappedGesture))
         customView.addGestureRecognizer(viewTapGesture)
-        guard let rectangle = rectangleViewModel as? Rectangle else { return }
-        customViews[rectangle] = customView
+        if let rectangle = rectangleViewModel as? Rectangle {
+            customViews[rectangle] = customView
+        }
         view.addSubview(customView)
-        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.changedColorText, object: self, userInfo: [DrawingViewController.Notification.Key.rectangle : rectangle])
-        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.alphaButtonHidden, object: self, userInfo: [DrawingViewController.Notification.Key.customViewModel : rectangle])
+        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.changedColorText, object: self, userInfo: [DrawingViewController.Notification.Key.rectangle : rectangleViewModel])
+        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.alphaButtonHidden, object: self, userInfo: [DrawingViewController.Notification.Key.customViewModel : rectangleViewModel])
     }
     
     @objc private func addPhotoViewToSubView(_ notification: Foundation.Notification){
@@ -110,8 +111,9 @@ class DrawingViewController: UIViewController{
         customView.setAlpha(alpha: photoViewModel.getAlpha())
         let viewTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(photoTappedGesture))
         customView.addGestureRecognizer(viewTapGesture)
-        guard let photo = photoViewModel as? Photo else { return }
-        customViews[photo] = customView
+        if let photo = photoViewModel as? Photo{
+            customViews[photo] = customView
+        }
         view.addSubview(customView)
         NotificationCenter.default.post(name: DrawingViewController.Notification.Event.alphaButtonHidden, object: self, userInfo: [DrawingViewController.Notification.Key.customViewModel : photoViewModel])
         NotificationCenter.default.post(name: DrawingViewController.Notification.Event.updateSelectedPhotoUI, object: self, userInfo: [DrawingViewController.Notification.Key.photo : photoViewModel])
@@ -147,19 +149,21 @@ class DrawingViewController: UIViewController{
         guard let rectangleViewModel = notification.userInfo?[Plane.Notification.Key.rectangle] as? RectangleViewModelMutable else {
             return
         }
-        guard let rectangle = rectangleViewModel as? Rectangle else { return }
-        guard let rectangleView = customViews[rectangle] as? RectangleView else { return }
-        rectangleView.setRGBColor(rgb: rectangleViewModel.getColorRGB())
+        if let rectangle = rectangleViewModel as? Rectangle{
+            guard let rectangleView = customViews[rectangle] as? RectangleView else { return }
+            rectangleView.setRGBColor(rgb: rectangleViewModel.getColorRGB())
+        }
         NotificationCenter.default.post(name: DrawingViewController.Notification.Event.changedColorText, object: self, userInfo: [DrawingViewController.Notification.Key.rectangle : rectangleViewModel])
     }
     
     @objc private func customViewAlphaChanged(_ notification: Foundation.Notification){
-        guard let customViewModel = notification.userInfo?[Plane.Notification.Key.customViewModel] as? CustomViewModelMutable else {
+        guard let customViewModelMutable = notification.userInfo?[Plane.Notification.Key.customViewModel] as? CustomViewModelMutable else {
             return
         }
-        guard let customModel = customViewModel as? CustomViewModel else { return }
-        customViews[customModel]?.setAlpha(alpha: customViewModel.getAlpha())
-        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.alphaButtonHidden, object: self, userInfo: [DrawingViewController.Notification.Key.customViewModel : customViewModel])
+        if let customModel = customViewModelMutable as? CustomViewModel{
+            customViews[customModel]?.setAlpha(alpha: customViewModelMutable.getAlpha())
+        }
+        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.alphaButtonHidden, object: self, userInfo: [DrawingViewController.Notification.Key.customViewModel : customViewModelMutable])
     }
     
     private func plusViewAlpha(){
@@ -196,5 +200,5 @@ class DrawingViewController: UIViewController{
             case photo
         }
     }
-   
+    
 }
