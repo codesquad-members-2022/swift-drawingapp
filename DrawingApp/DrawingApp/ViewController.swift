@@ -13,6 +13,7 @@ class ViewController: UIViewController {
     private var plane = Plane()
     private var rectangleAndViewMap = [AnyHashable: RectangleViewable]()
     private var selectedView: RectangleViewable?
+    private var movingTemporaryView: RectangleViewable?
     weak var generateRectangleButton: UIButton!
     weak var generateImageRectangleButton: UIButton!
     weak var drawableAreaView: UIView!
@@ -97,6 +98,11 @@ class ViewController: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewDidTouched(sender:)))
         drawableAreaView.addGestureRecognizer(tapGesture)
         
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panAction(_:)))
+        drawableAreaView.addGestureRecognizer(panGesture)
+        panGesture.minimumNumberOfTouches = 2
+        panGesture.maximumNumberOfTouches = 2
+        
         self.view.addSubview(drawableAreaView)
     }
     
@@ -105,6 +111,46 @@ class ViewController: UIViewController {
         let touchedPoint = Point(x: touchedLocation.x, y: touchedLocation.y)
         
         plane.specifyRectangle(point: touchedPoint)
+    }
+    
+    @objc func panAction(_ sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: drawableAreaView)
+        
+        switch sender.state {
+            case .began:
+                let touchedLocation = sender.location(in: drawableAreaView)
+                let touchedPoint = Point(x: touchedLocation.x, y: touchedLocation.y)
+                plane.specifyRectangle(point: touchedPoint)
+                makeTemporaryView()
+            case .changed:
+                guard let movingTemporaryView = self.movingTemporaryView else { return }
+                movingTemporaryView.move(distance: translation)
+                sender.setTranslation(.zero, in: drawableAreaView)
+            case .ended:
+                guard let movingTemporaryView = self.movingTemporaryView as? UIView,
+                      let selectedView = self.selectedView,
+                      let specifiedRectangle = plane.specifiedRectangle else {
+                    return
+                }
+                
+                selectedView.move(to: movingTemporaryView.center)
+                let convertedNewPoint = Point(x: movingTemporaryView.frame.origin.x,
+                                           y:movingTemporaryView.frame.origin.y)
+                specifiedRectangle.move(to: convertedNewPoint)
+                self.movingTemporaryView = nil
+            @unknown default:
+                return
+        }
+    }
+    
+    private func makeTemporaryView() {
+        guard let selectedView = self.selectedView else { return }
+        
+        let copiedView = selectedView.copyToNewInstance()
+        copiedView.alpha = 0.5
+        self.movingTemporaryView = copiedView
+        
+        self.drawableAreaView.addSubview(copiedView)
     }
     
     private func initializeViewsInTouchedEmptySpaceCondition() {
