@@ -7,37 +7,30 @@
 
 import Foundation
 
-/// Rectangle 클래스가 구현하는 View 객체의 Model을 표현합니다.
-final class RectangleProperty: RectanglePropertyCreator {
+/// 사각형 모델 클래스를 추상화 하는 공통 모델 클래스
+///
+/// 기존에 화면에 나오는 사각형을 담당하였지만 현재는 모든 Rectangle 모델 클래스를 추상화합니다.
+class RectangleProperty: RectanglePropertyCreator {
     
-    private let name: String
-    private let id: String
+    let name: String
+    let id: String
     
     private(set) var size: RectSize
     private(set) var point: RectOrigin
     
-    private(set) var rgbValue: RectRGBColor
     private(set) var alpha: Double
     
     private(set) var backgroundImageData: Data?
     
-    init(as name: String, using id: String, from screenRect: ScreenSceneRect, color rgbValue: RectRGBColor, alpha: Double, backgroundImageData: Data?) {
+    init(as name: String, using id: String, from screenRect: ScreenSceneRect, alpha: Double) {
         self.name = name
         self.id = id
         self.point = RectOrigin(x: screenRect.maxX, y: screenRect.maxY)
         self.size = RectSize(width: screenRect.width, height: screenRect.height)
-        self.rgbValue = rgbValue
         self.alpha = alpha
-        self.backgroundImageData = backgroundImageData
     }
     
     // MARK: - Setter/Getter in model
-    
-    @discardableResult
-    func resetRGBColor() -> RectRGBColor? {
-        self.rgbValue = generateRandomRGBColor()
-        return rgbValue
-    }
     
     @discardableResult
     func setAlpha(_ alpha: Double) -> Bool {
@@ -58,12 +51,5 @@ final class RectangleProperty: RectanglePropertyCreator {
         guard point.x >= 0 || point.y >= 0 else { return false }
         self.point = point
         return true
-    }
-}
-
-// MARK: - CustomStringConvertible for RectangleProperty
-extension RectangleProperty: CustomStringConvertible {
-    var description: String {
-        "\(name) \(id), \(point), \(size), \(rgbValue), Alpha:\(alpha)"
     }
 }

@@ -10,24 +10,49 @@ import Foundation
 typealias ScreenSceneRect = FactoryRectangleProperty.ScreenRect
 typealias RectangleDefaultSize = FactoryRectangleProperty.DefaultSize
 
+/// Rectangle 타입을 구체화 한 ImageRectangleProperty, ColoredRectangleProperty를 만드는 팩토리 객체.
+///
 /// Rectangle 객체를 생성하는 인터페이스를 제공하는 클래스입니다.
+/// -
 final class FactoryRectangleProperty: RectanglePropertyCreator {
     
+    private let rect: ScreenSceneRect
+    
+    init(in rect: ScreenSceneRect) {
+        self.rect = rect
+    }
+    
     // MARK: - Make Model Of View.
-    func makeRandomRectangleModel(as name: String, in rect: ScreenSceneRect, imageData data: Data? = nil) -> RectangleProperty? {
+    func makeRandomRectangleModel(as name: String, imageData data: Data? = nil) -> ImageRectangleProperty? {
+        
+        guard let data = data else { return nil }
+        
+        let randomLocationProperties = getRandomPoint(from: rect)
+        let randomID = getRandomId()
+        let randomAlpha = getRandomAlpha()
+        
+        return ImageRectangleProperty(
+            as: name,
+            using: randomID,
+            from: randomLocationProperties,
+            alpha: randomAlpha,
+            backgroundImageData: data
+        )
+    }
+    
+    func makeRandomRectangleModel(as name: String) -> ColoredRectangleProperty {
         
         let randomLocationProperties = getRandomPoint(from: rect)
         let randomColor = getRandomColor()
         let randomID = getRandomId()
         let randomAlpha = getRandomAlpha()
         
-        return RectangleProperty(
+        return ColoredRectangleProperty(
             as: name,
             using: randomID,
             from: randomLocationProperties,
             color: randomColor,
-            alpha: randomAlpha,
-            backgroundImageData: data
+            alpha: randomAlpha
         )
     }
     

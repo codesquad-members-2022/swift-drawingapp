@@ -20,6 +20,10 @@
 		1B79C92D27CE3B6000D7D60B /* Add_OSLog_Framework.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B79C92C27CE3B5F00D7D60B /* Add_OSLog_Framework.png */; };
 		1B811EBB27CF4F3300C3E6BC /* LoggerUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B811EBA27CF4F3300C3E6BC /* LoggerUtil.swift */; };
 		1B9A277127E0A1E7006B0F35 /* Step4_Result4.png in Resources */ = {isa = PBXBuildFile; fileRef = 1B9A277027E0A1E7006B0F35 /* Step4_Result4.png */; };
+		1BD3EA2927E1DC4600ADB359 /* ColoredRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD3EA2827E1DC4600ADB359 /* ColoredRectangle.swift */; };
+		1BD3EA2B27E1DC4F00ADB359 /* ImageRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD3EA2A27E1DC4F00ADB359 /* ImageRectangle.swift */; };
+		1BD3EA2F27E2061F00ADB359 /* ImageRectangleProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD3EA2E27E2061F00ADB359 /* ImageRectangleProperty.swift */; };
+		1BD3EA3227E2161600ADB359 /* ColoredRectangleProperty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD3EA3127E2161600ADB359 /* ColoredRectangleProperty.swift */; };
 		1BD7287227CCBC7A008DED9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD7287127CCBC7A008DED9E /* AppDelegate.swift */; };
 		1BD7287427CCBC7A008DED9E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD7287327CCBC7A008DED9E /* SceneDelegate.swift */; };
 		1BD7287627CCBC7A008DED9E /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1BD7287527CCBC7A008DED9E /* MainViewController.swift */; };
@@ -70,6 +74,10 @@
 		1B79C92C27CE3B5F00D7D60B /* Add_OSLog_Framework.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Add_OSLog_Framework.png; sourceTree = "<group>"; };
 		1B811EBA27CF4F3300C3E6BC /* LoggerUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerUtil.swift; sourceTree = "<group>"; };
 		1B9A277027E0A1E7006B0F35 /* Step4_Result4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Step4_Result4.png; sourceTree = "<group>"; };
+		1BD3EA2827E1DC4600ADB359 /* ColoredRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColoredRectangle.swift; sourceTree = "<group>"; };
+		1BD3EA2A27E1DC4F00ADB359 /* ImageRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRectangle.swift; sourceTree = "<group>"; };
+		1BD3EA2E27E2061F00ADB359 /* ImageRectangleProperty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRectangleProperty.swift; sourceTree = "<group>"; };
+		1BD3EA3127E2161600ADB359 /* ColoredRectangleProperty.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColoredRectangleProperty.swift; sourceTree = "<group>"; };
 		1BD7286E27CCBC7A008DED9E /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1BD7287127CCBC7A008DED9E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1BD7287327CCBC7A008DED9E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -122,12 +130,11 @@
 		1B54996E27D09AE10086EC5F /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				1BD728AA27CCFB8D008DED9E /* FactoryRectangleProperty.swift */,
 				1B4A55AB27CD9F96009CDC7B /* RectanglePropertyCreator.swift */,
 				1B4A55A927CD99EC009CDC7B /* RandomizeValue.swift */,
-				1BD728A627CCC6B3008DED9E /* RectangleProperty.swift */,
 				1BF27A6A27D1EEB9005FAA31 /* RandomPropertySubTypes.swift */,
 				1B54997027D09BE30086EC5F /* Plane.swift */,
+				1BD3EA3027E215FC00ADB359 /* RectangleProperty */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -154,11 +161,32 @@
 			isa = PBXGroup;
 			children = (
 				1BD7287727CCBC7A008DED9E /* Main.storyboard */,
-				1B54997A27D0B4C00086EC5F /* Rectangle.swift */,
 				1BD7287527CCBC7A008DED9E /* MainViewController.swift */,
 				1B5668A827D4B6C30060FD59 /* MainScreenViewController.swift */,
+				1BD3EA3327E2162500ADB359 /* Rectangle */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		1BD3EA3027E215FC00ADB359 /* RectangleProperty */ = {
+			isa = PBXGroup;
+			children = (
+				1BD728AA27CCFB8D008DED9E /* FactoryRectangleProperty.swift */,
+				1BD728A627CCC6B3008DED9E /* RectangleProperty.swift */,
+				1BD3EA2E27E2061F00ADB359 /* ImageRectangleProperty.swift */,
+				1BD3EA3127E2161600ADB359 /* ColoredRectangleProperty.swift */,
+			);
+			path = RectangleProperty;
+			sourceTree = "<group>";
+		};
+		1BD3EA3327E2162500ADB359 /* Rectangle */ = {
+			isa = PBXGroup;
+			children = (
+				1B54997A27D0B4C00086EC5F /* Rectangle.swift */,
+				1BD3EA2827E1DC4600ADB359 /* ColoredRectangle.swift */,
+				1BD3EA2A27E1DC4F00ADB359 /* ImageRectangle.swift */,
+			);
+			path = Rectangle;
 			sourceTree = "<group>";
 		};
 		1BD7286527CCBC7A008DED9E = {
@@ -378,10 +406,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1BD3EA2B27E1DC4F00ADB359 /* ImageRectangle.swift in Sources */,
+				1BD3EA2F27E2061F00ADB359 /* ImageRectangleProperty.swift in Sources */,
 				1BF27A6B27D1EEB9005FAA31 /* RandomPropertySubTypes.swift in Sources */,
 				1BD7287627CCBC7A008DED9E /* MainViewController.swift in Sources */,
 				1B811EBB27CF4F3300C3E6BC /* LoggerUtil.swift in Sources */,
 				1BD728A727CCC6B3008DED9E /* RectangleProperty.swift in Sources */,
+				1BD3EA3227E2161600ADB359 /* ColoredRectangleProperty.swift in Sources */,
 				1B54997B27D0B4C00086EC5F /* Rectangle.swift in Sources */,
 				1B5668A927D4B6C30060FD59 /* MainScreenViewController.swift in Sources */,
 				1BD7287227CCBC7A008DED9E /* AppDelegate.swift in Sources */,
@@ -389,6 +420,7 @@
 				1BD7287427CCBC7A008DED9E /* SceneDelegate.swift in Sources */,
 				1B54997427D0A21F0086EC5F /* UIView+Extension.swift in Sources */,
 				1B4A55AA27CD99EC009CDC7B /* RandomizeValue.swift in Sources */,
+				1BD3EA2927E1DC4600ADB359 /* ColoredRectangle.swift in Sources */,
 				1BD728B027CD0E88008DED9E /* SystemLog.swift in Sources */,
 				1BD728AB27CCFB8D008DED9E /* FactoryRectangleProperty.swift in Sources */,
 				1B4A55AC27CD9F96009CDC7B /* RectanglePropertyCreator.swift in Sources */,

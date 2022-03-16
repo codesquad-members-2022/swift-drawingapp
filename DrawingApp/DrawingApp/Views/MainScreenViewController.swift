@@ -65,7 +65,7 @@ final class MainScreenViewController: UIViewController, UIGestureRecognizerDeleg
             }
             
             OperationQueue.main.addOperation {
-                self.setBackgroundColorObserve(userInfo)
+                self.setColorObserve(userInfo)
             }
         }
         
@@ -96,7 +96,13 @@ final class MainScreenViewController: UIViewController, UIGestureRecognizerDeleg
             return
         }
         
-        let rect = Rectangle(model: model, index: index)
+        var rect: Rectangle!
+        if let model = model as? ImageRectangleProperty {
+            rect = ImageRectangle(model: model, index: index)
+        } else if let model = model as? ColoredRectangleProperty {
+            rect = ColoredRectangle(model: model, index: index)
+        }
+        
         rectangleViews.append(rect)
         view.addSubview(rect)
     }
@@ -109,20 +115,20 @@ final class MainScreenViewController: UIViewController, UIGestureRecognizerDeleg
             return
         }
         
-        rectangleViews.first(where: {$0.index == index})?
-            .setValue(alpha: model.alpha)
+        let rect = rectangleViews.first(where: {$0.index == index}) as? EnableSetAlphaRectangle
+        rect?.setValue(alpha: model.alpha)
     }
     
-    private func setBackgroundColorObserve(_ userInfo: [Plane.PostKey: Any]) {
+    private func setColorObserve(_ userInfo: [Plane.PostKey: Any]) {
         guard
-            let model = userInfo[.model] as? RectangleProperty,
+            let model = userInfo[.model] as? ColoredRectangleProperty,
             let index = userInfo[.index] as? Int
         else {
             return
         }
         
-        rectangleViews.first(where: {$0.index == index})?
-            .setBackgroundColor(using: model.rgbValue, alpha: model.alpha)
+        let rect = rectangleViews.first(where: {$0.index == index}) as? ColoredRectangle
+        rect?.setBackgroundColor(using: model.rgbValue, alpha: model.alpha)
     }
     
     private func setRectangleStatusChange(_ userInfo: [Plane.PostKey: Any]) {
