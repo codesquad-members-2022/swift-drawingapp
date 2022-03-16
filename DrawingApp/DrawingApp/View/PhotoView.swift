@@ -35,14 +35,6 @@ class PhotoView: UIImageView, RectangleViewable {
         self.alpha = newAlphaValue
     }
     
-    func copyToNewInstance() -> UIView & RectangleViewable {
-        let frame = self.frame
-        let alpha = self.alpha
-        let image = self.image ?? UIImage()
-        
-        return PhotoView(frame: frame, alpha: alpha, image: image)
-    }
-    
     func move(distance: CGPoint) {
         self.frame = self.frame.offsetBy(dx: distance.x, dy: distance.y)
     }
@@ -52,4 +44,24 @@ class PhotoView: UIImageView, RectangleViewable {
         self.center.y = newPoint.y
     }
     
+    func copy(with zone: NSZone? = nil) -> Any {
+        let newFrame = self.frame.copy()
+        let newImage = self.image?.copy() as? UIImage ?? UIImage()
+        let newAlpha = self.alpha.copy()
+        
+        return PhotoView.init(frame: newFrame, alpha: newAlpha, image: newImage)
+    }
 }
+
+extension CGRect {
+    fileprivate func copy() -> CGRect {
+        return CGRect(x: self.minX, y: self.minY, width: self.width, height: self.height)
+    }
+}
+
+extension CGFloat {
+    fileprivate func copy() -> CGFloat {
+        return CGFloat(self)
+    }
+}
+
