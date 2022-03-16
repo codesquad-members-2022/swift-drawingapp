@@ -38,7 +38,4 @@ final class PlaneRectangleView:UIView,RectangleViewable {
             alpha: CGFloat(alpha.value)
         )
     }
-
-    
-    
 }

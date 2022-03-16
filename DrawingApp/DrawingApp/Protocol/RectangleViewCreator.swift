@@ -6,5 +6,5 @@
 //
 
 protocol RectangleViewCreator {
-    func makeRectangleView(type:RectangleViewable.Type) -> RectangleViewable
+    static func makeRectangleView(sourceRectangle:Rectangleable) -> RectangleViewable
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ImageRectanlgeView:UIImageView,RectangleViewable {
+final class ImageRectanlgeView:UIImageView,RectangleViewable {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -26,7 +26,6 @@ class ImageRectanlgeView:UIImageView,RectangleViewable {
         self.frame = CGRect(x: x, y: y, width: width, height: height)
     }
     
-    //image name for test
     func setupImage(imageData:Data) {
         self.image = UIImage(data: imageData)
     }
