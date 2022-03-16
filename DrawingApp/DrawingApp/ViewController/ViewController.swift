@@ -41,7 +41,7 @@ class ViewController: UIViewController {
     }
     
     private func activateNotificationObserver() {
-        notificationCenter.addObserver(self, selector: #selector(made(rectangleNoti: )), name: .addRectangleView, object: self.plane)
+        notificationCenter.addObserver(self, selector: #selector(made(rectangleNoti: )), name: Notification.Name.addRectangleView, object: nil)
         
 //        plane.addedRectangleDelegate = self
         plane.rectangleTapDelegate = self
