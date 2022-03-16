@@ -43,8 +43,10 @@ class ViewController: UIViewController {
     private func activateNotificationObservers() {
         // add rectangle
         notificationCenter.addObserver(self, selector: #selector(made(rectangleNoti: )), name: Notification.Name.addRectangleView, object: nil)
+        
         // rectangle tapped
         notificationCenter.addObserver(self, selector: #selector(touched(rectangleNoti:)), name: Notification.Name.tappedRectangleView, object: nil)
+        
         // color changed
         notificationCenter.addObserver(self, selector: #selector(didChangeColor(rectangleNoti:)), name: Notification.Name.colorChange, object: nil)
         
