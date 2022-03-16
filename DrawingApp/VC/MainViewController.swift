@@ -27,7 +27,8 @@ class MainViewController: UIViewController{
         albumButton.layer.cornerRadius = 15
         
         imagePicker.delegate = self
-        rightAttributerView.delegate = self
+        rightAttributerView.sliderDelegate = self
+        rightAttributerView.stepperDelegate = self
         self.view.addSubview(rightAttributerView)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapGesture))
@@ -306,4 +307,26 @@ extension MainViewController: UIColorSliderDelegate{
             imageView?.alpha = image.alpha.showValue()
         }
     }
+}
+
+
+// MARK: - Use case: Control RigthAttributerView's Steppers
+
+extension MainViewController: StepperDelegate{
+    func xPositionValueDidChange() {
+        <#code#>
+    }
+    
+    func yPositionValueDidChange() {
+        <#code#>
+    }
+    
+    func widthValueDidChange() {
+        <#code#>
+    }
+    
+    func heightValueDidChange() {
+        <#code#>
+    }
+    
 }

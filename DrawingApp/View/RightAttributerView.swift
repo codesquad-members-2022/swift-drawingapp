@@ -27,6 +27,11 @@ final class RightAttributerView: UIView {
     private let widthStepper = UIStepper()
     private let heightStepper = UIStepper()
     
+    private let xPositionLabel = UILabel()
+    private let yPositionLabel = UILabel()
+    private let widthLabel = UILabel()
+    private let heightLabel = UILabel()
+    
     var redValue: Double{
         return Double(redSlider.value)
     }
@@ -43,7 +48,21 @@ final class RightAttributerView: UIView {
         return value ?? .one
     }
     
-    var delegate: UIColorSliderDelegate?
+    var xPositionValue: Int{
+        return Int(round(xPositionStepper.value))
+    }
+    var yPositionValue: Int{
+        return Int(round(yPositionStepper.value))
+    }
+    var widthValue: Int{
+        return Int(round(widthStepper.value))
+    }
+    var heightValue: Int{
+        return Int(round(heightStepper.value))
+    }
+    
+    var sliderDelegate: UIColorSliderDelegate?
+    var stepperDelegate: StepperDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,7 +76,7 @@ final class RightAttributerView: UIView {
 }
 
 
-// MARK: - Use case: Make Rectangle with attrbute and layout, delegate
+// MARK: - Use case: Make views with attrbute and layout
 
 extension RightAttributerView{
     private func initialize(){
@@ -94,6 +113,19 @@ extension RightAttributerView{
         colorNameBlue.font = .systemFont(ofSize: 15)
         colorNameBlue.text = "Blue : 0"
         
+        xPositionLabel.font = .systemFont(ofSize: 15)
+        xPositionLabel.text = "\(xPositionValue)"
+        xPositionLabel.textAlignment = .center
+        yPositionLabel.font = .systemFont(ofSize: 15)
+        yPositionLabel.text = "\(yPositionValue)"
+        yPositionLabel.textAlignment = .center
+        widthLabel.font = .systemFont(ofSize: 15)
+        widthLabel.text = "\(widthValue)"
+        widthLabel.textAlignment = .center
+        heightLabel.font = .systemFont(ofSize: 15)
+        heightLabel.text = "\(heightValue)"
+        heightLabel.textAlignment = .center
+        
         redSlider.minimumValue = 0
         redSlider.maximumValue = 255
         redSlider.isContinuous = false
@@ -104,14 +136,22 @@ extension RightAttributerView{
         blueSlider.maximumValue = 255
         blueSlider.isContinuous = false
         alphaSlider.minimumValue = 0.1
-        alphaSlider.maximumValue = 1.0
-        alphaSlider.value = 1.0
+        alphaSlider.maximumValue = 1
+        alphaSlider.value = 1
         alphaSlider.isContinuous = false
         
         widthStepper.minimumValue = 1
+        widthStepper.stepValue = 1
+        widthStepper.value = 0
         heightStepper.minimumValue = 1
+        heightStepper.stepValue = 1
+        heightStepper.value = 0
         xPositionStepper.minimumValue = 1
-        yPositionStepper.maximumValue = 30
+        xPositionStepper.stepValue = 1
+        xPositionStepper.value = 0
+        yPositionStepper.minimumValue = 30
+        yPositionStepper.stepValue = 1
+        yPositionStepper.value = 0
     }
     
     private func layout(){
@@ -126,6 +166,16 @@ extension RightAttributerView{
         blueSlider.frame = CGRect(x: 15, y: 240, width: 100, height: 30)
         alphaTitle.frame = CGRect(x: 15, y: 290, width: 120, height: 30)
         alphaSlider.frame = CGRect(x: 15, y: 330, width: 120, height: 30)
+        positonTitle.frame = CGRect(x: 15, y: 370, width: 120, height: 30)
+        xPositionLabel.frame = CGRect(x: 15, y: 400, width: 35, height: 30)
+        xPositionStepper.frame = CGRect(x: 50, y: 400, width: 100, height: 30)
+        yPositionLabel.frame = CGRect(x: 15, y: 440, width: 35, height: 30)
+        yPositionStepper.frame = CGRect(x: 50, y: 440, width: 100, height: 30)
+        sizeTitle.frame = CGRect(x: 15, y: 480, width: 120, height: 30)
+        widthLabel.frame = CGRect(x: 15, y: 510, width: 35, height: 30)
+        widthStepper.frame = CGRect(x: 50, y: 510, width: 100, height: 30)
+        heightLabel.frame = CGRect(x: 15, y: 550, width: 35, height: 30)
+        heightStepper.frame = CGRect(x: 50, y: 550, width: 100, height: 30)
         
         self.addSubview(colorTitle)
         self.addSubview(colorNameRed)
@@ -136,8 +186,23 @@ extension RightAttributerView{
         self.addSubview(blueSlider)
         self.addSubview(alphaTitle)
         self.addSubview(alphaSlider)
+        self.addSubview(positonTitle)
+        self.addSubview(xPositionLabel)
+        self.addSubview(xPositionStepper)
+        self.addSubview(yPositionLabel)
+        self.addSubview(yPositionStepper)
+        self.addSubview(sizeTitle)
+        self.addSubview(widthLabel)
+        self.addSubview(widthStepper)
+        self.addSubview(heightLabel)
+        self.addSubview(heightStepper)
     }
-    
+}
+
+
+// MARK: - Use case: Add Slider action
+
+extension RightAttributerView{
     private func addSliderTargets(){
         alphaSlider.addTarget(self, action: #selector(moveAlphaSlider), for: .valueChanged)
         redSlider.addTarget(self, action: #selector(moveRedSlider), for: .valueChanged)
@@ -146,19 +211,19 @@ extension RightAttributerView{
     }
     
     @objc private func moveAlphaSlider(){
-        self.delegate?.alphaSliderDidMove()
+        self.sliderDelegate?.alphaSliderDidMove()
     }
     
     @objc private func moveRedSlider(){
-        self.delegate?.redSliderDidMove()
+        self.sliderDelegate?.redSliderDidMove()
     }
     
     @objc private func moveGreenSlider(){
-        self.delegate?.greenSliderDidMove()
+        self.sliderDelegate?.greenSliderDidMove()
     }
     
     @objc private func moveBlueSlider(){
-        self.delegate?.blueSliderDidMove()
+        self.sliderDelegate?.blueSliderDidMove()
     }
 }
 
@@ -192,6 +257,34 @@ extension RightAttributerView{
     
     func changeAlphaSliderView(text: String){
         alphaTitle.text = text
+    }
+}
+
+
+// MARK: - Use case: Add Stepper action
+
+extension RightAttributerView{
+    private func addStepperTargets(){
+        alphaSlider.addTarget(self, action: #selector(moveAlphaSlider), for: .valueChanged)
+        redSlider.addTarget(self, action: #selector(moveRedSlider), for: .valueChanged)
+        greenSlider.addTarget(self, action: #selector(moveGreenSlider), for: .valueChanged)
+        blueSlider.addTarget(self, action: #selector(moveBlueSlider), for: .valueChanged)
+    }
+    
+    @objc private func changeXValue(){
+        self.stepperDelegate?.xPositionValueDidChange()
+    }
+    
+    @objc private func changeYValue(){
+        self.stepperDelegate?.yPositionValueDidChange()
+    }
+    
+    @objc private func changeWidthValue(){
+        self.stepperDelegate?.widthValueDidChange()
+    }
+    
+    @objc private func changeHeightValue(){
+        self.stepperDelegate?.heightValueDidChange()
     }
 }
 

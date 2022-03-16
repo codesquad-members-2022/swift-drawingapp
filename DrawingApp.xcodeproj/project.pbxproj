@@ -19,6 +19,7 @@
 		D258493E27DEDF6500B32D95 /* ViewDragable.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258493D27DEDF6500B32D95 /* ViewDragable.swift */; };
 		D258494227DF34B200B32D95 /* CustomViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258494127DF34B100B32D95 /* CustomViewFactory.swift */; };
 		D258494627DF8D3600B32D95 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D258494527DF8D3600B32D95 /* UIView.swift */; };
+		D269156027E1A9AB00EF5D6E /* StpperDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D269155F27E1A9AB00EF5D6E /* StpperDelegate.swift */; };
 		D26D915727CC67E8007507AE /* MySize.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26D915627CC67E8007507AE /* MySize.swift */; };
 		D26D915927CC6D87007507AE /* RectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26D915827CC6D87007507AE /* RectangleFactory.swift */; };
 		D26D916327CD03B0007507AE /* RectangleTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D26D916227CD03B0007507AE /* RectangleTest.swift */; };
@@ -61,6 +62,7 @@
 		D258493D27DEDF6500B32D95 /* ViewDragable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewDragable.swift; sourceTree = "<group>"; };
 		D258494127DF34B100B32D95 /* CustomViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewFactory.swift; sourceTree = "<group>"; };
 		D258494527DF8D3600B32D95 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		D269155F27E1A9AB00EF5D6E /* StpperDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StpperDelegate.swift; sourceTree = "<group>"; };
 		D26D915627CC67E8007507AE /* MySize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MySize.swift; sourceTree = "<group>"; };
 		D26D915827CC6D87007507AE /* RectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactory.swift; sourceTree = "<group>"; };
 		D26D916027CD03B0007507AE /* RectangleTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RectangleTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -105,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				D24BDFF627D6567B006FB721 /* UIColorSilderDelegate.swift */,
+				D269155F27E1A9AB00EF5D6E /* StpperDelegate.swift */,
 			);
 			path = Delegate;
 			sourceTree = "<group>";
@@ -376,6 +379,7 @@
 				D273EAE027CC5C6500DCDF78 /* SceneDelegate.swift in Sources */,
 				D26D915727CC67E8007507AE /* MySize.swift in Sources */,
 				D258493E27DEDF6500B32D95 /* ViewDragable.swift in Sources */,
+				D269156027E1A9AB00EF5D6E /* StpperDelegate.swift in Sources */,
 				D273EAF327CC5DA000DCDF78 /* Rectangle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
