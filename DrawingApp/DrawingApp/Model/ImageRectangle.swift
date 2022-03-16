@@ -27,8 +27,4 @@ class ImageRectangle: Rectangle {
     override func notifyDidCreated() {
         NotificationCenter.default.post(name: .ImageRectangleModelDidCreated, object: self)
     }
-    
-    override func notifyDidUpdated(key: NotificationKey, data: Any) {
-        NotificationCenter.default.post(name: .RectangleModelDidUpdated, object: self, userInfo: [key: data])
-    }
 }

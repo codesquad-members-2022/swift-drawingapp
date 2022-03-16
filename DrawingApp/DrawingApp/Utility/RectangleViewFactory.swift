@@ -9,8 +9,8 @@
 import UIKit
 
 enum RectangleViewFactory {
-    static func makeView(ofProtocol Protocol: RectangleShapable.Type, with data: Rectangle) -> RectangleShapable? {
-        switch Protocol {
+    static func makeView(ofClass Class: RectangleShapable.Type, with data: Rectangle) -> RectangleShapable? {
+        switch Class {
         case is RectangleView.Type:
             let rectangleView = RectangleView(frame: data.convert(using: CGRect.self))
             

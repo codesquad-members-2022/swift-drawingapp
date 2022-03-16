@@ -7,10 +7,14 @@
 
 import Foundation
 
+protocol Notifiable: AnyObject {
+    func notifyDidCreated()
+}
+
 class Plane {
-    private var items = [String: Rectangle]()
+    private var items = [String: Shapable]()
     
-    private(set) var currentItem: Rectangle? {
+    private(set) var currentItem: Shapable? {
         willSet {
             guard let item = self.currentItem else { return }
             self.notifyDidUnselectItem(item)
@@ -24,11 +28,11 @@ class Plane {
         return self.items.count
     }
     
-    subscript(id id: String) -> Rectangle? {
+    subscript(id id: String) -> Shapable? {
         return self.items[id]
     }
     
-    func findItemBy(point: Point) -> Rectangle? {
+    func findItemBy(point: Point) -> Shapable? {
         let models = Array(self.items.values)
         
         return models.last(where: { item in
@@ -36,7 +40,7 @@ class Plane {
         })
     }
     
-    func append(item: Rectangle) {
+    func append(item: Shapable & Notifiable) {
         self.items.updateValue(item, forKey: item.id)
         item.notifyDidCreated()
     }
@@ -71,7 +75,7 @@ extension Plane {
         NotificationCenter.default.post(name: .PlaneDidSelectItem, object: self, userInfo: [Self.NotificationKey.select: item])
     }
     
-    func notifyDidUnselectItem(_ item: Rectangle) {
+    func notifyDidUnselectItem(_ item: Shapable) {
         NotificationCenter.default.post(name: .PlaneDidUnselectItem, object: self, userInfo: [Self.NotificationKey.unselect: item])
     }
 }
