@@ -7,16 +7,12 @@
 
 import Foundation
 
-class Rectangle: CustomViewEntity{
-    private(set) var color: ColorRGB
+class Rectangle: CustomViewModel{
+    private var color: ColorRGB
     
     init(uniqueId: String, color: ColorRGB, point: ViewPoint, size: ViewSize, alpha: Double){
         self.color = color
         super.init(uniqueId: uniqueId, point: point, size: size, alpha: alpha)
-    }
-    
-    func resetColor(rgbValue: ColorRGB){
-        self.color = rgbValue
     }
 }
 
@@ -26,8 +22,18 @@ extension Rectangle: CustomStringConvertible{
     }
 }
 
-extension Rectangle: RectangleMutable{    
-    func getRandomRectangle() -> Rectangle {
-        return self
+extension Rectangle: RectangleViewModelMutable{
+    func getColorRGB() -> ColorRGB {
+        return color
+    }
+    
+    func resetColor(rgbValue: ColorRGB){
+        self.color = rgbValue
     }
 }
+
+protocol RectangleViewModelMutable: CustomViewModelMutable{
+    func getColorRGB() -> ColorRGB
+    func resetColor(rgbValue: ColorRGB)
+}
+

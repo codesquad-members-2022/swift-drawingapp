@@ -18,7 +18,7 @@ class SplitViewController: UISplitViewController{
         guard let drawingViewController = drawingViewController else{ return }
         propertySetViewController.setPropertyDelegate(propertyAction: self)
         drawingViewController.setDrawingDelegate(drawingDelegate: self)
-        drawingViewController.setRectangleChangeable(plane: Plane(rectangleFactory: CustomViewFactory()))
+        drawingViewController.setRectangleChangeable(plane: Plane(rectangleFactory: CustomViewModelFactory()))
         viewControllers = [propertySetViewController, drawingViewController]
     }
     
@@ -40,24 +40,24 @@ class SplitViewController: UISplitViewController{
     }
 }
 extension SplitViewController: DrawingDelegate{
-    func drawingViewDidSelectedPhoto(photo: Photo) {
-        NotificationCenter.default.post(name: SplitViewController.Notification.Event.updateSelectedPhotoUI, object: self, userInfo: [SplitViewController.Notification.Key.photo : photo])
+    func drawingViewDidSelectedPhoto(photoMutable: PhotoViewModelMutable) {
+        NotificationCenter.default.post(name: SplitViewController.Notification.Event.updateSelectedPhotoUI, object: self, userInfo: [SplitViewController.Notification.Key.photo : photoMutable])
     }
     
     func drawingViewDidDeselect() {
         NotificationCenter.default.post(name: SplitViewController.Notification.Event.updateDeselectedUI, object: self)
     }
     
-    func drawingViewDidSelecteRectangle(rectangle: Rectangle) {
-        NotificationCenter.default.post(name: SplitViewController.Notification.Event.updateSelectedRectangleUI, object: self, userInfo: [SplitViewController.Notification.Key.rectangle : rectangle])
+    func drawingViewDidSelecteRectangle(rectangleMutbale: RectangleViewModelMutable) {
+        NotificationCenter.default.post(name: SplitViewController.Notification.Event.updateSelectedRectangleUI, object: self, userInfo: [SplitViewController.Notification.Key.rectangle : rectangleMutbale])
     }
     
-    func drawingViewDidUpdateAlpha(customModel: CustomViewEntity) {
-        NotificationCenter.default.post(name: SplitViewController.Notification.Event.alphaButtonHidden, object: self, userInfo: [SplitViewController.Notification.Key.customViewEntity : customModel])
+    func drawingViewDidUpdateAlpha(customViewModelMutable: CustomViewModelMutable) {
+        NotificationCenter.default.post(name: SplitViewController.Notification.Event.alphaButtonHidden, object: self, userInfo: [SplitViewController.Notification.Key.customViewEntity : customViewModelMutable])
     }
     
-    func drawingViewDidChangeColor(rectangle: Rectangle) {
-        NotificationCenter.default.post(name: SplitViewController.Notification.Event.changedColorText, object: self, userInfo: [SplitViewController.Notification.Key.rectangle : rectangle])
+    func drawingViewDidChangeColor(rectangleMutbale: RectangleViewModelMutable) {
+        NotificationCenter.default.post(name: SplitViewController.Notification.Event.changedColorText, object: self, userInfo: [SplitViewController.Notification.Key.rectangle : rectangleMutbale])
     }
 }
 extension SplitViewController: PropertyDelegate{

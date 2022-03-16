@@ -44,9 +44,3 @@ extension ColorRGB: CustomStringConvertible{
         return "#\(hexRGB)"
     }
 }
-
-extension ColorRGB: RGBColorMutable{
-    func getRandomColorRGb() -> ColorRGB {
-        return self
-    }
-}

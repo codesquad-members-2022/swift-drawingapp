@@ -7,15 +7,19 @@
 
 import Foundation
 
-class Photo: CustomViewEntity{
-    private(set) var imageData: Data
+class Photo: CustomViewModel{
+    private var imageData: Data
     init(imageData: Data, uniqueId: String, point: ViewPoint, size: ViewSize, alpha: Double){
         self.imageData = imageData
         super.init(uniqueId: uniqueId, point: point, size: size, alpha: alpha)
     }
 }
-extension Photo: PhotoMutable{
-    func getRandomPhoto() -> Photo {
-        return self
+extension Photo: PhotoViewModelMutable{
+    func getImageData() -> Data {
+        return imageData
     }
+}
+
+protocol PhotoViewModelMutable: CustomViewModelMutable{
+    func getImageData() -> Data
 }

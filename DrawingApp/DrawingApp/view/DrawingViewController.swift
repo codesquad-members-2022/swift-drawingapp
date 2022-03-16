@@ -10,11 +10,11 @@ import os
 
 class DrawingViewController: UIViewController{
     private let logger = Logger()
-    private var plane: CustomEntitiesChangeable?
+    private var plane: PlaneModelsChangeable?
     private lazy var rectangleAddButton = RectangleAddButton(frame: CGRect(x: view.center.x - 100, y: view.frame.maxY - 144.0, width: 100, height: 100))
     private lazy var imageAddButton = ImageAddButton(frame: CGRect(x: view.center.x, y: view.frame.maxY - 144.0, width: 100, height: 100))
     private var drawingDelegate: DrawingDelegate?
-    private var customViews: [String: CustomBaseView] = [:]
+    private var customViews: [AnyHashable: CustomBaseView] = [:]
     private let notificationCenter = NotificationCenter.default
     private lazy var photoPickerDelegate = PhotoPickerDelegate()
     private lazy var photoPickerController = UIImagePickerController()
@@ -33,7 +33,7 @@ class DrawingViewController: UIViewController{
         self.drawingDelegate = drawingDelegate
     }
     
-    func setRectangleChangeable(plane: CustomEntitiesChangeable){
+    func setRectangleChangeable(plane: PlaneModelsChangeable){
         self.plane = plane
     }
     
@@ -63,7 +63,7 @@ class DrawingViewController: UIViewController{
     }
     
     @objc func rectangleAddButtonTapped(sender: Any){
-        plane?.addRandomRectnagle()
+        plane?.addRandomRectnagleViewModel()
     }
     
     @objc func imageAddButtonTapped(sender: Any){
@@ -79,21 +79,21 @@ class DrawingViewController: UIViewController{
     
     @objc private func getImageFromDevice(_ notification: Notification){
         guard let imageData = notification.userInfo?[PhotoPickerDelegate.Notification.Key.photoData] as? Data else { return }
-        plane?.addRandomPhoto(imageData: imageData)
+        plane?.addRandomPhotoViewModel(imageData: imageData)
     }
     
     @objc private func addRectangleView(_ notification: Notification){
         guard let rectangle = notification.userInfo?[Plane.Notification.Key.rectangle] as? Rectangle else {
             return
         }
-        let rectangleView = RectangleView(size: rectangle.size, point: rectangle.point)
-        rectangleView.setRGBColor(rgb: rectangle.color)
-        rectangleView.setAlpha(alpha: rectangle.alpha)
-        drawingDelegate?.drawingViewDidChangeColor(rectangle: rectangle)
-        drawingDelegate?.drawingViewDidUpdateAlpha(customModel: rectangle)
+        let rectangleView = RectangleView(size: rectangle.getSize(), point: rectangle.getPoint())
+        rectangleView.setRGBColor(rgb: rectangle.getColorRGB())
+        rectangleView.setAlpha(alpha: rectangle.getAlpha())
+        drawingDelegate?.drawingViewDidChangeColor(rectangleMutbale: rectangle)
+        drawingDelegate?.drawingViewDidUpdateAlpha(customViewModelMutable: rectangle)
         let viewTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(rectangleTappedGesture))
         rectangleView.addGestureRecognizer(viewTapGesture)
-        customViews[rectangle.uniqueId] = rectangleView
+        customViews[rectangle] = rectangleView
         view.addSubview(rectangleView)
     }
     
@@ -103,40 +103,42 @@ class DrawingViewController: UIViewController{
         }
         let photoView = PhotoView(size: photo.size, point: photo.point)
         
-        photoView.setImage(imageData: photo.imageData)
-        photoView.setAlpha(alpha: photo.alpha)
+        photoView.setImage(imageData: photo.getImageData())
+        photoView.setAlpha(alpha: photo.getAlpha())
         let viewTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(photoTappedGesture))
         photoView.addGestureRecognizer(viewTapGesture)
-        customViews[photo.uniqueId] = photoView
+        customViews[photo] = photoView
         self.view.addSubview(photoView)
-        drawingDelegate?.drawingViewDidUpdateAlpha(customModel: photo)
-        drawingDelegate?.drawingViewDidSelectedPhoto(photo: photo)
+        drawingDelegate?.drawingViewDidUpdateAlpha(customViewModelMutable: photo)
+        drawingDelegate?.drawingViewDidSelectedPhoto(photoMutable: photo)
     }
     
     @objc func rectangleTappedGesture(sender: UITapGestureRecognizer){
-        guard let touchedView = sender.view as? RectangleView else { return }
-        let point = ViewPoint(x: Int(touchedView.frame.origin.x), y: Int(touchedView.frame.origin.y))
-        plane?.selectTargetCustomView(point: point)
+        let touchedPoint = sender.location(in: self.view)
+        let viewPoint = ViewPoint(x: Int(touchedPoint.x), y: Int(touchedPoint.y))
+        plane?.selectTargetCustomView(point: viewPoint)
     }
     
     @objc func photoTappedGesture(sender: UITapGestureRecognizer){
-        guard let touchedView = sender.view as? PhotoView else { return }
-        let point = ViewPoint(x: Int(touchedView.frame.origin.x), y: Int(touchedView.frame.origin.y))
-        plane?.selectTargetCustomView(point: point)
+        let touchedPoint = sender.location(in: self.view)
+        let viewPoint = ViewPoint(x: Int(touchedPoint.x), y: Int(touchedPoint.y))
+        //        guard let touchedView = sender.view as? PhotoView else { return }
+//        let point = ViewPoint(x: Int(touchedView.frame.origin.x), y: Int(touchedView.frame.origin.y))
+        plane?.selectTargetCustomView(point: viewPoint)
     }
     
     @objc private func selectedRectangle(_ notification: Notification){
         guard let rectangle = notification.userInfo?[Plane.Notification.Key.rectangle] as? Rectangle else {
             return
         }
-        drawingDelegate?.drawingViewDidSelecteRectangle(rectangle: rectangle)
+        drawingDelegate?.drawingViewDidSelecteRectangle(rectangleMutbale: rectangle)
     }
     
     @objc private func selectedPhoto(_ notification: Notification){
         guard let photo = notification.userInfo?[Plane.Notification.Key.photo] as? Photo else {
             return
         }
-        drawingDelegate?.drawingViewDidSelectedPhoto(photo: photo)
+        drawingDelegate?.drawingViewDidSelectedPhoto(photoMutable: photo)
     }
     
     @objc private func rectangleColorChanged(_ notification: Notification){
@@ -144,16 +146,16 @@ class DrawingViewController: UIViewController{
             return
         }
         guard let rectangleView = customViews[rectangle.uniqueId] as? RectangleView else { return }
-        rectangleView.setRGBColor(rgb: rectangle.color)
-        drawingDelegate?.drawingViewDidChangeColor(rectangle: rectangle)
+        rectangleView.setRGBColor(rgb: rectangle.getColorRGB())
+        drawingDelegate?.drawingViewDidChangeColor(rectangleMutbale: rectangle)
     }
     
     @objc private func customViewAlphaChanged(_ notification: Notification){
-        guard let customModel = notification.userInfo?[Plane.Notification.Key.customViewEntity] as? CustomViewEntity else {
+        guard let customModel = notification.userInfo?[Plane.Notification.Key.customViewEntity] as? CustomViewModel else {
             return
         }
         customViews[customModel.uniqueId]?.setAlpha(alpha: customModel.alpha)
-        drawingDelegate?.drawingViewDidUpdateAlpha(customModel: customModel)
+        drawingDelegate?.drawingViewDidUpdateAlpha(customViewModelMutable: customModel)
     }
     
     private func plusViewAlpha(){

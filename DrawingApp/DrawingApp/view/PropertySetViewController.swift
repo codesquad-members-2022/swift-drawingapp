@@ -59,11 +59,11 @@ class PropertySetViewController: UIViewController{
     
     @objc private func changedColorText(_ notification: Notification){
         guard let rectangle = notification.userInfo?[SplitViewController.Notification.Key.rectangle] as? Rectangle else { return }
-        setColorButtonRGBText(rectangleRGB: rectangle.color)
+        setColorButtonRGBText(rectangleRGB: rectangle.getColorRGB())
     }
     
     @objc private func alphaButtonHidden(_ notification: Notification){
-        guard let customModel = notification.userInfo?[SplitViewController.Notification.Key.customViewEntity] as? CustomViewEntity else { return }
+        guard let customModel = notification.userInfo?[SplitViewController.Notification.Key.customViewEntity] as? CustomViewModel else { return }
         alphaButtonIsHidden(alpha: customModel.alpha)
     }
     
@@ -72,7 +72,7 @@ class PropertySetViewController: UIViewController{
             return
         }
         alphaButtonIsHidden(alpha: rectangle.alpha)
-        setColorButtonRGBText(rectangleRGB: rectangle.color)
+        setColorButtonRGBText(rectangleRGB: rectangle.getColorRGB())
         changeColorButtonIsHidden(customModel: rectangle)
     }
     
