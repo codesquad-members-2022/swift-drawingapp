@@ -11,11 +11,7 @@ import XCTest
 class DrawingAppTests: XCTestCase {
     
     private func createShapeForTest() -> BasicShape {
-        let shapeID = RandomRectangleFactory.generateRandomIdentifier()
-        let shapePoint = RandomRectangleFactory.generateRandomPoint(xBound: Point.Range.lower,
-                                                                    yBound: Point.Range.lower)
-        let shape = BasicShape(identifier: shapeID, point: shapePoint)
-        
+        let shape = RandomShapeFactory.createRandomBasicShape(xBound: Point.Range.lower, yBound: Point.Range.lower)
         return shape
     }
     
@@ -23,7 +19,7 @@ class DrawingAppTests: XCTestCase {
         let plane = Plane()
         
         let countBeforeAddRectangle = plane.count
-        plane.addRectangle(bound: (Point.Range.lower, Point.Range.lower), by: RandomRectangleFactory.self)
+        plane.addRectangle(bound: (Point.Range.lower, Point.Range.lower), by: RandomShapeFactory.self)
         let countAfterAddRectangle = plane.count
         
         XCTAssertEqual(countBeforeAddRectangle + 1, countAfterAddRectangle)
