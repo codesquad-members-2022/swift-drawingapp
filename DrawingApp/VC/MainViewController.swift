@@ -176,6 +176,7 @@ extension MainViewController{
     
     private func displayStepperValue(selected: RectValue){
         rightAttributerView.originStepperValue(x: selected.point.x, y: selected.point.y, width: selected.size.width, height: selected.size.height)
+        rightAttributerView.useStepper()
     }
     
     private func noneDisplaySliderValue(){
@@ -186,6 +187,7 @@ extension MainViewController{
     
     private func noneDisplayStepperValue(){
         rightAttributerView.originStepperValue(x: 0, y: 0, width: 0, height: 0)
+        rightAttributerView.rockStepper()
     }
     
     private func touchedViewFrame(selected: RectValue){
@@ -260,7 +262,7 @@ extension MainViewController {
             return
         }
         
-        if extraView.frame.maxX < self.rightAttributerView.frame.minX, extraView.frame.maxY < self.rectangleButton.frame.minY{
+        if extraView.frame.maxX < self.rightAttributerView.frame.minX, extraView.frame.maxY < self.rectangleButton.frame.minY, extraView.frame.minX >= 1, extraView.frame.minY >= 30{
             changeViewPoint(extraView: extraView)
         }
         

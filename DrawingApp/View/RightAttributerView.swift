@@ -326,6 +326,13 @@ extension RightAttributerView{
         alphaSlider.isEnabled = false
     }
     
+    func rockStepper(){
+        xPositionStepper.isEnabled = false
+        yPositionStepper.isEnabled = false
+        widthStepper.isEnabled = false
+        heightStepper.isEnabled = false
+    }
+    
     func useColorSlider(){
         redSlider.isEnabled = true
         greenSlider.isEnabled = true
@@ -334,5 +341,12 @@ extension RightAttributerView{
     
     func useAlphaSlider(){
         alphaSlider.isEnabled = true
+    }
+    
+    func useStepper(){
+        xPositionStepper.isEnabled = true
+        yPositionStepper.isEnabled = true
+        widthStepper.isEnabled = true
+        heightStepper.isEnabled = true
     }
 }
