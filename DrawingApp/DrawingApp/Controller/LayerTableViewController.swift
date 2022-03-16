@@ -24,7 +24,7 @@ class LayerTableViewController: UITableViewController {
         super.viewDidLoad()
         
         configureTableView()
-        subscribePlane()
+        subscribePlaneNotification()
     }
     
     private func configureTableView() {
@@ -32,7 +32,7 @@ class LayerTableViewController: UITableViewController {
         tableView.allowsSelectionDuringEditing = true
     }
     
-    private func subscribePlane() {
+    private func subscribePlaneNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(didAddLayer(_:)), name: Plane.Event.didAddLayer, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didSelectLayer(_:)), name: Plane.Event.didSelectLayer, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didReorderLayer(_:)), name: Plane.Event.didReorderLayer, object: nil)
