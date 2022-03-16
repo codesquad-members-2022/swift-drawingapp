@@ -25,7 +25,6 @@ class CanvasView: UIView {
     
     required init?(coder: NSCoder){
         super.init(coder: coder)
-//        self.rectangleAddButton.layer.cornerRadius = 15
     }
     
 
