@@ -22,8 +22,9 @@
 		1E541E7F27CCBC97000C8B50 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E541E7D27CCBC97000C8B50 /* Main.storyboard */; };
 		1E541E8127CCBC98000C8B50 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E541E8027CCBC98000C8B50 /* Assets.xcassets */; };
 		1E541E8427CCBC98000C8B50 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E541E8227CCBC98000C8B50 /* LaunchScreen.storyboard */; };
+		1E5A154627E2326000FA4C9B /* NotificationNames.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5A154527E2326000FA4C9B /* NotificationNames.swift */; };
+		1E5A154827E240FA00FA4C9B /* UserInfoKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5A154727E240FA00FA4C9B /* UserInfoKeys.swift */; };
 		1E80BDF427D23EEB004F77C1 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E80BDF327D23EEB004F77C1 /* Plane.swift */; };
-		1E80BDFA27D24ECA004F77C1 /* PlaneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E80BDF927D24ECA004F77C1 /* PlaneDelegate.swift */; };
 		1E80BE7E27D6F96F004F77C1 /* AddRectangleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E80BE7D27D6F96F004F77C1 /* AddRectangleButton.swift */; };
 		1E80BE8027D6F97B004F77C1 /* SideInspectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E80BE7F27D6F97B004F77C1 /* SideInspectorView.swift */; };
 		1EE4CCE527CCFD44005EA3D4 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCE427CCFD44005EA3D4 /* Rectangle.swift */; };
@@ -64,8 +65,9 @@
 		1E541E8027CCBC98000C8B50 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1E541E8327CCBC98000C8B50 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1E541E8527CCBC98000C8B50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1E5A154527E2326000FA4C9B /* NotificationNames.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationNames.swift; sourceTree = "<group>"; };
+		1E5A154727E240FA00FA4C9B /* UserInfoKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoKeys.swift; sourceTree = "<group>"; };
 		1E80BDF327D23EEB004F77C1 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
-		1E80BDF927D24ECA004F77C1 /* PlaneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneDelegate.swift; sourceTree = "<group>"; };
 		1E80BE7D27D6F96F004F77C1 /* AddRectangleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRectangleButton.swift; sourceTree = "<group>"; };
 		1E80BE7F27D6F97B004F77C1 /* SideInspectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideInspectorView.swift; sourceTree = "<group>"; };
 		1EE4CCE427CCFD44005EA3D4 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
@@ -95,13 +97,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1E02CA6F27DEFE9200B08B30 /* Protocol */ = {
+		1E02CA6F27DEFE9200B08B30 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
 				1E02CA7627DEFEB400B08B30 /* Colorable.swift */,
 				1E02CA7A27DEFEC700B08B30 /* Alphable.swift */,
 			);
-			path = Protocol;
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		1E02CAB627E07D2400B08B30 /* DrawingAppTests */ = {
@@ -135,9 +137,10 @@
 			children = (
 				1E541E7727CCBC97000C8B50 /* AppDelegate.swift */,
 				1E541E7927CCBC97000C8B50 /* SceneDelegate.swift */,
-				1E541E8C27CCBD8C000C8B50 /* Model */,
-				1E541E8D27CCBD9E000C8B50 /* View */,
-				1E541E8B27CCBD83000C8B50 /* Controller */,
+				1E5A154927E2433500FA4C9B /* Tools */,
+				1E541E8C27CCBD8C000C8B50 /* Models */,
+				1E541E8D27CCBD9E000C8B50 /* Views */,
+				1E541E8B27CCBD83000C8B50 /* Controllers */,
 				1E541E7D27CCBC97000C8B50 /* Main.storyboard */,
 				1E541E8027CCBC98000C8B50 /* Assets.xcassets */,
 				1E541E8227CCBC98000C8B50 /* LaunchScreen.storyboard */,
@@ -146,34 +149,28 @@
 			path = DrawingApp;
 			sourceTree = "<group>";
 		};
-		1E541E8B27CCBD83000C8B50 /* Controller */ = {
+		1E541E8B27CCBD83000C8B50 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
 				1E541E7B27CCBC97000C8B50 /* ViewController.swift */,
 			);
-			path = Controller;
+			path = Controllers;
 			sourceTree = "<group>";
 		};
-		1E541E8C27CCBD8C000C8B50 /* Model */ = {
+		1E541E8C27CCBD8C000C8B50 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				1E80BE5227D5FAEC004F77C1 /* Delegate */,
-				1E80BE5127D5FAD9004F77C1 /* Factory */,
-				1E02CA6F27DEFE9200B08B30 /* Protocol */,
-				1E02CA8227DF5A8A00B08B30 /* CGConverter.swift */,
-				1EE4CCFC27CF0282005EA3D4 /* Identifier.swift */,
-				1EE4CCEA27CDDC9F005EA3D4 /* Point.swift */,
-				1EE4CCE827CDDC96005EA3D4 /* Size.swift */,
-				1EE4CCEC27CDDCA2005EA3D4 /* Color.swift */,
-				1EE4CCEE27CDDCA5005EA3D4 /* Alpha.swift */,
+				1E5A154A27E2438200FA4C9B /* Attributes */,
+				1E80BE5127D5FAD9004F77C1 /* Factorys */,
+				1E02CA6F27DEFE9200B08B30 /* Protocols */,
 				1EE4CCE427CCFD44005EA3D4 /* Rectangle.swift */,
 				1E02CA9227E020DE00B08B30 /* BasicShape.swift */,
 				1E80BDF327D23EEB004F77C1 /* Plane.swift */,
 			);
-			path = Model;
+			path = Models;
 			sourceTree = "<group>";
 		};
-		1E541E8D27CCBD9E000C8B50 /* View */ = {
+		1E541E8D27CCBD9E000C8B50 /* Views */ = {
 			isa = PBXGroup;
 			children = (
 				1E80BE7D27D6F96F004F77C1 /* AddRectangleButton.swift */,
@@ -181,25 +178,39 @@
 				1E02CA9527E05D9C00B08B30 /* BasicShapeView.swift */,
 				1E02CA8827DF73E000B08B30 /* RectangleView.swift */,
 			);
-			path = View;
+			path = Views;
 			sourceTree = "<group>";
 		};
-		1E80BE5127D5FAD9004F77C1 /* Factory */ = {
+		1E5A154927E2433500FA4C9B /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				1E5A154727E240FA00FA4C9B /* UserInfoKeys.swift */,
+				1E02CA8227DF5A8A00B08B30 /* CGConverter.swift */,
+				1E5A154527E2326000FA4C9B /* NotificationNames.swift */,
+			);
+			path = Tools;
+			sourceTree = "<group>";
+		};
+		1E5A154A27E2438200FA4C9B /* Attributes */ = {
+			isa = PBXGroup;
+			children = (
+				1EE4CCFC27CF0282005EA3D4 /* Identifier.swift */,
+				1EE4CCEA27CDDC9F005EA3D4 /* Point.swift */,
+				1EE4CCE827CDDC96005EA3D4 /* Size.swift */,
+				1EE4CCEC27CDDCA2005EA3D4 /* Color.swift */,
+				1EE4CCEE27CDDCA5005EA3D4 /* Alpha.swift */,
+			);
+			path = Attributes;
+			sourceTree = "<group>";
+		};
+		1E80BE5127D5FAD9004F77C1 /* Factorys */ = {
 			isa = PBXGroup;
 			children = (
 				1EE4CCE627CD0751005EA3D4 /* RandomShapeFactory.swift */,
 				1E02CABE27E15EB500B08B30 /* RandomAttributeFactory.swift */,
 				1E02CA7E27DF4F4B00B08B30 /* ViewFactory.swift */,
 			);
-			path = Factory;
-			sourceTree = "<group>";
-		};
-		1E80BE5227D5FAEC004F77C1 /* Delegate */ = {
-			isa = PBXGroup;
-			children = (
-				1E80BDF927D24ECA004F77C1 /* PlaneDelegate.swift */,
-			);
-			name = Delegate;
+			path = Factorys;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -313,6 +324,7 @@
 			files = (
 				1EE4CCE727CD0751005EA3D4 /* RandomShapeFactory.swift in Sources */,
 				1E02CA7B27DEFEC700B08B30 /* Alphable.swift in Sources */,
+				1E5A154827E240FA00FA4C9B /* UserInfoKeys.swift in Sources */,
 				1E541E7C27CCBC97000C8B50 /* ViewController.swift in Sources */,
 				1E541E7827CCBC97000C8B50 /* AppDelegate.swift in Sources */,
 				1E80BE8027D6F97B004F77C1 /* SideInspectorView.swift in Sources */,
@@ -321,6 +333,7 @@
 				1EE4CCED27CDDCA2005EA3D4 /* Color.swift in Sources */,
 				1EE4CCFD27CF0282005EA3D4 /* Identifier.swift in Sources */,
 				1EE4CCE927CDDC96005EA3D4 /* Size.swift in Sources */,
+				1E5A154627E2326000FA4C9B /* NotificationNames.swift in Sources */,
 				1E02CA8927DF73E000B08B30 /* RectangleView.swift in Sources */,
 				1E02CA8327DF5A8A00B08B30 /* CGConverter.swift in Sources */,
 				1E02CA7F27DF4F4B00B08B30 /* ViewFactory.swift in Sources */,
@@ -332,7 +345,6 @@
 				1E80BE7E27D6F96F004F77C1 /* AddRectangleButton.swift in Sources */,
 				1EE4CCEF27CDDCA5005EA3D4 /* Alpha.swift in Sources */,
 				1E02CA9327E020DE00B08B30 /* BasicShape.swift in Sources */,
-				1E80BDFA27D24ECA004F77C1 /* PlaneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
