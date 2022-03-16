@@ -8,5 +8,6 @@
 import Foundation
 
 protocol Makeable {
-    func makeModel(type: DrawingModel.Type, data: [Any])
+    associatedtype MakeType
+    func make(type: MakeType, data: [Any])
 }

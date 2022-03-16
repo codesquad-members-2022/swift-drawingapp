@@ -12,7 +12,7 @@ protocol PlaneDataSource {
 }
 
 protocol PlaneModelFactoryBase {
-    func make(modelType: DrawingModel.Type, counting: Int, _ data: [Any]) -> DrawingModel
+    func make(_ identifier: DrawingModelFactoryable.Type, data: [Any]) -> DrawingModel
 }
 
 protocol PlaneAction {
@@ -65,6 +65,7 @@ class Plane {
     private func selected(point: Point) -> DrawingModel? {
         for model in drawingModels {
             if model.isSelected(by: point) {
+                print(model)
                 return model
             }
         }
@@ -105,12 +106,12 @@ class Plane {
 }
 
 extension Plane: Makeable {
-    func makeModel(type modelType: DrawingModel.Type, data: [Any] = []) {
+    func make(type modelType: DrawingModelFactoryable.Type, data: [Any] = []) {
         
         let counting = (modelCounting[ObjectIdentifier(modelType)] ?? 0) + 1
         modelCounting[ObjectIdentifier(modelType)] = counting
         
-        guard let model = self.modelFactory?.make(modelType: modelType, counting: counting, data) else {
+        guard let model = self.modelFactory?.make(modelType, data: data) else {
             return
         }
         self.drawingModels.insert(model, at: 0)

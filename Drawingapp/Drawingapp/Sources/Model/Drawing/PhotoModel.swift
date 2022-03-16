@@ -39,3 +39,10 @@ class PhotoModel: DrawingModel, Imageable, Viewable {
         self.imageUrl = imageUrl
     }
 }
+
+extension PhotoModel: DrawingModelFactoryable {
+    static func make(id: String, origin: Point, size: Size, alpha: Alpha, data: [Any]) -> DrawingModel {
+        let url = data.isEmpty ? nil : data[0] as? URL
+        return PhotoModel.init(id: id, index: 0, origin: origin, size: size, alpha: alpha, url: url)
+    }
+}
