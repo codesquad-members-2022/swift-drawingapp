@@ -7,14 +7,14 @@
 
 import Foundation
 
-typealias RectangleRect = FactoryRectangleProperty.ViewRect
+typealias ScreenSceneRect = FactoryRectangleProperty.ScreenRect
 typealias RectangleDefaultSize = FactoryRectangleProperty.DefaultSize
 
 /// Rectangle 객체를 생성하는 인터페이스를 제공하는 클래스입니다.
 final class FactoryRectangleProperty: RectanglePropertyCreator {
     
     // MARK: - Make Model Of View.
-    func makeRandomRectangleModel(as name: String, rect: RectangleRect, imageData data: Data? = nil) -> RectangleProperty? {
+    func makeRandomRectangleModel(as name: String, in rect: ScreenSceneRect, imageData data: Data? = nil) -> RectangleProperty? {
         
         let randomLocationProperties = getRandomPoint(from: rect)
         let randomColor = getRandomColor()
@@ -33,14 +33,14 @@ final class FactoryRectangleProperty: RectanglePropertyCreator {
     
     // MARK: - Private generator
     
-    private func getRandomPoint(from properties: RectangleRect) -> ViewRect {
+    private func getRandomPoint(from properties: ScreenSceneRect) -> ScreenRect {
         let maxSize = (width: RectangleDefaultSize.width.rawValue, height: RectangleDefaultSize.height.rawValue)
         let randomPoint = generateRandomPoint(
             maxPointX: properties.maxX - maxSize.width,
             maxPointY: properties.maxY - maxSize.height
         )
         
-        return ViewRect(maxX: randomPoint.x, maxY: randomPoint.y, width: maxSize.width, height: maxSize.height)
+        return ScreenRect(maxX: randomPoint.x, maxY: randomPoint.y, width: maxSize.width, height: maxSize.height)
     }
     
     private func getRandomColor() -> RectRGBColor {
@@ -59,7 +59,7 @@ final class FactoryRectangleProperty: RectanglePropertyCreator {
         Double(getIntRandom(from: 1, to: 10))
     }
     
-    struct ViewRect {
+    struct ScreenRect {
         var maxX: Double
         var maxY: Double
         var width: Double
