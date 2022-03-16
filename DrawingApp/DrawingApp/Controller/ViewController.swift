@@ -161,30 +161,43 @@ extension ViewController: UIGestureRecognizerDelegate{
     }
     
     @objc private func panGestureRecognizer(_ sender: UIPanGestureRecognizer){
-        guard let canvasView = canvasView else { return }
         let location = sender.location(in: canvasView)
-   
+    
         switch sender.state{
         case .began:
-            guard let rectangle: Rectangle = self.plane[location.x, location.y] else { return }
-            if let view = RectangleViewFactory.createRectangleView(rectangle: rectangle, type: type(of: rectangle)){
-                self.temporarySelectedRectangleView = view
-                canvasView.addSubview(view)
-            }
+            self.startPanGesture(location: location)
         case .changed:
-            if let view = self.temporarySelectedRectangleView{
-                view.frame.origin = CGPoint(x: location.x, y: location.y)
-                view.alpha = 0.5
-            }
+            self.changePanGesture(location: location)
         case .ended:
-            if let view = self.temporarySelectedRectangleView{
-                self.plane.updateSelectedRectanglePoint(x: view.frame.origin.x, y: view.frame.origin.y)
-                view.removeFromSuperview()
-            }
-            self.temporarySelectedRectangleView = nil
+            self.endPanGesture(location: location)
         default:
             return
         }
+    }
+    
+    private func startPanGesture(location: CGPoint){
+        guard let canvasView = self.canvasView else { return }
+        guard let rectangle: Rectangle = self.plane[location.x, location.y] else { return }
+        if let temporarySelectedRectangleView = RectangleViewFactory.createRectangleView(rectangle: rectangle, type: type(of: rectangle)){
+            self.temporarySelectedRectangleView = temporarySelectedRectangleView
+            canvasView.addSubview(temporarySelectedRectangleView)
+        }
+
+    }
+    
+    private func changePanGesture(location: CGPoint){
+        if let temporarySelectedRectangleView = self.temporarySelectedRectangleView{
+            temporarySelectedRectangleView.frame.origin = CGPoint(x: location.x, y: location.y)
+            temporarySelectedRectangleView.alpha = 0.5
+        }
+    }
+    
+    private func endPanGesture(location: CGPoint){
+        if let temporarySelectedRectangleView = self.temporarySelectedRectangleView{
+            self.plane.updateSelectedRectanglePoint(x: temporarySelectedRectangleView.frame.origin.x, y: temporarySelectedRectangleView.frame.origin.y)
+            temporarySelectedRectangleView.removeFromSuperview()
+        }
+        self.temporarySelectedRectangleView = nil
     }
     
 }
