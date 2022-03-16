@@ -5,7 +5,6 @@
 //  Created by dale on 2022/03/07.
 //
 
-import Foundation
 import UIKit
 
 protocol PropertyChangeBoardDelegate {
@@ -97,16 +96,26 @@ class PropertyChangeBoard : UIView {
         self.alphaChangeSlider.addTarget(self, action: #selector(self.moveAlphaSlider), for: .valueChanged)
     }
     
-    func setPropertyBoard(with rectangle: Rectangle?) {
-        guard let alpha = rectangle?.alpha.transparency else {return}
-        self.alphaChangeSlider.value = Float(alpha)
-        
-        guard let color = rectangle?.backgroundColor else {
+    func setPropertyBoard(with shape: Shape?) {
+        guard let shape = shape else {
+            self.alphaChangeSlider.value = self.alphaChangeSlider.minimumValue
             self.colorChangeButton.isEnabled = false
             return
         }
-        self.colorChangeButton.isEnabled = true
-        updateColorButton(color: color)
+        
+        let alpha = shape.alpha.transparency
+        self.alphaChangeSlider.value = Float(alpha)
+        switch shape {
+        case is PhotoRectangle:
+            self.colorChangeButton.isEnabled = false
+        case is Rectangle:
+            guard let rectangle = shape as? Rectangle else {return}
+            let color = rectangle.backgroundColor
+            self.colorChangeButton.isEnabled = true
+            updateColorButton(color: color)
+        default:
+            return
+        }
     }
     
     func updateColorButton(color : Color) {
