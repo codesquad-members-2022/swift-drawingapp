@@ -65,7 +65,7 @@ class Plane{
             return
         }
         selectedModel.changeAlphaValue(alpha: selectedModel.getAlpha() + 0.1)
-        NotificationCenter.default.post(name: Plane.Notification.Event.updateCustomViewAlpha, object: self, userInfo: [Plane.Notification.Key.customViewEntity : selectedModel])
+        NotificationCenter.default.post(name: Plane.Notification.Event.updateCustomViewAlpha, object: self, userInfo: [Plane.Notification.Key.customViewModel : selectedModel])
     }
     
     private func minusAlpha(){
@@ -73,7 +73,7 @@ class Plane{
             return
         }
         selectedModel.changeAlphaValue(alpha: selectedModel.getAlpha() - 0.1)
-        NotificationCenter.default.post(name: Plane.Notification.Event.updateCustomViewAlpha, object: self, userInfo: [Plane.Notification.Key.customViewEntity : selectedModel])
+        NotificationCenter.default.post(name: Plane.Notification.Event.updateCustomViewAlpha, object: self, userInfo: [Plane.Notification.Key.customViewModel : selectedModel])
     }
     
     private func findModelByPoint(point: ViewPoint) -> CustomViewModelMutable?{
@@ -89,7 +89,7 @@ class Plane{
         enum Key{
             case rectangle
             case photo
-            case customViewEntity
+            case customViewModel
         }
         enum Event{
             static let addedRectangle = Foundation.Notification.Name.init("addedRectangle")

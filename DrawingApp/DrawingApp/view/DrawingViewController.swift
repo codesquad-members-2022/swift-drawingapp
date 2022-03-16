@@ -84,16 +84,17 @@ class DrawingViewController: UIViewController{
     }
     
     @objc private func addRectangleViewToSubView(_ notification: Foundation.Notification){
-        guard let rectangle = notification.userInfo?[Plane.Notification.Key.rectangle] as? Rectangle else {
+        guard let rectangleViewModel = notification.userInfo?[Plane.Notification.Key.rectangle] as? RectangleViewModelMutable else {
             return
         }
-        guard let customView = customViewFactory?.makeRectangleView(size: rectangle.getSize(), point: rectangle.getPoint()) else {
+        guard let customView = customViewFactory?.makeRectangleView(size: rectangleViewModel.getSize(), point: rectangleViewModel.getPoint()) else {
             return
         }
-        customView.setRGBColor(rgb: rectangle.getColorRGB())
-        customView.setAlpha(alpha: rectangle.getAlpha())
+        customView.setRGBColor(rgb: rectangleViewModel.getColorRGB())
+        customView.setAlpha(alpha: rectangleViewModel.getAlpha())
         let viewTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(rectangleTappedGesture))
         customView.addGestureRecognizer(viewTapGesture)
+        guard let rectangle = rectangleViewModel as? Rectangle else { return }
         customViews[rectangle] = customView
         view.addSubview(customView)
         NotificationCenter.default.post(name: DrawingViewController.Notification.Event.changedColorText, object: self, userInfo: [DrawingViewController.Notification.Key.rectangle : rectangle])
@@ -101,18 +102,19 @@ class DrawingViewController: UIViewController{
     }
     
     @objc private func addPhotoViewToSubView(_ notification: Foundation.Notification){
-        guard let photo = notification.userInfo?[Plane.Notification.Key.photo] as? Photo else {
+        guard let photoViewModel = notification.userInfo?[Plane.Notification.Key.photo] as? PhotoViewModelMutable else {
             return
         }
-        guard let customView = customViewFactory?.makePhotoView(size: photo.getSize(), point: photo.getPoint()) else { return }
-        customView.setImage(imageData: photo.getImageData())
-        customView.setAlpha(alpha: photo.getAlpha())
+        guard let customView = customViewFactory?.makePhotoView(size: photoViewModel.getSize(), point: photoViewModel.getPoint()) else { return }
+        customView.setImage(imageData: photoViewModel.getImageData())
+        customView.setAlpha(alpha: photoViewModel.getAlpha())
         let viewTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(photoTappedGesture))
         customView.addGestureRecognizer(viewTapGesture)
+        guard let photo = photoViewModel as? Photo else { return }
         customViews[photo] = customView
         view.addSubview(customView)
-        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.alphaButtonHidden, object: self, userInfo: [DrawingViewController.Notification.Key.customViewModel : photo])
-        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.updateSelectedPhotoUI, object: self, userInfo: [DrawingViewController.Notification.Key.photo : photo])
+        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.alphaButtonHidden, object: self, userInfo: [DrawingViewController.Notification.Key.customViewModel : photoViewModel])
+        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.updateSelectedPhotoUI, object: self, userInfo: [DrawingViewController.Notification.Key.photo : photoViewModel])
     }
     
     @objc func rectangleTappedGesture(sender: UITapGestureRecognizer){
@@ -128,34 +130,36 @@ class DrawingViewController: UIViewController{
     }
     
     @objc private func selectedRectangle(_ notification: Foundation.Notification){
-        guard let rectangle = notification.userInfo?[Plane.Notification.Key.rectangle] as? Rectangle else {
+        guard let rectangleViewModel = notification.userInfo?[Plane.Notification.Key.rectangle] as? RectangleViewModelMutable else {
             return
         }
-        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.updateSelectedRectangleUI, object: self, userInfo: [DrawingViewController.Notification.Key.rectangle : rectangle])
+        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.updateSelectedRectangleUI, object: self, userInfo: [DrawingViewController.Notification.Key.rectangle : rectangleViewModel])
     }
     
     @objc private func selectedPhoto(_ notification: Foundation.Notification){
-        guard let photo = notification.userInfo?[Plane.Notification.Key.photo] as? Photo else {
+        guard let photoViewModel = notification.userInfo?[Plane.Notification.Key.photo] as? PhotoViewModelMutable else {
             return
         }
-        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.updateSelectedPhotoUI, object: self, userInfo: [DrawingViewController.Notification.Key.photo : photo])
+        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.updateSelectedPhotoUI, object: self, userInfo: [DrawingViewController.Notification.Key.photo : photoViewModel])
     }
     
     @objc private func rectangleColorChanged(_ notification: Foundation.Notification){
-        guard let rectangle = notification.userInfo?[Plane.Notification.Key.rectangle] as? Rectangle else {
+        guard let rectangleViewModel = notification.userInfo?[Plane.Notification.Key.rectangle] as? RectangleViewModelMutable else {
             return
         }
+        guard let rectangle = rectangleViewModel as? Rectangle else { return }
         guard let rectangleView = customViews[rectangle] as? RectangleView else { return }
-        rectangleView.setRGBColor(rgb: rectangle.getColorRGB())
-        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.changedColorText, object: self, userInfo: [DrawingViewController.Notification.Key.rectangle : rectangle])
+        rectangleView.setRGBColor(rgb: rectangleViewModel.getColorRGB())
+        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.changedColorText, object: self, userInfo: [DrawingViewController.Notification.Key.rectangle : rectangleViewModel])
     }
     
     @objc private func customViewAlphaChanged(_ notification: Foundation.Notification){
-        guard let customModel = notification.userInfo?[Plane.Notification.Key.customViewEntity] as? CustomViewModel else {
+        guard let customViewModel = notification.userInfo?[Plane.Notification.Key.customViewModel] as? CustomViewModelMutable else {
             return
         }
-        customViews[customModel]?.setAlpha(alpha: customModel.alpha)
-        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.alphaButtonHidden, object: self, userInfo: [DrawingViewController.Notification.Key.customViewModel : customModel])
+        guard let customModel = customViewModel as? CustomViewModel else { return }
+        customViews[customModel]?.setAlpha(alpha: customViewModel.getAlpha())
+        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.alphaButtonHidden, object: self, userInfo: [DrawingViewController.Notification.Key.customViewModel : customViewModel])
     }
     
     private func plusViewAlpha(){

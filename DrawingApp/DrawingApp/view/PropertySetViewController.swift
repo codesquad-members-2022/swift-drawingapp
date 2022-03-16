@@ -53,17 +53,17 @@ class PropertySetViewController: UIViewController{
     }
     
     @objc private func changedColorText(_ notification: Foundation.Notification){
-        guard let rectangle = notification.userInfo?[DrawingViewController.Notification.Key.rectangle] as? Rectangle else { return }
+        guard let rectangle = notification.userInfo?[DrawingViewController.Notification.Key.rectangle] as? RectangleViewModelMutable else { return }
         setColorButtonRGBText(rectangleRGB: rectangle.getColorRGB())
     }
     
     @objc private func alphaButtonHidden(_ notification: Foundation.Notification){
-        guard let customModel = notification.userInfo?[DrawingViewController.Notification.Key.customViewModel] as? CustomViewModel else { return }
+        guard let customModel = notification.userInfo?[DrawingViewController.Notification.Key.customViewModel] as? CustomViewModelMutable else { return }
         alphaButtonIsHidden(alpha: customModel.getAlpha())
     }
     
     @objc private func updateSelectedRectangleUI(_ notification: Foundation.Notification){
-        guard let rectangle = notification.userInfo?[DrawingViewController.Notification.Key.rectangle] as? Rectangle else {
+        guard let rectangle = notification.userInfo?[DrawingViewController.Notification.Key.rectangle] as? RectangleViewModelMutable else {
             return
         }
         alphaButtonIsHidden(alpha: rectangle.getAlpha())
@@ -72,7 +72,7 @@ class PropertySetViewController: UIViewController{
     }
     
     @objc private func updateSelectedPhotoUI(_ notification: Foundation.Notification){
-        guard let photo = notification.userInfo?[DrawingViewController.Notification.Key.photo] as? Photo else {
+        guard let photo = notification.userInfo?[DrawingViewController.Notification.Key.photo] as? PhotoViewModelMutable else {
             return
         }
         alphaButtonIsHidden(alpha: photo.getAlpha())
