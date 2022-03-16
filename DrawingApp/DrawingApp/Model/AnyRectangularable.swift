@@ -14,6 +14,7 @@ protocol Rectangularable {
     var alpha: Alpha {get}
     func isPointInArea(_ point: Point) -> Bool
     func changeAlphaValue(to newAlpha: Alpha)
+    func move(to newPoint: Point)
 }
 
 class AnyRectangularable: Rectangularable {
@@ -36,6 +37,10 @@ class AnyRectangularable: Rectangularable {
     
     func changeAlphaValue(to newAlpha: Alpha) {
         self.alpha = newAlpha
+    }
+    
+    func move(to newPoint: Point) {
+        self.point = newPoint
     }
 
 }
