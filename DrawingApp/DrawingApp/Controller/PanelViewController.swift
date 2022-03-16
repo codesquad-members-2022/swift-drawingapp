@@ -38,6 +38,10 @@ class PanelViewController: UIViewController {
         static let didEditTextField = Notification.Name("didEditTextField")
     }
     
+    enum Handler {
+        static var didTouchSizeStepperHandler: ((Size) -> ())?
+    }
+    
     enum InfoKey {
         static let value = "value"
         static let origin = "origin"
@@ -45,24 +49,36 @@ class PanelViewController: UIViewController {
         static let text = "text"
     }
     
+    var didTouchSizeStepperHandler: ((Size) -> ())?
+    var didTouchOriginStepperHandler: ((Point) -> ())?
+    var didChangeSliderHandler: ((Float) -> ())?
+    var didTouchColorButtonHandler: ((Color) -> ())?
+    var didEditTextFieldHandler: ((String) -> ())?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        observePlane()
-        observeCanvas()
+        observePlaneNotification()
         
+        setClosureToCanvasVC()
+        addTargetAction(to: textField)
+    }
+    
+    private func addTargetAction(to textField: UIControl) {
         textField.addTarget(self, action: #selector(didEditTextField(_:)), for: .editingChanged)
     }
     
-    private func observePlane() {
+    private func setClosureToCanvasVC() {
+        guard let canvasVC = splitViewController?.viewController(for: .secondary) as? CanvasViewController else { return }
+        
+        setDidMoveTemporaryViewHandler(to: canvasVC)
+    }
+    
+    private func observePlaneNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(didSelectLayer(_:)), name: Plane.Event.didSelectLayer, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeColor(_:)), name: Plane.Event.didChangeColor, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeAlpha(_:)), name: Plane.Event.didChangeAlpha, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeSize(_:)), name: Plane.Event.didChangeSize, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeOrigin(_:)), name: Plane.Event.didChangeOrigin, object: nil)
-    }
-    
-    private func observeCanvas() {
-        NotificationCenter.default.addObserver(self, selector: #selector(isDragging(_:)), name: CanvasViewController.Event.isDragging, object: nil)
     }
 }
 
@@ -160,17 +176,6 @@ extension PanelViewController {
         textField.text = selected.text
     }
     
-    private func displayTemporaryOrigin(_ origin: Point) {
-        let selectedX = origin.x
-        let selectedY = origin.y
-        
-        xOriginStepper.value = selectedX
-        yOriginStepper.value = selectedY
-        
-        xOriginLabel.text = String(format: "%.0f", selectedX)
-        yOriginLabel.text = String(format: "%.0f", selectedY)
-    }
-    
     private func clearPanel() {
         clearColorButton()
         clearAlphaSlider()
@@ -213,12 +218,37 @@ extension PanelViewController {
     }
 }
 
-// MARK: - Use case: Set View & Layer using Controls
+// MARK: - Use case: Display origin of temporary view when dragged
+
+extension PanelViewController {
+    
+    private func setDidMoveTemporaryViewHandler(to canvasVC: CanvasViewController) {
+        
+        canvasVC.didMoveTemporaryView = { temporaryView in
+            let temporaryOrigin = Point(x: temporaryView.frame.origin.x, y: temporaryView.frame.origin.y)
+            self.displayTemporaryOrigin(temporaryOrigin)
+        }
+    }
+    
+    private func displayTemporaryOrigin(_ origin: Point) {
+        let selectedX = origin.x
+        let selectedY = origin.y
+        
+        xOriginStepper.value = selectedX
+        yOriginStepper.value = selectedY
+        
+        xOriginLabel.text = String(format: "%.0f", selectedX)
+        yOriginLabel.text = String(format: "%.0f", selectedY)
+    }
+}
+
+// MARK: - Use case: Change Color using button
 
 extension PanelViewController {
     
     @IBAction func didTouchColorButton(_ sender: UIButton) {
-        NotificationCenter.default.post(name: PanelViewController.Event.didTouchColorButton, object: self)
+        let randomColor = Color.random()
+        didTouchColorButtonHandler?(randomColor)
     }
     
     @objc func didChangeColor(_ notification: Notification) {
@@ -226,9 +256,14 @@ extension PanelViewController {
         guard let mutated = plane.selected as? ColorMutable else { return }
         displayColor(mutated)
     }
-    
+}
+
+// MARK: - Use case: Change Alpha using slider
+
+extension PanelViewController {
+
     @IBAction func didChangeSlider(_ sender: UISlider) {
-        NotificationCenter.default.post(name: PanelViewController.Event.didChangeSlider, object: self, userInfo: [PanelViewController.InfoKey.value: sender.value])
+        didChangeSliderHandler?(sender.value)
     }
     
     @objc func didChangeAlpha(_ notification: Notification) {
@@ -236,15 +271,15 @@ extension PanelViewController {
         guard let mutated = plane.selected as? AlphaMutable else { return }
         displayAlpha(mutated)
     }
-    
-    @objc func isDragging(_ notification: Notification) {
-        guard let temporaryOrigin = notification.userInfo?[CanvasViewController.InfoKey.origin] as? Point else { return }
-        displayTemporaryOrigin(temporaryOrigin)
-    }
-    
+}
+
+// MARK: - Use case: Change Origin using stepper
+
+extension PanelViewController {
+
     @IBAction func didTouchOriginStepper(_ sender: UIStepper) {
         let newOrigin = Point(x: xOriginStepper.value, y: yOriginStepper.value)
-        NotificationCenter.default.post(name: PanelViewController.Event.didTouchOriginStepper, object: self, userInfo: [PanelViewController.InfoKey.origin: newOrigin])
+        didTouchOriginStepperHandler?(newOrigin)
     }
     
     @objc func didChangeOrigin(_ notification: Notification) {
@@ -252,6 +287,12 @@ extension PanelViewController {
         displayOrigin(mutated)
     }
     
+}
+
+// MARK: - Use case: Change Size using stepper
+
+extension PanelViewController {
+
     @IBAction func didTouchSizeStepper(_ sender: UIStepper) {
         var newSize = Size(width: 0, height: 0)
         
@@ -263,15 +304,20 @@ extension PanelViewController {
             newSize = Size(width: widthStepper.value, height: heightStpper.value)
         }
         
-        NotificationCenter.default.post(name: PanelViewController.Event.didTouchSizeStepper, object: self, userInfo: [PanelViewController.InfoKey.size: newSize])
+        didTouchSizeStepperHandler?(newSize)
     }
     
     @objc func didChangeSize(_ notification: Notification) {
         guard let mutated = notification.userInfo?[Plane.InfoKey.changed] as? Layer else { return }
         displaySize(mutated)
     }
+}
+
+// MARK: - Use case: Change Text using textField
+
+extension PanelViewController {
     
     @objc func didEditTextField(_ sender: UITextField) {
-        NotificationCenter.default.post(name: PanelViewController.Event.didEditTextField, object: self, userInfo: [PanelViewController.InfoKey.text: textField.text ?? ""])
+        didEditTextFieldHandler?(textField.text ?? "")
     }
 }

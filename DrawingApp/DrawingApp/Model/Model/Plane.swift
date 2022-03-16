@@ -96,7 +96,7 @@ class Plane {
         NotificationCenter.default.post(name: Plane.Event.didSelectLayer, object: self, userInfo: [Plane.InfoKey.unselected: unselected as Any, Plane.InfoKey.selected: selected as Any])
     }
     
-    func changeSelected(toColor: Color = Color.random()) {
+    func changeSelected(toColor: Color) {
         guard let colorMutable = selected as? ColorMutable else { return }
         colorMutable.set(to: toColor)
         NotificationCenter.default.post(name: Plane.Event.didChangeColor, object: self, userInfo: [Plane.InfoKey.changed: toColor])
