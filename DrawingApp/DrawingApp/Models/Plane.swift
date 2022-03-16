@@ -67,6 +67,19 @@ final class Plane: MainSceneTapDelegate {
         addProperty(rectangleModel)
     }
     
+    private func addProperty(_ model: RectangleProperty) {
+        rectangleModels.append(model)
+        
+        NotificationCenter.default.post(
+            name: Plane.addViewButtonPushed,
+            object: self,
+            userInfo: [
+                PostKey.index: rectangleModels.endIndex-1,
+                PostKey.model: model
+            ]
+        )
+    }
+    
     func resetRandomColor(at index: Int) -> RectRGBColor? {
         guard
             (0..<rectangleModels.endIndex) ~= index,
@@ -119,18 +132,6 @@ final class Plane: MainSceneTapDelegate {
     }
     
     // MARK: - Plane no using Interface
-    func addProperty(_ model: RectangleProperty) {
-        rectangleModels.append(model)
-        
-        NotificationCenter.default.post(
-            name: Plane.addViewButtonPushed,
-            object: self,
-            userInfo: [
-                PostKey.index: rectangleModels.endIndex-1,
-                PostKey.model: model
-            ]
-        )
-    }
     
     func getRectangleCount() -> Int {
         rectangleModels.count
