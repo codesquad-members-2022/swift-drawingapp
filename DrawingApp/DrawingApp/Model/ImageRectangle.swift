@@ -5,7 +5,7 @@
 //  Created by 박진섭 on 2022/03/14.
 //
 
-import UIKit
+import Foundation
 
 //Rectangle의 구조를 따르지만, Image프로퍼티가 추가되어있는 Class가 ImageRectangle이라 생각하여 선언.
 final class ImageRectangle:Rectangleable {
@@ -14,13 +14,15 @@ final class ImageRectangle:Rectangleable {
     private(set) var origin:Point
     private(set) var size:Size
     private(set) var alpha:Alpha?
+    private(set) var rgb:RGB?
     private(set) var image:Data?
     
-    init(id: ID, origin: Point, size: Size, rgb: RGB?, alpha: Alpha?) {
+    init(id: ID, origin: Point, size: Size, rgb: RGB? = nil, alpha: Alpha? = nil) {
         self.id = id
         self.origin = origin
         self.size = size
         self.alpha = alpha
+        self.rgb = rgb
     }
 
     func changeOrigin(_ origin: Point) {
