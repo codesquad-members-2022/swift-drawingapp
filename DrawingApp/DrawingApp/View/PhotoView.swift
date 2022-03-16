@@ -34,4 +34,14 @@ class PhotoView: UIImageView, RectangleViewable {
     func changeAlphaValue(to newAlphaValue: CGFloat) {
         self.alpha = newAlphaValue
     }
+    
+    func move(distance: CGPoint) {
+        self.frame = self.frame.offsetBy(dx: distance.x, dy: distance.y)
+    }
+    
+    func move(to newPoint: CGPoint) {
+        self.center.x = newPoint.x
+        self.center.y = newPoint.y
+    }
+    
 }

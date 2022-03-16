@@ -14,6 +14,8 @@ protocol RectangleViewable {
     var layer: CALayer {get}
     func changeBackgroundColor(to newColor: UIColor)
     func changeAlphaValue(to newAlphaValue: CGFloat)
+    func move(distance: CGPoint)
+    func move(to newPoint: CGPoint)
 }
 
 class RectangleView: UIView, RectangleViewable {
@@ -42,5 +44,14 @@ class RectangleView: UIView, RectangleViewable {
     
     func changeAlphaValue(to newAlphaValue: CGFloat) {
         self.alpha = newAlphaValue
+    }
+    
+    func move(distance: CGPoint) {
+        self.frame = self.frame.offsetBy(dx: distance.x, dy: distance.y)
+    }
+    
+    func move(to newPoint: CGPoint) {
+        self.center.x = newPoint.x
+        self.center.y = newPoint.y
     }
 }
