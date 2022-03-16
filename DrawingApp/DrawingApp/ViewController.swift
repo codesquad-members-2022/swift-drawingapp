@@ -127,16 +127,14 @@ class ViewController: UIViewController {
                 movingTemporaryView.move(distance: translation)
                 sender.setTranslation(.zero, in: drawableAreaView)
             case .ended:
-                guard let movingTemporaryView = self.movingTemporaryView as? UIView,
-                      let selectedView = self.selectedView else {
+                guard let movingTemporaryView = self.movingTemporaryView as? UIView else {
                     return
                 }
                 
                 let convertedNewPoint = Point(x: movingTemporaryView.frame.origin.x,
                                            y:movingTemporaryView.frame.origin.y)
-                self.plane.changePointOfSpecifiedRectangle(to: convertedNewPoint)
+                plane.changePointOfSpecifiedRectangle(to: convertedNewPoint)
                 movingTemporaryView.removeFromSuperview()
-                self.movingTemporaryView = nil
             default:
                 return
         }
@@ -144,7 +142,7 @@ class ViewController: UIViewController {
     
     private func makeTemporaryView() {
         guard let selectedView = self.selectedView,
-        let copiedView = selectedView.copy() as? UIView & RectangleViewable else { return }
+              let copiedView = selectedView.copy() as? UIView & RectangleViewable else { return }
         
         copiedView.changeAlphaValue(to: 0.5)
         self.movingTemporaryView = copiedView
@@ -274,6 +272,7 @@ extension ViewController {
         let convertedNewPoint = CGPoint(x: newPoint.x, y: newPoint.y)
         
         matchedView.move(to: convertedNewPoint)
+        self.movingTemporaryView = nil
     }
     
     private func updateSelectedView(_ selectedView: RectangleViewable) {
