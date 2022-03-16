@@ -11,7 +11,12 @@ protocol RectangleBuildable {
     init(x: Double, y: Double, width: Double, height: Double)
 }
 
-class Rectangle: Shapable, Notifiable, Hashable {
+protocol RectangleShapable {
+    var backgroundColor: Color { get }
+    func setBackgroundColor(_ color: Color)
+}
+
+class Rectangle: Shapable, RectangleShapable, Notifiable, Hashable {
     enum NotificationKey {
         case alpha
         case color

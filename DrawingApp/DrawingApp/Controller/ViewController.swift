@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     
     // MARK: - Property for Model
     private let plane = Plane()
-    private var rectangleMap = [Rectangle: RectangleShapable]()
+    private var rectangleMap = [AnyHashable: ShapeViewable]()
     
     // MARK: - View Life Cycle Methods
     override func viewDidLoad() {
@@ -32,13 +32,13 @@ class ViewController: UIViewController {
     
     private func setObservers() {
         NotificationCenter.default.addObserver(forName: .RectangleModelDidCreated, object: nil, queue: .main, using: { notification in
-            guard let rectangle = notification.object as? Rectangle else { return }
+            guard let rectangle = notification.object as? Shapable else { return }
             self.createRectangleView(ofClass: RectangleView.self, with: rectangle)
         })
         NotificationCenter.default.addObserver(forName: .RectangleModelDidUpdated, object: nil, queue: .main, using: self.rectangleDataDidChanged)
         
         NotificationCenter.default.addObserver(forName: .ImageRectangleModelDidCreated, object: nil, queue: .main, using: { notification in
-            guard let rectangle = notification.object as? Rectangle else { return }
+            guard let rectangle = notification.object as? Shapable else { return }
             self.createRectangleView(ofClass: ImageRectangleView.self, with: rectangle)
         })
         NotificationCenter.default.addObserver(forName: .RectangleModelDidUpdated, object: nil, queue: .main, using: self.rectangleDataDidChanged)
@@ -76,10 +76,10 @@ extension ViewController: PlaneViewDelegate {
 // MARK: - ControlPanelView To ViewController
 extension ViewController: ControlPanelViewDelegate {
     func controlPanelDidPressColorButton() {
-        guard let rectangle = self.plane.currentItem else { return }
+        guard let rectangle = self.plane.currentItem as? RectangleShapable else { return }
         
         let color = ColorFactory.makeTypeRandomly()
-        
+
         rectangle.setBackgroundColor(color)
     }
     
@@ -108,7 +108,7 @@ extension ViewController {
 
 // MARK: - Rectangle Model To ViewController
 extension ViewController {
-    private func createRectangleView(ofClass Class: RectangleShapable.Type, with rectangle: Rectangle) {
+    private func createRectangleView(ofClass Class: ShapeViewable.Type, with rectangle: Shapable) {
         guard let rectangleView = RectangleViewFactory.makeView(ofClass: Class, with: rectangle) else { return }
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleOnTapRectangleView))
@@ -116,9 +116,14 @@ extension ViewController {
         rectangleView.addGestureRecognizer(tap)
         
         self.planeView.addSubview(rectangleView)
-        self.rectangleMap.updateValue(rectangleView, forKey: rectangle)
         
         rectangleView.animateScale(CGFloat(1.2), duration: 0.15, delay: 0)
+        
+        // TODO: Dictionary 키 타입을 프로토콜로 추상화하여 Hashable 하게 변경
+        // Shapable 프로토콜은 Hashable 할 수 없음
+        guard let rectangle = rectangle as? Rectangle else { return }
+        
+        self.rectangleMap.updateValue(rectangleView, forKey: rectangle)
     }
     
     private func rectangleDataDidChanged(_ notification: Notification) {
@@ -130,7 +135,7 @@ extension ViewController {
         }
         
         if let color = notification.userInfo?[Rectangle.NotificationKey.color] as? Color {
-            rectangleView.setBackgroundColor(color: color, alpha: rectangle.alpha)
+            (rectangleView as? BackgroundColorable)?.setBackgroundColor(color: color, alpha: rectangle.alpha)
             self.controlPanelView.setColorButtonTitle(title: rectangleView.backgroundColor?.toHexString() ?? "None")
         }
     }
@@ -145,8 +150,9 @@ extension ViewController {
         rectangleView.setBorder(width: 2, color: .blue)
         
         let hexString = UIColor(with: rectangle.backgroundColor).toHexString()
+        let isConformed = (rectangle as? ImagePossessable) == nil
         
-        self.controlPanelView.setColorButtonControllable(enable: rectangle.isType(of: Rectangle.self))
+        self.controlPanelView.setColorButtonControllable(enable: isConformed)
         self.controlPanelView.setAlphaSliderControllable(enable: true)
         self.controlPanelView.setColorButtonTitle(title: hexString)
         self.controlPanelView.setAlphaSliderValue(value: rectangle.alpha)

@@ -7,7 +7,12 @@
 
 import Foundation
 
-class ImageRectangle: Rectangle {
+protocol ImagePossessable {
+    var image: URL? { get }
+    func setImage(with url: URL)
+}
+
+class ImageRectangle: Rectangle, ImagePossessable {
     private(set) var image: URL?
     
     init(id: String, origin: Point, size: Size, image: URL? = nil) {
