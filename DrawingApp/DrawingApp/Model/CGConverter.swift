@@ -5,7 +5,6 @@
 //  Created by 김상혁 on 2022/03/14.
 //
 
-import Foundation
 import UIKit
 
 class CGConverter {
