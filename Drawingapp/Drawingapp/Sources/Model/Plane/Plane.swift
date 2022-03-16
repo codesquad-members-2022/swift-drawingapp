@@ -98,21 +98,6 @@ extension Plane: AlphaUpdatable {
     }
 }
 
-extension Plane: ColorUpdatable {
-    func update(color: Color?) {
-        guard let model = self.selectedModel as? ColorUpdatable else {
-            return
-        }
-        model.update(color: color)
-        
-        let userInfo: [AnyHashable : Any] = [
-            ParamKey.drawingModel: model,
-            ParamKey.color: color
-        ]
-        NotificationCenter.default.post(name: Event.didUpdateColor, object: self, userInfo: userInfo)
-    }
-}
-
 extension Plane: Transformable {
     func transform(translationX: Double, y: Double) {
         guard let model = self.selectedModel else {
@@ -141,9 +126,24 @@ extension Plane: Transformable {
     }
 }
 
+extension Plane: ColorUpdatable {
+    func update(color: Color?) {
+        guard let model = self.selectedModel as? Colorable else {
+            return
+        }
+        model.update(color: color)
+        
+        let userInfo: [AnyHashable : Any] = [
+            ParamKey.drawingModel: model,
+            ParamKey.color: model.color
+        ]
+        NotificationCenter.default.post(name: Event.didUpdateColor, object: self, userInfo: userInfo)
+    }
+}
+
 extension Plane: FontUpdatable {
     func update(font: Font) {
-        guard let labelModel = self.selectedModel as? LabelModel else {
+        guard let labelModel = self.selectedModel as? Labelable else {
             return
         }
         labelModel.update(font: font)
@@ -156,7 +156,7 @@ extension Plane: FontUpdatable {
     }
     
     func update(fontSize: Double) {
-        guard let labelModel = self.selectedModel as? LabelModel else {
+        guard let labelModel = self.selectedModel as? Labelable else {
             return
         }
         labelModel.update(fontSize: fontSize)
@@ -169,7 +169,7 @@ extension Plane: FontUpdatable {
     }
     
     func update(fontName: String) {
-        guard let labelModel = self.selectedModel as? LabelModel else {
+        guard let labelModel = self.selectedModel as? Labelable else {
             return
         }
         labelModel.update(fontName: fontName)
