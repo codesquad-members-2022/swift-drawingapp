@@ -16,6 +16,7 @@ class CanvasViewController: UIViewController,
     private var viewMap = [UIView: Layer]()
     private let photoPicker = UIImagePickerController()
     private var temporaryView: UIView?
+    private var canvasView: UIView?
     
     var didMoveTemporaryView: ((UIView) -> ())?
     
@@ -23,6 +24,7 @@ class CanvasViewController: UIViewController,
         super.viewDidLoad()
         observePlaneNotification()
         
+        setCanvasView()
         setUpInitialModels()
         setUpTapRecognizer()
         
@@ -31,6 +33,20 @@ class CanvasViewController: UIViewController,
         // Make other VC notify of User Interaction
         setClosureToPanelVC()
         setClosureToLayerTableVC()
+    }
+    
+    private func setCanvasView() {
+        let canvasView = UIView()
+        self.canvasView = canvasView
+        
+        // CanvasView should be set behind of existing subviews
+        view.insertSubview(canvasView, at: 0)
+        
+        canvasView.translatesAutoresizingMaskIntoConstraints = false
+        canvasView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        canvasView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        canvasView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        canvasView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
     
     private func setClosureToLayerTableVC() {
@@ -70,18 +86,13 @@ extension CanvasViewController {
         
     }
     
-    private func setUpRecognizer() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
-        view.addGestureRecognizer(tap)
-    }
-    
     private func setUpInitialModels() {
         (0..<4).forEach { _ in plane.add(layerType: .rectangle) }
     }
     
     private func setUpTapRecognizer() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
-        view.addGestureRecognizer(tap)
+        canvasView?.addGestureRecognizer(tap)
     }
 }
 
@@ -103,7 +114,7 @@ extension CanvasViewController {
         
         if newView is UILabel { resizeToFit(newLayer, for: newView) }
         
-        view.addSubview(newView)
+        canvasView?.addSubview(newView)
         setupPanRecognizer(newView)
     }
     
@@ -154,7 +165,7 @@ extension CanvasViewController {
 extension CanvasViewController {
     
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
-        let location = gesture.location(in: view)
+        let location = gesture.location(in: canvasView)
         let tappedPoint = Point(x: location.x, y: location.y)
         plane.tap(on: tappedPoint)
     }
@@ -300,7 +311,7 @@ extension CanvasViewController {
         guard let temporaryView = gestureView.copy() as? UIView else { return }
         
         self.temporaryView = temporaryView
-        view.addSubview(temporaryView)
+        canvasView?.addSubview(temporaryView)
     }
     
     private func drag(_ gesture: UIPanGestureRecognizer) {
@@ -337,23 +348,25 @@ extension CanvasViewController {
 
 extension CanvasViewController {
     
-    func setDidMoveRowHandler(to layerTableVC: LayerTableViewController ) {
-        layerTableVC.didMoveRowHandler = { fromIndex, toIndex in
-            self.plane.reorderLayer(from: fromIndex, to: toIndex)
+    func setDidCommandMoveHandler(to layerTableVC: LayerTableViewController) {
+        layerTableVC.didCommandMoveHandler = { layer, command in
+            self.plane.reorderLayer(layer, to: command)
+        }
+    }
+    
+    func setDidMoveRowHandler(to layerTableVC: LayerTableViewController) {
+        layerTableVC.didMoveRowHandler = { from, to in
+            self.plane.reorderLayer(fromIndex: from, toIndex: to)
         }
     }
     
     @objc func didReorderLayer(_ notification: Notification) {
-        guard let reorderedLayers = notification.userInfo?[Plane.InfoKey.changed] as? [Layer] else { return }
-
-        for view in viewMap.keys {
-            view.removeFromSuperview()
-        }
-        
-        for layer in reorderedLayers {
-            guard let layerView = layerMap[layer] else { return }
-            view.addSubview(layerView)
-        }
+        guard let reorderedLayer = notification.userInfo?[Plane.InfoKey.changed] as? Layer,
+              let layerView = layerMap[reorderedLayer],
+              let to = notification.userInfo?[Plane.InfoKey.toIndex] as? Int else {
+                  return
+              }
+        canvasView?.insertSubview(layerView, at: to)
     }
 }
 
