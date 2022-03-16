@@ -64,14 +64,14 @@ class PropertySetViewController: UIViewController{
     
     @objc private func alphaButtonHidden(_ notification: Notification){
         guard let customModel = notification.userInfo?[SplitViewController.Notification.Key.customViewEntity] as? CustomViewModel else { return }
-        alphaButtonIsHidden(alpha: customModel.alpha)
+        alphaButtonIsHidden(alpha: customModel.getAlpha())
     }
     
     @objc private func updateSelectedRectangleUI(_ notification: Notification){
         guard let rectangle = notification.userInfo?[SplitViewController.Notification.Key.rectangle] as? Rectangle else {
             return
         }
-        alphaButtonIsHidden(alpha: rectangle.alpha)
+        alphaButtonIsHidden(alpha: rectangle.getAlpha())
         setColorButtonRGBText(rectangleRGB: rectangle.getColorRGB())
         changeColorButtonIsHidden(customModel: rectangle)
     }
@@ -80,7 +80,7 @@ class PropertySetViewController: UIViewController{
         guard let photo = notification.userInfo?[SplitViewController.Notification.Key.photo] as? Photo else {
             return
         }
-        alphaButtonIsHidden(alpha: photo.alpha)
+        alphaButtonIsHidden(alpha: photo.getAlpha())
         changeColorButtonIsHidden(customModel: photo)
     }
     
@@ -94,8 +94,7 @@ class PropertySetViewController: UIViewController{
     }
     
     private func changeColorButtonIsHidden<T>(customModel: T){
-        let photoType: Photo.Type = Photo.self
-        photoType == type(of: customModel) ? (colorChangeButton.isHidden = true) : (colorChangeButton.isHidden = false)
+        customModel is PhotoViewModelMutable ? (colorChangeButton.isHidden = true) : (colorChangeButton.isHidden = false)
     }
     
     @objc private func updateDeselectedUI(_ notification: Notification){
