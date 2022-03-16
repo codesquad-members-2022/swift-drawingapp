@@ -97,10 +97,15 @@ final class MainScreenViewController: UIViewController, UIGestureRecognizerDeleg
         }
         
         var rect: Rectangle!
-        if let model = model as? ImageRectangleProperty {
+        
+        switch model {
+        case let model as ImageRectangleProperty:
             rect = ImageRectangle(model: model, index: index)
-        } else if let model = model as? ColoredRectangleProperty {
+        case let model as ColoredRectangleProperty:
             rect = ColoredRectangle(model: model, index: index)
+        default:
+            LoggerUtil.debugLog(message: "Initialize rectangle failed. \(model.name)")
+            return
         }
         
         rectangleViews.append(rect)
