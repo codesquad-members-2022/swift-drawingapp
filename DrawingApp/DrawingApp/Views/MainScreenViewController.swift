@@ -96,8 +96,8 @@ final class MainScreenViewController: UIViewController, UIGestureRecognizerDeleg
             return
         }
         
-        let rect = Rectangle(model: model, index: index, backgroundImage: (userInfo[.viewProperty] as? UIImage))
-        self.rectangleViews.append(rect)
+        let rect = Rectangle(model: model, index: index)
+        rectangleViews.append(rect)
         view.addSubview(rect)
     }
     
@@ -130,7 +130,7 @@ final class MainScreenViewController: UIViewController, UIGestureRecognizerDeleg
             return
         }
         
-        for rect in self.rectangleViews {
+        for rect in rectangleViews {
             rect.isSelected = (rect.index == selectedIndex)
         }
     }
