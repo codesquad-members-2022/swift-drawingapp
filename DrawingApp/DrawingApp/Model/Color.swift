@@ -8,6 +8,8 @@
 import Foundation
 
 struct Color {
+    static let range = UInt8.min...UInt8.max
+    
     static let black = Color(red: 0, green: 0, blue: 0)
     static let red = Color(red: 255, green: 0, blue: 0)
     static let green = Color(red: 0, green: 255, blue: 0)

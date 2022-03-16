@@ -11,7 +11,7 @@ protocol PointBuildable {
     init(x: Double, y: Double)
 }
 
-extension CGPoint {
+extension CGPoint: PointBuildable {
     init(with point: Point) {
         self.init(x: point.x, y: point.y)
     }
