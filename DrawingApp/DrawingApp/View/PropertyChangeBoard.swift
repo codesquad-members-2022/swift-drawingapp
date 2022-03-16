@@ -97,7 +97,13 @@ class PropertyChangeBoard : UIView {
     }
     
     func setPropertyBoard(with shape: Shape?) {
-        guard let alpha = shape?.alpha.transparency else {return}
+        guard let shape = shape else {
+            self.alphaChangeSlider.value = self.alphaChangeSlider.minimumValue
+            self.colorChangeButton.isEnabled = false
+            return
+        }
+        
+        let alpha = shape.alpha.transparency
         self.alphaChangeSlider.value = Float(alpha)
         switch shape {
         case is PhotoRectangle:

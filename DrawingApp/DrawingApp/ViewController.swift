@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     private let addRectangleButton = UIButton()
     private let addPhotoButton = UIButton()
     
-    private var viewFinder : [Shape: ShapeViewAble] = [:]
+    private var viewFinder : [Shape?: ShapeViewAble?] = [:]
     
     let imagePickerController = UIImagePickerController()
     
@@ -159,8 +159,8 @@ extension ViewController {
     }
     
     @objc func planeDidSearch(_ notification: Notification) {
-        guard let shape = notification.userInfo?[Plane.NotificationKeyValue.shape] as? Shape else {return}
-        let selectedView = viewFinder[shape]
+        let shape = notification.userInfo?[Plane.NotificationKeyValue.shape] as? Shape
+        let selectedView = viewFinder[shape] as? ShapeViewAble
         self.shapeViewBoard.setSelectedView(of: selectedView)
         self.shapePropertyChangeBoard.setPropertyBoard(with: shape)
     }

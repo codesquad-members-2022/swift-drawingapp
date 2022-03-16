@@ -50,8 +50,7 @@ class Plane {
                 break
             }
         }
-        guard let targetRectangle = selectedShape else {return}
-        NotificationCenter.default.post(name: Plane.NotificationName.searchShape, object: self, userInfo: [Plane.NotificationKeyValue.shape:targetRectangle])
+        NotificationCenter.default.post(name: Plane.NotificationName.searchShape, object: self, userInfo: [Plane.NotificationKeyValue.shape:self.selectedShape])
     }
     
     func updateAlphaValue(with alpha: Alpha) {
