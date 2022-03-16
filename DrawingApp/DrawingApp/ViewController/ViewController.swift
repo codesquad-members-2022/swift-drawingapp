@@ -68,7 +68,7 @@ class ViewController: UIViewController {
 
         activateNotificationObservers()
         initDetailView()
-        touchBackgroundView()
+        activateBackgroundTappable()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -77,7 +77,7 @@ class ViewController: UIViewController {
 }
 
 extension ViewController: UIGestureRecognizerDelegate {
-        func touchBackgroundView() {
+        func activateBackgroundTappable() {
             let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
             self.view.addGestureRecognizer(tap)
         }
