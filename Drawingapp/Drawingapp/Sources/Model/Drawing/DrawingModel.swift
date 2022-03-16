@@ -18,22 +18,6 @@ protocol Drawingable {
     func update(width: Double, height: Double)
 }
 
-protocol Colorable: Drawingable {
-    var color: Color { get }
-    func update(color: Color)
-}
-
-protocol Imageable: Drawingable {
-    var imageUrl: URL? { get }
-    func update(imageUrl: URL?)
-}
-
-protocol Textable: Drawingable {
-    var font: Font { get }
-    var text: String { get }
-    func update(fontName: String)
-}
-
 protocol Viewable {
     var displayName: String { get }
     var iconName: String { get }

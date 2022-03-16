@@ -7,6 +7,12 @@
 
 import Foundation
 
+protocol Textable: Drawingable {
+    var font: Font { get }
+    var text: String { get }
+    func update(fontName: String)
+}
+
 class LabelModel: DrawingModel, Textable, Viewable {
     public private(set) var font: Font
     public private(set) var text: String

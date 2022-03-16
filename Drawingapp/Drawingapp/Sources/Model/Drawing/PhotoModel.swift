@@ -7,6 +7,11 @@
 
 import Foundation
 
+protocol Imageable: Drawingable {
+    var imageUrl: URL? { get }
+    func update(imageUrl: URL?)
+}
+
 class PhotoModel: DrawingModel, Imageable, Viewable {
     public private(set) var imageUrl: URL?
     
