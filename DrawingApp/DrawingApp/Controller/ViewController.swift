@@ -1,8 +1,6 @@
 import UIKit
 import OSLog
 
-typealias ColorRectangleView = UIView
-typealias ImageRectangleView = UIImageView
 class ViewController: UIViewController{
     
     private var logger: Logger = Logger()
@@ -85,12 +83,7 @@ class ViewController: UIViewController{
     }
     
     private func createRectangleView(rectangle: Rectangle)-> UIView?{
-        if rectangle is ColorRectangle{
-            return RectangleViewFactory.createColorRectangleView(rectangle: rectangle as! ColorRectangle)
-        }else if rectangle is ImageRectangle{
-            return RectangleViewFactory.createImageRectangleView(rectangle: rectangle as! ImageRectangle)
-        }
-        return nil
+        return RectangleViewFactory.createRectangleView(rectangle: rectangle, type: type(of: rectangle))
     }
     
     @objc func rectangleFoundFromPlane(_ notification: Notification){
@@ -174,7 +167,7 @@ extension ViewController: UIGestureRecognizerDelegate{
         switch sender.state{
         case .began:
             guard let rectangle: Rectangle = self.plane[location.x, location.y] else { return }
-            if let view = RectangleViewFactory.copyRectangleView(rectangle: rectangle){
+            if let view = RectangleViewFactory.createRectangleView(rectangle: rectangle, type: type(of: rectangle)){
                 self.temporarySelectedRectangleView = view
                 canvasView.addSubview(view)
             }
