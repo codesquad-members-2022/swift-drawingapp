@@ -29,7 +29,7 @@ class Plane {
         static let reorderCommand = "reorderCommand"
     }
     
-    enum reorderCommand {
+    enum reorderCommand: CaseIterable {
         case sendToBack
         case bringToFront
         case sendBackward
@@ -88,7 +88,6 @@ class Plane {
         
         NotificationCenter.default.post(name: Plane.Event.didSelectLayer, object: self, userInfo: [Plane.InfoKey.unselected: unselected as Any, Plane.InfoKey.selected: selected as Any])
     }
-    
     
     func reorderLayer(_ layer: Layer, to command: Plane.reorderCommand) {
         var fromIndex = 0, toIndex = 0

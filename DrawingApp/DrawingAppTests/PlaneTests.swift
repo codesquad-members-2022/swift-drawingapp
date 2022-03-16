@@ -13,9 +13,9 @@ class PlaneTests: XCTestCase {
     private var plane = Plane()
     
     override func setUp() {
-        (0..<5).forEach { _ in plane.add(LayerType: .rectangle) }
-        (0..<5).forEach { _ in plane.add(LayerType: .photo, data: Data()) }
-        (0..<5).forEach { _ in plane.add(LayerType: .label) }
+        (0..<5).forEach { _ in plane.add(layerType: .rectangle) }
+        (0..<5).forEach { _ in plane.add(layerType: .photo, data: Data()) }
+        (0..<5).forEach { _ in plane.add(layerType: .label) }
         super.setUp()
     }
     
@@ -26,24 +26,24 @@ class PlaneTests: XCTestCase {
     
     func testAddRectangle() throws {
         let plane = Plane()
-        plane.add(LayerType: .rectangle)
+        plane.add(layerType: .rectangle)
         XCTAssertEqual(plane.rectangleCount, 1)
     }
     
     func testAddPhoto() throws {
         let plane = Plane()
-        plane.add(LayerType: .photo, data: Data())
+        plane.add(layerType: .photo, data: Data())
         XCTAssertEqual(plane.photoCount, 1)
     }
     
     func testAddLabel() throws {
         let plane = Plane()
-        plane.add(LayerType: .label)
+        plane.add(layerType: .label)
         XCTAssertEqual(plane.labelCount, 1)
     }
     
     func testSelect() {
-        for testIndex in 0..<plane.LayerCount {
+        for testIndex in 0..<plane.layerCount {
             guard let testPoint = plane[testIndex]?.center else { return }
             plane.tap(on: testPoint)
             XCTAssertNotNil(plane.selected)
@@ -106,22 +106,65 @@ class PlaneTests: XCTestCase {
     }
     
     func testChangeLayerOrigin() {
-        for i in 0..<plane.LayerCount {
+        for i in 0..<plane.layerCount {
             let point = Point.random()
-            guard let Layer = plane[i] else { return }
-            plane.change(Layer: Layer, toOrigin: point)
-            XCTAssertEqual(Layer.origin.x, point.x)
-            XCTAssertEqual(Layer.origin.y, point.y)
+            guard let layer = plane[i] else { return }
+            plane.change(layer: layer, toOrigin: point)
+            XCTAssertEqual(layer.origin.x, point.x)
+            XCTAssertEqual(layer.origin.y, point.y)
         }
     }
     
     func testChangeLayerSize() {
-        for i in 0..<plane.LayerCount {
+        for i in 0..<plane.layerCount {
             let size = Size(width: Double.random(in: 1...300), height: Double.random(in: 1...300))
-            guard let Layer = plane[i] else { return }
-            plane.change(Layer: Layer, toSize: size)
-            XCTAssertEqual(Layer.size.width, size.width)
-            XCTAssertEqual(Layer.size.height, size.height)
+            guard let layer = plane[i] else { return }
+            plane.change(layer: layer, toSize: size)
+            XCTAssertEqual(layer.size.width, size.width)
+            XCTAssertEqual(layer.size.height, size.height)
+        }
+    }
+    
+    func testReorder() {
+        let fromIndex = Int.random(in: 0..<plane.layerCount)
+        let toIndex = Int.random(in: 0..<plane.layerCount)
+        
+        let someLayer = plane[fromIndex]
+        
+        plane.reorderLayer(fromIndex: fromIndex, toIndex: toIndex)
+        
+        XCTAssertEqual(someLayer, plane[toIndex])
+    }
+    
+    func testReorderCommand() {
+        for i in 0..<plane.layerCount {
+            for command in Plane.reorderCommand.allCases {
+                
+                guard let someLayer = plane[i] else { return }
+                plane.reorderLayer(someLayer, to: command)
+                
+                switch command {
+                case .bringForward:
+                    if i == plane.layerCount-1 {
+                        XCTAssertEqual(someLayer, plane[i])
+                    } else {
+                        XCTAssertEqual(someLayer, plane[i+1])
+                    }
+                    
+                case .bringToFront:
+                    XCTAssertEqual(someLayer, plane[plane.layerCount-1])
+                    
+                case .sendBackward:
+                    if i == 0 {
+                        XCTAssertEqual(someLayer, plane[i])
+                    } else {
+                        XCTAssertEqual(someLayer, plane[i-1])
+                    }
+                    
+                case .sendToBack:
+                    XCTAssertEqual(someLayer, plane[0])
+                }
+            }
         }
     }
 }
