@@ -7,12 +7,11 @@
 
 import UIKit
 
-protocol RectangleViewable {
+protocol RectangleViewable: NSCopying {
     var alpha: CGFloat {get}
     var layer: CALayer {get}
     func changeBackgroundColor(to newColor: UIColor)
     func changeAlphaValue(to newAlphaValue: CGFloat)
-    func copyToNewInstance() -> UIView & RectangleViewable
     func move(distance: CGPoint)
     func move(to newPoint: CGPoint)
 }
@@ -45,14 +44,6 @@ class RectangleView: UIView, RectangleViewable {
         self.alpha = newAlphaValue
     }
     
-    func copyToNewInstance() -> UIView & RectangleViewable {
-        let frame = self.frame
-        let alpha = self.alpha
-        let backgroundColor = self.backgroundColor ?? UIColor.white
-        
-        return RectangleView.init(frame: frame, backgroundColor: backgroundColor, alpha: alpha)
-    }
-    
     func move(distance: CGPoint) {
         self.frame = self.frame.offsetBy(dx: distance.x, dy: distance.y)
     }
@@ -60,5 +51,25 @@ class RectangleView: UIView, RectangleViewable {
     func move(to newPoint: CGPoint) {
         self.center.x = newPoint.x
         self.center.y = newPoint.y
+    }
+    
+    func copy(with zone: NSZone? = nil) -> Any {
+        let newFrame = self.frame.copy()
+        let newBackgroundColor = self.backgroundColor?.copy() as? UIColor ?? UIColor.white
+        let newAlpha = self.alpha.copy()
+        
+        return RectangleView.init(frame: newFrame, backgroundColor: newBackgroundColor, alpha: newAlpha)
+    }
+}
+
+extension CGRect {
+    fileprivate func copy() -> CGRect {
+        return CGRect(x: self.minX, y: self.minY, width: self.width, height: self.height)
+    }
+}
+
+extension CGFloat {
+    fileprivate func copy() -> CGFloat {
+        return CGFloat(self)
     }
 }

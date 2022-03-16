@@ -145,10 +145,10 @@ class ViewController: UIViewController {
     }
     
     private func makeTemporaryView() {
-        guard let selectedView = self.selectedView else { return }
+        guard let selectedView = self.selectedView,
+        let copiedView = selectedView.copy() as? UIView & RectangleViewable else { return }
         
-        let copiedView = selectedView.copyToNewInstance()
-        copiedView.alpha = 0.5
+        copiedView.changeAlphaValue(to: 0.5)
         self.movingTemporaryView = copiedView
         
         self.drawableAreaView.addSubview(copiedView)
