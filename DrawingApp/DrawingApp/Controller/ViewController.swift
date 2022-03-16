@@ -64,7 +64,12 @@ extension ViewController: SideInspectorViewDelegate {
     }
     
     func sideInspectorViewDidTappedColorButton(_ sender: UIButton) {
-        // 버튼 색상 눌렀을 때 동작 구현
+        // 색상 버튼을 누르면 색상 값 랜덤으로 생성
+        let rectangleFactory = RectangleFactory()
+        let newColorValue = rectangleFactory.createRandomColor().getHexValue()
+        sender.setTitle(newColorValue, for: .normal)
+        
+        // 해당 직사각형도 색상 바꿔주기
     }
 }
 
