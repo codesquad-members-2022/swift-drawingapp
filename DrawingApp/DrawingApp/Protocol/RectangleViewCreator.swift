@@ -5,4 +5,6 @@
 //  Created by 박진섭 on 2022/03/15.
 //
 
-import Foundation
+protocol RectangleViewCreator {
+    func makeRectangleView(type:RectangleViewable.Type) -> RectangleViewable
+}
