@@ -34,6 +34,11 @@ class ViewController: UIViewController {
         
         rgbResetButton.isEnabled = false
         alphaStepper.isEnabled = false
+        
+        alphaStepper.minimumValue = 1
+        alphaStepper.maximumValue = 10
+        alphaStepper.stepValue = 1
+        alphaStepper.autorepeat = true
     }
 
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
@@ -59,6 +64,7 @@ class ViewController: UIViewController {
             greenValue.text = "G : \(touchedViewGreen))"
             blueValue.text = "B : \(touchedViewBlue)"
             alphaValue.text = "A : \(touchedViewAlpha)"
+            alphaStepper.value = touchedViewAlpha
             rgbResetButton.isEnabled = true
             alphaStepper.isEnabled = true
         }
@@ -71,6 +77,7 @@ class ViewController: UIViewController {
             greenValue.text = "G : \(touchedViewGreen)"
             blueValue.text = "B : \(touchedViewBlue)"
             alphaValue.text = "A : \(touchedViewAlpha)"
+            alphaStepper.value = touchedViewAlpha
             rgbResetButton.isEnabled = true
             alphaStepper.isEnabled = true
         }
@@ -81,6 +88,7 @@ class ViewController: UIViewController {
             greenValue.text = "-"
             blueValue.text = "-"
             alphaValue.text = "-"
+            alphaStepper.value = 1
             rgbResetButton.isEnabled = false
             alphaStepper.isEnabled = false
         }
@@ -124,6 +132,13 @@ class ViewController: UIViewController {
     }
     
     @IBAction func tapAlphaStepper(_ sender: Any) {
+        var selectedViewRed: CGFloat = 0
+        var selectedViewGreen: CGFloat = 0
+        var selectedViewBlue: CGFloat = 0
+        var selectedViewAlpha: CGFloat = 0
+        selectedView?.backgroundColor?.getRed(&selectedViewRed, green: &selectedViewGreen, blue: &selectedViewBlue, alpha: &selectedViewAlpha)
+        selectedView?.backgroundColor = UIColor(red: selectedViewRed, green: selectedViewGreen, blue: selectedViewBlue, alpha: alphaStepper.value / 10)
+        alphaValue.text = "A : \(alphaStepper.value)"
     }
 }
 
