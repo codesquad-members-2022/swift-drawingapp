@@ -151,7 +151,7 @@ class ViewController: UIViewController {
     }
     
     private func initializeViewsInTouchedEmptySpaceCondition() {
-        self.selectedView?.layer.borderWidth = 0
+        self.selectedView?.hideBoundary()
         self.selectedView = nil
         backgroundColorButton.isEnabled = false
         backgroundColorButton.setTitle("배경색 변경 불가", for: .disabled)
@@ -277,11 +277,10 @@ extension ViewController {
     }
     
     private func updateSelectedView(_ selectedView: RectangleViewable) {
-        self.selectedView?.layer.borderWidth = 0
+        self.selectedView?.hideBoundary()
         
         self.selectedView = selectedView
-        selectedView.layer.borderWidth = 3
-        selectedView.layer.borderColor = UIColor.black.cgColor
+        selectedView.showBoundary()
     }
     
     private func updateBackgroundColorButton(with rectangle: AnyRectangularable) {
