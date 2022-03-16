@@ -12,6 +12,11 @@ protocol RectangleBuildable {
 }
 
 class Rectangle: Shapable, Hashable {
+    enum NotificationKey {
+        case alpha
+        case color
+    }
+    
     // MARK: - Properties
     private(set) var backgroundColor: Color {
         didSet {
@@ -25,15 +30,14 @@ class Rectangle: Shapable, Hashable {
         }
     }
     
-    private(set) var image: URL?
-    
     let id: String
     let size: Size
     let origin: Point
     
-    
     var diagonalPoint: Point {
-        return Point(x: self.origin.x + self.size.width, y: self.origin.y + self.size.height)
+        let maxX = self.origin.x + self.size.width
+        let maxY = self.origin.y + self.size.height
+        return Point(x: maxX, y: maxY)
     }
     
     // MARK: - Initialisers
@@ -51,24 +55,6 @@ class Rectangle: Shapable, Hashable {
         self.size = Size(width: width, height: height)
         self.backgroundColor = color
         self.alpha = alpha
-    }
-    
-    init(id: String, origin: Point, size: Size, image: URL? = nil) {
-        self.id = id
-        self.origin = origin
-        self.size = size
-        self.backgroundColor = .white
-        self.alpha = .opaque
-        self.image = image
-    }
-    
-    init(id: String, x: Double, y: Double, width: Double, height: Double, image: URL? = nil) {
-        self.id = id
-        self.origin = Point(x: x, y: y)
-        self.size = Size(width: width, height: height)
-        self.backgroundColor = .white
-        self.alpha = .opaque
-        self.image = image
     }
     
     func contains(point: Point) -> Bool {
@@ -89,8 +75,16 @@ class Rectangle: Shapable, Hashable {
         self.alpha = alpha
     }
     
-    func setImage(with url: URL) {
-        self.image = url
+    func isType(of Protocol: Shapable.Type) -> Bool {
+        return type(of: self) == Protocol.self
+    }
+    
+    func notifyDidCreated() {
+        NotificationCenter.default.post(name: .RectangleModelDidCreated, object: self)
+    }
+    
+    func notifyDidUpdated(key: NotificationKey, data: Any) {
+        NotificationCenter.default.post(name: .RectangleModelDidUpdated, object: self, userInfo: [key: data])
     }
 }
 
@@ -100,21 +94,5 @@ extension Rectangle {
         return """
         (\(self.id)), \(self.origin), \(self.size), \(self.backgroundColor), \(self.alpha)
         """
-    }
-}
-
-// MARK: - Notification To Observer
-extension Rectangle {
-    enum NotificationKey {
-        case alpha
-        case color
-    }
-    
-    func notifyDidCreated() {
-        NotificationCenter.default.post(name: .RectangleDataDidCreated, object: self)
-    }
-    
-    func notifyDidUpdated(key: NotificationKey, data: Any) {
-        NotificationCenter.default.post(name: .RectangleDataDidUpdated, object: self, userInfo: [key: data])
     }
 }

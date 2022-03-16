@@ -32,7 +32,7 @@ enum RectangleFactory: ShapeBuilder {
         let point = PointFactory.makeTypeRandomly()
         let size = SizeFactory.makeType(width: 150, height: 120)
         
-        return Rectangle(id: id, origin: point, size: size, image: image)
+        return ImageRectangle(id: id, origin: point, size: size, image: image)
     }
     
     static func makeShape() -> Shapable {

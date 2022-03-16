@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     
     // MARK: - Property for Model
     private let plane = Plane()
-    private var rectangleMap = [Rectangle: RectangleView]()
+    private var rectangleMap = [Rectangle: RectangleShapable]()
     
     // MARK: - View Life Cycle Methods
     override func viewDidLoad() {
@@ -31,8 +31,15 @@ class ViewController: UIViewController {
     }
     
     private func setObservers() {
-        NotificationCenter.default.addObserver(forName: .RectangleDataDidCreated, object: nil, queue: .main, using: self.rectangleDataDidCreated)
-        NotificationCenter.default.addObserver(forName: .RectangleDataDidUpdated, object: nil, queue: .main, using: self.rectangleDataDidChanged)
+        NotificationCenter.default.addObserver(forName: .RectangleModelDidCreated, object: nil, queue: .main, using: { notification in
+            self.createRectangle(ofProtocol: RectangleView.self, notification: notification)
+        })
+        NotificationCenter.default.addObserver(forName: .RectangleModelDidUpdated, object: nil, queue: .main, using: self.rectangleDataDidChanged)
+        
+        NotificationCenter.default.addObserver(forName: .ImageRectangleModelDidCreated, object: nil, queue: .main, using: { notification in
+            self.createRectangle(ofProtocol: ImageRectangleView.self, notification: notification)
+        })
+        NotificationCenter.default.addObserver(forName: .ImageRectangleModelDidUpdated, object: nil, queue: .main, using: self.rectangleDataDidChanged)
         
         NotificationCenter.default.addObserver(forName: .PlaneDidSelectItem, object: self.plane, queue: .main, using: self.planeDidSelectItem)
         NotificationCenter.default.addObserver(forName: .PlaneDidUnselectItem, object: self.plane, queue: .main, using: self.planeDidUnselectItem)
@@ -99,18 +106,13 @@ extension ViewController {
 
 // MARK: - Rectangle Model To ViewController
 extension ViewController {
-    @objc private func rectangleDataDidCreated(_ notification: Notification) {
+    private func createRectangle(ofProtocol Protocol: RectangleShapable.Type, notification: Notification) {
         guard let rectangle = notification.object as? Rectangle else { return }
-        
-        let rectangleView = RectangleView(with: rectangle)
-        
-        if let url = rectangle.image?.path {
-            rectangleView.image = UIImage(contentsOfFile: url)
-        }
-        
+
+        guard let rectangleView = RectangleViewFactory.makeView(ofProtocol: Protocol, with: rectangle) else { return }
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleOnTapRectangleView))
+        
         rectangleView.addGestureRecognizer(tap)
-        rectangleView.isUserInteractionEnabled = true
         
         self.planeView.addSubview(rectangleView)
         self.rectangleMap.updateValue(rectangleView, forKey: rectangle)
@@ -118,49 +120,43 @@ extension ViewController {
         rectangleView.animateScale(CGFloat(1.2), duration: 0.15, delay: 0)
     }
     
-    
-    @objc private func rectangleDataDidChanged(_ notification: Notification) {
+    private func rectangleDataDidChanged(_ notification: Notification) {
         guard let rectangle = self.plane.currentItem else { return }
         guard let rectangleView = self.rectangleMap[rectangle] else { return }
-        let hasImage = rectangle.image != nil
         
         if let alpha = notification.userInfo?[Rectangle.NotificationKey.alpha] as? Alpha {
-            if hasImage {
-                rectangleView.setAlpha(alpha: alpha)
-            } else {
-                rectangleView.setBackgroundColor(with: alpha)
-            }
+            rectangleView.setAlpha(alpha)
         }
-        
-        guard hasImage == false else { return }
         
         if let color = notification.userInfo?[Rectangle.NotificationKey.color] as? Color {
             rectangleView.setBackgroundColor(color: color, alpha: rectangle.alpha)
-            self.controlPanelView.setColorButtonTitle(title: UIColor(with: color).toHexString())
+            self.controlPanelView.setColorButtonTitle(title: rectangleView.backgroundColor?.toHexString() ?? "None")
         }
     }
 }
 
 // MARK: - Plane Model to ViewController
 extension ViewController {
-    @objc private func planeDidSelectItem(_ notification: Notification) {
+    private func planeDidSelectItem(_ notification: Notification) {
         guard let rectangle = notification.userInfo?[Plane.NotificationKey.select] as? Rectangle else { return }
         guard let rectangleView = self.rectangleMap[rectangle] else { return }
+        
         let hexString = UIColor(with: rectangle.backgroundColor).toHexString()
         
         rectangleView.setBorder(width: 2, color: .blue)
         
-        let hasImage = rectangle.image != nil
-        self.controlPanelView.setColorButtonAccess(enable: !hasImage)
-        self.controlPanelView.setColorButtonTitle(title: hasImage ? "None" : hexString)
+        self.controlPanelView.setColorButtonControllable(enable: rectangle.isType(of: Rectangle.self))
+        self.controlPanelView.setAlphaSliderControllable(enable: true)
+        self.controlPanelView.setColorButtonTitle(title: hexString)
         self.controlPanelView.setAlphaSliderValue(value: rectangle.alpha)
     }
     
-    @objc private func planeDidUnselectItem(_ notification: Notification) {
+    private func planeDidUnselectItem(_ notification: Notification) {
         guard let rectangle = notification.userInfo?[Plane.NotificationKey.unselect] as? Rectangle else { return }
         guard let rectangleView = self.rectangleMap[rectangle] else { return }
         
         rectangleView.removeBorder()
+        self.controlPanelView.reset()
     }
 }
 

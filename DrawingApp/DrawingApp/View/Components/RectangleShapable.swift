@@ -1,28 +1,38 @@
 //
-//  RectangleView.swift
+//  BaseView.swift
 //  DrawingApp
 //
-//  Created by 송태환 on 2022/03/07.
+//  Created by 송태환 on 2022/03/16.
 //
 
 import UIKit
 
-class RectangleView: UIImageView {
-    // MARK: - Initialisers
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+protocol RectangleShapable: UIView {
+    func setBorder(width: Int, radius: Int, color: UIColor?)
+    func removeBorder()
+    func setBackgroundColor(color: Color, alpha: Alpha)
+    func setBackgroundColor(with color: Color)
+    func setBackgroundColor(with alpha: CGFloat)
+    func setBackgroundColor(with alpha: Alpha)
+    func setAlpha(_ alpha: Alpha)
+    func animateScale(_ scale: CGFloat, duration: Double, delay: Double)
+}
+
+extension RectangleShapable {
+    func setBorder(width: Int, radius: Int = 0, color: UIColor?) {
+        self.layer.cornerCurve = .continuous
+        self.layer.cornerRadius = CGFloat(radius)
+        self.layer.borderWidth = CGFloat(width)
+        self.layer.borderColor = color?.cgColor
     }
     
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+    func removeBorder() {
+        self.layer.cornerCurve = .circular
+        self.layer.cornerRadius = 0
+        self.layer.borderWidth = 0
+        self.layer.borderColor = .none
     }
     
-    init(with rectangle: Rectangle) {
-        super.init(frame: rectangle.convert(using: CGRect.self))
-        self.setBackgroundColor(color: rectangle.backgroundColor, alpha: rectangle.alpha)
-    }
-    
-    // MARK: - UI changing methods
     func setBackgroundColor(color: Color, alpha: Alpha) {
         self.backgroundColor = UIColor(with: color, alpha: alpha)
     }
@@ -42,22 +52,8 @@ class RectangleView: UIImageView {
         self.backgroundColor = color
     }
     
-    func setAlpha(alpha: Alpha) {
+    func setAlpha(_ alpha: Alpha) {
         self.alpha = alpha.convert(using: CGFloat.self)
-    }
-    
-    func setBorder(width: Int, radius: Int = 0, color: UIColor?) {
-        self.layer.cornerCurve = .continuous
-        self.layer.cornerRadius = CGFloat(radius)
-        self.layer.borderWidth = CGFloat(width)
-        self.layer.borderColor = color?.cgColor
-    }
-    
-    func removeBorder() {
-        self.layer.cornerCurve = .circular
-        self.layer.cornerRadius = 0
-        self.layer.borderWidth = 0
-        self.layer.borderColor = .none
     }
     
     func animateScale(_ scale: CGFloat, duration: Double, delay: Double) {
