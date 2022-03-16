@@ -44,6 +44,10 @@ class SideInspectorView: UIView {
     let alphaSlider: UISlider = {
         let slider = UISlider()
         slider.translatesAutoresizingMaskIntoConstraints = false
+        slider.minimumValue = Float(Alpha.one.opacity)
+        slider.maximumValue = Float(Alpha.ten.opacity)
+        slider.value = Float(Alpha.five.opacity)
+        slider.addTarget(self, action: #selector(sliderValueDidChanged(_:)), for: .allTouchEvents)
         return slider
     }()
     
@@ -64,6 +68,10 @@ class SideInspectorView: UIView {
     
     @objc func createRectangleButtonTapped(_ sender: UIButton) {
         delegate?.sideInspectorViewDidTappedRectangleButton()
+    }
+    
+    @objc func sliderValueDidChanged(_ slider: UISlider) {
+        delegate?.sideInspectorViewSliderValueDidChanged(slider)
     }
     
     // TODO: init
