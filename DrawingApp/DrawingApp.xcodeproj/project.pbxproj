@@ -137,7 +137,6 @@
 			children = (
 				1E541E7727CCBC97000C8B50 /* AppDelegate.swift */,
 				1E541E7927CCBC97000C8B50 /* SceneDelegate.swift */,
-				1E5A154927E2433500FA4C9B /* Tools */,
 				1E541E8C27CCBD8C000C8B50 /* Models */,
 				1E541E8D27CCBD9E000C8B50 /* Views */,
 				1E541E8B27CCBD83000C8B50 /* Controllers */,
@@ -160,11 +159,13 @@
 		1E541E8C27CCBD8C000C8B50 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				1E5A154A27E2438200FA4C9B /* Attributes */,
-				1E80BE5127D5FAD9004F77C1 /* Factorys */,
+				1E5A155327E24A7D00FA4C9B /* Extensions */,
+				1E5A155227E249FE00FA4C9B /* Constants */,
+				1E5A154927E2433500FA4C9B /* Tools */,
 				1E02CA6F27DEFE9200B08B30 /* Protocols */,
-				1EE4CCE427CCFD44005EA3D4 /* Rectangle.swift */,
-				1E02CA9227E020DE00B08B30 /* BasicShape.swift */,
+				1E5A154A27E2438200FA4C9B /* ShapeAttributes */,
+				1E5A154B27E247DF00FA4C9B /* Shapes */,
+				1E80BE5127D5FAD9004F77C1 /* Factories */,
 				1E80BDF327D23EEB004F77C1 /* Plane.swift */,
 			);
 			path = Models;
@@ -184,14 +185,12 @@
 		1E5A154927E2433500FA4C9B /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				1E5A154727E240FA00FA4C9B /* UserInfoKeys.swift */,
 				1E02CA8227DF5A8A00B08B30 /* CGConverter.swift */,
-				1E5A154527E2326000FA4C9B /* NotificationNames.swift */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
 		};
-		1E5A154A27E2438200FA4C9B /* Attributes */ = {
+		1E5A154A27E2438200FA4C9B /* ShapeAttributes */ = {
 			isa = PBXGroup;
 			children = (
 				1EE4CCFC27CF0282005EA3D4 /* Identifier.swift */,
@@ -200,17 +199,42 @@
 				1EE4CCEC27CDDCA2005EA3D4 /* Color.swift */,
 				1EE4CCEE27CDDCA5005EA3D4 /* Alpha.swift */,
 			);
-			path = Attributes;
+			path = ShapeAttributes;
 			sourceTree = "<group>";
 		};
-		1E80BE5127D5FAD9004F77C1 /* Factorys */ = {
+		1E5A154B27E247DF00FA4C9B /* Shapes */ = {
+			isa = PBXGroup;
+			children = (
+				1EE4CCE427CCFD44005EA3D4 /* Rectangle.swift */,
+				1E02CA9227E020DE00B08B30 /* BasicShape.swift */,
+			);
+			path = Shapes;
+			sourceTree = "<group>";
+		};
+		1E5A155227E249FE00FA4C9B /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				1E5A154727E240FA00FA4C9B /* UserInfoKeys.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		1E5A155327E24A7D00FA4C9B /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				1E5A154527E2326000FA4C9B /* NotificationNames.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		1E80BE5127D5FAD9004F77C1 /* Factories */ = {
 			isa = PBXGroup;
 			children = (
 				1EE4CCE627CD0751005EA3D4 /* RandomShapeFactory.swift */,
 				1E02CABE27E15EB500B08B30 /* RandomAttributeFactory.swift */,
 				1E02CA7E27DF4F4B00B08B30 /* ViewFactory.swift */,
 			);
-			path = Factorys;
+			path = Factories;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
