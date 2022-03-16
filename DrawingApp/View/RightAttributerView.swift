@@ -305,6 +305,11 @@ extension RightAttributerView{
         self.widthLabel.text = "\(String(format: "%.0f", widthValue))"
         self.heightLabel.text = "\(String(format: "%.0f", heightValue))"
     }
+    
+    func onlyChangePositionValue(x: CGFloat, y: CGFloat){
+        self.xPositionLabel.text = "\(String(format: "%.0f", x))"
+        self.yPositionLabel.text = "\(String(format: "%.0f", y))"
+    }
 }
 
 

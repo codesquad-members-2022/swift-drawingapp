@@ -252,18 +252,19 @@ extension MainViewController {
         }
         
         extraView.movingExtraViewCenterPosition(view: extraView, x: moveDistance.x, y: moveDistance.y)
+        rightAttributerView.onlyChangePositionValue(x: extraView.frame.origin.x, y: extraView.frame.origin.y)
     }
     
     private func dragViewPoint(){
-        guard let extraView = panGestureExtraView, let selectValue = plane.selectedValue, let view = customUIViews[selectValue] else{
+        guard let extraView = panGestureExtraView, let rectValue = plane.selectedValue else{
             return
         }
         
         if extraView.frame.maxX < self.rightAttributerView.frame.minX, extraView.frame.maxY < self.rectangleButton.frame.minY{
-            view.changeOriginalViewCenterPositon(view: view, x: extraView.center.x, y: extraView.center.y)
-            selectValue.changePoint(point: MyPoint(x: extraView.frame.origin.x, y: extraView.frame.origin.y))
+            changeViewPoint(extraView: extraView)
         }
         
+        displayStepperValue(selected: rectValue)
         extraView.removeFromSuperview()
         panGestureExtraView = nil
     }
@@ -340,6 +341,16 @@ extension MainViewController: StepperDelegate{
         }
         
         let newPoint = MyPoint(x: rightAttributerView.xValue, y: rightAttributerView.yValue)
+        rectValue.changePoint(point: newPoint)
+        view.frame.origin = CGPoint(x: rectValue.point.x, y: rectValue.point.y)
+    }
+    
+    private func changeViewPoint(extraView: UIView){
+        guard let rectValue = plane.selectedValue, let view = customUIViews[rectValue] else{
+            return
+        }
+        
+        let newPoint = MyPoint(x: extraView.frame.origin.x, y: extraView.frame.origin.y)
         rectValue.changePoint(point: newPoint)
         view.frame.origin = CGPoint(x: rectValue.point.x, y: rectValue.point.y)
     }
