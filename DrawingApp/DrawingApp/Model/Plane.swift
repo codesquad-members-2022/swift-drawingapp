@@ -12,7 +12,6 @@ protocol PlaneDelegate {
     func BackgroundDidChanged(_ rectangle: Rectangle)
     func alpahDidChanged(_ rectangle: Rectangle)
     func rectangleDidMutate(_ rectangle: Rectangle)
-//    func didCancleRectangle()
 }
 
 
