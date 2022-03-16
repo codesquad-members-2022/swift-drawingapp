@@ -6,14 +6,22 @@
 //
 
 import Foundation
-
-protocol PlaneModelsChangeable{
+protocol PlaneModelAddable{
     func addRandomRectnagleViewModel()
     func addRandomPhotoViewModel(imageData: Data)
+}
+
+protocol PlaneModelChangeabel{
     func changeRectangleRandomColor()
-    func selectTargetCustomView(point: ViewPoint)
-    func deSelectTargetCustomView()
     func plusCustomViewAlpha()
     func minusCustomViewAlpha()
+}
+
+protocol PlaneModelSelectable{
+    func selectTargetCustomView(point: ViewPoint)
+    func deSelectTargetCustomView()
+}
+
+protocol PlaneModelManageable: PlaneModelAddable, PlaneModelChangeabel, PlaneModelSelectable{
     func rectangleCount() -> Int
 }

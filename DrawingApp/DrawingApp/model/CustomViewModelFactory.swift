@@ -9,7 +9,6 @@ import Foundation
 import os
 
 class CustomViewModelFactory{
-    
     private func makeUiniqueId() -> String{
         let allString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         let uniqueStrings = (0 ..< 9).map{ _ in allString.randomElement() }
