@@ -183,7 +183,7 @@ extension ViewController: PlaneDelegate {
         let newAlpha = CGConverter.toCGFloat(from: shape.alpha)
         
         selectedShapeView.changeAlpha(to: newAlpha)
-        sideInspectorView.setAlphaValueLabelText(by: shape.alpha.value)
+        sideInspectorView.setAlphaValueLabelText(by: shape.alphaValue)
         
         if !shape.canAlphaLevelUp() {
             sideInspectorView.disableAlphaPlusButton()
