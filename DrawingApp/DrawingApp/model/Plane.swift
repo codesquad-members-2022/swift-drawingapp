@@ -9,11 +9,11 @@ import Foundation
 
 class Plane{
     private var customViewModelFactory: CustomViewFactoryResponse
-    private var models: [ViewPoint: CustomViewEntity] = [:]
-    private(set) var selectedModel: CustomViewEntity?
+    private var models: [CustomViewModelMutable] = []
+    private(set) var selectedModel: CustomViewModelMutable?
     
-    subscript(point: ViewPoint) -> CustomViewEntity?{
-        return models[point]
+    subscript(point: ViewPoint) -> CustomViewModelMutable?{
+        return findModelByPoint(point: point)
     }
     
     init(rectangleFactory: CustomViewFactoryResponse){
@@ -22,41 +22,37 @@ class Plane{
     
     private func addRectangle(){
         let rectangleMutable = customViewModelFactory.randomRectangle()
-        let rectangle = rectangleMutable.getRandomRectangle()
-        self.models[rectangle.point] = rectangle
-        self.selectedModel = rectangle
-        NotificationCenter.default.post(name: Plane.Notification.Event.addedRectangle, object: self, userInfo: [Plane.Notification.Key.rectangle : rectangle])
+        models.append(rectangleMutable)
+        self.selectedModel = rectangleMutable
+        NotificationCenter.default.post(name: Plane.Notification.Event.addedRectangle, object: self, userInfo: [Plane.Notification.Key.rectangle : rectangleMutable])
     }
     
     private func addPhoto(imageData: Data){
         let photoMutable = customViewModelFactory.randomPhoto(imageData: imageData)
-        let photo = photoMutable.getRandomPhoto()
-        self.models[photo.point] = photo
-        self.selectedModel = photo
-        NotificationCenter.default.post(name: Plane.Notification.Event.addedPhoto, object: self, userInfo: [Plane.Notification.Key.photo : photo])
+        models.append(photoMutable)
+        self.selectedModel = photoMutable
+        NotificationCenter.default.post(name: Plane.Notification.Event.addedPhoto, object: self, userInfo: [Plane.Notification.Key.photo : photoMutable])
     }
     
     private func changeRectangleColor(){
         guard let rectangle = selectedModel as? Rectangle else {
             return
         }
-        let colorMuatble = customViewModelFactory.randomRGBColor()
-        let rgbValue = colorMuatble.getRandomColorRGb()
+        let rectangleMutable = customViewModelFactory.randomRectangle()
+        let rgbValue = rectangleMutable.getColorRGB()
         rectangle.resetColor(rgbValue: rgbValue)
         NotificationCenter.default.post(name: Plane.Notification.Event.changedRectangleColor, object: self, userInfo:  [Plane.Notification.Key.rectangle : rectangle])
     }
     
     private func selectedCustomView(point: ViewPoint){
-        self.selectedModel = models[point]
-        if let photo = selectedModel as? Photo{
-            NotificationCenter.default.post(name: Plane.Notification.Event.selectedPhoto, object: self, userInfo: [Plane.Notification.Key.photo : photo])
+        guard let selectedModel = findModelByPoint(point: point) else { return }
+        self.selectedModel = selectedModel
+        if let photoMutable = selectedModel as? PhotoViewModelMutable{
+            NotificationCenter.default.post(name: Plane.Notification.Event.selectedPhoto, object: self, userInfo: [Plane.Notification.Key.photo : photoMutable])
         }
-        if let rectangle = selectedModel as? Rectangle{
-            NotificationCenter.default.post(name: Plane.Notification.Event.selectedRectangle, object: self, userInfo: [Plane.Notification.Key.rectangle : rectangle])
+        if let ractangleMutable = selectedModel as? RectangleViewModelMutable{
+            NotificationCenter.default.post(name: Plane.Notification.Event.selectedRectangle, object: self, userInfo: [Plane.Notification.Key.rectangle : ractangleMutable])
         }
-        
-        
-        
     }
     
     private func deselectedCustomView(){
@@ -68,7 +64,7 @@ class Plane{
         guard let selectedModel = selectedModel else {
             return
         }
-        selectedModel.changeAlphaValue(alpha: selectedModel.alpha + 0.1)
+        selectedModel.changeAlphaValue(alpha: selectedModel.getAlpha() + 0.1)
         NotificationCenter.default.post(name: Plane.Notification.Event.updateCustomViewAlpha, object: self, userInfo: [Plane.Notification.Key.customViewEntity : selectedModel])
     }
     
@@ -76,12 +72,21 @@ class Plane{
         guard let selectedModel = selectedModel else {
             return
         }
-        selectedModel.changeAlphaValue(alpha: selectedModel.alpha - 0.1)
+        selectedModel.changeAlphaValue(alpha: selectedModel.getAlpha() - 0.1)
         NotificationCenter.default.post(name: Plane.Notification.Event.updateCustomViewAlpha, object: self, userInfo: [Plane.Notification.Key.customViewEntity : selectedModel])
     }
     
+    private func findModelByPoint(point: ViewPoint) -> CustomViewModelMutable?{
+        for model in models{
+            if model.isPointInArea(point: point){
+                return model
+            }
+        }
+        return nil
+    }
+    
 }
-extension Plane: CustomEntitiesChangeable{
+extension Plane: PlaneModelsChangeable{
     func deSelectTargetCustomView() {
         deselectedCustomView()
     }
@@ -90,11 +95,11 @@ extension Plane: CustomEntitiesChangeable{
         selectedCustomView(point: point)
     }
     
-    func addRandomRectnagle() {
+    func addRandomRectnagleViewModel() {
         addRectangle()
     }
     
-    func addRandomPhoto(imageData: Data) {
+    func addRandomPhotoViewModel(imageData: Data) {
         addPhoto(imageData: imageData)
     }
     

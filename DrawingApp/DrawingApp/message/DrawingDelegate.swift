@@ -8,9 +8,9 @@
 import Foundation
 
 protocol DrawingDelegate{
-    func drawingViewDidChangeColor(rectangle: Rectangle)
-    func drawingViewDidUpdateAlpha(customModel: CustomViewEntity)
-    func drawingViewDidSelecteRectangle(rectangle: Rectangle)
-    func drawingViewDidSelectedPhoto(photo: Photo)
+    func drawingViewDidChangeColor(rectangleMutbale: RectangleViewModelMutable)
+    func drawingViewDidUpdateAlpha(customViewModelMutable: CustomViewModelMutable)
+    func drawingViewDidSelecteRectangle(rectangleMutbale: RectangleViewModelMutable)
+    func drawingViewDidSelectedPhoto(photoMutable: PhotoViewModelMutable)
     func drawingViewDidDeselect()
 }

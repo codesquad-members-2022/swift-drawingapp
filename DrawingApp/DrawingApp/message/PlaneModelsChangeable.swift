@@ -7,9 +7,9 @@
 
 import Foundation
 
-protocol CustomEntitiesChangeable{
-    func addRandomRectnagle()
-    func addRandomPhoto(imageData: Data)
+protocol PlaneModelsChangeable{
+    func addRandomRectnagleViewModel()
+    func addRandomPhotoViewModel(imageData: Data)
     func changeRectangleRandomColor()
     func selectTargetCustomView(point: ViewPoint)
     func deSelectTargetCustomView()

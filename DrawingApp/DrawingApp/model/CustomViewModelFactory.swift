@@ -8,7 +8,7 @@
 import Foundation
 import os
 
-class CustomViewFactory{
+class CustomViewModelFactory{
     
     private func makeUiniqueId() -> String{
         let allString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -54,37 +54,20 @@ class CustomViewFactory{
     }
 }
 
-extension CustomViewFactory: CustomViewFactoryResponse{
-    func randomRectangle() -> RectangleMutable {
+extension CustomViewModelFactory: CustomViewFactoryResponse{
+    func randomRectangle() -> RectangleViewModelMutable {
         return makeRandomRectangle()
     }
     
-    func randomRGBColor() -> RGBColorMutable {
-        return makeRandomColor()
-    }
-    
-    func randomPhoto(imageData: Data) -> PhotoMutable{
+    func randomPhoto(imageData: Data) -> PhotoViewModelMutable{
         return makeRandomPhoto(imageData: imageData)
     }
-}
-
-protocol RectangleMutable{
-    func getRandomRectangle() -> Rectangle
-}
-
-protocol RGBColorMutable{
-    func getRandomColorRGb() -> ColorRGB
-}
-
-protocol PhotoMutable{
-    func getRandomPhoto() -> Photo
 }
 
 enum RandomMax: Int{
     case x = 470
     case y = 860
     case rgbRange = 255
-    
     var randomValue: Int{
         return Int.random(in: 1 ..< self.rawValue)
     }
