@@ -8,15 +8,15 @@
 import UIKit
 
 //Rectangle의 구조를 따르지만, Image프로퍼티가 추가되어있는 Class가 ImageRectangle이라 생각하여 선언.
-final class ImageRectangle:Rectangle {
+final class ImageRectangle:Rectangleable {
 
     private let id:ID
     private(set) var origin:Point
     private(set) var size:Size
-    private(set) var alpha:Alpha
+    private(set) var alpha:Alpha?
     private(set) var image:Data?
     
-    init(id: ID, origin: Point, size: Size, rgb: RGB, alpha: Alpha) {
+    init(id: ID, origin: Point, size: Size, rgb: RGB?, alpha: Alpha?) {
         self.id = id
         self.origin = origin
         self.size = size
