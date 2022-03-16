@@ -14,6 +14,7 @@ protocol RectangleViewable {
     var layer: CALayer {get}
     func changeBackgroundColor(to newColor: UIColor)
     func changeAlphaValue(to newAlphaValue: CGFloat)
+    func copyToNewInstance() -> UIView & RectangleViewable
     func move(distance: CGPoint)
     func move(to newPoint: CGPoint)
 }
@@ -44,6 +45,14 @@ class RectangleView: UIView, RectangleViewable {
     
     func changeAlphaValue(to newAlphaValue: CGFloat) {
         self.alpha = newAlphaValue
+    }
+    
+    func copyToNewInstance() -> UIView & RectangleViewable {
+        let frame = self.frame
+        let alpha = self.alpha
+        let backgroundColor = self.backgroundColor ?? UIColor.white
+        
+        return RectangleView.init(frame: frame, backgroundColor: backgroundColor, alpha: alpha)
     }
     
     func move(distance: CGPoint) {

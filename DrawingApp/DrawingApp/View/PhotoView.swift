@@ -35,6 +35,14 @@ class PhotoView: UIImageView, RectangleViewable {
         self.alpha = newAlphaValue
     }
     
+    func copyToNewInstance() -> UIView & RectangleViewable {
+        let frame = self.frame
+        let alpha = self.alpha
+        let image = self.image ?? UIImage()
+        
+        return PhotoView(frame: frame, alpha: alpha, image: image)
+    }
+    
     func move(distance: CGPoint) {
         self.frame = self.frame.offsetBy(dx: distance.x, dy: distance.y)
     }
