@@ -1,23 +1,22 @@
 //
-//  PlaneRectangleView.swift
+//  ImageRectangleView.swift
 //  DrawingApp
 //
-//  Created by 박진섭 on 2022/03/05.
+//  Created by 박진섭 on 2022/03/16.
 //
 
 import UIKit
 
-
-final class PlaneRectangleView:UIView,RectangleViewable {
+class ImageRectanlgeView:UIImageView,RectangleViewable {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+
     func setupFrameWithRectangle(rect:Rectangleable) {
         guard let planeRectangle = (rect as? PlaneRectangle) else { return }
         let x = planeRectangle.origin.x
@@ -26,19 +25,10 @@ final class PlaneRectangleView:UIView,RectangleViewable {
         let height = planeRectangle.size.height
         self.frame = CGRect(x: x, y: y, width: width, height: height)
     }
-
-    func setupBackGroundColor(rgb:RGB, alpha:Alpha) {
-        let red = rgb.red
-        let green = rgb.green
-        let blue = rgb.blue
-        self.backgroundColor = UIColor(
-            red: CGFloat(red) / 255,
-            green: CGFloat(green) / 255,
-            blue: CGFloat(blue) / 255,
-            alpha: CGFloat(alpha.value)
-        )
-    }
-
     
+    //image name for test
+    func setupImage(imageData:Data) {
+        self.image = UIImage(data: imageData)
+    }
     
 }
