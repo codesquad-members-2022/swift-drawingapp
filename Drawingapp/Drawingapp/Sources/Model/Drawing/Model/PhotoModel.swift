@@ -28,7 +28,9 @@ class PhotoModel: DrawingModel, Imageable, Viewable {
         self.imageUrl = url
         super.init(id: id, index: index, origin: origin, size: size, alpha: alpha)
     }
-    
+}
+
+extension PhotoModel: ImageUpdatable {
     func update(imageUrl: URL?) {
         guard let imageUrl = imageUrl else {
             return

@@ -83,7 +83,7 @@ extension Plane: Makeable {
     }
 }
 
-extension Plane: AlphaUpdatable, ColorUpdatable, FontUpdatable, Transformable {
+extension Plane: AlphaUpdatable {
     func update(alpha: Alpha) {
         guard let model = self.selectedModel else {
             return
@@ -96,9 +96,11 @@ extension Plane: AlphaUpdatable, ColorUpdatable, FontUpdatable, Transformable {
         ]
         NotificationCenter.default.post(name: Event.didUpdateAlpha, object: self, userInfo: userInfo)
     }
-    
-    func update(color: Color) {
-        guard let model = self.selectedModel as? Colorable else {
+}
+
+extension Plane: ColorUpdatable {
+    func update(color: Color?) {
+        guard let model = self.selectedModel as? ColorUpdatable else {
             return
         }
         model.update(color: color)
@@ -108,6 +110,62 @@ extension Plane: AlphaUpdatable, ColorUpdatable, FontUpdatable, Transformable {
             ParamKey.color: color
         ]
         NotificationCenter.default.post(name: Event.didUpdateColor, object: self, userInfo: userInfo)
+    }
+}
+
+extension Plane: Transformable {
+    func transform(translationX: Double, y: Double) {
+        guard let model = self.selectedModel else {
+            return
+        }
+        model.transform(translationX: translationX, y: y)
+        
+        let userInfo: [AnyHashable : Any] = [
+            ParamKey.drawingModel: model,
+            ParamKey.origin: model.origin
+        ]
+        NotificationCenter.default.post(name: Event.didUpdateOrigin, object: self, userInfo: userInfo)
+    }
+    
+    func transform(width: Double, height: Double) {
+        guard let model = self.selectedModel else {
+            return
+        }
+        model.transform(width: width, height: height)
+        
+        let userInfo: [AnyHashable : Any] = [
+            ParamKey.drawingModel: model,
+            ParamKey.size: model.size
+        ]
+        NotificationCenter.default.post(name: Event.didUpdateSize, object: self, userInfo: userInfo)
+    }
+}
+
+extension Plane: FontUpdatable {
+    func update(font: Font) {
+        guard let labelModel = self.selectedModel as? LabelModel else {
+            return
+        }
+        labelModel.update(font: font)
+        
+        let userInfo: [AnyHashable : Any] = [
+            ParamKey.drawingModel: labelModel,
+            ParamKey.font: labelModel.font
+        ]
+        NotificationCenter.default.post(name: Event.didUpdateFont, object: self, userInfo: userInfo)
+    }
+    
+    func update(fontSize: Double) {
+        guard let labelModel = self.selectedModel as? LabelModel else {
+            return
+        }
+        labelModel.update(fontSize: fontSize)
+        
+        let userInfo: [AnyHashable : Any] = [
+            ParamKey.drawingModel: labelModel,
+            ParamKey.font: labelModel.font
+        ]
+        NotificationCenter.default.post(name: Event.didUpdateFont, object: self, userInfo: userInfo)
     }
     
     func update(fontName: String) {
@@ -123,31 +181,7 @@ extension Plane: AlphaUpdatable, ColorUpdatable, FontUpdatable, Transformable {
         NotificationCenter.default.post(name: Event.didUpdateFont, object: self, userInfo: userInfo)
     }
     
-    func transform(translationX: Double, y: Double) {
-        guard let model = self.selectedModel else {
-            return
-        }
-        model.update(x: translationX, y: y)
-        
-        let userInfo: [AnyHashable : Any] = [
-            ParamKey.drawingModel: model,
-            ParamKey.origin: model.origin
-        ]
-        NotificationCenter.default.post(name: Event.didUpdateOrigin, object: self, userInfo: userInfo)
-    }
     
-    func transform(width: Double, height: Double) {
-        guard let model = self.selectedModel else {
-            return
-        }
-        model.update(width: width, height: height)
-        
-        let userInfo: [AnyHashable : Any] = [
-            ParamKey.drawingModel: model,
-            ParamKey.size: model.size
-        ]
-        NotificationCenter.default.post(name: Event.didUpdateSize, object: self, userInfo: userInfo)
-    }
 }
 
 extension Plane: GusturePoint {

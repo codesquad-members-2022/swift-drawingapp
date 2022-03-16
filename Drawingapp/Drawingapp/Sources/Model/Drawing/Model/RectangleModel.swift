@@ -27,8 +27,13 @@ class RectangleModel: DrawingModel, Colorable, Viewable {
         self.color = color
         super.init(id: id, index: index, origin: origin, size: size, alpha: alpha)
     }
-    
-    func update(color: Color) {
+}
+
+extension RectangleModel: ColorUpdatable {
+    func update(color: Color?) {
+        guard let color = color else {
+            return
+        }
         self.color = color
     }
 }

@@ -41,23 +41,29 @@ class DrawingModel: Drawingable, CustomStringConvertible, Equatable, Hashable {
         }
         return false
     }
-    
-    func update(alpha: Alpha) {
-        self.alpha = alpha
-    }
-    
+}
+
+extension DrawingModel: OriginUpdatable {
     func update(origin: Point) {
         self.origin = origin
     }
-    
-    func update(x: Double, y: Double) {
-        let originX = origin.x + x < 1 ? 1 : origin.x + x
+}
+
+extension DrawingModel: Transformable {
+    func transform(translationX: Double, y: Double) {
+        let originX = origin.x + translationX < 1 ? 1 : origin.x + translationX
         let originY = origin.y + y < 1 ? 1 : origin.y + y
         update(origin: Point(x: originX, y: originY))
     }
     
-    func update(width: Double, height: Double) {
+    func transform(width: Double, height: Double) {
         let sizeIncrease = Size(width: size.width + width, height: size.height + height)
         self.size = sizeIncrease
+    }
+}
+
+extension DrawingModel: AlphaUpdatable {
+    func update(alpha: Alpha) {
+        self.alpha = alpha
     }
 }

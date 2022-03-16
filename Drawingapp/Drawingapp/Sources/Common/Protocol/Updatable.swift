@@ -7,20 +7,35 @@
 
 import Foundation
 
+protocol OriginUpdatable {
+    func update(origin: Point)
+}
+
 protocol AlphaUpdatable {
     func update(alpha: Alpha)
 }
 
 protocol ColorUpdatable {
-    func update(color: Color)
+    func update(color: Color?)
 }
 
 protocol FontUpdatable {
+    func update(font: Font)
     func update(fontName: String)
+    func update(fontSize: Double)
+}
+
+protocol TextUpdatable {
+    func update(text: String)
 }
 
 protocol ImageUpdatable {
     func update(imageUrl: URL?)
+}
+
+protocol FrameUpdatable {
+    func update(origin: Point)
+    func update(size: Size)
 }
 
 protocol Transformable {

@@ -35,11 +35,13 @@ class PhotoView: DrawingView {
         self.photoView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         self.photoView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
     }
-    
+}
+
+extension PhotoView: ImageUpdatable {
     func update(imageUrl : URL?) {
         guard let url = imageUrl else {
             return
         }
-        self.photoView.image = UIImage(contentsOfFile: url.path) 
+        self.photoView.image = UIImage(contentsOfFile: url.path)
     }
 }

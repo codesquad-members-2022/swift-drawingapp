@@ -7,7 +7,6 @@
 
 import Foundation
 
-protocol Imageable: Drawingable {
+protocol Imageable: Drawingable, ImageUpdatable {
     var imageUrl: URL? { get }
-    func update(imageUrl: URL?)
 }

@@ -170,18 +170,6 @@ class InspectorView: UIView {
         self.fontButton.isHidden = (model as? Labelable) == nil
     }
     
-    func update(color: Color?) {
-        if let color = color {
-            colorButton.setTitle(title: color.hexColor)
-        } else {
-            colorButton.setTitle(title: "None")
-        }
-    }
-    
-    func update(alpha: Alpha) {
-        alphaSlider.setValue(Float(alpha.index))
-    }
-    
     func update(size: Size) {
         sizeView.setValues(firstValue: String(format: "%.1f", size.width), secondValue: String(format: "%.1f", size.height))
     }
@@ -189,8 +177,35 @@ class InspectorView: UIView {
     func update(origin: Point) {
         originView.setValues(firstValue: String(format: "%.1f", origin.x), secondValue: String(format: "%.1f", origin.y))
     }
+}
+
+extension InspectorView: AlphaUpdatable {
+    func update(alpha: Alpha) {
+        alphaSlider.setValue(Float(alpha.index))
+    }
+}
+
+extension InspectorView: ColorUpdatable {
+    func update(color: Color?) {
+        if let color = color {
+            colorButton.setTitle(title: color.hexColor)
+        } else {
+            colorButton.setTitle(title: "None")
+        }
+    }
+}
+
+extension InspectorView: FontUpdatable {
+    func update(font: Font) {
+        //TODO: 추후 업데이트
+    }
+    
+    func update(fontSize: Double) {
+        //TODO: 추후 업데이트
+    }
     
     func update(fontName: String) {
         fontButton.setTitle(title: "\(fontName)")
     }
 }
+

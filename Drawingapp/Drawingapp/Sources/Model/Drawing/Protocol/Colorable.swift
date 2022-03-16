@@ -7,7 +7,6 @@
 
 import Foundation
 
-protocol Colorable: Drawingable {
+protocol Colorable: Drawingable, ColorUpdatable {
     var color: Color { get }
-    func update(color: Color)
 }

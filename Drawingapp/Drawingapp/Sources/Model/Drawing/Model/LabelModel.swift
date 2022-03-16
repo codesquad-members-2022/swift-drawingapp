@@ -29,9 +29,19 @@ class LabelModel: DrawingModel, Labelable, Viewable {
         self.font = font
         super.init(id: id, index: index, origin: origin, size: size, alpha: alpha)
     }
-    
+}
+
+extension LabelModel: FontUpdatable {
     func update(fontName: String) {
         self.font = Font(name: fontName, size: self.font.size)
+    }
+    
+    func update(fontSize: Double) {
+        self.font = Font(name: self.font.name, size: fontSize)
+    }
+    
+    func update(font: Font) {
+        self.font = font
     }
 }
 
