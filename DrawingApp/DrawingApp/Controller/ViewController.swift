@@ -9,22 +9,21 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    let canvasView: CanvasView = {
+    private let canvasView: CanvasView = {
         let view = CanvasView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    let sideInspectorView: SideInspectorView = {
+    private let sideInspectorView: SideInspectorView = {
         let view = SideInspectorView()
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    let x = UIScreen.main.bounds.width
-    let y = UIScreen.main.bounds.height
-    let button = UIButton(type: .system) as UIButton
-    var plane = Plane()
+    private let x = UIScreen.main.bounds.width
+    private let y = UIScreen.main.bounds.height
+    private var plane = Plane()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,6 +76,7 @@ extension ViewController: SideInspectorViewDelegate {
         let sliderValue = Float(sliderStringValue)! * 10
     }
 }
+
 
 extension ViewController: PlaneDelegate {
     func planeDidAddedRectangle(_ rectangle: Rectangle) {
