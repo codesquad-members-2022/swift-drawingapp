@@ -137,6 +137,7 @@ class ViewController: UIViewController {
                 let convertedNewPoint = Point(x: movingTemporaryView.frame.origin.x,
                                            y:movingTemporaryView.frame.origin.y)
                 specifiedRectangle.move(to: convertedNewPoint)
+                movingTemporaryView.removeFromSuperview()
                 self.movingTemporaryView = nil
             @unknown default:
                 return
