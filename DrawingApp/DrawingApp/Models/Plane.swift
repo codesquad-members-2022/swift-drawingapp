@@ -69,7 +69,7 @@ final class Plane: MainSceneTapDelegate {
     
     func resetRandomColor(at index: Int) -> RectRGBColor? {
         guard
-            rectangleModels.count-1 >= index,
+            (0..<rectangleModels.endIndex) ~= index,
             rectangleModels[index].backgroundImageData == nil,
             let color = rectangleModels[index].resetRGBColor()
         else {
@@ -86,7 +86,7 @@ final class Plane: MainSceneTapDelegate {
     }
     
     func setAlpha(value: Float, at index: Int) {
-        guard rectangleModels.count-1 >= index else { return }
+        guard (0..<rectangleModels.endIndex) ~= index else { return }
         let model = rectangleModels[index]
         model.setAlpha(Double(value))
         
@@ -99,13 +99,17 @@ final class Plane: MainSceneTapDelegate {
     
     // MARK: - RectangleViewTapDelegate implementation
     func didSelect(at index: Int?) {
+        guard -1..<rectangleModels.endIndex ~= (index ?? -1) else {
+            return
+        }
+        
         selectedIndex = index
         
         var noti = Notification(name: Plane.selectStatusChanged, object: self, userInfo: [PostKey.index: (selectedIndex ?? -1)])
         NotificationCenter.default.post(noti) // Plane.selectStatusChanged
         
         noti.name = Plane.rectangleViewTouched
-        if let index = index, rectangleModels.count-1 >= index {
+        if let index = index {
             noti.userInfo?[PostKey.model] = rectangleModels[index]
         } else {
             noti.userInfo = nil
@@ -133,10 +137,7 @@ final class Plane: MainSceneTapDelegate {
     }
     
     func getRectangleProperty(at index: Int) -> RectangleProperty? {
-        guard rectangleModels.count-1 >= index else {
-            return nil
-        }
-        
+        guard (0..<rectangleModels.endIndex) ~= index else { return nil }
         return rectangleModels[index]
     }
     
