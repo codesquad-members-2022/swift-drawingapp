@@ -22,14 +22,14 @@ final class CustomViewFactory{
     }
     
     static func setRectangleViewBackgroundColor(value: Rectangle) -> UIColor{
-        return UIColor(red: value.color.redValue(), green: value.color.greenValue(), blue: value.color.blueValue(), alpha: value.alpha.showValue())
+        return UIColor(red: value.color.redValue(), green: value.color.greenValue(), blue: value.color.blueValue(), alpha: 1)
     }
     
     static func setImageViewInnerImage(value: Image) -> UIImage {
         return value.showMyImage().showUIImage()
     }
     
-    static func setImageViewAlpha(value: Image) -> Double{
+    static func setViewAlpha(value: RectValue) -> Double{
         return value.alpha.showValue()
     }
     

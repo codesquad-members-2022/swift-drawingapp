@@ -40,6 +40,7 @@ class MainViewController: UIViewController{
         addViewMakerButtonObserver()
         addGestureRecognizerObserver()
         addNoneTappedViewObserver()
+        addChangedRectValueObserver()
     }
 }
 
@@ -57,6 +58,7 @@ extension MainViewController{
         
         let rectangleView = CustomViewFactory.makeViewFrame(value: rectangleValue)
         rectangleView.backgroundColor = CustomViewFactory.setRectangleViewBackgroundColor(value: rectangleValue)
+        rectangleView.alpha = CustomViewFactory.setViewAlpha(value: rectangleValue)
         rectangleView.restorationIdentifier = CustomViewFactory.setViewID(value: rectangleValue)
         
         self.view.addSubview(rectangleView)
@@ -92,7 +94,7 @@ extension MainViewController: UIImagePickerControllerDelegate, UINavigationContr
         
         let imageView = CustomViewFactory.makeViewFrame(value: imageValue)
         
-        imageView.alpha = CustomViewFactory.setImageViewAlpha(value: imageValue)
+        imageView.alpha = CustomViewFactory.setViewAlpha(value: imageValue)
         imageView.image = CustomViewFactory.setImageViewInnerImage(value: imageValue)
         imageView.restorationIdentifier = CustomViewFactory.setViewID(value: imageValue)
         
@@ -119,6 +121,13 @@ extension MainViewController{
     
     private func addNoneTappedViewObserver(){
         NotificationCenter.default.addObserver(self, selector: #selector(showNonTouchedView), name: Plane.NotificationName.noneSelect, object: plane)
+    }
+    
+    private func addChangedRectValueObserver(){
+        NotificationCenter.default.addObserver(self, selector: #selector(changeViewPoint), name: RectValue.NotificationName.changePoint, object: plane.selectedValue)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeViewSize), name: RectValue.NotificationName.changeSize, object: plane.selectedValue)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeViewAlpha), name: RectValue.NotificationName.changeAlpha, object: plane.selectedValue)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeViewColor), name: Rectangle.NotificationName.changeColor, object: plane.selectedValue)
     }
 }
 
@@ -263,7 +272,7 @@ extension MainViewController {
         }
         
         if extraView.frame.maxX < self.rightAttributerView.frame.minX, extraView.frame.maxY < self.rectangleButton.frame.minY, extraView.frame.minX >= 1, extraView.frame.minY >= 30{
-            changeViewPoint(extraView: extraView)
+            changeRectValuePoint(extraView: extraView)
         }
         
         displayStepperValue(selected: rectValue)
@@ -277,7 +286,7 @@ extension MainViewController {
 
 extension MainViewController: UIColorSliderDelegate{
     func alphaSliderDidMove() {
-        changeRectangleAlpha()
+        changeRectValueAlpha()
         rightAttributerView.changeAlphaSliderView(text: "투명도 : \(String(format: "%.0f", rightAttributerView.alphaValue.showValue() * 10))")
     }
     
@@ -297,29 +306,36 @@ extension MainViewController: UIColorSliderDelegate{
     }
     
     private func changeRectangleColor(){
-        guard let rectangle = plane.selectedValue as? Rectangle, let rectView = customUIViews[rectangle] else{
+        guard let rectangle = plane.selectedValue as? Rectangle else{
             return
         }
         
         let newColor = RGBColor(red: rightAttributerView.redValue, green: rightAttributerView.greenValue, blue: rightAttributerView.blueValue)
         rectangle.changeColor(color: newColor)
+    }
+    
+    @objc func changeViewColor(){
+        guard let rectangle = plane.selectedValue as? Rectangle, let rectView = customUIViews[rectangle] else{
+            return
+        }
         
         rectView.backgroundColor = UIColor(red: rectangle.color.redValue(), green: rectangle.color.greenValue(), blue: rectangle.color.blueValue(), alpha: rectangle.alpha.showValue())
     }
     
-    private func changeRectangleAlpha(){
-        if let rectangle = plane.selectedValue as? Rectangle{
-            let rectView = customUIViews[rectangle]
-        
-            rectangle.changeAlpha(alpha: rightAttributerView.alphaValue)
-            rectView?.backgroundColor = rectView?.backgroundColor?.withAlphaComponent(rectangle.alpha.showValue())
-            
-        } else if let image = plane.selectedValue as? Image{
-            let imageView = customUIViews[image]
-        
-            image.changeAlpha(alpha: rightAttributerView.alphaValue)
-            imageView?.alpha = image.alpha.showValue()
+    private func changeRectValueAlpha(){
+        guard let rectValue = plane.selectedValue else{
+            return
         }
+        
+        rectValue.changeAlpha(alpha: rightAttributerView.alphaValue)
+    }
+    
+    @objc func changeViewAlpha(){
+        guard let rectValue = plane.selectedValue, let rectView = customUIViews[rectValue] else{
+            return
+        }
+        
+        rectView.alpha = rectValue.alpha.showValue()
     }
 }
 
@@ -328,42 +344,55 @@ extension MainViewController: UIColorSliderDelegate{
 
 extension MainViewController: StepperDelegate{
     func pointValueDidChange() {
-        changeViewPoint()
+        changeRectValuePoint()
         rightAttributerView.changeStepperValue()
     }
     
     func sizeValueDidChange() {
-        changeViewSize()
+        changeRectValueSize()
         rightAttributerView.changeStepperValue()
     }
     
-    private func changeViewPoint(){
-        guard let rectValue = plane.selectedValue, let view = customUIViews[rectValue] else{
+    private func changeRectValuePoint(){
+        guard let rectValue = plane.selectedValue else{
             return
         }
         
         let newPoint = MyPoint(x: rightAttributerView.xValue, y: rightAttributerView.yValue)
         rectValue.changePoint(point: newPoint)
-        view.frame.origin = CGPoint(x: rectValue.point.x, y: rectValue.point.y)
     }
     
-    private func changeViewPoint(extraView: UIView){
-        guard let rectValue = plane.selectedValue, let view = customUIViews[rectValue] else{
+    private func changeRectValuePoint(extraView: UIView){
+        guard let rectValue = plane.selectedValue else{
             return
         }
         
         let newPoint = MyPoint(x: extraView.frame.origin.x, y: extraView.frame.origin.y)
         rectValue.changePoint(point: newPoint)
+    }
+    
+    @objc func changeViewPoint(){
+        guard let rectValue = plane.selectedValue, let view = customUIViews[rectValue] else{
+            return
+        }
+        
         view.frame.origin = CGPoint(x: rectValue.point.x, y: rectValue.point.y)
     }
     
-    private func changeViewSize(){
-        guard let rectValue = plane.selectedValue, let view = customUIViews[rectValue] else{
+    private func changeRectValueSize(){
+        guard let rectValue = plane.selectedValue else{
             return
         }
         
         let newSize = MySize(width: rightAttributerView.widthValue, height: rightAttributerView.heightValue)
         rectValue.changeSize(size: newSize)
+    }
+    
+    @objc func changeViewSize(){
+        guard let rectValue = plane.selectedValue, let view = customUIViews[rectValue] else{
+            return
+        }
+        
         view.frame.size = CGSize(width: rectValue.size.width, height: rectValue.size.height)
     }
 }
