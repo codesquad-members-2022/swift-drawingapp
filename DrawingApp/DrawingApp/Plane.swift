@@ -31,7 +31,8 @@ class Plane {
     func addRectangle() {
         let rectangle: Rectangle = Factory.createRandomRectangle()
         rectangles.append(rectangle)
-        addedRectangleDelegate?.made(rectangle: rectangle)
+//        addedRectangleDelegate?.made(rectangle: rectangle)
+        notificationCenter.post(name: .addRectangleView, object: nil, userInfo: [NotificationKey.addedRectangle : rectangle])
     }
     
     subscript(index: Int) -> Rectangle {
