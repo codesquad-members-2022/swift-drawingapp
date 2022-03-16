@@ -24,7 +24,7 @@ class Plane {
     }
     
     private var rectangles = [AnyRectangularable]()
-    private var specifiedRectangle: AnyRectangularable?
+    private(set) var specifiedRectangle: AnyRectangularable?
     var count: Int {
         return rectangles.count
     }
