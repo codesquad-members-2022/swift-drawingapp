@@ -38,7 +38,7 @@ class Color {
             hexBlue = "0" + hexBlue
         }
         
-        return "0x" + hexRed + hexGreen + hexBlue
+        return ("#" + hexRed + hexGreen + hexBlue).uppercased()
     }
 }
 

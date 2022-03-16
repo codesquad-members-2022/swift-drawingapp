@@ -18,9 +18,9 @@ extension UIColor {
     
     convenience init(hex: String) {
         let value = Array(hex)
-        let hexRed = "\(value[2])\(value[3])"
-        let hexGreen = "\(value[4])\(value[5])"
-        let hexBlue = "\(value[6])\(value[7])"
+        let hexRed = "\(value[1])\(value[2])"
+        let hexGreen = "\(value[3])\(value[4])"
+        let hexBlue = "\(value[5])\(value[6])"
         self.init(red: Int(hexRed, radix: 16)!,
                   green: Int(hexGreen, radix: 16)!,
                   blue: Int(hexBlue, radix: 16)!)
