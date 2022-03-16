@@ -75,8 +75,13 @@ final class MainViewController: UIViewController, PHPickerViewControllerDelegate
             return
         }
         
-        let color = model.backgroundImageData != nil ? defaultButtonColor : model.rgbValue.getColor(alpha: model.alpha)
-        buttonSetRandomColor.backgroundColor = color
+        switch model {
+        case let model as ColoredRectangleProperty:
+            buttonSetRandomColor.backgroundColor = model.rgbValue.getColor(alpha: model.alpha)
+        default:
+            buttonSetRandomColor.backgroundColor = defaultButtonColor
+        }
+        
         sliderSetAlpha.setValue(Float(model.alpha), animated: true)
     }
     

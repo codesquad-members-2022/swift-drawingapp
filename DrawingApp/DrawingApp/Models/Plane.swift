@@ -26,30 +26,32 @@ final class Plane: MainSceneTapDelegate {
     static let rectangleViewTouched = Notification.Name(rawValue: "rectangleViewTouched")
     
     // MARK: - Models for Rectangle View
-    private let factory = FactoryRectangleProperty()
+    private let factory: FactoryRectangleProperty
     private var rectangleModels = [RectangleProperty]()
     private var selectedIndex: Int?
+    
+    private var rectangleName: String {
+        return "Subview #\(rectangleModels.count)"
+    }
     
     // MARK: - Initialize Plane & sceneRect
     private var sceneRect: ScreenSceneRect!
     init(sceneWidth: Double, sceneHeight: Double) {
         let rectSize = (width: RectangleDefaultSize.width.rawValue, height: RectangleDefaultSize.height.rawValue)
         
-        sceneRect = ScreenSceneRect(
+        let sceneRect = ScreenSceneRect(
             maxX: (sceneWidth - rectSize.width),
             maxY: (sceneHeight - rectSize.height),
             width: rectSize.width,
             height: rectSize.height
         )
+        
+        factory = FactoryRectangleProperty(in: sceneRect)
     }
     
     // MARK: - MainScreenDelegate implementation
-    func addRectangle(with backgroundImageData: Data) {
-        guard let rectangleModel = factory.makeRandomRectangleModel(
-            as: "Subview #\(rectangleModels.count)",
-            in: sceneRect,
-            imageData: backgroundImageData
-        ) else {
+    func addRectangle(with imageData: Data) {
+        guard let rectangleModel = factory.makeRandomRectangleModel(as: rectangleName, imageData: imageData) else {
             return
         }
         
@@ -57,13 +59,7 @@ final class Plane: MainSceneTapDelegate {
     }
     
     func addRectangle() {
-        guard let rectangleModel = factory.makeRandomRectangleModel(
-            as: "Subview #\(rectangleModels.count)",
-            in: sceneRect
-        ) else {
-            return
-        }
-        
+        let rectangleModel = factory.makeRandomRectangleModel(as: rectangleName)
         addProperty(rectangleModel)
     }
     
@@ -83,8 +79,7 @@ final class Plane: MainSceneTapDelegate {
     func resetRandomColor(at index: Int) -> RectRGBColor? {
         guard
             (0..<rectangleModels.endIndex) ~= index,
-            rectangleModels[index].backgroundImageData == nil,
-            let color = rectangleModels[index].resetRGBColor()
+            let color = (rectangleModels[index] as? ColoredRectangleProperty)?.resetRGBColor()
         else {
             return nil
         }
