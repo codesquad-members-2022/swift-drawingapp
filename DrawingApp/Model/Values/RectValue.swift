@@ -27,6 +27,10 @@ class RectValue: Hashable{
         return id
     }
     
+    func changeSize(size: MySize){
+        self.size = size
+    }
+    
     func changePoint(point: MyPoint){
         self.point = point
     }
