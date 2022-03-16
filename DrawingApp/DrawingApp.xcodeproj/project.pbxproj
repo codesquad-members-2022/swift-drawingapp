@@ -20,6 +20,7 @@
 		726E1FDA27E06D1200218C3A /* CustomBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726E1FD927E06D1200218C3A /* CustomBaseView.swift */; };
 		7272910927D1DEB300361536 /* PlaneModelsChangeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7272910827D1DEB300361536 /* PlaneModelsChangeable.swift */; };
 		7272916F27D2188600361536 /* DrawingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7272916E27D2188600361536 /* DrawingAppTests.swift */; };
+		7274B06E27E1E8A000BD7C95 /* CustomViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7274B06D27E1E8A000BD7C95 /* CustomViewFactory.swift */; };
 		72A40E1627CCB32A002D076C /* RectangleAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1527CCB32A002D076C /* RectangleAddButton.swift */; };
 		72A40E1A27CCBB3F002D076C /* CustomViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1927CCBB3F002D076C /* CustomViewModelFactory.swift */; };
 		72A40E1C27CCBB87002D076C /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1B27CCBB86002D076C /* Rectangle.swift */; };
@@ -62,6 +63,7 @@
 		7272910827D1DEB300361536 /* PlaneModelsChangeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneModelsChangeable.swift; sourceTree = "<group>"; };
 		7272916427D2187200361536 /* DrawingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7272916E27D2188600361536 /* DrawingAppTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingAppTests.swift; sourceTree = "<group>"; };
+		7274B06D27E1E8A000BD7C95 /* CustomViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewFactory.swift; sourceTree = "<group>"; };
 		72A40E1527CCB32A002D076C /* RectangleAddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleAddButton.swift; sourceTree = "<group>"; };
 		72A40E1927CCBB3F002D076C /* CustomViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewModelFactory.swift; sourceTree = "<group>"; };
 		72A40E1B27CCBB86002D076C /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				72A9943627DF2BB6009EE784 /* PhotoPickerDelegate.swift */,
 				72AA37A227DF375500798474 /* Photo.swift */,
 				726E1FD727E0659300218C3A /* CustomViewModel.swift */,
+				7274B06D27E1E8A000BD7C95 /* CustomViewFactory.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 				72A40E1A27CCBB3F002D076C /* CustomViewModelFactory.swift in Sources */,
 				72C4FDF427CC5FB300CE5D25 /* RectangleView.swift in Sources */,
 				72A40E2027CCD067002D076C /* SceneDelegate.swift in Sources */,
+				7274B06E27E1E8A000BD7C95 /* CustomViewFactory.swift in Sources */,
 				72A40E2227CCDB88002D076C /* ColorRGB.swift in Sources */,
 				7207F20F27D090D100713C5E /* PropertySetViewController.swift in Sources */,
 				72C0A7C727CF425500A4035F /* Plane.swift in Sources */,

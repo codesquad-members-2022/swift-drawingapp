@@ -16,7 +16,7 @@ class SplitViewController: UISplitViewController{
         super.viewDidLoad()
         guard let propertySetViewController = propertySetViewController else { return }
         guard let drawingViewController = drawingViewController else{ return }
-        drawingViewController.setRectangleChangeable(plane: Plane(rectangleFactory: CustomViewModelFactory()))
+        drawingViewController.setRectangleChangeable(plane: Plane(rectangleFactory: CustomViewModelFactory()),customViewFactory: CustomViewFactory())
         viewControllers = [propertySetViewController, drawingViewController]
     }
 }
