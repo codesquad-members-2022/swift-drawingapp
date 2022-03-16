@@ -343,7 +343,7 @@ addObserver 시 Name, Object는 모두 nil이 될 수 있습니다. 그러므로
 1. NSPhotoLibraryAddUsageDescription(Privacy - Photo Library Additions Usage Description) = 사진 앱에 사진 등의 에셋을 추가하는 권한을 앱에 부여할 때 넣을 설명을 정의해둡니다.
 2. NSPhotoLibraryUsageDescription(Privacy - Photo LibraryUsageDescription) = 사진 앱의 모든 에셋에 접근하고 사용하려 할 때 넣을 설명을 정의한다.
 
-### PR Comment를 수정합니다(수정 완료: 2022.03.16 --:--).
+### PR Comment를 수정합니다(수정 완료: 2022.03.16 10:40).
 
 * ```hasViewProperty```와 실제 뷰 프로퍼티인 이미지 데이터가 결국에는 ```MainViewController```, ```Plane 및 Plane이 관리하는 모델```, ```MainScreenViewController```의 결합을 강하게 만들고 있음. 옵저버를 사용하고 있다는 점을 고려하여 다시 코드를 작성.
 * ```viewProperty: Any? = nil```는 너무 광범위한 의미를 포함한다. 다른 타입으로 처리해볼 수 있지는 않은지 고려해본다.
