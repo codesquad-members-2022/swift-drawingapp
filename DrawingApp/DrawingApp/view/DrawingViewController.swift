@@ -13,10 +13,11 @@ class DrawingViewController: UIViewController{
     private var plane: PlaneModelsChangeable?
     private lazy var rectangleAddButton = RectangleAddButton(frame: CGRect(x: view.center.x - 100, y: view.frame.maxY - 144.0, width: 100, height: 100))
     private lazy var imageAddButton = ImageAddButton(frame: CGRect(x: view.center.x, y: view.frame.maxY - 144.0, width: 100, height: 100))
-    private var customViews: [AnyHashable: CustomBaseView] = [:]
+    private var customViews: [AnyHashable: CustomBaseViewSetable] = [:]
     private let notificationCenter = NotificationCenter.default
     private lazy var photoPickerDelegate = PhotoPickerDelegate()
     private lazy var photoPickerController = UIImagePickerController()
+    private var customViewFactory: CustomViewMakeable?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,8 +30,9 @@ class DrawingViewController: UIViewController{
         addOutputNotificationObserver()
     }
     
-    func setRectangleChangeable(plane: PlaneModelsChangeable){
+    func setRectangleChangeable(plane: PlaneModelsChangeable, customViewFactory: CustomViewMakeable){
         self.plane = plane
+        self.customViewFactory = customViewFactory
     }
     
     private func addInputNotificationObserver(){
@@ -85,28 +87,30 @@ class DrawingViewController: UIViewController{
         guard let rectangle = notification.userInfo?[Plane.Notification.Key.rectangle] as? Rectangle else {
             return
         }
-        let rectangleView = RectangleView(size: rectangle.getSize(), point: rectangle.getPoint())
-        rectangleView.setRGBColor(rgb: rectangle.getColorRGB())
-        rectangleView.setAlpha(alpha: rectangle.getAlpha())
+        guard let customView = customViewFactory?.makeRectangleView(size: rectangle.getSize(), point: rectangle.getPoint()) else {
+            return
+        }
+        customView.setRGBColor(rgb: rectangle.getColorRGB())
+        customView.setAlpha(alpha: rectangle.getAlpha())
+        let viewTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(rectangleTappedGesture))
+        customView.addGestureRecognizer(viewTapGesture)
+        customViews[rectangle] = customView
+        view.addSubview(customView)
         NotificationCenter.default.post(name: DrawingViewController.Notification.Event.changedColorText, object: self, userInfo: [DrawingViewController.Notification.Key.rectangle : rectangle])
         NotificationCenter.default.post(name: DrawingViewController.Notification.Event.alphaButtonHidden, object: self, userInfo: [DrawingViewController.Notification.Key.customViewModel : rectangle])
-        let viewTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(rectangleTappedGesture))
-        rectangleView.addGestureRecognizer(viewTapGesture)
-        customViews[rectangle] = rectangleView
-        view.addSubview(rectangleView)
     }
     
     @objc private func addPhotoViewToSubView(_ notification: Foundation.Notification){
         guard let photo = notification.userInfo?[Plane.Notification.Key.photo] as? Photo else {
             return
         }
-        let photoView = PhotoView(size: photo.size, point: photo.point)
-        photoView.setImage(imageData: photo.getImageData())
-        photoView.setAlpha(alpha: photo.getAlpha())
+        guard let customView = customViewFactory?.makePhotoView(size: photo.getSize(), point: photo.getPoint()) else { return }
+        customView.setImage(imageData: photo.getImageData())
+        customView.setAlpha(alpha: photo.getAlpha())
         let viewTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(photoTappedGesture))
-        photoView.addGestureRecognizer(viewTapGesture)
-        customViews[photo] = photoView
-        self.view.addSubview(photoView)
+        customView.addGestureRecognizer(viewTapGesture)
+        customViews[photo] = customView
+        view.addSubview(customView)
         NotificationCenter.default.post(name: DrawingViewController.Notification.Event.alphaButtonHidden, object: self, userInfo: [DrawingViewController.Notification.Key.customViewModel : photo])
         NotificationCenter.default.post(name: DrawingViewController.Notification.Event.updateSelectedPhotoUI, object: self, userInfo: [DrawingViewController.Notification.Key.photo : photo])
     }

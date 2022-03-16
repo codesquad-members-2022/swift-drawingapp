@@ -29,8 +29,7 @@ class PhotoView: CustomBaseView{
         addSubview(self.imageView)
     }
     
-    func cropToBounds(image: UIImage, width: Double, height: Double) -> UIImage {
-        
+    private func cropToBounds(image: UIImage, width: Double, height: Double) -> UIImage {
         let cgimage = image.cgImage!
         let contextImage: UIImage = UIImage(cgImage: cgimage)
         let contextSize: CGSize = contextImage.size
@@ -53,20 +52,21 @@ class PhotoView: CustomBaseView{
         }
         
         let rect: CGRect = CGRect(x: posX, y: posY, width: cgwidth, height: cgheight)
-        
         // Create bitmap image from context using the rect
         let imageRef: CGImage = cgimage.cropping(to: rect)!
-        
         // Create a new image based on the imageRef and rotate back to the original orientation
         let image: UIImage = UIImage(cgImage: imageRef, scale: image.scale, orientation: image.imageOrientation)
-        
         return image
     }
-    
+}
+extension PhotoView: PhotoViewSetable{
     func setImage(imageData: Data){
         imageView.contentMode = .scaleAspectFit
         guard let image = UIImage(data: imageData) else { return }
         let cropImage = cropToBounds(image: image, width: 512.0, height: 512.0)
         self.imageView.image = cropImage
     }
+}
+protocol PhotoViewSetable: CustomBaseViewSetable{
+    func setImage(imageData: Data)
 }

@@ -16,8 +16,13 @@ class CustomBaseView: UIView{
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
+}
+extension CustomBaseView: CustomBaseViewSetable{
     func setAlpha(alpha: Double){
         self.alpha = alpha
     }
+}
+
+protocol CustomBaseViewSetable: UIView{
+    func setAlpha(alpha: Double)
 }
