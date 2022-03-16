@@ -19,8 +19,6 @@ class CustomViewModel{
         self.size = size
         self.alpha = alpha
     }
-    
-    
 }
 
 extension CustomViewModel: Hashable, Equatable{

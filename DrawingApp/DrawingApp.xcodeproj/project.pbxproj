@@ -21,7 +21,6 @@
 		726E1FDA27E06D1200218C3A /* CustomBaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 726E1FD927E06D1200218C3A /* CustomBaseView.swift */; };
 		7272910927D1DEB300361536 /* PlaneModelsChangeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7272910827D1DEB300361536 /* PlaneModelsChangeable.swift */; };
 		7272916F27D2188600361536 /* DrawingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7272916E27D2188600361536 /* DrawingAppTests.swift */; };
-		7295F32D27D1A9C200C1BDFB /* DrawingDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7295F32C27D1A9C200C1BDFB /* DrawingDelegate.swift */; };
 		72A40E1627CCB32A002D076C /* RectangleAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1527CCB32A002D076C /* RectangleAddButton.swift */; };
 		72A40E1A27CCBB3F002D076C /* CustomViewModelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1927CCBB3F002D076C /* CustomViewModelFactory.swift */; };
 		72A40E1C27CCBB87002D076C /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72A40E1B27CCBB86002D076C /* Rectangle.swift */; };
@@ -65,7 +64,6 @@
 		7272910827D1DEB300361536 /* PlaneModelsChangeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneModelsChangeable.swift; sourceTree = "<group>"; };
 		7272916427D2187200361536 /* DrawingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7272916E27D2188600361536 /* DrawingAppTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawingAppTests.swift; sourceTree = "<group>"; };
-		7295F32C27D1A9C200C1BDFB /* DrawingDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingDelegate.swift; sourceTree = "<group>"; };
 		72A40E1527CCB32A002D076C /* RectangleAddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleAddButton.swift; sourceTree = "<group>"; };
 		72A40E1927CCBB3F002D076C /* CustomViewModelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomViewModelFactory.swift; sourceTree = "<group>"; };
 		72A40E1B27CCBB86002D076C /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
@@ -147,7 +145,6 @@
 			children = (
 				72C0A7C827CF458F00A4035F /* CustomViewFactoryResponse.swift */,
 				7207F21027D098D500713C5E /* PropertyDelegate.swift */,
-				7295F32C27D1A9C200C1BDFB /* DrawingDelegate.swift */,
 				7272910827D1DEB300361536 /* PlaneModelsChangeable.swift */,
 			);
 			path = message;
@@ -300,7 +297,6 @@
 				726E1FD627E05D2D00218C3A /* PhotoView.swift in Sources */,
 				722923ED27DEDEDC004C434C /* ImageAddButton.swift in Sources */,
 				72A40E1C27CCBB87002D076C /* Rectangle.swift in Sources */,
-				7295F32D27D1A9C200C1BDFB /* DrawingDelegate.swift in Sources */,
 				72C0A7C527CF386400A4035F /* ViewSize.swift in Sources */,
 				72C0A7C927CF458F00A4035F /* CustomViewFactoryResponse.swift in Sources */,
 				72A40E1A27CCBB3F002D076C /* CustomViewModelFactory.swift in Sources */,
