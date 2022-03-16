@@ -40,11 +40,11 @@ class ViewController: UIViewController {
         self.plane.addRectangle()
     }
     
-    private func activateNotificationObserver() {
+    private func activateNotificationObservers() {
         notificationCenter.addObserver(self, selector: #selector(made(rectangleNoti: )), name: Notification.Name.addRectangleView, object: nil)
-        
+        notificationCenter.addObserver(self, selector: #selector(touched(rectangleNoti:)), name: Notification.Name.tappedRectangleView, object: nil)
 
-        plane.rectangleTapDelegate = self
+
         plane.colorDelegate = self
         plane.alphaDelegate = self
     }
@@ -61,7 +61,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        activateNotificationObserver()
+        activateNotificationObservers()
         initDetailView()
         touchBackgroundView()
     }
@@ -95,8 +95,8 @@ extension ViewController {
         self.view.addSubview(rectView)
     }
 }
-
-extension ViewController: RectangleTouchedDelegate {
+//
+extension ViewController {
     private func paintBorder(_ rectangle: Rectangle) {
         let touchedView = self.rectangleAndViewContainer[rectangle]
         touchedView?.layer.borderWidth = 3.0
@@ -117,7 +117,11 @@ extension ViewController: RectangleTouchedDelegate {
             alphaSlider.value = Float(rect.alpha.rawValue)
         }
     }
-    func touched(rectangle: Rectangle) {
+    
+    @objc func touched(rectangleNoti: Notification) {
+        guard let rectangle = rectangleNoti.userInfo?[NotificationKey.tappedRectangle] as? Rectangle else {
+            return
+        }
         if let view = self.selectedView {
             view.layer.borderWidth = .zero
         }

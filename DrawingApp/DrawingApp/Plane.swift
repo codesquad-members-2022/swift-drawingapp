@@ -1,9 +1,5 @@
 import Foundation
 
-protocol RectangleTouchedDelegate {
-    func touched(rectangle: Rectangle)
-}
-
 protocol RectangleColorChangeDelegate {
     func didChangeColor(rectangle: Rectangle)
 }
@@ -14,7 +10,6 @@ protocol RectangleAlaphaChangeDelegate {
 class Plane {
     private var rectangles: [Rectangle] = []
 
-    var rectangleTapDelegate : RectangleTouchedDelegate?
     var colorDelegate: RectangleColorChangeDelegate?
     var alphaDelegate: RectangleAlaphaChangeDelegate?
     
@@ -47,7 +42,7 @@ class Plane {
         guard let rectangle = isTouchedOnRectangle(at: point) else {
             return
         }
-        self.rectangleTapDelegate?.touched(rectangle: rectangle)
+        notificationCenter.post(name: Notification.Name.tappedRectangleView, object: nil, userInfo: [NotificationKey.tappedRectangle: rectangle])
     }
     
     func changeColorOfRectangle(_ rectangle: Rectangle) {
