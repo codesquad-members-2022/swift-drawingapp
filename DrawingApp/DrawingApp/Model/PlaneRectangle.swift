@@ -6,7 +6,7 @@
 //
 
 
-final class PlaneRectangle:Rectangle {
+final class PlaneRectangle:Rectangleable {
         
     private let id:ID
     private(set) var origin:Point
@@ -14,12 +14,12 @@ final class PlaneRectangle:Rectangle {
     private(set) var rgb:RGB
     private(set) var alpha:Alpha
     
-    init(id:ID,origin:Point,size:Size,rgb:RGB, alpha:Alpha) {
+    init(id:ID,origin:Point,size:Size,rgb:RGB?, alpha:Alpha?) {
         self.id = id
         self.origin = origin
         self.size = size
-        self.rgb = rgb
-        self.alpha = alpha
+        self.rgb = rgb ?? RGB(red: 0, green: 0, blue: 0)
+        self.alpha = alpha ?? Alpha(1.0)
     }
     
     func changeOrigin(_ origin: Point) {
