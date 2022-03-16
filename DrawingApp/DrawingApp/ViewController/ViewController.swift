@@ -65,6 +65,10 @@ class ViewController: UIViewController {
         initDetailView()
         touchBackgroundView()
     }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        notificationCenter.removeObserver(self)
+    }
 }
 
 extension ViewController: UIGestureRecognizerDelegate {
