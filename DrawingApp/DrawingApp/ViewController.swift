@@ -15,8 +15,9 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var rectangleButton: UIButton!
     
-    @IBOutlet weak var rgbValue: UILabel!
-    
+    @IBOutlet weak var redValue: UILabel!
+    @IBOutlet weak var greenValue: UILabel!
+    @IBOutlet weak var blueValue: UILabel!
     @IBOutlet weak var alphaValue: UILabel!
     
     override func viewDidLoad() {
@@ -33,21 +34,38 @@ class ViewController: UIViewController {
         let touchedCGPoint = sender.location(in: self.view)
         let touchedPoint = Point(x: touchedCGPoint.x, y: touchedCGPoint.y)
         let touchedView = self.view.hitTest(touchedCGPoint, with: nil)
+        
+        var touchedViewRed: CGFloat = 0
+        var touchedViewGreen: CGFloat = 0
+        var touchedViewBlue: CGFloat = 0
+        var touchedViewAlpha: CGFloat = 0
+        touchedView?.backgroundColor?.getRed(&touchedViewRed, green: &touchedViewGreen, blue: &touchedViewBlue, alpha: &touchedViewAlpha)
+        
         let isRectangleAtPoint = plane.isThereARectangle(point: touchedPoint)
         if isRectangleAtPoint, selectedView == nil {
             selectedView = touchedView
             touchedView?.layer.borderWidth = 5
             touchedView?.layer.borderColor = UIColor.blue.cgColor
+            redValue.text = "R : \(touchedViewRed)"
+            greenValue.text = "G : \(touchedViewGreen)"
+            blueValue.text = "B : \(touchedViewBlue)"
+            alphaValue.text = "A : \(touchedViewAlpha)"
         }
         if isRectangleAtPoint, selectedView != nil {
             selectedView?.layer.borderWidth = 0
             selectedView = touchedView
             touchedView?.layer.borderWidth = 5
             touchedView?.layer.borderColor = UIColor.blue.cgColor
+            redValue.text = "R : \(touchedViewRed)"
+            greenValue.text = "G : \(touchedViewGreen)"
+            blueValue.text = "B : \(touchedViewBlue)"
+            alphaValue.text = "A : \(touchedViewAlpha)"
         }
         if !isRectangleAtPoint {
             selectedView?.layer.borderWidth = 0
             selectedView = nil
+            redValue.text = "-"
+            alphaValue.text = "-"
         }
     }
     
