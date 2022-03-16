@@ -18,13 +18,14 @@ class CanvasView: UIView {
     @IBOutlet var rectangleAddButton: UIButton!
     
     
-    override init(frame: CGRect){
-        super.init(frame: frame)
+    override func awakeFromNib(){
+        self.rectangleAddButton.layer.cornerRadius = 15
     }
+    
     
     required init?(coder: NSCoder){
         super.init(coder: coder)
-
+//        self.rectangleAddButton.layer.cornerRadius = 15
     }
     
 
