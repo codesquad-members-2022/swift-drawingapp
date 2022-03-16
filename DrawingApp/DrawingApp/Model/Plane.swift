@@ -57,7 +57,7 @@ class Plane {
         NotificationCenter.default.post(name: Plane.NotificationNames.didAddPhoto, object: self, userInfo: [Plane.UserInfoKeys.addedPhoto: newPhoto])
     }
     
-    public func changeBackgroundColor(to newColor: BackgroundColor) -> Result<AnyRectangularable, PlaneError> {
+    public func changeBackgroundColorOfSpecifiedRectangle(to newColor: BackgroundColor) -> Result<AnyRectangularable, PlaneError> {
         guard let specifiedRectangle = self.specifiedRectangle else {
             return .failure(.noSpecifiedRectangleToChangeError)
         }
@@ -70,7 +70,7 @@ class Plane {
         return .success(specifiedRectangle)
     }
 
-    public func changeAlphaValue(to newAlpha: Alpha) -> Result<AnyRectangularable, PlaneError> {
+    public func changeAlphaValueOfSpecifiedRectangle(to newAlpha: Alpha) -> Result<AnyRectangularable, PlaneError> {
         guard let specifiedRectangle = self.specifiedRectangle else {
             return .failure(.noSpecifiedRectangleToChangeError)
         }
