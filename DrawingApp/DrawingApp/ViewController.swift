@@ -14,6 +14,9 @@ class ViewController: UIViewController {
     let shapeFactory = ShapeFactory()
     
     @IBOutlet weak var rectangleButton: UIButton!
+    @IBOutlet weak var rgbResetButton: UIButton!
+    
+    @IBOutlet weak var alphaStepper: UIStepper!
     
     @IBOutlet weak var redValue: UILabel!
     @IBOutlet weak var greenValue: UILabel!
@@ -28,6 +31,9 @@ class ViewController: UIViewController {
         
         // Tap Gesture Recognizer를 뷰 전체에 추가
         self.view.addGestureRecognizer(tapGestureRecognizer)
+        
+        rgbResetButton.isEnabled = false
+        alphaStepper.isEnabled = false
     }
 
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
@@ -45,7 +51,7 @@ class ViewController: UIViewController {
         touchedViewBlue = CGFloat(Int(round(touchedViewBlue * 255)))
         touchedViewAlpha = CGFloat(Int(round(touchedViewAlpha * 10)))
         let isRectangleAtPoint = plane.isThereARectangle(point: touchedPoint)
-        if isRectangleAtPoint, selectedView == nil {
+        if isRectangleAtPoint, selectedView == nil { // select new Rectangle
             selectedView = touchedView
             touchedView?.layer.borderWidth = 5
             touchedView?.layer.borderColor = UIColor.blue.cgColor
@@ -53,8 +59,10 @@ class ViewController: UIViewController {
             greenValue.text = "G : \(touchedViewGreen))"
             blueValue.text = "B : \(touchedViewBlue)"
             alphaValue.text = "A : \(touchedViewAlpha)"
+            rgbResetButton.isEnabled = true
+            alphaStepper.isEnabled = true
         }
-        if isRectangleAtPoint, selectedView != nil {
+        if isRectangleAtPoint, selectedView != nil { // select another Rectangle
             selectedView?.layer.borderWidth = 0
             selectedView = touchedView
             touchedView?.layer.borderWidth = 5
@@ -63,14 +71,18 @@ class ViewController: UIViewController {
             greenValue.text = "G : \(touchedViewGreen)"
             blueValue.text = "B : \(touchedViewBlue)"
             alphaValue.text = "A : \(touchedViewAlpha)"
+            rgbResetButton.isEnabled = true
+            alphaStepper.isEnabled = true
         }
-        if !isRectangleAtPoint {
+        if !isRectangleAtPoint { // select nothing
             selectedView?.layer.borderWidth = 0
             selectedView = nil
             redValue.text = "-"
             greenValue.text = "-"
             blueValue.text = "-"
             alphaValue.text = "-"
+            rgbResetButton.isEnabled = false
+            alphaStepper.isEnabled = false
         }
     }
     
@@ -96,6 +108,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func resetRGB(_ sender: Any) {
+        
     }
     
     @IBAction func tapAlphaStepper(_ sender: Any) {

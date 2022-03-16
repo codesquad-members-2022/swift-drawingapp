@@ -90,11 +90,13 @@
                         <gestureRecognizers/>
                     </view>
                     <connections>
+                        <outlet property="alphaStepper" destination="crS-tm-3Kq" id="Xyw-pw-eeV"/>
                         <outlet property="alphaValue" destination="tq3-HP-GtD" id="ctn-YG-HOI"/>
                         <outlet property="blueValue" destination="agH-0a-XoX" id="rSO-0f-9Ky"/>
                         <outlet property="greenValue" destination="4oF-12-POB" id="M04-Y7-2bV"/>
                         <outlet property="rectangleButton" destination="vs4-fb-EEG" id="dXC-UZ-DQB"/>
                         <outlet property="redValue" destination="eKT-MF-DgY" id="AYZ-vl-XQC"/>
+                        <outlet property="rgbResetButton" destination="iqt-Mh-z2L" id="JjE-rb-4wQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
