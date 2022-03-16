@@ -9,9 +9,10 @@
 import UIKit
 
 enum RectangleViewFactory {
-    static func makeView(ofClass Class: RectangleShapable.Type, with data: Rectangle) -> RectangleShapable? {
+    static func makeView(ofClass Class: ShapeViewable.Type, with data: Shapable) -> ShapeViewable? {
         switch Class {
         case is RectangleView.Type:
+            guard let data = data as? Rectangle else { return nil }
             let rectangleView = RectangleView(frame: data.convert(using: CGRect.self))
             
             rectangleView.setBackgroundColor(color: data.backgroundColor, alpha: data.alpha)

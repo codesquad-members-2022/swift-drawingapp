@@ -7,7 +7,14 @@
 
 import UIKit
 
-class RectangleView: UIView, RectangleShapable {
+protocol BackgroundColorable {
+    func setBackgroundColor(color: Color, alpha: Alpha)
+    func setBackgroundColor(with color: Color)
+    func setBackgroundColor(with alpha: CGFloat)
+    func setBackgroundColor(with alpha: Alpha)
+}
+
+class RectangleView: UIView  {
     // MARK: - Initialisers
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -18,11 +25,36 @@ class RectangleView: UIView, RectangleShapable {
     }
     
     convenience init(with rectangle: Rectangle) {
-        self.init(frame: rectangle.convert(using: CGRect.self))
+        self.init(frame: CGRect(with: rectangle))
         self.setBackgroundColor(color: rectangle.backgroundColor, alpha: rectangle.alpha)
     }
-    
+}
+
+// MARK: - ShapeViewable Protocol
+extension RectangleView: ShapeViewable {
     func setAlpha(_ alpha: Alpha) {
         self.setBackgroundColor(with: alpha)
+    }
+}
+
+// MARK: - RectangleViewable
+extension RectangleView: BackgroundColorable {
+    func setBackgroundColor(color: Color, alpha: Alpha) {
+        self.backgroundColor = UIColor(with: color, alpha: alpha)
+    }
+    
+    func setBackgroundColor(with color: Color) {
+        self.backgroundColor = UIColor(with: color)
+    }
+    
+    func setBackgroundColor(with alpha: CGFloat) {
+        let color = self.backgroundColor?.withAlphaComponent(alpha)
+        self.backgroundColor = color
+    }
+    
+    func setBackgroundColor(with alpha: Alpha) {
+        let alphaValue = alpha.convert(using: CGFloat.self)
+        let color = self.backgroundColor?.withAlphaComponent(alphaValue)
+        self.backgroundColor = color
     }
 }
