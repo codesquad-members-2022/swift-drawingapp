@@ -41,12 +41,15 @@ class ViewController: UIViewController {
     }
     
     private func activateNotificationObservers() {
+        // add rectangle
         notificationCenter.addObserver(self, selector: #selector(made(rectangleNoti: )), name: Notification.Name.addRectangleView, object: nil)
+        // rectangle tapped
         notificationCenter.addObserver(self, selector: #selector(touched(rectangleNoti:)), name: Notification.Name.tappedRectangleView, object: nil)
-
-
-        plane.colorDelegate = self
-        plane.alphaDelegate = self
+        // color changed
+        notificationCenter.addObserver(self, selector: #selector(didChangeColor(rectangleNoti:)), name: Notification.Name.colorChange, object: nil)
+        
+        // alpha changed
+        notificationCenter.addObserver(self, selector: #selector(didChangeAlpha(rectangleNoti: )), name: Notification.Name.alphaChange, object: nil)
     }
     
     private func initDetailView() {
@@ -130,7 +133,7 @@ extension ViewController {
     }
 }
 
-extension ViewController: RectangleColorChangeDelegate {
+extension ViewController {
     func changeColorAndAlpha(_ rectangle: Rectangle) {
         let viewValue = rectangleAndViewContainer.removeValue(forKey: rectangle)
         rectangleAndViewContainer[rectangle] = viewValue
@@ -140,14 +143,20 @@ extension ViewController: RectangleColorChangeDelegate {
         }
     }
     
-    func didChangeColor(rectangle: Rectangle) {
+    @objc func didChangeColor(rectangleNoti: Notification) {
+        guard let rectangle = rectangleNoti.userInfo?[NotificationKey.color] as? Rectangle else {
+            return
+        }
         changeColorAndAlpha(rectangle)
         colorButton.setTitle("#\(rectangle.color.showRGBVlaue())", for: .normal)
     }
 }
 
-extension ViewController : RectangleAlaphaChangeDelegate {
-    func didChangeAlpha(rectangle: Rectangle) {
+extension ViewController  {
+    @objc func didChangeAlpha(rectangleNoti: Notification) {
+        guard let rectangle = rectangleNoti.userInfo?[NotificationKey.alpha] as? Rectangle else {
+            return
+        }
         changeColorAndAlpha(rectangle)
         alphaSlider.value = Float(rectangle.alpha.rawValue)
     }

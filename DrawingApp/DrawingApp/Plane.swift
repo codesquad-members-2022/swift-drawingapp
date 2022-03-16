@@ -1,17 +1,7 @@
 import Foundation
 
-protocol RectangleColorChangeDelegate {
-    func didChangeColor(rectangle: Rectangle)
-}
-protocol RectangleAlaphaChangeDelegate {
-    func didChangeAlpha(rectangle: Rectangle)
-}
-
 class Plane {
     private var rectangles: [Rectangle] = []
-
-    var colorDelegate: RectangleColorChangeDelegate?
-    var alphaDelegate: RectangleAlaphaChangeDelegate?
     
     var rectangleCount: Int {
         return rectangles.count
@@ -48,12 +38,12 @@ class Plane {
     func changeColorOfRectangle(_ rectangle: Rectangle) {
         var oldRectangle = rectangle
         let newRectangle = oldRectangle.changeColor()
-        self.colorDelegate?.didChangeColor(rectangle: newRectangle)
+        notificationCenter.post(name: Notification.Name.colorChange, object: nil, userInfo: [NotificationKey.color: newRectangle])
     }
     
     func changeAlpha(_ rectangle: Rectangle, _ alpha: Int) {
         var willChangeRectangle = rectangle
         willChangeRectangle = willChangeRectangle.changeAlpha(alpha)
-        alphaDelegate?.didChangeAlpha(rectangle: willChangeRectangle)
+        notificationCenter.post(name: Notification.Name.alphaChange, object: nil, userInfo: [NotificationKey.alpha: willChangeRectangle])
     }
 }
