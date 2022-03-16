@@ -23,6 +23,10 @@ protocol Viewable {
     var iconName: String { get }
 }
 
+protocol DrawingModelFactoryable {
+    static func make(id: String, origin: Point, size: Size, alpha: Alpha, data: [Any]) -> DrawingModel
+}
+
 class DrawingModel: Drawingable, CustomStringConvertible, Equatable, Hashable {
     let id: String
     let index: Int

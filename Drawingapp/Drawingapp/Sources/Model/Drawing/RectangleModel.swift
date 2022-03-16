@@ -36,3 +36,10 @@ class RectangleModel: DrawingModel, Colorable, Viewable {
         self.color = color
     }
 }
+
+extension RectangleModel: DrawingModelFactoryable {
+    static func make(id: String, origin: Point, size: Size, alpha: Alpha, data: [Any]) -> DrawingModel {
+        let color = Color(using: RandomColorGenerator())
+        return RectangleModel.init(id: id, index: 0, origin: origin, size: size, color: color, alpha: alpha)
+    }
+}

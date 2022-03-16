@@ -311,7 +311,7 @@ extension ViewController: TopMenuBarDelegate, PHPickerViewControllerDelegate {
     
     //MARK: Input
     func makeRectangleTapped() {
-        self.plane.makeModel(type: RectangleModel.self)
+        self.plane.make(type: RectangleModel.self)
     }
     
     func makePhotoTapped() {
@@ -324,7 +324,7 @@ extension ViewController: TopMenuBarDelegate, PHPickerViewControllerDelegate {
     }
     
     func makeLabelTapped() {
-        self.plane.makeModel(type: LabelModel.self)
+        self.plane.make(type: LabelModel.self)
     }
     
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
@@ -344,7 +344,7 @@ extension ViewController: TopMenuBarDelegate, PHPickerViewControllerDelegate {
                     try? fileManager.removeItem(at: destination)
                 }
                 try? fileManager.copyItem(at: url, to: destination)
-                self.plane.makeModel(type: PhotoModel.self, data: [destination])
+                self.plane.make(type: PhotoModel.self, data: [destination])
             } catch {
                 Log.error("image Load Fail: \(url)")
             }
