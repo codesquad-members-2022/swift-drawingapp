@@ -10,12 +10,12 @@ import OSLog
 
 class ViewController: UIViewController {
     
-    private let rectangleViewBoard = RectangleViewBoard()
-    private let rectanglePropertyChangeBoard = PropertyChangeBoard()
+    private let shapeViewBoard = ShapeViewBoard()
+    private let shapePropertyChangeBoard = PropertyChangeBoard()
     private let addRectangleButton = UIButton()
     private let addPhotoButton = UIButton()
     
-    private var viewFinder : [Shape: RectangleView] = [:]
+    private var viewFinder : [Shape: ShapeViewAble] = [:]
     
     let imagePickerController = UIImagePickerController()
     
@@ -23,8 +23,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        rectanglePropertyChangeBoard.delegate = self
-        rectangleViewBoard.delegate = self
+        shapePropertyChangeBoard.delegate = self
+        shapeViewBoard.delegate = self
         imagePickerController.delegate = self
         initialScreenSetUp()
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidAdd(_:)), name: Plane.NotificationName.addShape, object: plane)
@@ -37,27 +37,27 @@ class ViewController: UIViewController {
         let safeArea = self.view.safeAreaLayoutGuide
         
         func layoutViewBoard() {
-            view.addSubview(rectangleViewBoard)
-            self.rectangleViewBoard.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(shapeViewBoard)
+            self.shapeViewBoard.translatesAutoresizingMaskIntoConstraints = false
             
-            self.rectangleViewBoard.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor).isActive = true
-            self.rectangleViewBoard.topAnchor.constraint(equalTo: safeArea.topAnchor).isActive = true
-            self.rectangleViewBoard.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.9).isActive = true
-            self.rectangleViewBoard.widthAnchor.constraint(equalTo: safeArea.widthAnchor, multiplier: 0.8).isActive = true
+            self.shapeViewBoard.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor).isActive = true
+            self.shapeViewBoard.topAnchor.constraint(equalTo: safeArea.topAnchor).isActive = true
+            self.shapeViewBoard.heightAnchor.constraint(equalTo: safeArea.heightAnchor, multiplier: 0.9).isActive = true
+            self.shapeViewBoard.widthAnchor.constraint(equalTo: safeArea.widthAnchor, multiplier: 0.8).isActive = true
             
-            let tap = UITapGestureRecognizer(target: self, action: #selector(ViewController.tapRectangleViewBoard(_:)))
-            self.rectangleViewBoard.addGestureRecognizer(tap)
-            self.rectangleViewBoard.clipsToBounds = true
+            let tap = UITapGestureRecognizer(target: self, action: #selector(ViewController.tapShapeViewBoard(_:)))
+            self.shapeViewBoard.addGestureRecognizer(tap)
+            self.shapeViewBoard.clipsToBounds = true
         }
         
         func layoutPropertyBoard() {
-            view.addSubview(rectanglePropertyChangeBoard)
-            self.rectanglePropertyChangeBoard.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(shapePropertyChangeBoard)
+            self.shapePropertyChangeBoard.translatesAutoresizingMaskIntoConstraints = false
             
-            self.rectanglePropertyChangeBoard.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor).isActive = true
-            self.rectanglePropertyChangeBoard.widthAnchor.constraint(equalTo: safeArea.widthAnchor, multiplier: 0.2).isActive = true
-            self.rectanglePropertyChangeBoard.topAnchor.constraint(equalTo: safeArea.topAnchor).isActive = true
-            self.rectanglePropertyChangeBoard.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor).isActive = true
+            self.shapePropertyChangeBoard.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor).isActive = true
+            self.shapePropertyChangeBoard.widthAnchor.constraint(equalTo: safeArea.widthAnchor, multiplier: 0.2).isActive = true
+            self.shapePropertyChangeBoard.topAnchor.constraint(equalTo: safeArea.topAnchor).isActive = true
+            self.shapePropertyChangeBoard.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor).isActive = true
         }
         
         func layoutAddRectangleButton() {
@@ -71,10 +71,10 @@ class ViewController: UIViewController {
             addRectangleButton.layer.borderColor = UIColor.black.cgColor
             addRectangleButton.layer.cornerRadius = 10
             
-            addRectangleButton.topAnchor.constraint(equalTo: rectangleViewBoard.bottomAnchor, constant: 10).isActive = true
+            addRectangleButton.topAnchor.constraint(equalTo: shapeViewBoard.bottomAnchor, constant: 10).isActive = true
             addRectangleButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor).isActive = true
-            addRectangleButton.widthAnchor.constraint(equalTo: rectangleViewBoard.widthAnchor, multiplier: 0.1).isActive = true
-            addRectangleButton.centerXAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: rectangleViewBoard.safeAreaLayoutGuide.layoutFrame.width/2).isActive = true
+            addRectangleButton.widthAnchor.constraint(equalTo: shapeViewBoard.widthAnchor, multiplier: 0.1).isActive = true
+            addRectangleButton.centerXAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: shapeViewBoard.safeAreaLayoutGuide.layoutFrame.width/2).isActive = true
             
             addRectangleButton.addTarget(self, action: #selector(addNewRectangle), for: .touchUpInside)
         }
@@ -90,9 +90,9 @@ class ViewController: UIViewController {
             addPhotoButton.layer.borderColor = UIColor.black.cgColor
             addPhotoButton.layer.cornerRadius = 10
             
-            addPhotoButton.topAnchor.constraint(equalTo: rectangleViewBoard.bottomAnchor, constant: 10).isActive = true
+            addPhotoButton.topAnchor.constraint(equalTo: shapeViewBoard.bottomAnchor, constant: 10).isActive = true
             addPhotoButton.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor).isActive = true
-            addPhotoButton.widthAnchor.constraint(equalTo: rectangleViewBoard.widthAnchor, multiplier: 0.1).isActive = true
+            addPhotoButton.widthAnchor.constraint(equalTo: shapeViewBoard.widthAnchor, multiplier: 0.1).isActive = true
             addPhotoButton.leftAnchor.constraint(equalTo: addRectangleButton.rightAnchor, constant: 10).isActive = true
             
             addPhotoButton.addTarget(self, action: #selector(selectPhotoButtonTouched), for: .touchUpInside)
@@ -109,7 +109,7 @@ class ViewController: UIViewController {
         plane.addShape(shape: newShape)
     }
     
-    @objc func tapRectangleViewBoard(_ gestureRecognizer: UITapGestureRecognizer) {
+    @objc func tapShapeViewBoard(_ gestureRecognizer: UITapGestureRecognizer) {
         let touchedLocation = gestureRecognizer.location(in: gestureRecognizer.view)
         let touchedPosition = Position(x: touchedLocation.x, y: touchedLocation.y)
         plane.searchShape(at: touchedPosition)
@@ -150,9 +150,10 @@ extension ViewController: PropertyChangeBoardDelegate {
 extension ViewController {
     @objc func planeDidAdd(_ notification: Notification) {
         if let shape = notification.userInfo?[Plane.NotificationKeyValue.shape] as? Shape {
-            if let photoRectangleView = RectangleViewFactory.makeView(of: shape) {
-                viewFinder[shape] = photoRectangleView
-                self.rectangleViewBoard.addSubview(photoRectangleView)
+            if let shapeView = ShapeViewFactory.makeView(of: shape) {
+                viewFinder[shape] = shapeView
+                guard let shapeView = shapeView as? UIView else {return}
+                self.shapeViewBoard.addSubview(shapeView)
             }
         }
     }
@@ -160,24 +161,24 @@ extension ViewController {
     @objc func planeDidSearch(_ notification: Notification) {
         guard let shape = notification.userInfo?[Plane.NotificationKeyValue.shape] as? Shape else {return}
         let selectedView = viewFinder[shape]
-        self.rectangleViewBoard.setSelectedRectangleView(of: selectedView)
-        self.rectanglePropertyChangeBoard.setPropertyBoard(with: shape)
+        self.shapeViewBoard.setSelectedView(of: selectedView)
+        self.shapePropertyChangeBoard.setPropertyBoard(with: shape)
     }
     
     @objc func planeDidUpdated(_ notification: Notification) {
         guard let alpha = notification.userInfo?[Plane.NotificationKeyValue.alpha] as? Alpha else {return}
-        self.rectangleViewBoard.updateAlpha(alpha: alpha)
+        self.shapeViewBoard.updateAlpha(alpha: alpha)
     }
     
     @objc func planeDidChanged(_ notification: Notification) {
         guard let color = notification.userInfo?[Plane.NotificationKeyValue.color] as? Color else {return}
-        rectangleViewBoard.updateColor(color: color)
+        shapeViewBoard.updateColor(color: color)
     }
 }
 
-extension ViewController: RectangleViewBoardDelegate {
-    func rectangleViewBoard(didUpdated color: Color) {
-        rectanglePropertyChangeBoard.updateColorButton(color: color)
+extension ViewController: ShapeViewBoardDelegate {
+    func shapeViewBoard(didUpdated color: Color) {
+        shapePropertyChangeBoard.updateColorButton(color: color)
     }
 }
 

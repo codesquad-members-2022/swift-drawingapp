@@ -5,7 +5,6 @@
 //  Created by dale on 2022/03/07.
 //
 
-import Foundation
 import UIKit
 
 protocol PropertyChangeBoardDelegate {
@@ -103,8 +102,9 @@ class PropertyChangeBoard : UIView {
         switch shape {
         case is PhotoRectangle:
             self.colorChangeButton.isEnabled = false
-        case let shape as Rectangle:
-            let color = shape.backgroundColor
+        case is Rectangle:
+            guard let rectangle = shape as? Rectangle else {return}
+            let color = rectangle.backgroundColor
             self.colorChangeButton.isEnabled = true
             updateColorButton(color: color)
         default:

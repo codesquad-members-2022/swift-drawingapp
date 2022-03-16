@@ -7,18 +7,21 @@
 
 import UIKit
 
-class RectangleView: UIView {
-
-    init(frame: CGRect, color: Color?, alpha: Alpha) {
+class RectangleView: UIView, ShapeViewAble{
+    
+    init(frame: CGRect, color: Color, alpha: Alpha) {
         super.init(frame: frame)
+        self.layer.borderColor = UIColor.blue.cgColor
         setAlpha(alpha: alpha)
-        if let color = color {
-            setBackgroundColor(color: color)
-        }
+        setBackgroundColor(color: color)
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+    }
+    
+    func borderVisible(_ enable : Bool) {
+        self.layer.borderWidth = enable ? 2 : 0
     }
     
     func setAlpha(alpha: Alpha) {
