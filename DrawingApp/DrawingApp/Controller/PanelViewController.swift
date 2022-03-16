@@ -57,7 +57,7 @@ class PanelViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        observePlaneNotification()
+        subscribePlaneNotification()
         
         setClosureToCanvasVC()
         addTargetAction(to: textField)
@@ -73,7 +73,7 @@ class PanelViewController: UIViewController {
         setDidMoveTemporaryViewHandler(to: canvasVC)
     }
     
-    private func observePlaneNotification() {
+    private func subscribePlaneNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(didSelectLayer(_:)), name: Plane.Event.didSelectLayer, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeColor(_:)), name: Plane.Event.didChangeColor, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeAlpha(_:)), name: Plane.Event.didChangeAlpha, object: nil)

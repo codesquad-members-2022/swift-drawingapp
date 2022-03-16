@@ -22,7 +22,7 @@ class CanvasViewController: UIViewController,
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        observePlaneNotification()
+        subscribePlaneNotification()
         
         setCanvasView()
         setUpInitialModels()
@@ -54,6 +54,7 @@ class CanvasViewController: UIViewController,
         
         setDidSelectRowHandler(to: layerTableVC)
         setDidMoveRowHandler(to: layerTableVC)
+        setDidCommandMoveHandler(to: layerTableVC)
     }
     
     private func setClosureToPanelVC() {
@@ -74,7 +75,7 @@ class CanvasViewController: UIViewController,
 
 extension CanvasViewController {
     
-    private func observePlaneNotification() {
+    private func subscribePlaneNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(didAddLayer(_:)), name: Plane.Event.didAddLayer, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(didSelectLayer(_:)), name: Plane.Event.didSelectLayer, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeColor(_:)), name: Plane.Event.didChangeColor, object: plane)
