@@ -7,26 +7,6 @@
 
 import Foundation
 
-protocol Drawingable {
-    var origin: Point { get }
-    var size: Size { get }
-    var alpha: Alpha { get }
-    
-    func update(alpha: Alpha)
-    func update(origin: Point)
-    func update(x: Double, y: Double)
-    func update(width: Double, height: Double)
-}
-
-protocol Viewable {
-    var displayName: String { get }
-    var iconName: String { get }
-}
-
-protocol DrawingModelFactoryable {
-    static func make(id: String, origin: Point, size: Size, alpha: Alpha, data: [Any]) -> DrawingModel
-}
-
 class DrawingModel: Drawingable, CustomStringConvertible, Equatable, Hashable {
     let id: String
     let index: Int

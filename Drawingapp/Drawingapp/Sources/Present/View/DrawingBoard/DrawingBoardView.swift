@@ -18,6 +18,7 @@ protocol DrawingBoardDelegate {
 class DrawingBoardView: UIView {
     var delegate: DrawingBoardDelegate?
     
+    private var drawingViewFactory: DrawingViewFactoryBase = DrawingViewFactory()
     private var drawingViews: [DrawingModel:DrawingView] = [:]
     private var dummyView: UIView?
     
@@ -61,7 +62,7 @@ class DrawingBoardView: UIView {
     }
     
     func didMakeDrawingModel(model: DrawingModel) {
-        let drawView = DrawingViewFactory.make(drawingable: model)
+        let drawView = drawingViewFactory.make(drawingable: model)
         self.addSubview(drawView)
         self.drawingViews[model] = drawView
     }

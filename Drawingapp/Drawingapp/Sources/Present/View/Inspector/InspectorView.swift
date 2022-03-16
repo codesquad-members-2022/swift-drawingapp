@@ -159,7 +159,7 @@ class InspectorView: UIView {
         switch model {
         case let model as Colorable:
             self.update(color: model.color)
-        case let model as Textable:
+        case let model as Labelable:
             self.update(color: nil)
             self.update(fontName: model.font.name)
         default:
@@ -167,7 +167,7 @@ class InspectorView: UIView {
             break
         }
         
-        self.fontButton.isHidden = (model as? Textable) == nil
+        self.fontButton.isHidden = (model as? Labelable) == nil
     }
     
     func update(color: Color?) {

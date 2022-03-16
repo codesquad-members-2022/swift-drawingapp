@@ -7,17 +7,17 @@
 
 import Foundation
 
-class DrawingViewFactory {
+class DrawingViewFactory: DrawingViewFactoryBase {
     
-    private static let modelToViewType: Dictionary<ObjectIdentifier, DrawingView.Type> = [
+    private let modelToViewType: Dictionary<ObjectIdentifier, DrawingView.Type> = [
         ObjectIdentifier(DrawingModel.self): DrawingView.self,
         ObjectIdentifier(RectangleModel.self): RectangleView.self,
         ObjectIdentifier(PhotoModel.self): PhotoView.self,
         ObjectIdentifier(LabelModel.self): LabelView.self
     ]
     
-    static func make(drawingable: Drawingable) -> DrawingView {
-        if let viewType = Self.modelToViewType[ObjectIdentifier(type(of: drawingable.self))] {
+    func make(drawingable: Drawingable) -> DrawingView {
+        if let viewType = self.modelToViewType[ObjectIdentifier(type(of: drawingable.self))] {
             return viewType.init(drawingable: drawingable)
         }
         return DrawingView.init(drawingable: drawingable)

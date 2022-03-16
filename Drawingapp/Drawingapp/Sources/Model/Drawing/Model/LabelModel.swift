@@ -6,15 +6,9 @@
 //
 
 import Foundation
-import UIKit
 
-protocol Textable: Drawingable {
-    var font: Font { get }
-    var text: String { get }
-    func update(fontName: String)
-}
-
-class LabelModel: DrawingModel, Textable, Viewable {
+class LabelModel: DrawingModel, Labelable, Viewable {
+    private static var makeCount: Int = 0
     public private(set) var font: Font
     public private(set) var text: String
     
@@ -43,12 +37,13 @@ class LabelModel: DrawingModel, Textable, Viewable {
 
 extension LabelModel: DrawingModelFactoryable {
     static func make(id: String, origin: Point, size: Size, alpha: Alpha, data: [Any]) -> DrawingModel {
+        makeCount += 1
         let text = makeRandomText()
         let font = Font(name: "AppleSDGothicNeo-Regular", size: 15)
         let fontColor = Color(using: RandomColorGenerator())
         let labelSize = NSString(string: text).size(withAttributes: [.font:font.uiFont])
         let modelSize = Size(width: labelSize.width + 10, height: labelSize.height + 10)
-        return LabelModel(id: id, index: 0, origin: origin, size: modelSize, alpha: alpha, text: text, font: font, fontColor: fontColor)
+        return LabelModel(id: id, index: makeCount, origin: origin, size: modelSize, alpha: alpha, text: text, font: font, fontColor: fontColor)
     }
     
     private static func makeRandomText() -> String {

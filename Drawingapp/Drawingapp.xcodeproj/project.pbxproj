@@ -22,7 +22,6 @@
 		E081806327D7393C000633E1 /* RectangleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E081806227D7393C000633E1 /* RectangleModel.swift */; };
 		E081806527D73B03000633E1 /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E081806427D73B03000633E1 /* RectangleView.swift */; };
 		E081806927D75324000633E1 /* PhotoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E081805F27D71A9C000633E1 /* PhotoModel.swift */; };
-		E081806A27D75324000633E1 /* DrawingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E081805A27D719A8000633E1 /* DrawingModel.swift */; };
 		E081806B27D75324000633E1 /* RectangleModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E081806227D7393C000633E1 /* RectangleModel.swift */; };
 		E081806D27D9CF13000633E1 /* InspectorUpDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E081806C27D9CF13000633E1 /* InspectorUpDownView.swift */; };
 		E081806F27DACD62000633E1 /* InspectorTwoUpDownView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E081806E27DACD62000633E1 /* InspectorTwoUpDownView.swift */; };
@@ -59,6 +58,13 @@
 		E0D9D79227E0719000FB7C3E /* Updatable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D9D79127E0719000FB7C3E /* Updatable.swift */; };
 		E0D9D79427E0734500FB7C3E /* GusturePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D9D79327E0734500FB7C3E /* GusturePoint.swift */; };
 		E0D9D79627E0737600FB7C3E /* Makeable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D9D79527E0737600FB7C3E /* Makeable.swift */; };
+		E0D9D79827E213B300FB7C3E /* Factoryable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D9D79727E213B300FB7C3E /* Factoryable.swift */; };
+		E0D9D79B27E2152600FB7C3E /* Drawingable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D9D79A27E2152600FB7C3E /* Drawingable.swift */; };
+		E0D9D79E27E2155700FB7C3E /* Viewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D9D79D27E2155700FB7C3E /* Viewable.swift */; };
+		E0D9D7A027E2156800FB7C3E /* DrawingModelFactoryable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D9D79F27E2156800FB7C3E /* DrawingModelFactoryable.swift */; };
+		E0D9D7A527E215E700FB7C3E /* Labelable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D9D7A427E215E700FB7C3E /* Labelable.swift */; };
+		E0D9D7A727E215F800FB7C3E /* Colorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D9D7A627E215F800FB7C3E /* Colorable.swift */; };
+		E0D9D7A927E2161500FB7C3E /* Imageable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0D9D7A827E2161500FB7C3E /* Imageable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -124,6 +130,13 @@
 		E0D9D79127E0719000FB7C3E /* Updatable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Updatable.swift; sourceTree = "<group>"; };
 		E0D9D79327E0734500FB7C3E /* GusturePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GusturePoint.swift; sourceTree = "<group>"; };
 		E0D9D79527E0737600FB7C3E /* Makeable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Makeable.swift; sourceTree = "<group>"; };
+		E0D9D79727E213B300FB7C3E /* Factoryable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Factoryable.swift; sourceTree = "<group>"; };
+		E0D9D79A27E2152600FB7C3E /* Drawingable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drawingable.swift; sourceTree = "<group>"; };
+		E0D9D79D27E2155700FB7C3E /* Viewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Viewable.swift; sourceTree = "<group>"; };
+		E0D9D79F27E2156800FB7C3E /* DrawingModelFactoryable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingModelFactoryable.swift; sourceTree = "<group>"; };
+		E0D9D7A427E215E700FB7C3E /* Labelable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Labelable.swift; sourceTree = "<group>"; };
+		E0D9D7A627E215F800FB7C3E /* Colorable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colorable.swift; sourceTree = "<group>"; };
+		E0D9D7A827E2161500FB7C3E /* Imageable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Imageable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,10 +212,8 @@
 		E081805C27D719AE000633E1 /* Drawing */ = {
 			isa = PBXGroup;
 			children = (
-				E081805A27D719A8000633E1 /* DrawingModel.swift */,
-				E081805F27D71A9C000633E1 /* PhotoModel.swift */,
-				E081806227D7393C000633E1 /* RectangleModel.swift */,
-				E081807027DB0A20000633E1 /* LabelModel.swift */,
+				E0D9D79C27E2154100FB7C3E /* Protocol */,
+				E0D9D7AA27E2165900FB7C3E /* Model */,
 			);
 			path = Drawing;
 			sourceTree = "<group>";
@@ -390,8 +401,33 @@
 				E0D9D79127E0719000FB7C3E /* Updatable.swift */,
 				E0D9D79327E0734500FB7C3E /* GusturePoint.swift */,
 				E0D9D79527E0737600FB7C3E /* Makeable.swift */,
+				E0D9D79727E213B300FB7C3E /* Factoryable.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		E0D9D79C27E2154100FB7C3E /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				E0D9D79F27E2156800FB7C3E /* DrawingModelFactoryable.swift */,
+				E0D9D79D27E2155700FB7C3E /* Viewable.swift */,
+				E0D9D79A27E2152600FB7C3E /* Drawingable.swift */,
+				E0D9D7A427E215E700FB7C3E /* Labelable.swift */,
+				E0D9D7A627E215F800FB7C3E /* Colorable.swift */,
+				E0D9D7A827E2161500FB7C3E /* Imageable.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		E0D9D7AA27E2165900FB7C3E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				E081805A27D719A8000633E1 /* DrawingModel.swift */,
+				E081807027DB0A20000633E1 /* LabelModel.swift */,
+				E081806227D7393C000633E1 /* RectangleModel.swift */,
+				E081805F27D71A9C000633E1 /* PhotoModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -525,6 +561,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E0D9D79827E213B300FB7C3E /* Factoryable.swift in Sources */,
 				E081807E27DCAF08000633E1 /* HieararchyTableViewCell.swift in Sources */,
 				E0D9D78B27DF5A1F00FB7C3E /* DrawingBoardView.swift in Sources */,
 				E0D7DA4827CDE3C800A56635 /* TopMenuItemView.swift in Sources */,
@@ -535,16 +572,21 @@
 				E081807127DB0A20000633E1 /* LabelModel.swift in Sources */,
 				E081807C27DC4EDD000633E1 /* HierarchyView.swift in Sources */,
 				E081806F27DACD62000633E1 /* InspectorTwoUpDownView.swift in Sources */,
+				E0D9D7A727E215F800FB7C3E /* Colorable.swift in Sources */,
 				E0D7DA5127CDF6FE00A56635 /* InspectorSliderView.swift in Sources */,
+				E0D9D79B27E2152600FB7C3E /* Drawingable.swift in Sources */,
 				E0D7DA2C27CCF83300A56635 /* Log.swift in Sources */,
 				E034562D27D22FB60036988A /* PhotoView.swift in Sources */,
 				E0D9D79227E0719000FB7C3E /* Updatable.swift in Sources */,
+				E0D9D7A027E2156800FB7C3E /* DrawingModelFactoryable.swift in Sources */,
+				E0D9D79E27E2155700FB7C3E /* Viewable.swift in Sources */,
 				E0D9D79627E0737600FB7C3E /* Makeable.swift in Sources */,
 				E0D7DA2027CC656500A56635 /* Color.swift in Sources */,
 				E03455B727CF2A1A0036988A /* DrawingViewFactory.swift in Sources */,
 				E0D7DA4527CDE32300A56635 /* TopMenuBarView.swift in Sources */,
 				E0D7DA1927CC643000A56635 /* Point.swift in Sources */,
 				E03455AE27CF24560036988A /* DrawingView.swift in Sources */,
+				E0D9D7A927E2161500FB7C3E /* Imageable.swift in Sources */,
 				E0D7DA2327CC67DF00A56635 /* Alpha.swift in Sources */,
 				E081806327D7393C000633E1 /* RectangleModel.swift in Sources */,
 				E081805B27D719A9000633E1 /* DrawingModel.swift in Sources */,
@@ -559,6 +601,7 @@
 				E0D7DA5327CDF70D00A56635 /* InspectorItemView.swift in Sources */,
 				E081807327DB0B4C000633E1 /* LabelView.swift in Sources */,
 				E0D7D9E027CC594D00A56635 /* SceneDelegate.swift in Sources */,
+				E0D9D7A527E215E700FB7C3E /* Labelable.swift in Sources */,
 				E0D7DA2E27CD048C00A56635 /* Plane.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -577,7 +620,6 @@
 				E081806927D75324000633E1 /* PhotoModel.swift in Sources */,
 				E081807827DB5477000633E1 /* LabelModel.swift in Sources */,
 				E034561827D1ADF30036988A /* Plane.swift in Sources */,
-				E081806A27D75324000633E1 /* DrawingModel.swift in Sources */,
 				E0D7D9F527CC594E00A56635 /* DrawingappTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

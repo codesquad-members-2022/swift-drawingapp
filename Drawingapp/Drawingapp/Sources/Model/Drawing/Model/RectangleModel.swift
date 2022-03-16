@@ -7,12 +7,8 @@
 
 import Foundation
 
-protocol Colorable: Drawingable {
-    var color: Color { get }
-    func update(color: Color)
-}
-
-class RectangleModel: DrawingModel, Colorable, Viewable {    
+class RectangleModel: DrawingModel, Colorable, Viewable {
+    private static var makeCount: Int = 0
     public private(set) var color: Color
     
     override var description: String {
@@ -39,7 +35,8 @@ class RectangleModel: DrawingModel, Colorable, Viewable {
 
 extension RectangleModel: DrawingModelFactoryable {
     static func make(id: String, origin: Point, size: Size, alpha: Alpha, data: [Any]) -> DrawingModel {
+        makeCount += 1
         let color = Color(using: RandomColorGenerator())
-        return RectangleModel.init(id: id, index: 0, origin: origin, size: size, color: color, alpha: alpha)
+        return RectangleModel.init(id: id, index: makeCount, origin: origin, size: size, color: color, alpha: alpha)
     }
 }

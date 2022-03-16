@@ -46,8 +46,6 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         bind()
         layout()
-        
-        plane.dataSource = self
     }
     
     private func bind() {
@@ -85,12 +83,6 @@ class ViewController: UIViewController {
         hierarchyView.widthAnchor.constraint(equalToConstant: 200).isActive = true
         
         self.drawingBoard.layoutIfNeeded()
-    }
-}
-
-extension ViewController: PlaneDataSource {
-    func getScreenSize() -> Size {
-        Size(width: self.drawingBoard.frame.width, height: self.drawingBoard.frame.height)
     }
 }
 
