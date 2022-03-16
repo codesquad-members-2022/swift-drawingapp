@@ -118,8 +118,7 @@ extension ViewController: RectangleTouchedDelegate {
 
 extension ViewController: RectangleColorChangeDelegate {
     func changeColorAndAlpha(_ rectangle: Rectangle) {
-        let viewValue = rectangleAndViewContainer[rectangle]
-        rectangleAndViewContainer.removeValue(forKey: rectangle)
+        let viewValue = rectangleAndViewContainer.removeValue(forKey: rectangle)
         rectangleAndViewContainer[rectangle] = viewValue
         if let view = rectangleAndViewContainer[rectangle] {
             view.backgroundColor = UIColor(red: CGFloat(rectangle.color.R)/255.0, green: CGFloat(rectangle.color.G)/255.0, blue: CGFloat(rectangle.color.B)/255.0, alpha: CGFloat(rectangle.alpha.rawValue)/10.0)
