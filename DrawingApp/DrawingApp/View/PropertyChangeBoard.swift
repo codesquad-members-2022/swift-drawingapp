@@ -97,16 +97,19 @@ class PropertyChangeBoard : UIView {
         self.alphaChangeSlider.addTarget(self, action: #selector(self.moveAlphaSlider), for: .valueChanged)
     }
     
-    func setPropertyBoard(with rectangle: Rectangle?) {
-        guard let alpha = rectangle?.alpha.transparency else {return}
+    func setPropertyBoard(with shape: Shape?) {
+        guard let alpha = shape?.alpha.transparency else {return}
         self.alphaChangeSlider.value = Float(alpha)
-        
-        guard let color = rectangle?.backgroundColor else {
+        switch shape {
+        case is PhotoRectangle:
             self.colorChangeButton.isEnabled = false
+        case let shape as Rectangle:
+            let color = shape.backgroundColor
+            self.colorChangeButton.isEnabled = true
+            updateColorButton(color: color)
+        default:
             return
         }
-        self.colorChangeButton.isEnabled = true
-        updateColorButton(color: color)
     }
     
     func updateColorButton(color : Color) {

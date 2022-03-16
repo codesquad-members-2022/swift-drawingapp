@@ -12,7 +12,7 @@ class PlaneTest: XCTestCase {
     
     func testPlaneInitiallize() {
         let plane = Plane()
-        XCTAssertEqual(plane.rectangleCount, 0)
+        XCTAssertEqual(plane.shapeCount, 0)
     }
     
     func testPlaneCountRectangle() {
@@ -20,10 +20,10 @@ class PlaneTest: XCTestCase {
         var number = 0
         let screenSize = (Double(ViewController().view.safeAreaLayoutGuide.layoutFrame.size.width), Double(ViewController().view.safeAreaLayoutGuide.layoutFrame.size.height))
         guard let rect1 = RectangleFactory(screenSize: screenSize).makeRandomRectangle() else {return}
-        XCTAssertEqual(plane.rectangleCount, number)
+        XCTAssertEqual(plane.shapeCount, number)
         plane.addRectangle(rectangle: rect1)
         number += 1
-        XCTAssertEqual(plane.rectangleCount, number)
+        XCTAssertEqual(plane.shapeCount, number)
     }
     
     func testPlaneReturnIndexedRectangle() {

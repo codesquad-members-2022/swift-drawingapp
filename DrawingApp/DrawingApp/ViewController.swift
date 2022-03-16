@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     private let addRectangleButton = UIButton()
     private let addPhotoButton = UIButton()
     
-    private var viewFinder : [Rectangle: RectangleView] = [:]
+    private var viewFinder : [Shape: RectangleView] = [:]
     
     let imagePickerController = UIImagePickerController()
     
@@ -27,8 +27,8 @@ class ViewController: UIViewController {
         rectangleViewBoard.delegate = self
         imagePickerController.delegate = self
         initialScreenSetUp()
-        NotificationCenter.default.addObserver(self, selector: #selector(planeDidAdd(_:)), name: Plane.NotificationName.addRectangle, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(planeDidSearch(_:)), name: Plane.NotificationName.searchRectangle, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(planeDidAdd(_:)), name: Plane.NotificationName.addShape, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(planeDidSearch(_:)), name: Plane.NotificationName.searchShape, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidUpdated(_:)), name: Plane.NotificationName.updateAlpha , object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidChanged(_:)), name: Plane.NotificationName.changeColor, object: plane)
     }
@@ -105,14 +105,14 @@ class ViewController: UIViewController {
     }
     
     @objc func addNewRectangle() {
-        guard let newRectangle = RectangleFactory.makeRandomRectangle(in: (800, 570)) else {return}
-        plane.addRectangle(rectangle: newRectangle)
+        guard let newShape = ShapeFactory.makeRandomShape(in: (800, 570)) else {return}
+        plane.addShape(shape: newShape)
     }
     
     @objc func tapRectangleViewBoard(_ gestureRecognizer: UITapGestureRecognizer) {
         let touchedLocation = gestureRecognizer.location(in: gestureRecognizer.view)
         let touchedPosition = Position(x: touchedLocation.x, y: touchedLocation.y)
-        plane.searchRectangle(at: touchedPosition)
+        plane.searchShape(at: touchedPosition)
     }
     
     @objc func selectPhotoButtonTouched(_ sender: Any) {
@@ -149,19 +149,19 @@ extension ViewController: PropertyChangeBoardDelegate {
 
 extension ViewController {
     @objc func planeDidAdd(_ notification: Notification) {
-        if let rectangle = notification.userInfo?[Plane.NotificationKeyValue.rectangle] as? Rectangle {
-            if let photoRectangleView = RectangleViewFactory.makeView(of: rectangle) {
-                viewFinder[rectangle] = photoRectangleView
+        if let shape = notification.userInfo?[Plane.NotificationKeyValue.shape] as? Shape {
+            if let photoRectangleView = RectangleViewFactory.makeView(of: shape) {
+                viewFinder[shape] = photoRectangleView
                 self.rectangleViewBoard.addSubview(photoRectangleView)
             }
         }
     }
     
     @objc func planeDidSearch(_ notification: Notification) {
-        guard let rectangle = notification.userInfo?[Plane.NotificationKeyValue.rectangle] as? Rectangle else {return}
-        let selectedView = viewFinder[rectangle]
+        guard let shape = notification.userInfo?[Plane.NotificationKeyValue.shape] as? Shape else {return}
+        let selectedView = viewFinder[shape]
         self.rectangleViewBoard.setSelectedRectangleView(of: selectedView)
-        self.rectanglePropertyChangeBoard.setPropertyBoard(with: rectangle)
+        self.rectanglePropertyChangeBoard.setPropertyBoard(with: shape)
     }
     
     @objc func planeDidUpdated(_ notification: Notification) {
@@ -185,8 +185,8 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
         if let imageUrl = info[UIImagePickerController.InfoKey.imageURL] as? URL {
             guard let data = try? Data(contentsOf: imageUrl) else {return}
-            guard let photoRectangle = RectangleFactory.makePhotoRectangle(in: (800,570), imageData: data) else {return}
-            plane.addRectangle(rectangle: photoRectangle)
+            guard let photoShape = ShapeFactory.makePhotoShape(in: (800,570), imageData: data) else {return}
+            plane.addShape(shape: photoShape)
         }
         dismiss(animated: true)
     }

@@ -8,60 +8,60 @@
 import Foundation
 
 class Plane {
-    private var rectangles : [Rectangle] = []
-    private var selectedRectangle : Rectangle?
+    private var shapes : [Shape] = []
+    private var selectedShape : Shape?
     
     enum NotificationName {
-        static let addRectangle : Notification.Name = Notification.Name("addRectangle")
-        static let searchRectangle : Notification.Name = Notification.Name("searchRectangle")
+        static let addShape : Notification.Name = Notification.Name("addShape")
+        static let searchShape : Notification.Name = Notification.Name("searchShape")
         static let updateAlpha : Notification.Name = Notification.Name("updateAlpha")
         static let changeColor : Notification.Name = Notification.Name("changeColor")
     }
     
     enum NotificationKeyValue {
-        static let rectangle = "rectangle"
+        static let shape = "shape"
         static let index = "index"
         static let alpha = "alpha"
         static let color = "color"
     }
     
-    subscript(index: Int) -> Rectangle? {
-        if index < rectangleCount {
-            let targetRectangle = rectangles[index]
-            return targetRectangle
+    subscript(index: Int) -> Shape? {
+        if index < shapeCount {
+            let targetShape = shapes[index]
+            return targetShape
         }
         return nil
     }
     
-    var rectangleCount : Int {
-        return rectangles.count
+    var shapeCount : Int {
+        return shapes.count
     }
     
-    func addRectangle(rectangle: Rectangle) {
-        self.rectangles.append(rectangle)
-        NotificationCenter.default.post(name: Plane.NotificationName.addRectangle, object: self, userInfo: [Plane.NotificationKeyValue.rectangle:rectangle])
+    func addShape(shape: Shape) {
+        self.shapes.append(shape)
+        NotificationCenter.default.post(name: Plane.NotificationName.addShape, object: self, userInfo: [Plane.NotificationKeyValue.shape:shape])
     }
     
-    func searchRectangle(at position : Position) {
-        self.selectedRectangle = nil
-        for rectangle in rectangles.reversed() {
-            if (rectangle.position.x...(rectangle.position.x + rectangle.size.width)).contains(position.x) && (rectangle.position.y...(rectangle.position.y + rectangle.size.height)).contains(position.y) {
-                self.selectedRectangle = rectangle
+    func searchShape(at position : Position) {
+        self.selectedShape = nil
+        for shape in shapes.reversed() {
+            if (shape.position.x...(shape.position.x + shape.size.width)).contains(position.x) && (shape.position.y...(shape.position.y + shape.size.height)).contains(position.y) {
+                self.selectedShape = shape
                 break
             }
         }
-        guard let targetRectangle = selectedRectangle else {return}
-        NotificationCenter.default.post(name: Plane.NotificationName.searchRectangle, object: self, userInfo: [Plane.NotificationKeyValue.rectangle:targetRectangle])
+        guard let targetRectangle = selectedShape else {return}
+        NotificationCenter.default.post(name: Plane.NotificationName.searchShape, object: self, userInfo: [Plane.NotificationKeyValue.shape:targetRectangle])
     }
     
     func updateAlphaValue(with alpha: Alpha) {
-        self.selectedRectangle?.alpha = alpha
+        self.selectedShape?.setAlpha(to: alpha)
         NotificationCenter.default.post(name: Plane.NotificationName.updateAlpha, object: self, userInfo: [Plane.NotificationKeyValue.alpha:alpha])
     }
     
-    func changeRandomColor(to randomColor : Color?) {
-        guard let randomColor = randomColor else {return}
-        self.selectedRectangle?.backgroundColor = randomColor
+    func changeRandomColor(to randomColor : Color) {
+        guard let rectangle = self.selectedShape as? Rectangle else {return}
+        rectangle.setBackgroundColor(to: randomColor)
         NotificationCenter.default.post(name: Plane.NotificationName.changeColor, object: self, userInfo: [Plane.NotificationKeyValue.color:randomColor])
     }
 }
