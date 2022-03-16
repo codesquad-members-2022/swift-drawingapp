@@ -37,7 +37,7 @@ class DrawingViewController: UIViewController{
         notificationCenter.addObserver(self, selector: #selector(addRectangleView), name: Plane.Notification.Event.addedRectangle, object: plane)
         notificationCenter.addObserver(self, selector: #selector(addPhotoView), name: Plane.Notification.Event.addedPhoto, object: plane)
         notificationCenter.addObserver(self, selector: #selector(getImageFromDevice), name: PhotoPickerDelegate.Notification.Event.getPhotoFromDevice, object: photoPickerDelegate)
-        notificationCenter.addObserver(self, selector: #selector(propertyAction), name: SplitViewController.Notification.Event.propertyAction, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(propertyAction), name: PropertySetViewController.Notification.Event.propertyAction, object: nil)
     }
     
     private func addOutputNotificationObserver(){
@@ -52,9 +52,8 @@ class DrawingViewController: UIViewController{
         plane?.deSelectTargetCustomView()
     }
     
-    @objc private func deselectedCustomView(_ notification: Notification){
-        NotificationCenter.default.post(name: SplitViewController.Notification.Event.updateDeselectedUI, object: self)
-        //drawingDelegate?.drawingViewDidDeselect()
+    @objc private func deselectedCustomView(_ notification: Foundation.Notification){
+        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.updateDeselectedUI, object: self)
     }
     
     private func setRectangleButtonEvent(){
@@ -77,27 +76,27 @@ class DrawingViewController: UIViewController{
         photoPickerController.delegate = photoPickerDelegate
     }
     
-    @objc private func getImageFromDevice(_ notification: Notification){
+    @objc private func getImageFromDevice(_ notification: Foundation.Notification){
         guard let imageData = notification.userInfo?[PhotoPickerDelegate.Notification.Key.photoData] as? Data else { return }
         plane?.addRandomPhotoViewModel(imageData: imageData)
     }
     
-    @objc private func addRectangleView(_ notification: Notification){
+    @objc private func addRectangleView(_ notification: Foundation.Notification){
         guard let rectangle = notification.userInfo?[Plane.Notification.Key.rectangle] as? Rectangle else {
             return
         }
         let rectangleView = RectangleView(size: rectangle.getSize(), point: rectangle.getPoint())
         rectangleView.setRGBColor(rgb: rectangle.getColorRGB())
         rectangleView.setAlpha(alpha: rectangle.getAlpha())
-        NotificationCenter.default.post(name: SplitViewController.Notification.Event.changedColorText, object: self, userInfo: [SplitViewController.Notification.Key.rectangle : rectangle])
-        NotificationCenter.default.post(name: SplitViewController.Notification.Event.alphaButtonHidden, object: self, userInfo: [SplitViewController.Notification.Key.customViewEntity : rectangle])
+        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.changedColorText, object: self, userInfo: [DrawingViewController.Notification.Key.rectangle : rectangle])
+        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.alphaButtonHidden, object: self, userInfo: [DrawingViewController.Notification.Key.customViewModel : rectangle])
         let viewTapGesture: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(rectangleTappedGesture))
         rectangleView.addGestureRecognizer(viewTapGesture)
         customViews[rectangle] = rectangleView
         view.addSubview(rectangleView)
     }
     
-    @objc private func addPhotoView(_ notification: Notification){
+    @objc private func addPhotoView(_ notification: Foundation.Notification){
         guard let photo = notification.userInfo?[Plane.Notification.Key.photo] as? Photo else {
             return
         }
@@ -108,8 +107,8 @@ class DrawingViewController: UIViewController{
         photoView.addGestureRecognizer(viewTapGesture)
         customViews[photo] = photoView
         self.view.addSubview(photoView)
-        NotificationCenter.default.post(name: SplitViewController.Notification.Event.alphaButtonHidden, object: self, userInfo: [SplitViewController.Notification.Key.customViewEntity : photo])
-        NotificationCenter.default.post(name: SplitViewController.Notification.Event.updateSelectedPhotoUI, object: self, userInfo: [SplitViewController.Notification.Key.photo : photo])
+        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.alphaButtonHidden, object: self, userInfo: [DrawingViewController.Notification.Key.customViewModel : photo])
+        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.updateSelectedPhotoUI, object: self, userInfo: [DrawingViewController.Notification.Key.photo : photo])
     }
     
     @objc func rectangleTappedGesture(sender: UITapGestureRecognizer){
@@ -124,35 +123,35 @@ class DrawingViewController: UIViewController{
         plane?.selectTargetCustomView(point: viewPoint)
     }
     
-    @objc private func selectedRectangle(_ notification: Notification){
+    @objc private func selectedRectangle(_ notification: Foundation.Notification){
         guard let rectangle = notification.userInfo?[Plane.Notification.Key.rectangle] as? Rectangle else {
             return
         }
-        NotificationCenter.default.post(name: SplitViewController.Notification.Event.updateSelectedRectangleUI, object: self, userInfo: [SplitViewController.Notification.Key.rectangle : rectangle])
+        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.updateSelectedRectangleUI, object: self, userInfo: [DrawingViewController.Notification.Key.rectangle : rectangle])
     }
     
-    @objc private func selectedPhoto(_ notification: Notification){
+    @objc private func selectedPhoto(_ notification: Foundation.Notification){
         guard let photo = notification.userInfo?[Plane.Notification.Key.photo] as? Photo else {
             return
         }
-        NotificationCenter.default.post(name: SplitViewController.Notification.Event.updateSelectedPhotoUI, object: self, userInfo: [SplitViewController.Notification.Key.photo : photo])
+        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.updateSelectedPhotoUI, object: self, userInfo: [DrawingViewController.Notification.Key.photo : photo])
     }
     
-    @objc private func rectangleColorChanged(_ notification: Notification){
+    @objc private func rectangleColorChanged(_ notification: Foundation.Notification){
         guard let rectangle = notification.userInfo?[Plane.Notification.Key.rectangle] as? Rectangle else {
             return
         }
         guard let rectangleView = customViews[rectangle] as? RectangleView else { return }
         rectangleView.setRGBColor(rgb: rectangle.getColorRGB())
-        NotificationCenter.default.post(name: SplitViewController.Notification.Event.changedColorText, object: self, userInfo: [SplitViewController.Notification.Key.rectangle : rectangle])
+        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.changedColorText, object: self, userInfo: [DrawingViewController.Notification.Key.rectangle : rectangle])
     }
     
-    @objc private func customViewAlphaChanged(_ notification: Notification){
+    @objc private func customViewAlphaChanged(_ notification: Foundation.Notification){
         guard let customModel = notification.userInfo?[Plane.Notification.Key.customViewEntity] as? CustomViewModel else {
             return
         }
         customViews[customModel]?.setAlpha(alpha: customModel.alpha)
-        NotificationCenter.default.post(name: SplitViewController.Notification.Event.alphaButtonHidden, object: self, userInfo: [SplitViewController.Notification.Key.customViewEntity : customModel])
+        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.alphaButtonHidden, object: self, userInfo: [DrawingViewController.Notification.Key.customViewModel : customModel])
     }
     
     private func plusViewAlpha(){
@@ -163,8 +162,8 @@ class DrawingViewController: UIViewController{
         plane?.minusCustomViewAlpha()
     }
     
-    @objc private func propertyAction(_ notification: Notification) {
-        guard let action = notification.userInfo?[SplitViewController.Notification.Key.action] as? PropertyViewAction else { return }
+    @objc private func propertyAction(_ notification: Foundation.Notification) {
+        guard let action = notification.userInfo?[PropertySetViewController.Notification.Key.action] as? PropertySetViewController.PropertyViewAction else { return }
         switch action{
         case .colorChangedTapped:
             plane?.changeRectangleRandomColor()
@@ -174,4 +173,20 @@ class DrawingViewController: UIViewController{
             minusViewAlpha()
         }
     }
+    
+    enum Notification{
+        enum Event{
+            static let changedColorText = Foundation.Notification.Name.init("changedColorText")
+            static let alphaButtonHidden = Foundation.Notification.Name.init("alphaButtonHidden")
+            static let updateSelectedRectangleUI = Foundation.Notification.Name.init("updateSelectedUI")
+            static let updateSelectedPhotoUI = Foundation.Notification.Name.init("updateSelectedPhotoUI")
+            static let updateDeselectedUI = Foundation.Notification.Name.init("updateDeselectedUI")
+        }
+        enum Key{
+            case rectangle
+            case customViewModel
+            case photo
+        }
+    }
+   
 }

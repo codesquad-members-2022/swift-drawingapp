@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		7207F20F27D090D100713C5E /* PropertySetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7207F20E27D090D100713C5E /* PropertySetViewController.swift */; };
-		7207F21127D098D500713C5E /* PropertyDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7207F21027D098D500713C5E /* PropertyDelegate.swift */; };
 		7207F21327D0B42600713C5E /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7207F21227D0B42600713C5E /* SplitViewController.swift */; };
 		722923ED27DEDEDC004C434C /* ImageAddButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 722923EC27DEDEDC004C434C /* ImageAddButton.swift */; };
 		72400F2527CC5D1800D24138 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72400F2427CC5D1800D24138 /* AppDelegate.swift */; };
@@ -48,7 +47,6 @@
 
 /* Begin PBXFileReference section */
 		7207F20E27D090D100713C5E /* PropertySetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertySetViewController.swift; sourceTree = "<group>"; };
-		7207F21027D098D500713C5E /* PropertyDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyDelegate.swift; sourceTree = "<group>"; };
 		7207F21227D0B42600713C5E /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		722923EC27DEDEDC004C434C /* ImageAddButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAddButton.swift; sourceTree = "<group>"; };
 		72400F2127CC5D1800D24138 /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -144,7 +142,6 @@
 			isa = PBXGroup;
 			children = (
 				72C0A7C827CF458F00A4035F /* CustomViewFactoryResponse.swift */,
-				7207F21027D098D500713C5E /* PropertyDelegate.swift */,
 				7272910827D1DEB300361536 /* PlaneModelsChangeable.swift */,
 			);
 			path = message;
@@ -286,7 +283,6 @@
 				726E1FDA27E06D1200218C3A /* CustomBaseView.swift in Sources */,
 				72AA37A327DF375500798474 /* Photo.swift in Sources */,
 				72400F2927CC5D1800D24138 /* DrawingViewController.swift in Sources */,
-				7207F21127D098D500713C5E /* PropertyDelegate.swift in Sources */,
 				72A40E2427CCDC48002D076C /* ViewPoint.swift in Sources */,
 				72A40E1627CCB32A002D076C /* RectangleAddButton.swift in Sources */,
 				72400F2527CC5D1800D24138 /* AppDelegate.swift in Sources */,
