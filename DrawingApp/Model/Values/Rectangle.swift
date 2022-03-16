@@ -8,6 +8,10 @@
 import Foundation
 
 final class Rectangle: RectValue, CustomStringConvertible{
+    enum NotificationName{
+        static let changeColor = Notification.Name("changeColor")
+    }
+    
     private(set) var color: RGBColor
     
     var description: String{
@@ -17,6 +21,7 @@ final class Rectangle: RectValue, CustomStringConvertible{
     
     func changeColor(color: RGBColor){
         self.color = color
+        NotificationCenter.default.post(name: Rectangle.NotificationName.changeColor, object: self)
     }
     
     init(id: String, size: MySize, point: MyPoint, color: RGBColor, alpha: Alpha){
