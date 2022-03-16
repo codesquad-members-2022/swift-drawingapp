@@ -139,7 +139,7 @@ class ViewController: UIViewController {
                 specifiedRectangle.move(to: convertedNewPoint)
                 movingTemporaryView.removeFromSuperview()
                 self.movingTemporaryView = nil
-            @unknown default:
+            default:
                 return
         }
     }
