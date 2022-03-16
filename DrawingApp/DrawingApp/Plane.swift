@@ -1,9 +1,5 @@
 import Foundation
 
-protocol RectangleAddedDelegate {
-    func made(rectangle : Rectangle)
-}
-
 protocol RectangleTouchedDelegate {
     func touched(rectangle: Rectangle)
 }
@@ -18,7 +14,6 @@ protocol RectangleAlaphaChangeDelegate {
 class Plane {
     private var rectangles: [Rectangle] = []
 
-    var addedRectangleDelegate :RectangleAddedDelegate?
     var rectangleTapDelegate : RectangleTouchedDelegate?
     var colorDelegate: RectangleColorChangeDelegate?
     var alphaDelegate: RectangleAlaphaChangeDelegate?
@@ -31,7 +26,6 @@ class Plane {
     func addRectangle() {
         let rectangle: Rectangle = Factory.createRandomRectangle()
         rectangles.append(rectangle)
-//        addedRectangleDelegate?.made(rectangle: rectangle)
         notificationCenter.post(name: .addRectangleView, object: nil, userInfo: [NotificationKey.addedRectangle : rectangle])
     }
     
@@ -39,7 +33,6 @@ class Plane {
         return rectangles[index]
     }
     
-    //MARK: Bound Gate
     private func isTouchedOnRectangle(at point: Point) -> Rectangle? {
         var optionalRectangle: Rectangle?
         for rectangle in rectangles {
