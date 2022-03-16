@@ -48,6 +48,19 @@ final class RightAttributerView: UIView {
         return value ?? .one
     }
     
+    var xValue: Double{
+        return xPositionStepper.value
+    }
+    var yValue: Double{
+        return yPositionStepper.value
+    }
+    var widthValue: Double{
+        return widthStepper.value
+    }
+    var heightValue: Double{
+        return heightStepper.value
+    }
+    
     var sliderDelegate: UIColorSliderDelegate?
     var stepperDelegate: StepperDelegate?
     
@@ -70,6 +83,7 @@ extension RightAttributerView{
         attribute()
         layout()
         addSliderTargets()
+        addStepperTargets()
     }
     
     private func attribute(){
@@ -126,16 +140,16 @@ extension RightAttributerView{
         yPositionStepper.stepValue = 1
         
         xPositionLabel.font = .systemFont(ofSize: 15)
-        xPositionLabel.text = "\(String(format: "%.0f", xPositionStepper.value))"
+        xPositionLabel.text = "\(String(format: "%.0f", xValue))"
         xPositionLabel.textAlignment = .center
         yPositionLabel.font = .systemFont(ofSize: 15)
-        yPositionLabel.text = "\(String(format: "%.0f", yPositionStepper.value))"
+        yPositionLabel.text = "\(String(format: "%.0f", yValue))"
         yPositionLabel.textAlignment = .center
         widthLabel.font = .systemFont(ofSize: 15)
-        widthLabel.text = "\(String(format: "%.0f", widthStepper.value))"
+        widthLabel.text = "\(String(format: "%.0f", widthValue))"
         widthLabel.textAlignment = .center
         heightLabel.font = .systemFont(ofSize: 15)
-        heightLabel.text = "\(String(format: "%.0f", heightStepper.value))"
+        heightLabel.text = "\(String(format: "%.0f", heightValue))"
         heightLabel.textAlignment = .center
     }
     
@@ -250,26 +264,18 @@ extension RightAttributerView{
 
 extension RightAttributerView{
     private func addStepperTargets(){
-        xPositionStepper.addTarget(self, action: #selector(changeXValue), for: .valueChanged)
-        yPositionStepper.addTarget(self, action: #selector(changeYValue), for: .valueChanged)
-        widthStepper.addTarget(self, action: #selector(changeWidthValue), for: .valueChanged)
-        heightStepper.addTarget(self, action: #selector(changeHeightValue), for: .valueChanged)
+        xPositionStepper.addTarget(self, action: #selector(changePointValue), for: .valueChanged)
+        yPositionStepper.addTarget(self, action: #selector(changePointValue), for: .valueChanged)
+        widthStepper.addTarget(self, action: #selector(changeSizeValue), for: .valueChanged)
+        heightStepper.addTarget(self, action: #selector(changeSizeValue), for: .valueChanged)
     }
     
-    @objc private func changeXValue(){
-        self.stepperDelegate?.xPositionValueDidChange()
+    @objc private func changePointValue(){
+        self.stepperDelegate?.pointValueDidChange()
     }
     
-    @objc private func changeYValue(){
-        self.stepperDelegate?.yPositionValueDidChange()
-    }
-    
-    @objc private func changeWidthValue(){
-        self.stepperDelegate?.widthValueDidChange()
-    }
-    
-    @objc private func changeHeightValue(){
-        self.stepperDelegate?.heightValueDidChange()
+    @objc private func changeSizeValue(){
+        self.stepperDelegate?.sizeValueDidChange()
     }
 }
 
@@ -277,20 +283,27 @@ extension RightAttributerView{
 // MARK: - Use case: Change Stepper value
 
 extension RightAttributerView{
-    func setViewsPositionMaxValue(maxX: Double, maxY: Double){
-        self.yPositionStepper.maximumValue = maxY
-        self.xPositionStepper.maximumValue = maxX
+    func setViewPositionMaxValue(maxX: Double, maxY: Double){
+        self.yPositionStepper.maximumValue = maxY - 120
+        self.xPositionStepper.maximumValue = maxX - 150
     }
     
     func originStepperValue(x: Double, y: Double, width: Double, height: Double){
         self.xPositionStepper.value = x
-        self.xPositionLabel.text = "\(String(format: "%.0f", xPositionStepper.value))"
+        self.xPositionLabel.text = "\(String(format: "%.0f", xValue))"
         self.yPositionStepper.value = y
-        self.yPositionLabel.text = "\(String(format: "%.0f", yPositionStepper.value))"
+        self.yPositionLabel.text = "\(String(format: "%.0f", yValue))"
         self.widthStepper.value = width
-        self.widthLabel.text = "\(String(format: "%.0f", widthStepper.value))"
+        self.widthLabel.text = "\(String(format: "%.0f", widthValue))"
         self.heightStepper.value = height
-        self.heightLabel.text = "\(String(format: "%.0f", heightStepper.value))"
+        self.heightLabel.text = "\(String(format: "%.0f", heightValue))"
+    }
+    
+    func changeStepperValue(){
+        self.xPositionLabel.text = "\(String(format: "%.0f", xValue))"
+        self.yPositionLabel.text = "\(String(format: "%.0f", yValue))"
+        self.widthLabel.text = "\(String(format: "%.0f", widthValue))"
+        self.heightLabel.text = "\(String(format: "%.0f", heightValue))"
     }
 }
 

@@ -29,7 +29,7 @@ class MainViewController: UIViewController{
         imagePicker.delegate = self
         rightAttributerView.sliderDelegate = self
         rightAttributerView.stepperDelegate = self
-        rightAttributerView.setViewsPositionMaxValue(maxX: rightAttributerView.frame.minX, maxY: rectangleButton.frame.minY)
+        rightAttributerView.setViewPositionMaxValue(maxX: rightAttributerView.frame.minX, maxY: rectangleButton.frame.minY)
         self.view.addSubview(rightAttributerView)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapGesture))
@@ -225,7 +225,7 @@ extension MainViewController {
             moveExtraView(moveDistance: moveDistance)
             gesture.setTranslation(.zero, in: self.view)
         case .ended:
-            changeViewPoint()
+            dragViewPoint()
         default:
             return
         }
@@ -254,7 +254,7 @@ extension MainViewController {
         extraView.movingExtraViewCenterPosition(view: extraView, x: moveDistance.x, y: moveDistance.y)
     }
     
-    private func changeViewPoint(){
+    private func dragViewPoint(){
         guard let extraView = panGestureExtraView, let selectValue = plane.selectedValue, let view = customUIViews[selectValue] else{
             return
         }
@@ -293,7 +293,7 @@ extension MainViewController: UIColorSliderDelegate{
         rightAttributerView.changeColorSliderValue(text: "Blue : \(String(format: "%.0f", rightAttributerView.blueValue))")
     }
     
-    func changeRectangleColor(){
+    private func changeRectangleColor(){
         guard let rectangle = plane.selectedValue as? Rectangle, let rectView = customUIViews[rectangle] else{
             return
         }
@@ -304,7 +304,7 @@ extension MainViewController: UIColorSliderDelegate{
         rectView.backgroundColor = UIColor(red: rectangle.color.redValue(), green: rectangle.color.greenValue(), blue: rectangle.color.blueValue(), alpha: rectangle.alpha.showValue())
     }
     
-    func changeRectangleAlpha(){
+    private func changeRectangleAlpha(){
         if let rectangle = plane.selectedValue as? Rectangle{
             let rectView = customUIViews[rectangle]
         
@@ -324,20 +324,33 @@ extension MainViewController: UIColorSliderDelegate{
 // MARK: - Use case: Control RigthAttributerView's Steppers
 
 extension MainViewController: StepperDelegate{
-    func xPositionValueDidChange() {
-        //
+    func pointValueDidChange() {
+        changeViewPoint()
+        rightAttributerView.changeStepperValue()
     }
     
-    func yPositionValueDidChange() {
-        //
+    func sizeValueDidChange() {
+        changeViewSize()
+        rightAttributerView.changeStepperValue()
     }
     
-    func widthValueDidChange() {
-        //
+    private func changeViewPoint(){
+        guard let rectValue = plane.selectedValue, let view = customUIViews[rectValue] else{
+            return
+        }
+        
+        let newPoint = MyPoint(x: rightAttributerView.xValue, y: rightAttributerView.yValue)
+        rectValue.changePoint(point: newPoint)
+        view.frame.origin = CGPoint(x: rectValue.point.x, y: rectValue.point.y)
     }
     
-    func heightValueDidChange() {
-        //
+    private func changeViewSize(){
+        guard let rectValue = plane.selectedValue, let view = customUIViews[rectValue] else{
+            return
+        }
+        
+        let newSize = MySize(width: rightAttributerView.widthValue, height: rightAttributerView.heightValue)
+        rectValue.changeSize(size: newSize)
+        view.frame.size = CGSize(width: rectValue.size.width, height: rectValue.size.height)
     }
-    
 }

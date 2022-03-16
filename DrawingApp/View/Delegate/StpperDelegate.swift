@@ -8,8 +8,6 @@
 import Foundation
 
 protocol StepperDelegate{
-    func xPositionValueDidChange()
-    func yPositionValueDidChange()
-    func widthValueDidChange()
-    func heightValueDidChange()
+    func pointValueDidChange()
+    func sizeValueDidChange()
 }
