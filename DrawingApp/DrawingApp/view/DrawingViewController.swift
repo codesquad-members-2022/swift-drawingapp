@@ -10,7 +10,7 @@ import os
 
 class DrawingViewController: UIViewController{
     private let logger = Logger()
-    private var plane: PlaneModelsChangeable?
+    private var plane: PlaneModelManageable?
     private lazy var rectangleAddButton = RectangleAddButton(frame: CGRect(x: view.center.x - 100, y: view.frame.maxY - 144.0, width: 100, height: 100))
     private lazy var imageAddButton = ImageAddButton(frame: CGRect(x: view.center.x, y: view.frame.maxY - 144.0, width: 100, height: 100))
     private var customViews: [AnyHashable: CustomBaseViewSetable] = [:]
@@ -30,7 +30,7 @@ class DrawingViewController: UIViewController{
         addOutputNotificationObserver()
     }
     
-    func setRectangleChangeable(plane: PlaneModelsChangeable, customViewFactory: CustomViewMakeable){
+    func setRectangleChangeable(plane: PlaneModelManageable, customViewFactory: CustomViewMakeable){
         self.plane = plane
         self.customViewFactory = customViewFactory
     }

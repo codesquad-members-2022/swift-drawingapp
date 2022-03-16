@@ -102,7 +102,7 @@ class Plane{
         }
     }
 }
-extension Plane: PlaneModelsChangeable{
+extension Plane: PlaneModelManageable{
     func deSelectTargetCustomView() {
         deselectedCustomView()
     }
