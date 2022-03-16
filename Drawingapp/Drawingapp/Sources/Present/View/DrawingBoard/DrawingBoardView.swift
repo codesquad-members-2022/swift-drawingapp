@@ -119,7 +119,7 @@ class DrawingBoardView: UIView {
     }
     
     func didUpdate(model: DrawingModel, color: Color) {
-        guard let colableView = self.drawingViews[model] as? RectangleView else {
+        guard let colableView = self.drawingViews[model] as? ColorUpdatable else {
             return
         }
         
@@ -127,7 +127,7 @@ class DrawingBoardView: UIView {
     }
     
     func didUpdate(model: DrawingModel, font: Font) {
-        guard let labelView = self.drawingViews[model] as? LabelView else {
+        guard let labelView = self.drawingViews[model] as? FontUpdatable else {
             return
         }
         labelView.update(font: font)
