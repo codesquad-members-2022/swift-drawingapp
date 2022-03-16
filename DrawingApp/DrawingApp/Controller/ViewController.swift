@@ -71,6 +71,11 @@ extension ViewController: SideInspectorViewDelegate {
         
         // 해당 직사각형도 색상 바꿔주기
     }
+    
+    func sideInspectorViewSliderValueDidChanged(_ slider: UISlider) {
+        let sliderStringValue =  String(format: "%.1f", slider.value)
+        let sliderValue = Float(sliderStringValue)! * 10
+    }
 }
 
 extension ViewController: PlaneDelegate {
@@ -80,5 +85,8 @@ extension ViewController: PlaneDelegate {
         
         // 버튼에 색상 표시
         sideInspectorView.colorButton.setTitle(rectangle.backgroundColor.getHexValue(), for: .normal)
+        
+        // 슬라이더 투명도 표시
+        sideInspectorView.alphaSlider.value = Float(rectangle.alpha.opacity)
     }
 }

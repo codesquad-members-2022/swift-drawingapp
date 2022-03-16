@@ -11,7 +11,7 @@ import UIKit
 
 /// 사각형이 그려지는 뷰
 class CanvasView: UIView {
-
+    
     private var touchPositionOfX = 0.0
     private var touchPositionOfY = 0.0
     
@@ -33,6 +33,7 @@ class CanvasView: UIView {
         // 받은 직사각형을 CanvasView에 그려주기
         let rectangleView = RectangleView(frame: CGRect(x: rectangle.point.x, y: rectangle.point.y, width: rectangle.size.width, height: rectangle.size.height))
         rectangleView.backgroundColor = UIColor(hex: rectangle.backgroundColor.getHexValue())
+        rectangleView.alpha = rectangle.alpha.opacity
         addSubview(rectangleView)
     }
     
