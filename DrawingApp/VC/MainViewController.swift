@@ -29,6 +29,7 @@ class MainViewController: UIViewController{
         imagePicker.delegate = self
         rightAttributerView.sliderDelegate = self
         rightAttributerView.stepperDelegate = self
+        rightAttributerView.setViewsPositionMaxValue(maxX: rightAttributerView.frame.minX, maxY: rectangleButton.frame.minY)
         self.view.addSubview(rightAttributerView)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapGesture))
@@ -142,6 +143,7 @@ extension MainViewController {
         }
         
         displaySliderValue(selected: value)
+        displayStepperValue(selected: value)
         touchedViewFrame(selected: value)
         plane.getSelectedValue(value: value)
     }
@@ -149,6 +151,7 @@ extension MainViewController {
     @objc private func showNonTouchedView(){
         noneTouchedViewFrame()
         noneDisplaySliderValue()
+        noneDisplayStepperValue()
     }
 }
     
@@ -171,6 +174,20 @@ extension MainViewController{
         }
     }
     
+    private func displayStepperValue(selected: RectValue){
+        rightAttributerView.originStepperValue(x: selected.point.x, y: selected.point.y, width: selected.size.width, height: selected.size.height)
+    }
+    
+    private func noneDisplaySliderValue(){
+        rightAttributerView.originSliderValue(red: 0, green: 0, blue: 0, alpha: 1)
+        rightAttributerView.rockColorSlider()
+        rightAttributerView.rockAlphaSlider()
+    }
+    
+    private func noneDisplayStepperValue(){
+        rightAttributerView.originStepperValue(x: 0, y: 0, width: 0, height: 0)
+    }
+    
     private func touchedViewFrame(selected: RectValue){
         guard let view = customUIViews[selected] else{
             return
@@ -178,12 +195,6 @@ extension MainViewController{
         
         view.layer.borderColor = UIColor.cyan.cgColor
         view.layer.borderWidth = 3
-    }
-    
-    private func noneDisplaySliderValue(){
-        rightAttributerView.originSliderValue(red: 0, green: 0, blue: 0, alpha: 1)
-        rightAttributerView.rockColorSlider()
-        rightAttributerView.rockAlphaSlider()
     }
     
     private func noneTouchedViewFrame(){
@@ -314,19 +325,19 @@ extension MainViewController: UIColorSliderDelegate{
 
 extension MainViewController: StepperDelegate{
     func xPositionValueDidChange() {
-        <#code#>
+        //
     }
     
     func yPositionValueDidChange() {
-        <#code#>
+        //
     }
     
     func widthValueDidChange() {
-        <#code#>
+        //
     }
     
     func heightValueDidChange() {
-        <#code#>
+        //
     }
     
 }
