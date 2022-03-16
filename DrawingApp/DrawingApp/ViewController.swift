@@ -40,14 +40,17 @@ class ViewController: UIViewController {
         var touchedViewBlue: CGFloat = 0
         var touchedViewAlpha: CGFloat = 0
         touchedView?.backgroundColor?.getRed(&touchedViewRed, green: &touchedViewGreen, blue: &touchedViewBlue, alpha: &touchedViewAlpha)
-        
+        touchedViewRed = CGFloat(Int(round(touchedViewRed * 255)))
+        touchedViewGreen = CGFloat(Int(round(touchedViewGreen * 255)))
+        touchedViewBlue = CGFloat(Int(round(touchedViewBlue * 255)))
+        touchedViewAlpha = CGFloat(Int(round(touchedViewAlpha * 10)))
         let isRectangleAtPoint = plane.isThereARectangle(point: touchedPoint)
         if isRectangleAtPoint, selectedView == nil {
             selectedView = touchedView
             touchedView?.layer.borderWidth = 5
             touchedView?.layer.borderColor = UIColor.blue.cgColor
             redValue.text = "R : \(touchedViewRed)"
-            greenValue.text = "G : \(touchedViewGreen)"
+            greenValue.text = "G : \(touchedViewGreen))"
             blueValue.text = "B : \(touchedViewBlue)"
             alphaValue.text = "A : \(touchedViewAlpha)"
         }
@@ -65,6 +68,8 @@ class ViewController: UIViewController {
             selectedView?.layer.borderWidth = 0
             selectedView = nil
             redValue.text = "-"
+            greenValue.text = "-"
+            blueValue.text = "-"
             alphaValue.text = "-"
         }
     }
