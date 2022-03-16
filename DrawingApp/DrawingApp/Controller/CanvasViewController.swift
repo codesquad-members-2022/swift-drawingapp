@@ -97,9 +97,7 @@ extension CanvasViewController {
     }
 }
 
-
-
-// MARK: - Use Case: Add New Rectangle
+// MARK: - Use Case: Touch Rectangle button (Input) & Add New Rectangle (Output)
 
 extension CanvasViewController {
     
@@ -129,7 +127,7 @@ extension CanvasViewController {
     }
 }
 
-// MARK: - Use Case: Add New Photo
+// MARK: - Use Case: Touch Photo button (Input) & Add New Photo (Output)
 
 extension CanvasViewController {
     
@@ -233,7 +231,6 @@ extension CanvasViewController {
         let mutatedUIView = search(for: selected)
         mutatedUIView?.alpha = CGFloat(with: newAlpha)
     }
-    
 }
 
 // MARK: - Use Case: Touch origin stepper (Input) & Change origin (Output)
@@ -345,7 +342,7 @@ extension CanvasViewController {
     }
 }
 
-// MARK: - Use Case: Reorder Layers via tableView cell
+// MARK: - Use Case: Reorder Layers via tableView cell (Input) & Reorder LayerViews in view hierachy (Ouput)
 
 extension CanvasViewController {
     
@@ -371,7 +368,7 @@ extension CanvasViewController {
     }
 }
 
-// MARK: - Use Case: Select Layer via tableView cell
+// MARK: - Use Case: Select Layer via tableView cell (Input)
 
 extension CanvasViewController {
     
