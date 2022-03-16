@@ -9,7 +9,8 @@ import UIKit
 
 protocol RectangleViewable: NSCopying {
     var alpha: CGFloat {get}
-    var layer: CALayer {get}
+    func hideBoundary()
+    func showBoundary()
     func changeBackgroundColor(to newColor: UIColor)
     func changeAlphaValue(to newAlphaValue: CGFloat)
     func move(distance: CGPoint)
@@ -34,6 +35,15 @@ class RectangleView: UIView, RectangleViewable {
         super.init(frame: frame)
         self.backgroundColor = backgroundColor
         self.alpha = alpha
+    }
+    
+    func hideBoundary() {
+        self.layer.borderWidth = 0
+    }
+    
+    func showBoundary() {
+        self.layer.borderWidth = 3
+        self.layer.borderColor = UIColor.black.cgColor
     }
     
     func changeBackgroundColor(to newColor: UIColor) {

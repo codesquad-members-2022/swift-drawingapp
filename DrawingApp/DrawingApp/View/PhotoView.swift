@@ -27,6 +27,15 @@ class PhotoView: UIImageView, RectangleViewable {
         self.image = UIImage()
     }
     
+    func hideBoundary() {
+        self.layer.borderWidth = 0
+    }
+    
+    func showBoundary() {
+        self.layer.borderWidth = 3
+        self.layer.borderColor = UIColor.black.cgColor
+    }
+    
     func changeBackgroundColor(to newColor: UIColor) {
         self.backgroundColor = newColor
     }
