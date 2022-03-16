@@ -31,7 +31,6 @@ class Plane {
     func addRectangle() {
         let rectangle: Rectangle = Factory.createRandomRectangle()
         rectangles.append(rectangle)
-        
         addedRectangleDelegate?.made(rectangle: rectangle)
     }
     

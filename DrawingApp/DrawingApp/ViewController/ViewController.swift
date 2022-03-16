@@ -40,8 +40,10 @@ class ViewController: UIViewController {
         self.plane.addRectangle()
     }
     
-    private func declareDelegates() {
-        plane.addedRectangleDelegate = self
+    private func activateNotificationObserver() {
+        notificationCenter.addObserver(self, selector: #selector(made(notification: )), name: .addRectangleView, object: self.plane)
+        
+//        plane.addedRectangleDelegate = self
         plane.rectangleTapDelegate = self
         plane.colorDelegate = self
         plane.alphaDelegate = self
@@ -58,7 +60,8 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        declareDelegates()
+
+        activateNotificationObserver()
         initDetailView()
         touchBackgroundView()
     }
@@ -77,12 +80,12 @@ extension ViewController: UIGestureRecognizerDelegate {
         }
 }
 
-extension ViewController: RectangleAddedDelegate {
-    func made(rectangle: Rectangle) {
-        let rectView = UIView(frame: CGRect(x: rectangle.point.x, y: rectangle.point.y, width: rectangle.size.width, height: rectangle.size.height))
-        rectView.backgroundColor = UIColor(red: CGFloat(rectangle.color.R)/255.0, green: CGFloat(rectangle.color.G)/255.0, blue: CGFloat(rectangle.color.B)/255.0, alpha: CGFloat(rectangle.alpha.rawValue)/10.0)
-        self.rectangleAndViewContainer[rectangle] = rectView
-        self.view.addSubview(rectView)
+extension ViewController {
+    @objc func made(notification : Notification) {
+//        let rectView = UIView(frame: CGRect(x: rectangle.point.x, y: rectangle.point.y, width: rectangle.size.width, height: rectangle.size.height))
+//        rectView.backgroundColor = UIColor(red: CGFloat(rectangle.color.R)/255.0, green: CGFloat(rectangle.color.G)/255.0, blue: CGFloat(rectangle.color.B)/255.0, alpha: CGFloat(rectangle.alpha.rawValue)/10.0)
+//        self.rectangleAndViewContainer[rectangle] = rectView
+//        self.view.addSubview(rectView)
     }
 }
 
