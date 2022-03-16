@@ -7,6 +7,11 @@
 
 import Foundation
 
+protocol Colorable: Drawingable {
+    var color: Color { get }
+    func update(color: Color)
+}
+
 class RectangleModel: DrawingModel, Colorable, Viewable {    
     public private(set) var color: Color
     
