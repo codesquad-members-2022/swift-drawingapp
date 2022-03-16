@@ -157,12 +157,11 @@ extension MainViewController:UIGestureRecognizerDelegate {
     //addRectagnleView
     @objc func addRectangleView(_ notification:Notification) {
         guard let newRectangle = notification.userInfo?[Plane.UserInfoKey.addedRectangle] as? PlaneRectangle else { return }
-        
-        let rectangleView = PlaneRectangleView(rect: newRectangle, rgb: newRectangle.rgb, alpha: newRectangle.alpha)
-        view.addSubview(rectangleView)
+        guard let rectangleView = RectanlgeViewFactory.makeRectangleView(sourceRectangle: newRectangle) as? PlaneRectangleView else { return }
         
         self.retangleViews[newRectangle] = rectangleView
         
+        view.addSubview(rectangleView)
         self.view.bringSubviewToFront(rectangleButton)
         self.view.bringSubviewToFront(detailView)
     }
@@ -179,10 +178,10 @@ extension MainViewController:UIGestureRecognizerDelegate {
         seletedRectangleView?.layer.borderWidth = 2.0
         seletedRectangleView?.layer.borderColor = UIColor.blue.cgColor
         
-        self.detailView.alphaLabel.text = "\(seletedRectangle.alpha.value)"
-        self.detailView.alphaSlider.value = seletedRectangle.alpha.value
+        self.detailView.alphaLabel.text = "\(seletedRectangle.alpha?.value ?? 0.0)"
+        self.detailView.alphaSlider.value = seletedRectangle.alpha?.value ?? 0.0
         
-        self.detailView.backgroundColorButton.setTitle("\(seletedRectangle.rgb.hexValue)", for: .normal)
+        self.detailView.backgroundColorButton.setTitle("\(seletedRectangle.rgb?.hexValue ?? "")", for: .normal)
     }
 }
 
