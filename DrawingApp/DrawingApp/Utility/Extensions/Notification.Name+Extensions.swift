@@ -17,7 +17,6 @@ extension Notification.Name {
     static let RectangleModelDidUpdated = Notification.Name("RectangleModelDidUpdated")
     
     static let ImageRectangleModelDidCreated = Notification.Name("ImageRectangleModelDidCreated")
-    static let ImageRectangleModelDidUpdated = Notification.Name("ImageRectangleModelDidUpdated")
     
     static let PlaneDidSelectItem = Notification.Name("PlaneDidSelectItem")
     static let PlaneDidUnselectItem = Notification.Name("PlaneDidUnselectItem")

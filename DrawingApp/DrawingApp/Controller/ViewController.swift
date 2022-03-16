@@ -41,7 +41,7 @@ class ViewController: UIViewController {
             guard let rectangle = notification.object as? Rectangle else { return }
             self.createRectangleView(ofClass: ImageRectangleView.self, with: rectangle)
         })
-        NotificationCenter.default.addObserver(forName: .ImageRectangleModelDidUpdated, object: nil, queue: .main, using: self.rectangleDataDidChanged)
+        NotificationCenter.default.addObserver(forName: .RectangleModelDidUpdated, object: nil, queue: .main, using: self.rectangleDataDidChanged)
         
         NotificationCenter.default.addObserver(forName: .PlaneDidSelectItem, object: self.plane, queue: .main, using: self.planeDidSelectItem)
         NotificationCenter.default.addObserver(forName: .PlaneDidUnselectItem, object: self.plane, queue: .main, using: self.planeDidUnselectItem)
