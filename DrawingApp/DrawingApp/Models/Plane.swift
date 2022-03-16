@@ -31,11 +31,11 @@ final class Plane: MainSceneTapDelegate {
     private var selectedIndex: Int?
     
     // MARK: - Initialize Plane & sceneRect
-    private var sceneRect: RectangleRect!
+    private var sceneRect: ScreenSceneRect!
     init(sceneWidth: Double, sceneHeight: Double) {
         let rectSize = (width: RectangleDefaultSize.width.rawValue, height: RectangleDefaultSize.height.rawValue)
         
-        sceneRect = RectangleRect(
+        sceneRect = ScreenSceneRect(
             maxX: (sceneWidth - rectSize.width),
             maxY: (sceneHeight - rectSize.height),
             width: rectSize.width,
@@ -47,7 +47,7 @@ final class Plane: MainSceneTapDelegate {
     func addRectangle(with backgroundImageData: Data) {
         guard let rectangleModel = factory.makeRandomRectangleModel(
             as: "Subview #\(rectangleModels.count)",
-            rect: sceneRect,
+            in: sceneRect,
             imageData: backgroundImageData
         ) else {
             return
@@ -59,7 +59,7 @@ final class Plane: MainSceneTapDelegate {
     func addRectangle() {
         guard let rectangleModel = factory.makeRandomRectangleModel(
             as: "Subview #\(rectangleModels.count)",
-            rect: sceneRect
+            in: sceneRect
         ) else {
             return
         }

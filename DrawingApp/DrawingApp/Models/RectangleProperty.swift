@@ -21,11 +21,11 @@ final class RectangleProperty: RectanglePropertyCreator {
     
     private(set) var backgroundImageData: Data?
     
-    init(as name: String, using id: String, from properties: RectangleRect, color rgbValue: RectRGBColor, alpha: Double, backgroundImageData: Data?) {
+    init(as name: String, using id: String, from screenRect: ScreenSceneRect, color rgbValue: RectRGBColor, alpha: Double, backgroundImageData: Data?) {
         self.name = name
         self.id = id
-        self.point = RectOrigin(x: properties.maxX, y: properties.maxY)
-        self.size = RectSize(width: properties.width, height: properties.height)
+        self.point = RectOrigin(x: screenRect.maxX, y: screenRect.maxY)
+        self.size = RectSize(width: screenRect.width, height: screenRect.height)
         self.rgbValue = rgbValue
         self.alpha = alpha
         self.backgroundImageData = backgroundImageData
