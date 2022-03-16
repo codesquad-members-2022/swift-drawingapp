@@ -14,15 +14,27 @@ class ViewController: UIViewController {
     let factory = RectangleFactory()
     private var selectedRectangleView: UIView?
     var rectangleViews = [Rectangle : UIView]()
-    
-    @IBOutlet var canvasView: CanvasView!
-    @IBOutlet var controllerView: ControllerView!
+
+    var controllerView: ControllerView!
+    var canvasView: CanvasView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        controllerView = Bundle.main.loadNibNamed("ControllerView", owner: self, options: nil)?.first as! ControllerView
+        canvasView = Bundle.main.loadNibNamed("CanvasView", owner: self, options: nil)?.first as! CanvasView
+        
+        self.view.addSubview(canvasView)
+        self.view.addSubview(controllerView)
+        
+        controllerView.translatesAutoresizingMaskIntoConstraints = false
+        controllerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        controllerView.widthAnchor.constraint(equalToConstant: 197).isActive = true
+        controllerView.heightAnchor.constraint(equalToConstant: 820).isActive = true
+
         plane.delegate = self
-        canvasView.delgate = self
         controllerView.delegate = self
+        canvasView.delgate = self
     }
     
     func clear() {
