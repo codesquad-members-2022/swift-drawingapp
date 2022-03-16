@@ -11,7 +11,7 @@ protocol RectangleBuildable {
     init(x: Double, y: Double, width: Double, height: Double)
 }
 
-class Rectangle: Shapable, Hashable {
+class Rectangle: Shapable, Notifiable, Hashable {
     enum NotificationKey {
         case alpha
         case color
@@ -57,12 +57,6 @@ class Rectangle: Shapable, Hashable {
         self.alpha = alpha
     }
     
-    func contains(point: Point) -> Bool {
-        let maxX = self.origin.x + self.size.width
-        let maxY = self.origin.y + self.size.height
-        return self.origin <= point && point < Point(x: maxX, y: maxY)
-    }
-    
     func convert<T: RectangleBuildable>(using Convertor: T.Type) -> T {
         return Convertor.init(x: self.origin.x, y: self.origin.y, width: self.size.width, height: self.size.height)
     }
@@ -73,10 +67,6 @@ class Rectangle: Shapable, Hashable {
     
     func setAlpha(_ alpha: Alpha) {
         self.alpha = alpha
-    }
-    
-    func isType(of Protocol: Shapable.Type) -> Bool {
-        return type(of: self) == Protocol.self
     }
     
     func notifyDidCreated() {

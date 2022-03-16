@@ -32,12 +32,14 @@ class ViewController: UIViewController {
     
     private func setObservers() {
         NotificationCenter.default.addObserver(forName: .RectangleModelDidCreated, object: nil, queue: .main, using: { notification in
-            self.createRectangle(ofProtocol: RectangleView.self, notification: notification)
+            guard let rectangle = notification.object as? Rectangle else { return }
+            self.createRectangleView(ofClass: RectangleView.self, with: rectangle)
         })
         NotificationCenter.default.addObserver(forName: .RectangleModelDidUpdated, object: nil, queue: .main, using: self.rectangleDataDidChanged)
         
         NotificationCenter.default.addObserver(forName: .ImageRectangleModelDidCreated, object: nil, queue: .main, using: { notification in
-            self.createRectangle(ofProtocol: ImageRectangleView.self, notification: notification)
+            guard let rectangle = notification.object as? Rectangle else { return }
+            self.createRectangleView(ofClass: ImageRectangleView.self, with: rectangle)
         })
         NotificationCenter.default.addObserver(forName: .ImageRectangleModelDidUpdated, object: nil, queue: .main, using: self.rectangleDataDidChanged)
         
@@ -106,10 +108,9 @@ extension ViewController {
 
 // MARK: - Rectangle Model To ViewController
 extension ViewController {
-    private func createRectangle(ofProtocol Protocol: RectangleShapable.Type, notification: Notification) {
-        guard let rectangle = notification.object as? Rectangle else { return }
-
-        guard let rectangleView = RectangleViewFactory.makeView(ofProtocol: Protocol, with: rectangle) else { return }
+    private func createRectangleView(ofClass Class: RectangleShapable.Type, with rectangle: Rectangle) {
+        guard let rectangleView = RectangleViewFactory.makeView(ofClass: Class, with: rectangle) else { return }
+        
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleOnTapRectangleView))
         
         rectangleView.addGestureRecognizer(tap)
@@ -121,7 +122,7 @@ extension ViewController {
     }
     
     private func rectangleDataDidChanged(_ notification: Notification) {
-        guard let rectangle = self.plane.currentItem else { return }
+        guard let rectangle = self.plane.currentItem as? Rectangle else { return }
         guard let rectangleView = self.rectangleMap[rectangle] else { return }
         
         if let alpha = notification.userInfo?[Rectangle.NotificationKey.alpha] as? Alpha {
@@ -141,9 +142,9 @@ extension ViewController {
         guard let rectangle = notification.userInfo?[Plane.NotificationKey.select] as? Rectangle else { return }
         guard let rectangleView = self.rectangleMap[rectangle] else { return }
         
-        let hexString = UIColor(with: rectangle.backgroundColor).toHexString()
-        
         rectangleView.setBorder(width: 2, color: .blue)
+        
+        let hexString = UIColor(with: rectangle.backgroundColor).toHexString()
         
         self.controlPanelView.setColorButtonControllable(enable: rectangle.isType(of: Rectangle.self))
         self.controlPanelView.setAlphaSliderControllable(enable: true)
@@ -156,6 +157,7 @@ extension ViewController {
         guard let rectangleView = self.rectangleMap[rectangle] else { return }
         
         rectangleView.removeBorder()
+        
         self.controlPanelView.reset()
     }
 }
