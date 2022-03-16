@@ -34,8 +34,8 @@ class DrawingViewController: UIViewController{
     }
     
     private func addInputNotificationObserver(){
-        notificationCenter.addObserver(self, selector: #selector(addRectangleView), name: Plane.Notification.Event.addedRectangle, object: plane)
-        notificationCenter.addObserver(self, selector: #selector(addPhotoView), name: Plane.Notification.Event.addedPhoto, object: plane)
+        notificationCenter.addObserver(self, selector: #selector(addRectangleViewToSubView), name: Plane.Notification.Event.addedRectangle, object: plane)
+        notificationCenter.addObserver(self, selector: #selector(addPhotoViewToSubView), name: Plane.Notification.Event.addedPhoto, object: plane)
         notificationCenter.addObserver(self, selector: #selector(getImageFromDevice), name: PhotoPickerDelegate.Notification.Event.getPhotoFromDevice, object: photoPickerDelegate)
         notificationCenter.addObserver(self, selector: #selector(propertyAction), name: PropertySetViewController.Notification.Event.propertyAction, object: nil)
     }
@@ -81,7 +81,7 @@ class DrawingViewController: UIViewController{
         plane?.addRandomPhotoViewModel(imageData: imageData)
     }
     
-    @objc private func addRectangleView(_ notification: Foundation.Notification){
+    @objc private func addRectangleViewToSubView(_ notification: Foundation.Notification){
         guard let rectangle = notification.userInfo?[Plane.Notification.Key.rectangle] as? Rectangle else {
             return
         }
@@ -96,7 +96,7 @@ class DrawingViewController: UIViewController{
         view.addSubview(rectangleView)
     }
     
-    @objc private func addPhotoView(_ notification: Foundation.Notification){
+    @objc private func addPhotoViewToSubView(_ notification: Foundation.Notification){
         guard let photo = notification.userInfo?[Plane.Notification.Key.photo] as? Photo else {
             return
         }
