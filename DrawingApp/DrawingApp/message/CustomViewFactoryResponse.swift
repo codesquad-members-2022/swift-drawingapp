@@ -8,6 +8,6 @@
 import Foundation
 
 protocol CustomViewFactoryResponse{
-    func randomRectangle() -> RectangleViewModelMutable
-    func randomPhoto(imageData: Data) -> PhotoViewModelMutable
+    func randomRectangleViewModel() -> RectangleViewModelMutable
+    func randomPhotoViewModel(imageData: Data) -> PhotoViewModelMutable
 }
