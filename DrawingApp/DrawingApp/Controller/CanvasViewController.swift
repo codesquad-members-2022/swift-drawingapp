@@ -17,36 +17,39 @@ class CanvasViewController: UIViewController,
     private let photoPicker = UIImagePickerController()
     private var temporaryView: UIView?
     
-    enum Event {
-        static let isDragging = Notification.Name("drag")
-    }
-    
-    enum InfoKey {
-        static let origin = "origin"
-    }
+    var didMoveTemporaryView: ((UIView) -> ())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        observePlane()
-        observePanel()
+        observePlaneNotification()
         
         setUpInitialModels()
         setUpTapRecognizer()
         
         photoPicker.delegate = self
+        
+        // Make other VC notify of User Interaction
+        setClosureToPanelVC()
         setClosureToLayerTableVC()
     }
     
     private func setClosureToLayerTableVC() {
         guard let layerTableVC = splitViewController?.viewController(for: .supplementary) as? LayerTableViewController else { return }
         
-        layerTableVC.didSelectRowHandler = { selected in
-            self.plane.select(layer: selected)
+        setDidSelectRowHandler(to: layerTableVC)
+        setDidMoveRowHandler(to: layerTableVC)
+    }
+    
+    private func setClosureToPanelVC() {
+        guard let panelVC = splitViewController?.viewController(for: .primary) as? PanelViewController else {
+            return
         }
         
-        layerTableVC.didMoveRowHandler = { fromIndex, toIndex in
-            self.plane.reorderLayer(from: fromIndex, to: toIndex)
-        }
+        setDidTouchColorButtonHandler(to: panelVC)
+        setDidTouchSizeStepperHandler(to: panelVC)
+        setDidTouchOriginStepperHandler(to: panelVC)
+        setDidChangeSliderHandler(to: panelVC)
+        setDidEditTextFieldHandler(to: panelVC)
     }
 }
 
@@ -55,7 +58,7 @@ class CanvasViewController: UIViewController,
 
 extension CanvasViewController {
     
-    private func observePlane() {
+    private func observePlaneNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(didAddLayer(_:)), name: Plane.Event.didAddLayer, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(didSelectLayer(_:)), name: Plane.Event.didSelectLayer, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeColor(_:)), name: Plane.Event.didChangeColor, object: plane)
@@ -65,14 +68,6 @@ extension CanvasViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeText(_:)), name: Plane.Event.didChangeText, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(didReorderLayer(_:)), name: Plane.Event.didReorderLayer, object: nil)
         
-    }
-    
-    private func observePanel() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didChangeSlider(_:)), name: PanelViewController.Event.didChangeSlider, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didTouchColorButton(_:)), name: PanelViewController.Event.didTouchColorButton, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didTouchOriginStepper(_:)), name: PanelViewController.Event.didTouchOriginStepper, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didTouchSizeStepper(_:)), name: PanelViewController.Event.didTouchSizeStepper, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didEditTextField(_:)), name: PanelViewController.Event.didEditTextField, object: nil)
     }
     
     private func setUpRecognizer() {
@@ -195,8 +190,10 @@ extension CanvasViewController {
 
 extension CanvasViewController {
     
-    @objc func didTouchColorButton(_ notification: Notification) {
-        plane.changeSelected()
+    func setDidTouchColorButtonHandler(to panelVC: PanelViewController) {
+        panelVC.didTouchColorButtonHandler = { color in
+            self.plane.changeSelected(toColor: color)
+        }
     }
     
     @objc func didChangeColor(_ notification: Notification) {
@@ -211,11 +208,10 @@ extension CanvasViewController {
 
 extension CanvasViewController {
     
-    @objc func didChangeSlider(_ notification: Notification) {
-        guard let value = notification.userInfo?[PanelViewController.InfoKey.value] as? Float else { return }
-        
-        if let alpha = Alpha(value) {
-            plane.changeSelected(toAlpha: alpha)
+    func setDidChangeSliderHandler(to panelVC: PanelViewController) {
+        panelVC.didChangeSliderHandler = { value in
+            guard let alpha = Alpha(value) else { return }
+            self.plane.changeSelected(toAlpha: alpha)
         }
     }
     
@@ -231,10 +227,11 @@ extension CanvasViewController {
 // MARK: - Use Case: Touch origin stepper (Input) & Change origin (Output)
 
 extension CanvasViewController {
-
-    @objc func didTouchOriginStepper(_ notification: Notification) {
-        guard let origin = notification.userInfo?[PanelViewController.InfoKey.origin] as? Point else { return }
-        plane.changeSelected(toOrigin: origin)
+    
+    func setDidTouchOriginStepperHandler(to panelVC: PanelViewController) {
+        panelVC.didTouchOriginStepperHandler = { origin in
+            self.plane.changeSelected(toOrigin: origin)
+        }
     }
     
     @objc func didChangeOrigin(_ notification: Notification) {
@@ -247,11 +244,11 @@ extension CanvasViewController {
 // MARK: - Use Case: Touch size stepper slider (Input) & Change size (Output)
 
 extension CanvasViewController {
-
     
-    @objc func didTouchSizeStepper(_ notification: Notification) {
-        guard let size = notification.userInfo?[PanelViewController.InfoKey.size] as? Size else { return }
-        plane.changeSelected(toSize: size)
+    func setDidTouchSizeStepperHandler(to panelVC: PanelViewController) {
+        panelVC.didTouchSizeStepperHandler = { size in
+            self.plane.changeSelected(toSize: size)
+        }
     }
     
     @objc func didChangeSize(_ notification: Notification) {
@@ -264,11 +261,11 @@ extension CanvasViewController {
 // MARK: - Use Case: Edit textfield (Input) & Change text (Output)
 
 extension CanvasViewController {
-
     
-    @objc func didEditTextField(_ notification: Notification) {
-        guard let text = notification.userInfo?[PanelViewController.InfoKey.text] as? String else { return }
-        plane.changeSelected(toText: text)
+    func setDidEditTextFieldHandler(to panelVC: PanelViewController) {
+        panelVC.didEditTextFieldHandler = { text in
+            self.plane.changeSelected(toText: text)
+        }
     }
     
     @objc func didChangeText(_ notification: Notification) {
@@ -315,15 +312,9 @@ extension CanvasViewController {
             y: temporaryView.center.y + translation.y
         )
         gesture.setTranslation(.zero, in: view)
-        
-        displayTemporaryOrigin(temporaryView)
+        didMoveTemporaryView?(temporaryView)
     }
-    
-    private func displayTemporaryOrigin(_ temporaryView: UIView) {
-        let temporaryOrigin = Point(x: temporaryView.frame.origin.x, y: temporaryView.frame.origin.y)
-        NotificationCenter.default.post(name: CanvasViewController.Event.isDragging, object: self, userInfo: [CanvasViewController.InfoKey.origin: temporaryOrigin])
-    }
-    
+
     private func endPan(_ gesture: UIPanGestureRecognizer) {
         guard let gestureView = gesture.view,
               let gestureLayer = viewMap[gestureView],
@@ -342,9 +333,15 @@ extension CanvasViewController {
     }
 }
 
-// MARK: - Use Case: Reorder Layers
+// MARK: - Use Case: Reorder Layers via tableView cell
 
 extension CanvasViewController {
+    
+    func setDidMoveRowHandler(to layerTableVC: LayerTableViewController ) {
+        layerTableVC.didMoveRowHandler = { fromIndex, toIndex in
+            self.plane.reorderLayer(from: fromIndex, to: toIndex)
+        }
+    }
     
     @objc func didReorderLayer(_ notification: Notification) {
         guard let reorderedLayers = notification.userInfo?[Plane.InfoKey.changed] as? [Layer] else { return }
@@ -356,6 +353,17 @@ extension CanvasViewController {
         for layer in reorderedLayers {
             guard let layerView = layerMap[layer] else { return }
             view.addSubview(layerView)
+        }
+    }
+}
+
+// MARK: - Use Case: Select Layer via tableView cell
+
+extension CanvasViewController {
+    
+    @objc func setDidSelectRowHandler(to layerTableVC: LayerTableViewController) {
+        layerTableVC.didSelectRowHandler = { selected in
+            self.plane.select(layer: selected)
         }
     }
 }
