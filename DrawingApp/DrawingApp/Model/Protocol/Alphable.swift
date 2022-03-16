@@ -15,3 +15,9 @@ protocol Alphable {
     func upAlphaLevel()
     func downAlphaLevel()
 }
+
+extension Alphable {
+    var alphaValue: Float {
+        return alpha.value
+    }
+}
