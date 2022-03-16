@@ -19,8 +19,13 @@ class RectangleView: DrawingView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
-    
-    func update(color: Color) {
+}
+
+extension RectangleView: ColorUpdatable {
+    func update(color: Color?) {
+        guard let color = color else {
+            return
+        }
         canvasView.backgroundColor = UIColor(red: CGFloat(color.r) / 255, green: CGFloat(color.g) / 255, blue: CGFloat(color.b / 255), alpha: 1)
     }
 }

@@ -7,8 +7,7 @@
 
 import Foundation
 
-protocol Labelable: Drawingable {
+protocol Labelable: Drawingable, FontUpdatable {
     var font: Font { get }
     var text: String { get }
-    func update(fontName: String)
 }

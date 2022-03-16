@@ -38,14 +38,32 @@ class LabelView: DrawingView {
         self.labelView.leftAnchor.constraint(equalTo: self.leftAnchor).isActive = true
         self.labelView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
     }
-    
+}
+
+extension LabelView: TextUpdatable {
     func update(text: String) {
         self.labelView.text = text
         self.labelView.sizeToFit()
     }
+}
+
+extension LabelView: FontUpdatable {
+    func update(fontSize: Double) {
+        guard let uiFont = UIFont(name: self.labelView.font.fontName, size: fontSize) else {
+                  return
+              }
+        self.labelView.font = uiFont
+    }
     
     func update(font: Font) {
         guard let uiFont = UIFont(name: font.name, size: font.size) else {
+                  return
+              }
+        self.labelView.font = uiFont
+    }
+    
+    func update(fontName: String) {
+        guard let uiFont = UIFont(name: fontName, size: self.labelView.font.pointSize) else {
                   return
               }
         self.labelView.font = uiFont
