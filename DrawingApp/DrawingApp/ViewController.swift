@@ -128,15 +128,13 @@ class ViewController: UIViewController {
                 sender.setTranslation(.zero, in: drawableAreaView)
             case .ended:
                 guard let movingTemporaryView = self.movingTemporaryView as? UIView,
-                      let selectedView = self.selectedView,
-                      let specifiedRectangle = plane.specifiedRectangle else {
+                      let selectedView = self.selectedView else {
                     return
                 }
                 
-                selectedView.move(to: movingTemporaryView.center)
                 let convertedNewPoint = Point(x: movingTemporaryView.frame.origin.x,
                                            y:movingTemporaryView.frame.origin.y)
-                specifiedRectangle.move(to: convertedNewPoint)
+                self.plane.changePointOfSpecifiedRectangle(to: convertedNewPoint)
                 movingTemporaryView.removeFromSuperview()
                 self.movingTemporaryView = nil
             default:
@@ -204,6 +202,7 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidChangeRectangleBackgroundColor(_:)), name: Plane.NotificationNames.didChangeRectangleBackgroundColor, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidChangeRectangleAlpha(_:)), name: Plane.NotificationNames.didChangeRectangleAlpha, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidAddPhoto(_:)), name: Plane.NotificationNames.didAddPhoto, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(planeDidChangeRectanglePoint), name: Plane.NotificationNames.didChangeRectanglePoint, object: plane)
     }
 }
 
@@ -263,6 +262,18 @@ extension ViewController {
         let newAlphaValue = alphaChangedRectangle.alpha.value
         matchedView.changeAlphaValue(to: CGFloat(newAlphaValue))
         updateStatusViewElement(with: newAlphaValue)
+    }
+    
+    @objc func planeDidChangeRectanglePoint(_ notification: Notification) {
+        guard let movedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? AnyRectangularable,
+              let matchedView = rectangleAndViewMap[movedRectangle] else {
+                  return
+              }
+        
+        let newPoint = movedRectangle.point
+        let convertedNewPoint = CGPoint(x: newPoint.x, y: newPoint.y)
+        
+        matchedView.move(to: convertedNewPoint)
     }
     
     private func updateSelectedView(_ selectedView: RectangleViewable) {

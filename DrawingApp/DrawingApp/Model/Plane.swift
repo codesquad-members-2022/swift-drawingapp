@@ -14,6 +14,7 @@ class Plane {
         static let didSpecifyRectangle = Notification.Name("PlaneDidSpecifyRectangle")
         static let didChangeRectangleBackgroundColor = Notification.Name("PlaneDidChangeRectangleBackgroundColor")
         static let didChangeRectangleAlpha = Notification.Name("PlaneDidChangeRectangleAlpha")
+        static let didChangeRectanglePoint = Notification.Name("PlaneDidChangeRectanglePoint")
     }
     
     struct UserInfoKeys {
@@ -24,7 +25,7 @@ class Plane {
     }
     
     private var rectangles = [AnyRectangularable]()
-    private(set) var specifiedRectangle: AnyRectangularable?
+    private var specifiedRectangle: AnyRectangularable?
     var count: Int {
         return rectangles.count
     }
@@ -75,6 +76,16 @@ class Plane {
         }
         specifiedRectangle.changeAlphaValue(to: newAlpha)
         NotificationCenter.default.post(name: Plane.NotificationNames.didChangeRectangleAlpha, object: self, userInfo: [Plane.UserInfoKeys.changedRectangle: specifiedRectangle])
+        return .success(specifiedRectangle)
+    }
+    
+    public func changePointOfSpecifiedRectangle(to newPoint: Point) -> Result<AnyRectangularable, PlaneError> {
+        guard let specifiedRectangle = self.specifiedRectangle else {
+            return .failure(.noSpecifiedRectangleToChangeError)
+        }
+        specifiedRectangle.move(to: newPoint)
+        NotificationCenter.default.post(name: Plane.NotificationNames.didChangeRectanglePoint, object: self, userInfo: [Plane.UserInfoKeys.changedRectangle: specifiedRectangle])
+        
         return .success(specifiedRectangle)
     }
     
