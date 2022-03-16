@@ -18,15 +18,8 @@ class DrawingAppTests: XCTestCase {
     }
 
     func testChangeAlpha() {
-        let id = IDFactory.makeRandomID()
-        let size = Size(width: 150, height: 120)
-        let point = Point.random()
-        let rgb = RGB.random()
-        let alpha = Alpha(1.2)
-
-        let testRectangle = PlaneRectangle(id: id, origin: point, size: size, rgb: rgb, alpha: alpha)
-        sut.addRectangle(creator: RectangleFactory())
-        sut.findSeletedRectangle(x: round(testRectangle.origin.x), y: round(testRectangle.origin.y), size: size)
+        let testRectangle = sut.addRectangle(creator: RectangleFactory())
+        sut.findSeletedRectangle(x: round(testRectangle.origin.x), y: round(testRectangle.origin.y), size: testRectangle.size)
         
         let testAlpha = Alpha(2.3)
         sut.change(alpha: testAlpha)
