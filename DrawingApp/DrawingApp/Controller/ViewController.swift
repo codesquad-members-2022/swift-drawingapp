@@ -114,8 +114,11 @@ extension ViewController: PlaneDelegate {
         var color: UIColor?
         var alpha: CGFloat?
         
-        if let shape = shape as? Colorable & Alphable {
+        if let shape = shape as? Colorable {
             color = CGConverter.toUIColor(from: shape.backgroundColor)
+        }
+        
+        if let shape = shape as? Alphable {
             alpha = CGConverter.toCGFloat(from: shape.alpha)
         }
         
