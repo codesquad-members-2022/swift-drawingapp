@@ -166,7 +166,7 @@ class ViewController: UIViewController {
     
     @IBAction func backgroundButtonTouched(_ sender: UIButton) {
         let newRandomColor = BackgroundColor.random()
-        plane.changeBackgroundColor(to: newRandomColor)
+        plane.changeBackgroundColorOfSpecifiedRectangle(to: newRandomColor)
     }
     
     @IBAction func alphaSliderValueChanged(_ sender: UISlider) {
@@ -174,7 +174,7 @@ class ViewController: UIViewController {
         guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: newAlphaValue) else {return}
         let newAlpha = Alpha(opacityLevel: convertedOpacityLevel)
         
-        plane.changeAlphaValue(to: newAlpha)
+        plane.changeAlphaValueOfSpecifiedRectangle(to: newAlpha)
     }
     
     @IBAction func minusAlphaValueButtonTouched(_ sender: UIButton) {
@@ -183,7 +183,7 @@ class ViewController: UIViewController {
         let newAlphaValue = previousAlphaValue - 0.1
         let normalizedNewAlphaValue = newAlphaValue.normalized()
         guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: normalizedNewAlphaValue) else {return}
-        plane.changeAlphaValue(to: Alpha(opacityLevel: convertedOpacityLevel))
+        plane.changeAlphaValueOfSpecifiedRectangle(to: Alpha(opacityLevel: convertedOpacityLevel))
     }
     @IBAction func plusAlphaValueButtonTouched(_ sender: UIButton) {
         guard let selectedView = self.selectedView else {return}
@@ -191,7 +191,7 @@ class ViewController: UIViewController {
         let newAlphaValue = previousAlphaValue + 0.1
         let normalizedNewAlphaValue = newAlphaValue.normalized()
         guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: normalizedNewAlphaValue) else {return}
-        plane.changeAlphaValue(to: Alpha(opacityLevel: convertedOpacityLevel))
+        plane.changeAlphaValueOfSpecifiedRectangle(to: Alpha(opacityLevel: convertedOpacityLevel))
     }
     
     func setNotificationCenter() {
