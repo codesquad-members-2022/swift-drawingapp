@@ -18,6 +18,7 @@ class LayerTableViewController: UITableViewController {
     
     var didSelectRowHandler: ((Layer?) -> ())?
     var didMoveRowHandler: ((Int, Int) -> ())?
+    var didCommandMoveHandler: ((Layer, Plane.reorderCommand) -> ())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,8 +50,8 @@ extension LayerTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "StoryBoardLayerCell", for: indexPath)
         
-        cell.selectionStyle = .none
-        cell.backgroundConfiguration?.backgroundColor = .clear
+        cell.selectionStyle = .default
+        cell.backgroundConfiguration?.backgroundColor = .white
         
         var config = cell.defaultContentConfiguration()
         
@@ -129,22 +130,24 @@ extension LayerTableViewController {
     @objc func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
         guard let pressedCell = gesture.view as? UITableViewCell, let pressedIndexPath = tableView.indexPath(for: pressedCell) else { return }
         
+        let pressedLayer = layers[pressedIndexPath.row]
+        
         let alertController = UIAlertController(title: nil, message: "Arrange Layer", preferredStyle: .actionSheet)
         
         let sendToBack = UIAlertAction(title: "맨 뒤로 보내기", style: .default, handler: { (alert: UIAlertAction!) -> Void in
-            self.didMoveRowHandler?(pressedIndexPath.row, 0)
+            self.didCommandMoveHandler?(pressedLayer, .sendToBack)
         })
         
         let bringToFront = UIAlertAction(title: "맨 앞으로 가져오기", style: .default, handler: { (alert: UIAlertAction!) -> Void in
-            self.didMoveRowHandler?(pressedIndexPath.row, self.layers.count-1)
+            self.didCommandMoveHandler?(pressedLayer, .bringToFront)
         })
         
         let sendBackward = UIAlertAction(title: "뒤로 보내기", style: .default, handler: { (alert: UIAlertAction!) -> Void in
-            self.didMoveRowHandler?(pressedIndexPath.row, pressedIndexPath.row-1)
+            self.didCommandMoveHandler?(pressedLayer, .sendBackward)
         })
         
         let bringForward = UIAlertAction(title: "앞으로 가져오기", style: .default, handler: { (alert: UIAlertAction!) -> Void in
-            self.didMoveRowHandler?(pressedIndexPath.row, pressedIndexPath.row+1)
+            self.didCommandMoveHandler?(pressedLayer, .bringForward)
         })
         
         alertController.addAction(sendToBack)
@@ -163,8 +166,7 @@ extension LayerTableViewController {
     @objc func didReorderLayer(_ notification: Notification) {
         guard let from = notification.userInfo?[Plane.InfoKey.fromIndex] as? Int,
               let to = notification.userInfo?[Plane.InfoKey.toIndex] as? Int else { return }
-        
+        layers.insert(layers.remove(at: from), at: to)
         tableView.moveRow(at: IndexPath(row: from, section: 0), to: IndexPath(row: to, section: 0))
     }
-    
 }

@@ -26,6 +26,14 @@ class Plane {
         static let changed = "changed"
         static let fromIndex = "from"
         static let toIndex = "to"
+        static let reorderCommand = "reorderCommand"
+    }
+    
+    enum reorderCommand {
+        case sendToBack
+        case bringToFront
+        case sendBackward
+        case bringForward
     }
     
     private var layers: [Layer] = [] {
@@ -81,11 +89,43 @@ class Plane {
         NotificationCenter.default.post(name: Plane.Event.didSelectLayer, object: self, userInfo: [Plane.InfoKey.unselected: unselected as Any, Plane.InfoKey.selected: selected as Any])
     }
     
-    func reorderLayer(from: Int, to: Int) {
-        guard 0 <= to, to < layerCount, 0 <= from, from < layerCount else { return }
-        layers.insert(layers.remove(at: from), at: to)
+    
+    func reorderLayer(_ layer: Layer, to command: Plane.reorderCommand) {
+        var fromIndex = 0, toIndex = 0
         
-        NotificationCenter.default.post(name: Plane.Event.didReorderLayer, object: self, userInfo: [Plane.InfoKey.changed: layers, Plane.InfoKey.fromIndex: from, Plane.InfoKey.toIndex: to])
+        switch command {
+        case .bringForward:
+            guard let current = layers.firstIndex(of: layer) else { return }
+            fromIndex = current
+            toIndex = current + 1
+            
+        case .sendBackward:
+            guard let current = layers.firstIndex(of: layer) else { return }
+            fromIndex = current
+            toIndex = current - 1
+            
+        case .bringToFront:
+            guard let current = layers.firstIndex(of: layer) else { return }
+            fromIndex = current
+            toIndex = layers.count-1
+            
+        case .sendToBack:
+            guard let current = layers.firstIndex(of: layer) else { return }
+            fromIndex = current
+            toIndex = 0
+        }
+        
+        reorderLayer(fromIndex: fromIndex, toIndex: toIndex)
+    }
+    
+    func reorderLayer(fromIndex: Int, toIndex: Int) {
+        guard 0 <= toIndex, toIndex < layerCount,
+                0 <= fromIndex, fromIndex < layerCount else { return }
+        
+        let layerToMove = layers.remove(at: fromIndex)
+        layers.insert(layerToMove, at: toIndex)
+        
+        NotificationCenter.default.post(name: Plane.Event.didReorderLayer, object: self, userInfo: [Plane.InfoKey.changed: layerToMove, Plane.InfoKey.fromIndex: fromIndex, Plane.InfoKey.toIndex: toIndex])
     }
     
     func tap(on point: Point) {
