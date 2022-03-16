@@ -110,23 +110,18 @@ extension ViewController {
 extension ViewController: PlaneDelegate {
     
     func didCreateShape(_ shape: BasicShape) {
+        let frame = CGConverter.toCGRect(from: (shape.point, shape.size))
+        var color: UIColor?
+        var alpha: CGFloat?
         
-        if let shape = shape as? BasicShape & Colorable & Alphable {
-            let frame = CGConverter.toCGRect(from: (shape.point, shape.size))
-            let color = CGConverter.toUIColor(from: shape.backgroundColor)
-            let alpha = CGConverter.toCGFloat(from: shape.alpha)
-            let shapeView = ViewFactory.createRectangleView(frame: frame, backgroundColor: color, alpha: alpha)
-            
-            shapeMap[shape] = shapeView
-            presentShapeView.addSubview(shapeView)
+        if let shape = shape as? Colorable & Alphable {
+            color = CGConverter.toUIColor(from: shape.backgroundColor)
+            alpha = CGConverter.toCGFloat(from: shape.alpha)
         }
-        else {
-            let frame = CGConverter.toCGRect(from: (shape.point, shape.size))
-            let shapeView = ViewFactory.createBasicShapeView(frame: frame)
-            
-            shapeMap[shape] = shapeView
-            presentShapeView.addSubview(shapeView)
-        }
+        
+        let shapeView = ViewFactory.createView(frame: frame, backgroundColor: color, alpha: alpha)
+        shapeMap[shape] = shapeView
+        presentShapeView.addSubview(shapeView)
     }
     
     func didSelectShape(_ shape: BasicShape) {
