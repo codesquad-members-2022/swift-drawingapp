@@ -108,7 +108,19 @@ class ViewController: UIViewController {
     }
     
     @IBAction func resetRGB(_ sender: Any) {
-        
+        guard let currentView = selectedView else {
+            return
+        }
+        var randomCGRed = CGFloat(Double.random(in: 0...255) / 255)
+        var randomCGGreen = CGFloat(Double.random(in: 0...255) / 255)
+        var randomCGBlue = CGFloat(Double.random(in: 0...255) / 255)
+        selectedView?.backgroundColor = UIColor(red: randomCGRed, green: randomCGGreen, blue: randomCGBlue, alpha: currentView.alpha)
+        randomCGRed = CGFloat(Int(round(randomCGRed * 255)))
+        randomCGGreen = CGFloat(Int(round(randomCGGreen * 255)))
+        randomCGBlue = CGFloat(Int(round(randomCGBlue * 255)))
+        redValue.text = "R : \(randomCGRed)"
+        greenValue.text = "G : \(randomCGGreen)"
+        blueValue.text = "B : \(randomCGBlue)"
     }
     
     @IBAction func tapAlphaStepper(_ sender: Any) {
