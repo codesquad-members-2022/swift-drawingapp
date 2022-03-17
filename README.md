@@ -360,3 +360,17 @@ var notificationInfo = [
 ### 결과 화면
 
 <img src="DrawingApp/IMAGES/Step4_Result4.jpg" alt="Step4_Result4" width="500" />
+
+---
+
+## Step 5 - Touch And Drag
+
+### 목표
+
+* UIGestureRecognizer를 정리하고 실제 구현합니다.
+* UIGestureRecognizer 클래스가 어떻게 구체 클래스로 타입을 구체화시키는지 확인해본다.
+
+### 구현 전략
+
+* 각 이벤트에 대해 처리되는 기능을 타입으로 표현할 수 있도록 뷰를 확장해본다.
+* 뷰에서 제스쳐 이벤트 발생 -> 뷰 컨트롤러 델리게이트 콜백 -> 모델 변화 -> 모델에서 뷰 컨트롤러에 뷰 변화 요청 -> 뷰 컨트롤러에서 뷰 변화 하는 MVC의 흐름을 따라 개발을 진행한다.
