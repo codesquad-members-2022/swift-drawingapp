@@ -11,7 +11,7 @@ protocol SizeBuildable {
     init(width: Double, height: Double)
 }
 
-extension CGSize {
+extension CGSize: SizeBuildable {
     init(with size: Size) {
         self.init(width: size.width, height: size.height)
     }
