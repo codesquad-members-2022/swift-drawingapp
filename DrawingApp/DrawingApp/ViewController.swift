@@ -39,54 +39,24 @@ class ViewController: UIViewController {
         let touchedPoint = Point(x: touchedCGPoint.x, y: touchedCGPoint.y)
         let touchedView = self.view.hitTest(touchedCGPoint, with: nil)
         
-        var touchedViewRed: CGFloat = 0
-        var touchedViewGreen: CGFloat = 0
-        var touchedViewBlue: CGFloat = 0
-        var touchedViewAlpha: CGFloat = 0
-        touchedView?.backgroundColor?.getRed(&touchedViewRed, green: &touchedViewGreen, blue: &touchedViewBlue, alpha: &touchedViewAlpha)
-        touchedViewRed = round(touchedViewRed * 255)
-        touchedViewGreen = round(touchedViewGreen * 255)
-        touchedViewBlue = round(touchedViewBlue * 255)
-        touchedViewAlpha = round(touchedViewAlpha * 10)
+        guard let currentView = touchedView else {
+            return
+        }
         let isRectangleAtPoint = plane.isThereARectangle(point: touchedPoint)
         if isRectangleAtPoint, selectedView == nil { // select new Rectangle
-            selectedView = touchedView
-            touchedView?.layer.borderWidth = 5
-            touchedView?.layer.borderColor = UIColor.blue.cgColor
-            hexValue.text = convertRGBToHexColorCode(Int(touchedViewRed), Int(touchedViewGreen), Int(touchedViewBlue))
-            redValue.text = "R : \(touchedViewRed)"
-            greenValue.text = "G : \(touchedViewGreen))"
-            blueValue.text = "B : \(touchedViewBlue)"
-            alphaValue.text = "A : \(touchedViewAlpha)"
-            alphaStepper.value = touchedViewAlpha
-            rgbResetButton.isEnabled = true
-            alphaStepper.isEnabled = true
+            selectShape(currentView: currentView)
         }
         if isRectangleAtPoint, selectedView != nil { // select another Rectangle
             selectedView?.layer.borderWidth = 0
-            selectedView = touchedView
-            touchedView?.layer.borderWidth = 5
-            touchedView?.layer.borderColor = UIColor.blue.cgColor
-            hexValue.text = convertRGBToHexColorCode(Int(touchedViewRed), Int(touchedViewGreen), Int(touchedViewBlue))
-            redValue.text = "R : \(touchedViewRed)"
-            greenValue.text = "G : \(touchedViewGreen)"
-            blueValue.text = "B : \(touchedViewBlue)"
-            alphaValue.text = "A : \(touchedViewAlpha)"
-            alphaStepper.value = touchedViewAlpha
-            rgbResetButton.isEnabled = true
-            alphaStepper.isEnabled = true
+            
+            selectShape(currentView: currentView)
         }
         if !isRectangleAtPoint { // select nothing
             selectedView?.layer.borderWidth = 0
             selectedView = nil
-            hexValue.text = "-"
-            redValue.text = "-"
-            greenValue.text = "-"
-            blueValue.text = "-"
-            alphaValue.text = "-"
+            setDefaultLabel()
             alphaStepper.value = 1
-            rgbResetButton.isEnabled = false
-            alphaStepper.isEnabled = false
+            disableControlButtons()
         }
     }
     
@@ -139,6 +109,26 @@ class ViewController: UIViewController {
         alphaValue.text = "A : \(alphaStepper.value)"
     }
     
+    private func selectShape(currentView: UIView) {
+        guard let rgba = currentView.backgroundColor?.rgba else {
+            return
+        }
+        
+        let currentViewRed = round(rgba.red * 255)
+        let currentViewGreen = round(rgba.green * 255)
+        let currentViewBlue = round(rgba.blue * 255)
+        let currentViewAlpha = round(rgba.alpha * 10)
+        
+        selectedView = currentView
+        currentView.layer.borderWidth = 5
+        currentView.layer.borderColor = UIColor.blue.cgColor
+        setHexValueLabel(r: Int(currentViewRed), g: Int(currentViewGreen), b: Int(currentViewBlue))
+        setRGBValueLabel(r: Int(currentViewRed), g: Int(currentViewGreen), b: Int(currentViewBlue))
+        setAlphaValueLabel(a: Int(currentViewAlpha))
+        alphaStepper.value = currentViewAlpha
+        enableControlButtons()
+    }
+    
     private func convertRGBToHexColorCode(_ r: Int, _ g: Int, _ b: Int) -> String {
         var hexR = String(r, radix: 16).uppercased()
         var hexG = String(g, radix: 16).uppercased()
@@ -170,6 +160,45 @@ class ViewController: UIViewController {
         alphaStepper.maximumValue = 10
         alphaStepper.stepValue = 1
         alphaStepper.autorepeat = true
+    }
+    
+    private func showSelectedViewInfo() {
+        
+    }
+    
+    private func setDefaultLabel() {
+        hexValue.text = "-"
+        redValue.text = "-"
+        greenValue.text = "-"
+        blueValue.text = "-"
+        alphaValue.text = "-"
+    }
+    
+    private func setHexValueLabel(r: Int, g: Int, b: Int) {
+        hexValue.text = convertRGBToHexColorCode(Int(r), Int(g), Int(b))
+    }
+    
+    private func setRGBValueLabel(r: Int, g: Int, b: Int) {
+        redValue.text = "R : \(r)"
+        greenValue.text = "G : \(g)"
+        blueValue.text = "B : \(b)"
+        
+    }
+    
+    private func setAlphaValueLabel(a: Int) {
+        alphaValue.text = "A : \(a)"
+    }
+}
+
+extension UIColor {
+    var rgba: (red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+
+        return (red, green, blue, alpha)
     }
 }
 
