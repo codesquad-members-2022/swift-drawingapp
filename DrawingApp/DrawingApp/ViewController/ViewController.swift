@@ -20,7 +20,11 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        configureLayout()
+        configureSubscriber()
+    }
+    
+    func configureLayout() {
         controllerView = Bundle.main.loadNibNamed("ControllerView", owner: self, options: nil)?.first as? ControllerView
         canvasView = Bundle.main.loadNibNamed("CanvasView", owner: self, options: nil)?.first as? CanvasView
         
@@ -32,18 +36,15 @@ class ViewController: UIViewController {
         controllerView.widthAnchor.constraint(equalToConstant: 197).isActive = true
         controllerView.heightAnchor.constraint(equalToConstant: 820).isActive = true
 
-        
         controllerView.delegate = self
         canvasView.delgate = self
-        
-        
+    }
+    
+    func configureSubscriber() {
         NotificationCenter.default.addObserver(self, selector: #selector(rectangleDidMutate(_:)), name: .rectangleDidMutate, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(RectangleDidAdd(_:)), name: .rectangleDidAdd, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(BackgroundDidChanged(_:)), name: .backgroundDidChagned, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(alpahDidChanged(_:)), name: .alpahDidChanged, object: plane)
-        
-        
-
     }
     
     func clear() {
