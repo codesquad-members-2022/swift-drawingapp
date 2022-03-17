@@ -60,6 +60,14 @@ class CanvasView: UIView {
             value.layer.borderWidth = 0
         }
     }
+    
+    func changeRectangle(_ rectangle: Rectangle) {
+        for (key, value) in rectangles {
+            if key == rectangle {
+                value.backgroundColor = UIColor(hex: rectangle.backgroundColor.getHexValue())
+            }
+        }
+    }
 }
 
 

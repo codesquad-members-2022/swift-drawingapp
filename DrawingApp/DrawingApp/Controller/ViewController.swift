@@ -9,6 +9,7 @@ import UIKit
 
 class ViewController: UIViewController {
 
+    private var selectedRectangle: Rectangle?
     private let canvasView: CanvasView = {
         let view = CanvasView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -69,8 +70,11 @@ extension ViewController: SideInspectorViewDelegate {
         let newColorValue = rectangleFactory.createRandomColor().getHexValue()
         sender.setTitle(newColorValue, for: .normal)
         
-        // 해당 직사각형도 색상 바꿔주기
         
+        // Plane에 색상 변경 알림. 사각형이 선택되었을 때만!
+        if let rectangle = selectedRectangle {
+            plane.backgroundColorDidChanged(color: newColorValue, rectangle: rectangle)
+        }
     }
     
     func sideInspectorViewSliderValueDidChanged(_ slider: UISlider) {
@@ -92,10 +96,15 @@ extension ViewController: PlaneDelegate {
         sideInspectorView.alphaSlider.value = Float(rectangle.alpha.opacity)
     }
     
-    // 사각형 터치 시, SideInspectorView의 배경색과 투명도 나타내기
+    // 사각형 터치 시, SideInspectorView에 배경색과 투명도 나타내기
     func planeDidTouchedRectangle(_ rectangle: Rectangle) {
         sideInspectorView.colorButton.setTitle(rectangle.backgroundColor.getHexValue(), for: .normal)
         sideInspectorView.alphaSlider.value = Float(rectangle.alpha.opacity)
+    }
+    
+    // plane의 사각형 속성 바뀐 것을 뷰에 알리기
+    func planeDidChangedRectangle(_ rectangle: Rectangle) {
+        canvasView.changeRectangle(rectangle)
     }
 }
 
@@ -107,10 +116,12 @@ extension ViewController: CanvasViewDelegate {
         guard let rectangle = plane.findRectangle(on: (x, y)) else {
             // 사각형이 없는 좌표이므로, 이전에 선택된 사각형이 있을 경우도 고려해야하므로 선택 취소를 해준다.
             canvasView.initializeRectangle()
+            selectedRectangle = nil
             return
         }
         
         // 뷰에 터치된 사각형 표시
+        selectedRectangle = rectangle
         canvasView.select(rectangle: rectangle)
     }
 }

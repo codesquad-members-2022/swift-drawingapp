@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Plane {
     var delegate: PlaneDelegate?
@@ -41,5 +42,25 @@ struct Plane {
         let rangeOfX = (rectangle.point.x)...(rectangle.point.x + rectangle.size.width)
         let rangeOfY = (rectangle.point.y)...(rectangle.point.y + rectangle.size.height)
         return (rangeOfX ~= point.x && rangeOfY ~= point.y)
+    }
+    
+    func backgroundColorDidChanged(color: String, rectangle: Rectangle) {
+        for rect in rectangles.reversed() {
+            if rect == rectangle {
+                // 색상 변경
+                let colorValue = hexValueToInt(hex: color)
+                rect.backgroundColor = Color(red: colorValue.0, green: colorValue.1, blue: colorValue.2)
+                
+                delegate?.planeDidChangedRectangle(rect)
+            }
+        }
+    }
+    
+    private func hexValueToInt(hex: String) -> (Int, Int, Int) {
+        let value = Array(hex)
+        let intRed = Int("\(value[1])\(value[2])", radix: 16)!
+        let intGreen = Int("\(value[3])\(value[4])", radix: 16)!
+        let intBlue = Int("\(value[5])\(value[6])", radix: 16)!
+        return (intRed, intGreen, intBlue)
     }
 }

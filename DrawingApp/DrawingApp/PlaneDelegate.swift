@@ -13,4 +13,7 @@ protocol PlaneDelegate {
     
     /// Plane에서 사각형이 터치되었음을 알림
     func planeDidTouchedRectangle(_ rectangle: Rectangle)
+    
+    /// Plane에서 사각형 속성이 변경되었음을 알림
+    func planeDidChangedRectangle(_ rectangle: Rectangle)
 }
