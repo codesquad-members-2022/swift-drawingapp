@@ -25,14 +25,8 @@ class CustomViewModelFactory{
         return result
     }
     
-    private func randomValue(property: RandomMax) -> Int{
-        return property.randomValue
-    }
-    
     private func makeRandomPoint() -> ViewPoint{
-        let x = randomValue(property: .x)
-        let y = randomValue(property: .y) + 44
-        return ViewPoint(x: x, y: y)
+        return ViewPoint.randomPoint()
     }
     
     private func makeRandomRectangle() -> Rectangle{
@@ -41,10 +35,7 @@ class CustomViewModelFactory{
     }
     
     private func makeRandomColor() -> ColorRGB{
-        let r = randomValue(property: .rgbRange)
-        let b = randomValue(property: .rgbRange)
-        let g = randomValue(property: .rgbRange)
-        return ColorRGB(r: r, g: g, b: b)
+        return ColorRGB.randomColor()
     }
     
     private func makeRandomPhoto(imageData: Data) -> Photo{
@@ -60,14 +51,5 @@ extension CustomViewModelFactory: CustomViewFactoryResponse{
     
     func randomPhotoViewModel(imageData: Data) -> PhotoViewModelMutable{
         return makeRandomPhoto(imageData: imageData)
-    }
-}
-
-enum RandomMax: Int{
-    case x = 470
-    case y = 860
-    case rgbRange = 255
-    var randomValue: Int{
-        return Int.random(in: 1 ..< self.rawValue)
     }
 }
