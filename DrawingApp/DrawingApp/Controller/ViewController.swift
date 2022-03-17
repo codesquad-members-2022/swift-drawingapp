@@ -70,6 +70,7 @@ extension ViewController: SideInspectorViewDelegate {
         sender.setTitle(newColorValue, for: .normal)
         
         // 해당 직사각형도 색상 바꿔주기
+        
     }
     
     func sideInspectorViewSliderValueDidChanged(_ slider: UISlider) {
@@ -88,6 +89,12 @@ extension ViewController: PlaneDelegate {
         sideInspectorView.colorButton.setTitle(rectangle.backgroundColor.getHexValue(), for: .normal)
         
         // 슬라이더 투명도 표시
+        sideInspectorView.alphaSlider.value = Float(rectangle.alpha.opacity)
+    }
+    
+    // 사각형 터치 시, SideInspectorView의 배경색과 투명도 나타내기
+    func planeDidTouchedRectangle(_ rectangle: Rectangle) {
+        sideInspectorView.colorButton.setTitle(rectangle.backgroundColor.getHexValue(), for: .normal)
         sideInspectorView.alphaSlider.value = Float(rectangle.alpha.opacity)
     }
 }
