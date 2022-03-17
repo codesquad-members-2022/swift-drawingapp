@@ -67,4 +67,4 @@ backgroundColorValueView의 width, height를 설정해주지 않아서 생긴 �
 - Delegate
 - Protocol
 - layer
-- border
+- Hashable
