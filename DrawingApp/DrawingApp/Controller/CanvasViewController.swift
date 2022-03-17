@@ -201,8 +201,8 @@ extension CanvasViewController {
 extension CanvasViewController {
     
     func setDidTouchColorButtonHandler(to panelVC: PanelViewController) {
-        panelVC.didTouchColorButtonHandler = { color in
-            self.plane.changeSelected(toColor: color)
+        panelVC.didTouchColorButtonHandler = { [weak self] color in
+            self?.plane.changeSelected(toColor: color)
         }
     }
     
@@ -219,9 +219,9 @@ extension CanvasViewController {
 extension CanvasViewController {
     
     func setDidChangeSliderHandler(to panelVC: PanelViewController) {
-        panelVC.didChangeSliderHandler = { value in
+        panelVC.didChangeSliderHandler = { [weak self] value in
             guard let alpha = Alpha(value) else { return }
-            self.plane.changeSelected(toAlpha: alpha)
+            self?.plane.changeSelected(toAlpha: alpha)
         }
     }
     
@@ -238,8 +238,8 @@ extension CanvasViewController {
 extension CanvasViewController {
     
     func setDidTouchOriginStepperHandler(to panelVC: PanelViewController) {
-        panelVC.didTouchOriginStepperHandler = { origin in
-            self.plane.changeSelected(toOrigin: origin)
+        panelVC.didTouchOriginStepperHandler = { [weak self] origin in
+            self?.plane.changeSelected(toOrigin: origin)
         }
     }
     
@@ -255,8 +255,8 @@ extension CanvasViewController {
 extension CanvasViewController {
     
     func setDidTouchSizeStepperHandler(to panelVC: PanelViewController) {
-        panelVC.didTouchSizeStepperHandler = { size in
-            self.plane.changeSelected(toSize: size)
+        panelVC.didTouchSizeStepperHandler = { [weak self] size in
+            self?.plane.changeSelected(toSize: size)
         }
     }
     
@@ -272,8 +272,8 @@ extension CanvasViewController {
 extension CanvasViewController {
     
     func setDidEditTextFieldHandler(to panelVC: PanelViewController) {
-        panelVC.didEditTextFieldHandler = { text in
-            self.plane.changeSelected(toText: text)
+        panelVC.didEditTextFieldHandler = { [weak self] text in
+            self?.plane.changeSelected(toText: text)
         }
     }
     
@@ -347,14 +347,14 @@ extension CanvasViewController {
 extension CanvasViewController {
     
     func setDidCommandMoveHandler(to layerTableVC: LayerTableViewController) {
-        layerTableVC.didCommandMoveHandler = { layer, command in
-            self.plane.reorderLayer(layer, to: command)
+        layerTableVC.didCommandMoveHandler = { [weak self] layer, command in
+            self?.plane.reorderLayer(layer, to: command)
         }
     }
     
     func setDidMoveRowHandler(to layerTableVC: LayerTableViewController) {
-        layerTableVC.didMoveRowHandler = { from, to in
-            self.plane.reorderLayer(fromIndex: from, toIndex: to)
+        layerTableVC.didMoveRowHandler = { [weak self] from, to in
+            self?.plane.reorderLayer(fromIndex: from, toIndex: to)
         }
     }
     
@@ -373,8 +373,8 @@ extension CanvasViewController {
 extension CanvasViewController {
     
     @objc func setDidSelectRowHandler(to layerTableVC: LayerTableViewController) {
-        layerTableVC.didSelectRowHandler = { selected in
-            self.plane.select(layer: selected)
+        layerTableVC.didSelectRowHandler = { [weak self] selected in
+            self?.plane.select(layer: selected)
         }
     }
 }

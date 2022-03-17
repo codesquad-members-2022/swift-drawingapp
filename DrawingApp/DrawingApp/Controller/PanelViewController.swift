@@ -224,9 +224,9 @@ extension PanelViewController {
     
     private func setDidMoveTemporaryViewHandler(to canvasVC: CanvasViewController) {
         
-        canvasVC.didMoveTemporaryView = { temporaryView in
+        canvasVC.didMoveTemporaryView = { [weak self] temporaryView in
             let temporaryOrigin = Point(x: temporaryView.frame.origin.x, y: temporaryView.frame.origin.y)
-            self.displayTemporaryOrigin(temporaryOrigin)
+            self?.displayTemporaryOrigin(temporaryOrigin)
         }
     }
     
