@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0048DEDD27D73A9E00262A8E /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0048DEDC27D73A9E00262A8E /* Alpha.swift */; };
 		004E0B7C27DAF2F500B26585 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 004E0B7B27DAF2F500B26585 /* Plane.swift */; };
+		005ECCF827E373FB00EB4342 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005ECCF727E373FB00EB4342 /* UIColorExtension.swift */; };
 		00D94D8027D1B42C004F5DAC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D94D7F27D1B42C004F5DAC /* AppDelegate.swift */; };
 		00D94D8227D1B42C004F5DAC /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D94D8127D1B42C004F5DAC /* SceneDelegate.swift */; };
 		00D94D8427D1B42C004F5DAC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D94D8327D1B42C004F5DAC /* ViewController.swift */; };
@@ -27,6 +28,7 @@
 /* Begin PBXFileReference section */
 		0048DEDC27D73A9E00262A8E /* Alpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alpha.swift; sourceTree = "<group>"; };
 		004E0B7B27DAF2F500B26585 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
+		005ECCF727E373FB00EB4342 /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		00D94D7C27D1B42C004F5DAC /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		00D94D7F27D1B42C004F5DAC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		00D94D8127D1B42C004F5DAC /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 				00D94D7F27D1B42C004F5DAC /* AppDelegate.swift */,
 				00D94D8127D1B42C004F5DAC /* SceneDelegate.swift */,
 				00D94D8327D1B42C004F5DAC /* ViewController.swift */,
+				005ECCF727E373FB00EB4342 /* UIColorExtension.swift */,
 				0048DEDE27D73DCE00262A8E /* Model */,
 				00D94D8527D1B42C004F5DAC /* Main.storyboard */,
 				00D94D8827D1B42D004F5DAC /* Assets.xcassets */,
@@ -179,6 +182,7 @@
 				00D94D8027D1B42C004F5DAC /* AppDelegate.swift in Sources */,
 				00D94DA027D2495A004F5DAC /* ShapeFactory.swift in Sources */,
 				00D94D9E27D248EF004F5DAC /* ShapeCreator.swift in Sources */,
+				005ECCF827E373FB00EB4342 /* UIColorExtension.swift in Sources */,
 				00D94D8227D1B42C004F5DAC /* SceneDelegate.swift in Sources */,
 				00D94D9427D233CB004F5DAC /* Shape.swift in Sources */,
 				00D94D9A27D2345B004F5DAC /* Color.swift in Sources */,
