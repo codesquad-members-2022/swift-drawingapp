@@ -102,6 +102,53 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B5C4717E27E325B700E6D827 /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				B5E73BB627CDE3910016E628 /* RectangleFactory.swift */,
+			);
+			path = Factory;
+			sourceTree = "<group>";
+		};
+		B5C4717F27E325C900E6D827 /* Factory */ = {
+			isa = PBXGroup;
+			children = (
+				B5B137BB27D9C8AE0033F9A5 /* RectangleViewFactory.swift */,
+			);
+			path = Factory;
+			sourceTree = "<group>";
+		};
+		B5C4718027E3262900E6D827 /* Types */ = {
+			isa = PBXGroup;
+			children = (
+				B5C4717827E318C000E6D827 /* RectanglePoint.swift */,
+				B5C4717C27E3224C00E6D827 /* RectangleColor.swift */,
+				B5C4717A27E318C700E6D827 /* RectangleAlpha.swift */,
+				B5C4717627E318B800E6D827 /* RectangleSize.swift */,
+				B5C4717427E318AF00E6D827 /* RectangleId.swift */,
+			);
+			path = Types;
+			sourceTree = "<group>";
+		};
+		B5C4718127E3265B00E6D827 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				B5C4717227E317B900E6D827 /* RectangleApplicable.swift */,
+				B5C4717027E3113F00E6D827 /* RandomColorApplicable.swift */,
+				B5C4716E27E3112F00E6D827 /* CustomImageApplicable.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		B5C4718227E3267100E6D827 /* DelegateProtocols */ = {
+			isa = PBXGroup;
+			children = (
+				B5E73BCB27D1340F0016E628 /* StylerViewDelegate.swift */,
+				B5E73BCD27D138300016E628 /* CanvasViewDeleagte.swift */,
+			);
+			path = DelegateProtocols;
+			sourceTree = "<group>";
+		};
 		B5E73B9327CDC29D0016E628 = {
 			isa = PBXGroup;
 			children = (
@@ -140,19 +187,13 @@
 		B5E73BB327CDC2D20016E628 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				B5C4718127E3265B00E6D827 /* Protocols */,
+				B5C4718027E3262900E6D827 /* Types */,
+				B5C4717E27E325B700E6D827 /* Factory */,
 				B58D8E5B27DCC71B0018B3E2 /* Rectangle.swift */,
 				B58D8E5D27DCC8260018B3E2 /* ImageRectangle.swift */,
 				B5E73BB427CDC2F90016E628 /* ColorRectangle.swift */,
-				B5E73BB627CDE3910016E628 /* RectangleFactory.swift */,
 				B5E73BBB27CF457B0016E628 /* Plane.swift */,
-				B5C4716E27E3112F00E6D827 /* CustomImageApplicable.swift */,
-				B5C4717027E3113F00E6D827 /* RandomColorApplicable.swift */,
-				B5C4717227E317B900E6D827 /* RectangleApplicable.swift */,
-				B5C4717427E318AF00E6D827 /* RectangleId.swift */,
-				B5C4717627E318B800E6D827 /* RectangleSize.swift */,
-				B5C4717827E318C000E6D827 /* RectanglePoint.swift */,
-				B5C4717A27E318C700E6D827 /* RectangleAlpha.swift */,
-				B5C4717C27E3224C00E6D827 /* RectangleColor.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -176,11 +217,10 @@
 		B5E73BC227D080DE0016E628 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				B5C4718227E3267100E6D827 /* DelegateProtocols */,
+				B5C4717F27E325C900E6D827 /* Factory */,
 				B5E73BC327D082630016E628 /* CanvasView.swift */,
 				B5E73BC727D083750016E628 /* StylerView.swift */,
-				B5E73BCB27D1340F0016E628 /* StylerViewDelegate.swift */,
-				B5E73BCD27D138300016E628 /* CanvasViewDeleagte.swift */,
-				B5B137BB27D9C8AE0033F9A5 /* RectangleViewFactory.swift */,
 				B5C4716527E1B31B00E6D827 /* ColorRectangleView.swift */,
 				B5C4716727E1B32600E6D827 /* ImageRectangleView.swift */,
 				B5C4716B27E1B68C00E6D827 /* AbstractRectangleView.swift */,
