@@ -18,6 +18,7 @@ class ViewController: UIViewController {
     
     @IBOutlet weak var alphaStepper: UIStepper!
     
+    @IBOutlet weak var hexValue: UILabel!
     @IBOutlet weak var redValue: UILabel!
     @IBOutlet weak var greenValue: UILabel!
     @IBOutlet weak var blueValue: UILabel!
@@ -51,15 +52,16 @@ class ViewController: UIViewController {
         var touchedViewBlue: CGFloat = 0
         var touchedViewAlpha: CGFloat = 0
         touchedView?.backgroundColor?.getRed(&touchedViewRed, green: &touchedViewGreen, blue: &touchedViewBlue, alpha: &touchedViewAlpha)
-        touchedViewRed = CGFloat(Int(round(touchedViewRed * 255)))
-        touchedViewGreen = CGFloat(Int(round(touchedViewGreen * 255)))
-        touchedViewBlue = CGFloat(Int(round(touchedViewBlue * 255)))
-        touchedViewAlpha = CGFloat(Int(round(touchedViewAlpha * 10)))
+        touchedViewRed = round(touchedViewRed * 255)
+        touchedViewGreen = round(touchedViewGreen * 255)
+        touchedViewBlue = round(touchedViewBlue * 255)
+        touchedViewAlpha = round(touchedViewAlpha * 10)
         let isRectangleAtPoint = plane.isThereARectangle(point: touchedPoint)
         if isRectangleAtPoint, selectedView == nil { // select new Rectangle
             selectedView = touchedView
             touchedView?.layer.borderWidth = 5
             touchedView?.layer.borderColor = UIColor.blue.cgColor
+            hexValue.text = convertRGBToHexColorCode(Int(touchedViewRed), Int(touchedViewGreen), Int(touchedViewBlue))
             redValue.text = "R : \(touchedViewRed)"
             greenValue.text = "G : \(touchedViewGreen))"
             blueValue.text = "B : \(touchedViewBlue)"
@@ -73,6 +75,7 @@ class ViewController: UIViewController {
             selectedView = touchedView
             touchedView?.layer.borderWidth = 5
             touchedView?.layer.borderColor = UIColor.blue.cgColor
+            hexValue.text = convertRGBToHexColorCode(Int(touchedViewRed), Int(touchedViewGreen), Int(touchedViewBlue))
             redValue.text = "R : \(touchedViewRed)"
             greenValue.text = "G : \(touchedViewGreen)"
             blueValue.text = "B : \(touchedViewBlue)"
@@ -84,6 +87,7 @@ class ViewController: UIViewController {
         if !isRectangleAtPoint { // select nothing
             selectedView?.layer.borderWidth = 0
             selectedView = nil
+            hexValue.text = "-"
             redValue.text = "-"
             greenValue.text = "-"
             blueValue.text = "-"
@@ -123,9 +127,11 @@ class ViewController: UIViewController {
         var randomCGGreen = CGFloat(Double.random(in: 0...255) / 255)
         var randomCGBlue = CGFloat(Double.random(in: 0...255) / 255)
         selectedView?.backgroundColor = UIColor(red: randomCGRed, green: randomCGGreen, blue: randomCGBlue, alpha: currentView.alpha)
-        randomCGRed = CGFloat(Int(round(randomCGRed * 255)))
-        randomCGGreen = CGFloat(Int(round(randomCGGreen * 255)))
-        randomCGBlue = CGFloat(Int(round(randomCGBlue * 255)))
+        randomCGRed = round(randomCGRed * 255)
+        randomCGGreen = round(randomCGGreen * 255)
+        randomCGBlue = round(randomCGBlue * 255)
+        
+        hexValue.text = convertRGBToHexColorCode(Int(randomCGRed), Int(randomCGGreen), Int(randomCGBlue))
         redValue.text = "R : \(randomCGRed)"
         greenValue.text = "G : \(randomCGGreen)"
         blueValue.text = "B : \(randomCGBlue)"
@@ -139,6 +145,22 @@ class ViewController: UIViewController {
         selectedView?.backgroundColor?.getRed(&selectedViewRed, green: &selectedViewGreen, blue: &selectedViewBlue, alpha: &selectedViewAlpha)
         selectedView?.backgroundColor = UIColor(red: selectedViewRed, green: selectedViewGreen, blue: selectedViewBlue, alpha: alphaStepper.value / 10)
         alphaValue.text = "A : \(alphaStepper.value)"
+    }
+    
+    private func convertRGBToHexColorCode(_ r: Int, _ g: Int, _ b: Int) -> String {
+        var hexR = String(r, radix: 16).uppercased()
+        var hexG = String(g, radix: 16).uppercased()
+        var hexB = String(b, radix: 16).uppercased()
+        if r < 16 {
+            hexR = "0" + hexR
+        }
+        if g < 16 {
+            hexG = "0" + hexG
+        }
+        if b < 16 {
+            hexB = "0" + hexB
+        }
+        return "#" + hexR + hexG + hexB
     }
 }
 
