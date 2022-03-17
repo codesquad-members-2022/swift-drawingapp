@@ -80,6 +80,10 @@ class SideInspectorView: UIView {
     
     @objc func sliderValueDidChanged(_ slider: UISlider) {
         delegate?.sideInspectorViewSliderValueDidChanged(slider)
+        
+        let sliderStringValue =  String(format: "%.1f", slider.value)
+        let sliderValue = Int(Float(sliderStringValue)! * 10)
+        alphaValueLabel.text = "\(sliderValue)"
     }
     
     // TODO: init
