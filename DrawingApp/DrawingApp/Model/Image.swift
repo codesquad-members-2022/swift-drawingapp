@@ -16,4 +16,5 @@ class Image {
     var count:Int {
         self.rectangles.count
     }
+    
 }

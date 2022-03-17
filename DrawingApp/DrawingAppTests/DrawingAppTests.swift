@@ -18,8 +18,9 @@ class DrawingAppTests: XCTestCase {
     }
 
     func testChangeAlpha() {
-        let testRectangle = sut.addRectangle(creator: RectangleFactory())
-        sut.findSeletedRectangle(x: round(testRectangle.origin.x), y: round(testRectangle.origin.y), size: testRectangle.size)
+        let testRectangle = sut.addRectangle()
+        let point = testRectangle.origin
+        sut.findSeletedRectangle(point: point)
         
         let testAlpha = Alpha(2.3)
         sut.change(alpha: testAlpha)
@@ -30,9 +31,10 @@ class DrawingAppTests: XCTestCase {
     
     
     func testChangeColor() {
-        let testRectangle = sut.addRectangle(creator: RectangleFactory())
+        let testRectangle = sut.addRectangle()
+        let point = testRectangle.origin
         
-        sut.findSeletedRectangle(x: round(testRectangle.origin.x), y: round(testRectangle.origin.y), size: testRectangle.size)
+        sut.findSeletedRectangle(point: point)
         
         let testRGB = RGB(red: 10, green: 11, blue: 12)
         sut.change(color: testRGB)
@@ -41,27 +43,25 @@ class DrawingAppTests: XCTestCase {
     }
     
     func testAddRectangle() {
-        sut.addRectangle(creator: RectangleFactory())
+        sut.addRectangle()
         XCTAssertTrue(sut.count == 1)
     }
     
     
     func testFindSelectedRectangle() {
         
-        let willSeletedRectangle = sut.addRectangle(creator: RectangleFactory())
-        let TestRaectangle = sut.addRectangle(creator: RectangleFactory())
+        let willSelectedRectangle = sut.addRectangle()
+        let willNotSelectedRectangle = sut.addRectangle()
         
-        let x = round(willSeletedRectangle.origin.x)
-        let y = round(willSeletedRectangle.origin.y)
-        let size = willSeletedRectangle.size
+        let x = willSelectedRectangle.origin.x
+        let y = willSelectedRectangle.origin.y
+        let imutableAlpha = willNotSelectedRectangle.alpha
         
-        let correctKey = Point(x: x, y: y)
-
-        sut.findSeletedRectangle(x: correctKey.x, y: correctKey.y, size: size)
-        
+        sut.findSeletedRectangle(point: Point(x: x, y: y))
         sut.change(alpha:Alpha(0.7))
         
-        XCTAssertEqual(willSeletedRectangle.alpha, Alpha(0.7))
+        XCTAssertEqual(willSelectedRectangle.alpha, Alpha(0.7))
+        XCTAssertEqual(willNotSelectedRectangle.alpha, imutableAlpha)
     }
     
     

@@ -9,7 +9,7 @@ import UIKit
 
 final class DetailView: UIView {
     
-    weak var delegate:DetailViewDelgate?
+    weak var delegate:DetailViewDelegate?
     
     //배경색 label
     var backgroundColorLabel:UILabel = {

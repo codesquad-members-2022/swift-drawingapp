@@ -44,11 +44,11 @@ final class MainViewController: UIViewController{
         
         imageButton.layer.zPosition = 1.0
         imageButton.frame = CGRect(x: x, y: y, width: width, height: height)
-        imageButton.addAction(addImageAction(rectangleCreator: RectangleFactory.init()), for: .touchUpInside)
+        imageButton.addAction(addImageAction(), for: .touchUpInside)
     }
     
     //버튼 액션 - 이미지 추가
-    private func addImageAction(rectangleCreator:RectangleCreator) -> UIAction {
+    private func addImageAction() -> UIAction {
         let action = UIAction {[weak self] _ in
             self?.showAlbum()
         }
@@ -68,13 +68,13 @@ final class MainViewController: UIViewController{
         rectangleButton.layer.zPosition = 1.0                                //생성되는 사각형에 겹쳐서 안보이는 경우를 막기위해 zPosition을 주었다.
         
         rectangleButton.frame = CGRect(x: x, y: y, width: width, height: height)
-        rectangleButton.addAction(addRectangleAction(rectangleCreator:RectangleFactory.init()), for: .touchUpInside)
+        rectangleButton.addAction(addRectangleAction(), for: .touchUpInside)
     }
     
     //버튼 액션 - 사각형 추가
-    private func addRectangleAction(rectangleCreator:RectangleCreator) -> UIAction {
+    private func addRectangleAction() -> UIAction {
         let action = UIAction {[weak self] _ in
-            self?.plane.addRectangle(creator: rectangleCreator)
+            self?.plane.addRectangle()
         }
         return action
     }
@@ -169,7 +169,7 @@ extension MainViewController:UIGestureRecognizerDelegate {
     //addRectagnleView
     @objc func addRectangleView(_ notification:Notification) {
         guard let newRectangle = notification.userInfo?[Plane.UserInfoKey.addedRectangle] as? PlaneRectangle else { return }
-        guard let rectangleView = RectanlgeViewFactory.makeRectangleView(sourceRectangle: newRectangle) as? PlaneRectangleView else { return }
+        let rectangleView = RectanlgeViewFactory.makePlaneRectangleView(sourceRectangle: newRectangle)
         
         self.retangleViews[newRectangle] = rectangleView
         
@@ -199,7 +199,7 @@ extension MainViewController:UIGestureRecognizerDelegate {
 
 //MARK: -- DetailViewDelegate
 //슬라이더를 움직일때 마다 현재 클릭한 모델 사각형의 alpha값을 바꾼다.
-extension MainViewController:DetailViewDelgate {
+extension MainViewController:DetailViewDelegate {
     func sliderViewEndEditing(sender: UISlider) {
         let currentSliderValue = sender.value
         plane.change(alpha: Alpha(currentSliderValue))

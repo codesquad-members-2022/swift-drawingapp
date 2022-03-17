@@ -7,18 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8D1AB31A27D9CFB50024AD38 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5DF31927D0F88300F5E9C5 /* Plane.swift */; };
-		8D1AB31B27D9D0130024AD38 /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69083627CE08E900F78A51 /* Size.swift */; };
-		8D1AB31C27D9D01B0024AD38 /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69083827CE08F000F78A51 /* Point.swift */; };
-		8D1AB31E27D9D0370024AD38 /* RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69083C27CE249900F78A51 /* RGB.swift */; };
-		8D1AB31F27D9D0400024AD38 /* UIColor++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBC282A27D393A8007422D6 /* UIColor++.swift */; };
-		8D1AB32027D9D0680024AD38 /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69083A27CE249200F78A51 /* Alpha.swift */; };
-		8D1AB32227D9D09F0024AD38 /* ID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69084E27CF4D9F00F78A51 /* ID.swift */; };
-		8D1AB32327D9D0A20024AD38 /* IDFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D69084C27CF4D4200F78A51 /* IDFactory.swift */; };
 		8D41426027DB2AB30070FDCB /* ImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D41425F27DB2AB30070FDCB /* ImageButton.swift */; };
 		8D5DF31A27D0F88300F5E9C5 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5DF31927D0F88300F5E9C5 /* Plane.swift */; };
 		8D5DF31C27D1A88900F5E9C5 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5DF31B27D1A88900F5E9C5 /* DetailView.swift */; };
-		8D5DF32227D3107800F5E9C5 /* DetailViewDelgate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5DF32127D3107800F5E9C5 /* DetailViewDelgate.swift */; };
+		8D5DF32227D3107800F5E9C5 /* DetailViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5DF32127D3107800F5E9C5 /* DetailViewDelegate.swift */; };
 		8D67432C27D72AD100397D68 /* RectangleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D67432B27D72AD100397D68 /* RectangleButton.swift */; };
 		8D67432E27D7312200397D68 /* PlaneRectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D67432D27D7312200397D68 /* PlaneRectangleView.swift */; };
 		8D6907F927CCBEF100F78A51 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6907F827CCBEF100F78A51 /* AppDelegate.swift */; };
@@ -36,18 +28,12 @@
 		8D7593A727DEDBAF00F9D8B4 /* Rectangleable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7593A627DEDBAF00F9D8B4 /* Rectangleable.swift */; };
 		8D7593A927DEDC2E00F9D8B4 /* PlaneRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7593A827DEDC2E00F9D8B4 /* PlaneRectangle.swift */; };
 		8D7593AB27DEDC4100F9D8B4 /* ImageRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7593AA27DEDC4100F9D8B4 /* ImageRectangle.swift */; };
-		8D7593AD27DEDD1E00F9D8B4 /* RectangleCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7593AC27DEDD1E00F9D8B4 /* RectangleCreator.swift */; };
 		8D7593AF27DEDD5100F9D8B4 /* RectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7593AE27DEDD5100F9D8B4 /* RectangleFactory.swift */; };
 		8D7593B127DEDE2000F9D8B4 /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7593B027DEDE2000F9D8B4 /* Image.swift */; };
-		8D7593B627E0AC8A00F9D8B4 /* DrawingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1AB31327D884550024AD38 /* DrawingAppTests.swift */; };
-		8D7593B827E0AD0F00F9D8B4 /* PlaneRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7593A827DEDC2E00F9D8B4 /* PlaneRectangle.swift */; };
-		8D7593B927E0BBE300F9D8B4 /* RectangleCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7593AC27DEDD1E00F9D8B4 /* RectangleCreator.swift */; };
-		8D7593BA27E0BBEE00F9D8B4 /* Rectangleable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7593A627DEDBAF00F9D8B4 /* Rectangleable.swift */; };
-		8D7593BB27E0BBF200F9D8B4 /* RectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7593AE27DEDD5100F9D8B4 /* RectangleFactory.swift */; };
 		8D7593BD27E0CAC800F9D8B4 /* RectanlgeViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7593BC27E0CAC800F9D8B4 /* RectanlgeViewFactory.swift */; };
-		8D7593BF27E0CAF100F9D8B4 /* RectangleViewCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7593BE27E0CAF100F9D8B4 /* RectangleViewCreator.swift */; };
 		8D7593C327E189AA00F9D8B4 /* RectangleViewable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7593C227E189AA00F9D8B4 /* RectangleViewable.swift */; };
 		8D7593C527E18B9D00F9D8B4 /* ImageRectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7593C427E18B9D00F9D8B4 /* ImageRectangleView.swift */; };
+		8D75A59F27E324280091EEC4 /* DrawingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1AB31327D884550024AD38 /* DrawingAppTests.swift */; };
 		8DBC282B27D393A8007422D6 /* UIColor++.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBC282A27D393A8007422D6 /* UIColor++.swift */; };
 /* End PBXBuildFile section */
 
@@ -67,7 +53,7 @@
 		8D41425F27DB2AB30070FDCB /* ImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButton.swift; sourceTree = "<group>"; };
 		8D5DF31927D0F88300F5E9C5 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		8D5DF31B27D1A88900F5E9C5 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
-		8D5DF32127D3107800F5E9C5 /* DetailViewDelgate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewDelgate.swift; sourceTree = "<group>"; };
+		8D5DF32127D3107800F5E9C5 /* DetailViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewDelegate.swift; sourceTree = "<group>"; };
 		8D67432B27D72AD100397D68 /* RectangleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleButton.swift; sourceTree = "<group>"; };
 		8D67432D27D7312200397D68 /* PlaneRectangleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlaneRectangleView.swift; sourceTree = "<group>"; };
 		8D6907F527CCBEF100F78A51 /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -87,11 +73,9 @@
 		8D7593A627DEDBAF00F9D8B4 /* Rectangleable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangleable.swift; sourceTree = "<group>"; };
 		8D7593A827DEDC2E00F9D8B4 /* PlaneRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneRectangle.swift; sourceTree = "<group>"; };
 		8D7593AA27DEDC4100F9D8B4 /* ImageRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRectangle.swift; sourceTree = "<group>"; };
-		8D7593AC27DEDD1E00F9D8B4 /* RectangleCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleCreator.swift; sourceTree = "<group>"; };
 		8D7593AE27DEDD5100F9D8B4 /* RectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactory.swift; sourceTree = "<group>"; };
 		8D7593B027DEDE2000F9D8B4 /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
 		8D7593BC27E0CAC800F9D8B4 /* RectanlgeViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectanlgeViewFactory.swift; sourceTree = "<group>"; };
-		8D7593BE27E0CAF100F9D8B4 /* RectangleViewCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleViewCreator.swift; sourceTree = "<group>"; };
 		8D7593C227E189AA00F9D8B4 /* RectangleViewable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleViewable.swift; sourceTree = "<group>"; };
 		8D7593C427E18B9D00F9D8B4 /* ImageRectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRectangleView.swift; sourceTree = "<group>"; };
 		8DBC282A27D393A8007422D6 /* UIColor++.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor++.swift"; sourceTree = "<group>"; };
@@ -225,11 +209,9 @@
 		8DBC282927D33CC7007422D6 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				8D5DF32127D3107800F5E9C5 /* DetailViewDelgate.swift */,
+				8D5DF32127D3107800F5E9C5 /* DetailViewDelegate.swift */,
 				8D7593A627DEDBAF00F9D8B4 /* Rectangleable.swift */,
 				8D7593C227E189AA00F9D8B4 /* RectangleViewable.swift */,
-				8D7593AC27DEDD1E00F9D8B4 /* RectangleCreator.swift */,
-				8D7593BE27E0CAF100F9D8B4 /* RectangleViewCreator.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -335,19 +317,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D7593BB27E0BBF200F9D8B4 /* RectangleFactory.swift in Sources */,
-				8D7593BA27E0BBEE00F9D8B4 /* Rectangleable.swift in Sources */,
-				8D7593B927E0BBE300F9D8B4 /* RectangleCreator.swift in Sources */,
-				8D7593B827E0AD0F00F9D8B4 /* PlaneRectangle.swift in Sources */,
-				8D7593B627E0AC8A00F9D8B4 /* DrawingAppTests.swift in Sources */,
-				8D1AB32327D9D0A20024AD38 /* IDFactory.swift in Sources */,
-				8D1AB32227D9D09F0024AD38 /* ID.swift in Sources */,
-				8D1AB32027D9D0680024AD38 /* Alpha.swift in Sources */,
-				8D1AB31F27D9D0400024AD38 /* UIColor++.swift in Sources */,
-				8D1AB31E27D9D0370024AD38 /* RGB.swift in Sources */,
-				8D1AB31C27D9D01B0024AD38 /* Point.swift in Sources */,
-				8D1AB31B27D9D0130024AD38 /* Size.swift in Sources */,
-				8D1AB31A27D9CFB50024AD38 /* Plane.swift in Sources */,
+				8D75A59F27E324280091EEC4 /* DrawingAppTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -358,7 +328,6 @@
 				8D41426027DB2AB30070FDCB /* ImageButton.swift in Sources */,
 				8D6907FD27CCBEF100F78A51 /* MainViewController.swift in Sources */,
 				8D7593B127DEDE2000F9D8B4 /* Image.swift in Sources */,
-				8D7593AD27DEDD1E00F9D8B4 /* RectangleCreator.swift in Sources */,
 				8D5DF31C27D1A88900F5E9C5 /* DetailView.swift in Sources */,
 				8D7593A927DEDC2E00F9D8B4 /* PlaneRectangle.swift in Sources */,
 				8D69083727CE08E900F78A51 /* Size.swift in Sources */,
@@ -377,8 +346,7 @@
 				8D7593A727DEDBAF00F9D8B4 /* Rectangleable.swift in Sources */,
 				8D7593C327E189AA00F9D8B4 /* RectangleViewable.swift in Sources */,
 				8DBC282B27D393A8007422D6 /* UIColor++.swift in Sources */,
-				8D5DF32227D3107800F5E9C5 /* DetailViewDelgate.swift in Sources */,
-				8D7593BF27E0CAF100F9D8B4 /* RectangleViewCreator.swift in Sources */,
+				8D5DF32227D3107800F5E9C5 /* DetailViewDelegate.swift in Sources */,
 				8D69083D27CE249900F78A51 /* RGB.swift in Sources */,
 				8D7593AB27DEDC4100F9D8B4 /* ImageRectangle.swift in Sources */,
 			);

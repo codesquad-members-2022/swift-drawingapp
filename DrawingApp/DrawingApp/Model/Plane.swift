@@ -42,8 +42,8 @@ public class Plane {
     
     //사각형 생성,추가.
     @discardableResult
-    func addRectangle(creator:RectangleCreator) -> PlaneRectangle{
-        let rect = creator.makeRectangle(type: PlaneRectangle.self) as! PlaneRectangle
+    func addRectangle() -> PlaneRectangle{
+        let rect = RectangleFactory.makePlaneRectangle()
         rectangles.append(rect)
         
         NotificationCenter.default.post(
