@@ -33,8 +33,8 @@ class PropertySetViewController: UIViewController{
     }
     
     private func addNotificationObservers(){
-        NotificationCenter.default.addObserver(self, selector: #selector(changedColorText), name: DrawingViewController.Notification.Event.changedColorText, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(alphaButtonHidden), name: DrawingViewController.Notification.Event.alphaButtonHidden, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changedColorText), name: DrawingViewController.Notification.Event.changedRectangleColor, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(alphaButtonHidden), name: DrawingViewController.Notification.Event.changedAlpha, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateSelectedRectangleUI), name: DrawingViewController.Notification.Event.updateSelectedRectangleUI, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateSelectedPhotoUI), name: DrawingViewController.Notification.Event.updateSelectedPhotoUI, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateDeselectedUI), name: DrawingViewController.Notification.Event.updateDeselectedUI, object: nil)
