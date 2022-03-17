@@ -30,13 +30,8 @@ class ViewController: UIViewController {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
         self.view.addGestureRecognizer(tapGestureRecognizer)
         
-        rgbResetButton.isEnabled = false
-        alphaStepper.isEnabled = false
-        
-        alphaStepper.minimumValue = 1
-        alphaStepper.maximumValue = 10
-        alphaStepper.stepValue = 1
-        alphaStepper.autorepeat = true
+        disableControlButtons()
+        setAlphaStepper()
     }
 
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
@@ -158,6 +153,23 @@ class ViewController: UIViewController {
             hexB = "0" + hexB
         }
         return "#" + hexR + hexG + hexB
+    }
+    
+    private func disableControlButtons() {
+        rgbResetButton.isEnabled = false
+        alphaStepper.isEnabled = false
+    }
+    
+    private func enableControlButtons() {
+        rgbResetButton.isEnabled = true
+        alphaStepper.isEnabled = true
+    }
+    
+    private func setAlphaStepper() {
+        alphaStepper.minimumValue = 1
+        alphaStepper.maximumValue = 10
+        alphaStepper.stepValue = 1
+        alphaStepper.autorepeat = true
     }
 }
 
