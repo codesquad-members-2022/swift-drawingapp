@@ -14,6 +14,11 @@ final class Plane{
         static let selectValue = Notification.Name("selectValue")
         static let noneSelect = Notification.Name("noneSelect")
         
+        static let changeSize = Notification.Name("changeSize")
+        static let changePoint = Notification.Name("changePoint")
+        static let changeAlpha = Notification.Name("changeAlpha")
+        static let changeColor = Notification.Name("changeColor")
+        
         static let userInfoKey: String = "rectValue"
     }
     
@@ -67,5 +72,47 @@ final class Plane{
         } else{
             NotificationCenter.default.post(name: Plane.NotificationName.noneSelect, object: self)
         }
+    }
+}
+
+extension Plane{
+    func changeRectValuePoint(newPoint: MyPoint){
+        guard let rectValue = selectedValue else{
+            return
+        }
+        
+        rectValue.changePoint(point: newPoint)
+        
+        NotificationCenter.default.post(name: Plane.NotificationName.changePoint, object: self)
+    }
+    
+    func changeRectValueSize(newSize: MySize){
+        guard let rectValue = selectedValue else{
+            return
+        }
+        
+        rectValue.changeSize(size: newSize)
+        
+        NotificationCenter.default.post(name: Plane.NotificationName.changeSize, object: self)
+    }
+    
+    func changeRectValueAlpha(newAlpha: Alpha){
+        guard let rectValue = selectedValue else{
+            return
+        }
+        
+        rectValue.changeAlpha(alpha: newAlpha)
+        
+        NotificationCenter.default.post(name: Plane.NotificationName.changeAlpha, object: self)
+    }
+    
+    func changeRectangleColor(newColor: RGBColor){
+        guard let rectangle = selectedValue as? Rectangle else{
+            return
+        }
+        
+        rectangle.changeColor(color: newColor)
+        
+        NotificationCenter.default.post(name: Plane.NotificationName.changeColor, object: self)
     }
 }

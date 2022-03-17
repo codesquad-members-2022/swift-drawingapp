@@ -8,12 +8,6 @@
 import Foundation
 
 class RectValue: Hashable{
-    enum NotificationName{
-        static let changeSize = Notification.Name("changeSize")
-        static let changePoint = Notification.Name("changePoint")
-        static let changeAlpha = Notification.Name("changeAlpha")
-    }
-    
     private let id: String
     private let madeTime = Date()
     private(set) var size: MySize
@@ -35,17 +29,14 @@ class RectValue: Hashable{
     
     func changeSize(size: MySize){
         self.size = size
-        NotificationCenter.default.post(name: RectValue.NotificationName.changeSize, object: self)
     }
     
     func changePoint(point: MyPoint){
         self.point = point
-        NotificationCenter.default.post(name: RectValue.NotificationName.changePoint, object: self)
     }
     
     func changeAlpha(alpha: Alpha){
         self.alpha = alpha
-        NotificationCenter.default.post(name: RectValue.NotificationName.changeAlpha, object: self)
     }
     
     func findLocationRange(xPoint: Double, yPoint: Double) -> Bool{
