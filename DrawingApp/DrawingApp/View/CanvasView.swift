@@ -12,6 +12,7 @@ import UIKit
 /// 사각형이 그려지는 뷰
 class CanvasView: UIView {
     var delegate: CanvasViewDelegate?
+    private var rectangles = [Rectangle: RectangleView]()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,12 +34,31 @@ class CanvasView: UIView {
         rectangleView.backgroundColor = UIColor(hex: rectangle.backgroundColor.getHexValue())
         rectangleView.alpha = rectangle.alpha.opacity
         addSubview(rectangleView)
+        rectangles[rectangle] = rectangleView
     }
     
     func setTapGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: nil)
         tapGesture.delegate = self
         self.addGestureRecognizer(tapGesture)
+    }
+    
+    func select(rectangle: Rectangle) {
+        for (key, value) in rectangles {
+            if key == rectangle {
+                initializeRectangle()
+                value.layer.borderWidth = 3
+                value.layer.borderColor = UIColor.blue.cgColor
+                value.layer.backgroundColor = UIColor(hex: rectangle.backgroundColor.getHexValue()).cgColor
+                return
+            }
+        }
+    }
+    
+    func initializeRectangle() {
+        for (_, value) in rectangles {
+            value.layer.borderWidth = 0
+        }
     }
 }
 

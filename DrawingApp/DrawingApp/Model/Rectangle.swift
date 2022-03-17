@@ -34,3 +34,10 @@ extension Rectangle: CustomStringConvertible {
         return "(\(id)) \(point), \(size), \(backgroundColor), Alpha: \(alpha)"
     }
 }
+
+
+extension Rectangle: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+}
