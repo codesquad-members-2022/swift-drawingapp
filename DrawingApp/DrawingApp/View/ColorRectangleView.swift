@@ -3,7 +3,7 @@ import UIKit
 
 class ColorRectangleView: AbstractRectangleView{
     
-    required init(rectangle: Rectangle){
+    required init(rectangle: RectangleApplicable){
         super.init(rectangle: rectangle)
         if let rectangle = rectangle as? ColorRectangle{
             self.backgroundColor = UIColor(red: rectangle.backgroundColor.r,

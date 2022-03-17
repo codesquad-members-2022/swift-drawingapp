@@ -5,7 +5,7 @@ class ImageRectangleView: AbstractRectangleView{
     
     private var imageView: UIImageView = UIImageView()
     
-    required init(rectangle: Rectangle){
+    required init(rectangle: RectangleApplicable){
         super.init(rectangle: rectangle)
         if let rectangle = rectangle as? ImageRectangle{
             self.imageView.image = UIImage(data: rectangle.backgroundImage)
