@@ -21,3 +21,16 @@ extension ViewPoint: CustomStringConvertible{
         return "x:\(x), y:\(y)"
     }
 }
+extension ViewPoint: ViewPointMakeable{
+    static func randomPoint() -> ViewPoint{
+        let xMaxValue = 470
+        let yMaxValue = 860
+        let xRandomValue = Int.random(in: 1 ..< xMaxValue)
+        let yRandomValue = Int.random(in: 1 ..< yMaxValue)
+        return ViewPoint(x: xRandomValue, y: yRandomValue)
+    }
+}
+
+protocol ViewPointMakeable{
+    static func randomPoint() -> ViewPoint
+}

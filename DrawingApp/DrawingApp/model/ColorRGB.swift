@@ -44,3 +44,16 @@ extension ColorRGB: CustomStringConvertible{
         return "#\(hexRGB)"
     }
 }
+extension ColorRGB: ColorRGBMakeable{
+    static func randomColor() -> ColorRGB{
+        let rgbMaxValue = 255
+        let r = Int.random(in: 1 ..< rgbMaxValue)
+        let g = Int.random(in: 1 ..< rgbMaxValue)
+        let b = Int.random(in: 1 ..< rgbMaxValue)
+        return ColorRGB(r: r, g: g, b: b)
+    }
+}
+
+protocol ColorRGBMakeable{
+    static func randomColor() -> ColorRGB
+}
