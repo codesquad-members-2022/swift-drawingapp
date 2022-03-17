@@ -30,6 +30,7 @@ struct Plane {
     func findRectangle(on point: (x: Double, y: Double)) -> Rectangle? {
         for rectangle in rectangles.reversed() {
             if isRectangleExist(on: (x: point.x, y: point.y), rectangle: rectangle) {
+                delegate?.planeDidTouchedRectangle(rectangle)
                 return rectangle
             }
         }
