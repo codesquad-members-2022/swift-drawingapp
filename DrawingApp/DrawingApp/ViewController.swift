@@ -42,6 +42,7 @@ class ViewController: UIViewController {
         guard let currentView = touchedView else {
             return
         }
+        
         let isRectangleAtPoint = plane.isThereARectangle(point: touchedPoint)
         if isRectangleAtPoint, selectedView == nil { // select new Rectangle
             selectShape(currentView: currentView)
@@ -61,9 +62,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func drawRectangle(_ sender: UIButton) {
-        let bounds = UIScreen.main.bounds
-        let randomX = Int.random(in: 1...Int(bounds.width))
-        let randomY = Int.random(in: 1...Int(bounds.height))
+        let randomX = getRandomXYInScreenBounds().x
+        let randomY = getRandomXYInScreenBounds().y
         let randomCGRed = CGFloat(Double.random(in: 0...255) / 255)
         let randomCGGreen = CGFloat(Double.random(in: 0...255) / 255)
         let randomCGBlue = CGFloat(Double.random(in: 0...255) / 255)
@@ -167,5 +167,13 @@ class ViewController: UIViewController {
     
     private func setAlphaValueLabel(a: Int) {
         alphaValue.text = "A : \(a)"
+    }
+    
+    private func getRandomXYInScreenBounds() -> (x: Int, y: Int) {
+        var result: (x: Int, y: Int) = (0, 0)
+        let bounds = UIScreen.main.bounds
+        result.x = Int.random(in: 1...Int(bounds.width))
+        result.y = Int.random(in: 1...Int(bounds.height))
+        return result
     }
 }
