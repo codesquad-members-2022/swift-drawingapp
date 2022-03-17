@@ -65,6 +65,7 @@ class CanvasView: UIView {
         for (key, value) in rectangles {
             if key == rectangle {
                 value.backgroundColor = UIColor(hex: rectangle.backgroundColor.getHexValue())
+                value.alpha = rectangle.alpha.opacity
             }
         }
     }
@@ -76,16 +77,6 @@ extension CanvasView: UIGestureRecognizerDelegate {
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         let positionOfCanvasView = gestureRecognizer.location(in: gestureRecognizer.view) // CanvasView에서 터치되는 좌표
         delegate?.canvasViewDidTouched(x: positionOfCanvasView.x, y: positionOfCanvasView.y)
-        return true
-    }
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive event: UIEvent) -> Bool {
-        if let touch = event.allTouches?.first {
-            // CanvasView 내부의 뷰에서 터치되는 좌표. 만약 직사각형이 있으면 그 내부에서의 좌표. 아무것도 없다면 CanvasView에서의 터치 좌표
-            let positionOfSubview = touch.location(in: touch.view)
-            let view = touch.view // CanvasView 내부의 뷰
-            
-        }
         return true
     }
 }
