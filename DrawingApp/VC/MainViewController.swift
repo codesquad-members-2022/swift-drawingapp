@@ -243,11 +243,11 @@ extension MainViewController {
     }
     
     private func makeExtraView(){
-        guard let value = plane.selectedValue, let view = customUIViews[value] else{
+        guard let value = plane.selectedValue, let view = customUIViews[value], let copy = view.copy() as? UIView else{
             return
         }
-        
-        panGestureExtraView = view.copyCustomView()
+
+        panGestureExtraView = copy
         
         guard let extraView = panGestureExtraView else{
             os_log("Can't copy CustomView")
