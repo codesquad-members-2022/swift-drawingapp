@@ -22,6 +22,19 @@ class ViewController: UIViewController {
     @IBOutlet weak var alphaSlider: UISlider!
     @IBOutlet weak var minusAlphaValueButton: UIButton!
     @IBOutlet weak var plusAlphaValueButton: UIButton!
+    @IBOutlet weak var xPointLabel: UILabel!
+    @IBOutlet weak var plusXPointButton: UIButton!
+    @IBOutlet weak var minusXPointButton: UIButton!
+    @IBOutlet weak var yPointLabel: UILabel!
+    @IBOutlet weak var plusYPointButton: UIButton!
+    @IBOutlet weak var minusYPointButton: UIButton!
+    @IBOutlet weak var widthLabel: UILabel!
+    @IBOutlet weak var plusWidthButton: UIButton!
+    @IBOutlet weak var minusWidthButton: UIButton!
+    @IBOutlet weak var heightLabel: UILabel!
+    @IBOutlet weak var plusHeightButton: UIButton!
+    @IBOutlet weak var minusHeightButton: UIButton!
+    
     
     
     override func viewDidLoad() {
@@ -31,6 +44,8 @@ class ViewController: UIViewController {
         addDrawableAreaView()
         addGenerateRectangleButton()
         addGenerateImageRectangleButton()
+        
+        setStatusViewElements()
         
         initializeViewsInTouchedEmptySpaceCondition()
         
@@ -163,36 +178,8 @@ class ViewController: UIViewController {
         minusAlphaValueButton.backgroundColor = .systemGray6
         plusAlphaValueButton.isEnabled = false
         plusAlphaValueButton.backgroundColor = .systemGray6
-    }
-    
-    @IBAction func backgroundButtonTouched(_ sender: UIButton) {
-        let newRandomColor = BackgroundColor.random()
-        plane.changeBackgroundColorOfSpecifiedRectangle(to: newRandomColor)
-    }
-    
-    @IBAction func alphaSliderValueChanged(_ sender: UISlider) {
-        let newAlphaValue = sender.value.normalized()
-        guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: newAlphaValue) else {return}
-        let newAlpha = Alpha(opacityLevel: convertedOpacityLevel)
-        
-        plane.changeAlphaValueOfSpecifiedRectangle(to: newAlpha)
-    }
-    
-    @IBAction func minusAlphaValueButtonTouched(_ sender: UIButton) {
-        guard let selectedView = self.selectedView else {return}
-        let previousAlphaValue = Float(selectedView.alpha)
-        let newAlphaValue = previousAlphaValue - 0.1
-        let normalizedNewAlphaValue = newAlphaValue.normalized()
-        guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: normalizedNewAlphaValue) else {return}
-        plane.changeAlphaValueOfSpecifiedRectangle(to: Alpha(opacityLevel: convertedOpacityLevel))
-    }
-    @IBAction func plusAlphaValueButtonTouched(_ sender: UIButton) {
-        guard let selectedView = self.selectedView else {return}
-        let previousAlphaValue = Float(selectedView.alpha)
-        let newAlphaValue = previousAlphaValue + 0.1
-        let normalizedNewAlphaValue = newAlphaValue.normalized()
-        guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: normalizedNewAlphaValue) else {return}
-        plane.changeAlphaValueOfSpecifiedRectangle(to: Alpha(opacityLevel: convertedOpacityLevel))
+        updateXPointLabel(with: nil)
+        updateYPointLabel(with: nil)
     }
     
     func setNotificationCenter() {
@@ -237,6 +224,8 @@ extension ViewController {
         updateAlphaSlider(alpha: Float(matchedView.alpha))
         updateMinusAlphaValueButton(with: Float(matchedView.alpha))
         updatePlusAlphaValueButton(with: Float(matchedView.alpha))
+        updateXPointLabel(with: matchedView.frame.origin.x)
+        updateYPointLabel(with: matchedView.frame.origin.y)
     }
     
     @objc func planeDidChangeRectangleBackgroundColor(_ notification: Notification) {
@@ -273,7 +262,22 @@ extension ViewController {
         let convertedNewPoint = CGPoint(x: newPoint.x, y: newPoint.y)
         
         matchedView.move(to: convertedNewPoint)
+        updateXPointLabel(with: newPoint.x)
+        updateYPointLabel(with: newPoint.y)
         self.movingTemporaryView = nil
+    }
+    
+    @objc func planeDidChangeRectangleSize(_ notification: Notification) {
+        guard let sizeChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? AnyRectangularable,
+              let matchedView = rectangleAndViewMap[sizeChangedRectangle] else {
+                  return
+              }
+        
+        let newSize = sizeChangedRectangle.size
+        let newWidth = newSize.width
+        let newHeight = newSize.height
+        
+        matchedView.resize(to: (newWidth, newHeight))
     }
     
     private func updateSelectedView(_ selectedView: RectangleViewable) {
@@ -281,6 +285,105 @@ extension ViewController {
         
         self.selectedView = selectedView
         selectedView.showBoundary()
+    }
+    
+    
+}
+
+extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        let pointLimit = (Double(self.drawableAreaView.frame.width),
+                          Double(self.drawableAreaView.frame.height))
+        
+        if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            guard let image = image.pngData() else {return}
+            self.plane.addNewPhoto(in: pointLimit, with: image)
+        } else if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            guard let image = image.pngData() else {return}
+            self.plane.addNewPhoto(in: pointLimit, with: image)
+        }
+        
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ViewController {
+    
+    private func setStatusViewElements() {
+        let labels = [xPointLabel, yPointLabel, widthLabel, heightLabel]
+        labels.forEach { label in
+            label?.layer.cornerRadius = 9
+            label?.layer.borderWidth = 0.5
+            label?.layer.borderColor = UIColor.systemGray2.cgColor
+        }
+    }
+    
+    @IBAction func backgroundButtonTouched(_ sender: UIButton) {
+        let newRandomColor = BackgroundColor.random()
+        plane.changeBackgroundColorOfSpecifiedRectangle(to: newRandomColor)
+    }
+    
+    @IBAction func alphaSliderValueChanged(_ sender: UISlider) {
+        let newAlphaValue = sender.value.normalized()
+        guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: newAlphaValue) else {return}
+        let newAlpha = Alpha(opacityLevel: convertedOpacityLevel)
+        
+        plane.changeAlphaValueOfSpecifiedRectangle(to: newAlpha)
+    }
+    
+    @IBAction func minusAlphaValueButtonTouched(_ sender: UIButton) {
+        guard let selectedView = self.selectedView else {return}
+        let previousAlphaValue = Float(selectedView.alpha)
+        let newAlphaValue = previousAlphaValue - 0.1
+        let normalizedNewAlphaValue = newAlphaValue.normalized()
+        guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: normalizedNewAlphaValue) else {return}
+        plane.changeAlphaValueOfSpecifiedRectangle(to: Alpha(opacityLevel: convertedOpacityLevel))
+    }
+    
+    @IBAction func plusAlphaValueButtonTouched(_ sender: UIButton) {
+        guard let selectedView = self.selectedView else {return}
+        let previousAlphaValue = Float(selectedView.alpha)
+        let newAlphaValue = previousAlphaValue + 0.1
+        let normalizedNewAlphaValue = newAlphaValue.normalized()
+        guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: normalizedNewAlphaValue) else {return}
+        plane.changeAlphaValueOfSpecifiedRectangle(to: Alpha(opacityLevel: convertedOpacityLevel))
+    }
+    
+    @IBAction func plusXPointButtonTouched(_ sender: UIButton) {
+        guard let selectedView = self.selectedView else {return}
+        let previousPoint = selectedView.frame.origin
+        let newXPoint = previousPoint.x + 10
+        let newPoint = Point(x: newXPoint, y: previousPoint.y)
+        
+        plane.changePointOfSpecifiedRectangle(to: newPoint)
+    }
+    
+    @IBAction func minusXPointButtonTouched(_ sender: UIButton) {
+        guard let selectedView = self.selectedView else {return}
+        let previousPoint = selectedView.frame.origin
+        let newXPoint = previousPoint.x - 10
+        let newPoint = Point(x: newXPoint, y: previousPoint.y)
+        
+        plane.changePointOfSpecifiedRectangle(to: newPoint)
+    }
+    
+    @IBAction func plusYPointButtonTouched(_ sender: UIButton) {
+        guard let selectedView = self.selectedView else {return}
+        let previousPoint = selectedView.frame.origin
+        let newYPoint = previousPoint.y + 10
+        let newPoint = Point(x: previousPoint.x, y: newYPoint)
+        
+        plane.changePointOfSpecifiedRectangle(to: newPoint)
+    }
+    
+    @IBAction func minusYPointButtonTouched(_ sender: UIButton) {
+        guard let selectedView = self.selectedView else {return}
+        let previousPoint = selectedView.frame.origin
+        let newYPoint = previousPoint.y - 10
+        let newPoint = Point(x: previousPoint.x, y: newYPoint)
+        
+        plane.changePointOfSpecifiedRectangle(to: newPoint)
     }
     
     private func updateBackgroundColorButton(with rectangle: AnyRectangularable) {
@@ -332,23 +435,25 @@ extension ViewController {
         alphaSlider.isEnabled = true
         alphaSlider.setValue(alpha, animated: true)
     }
-}
-
-extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        let pointLimit = (Double(self.drawableAreaView.frame.width),
-                          Double(self.drawableAreaView.frame.height))
-        
-        if let image = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            guard let image = image.pngData() else {return}
-            self.plane.addNewPhoto(in: pointLimit, with: image)
-        } else if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            guard let image = image.pngData() else {return}
-            self.plane.addNewPhoto(in: pointLimit, with: image)
+    
+    private func updateXPointLabel(with xPoint: Double?) {
+        let defaultText = " X: "
+        guard let xPoint = xPoint else {
+            return xPointLabel.text = defaultText
         }
         
-        picker.dismiss(animated: true, completion: nil)
+        let updatedText = String(format: "%.4f", xPoint)
+        xPointLabel.text = defaultText + updatedText
+    }
+    
+    private func updateYPointLabel(with yPoint: Double?) {
+        let defaultText = " Y: "
+        guard let yPoint = yPoint else {
+            return yPointLabel.text = defaultText
+        }
+
+        let updatedText = String(format: "%.4f", yPoint)
+        yPointLabel.text = defaultText + updatedText
     }
 }
 
