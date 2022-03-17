@@ -7,8 +7,10 @@
 
 import UIKit
 import OSLog
+import PhotosUI
 
 final class MainViewController: UIViewController{
+    
     //model
     private var plane = Plane()
     private var image = Image()
@@ -26,11 +28,11 @@ final class MainViewController: UIViewController{
         super.viewDidLoad()
         
         configureNotificationCenter()
+        configureTapGesture()
         
         configureImageButton()
         configureRectangleButton()
         configureDeatailView()
-        configureTapGesture()
         addViews()
     }
     
@@ -50,7 +52,13 @@ final class MainViewController: UIViewController{
     //버튼 액션 - 이미지 추가
     private func addImageAction() -> UIAction {
         let action = UIAction {[weak self] _ in
+            var configuration = PHPickerConfiguration()
+            configuration.selectionLimit = 0
             
+            let picker = PHPickerViewController(configuration: configuration)
+            picker.delegate = self
+            
+            self?.present(picker, animated: true, completion: nil)
         }
         return action
     }
@@ -212,6 +220,9 @@ extension MainViewController:DetailViewDelegate {
     }
 }
 
-extension MainViewController {
-
+//MARK: -- PHPikcer
+extension MainViewController:PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        print(results)
+    }
 }
