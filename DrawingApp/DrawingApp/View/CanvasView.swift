@@ -11,9 +11,7 @@ import UIKit
 
 /// 사각형이 그려지는 뷰
 class CanvasView: UIView {
-    
-    private var touchPositionOfX = 0.0
-    private var touchPositionOfY = 0.0
+    var delegate: CanvasViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -49,6 +47,7 @@ class CanvasView: UIView {
 extension CanvasView: UIGestureRecognizerDelegate {
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         let positionOfCanvasView = gestureRecognizer.location(in: gestureRecognizer.view) // CanvasView에서 터치되는 좌표
+        delegate?.canvasViewDidTouched(x: positionOfCanvasView.x, y: positionOfCanvasView.y)
         return true
     }
     

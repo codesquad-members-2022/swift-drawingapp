@@ -26,4 +26,19 @@ struct Plane {
         
         delegate?.planeDidAddedRectangle(rectangle)
     }
+    
+    func findRectangle(on point: (x: Double, y: Double)) -> Rectangle? {
+        for rectangle in rectangles.reversed() {
+            if isRectangleExist(on: (x: point.x, y: point.y), rectangle: rectangle) {
+                return rectangle
+            }
+        }
+        return nil
+    }
+    
+    private func isRectangleExist(on point: (x: Double, y: Double), rectangle: Rectangle) -> Bool {
+        let rangeOfX = (rectangle.point.x)...(rectangle.point.x + rectangle.size.width)
+        let rangeOfY = (rectangle.point.y)...(rectangle.point.y + rectangle.size.height)
+        return (rangeOfX ~= point.x && rangeOfY ~= point.y)
+    }
 }

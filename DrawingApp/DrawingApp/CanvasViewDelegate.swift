@@ -7,6 +7,7 @@
 
 import Foundation
 
-protocol CavasViewDelegate {
+protocol CanvasViewDelegate {
+    /// CanvasView가 터치되면 해당 좌표를 VC에 넘김
     func canvasViewDidTouched(x: Double, y: Double)
 }

@@ -30,6 +30,7 @@ class ViewController: UIViewController {
         
         plane.delegate = self
         sideInspectorView.delegate = self
+        canvasView.delegate = self
         setLayout()
     }
     
@@ -88,5 +89,16 @@ extension ViewController: PlaneDelegate {
         
         // 슬라이더 투명도 표시
         sideInspectorView.alphaSlider.value = Float(rectangle.alpha.opacity)
+    }
+}
+
+
+extension ViewController: CanvasViewDelegate {
+    // CanvasView로부터 터치된 좌표를 VC에 받아온다.
+    func canvasViewDidTouched(x: Double, y: Double) {
+        // 여기서 x, y 값이 Plane 좌표의 직사각형을 포함하는지 확인하기
+        guard let rectangle = plane.findRectangle(on: (x, y)) else {
+            return
+        }
     }
 }
