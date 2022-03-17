@@ -199,6 +199,9 @@
                                                                 <buttonConfiguration key="configuration" style="plain" image="arrowtriangle.up.fill" catalog="system">
                                                                     <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </buttonConfiguration>
+                                                                <connections>
+                                                                    <action selector="plusWidthButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="iHx-JM-fB7"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hXo-qg-CpG">
                                                                 <rect key="frame" x="0.0" y="19" width="30" height="15"/>
@@ -209,6 +212,9 @@
                                                                 <buttonConfiguration key="configuration" style="plain" image="arrowtriangle.down.fill" catalog="system" title="">
                                                                     <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                 </buttonConfiguration>
+                                                                <connections>
+                                                                    <action selector="minusWidthButtonTouched:" destination="BYZ-38-t0r" eventType="touchUpInside" id="kg5-O9-VlX"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>

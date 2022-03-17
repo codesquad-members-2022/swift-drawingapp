@@ -180,6 +180,8 @@ class ViewController: UIViewController {
         plusAlphaValueButton.backgroundColor = .systemGray6
         updateXPointLabel(with: nil)
         updateYPointLabel(with: nil)
+        updateWidthLabel(with: nil)
+        updateHeightLabel(with: nil)
     }
     
     func setNotificationCenter() {
@@ -189,6 +191,7 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidChangeRectangleAlpha(_:)), name: Plane.NotificationNames.didChangeRectangleAlpha, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidAddPhoto(_:)), name: Plane.NotificationNames.didAddPhoto, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidChangeRectanglePoint), name: Plane.NotificationNames.didChangeRectanglePoint, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(planeDidChangeRectangleSize(_:)), name: Plane.NotificationNames.didChangeRectangleSize, object: plane)
     }
 }
 
@@ -226,6 +229,8 @@ extension ViewController {
         updatePlusAlphaValueButton(with: Float(matchedView.alpha))
         updateXPointLabel(with: matchedView.frame.origin.x)
         updateYPointLabel(with: matchedView.frame.origin.y)
+        updateWidthLabel(with: matchedView.frame.width)
+        updateHeightLabel(with: matchedView.frame.height)
     }
     
     @objc func planeDidChangeRectangleBackgroundColor(_ notification: Notification) {
@@ -278,6 +283,8 @@ extension ViewController {
         let newHeight = newSize.height
         
         matchedView.resize(to: (newWidth, newHeight))
+        updateWidthLabel(with: newWidth)
+        updateHeightLabel(with: newHeight)
     }
     
     private func updateSelectedView(_ selectedView: RectangleViewable) {
@@ -386,6 +393,42 @@ extension ViewController {
         plane.changePointOfSpecifiedRectangle(to: newPoint)
     }
     
+    @IBAction func plusWidthButtonTouched(_ sender: UIButton) {
+        guard let selectedView = self.selectedView else {return}
+        let newWidth = selectedView.frame.width + 10
+        let previousHeight = selectedView.frame.height
+        let newSize = Size(width: newWidth, height: previousHeight)
+        
+        plane.changeSizeOfSpecifiedRectangle(to: newSize)
+    }
+    
+    @IBAction func minusWidthButtonTouched(_ sender: UIButton) {
+        guard let selectedView = self.selectedView else {return}
+        let newWidth = selectedView.frame.width - 10
+        let previousHeight = selectedView.frame.height
+        let newSize = Size(width: newWidth, height: previousHeight)
+        
+        plane.changeSizeOfSpecifiedRectangle(to: newSize)
+    }
+    
+    @IBAction func plusHeightButtonTouched(_ sender: UIButton) {
+        guard let selectedView = self.selectedView else {return}
+        let previousWidth = selectedView.frame.width
+        let newHeight = selectedView.frame.height + 10
+        let newSize = Size(width: previousWidth, height: newHeight)
+        
+        plane.changeSizeOfSpecifiedRectangle(to: newSize)
+    }
+    
+    @IBAction func minusHeightButtonTouched(_ sender: UIButton) {
+        guard let selectedView = self.selectedView else {return}
+        let previousWidth = selectedView.frame.size.width
+        let newHeight = selectedView.frame.size.height - 10
+        let newSize = Size(width: previousWidth, height: newHeight)
+        
+        plane.changeSizeOfSpecifiedRectangle(to: newSize)
+    }
+    
     private func updateBackgroundColorButton(with rectangle: AnyRectangularable) {
         guard let rectangle = rectangle as? BackgroundColorChangable & AnyRectangularable else {
             backgroundColorButton.isEnabled = false
@@ -456,6 +499,26 @@ extension ViewController {
 
         let updatedText = String(format: "%.4f", yPoint)
         yPointLabel.text = defaultText + updatedText
+    }
+    
+    private func updateWidthLabel(with width: Double?) {
+        let defaultText = " W: "
+        guard let width = width else {
+            return widthLabel.text = defaultText
+        }
+        
+        let updatedText = String(format: "%.4f", width)
+        widthLabel.text = defaultText + updatedText
+    }
+    
+    private func updateHeightLabel(with height: Double?) {
+        let defaultText = " H: "
+        guard let height = height else {
+            return heightLabel.text = defaultText
+        }
+        
+        let updatedText = String(format: "%.4f", height)
+        heightLabel.text = defaultText + updatedText
     }
 }
 
