@@ -25,6 +25,7 @@
 		B37F41D127D0A09B001F6115 /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = B37F41D027D0A09B001F6115 /* Alpha.swift */; };
 		B38C974227D5AC8F00A5B44A /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38C974127D5AC8E00A5B44A /* Plane.swift */; };
 		B38C974A27D5FB9E00A5B44A /* PlaneTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38C974927D5FB9E00A5B44A /* PlaneTest.swift */; };
+		B38E555727E30D40002D2291 /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B38E555627E30D40002D2291 /* NotificationCenter.swift */; };
 		B3C4979427D9E5AC007721B3 /* CanvasView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3C4979327D9E5AC007721B3 /* CanvasView.xib */; };
 		B3C4979627D9E640007721B3 /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3C4979527D9E640007721B3 /* CanvasView.swift */; };
 /* End PBXBuildFile section */
@@ -61,6 +62,7 @@
 		B38C974127D5AC8E00A5B44A /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
 		B38C974727D5FB9E00A5B44A /* PlaneTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlaneTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B38C974927D5FB9E00A5B44A /* PlaneTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneTest.swift; sourceTree = "<group>"; };
+		B38E555627E30D40002D2291 /* NotificationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
 		B3C4979327D9E5AC007721B3 /* CanvasView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CanvasView.xib; sourceTree = "<group>"; };
 		B3C4979527D9E640007721B3 /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -115,6 +117,7 @@
 				B37F41BB27CF4E0B001F6115 /* LaunchScreen.storyboard */,
 				B37F41BE27CF4E0B001F6115 /* Info.plist */,
 				B37F41B627CF4E05001F6115 /* DrawingApp.xcdatamodeld */,
+				B38E555627E30D40002D2291 /* NotificationCenter.swift */,
 			);
 			path = DrawingApp;
 			sourceTree = "<group>";
@@ -270,6 +273,7 @@
 				B37F41B827CF4E05001F6115 /* DrawingApp.xcdatamodeld in Sources */,
 				B37F41B227CF4E05001F6115 /* ViewController.swift in Sources */,
 				B37F41AE27CF4E05001F6115 /* AppDelegate.swift in Sources */,
+				B38E555727E30D40002D2291 /* NotificationCenter.swift in Sources */,
 				B37F41CF27D08DBF001F6115 /* RectangleFactory.swift in Sources */,
 				B37F41D127D0A09B001F6115 /* Alpha.swift in Sources */,
 				B37F41CB27CF5354001F6115 /* Color.swift in Sources */,
