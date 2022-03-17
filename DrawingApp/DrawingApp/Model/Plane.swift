@@ -7,17 +7,9 @@
 
 import Foundation
 
-protocol PlaneDelegate {
-    func RectangleDidAdd(_ rectangle: Rectangle)
-    func BackgroundDidChanged(_ rectangle: Rectangle)
-    func alpahDidChanged(_ rectangle: Rectangle)
-    func rectangleDidMutate(_ rectangle: Rectangle)
-}
 
-
-struct Plane{
+class Plane{
     
-    var delegate: PlaneDelegate?
     private var rectangles: [Rectangle] = []
     var selectedRectangle: Rectangle?
     
@@ -29,12 +21,12 @@ struct Plane{
         return rectangles[index]
     }
     
-    mutating func add(rectangle: Rectangle){
+    func add(rectangle: Rectangle){
         rectangles.append(rectangle)
-        delegate?.RectangleDidAdd(rectangle)
+        NotificationCenter.default.post(name: .rectangleDidAdd, object: self, userInfo: ["updateRectangle":rectangle])
     }
     
-    mutating func ExistRectangle(at point: Point) -> Rectangle?{
+    func ExistRectangle(at point: Point) -> Rectangle?{
      
         for rect in rectangles {
             if (rect.leftTopPoint.x <= point.x && rect.leftTopPoint.y <= point.y) && (rect.rightBottomPoint.x >= point.x && rect.rightBottomPoint.y >= point.y) {
@@ -48,22 +40,23 @@ struct Plane{
     func changeBackgroundColor(to color: Color){
         guard let selected = selectedRectangle else { return }
         selected.changedBackGroundColor(to: color)
-        delegate?.BackgroundDidChanged(selected)
+        NotificationCenter.default.post(name: .backgroundDidChagned, object: self, userInfo: ["updateRectangle":selected])
         
     }
     
     func changeAlpha(value : Int){
         guard let selected = selectedRectangle else { return }
         selected.changedAlpha(to: value)
-        delegate?.alpahDidChanged(selected)
+        NotificationCenter.default.post(name: .alpahDidChanged, object: self, userInfo: ["updateRectangle":selected])
     }
   
-    mutating func setSelectedRectangle(_ selected: Rectangle){
+    func setSelectedRectangle(_ selected: Rectangle){
         if selected != selectedRectangle {
             self.selectedRectangle = selected
-            delegate?.rectangleDidMutate(selected)
-            delegate?.BackgroundDidChanged(selected)
-            delegate?.alpahDidChanged(selected)
+            
+            NotificationCenter.default.post(name: .rectangleDidMutate, object: self, userInfo: ["updateRectangle":selected])
+            NotificationCenter.default.post(name: .backgroundDidChagned, object: self, userInfo: ["updateRectangle":selected])
+            NotificationCenter.default.post(name: .alpahDidChanged, object: self, userInfo: ["updateRectangle":selected])
         }
     }
     
