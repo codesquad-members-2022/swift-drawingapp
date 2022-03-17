@@ -93,7 +93,7 @@ class ViewController: UIViewController {
         randomCGGreen = round(randomCGGreen * 255)
         randomCGBlue = round(randomCGBlue * 255)
         
-        hexValue.text = convertRGBToHexColorCode(Int(randomCGRed), Int(randomCGGreen), Int(randomCGBlue))
+        hexValue.text = plane.convertRGBToHexColorCode(Int(randomCGRed), Int(randomCGGreen), Int(randomCGBlue))
         redValue.text = "R : \(randomCGRed)"
         greenValue.text = "G : \(randomCGGreen)"
         blueValue.text = "B : \(randomCGBlue)"
@@ -129,22 +129,6 @@ class ViewController: UIViewController {
         enableControlButtons()
     }
     
-    private func convertRGBToHexColorCode(_ r: Int, _ g: Int, _ b: Int) -> String {
-        var hexR = String(r, radix: 16).uppercased()
-        var hexG = String(g, radix: 16).uppercased()
-        var hexB = String(b, radix: 16).uppercased()
-        if r < 16 {
-            hexR = "0" + hexR
-        }
-        if g < 16 {
-            hexG = "0" + hexG
-        }
-        if b < 16 {
-            hexB = "0" + hexB
-        }
-        return "#" + hexR + hexG + hexB
-    }
-    
     private func disableControlButtons() {
         rgbResetButton.isEnabled = false
         alphaStepper.isEnabled = false
@@ -162,10 +146,6 @@ class ViewController: UIViewController {
         alphaStepper.autorepeat = true
     }
     
-    private func showSelectedViewInfo() {
-        
-    }
-    
     private func setDefaultLabel() {
         hexValue.text = "-"
         redValue.text = "-"
@@ -175,7 +155,7 @@ class ViewController: UIViewController {
     }
     
     private func setHexValueLabel(r: Int, g: Int, b: Int) {
-        hexValue.text = convertRGBToHexColorCode(Int(r), Int(g), Int(b))
+        hexValue.text = plane.convertRGBToHexColorCode(Int(r), Int(g), Int(b))
     }
     
     private func setRGBValueLabel(r: Int, g: Int, b: Int) {
