@@ -123,7 +123,7 @@ extension ViewController: CanvasViewDelegate {
         // 여기서 x, y 값이 Plane 좌표의 직사각형을 포함하는지 확인하기
         guard let rectangle = plane.findRectangle(on: (x, y)) else {
             // 사각형이 없는 좌표이므로, 이전에 선택된 사각형이 있을 경우도 고려해야하므로 선택 취소를 해준다.
-            canvasView.initializeRectangle()
+            canvasView.unselectRectangle()
             selectedRectangle = nil
             return
         }
