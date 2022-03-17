@@ -11,8 +11,8 @@ final class PlaneRectangle:Rectangleable {
     private let id:ID
     private(set) var origin:Point
     private(set) var size:Size
-    private(set) var rgb:RGB?
-    private(set) var alpha:Alpha?
+    private(set) var rgb:RGB
+    private(set) var alpha:Alpha
     
     init(id:ID,origin:Point,size:Size,rgb:RGB, alpha:Alpha) {
         self.id = id

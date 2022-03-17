@@ -18,9 +18,9 @@ final class MainViewController: UIViewController{
     private var imageButton:UIButton = ImageButton(frame: .zero)
     
     //그려진 PlaneRetangleView를 모델(Rectangle)을 Key로 찾는 Dictionary로 만들어서 모델과 매칭을 시켜주었습니다.
-    private var retangleViews = [PlaneRectangle:PlaneRectangleView]()
+    private var retangleViews = [PlaneRectangle:UIView]()
     //선택된 PlaneRectangleView
-    private var seletedRectangleView:PlaneRectangleView?
+    private var seletedRectangleView:UIView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -169,7 +169,7 @@ extension MainViewController:UIGestureRecognizerDelegate {
     //addRectagnleView
     @objc func addRectangleView(_ notification:Notification) {
         guard let newRectangle = notification.userInfo?[Plane.UserInfoKey.addedRectangle] as? PlaneRectangle else { return }
-        let rectangleView = RectanlgeViewFactory.makePlaneRectangleView(sourceRectangle: newRectangle)
+        let rectangleView = RectangleViewFactory.makePlaneRectangleView(sourceRectangle: newRectangle)
         
         self.retangleViews[newRectangle] = rectangleView
         
@@ -190,10 +190,10 @@ extension MainViewController:UIGestureRecognizerDelegate {
         seletedRectangleView?.layer.borderWidth = 2.0
         seletedRectangleView?.layer.borderColor = UIColor.blue.cgColor
         
-        self.detailView.alphaLabel.text = "\(seletedRectangle.alpha?.value ?? 0.0)"
-        self.detailView.alphaSlider.value = seletedRectangle.alpha?.value ?? 0.0
+        self.detailView.alphaLabel.text = "\(seletedRectangle.alpha.value)"
+        self.detailView.alphaSlider.value = seletedRectangle.alpha.value
         
-        self.detailView.backgroundColorButton.setTitle("\(seletedRectangle.rgb?.hexValue ?? "")", for: .normal)
+        self.detailView.backgroundColorButton.setTitle("\(seletedRectangle.rgb.hexValue)", for: .normal)
     }
 }
 
