@@ -15,8 +15,8 @@ class Rectangle: Equatable {
     private(set) var id: String
     private(set) var point: Point
     private(set) var size: Size
-    private(set) var backgroundColor: Color
-    private(set) var alpha: Alpha
+    var backgroundColor: Color
+    var alpha: Alpha
     
     
     init(id: String, point: Point, size: Size, backgroundColor: Color, alpha: Alpha) {
