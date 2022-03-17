@@ -97,12 +97,17 @@ extension ViewController: PlaneDelegate {
         
         // 슬라이더 투명도 표시
         sideInspectorView.alphaSlider.value = Float(rectangle.alpha.opacity)
+        let sliderValue = Int(rectangle.alpha.opacity * 10)
+        sideInspectorView.alphaValueLabel.text = "\(sliderValue)"
     }
     
     // 사각형 터치 시, SideInspectorView에 배경색과 투명도 나타내기
     func planeDidTouchedRectangle(_ rectangle: Rectangle) {
         sideInspectorView.colorButton.setTitle(rectangle.backgroundColor.getHexValue(), for: .normal)
         sideInspectorView.alphaSlider.value = Float(rectangle.alpha.opacity)
+        
+        let sliderValue = Int(rectangle.alpha.opacity * 10)
+        sideInspectorView.alphaValueLabel.text = "\(sliderValue)"
     }
     
     // plane의 사각형 속성 바뀐 것을 뷰에 알리기
