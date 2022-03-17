@@ -7,7 +7,7 @@ class ViewController: UIViewController{
     private var canvasView: CanvasView?
     private var stylerView: StylerView?
     private var plane: Plane = Plane()
-    private var rectangleDictionary:[Rectangle.Id:UIView] = [:]
+    private var rectangleDictionary:[Id:UIView] = [:]
     private var temporarySelectedRectangleView: UIView?
     
     override func viewDidLoad() {
@@ -72,7 +72,7 @@ class ViewController: UIViewController{
     }
     
     @objc func addingRectangleCompleted(_ notification: Notification) {
-        guard let rectangle = notification.userInfo?[Plane.UserInfoKey.rectangleAdded] as? Rectangle else { return }
+        guard let rectangle = notification.userInfo?[Plane.UserInfoKey.rectangleAdded] as? RectangleApplicable else { return }
         guard let canvasView = self.canvasView else { return }
         
         if let rectangleView = createRectangleView(rectangle: rectangle){
@@ -82,20 +82,20 @@ class ViewController: UIViewController{
         
     }
     
-    private func createRectangleView(rectangle: Rectangle)-> UIView?{
-        return RectangleViewFactory.createRectangleView(rectangle: rectangle, type: type(of: rectangle))
+    private func createRectangleView(rectangle: RectangleApplicable)-> UIView?{
+        return RectangleViewFactory.createRectangleView(rectangle: rectangle)
     }
     
     @objc func rectangleFoundFromPlane(_ notification: Notification){
-        guard let rectangle = notification.userInfo?[Plane.UserInfoKey.rectangleFound] as? Rectangle else { return }
+        guard let rectangle = notification.userInfo?[Plane.UserInfoKey.rectangleFound] as? RectangleApplicable else { return }
         self.updateViewWithSelectedRectangleModel(rectangle: rectangle)
     }
     
-    private func updateViewWithSelectedRectangleModel(rectangle: Rectangle){
+    private func updateViewWithSelectedRectangleModel(rectangle: RectangleApplicable){
         guard let canvasView = self.canvasView else { return }
         guard let rectangleView = self.rectangleDictionary[rectangle.id] else { return }
         
-        if rectangle is ColorRectangle{
+        if rectangle is RandomColorApplicable{
             self.updateColorRectangleInfo(rectangle: rectangle)
         }else{
             self.updateImageRectangleInfo(rectangle: rectangle)
@@ -103,9 +103,9 @@ class ViewController: UIViewController{
         canvasView.updateSelectedRectangleView(subView: rectangleView)
     }
     
-    private func updateColorRectangleInfo(rectangle: Rectangle){
+    private func updateColorRectangleInfo(rectangle: RectangleApplicable){
         guard let stylerView = self.stylerView else { return }
-        let rectangle = rectangle as! ColorRectangle
+        guard let rectangle = rectangle as? RectangleApplicable & RandomColorApplicable else { return }
         let r = rectangle.backgroundColor.r
         let g = rectangle.backgroundColor.g
         let b = rectangle.backgroundColor.b
@@ -114,7 +114,7 @@ class ViewController: UIViewController{
         stylerView.updateColorRectangleInfo(r: r, g: g, b: b, opacity: opacity, hexString: hexString)
     }
     
-    private func updateImageRectangleInfo(rectangle: Rectangle){
+    private func updateImageRectangleInfo(rectangle: RectangleApplicable){
         guard let stylerView = self.stylerView else { return }
         stylerView.updateImageRectangleInfo(opacity: rectangle.alpha.opacity.rawValue)
     }
@@ -127,7 +127,7 @@ class ViewController: UIViewController{
     }
     
     @objc func updateSelectedRecntalgeViewColor(_ notification: Notification){
-        guard let newColor = notification.userInfo?[Plane.UserInfoKey.rectangleColorUpdated] as? ColorRectangle.Color else { return }
+        guard let newColor = notification.userInfo?[Plane.UserInfoKey.rectangleColorUpdated] as? Color else { return }
         guard let stylerView = self.stylerView else { return }
         guard let canvasView = self.canvasView else { return }
         
@@ -146,7 +146,7 @@ class ViewController: UIViewController{
     
     @objc func updateSelectedRectangleViewPoint(_ notification: Notification){
         guard let canvasView = self.canvasView else { return }
-        guard let selectedRectangle = notification.userInfo?[Plane.UserInfoKey.rectanglePointUpdated] as? Rectangle else { return }
+        guard let selectedRectangle = notification.userInfo?[Plane.UserInfoKey.rectanglePointUpdated] as? RectangleApplicable else { return }
         canvasView.updateSelectedRectanglePoint(point:CGPoint(x: selectedRectangle.point.x, y: selectedRectangle.point.y))
     }
 
@@ -177,8 +177,8 @@ extension ViewController: UIGestureRecognizerDelegate{
     
     private func startPanGesture(location: CGPoint){
         guard let canvasView = self.canvasView else { return }
-        guard let rectangle: Rectangle = self.plane[location.x, location.y] else { return }
-        if let temporarySelectedRectangleView = RectangleViewFactory.createRectangleView(rectangle: rectangle, type: type(of: rectangle)){
+        guard let rectangle: RectangleApplicable = self.plane[location.x, location.y] else { return }
+        if let temporarySelectedRectangleView = RectangleViewFactory.createRectangleView(rectangle: rectangle){
             self.temporarySelectedRectangleView = temporarySelectedRectangleView
             canvasView.addSubview(temporarySelectedRectangleView)
         }
