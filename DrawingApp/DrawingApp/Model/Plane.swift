@@ -37,4 +37,20 @@ struct Plane {
         }
         return false
     }
+    
+    func convertRGBToHexColorCode(_ r: Int, _ g: Int, _ b: Int) -> String {
+        var hexR = String(r, radix: 16).uppercased()
+        var hexG = String(g, radix: 16).uppercased()
+        var hexB = String(b, radix: 16).uppercased()
+        if r < 16 {
+            hexR = "0" + hexR
+        }
+        if g < 16 {
+            hexG = "0" + hexG
+        }
+        if b < 16 {
+            hexB = "0" + hexB
+        }
+        return "#" + hexR + hexG + hexB
+    }
 }
