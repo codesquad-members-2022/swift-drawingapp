@@ -121,14 +121,13 @@ extension ViewController {
         
         // TODO: Dictionary 키 타입을 프로토콜로 추상화하여 Hashable 하게 변경
         // Shapable 프로토콜은 Hashable 할 수 없음
-        guard let rectangle = rectangle as? Rectangle else { return }
         
-        self.rectangleMap.updateValue(rectangleView, forKey: rectangle)
+        self.rectangleMap.updateValue(rectangleView, forKey: rectangle.id)
     }
     
     private func rectangleDataDidChanged(_ notification: Notification) {
-        guard let rectangle = self.plane.currentItem as? Rectangle else { return }
-        guard let rectangleView = self.rectangleMap[rectangle] else { return }
+        guard let rectangle = self.plane.currentItem else { return }
+        guard let rectangleView = self.rectangleMap[rectangle.id] else { return }
         
         if let alpha = notification.userInfo?[Rectangle.NotificationKey.alpha] as? Alpha {
             rectangleView.setAlpha(alpha)
@@ -144,8 +143,8 @@ extension ViewController {
 // MARK: - Plane Model to ViewController
 extension ViewController {
     private func planeDidSelectItem(_ notification: Notification) {
-        guard let rectangle = notification.userInfo?[Plane.NotificationKey.select] as? Rectangle else { return }
-        guard let rectangleView = self.rectangleMap[rectangle] else { return }
+        guard let rectangle = notification.userInfo?[Plane.NotificationKey.select] as? Shapable else { return }
+        guard let rectangleView = self.rectangleMap[rectangle.id] else { return }
         
         rectangleView.setBorder(width: 2, color: .blue)
         
@@ -159,8 +158,8 @@ extension ViewController {
     }
     
     private func planeDidUnselectItem(_ notification: Notification) {
-        guard let rectangle = notification.userInfo?[Plane.NotificationKey.unselect] as? Rectangle else { return }
-        guard let rectangleView = self.rectangleMap[rectangle] else { return }
+        guard let rectangle = notification.userInfo?[Plane.NotificationKey.unselect] as? Shapable else { return }
+        guard let rectangleView = self.rectangleMap[rectangle.id] else { return }
         
         rectangleView.removeBorder()
         
