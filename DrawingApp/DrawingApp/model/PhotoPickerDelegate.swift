@@ -9,6 +9,10 @@ import Foundation
 import UIKit
 
 class PhotoPickerDelegate: NSObject{
+    private let imageDataSendable: ImageDataSendable?
+    init(imageDataSendable: ImageDataSendable?){
+        self.imageDataSendable = imageDataSendable
+    }
     enum Notification{
         enum Event{
             static let getPhotoFromDevice = Foundation.Notification.Name("getPhotoFromDevice")
@@ -29,7 +33,7 @@ extension PhotoPickerDelegate: UIImagePickerControllerDelegate, UINavigationCont
         guard let pngData = newImage?.pngData() else {
             return
         }
-        NotificationCenter.default.post(name: PhotoPickerDelegate.Notification.Event.getPhotoFromDevice, object: self, userInfo: [PhotoPickerDelegate.Notification.Key.photoData : pngData])
+        imageDataSendable?.sendImageData(imageData: pngData)
         picker.dismiss(animated: true)
     }
 }

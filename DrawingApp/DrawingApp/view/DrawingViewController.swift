@@ -15,9 +15,9 @@ class DrawingViewController: UIViewController{
     private lazy var imageAddButton = ImageAddButton(frame: CGRect(x: view.center.x, y: view.frame.maxY - 144.0, width: 100, height: 100))
     private var customViews: [AnyHashable: CustomBaseViewSetable] = [:]
     private let notificationCenter = NotificationCenter.default
-    private lazy var photoPickerDelegate = PhotoPickerDelegate()
     private lazy var photoPickerController = UIImagePickerController()
     private var customViewFactory: CustomViewMakeable?
+    private lazy var photoPickerDelegate = PhotoPickerDelegate(imageDataSendable: self)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +38,6 @@ class DrawingViewController: UIViewController{
     private func addInputNotificationObserver(){
         notificationCenter.addObserver(self, selector: #selector(addRectangleViewToSubView), name: Plane.Notification.Event.addedRectangle, object: plane)
         notificationCenter.addObserver(self, selector: #selector(addPhotoViewToSubView), name: Plane.Notification.Event.addedPhoto, object: plane)
-        notificationCenter.addObserver(self, selector: #selector(getImageFromDevice), name: PhotoPickerDelegate.Notification.Event.getPhotoFromDevice, object: photoPickerDelegate)
         notificationCenter.addObserver(self, selector: #selector(propertyAction), name: PropertySetViewController.Notification.Event.propertyAction, object: nil)
     }
     
@@ -77,12 +76,7 @@ class DrawingViewController: UIViewController{
         photoPickerController.allowsEditing = false
         photoPickerController.delegate = photoPickerDelegate
     }
-    
-    @objc private func getImageFromDevice(_ notification: Foundation.Notification){
-        guard let imageData = notification.userInfo?[PhotoPickerDelegate.Notification.Key.photoData] as? Data else { return }
-        plane?.addRandomPhotoViewModel(imageData: imageData)
-    }
-    
+
     @objc private func addRectangleViewToSubView(_ notification: Foundation.Notification){
         guard let rectangleViewModel = notification.userInfo?[Plane.Notification.Key.rectangle] as? RectangleViewModelMutable else {
             return
@@ -98,6 +92,7 @@ class DrawingViewController: UIViewController{
             customViews[rectangle] = customView
         }
         view.addSubview(customView)
+        NotificationCenter.default.post(name: DrawingViewController.Notification.Event.updateSelectedRectangleUI, object: self, userInfo: [DrawingViewController.Notification.Key.rectangle : rectangleViewModel])
     }
     
     func setViewAlpha(customView: CustomBaseViewSetable, customViewModel: CustomViewModelMutable){
@@ -207,4 +202,12 @@ class DrawingViewController: UIViewController{
             case photo
         }
     }
+}
+extension DrawingViewController: ImageDataSendable{
+    func sendImageData(imageData: Data){
+       plane?.addRandomPhotoViewModel(imageData: imageData)
+    }
+}
+protocol ImageDataSendable{
+    func sendImageData(imageData: Data)
 }
