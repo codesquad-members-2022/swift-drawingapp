@@ -38,6 +38,10 @@ class Plane:CustomStringConvertible{
         NotificationCenter.default.post(name: NotificationName.rectangleFoundFromPlane, object: self, userInfo: [UserInfoKey.rectangleFound:rectangle])
     }
     
+    func addRectangle(_ rectangle: RectangleApplicable){
+        self.rectangles.append(rectangle)
+    }
+    
     func addColorRectangle(maxX: Double, maxY: Double, minWidth: Double, minHeight: Double, maxWidth: Double, maxHeight: Double){
         let rectangle = RectangleFactory.createColorRenctangle(maxX: maxX, maxY: maxY, minWidth: maxWidth, minHeight: minHeight, maxWidth: maxWidth, maxHeight: maxHeight)
         self.rectangles.append(rectangle)
