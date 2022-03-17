@@ -31,7 +31,7 @@ class ViewController: UIViewController {
         self.view.addGestureRecognizer(tapGestureRecognizer)
         
         disableControlButtons()
-        setAlphaStepper()
+        initAlphaStepper()
     }
 
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
@@ -45,18 +45,18 @@ class ViewController: UIViewController {
         
         let isRectangleAtPoint = plane.isThereARectangle(point: touchedPoint)
         if isRectangleAtPoint, selectedView == nil { // select new Rectangle
-            selectShape(currentView: currentView)
+            selectShape(currentView)
         }
         if isRectangleAtPoint, selectedView != nil { // select another Rectangle
             selectedView?.layer.borderWidth = 0
             
-            selectShape(currentView: currentView)
+            selectShape(currentView)
         }
         if !isRectangleAtPoint { // select nothing
             selectedView?.layer.borderWidth = 0
             selectedView = nil
             setDefaultLabel()
-            alphaStepper.value = 1
+            alphaStepper.value = 1.0
             disableControlButtons()
         }
     }
@@ -100,32 +100,34 @@ class ViewController: UIViewController {
     }
     
     @IBAction func tapAlphaStepper(_ sender: UIStepper) {
-        var selectedViewRed: CGFloat = 0
-        var selectedViewGreen: CGFloat = 0
-        var selectedViewBlue: CGFloat = 0
-        var selectedViewAlpha: CGFloat = 0
-        selectedView?.backgroundColor?.getRed(&selectedViewRed, green: &selectedViewGreen, blue: &selectedViewBlue, alpha: &selectedViewAlpha)
-        selectedView?.backgroundColor = UIColor(red: selectedViewRed, green: selectedViewGreen, blue: selectedViewBlue, alpha: alphaStepper.value / 10)
-        alphaValue.text = "A : \(alphaStepper.value)"
+        guard let currentView = selectedView else {
+            return
+        }
+    
+        guard let currentViewRGBA = currentView.backgroundColor?.rgba else {
+            return
+        }
+        selectedView?.backgroundColor = UIColor(red: currentViewRGBA.red,
+                                                green: currentViewRGBA.green,
+                                                blue: currentViewRGBA.blue,
+                                                alpha: alphaStepper.value / 10)
+        setAlphaValueLabel(a: Int(alphaStepper.value))
     }
     
-    private func selectShape(currentView: UIView) {
-        guard let rgba = currentView.backgroundColor?.rgba else {
+    private func selectShape(_ shape: UIView) {
+        guard let rgba = shape.backgroundColor?.rgba else {
             return
         }
         
-        let currentViewRed = round(rgba.red * 255)
-        let currentViewGreen = round(rgba.green * 255)
-        let currentViewBlue = round(rgba.blue * 255)
-        let currentViewAlpha = round(rgba.alpha * 10)
+        let intRGBA = convertRGBAToInteger(r: rgba.red, g: rgba.green, b: rgba.blue, a: rgba.alpha)
         
-        selectedView = currentView
-        currentView.layer.borderWidth = 5
-        currentView.layer.borderColor = UIColor.blue.cgColor
-        setHexValueLabel(r: Int(currentViewRed), g: Int(currentViewGreen), b: Int(currentViewBlue))
-        setRGBValueLabel(r: Int(currentViewRed), g: Int(currentViewGreen), b: Int(currentViewBlue))
-        setAlphaValueLabel(a: Int(currentViewAlpha))
-        alphaStepper.value = currentViewAlpha
+        selectedView = shape
+        shape.layer.borderWidth = 5
+        shape.layer.borderColor = UIColor.blue.cgColor
+        setHexValueLabel(r: intRGBA.r, g: intRGBA.g, b: intRGBA.b)
+        setRGBValueLabel(r: intRGBA.r, g: intRGBA.g, b: intRGBA.b)
+        setAlphaValueLabel(a: intRGBA.a)
+        setAlphaStepper(value: Double(intRGBA.a))
         enableControlButtons()
     }
     
@@ -139,11 +141,15 @@ class ViewController: UIViewController {
         alphaStepper.isEnabled = true
     }
     
-    private func setAlphaStepper() {
-        alphaStepper.minimumValue = 1
-        alphaStepper.maximumValue = 10
-        alphaStepper.stepValue = 1
+    private func initAlphaStepper() {
+        alphaStepper.minimumValue = 1.0
+        alphaStepper.maximumValue = 10.0
+        alphaStepper.stepValue = 1.0
         alphaStepper.autorepeat = true
+    }
+    
+    private func setAlphaStepper(value: Double) {
+        alphaStepper.value = value
     }
     
     private func setDefaultLabel() {
@@ -183,6 +189,15 @@ class ViewController: UIViewController {
         result.g = CGFloat(Double.random(in: 0...255) / 255)
         result.b = CGFloat(Double.random(in: 0...255) / 255)
         result.a = CGFloat(Double.random(in: 1...10) / 10)
+        return result
+    }
+    
+    private func convertRGBAToInteger(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) -> (r: Int, g: Int, b: Int, a: Int) {
+        var result: (r: Int, g: Int, b: Int, a: Int) = (0, 0, 0, 0)
+        result.r = Int(round(r * 255))
+        result.g = Int(round(g * 255))
+        result.b = Int(round(b * 255))
+        result.a = Int(round(a * 10))
         return result
     }
 }
