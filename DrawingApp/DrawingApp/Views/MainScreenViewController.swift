@@ -15,6 +15,8 @@ final class MainScreenViewController: UIViewController, UIGestureRecognizerDeleg
     
     var rectangleDelegate: MainSceneTapDelegate?
     
+    private let factoryRectangle = FactoryMainScreenRectangle()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -96,17 +98,7 @@ final class MainScreenViewController: UIViewController, UIGestureRecognizerDeleg
             return
         }
         
-        var rect: Rectangle!
-        
-        switch model {
-        case let model as ImageRectangleProperty:
-            rect = ImageRectangle(model: model, index: index)
-        case let model as ColoredRectangleProperty:
-            rect = ColoredRectangle(model: model, index: index)
-        default:
-            LoggerUtil.debugLog(message: "Initialize rectangle failed. \(model.name)")
-            return
-        }
+        guard let rect = factoryRectangle.makeRectangle(from: model, at: index) else { return }
         
         rectangleViews.append(rect)
         view.addSubview(rect)
