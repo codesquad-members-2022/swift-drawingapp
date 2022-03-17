@@ -32,6 +32,7 @@ class Plane{
         models.append(photoMutable)
         self.selectedModel = photoMutable
         NotificationCenter.default.post(name: Plane.Notification.Event.addedPhoto, object: self, userInfo: [Plane.Notification.Key.photo : photoMutable])
+        
     }
     
     private func changeRectangleColor(){
