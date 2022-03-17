@@ -49,8 +49,8 @@ class PhotoView: UIImageView, RectangleViewable {
     }
     
     func move(to newPoint: CGPoint) {
-        self.center.x = newPoint.x
-        self.center.y = newPoint.y
+        self.frame.origin.x = newPoint.x
+        self.frame.origin.y = newPoint.y
     }
     
     func copy(with zone: NSZone? = nil) -> Any {
