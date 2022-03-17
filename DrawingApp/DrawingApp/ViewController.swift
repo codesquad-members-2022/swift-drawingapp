@@ -407,8 +407,10 @@ extension ViewController {
     }
     
     private func updateBackgroundColorButtonAlpha(with newAlpha: CGFloat) {
-        let previousBackgroundColorButtonColor = backgroundColorButton.backgroundColor ?? UIColor()
-        self.backgroundColorButton.backgroundColor = previousBackgroundColorButtonColor.withAlphaComponent(newAlpha)
+        if self.backgroundColorButton.isEnabled == true {
+            let previousBackgroundColorButtonColor = backgroundColorButton.backgroundColor ?? UIColor()
+            self.backgroundColorButton.backgroundColor = previousBackgroundColorButtonColor.withAlphaComponent(newAlpha)
+        }
     }
     
     private func updateMinusAlphaValueButton(with alpha: Float) {
