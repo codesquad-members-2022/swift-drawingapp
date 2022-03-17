@@ -20,7 +20,7 @@ class Plane:CustomStringConvertible{
         static let rectanglePointUpdated = Notification.Name("rectanglePointUpdated")
     }
     
-    private var rectangles:[Rectangle] = []
+    private var rectangles:[RectangleApplicable] = []
     private var selectedRectangleIndex: Int?
     var count: Int{
         return rectangles.count
@@ -50,7 +50,7 @@ class Plane:CustomStringConvertible{
         NotificationCenter.default.post(name: NotificationName.rectangleAdded, object: self, userInfo: [UserInfoKey.rectangleAdded: rectangle])
     }
     
-    func updateRectangleColor(newColor: ColorRectangle.Color){
+    func updateRectangleColor(newColor:Color){
         guard let selectedRectangleIndex = self.selectedRectangleIndex else { return }
         guard let selectedRectangle = self.rectangles[selectedRectangleIndex] as? ColorRectangle else { return }
         selectedRectangle.updateBackgroundColor(newColor: newColor)
@@ -59,20 +59,20 @@ class Plane:CustomStringConvertible{
     
     func updateRectangleAlpha(opacity: Int){
         guard let selectedRectangleIndex = self.selectedRectangleIndex else { return }
-        let selectedRectangle = self.rectangles[selectedRectangleIndex]
-        selectedRectangle.alpha = Rectangle.Alpha(opacity: opacity)
+        var selectedRectangle = self.rectangles[selectedRectangleIndex]
+        selectedRectangle.alpha = Alpha(opacity: opacity)
         NotificationCenter.default.post(name: NotificationName.rectangleAlphaUpdated, object: self, userInfo: [UserInfoKey.rectangleAlphaUpdated:opacity])
     }
     
     func updateSelectedRectanglePoint(x: Double, y: Double){
         guard let selectedRectangleIndex = self.selectedRectangleIndex else { return }
-        let selectedRectangle = self.rectangles[selectedRectangleIndex]
+        var selectedRectangle = self.rectangles[selectedRectangleIndex]
         selectedRectangle.point.x = x
         selectedRectangle.point.y = y
         NotificationCenter.default.post(name: NotificationName.rectanglePointUpdated, object: self, userInfo: [UserInfoKey.rectanglePointUpdated:selectedRectangle])
     }
     
-    private func isRectangleInsideTheRange(x: Double, y: Double, rectangle: Rectangle)-> Bool{
+    private func isRectangleInsideTheRange(x: Double, y: Double, rectangle: RectangleApplicable)-> Bool{
         
         let minX = rectangle.point.x
         let minY = rectangle.point.y
@@ -85,7 +85,7 @@ class Plane:CustomStringConvertible{
         return false
     }
     
-    subscript(x: Double = 0, y: Double = 0)-> Rectangle?{
+    subscript(x: Double = 0, y: Double = 0)-> RectangleApplicable?{
         
         for index in stride(from: self.rectangles.count-1, through: 0, by: -1){
             let rectangle = self.rectangles[index]
