@@ -23,8 +23,8 @@ class RectangleFactory {
     
     
     func createRandomPoint() -> Point {
-        let x = Double.random(in: 0...800)
-        let y = Double.random(in: 0...600)
+        let x = Double.random(in: 0...780)
+        let y = Double.random(in: 0...620)
         return Point(x: x, y: y)
     }
     
