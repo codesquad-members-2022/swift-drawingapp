@@ -27,14 +27,14 @@ extension UIColor {
     
     func toHex() -> String? {
         guard let components = cgColor.components, components.count >= 3 else {
-            return nil
+            return nil // components가 [CGFloat]? 여서 옵셔널 바인딩, 최소 3개 이상
         }
         
         let r = Float(components[0])
         let g = Float(components[1])
         let b = Float(components[2])
         
-        return String(format: "%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255))
+        return String(format: "%02lX%02lX%02lX", lroundf(r * 255), lroundf(g * 255), lroundf(b * 255)) // 
     }
     
 }

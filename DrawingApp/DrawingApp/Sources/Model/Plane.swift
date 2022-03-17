@@ -16,8 +16,8 @@ class Plane {
         return rectangles[index]
     }
     
-    func addRectangle() -> Rectangle {
-        let add = Factory.createRectangle()
+    func createRectangle(marginX: Double, marginY: Double) -> Rectangle {
+        let add = Factory.createRectangle(marginX: marginX, marginY: marginY)
         rectangles.append(add)
         return add
     }

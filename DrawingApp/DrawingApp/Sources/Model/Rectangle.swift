@@ -30,8 +30,12 @@ extension Rectangle: CustomStringConvertible {
     }
 }
 
-extension Rectangle: Equatable {
+extension Rectangle: Equatable, Hashable {
     static func == (lhs: Rectangle, rhs: Rectangle) -> Bool {
         return lhs.id == rhs.id
+    }
+    
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }

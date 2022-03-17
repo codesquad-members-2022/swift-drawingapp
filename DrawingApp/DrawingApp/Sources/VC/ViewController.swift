@@ -9,28 +9,25 @@ import UIKit
 import OSLog
 
 class ViewController: UIViewController {
-
+    
+    private var model = Plane()
+    private var rectengles = [Rectangle: RectengleView]() // 이 안에 Rectangle 값이랑, 그에 맞는 view를 넣어
+    
+    @IBOutlet weak var canvas: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
     }
+
 
     @IBAction func createRectangle(_ sender: UIButton) {
-        let newRectangle = Factory.createRectangle()
+        let rectangle = model.createRectangle(marginX: canvas.bounds.width, marginY: canvas.bounds.height)
     
-        OSLog.log(message: newRectangle.description)
+        let view = RectengleView.init(frame: CGRect(x: rectangle.point.x, y: rectangle.point.y, width: rectangle.size.width, height: rectangle.size.height))
         
-        let test = UIView.init(frame: CGRect(x: newRectangle.point.x, y: newRectangle.point.y, width: newRectangle.size.width, height: newRectangle.size.height))
-        
-        let check = Convert.toUIColor(color: newRectangle.color, alpha: newRectangle.alpha)
-        
-        test.backgroundColor = check
-        print(check.toHex() ?? "")
-        
-        
-        
-        self.view.addSubview(test)
-
+        self.canvas.addSubview(view)
     }
     
+    
 }
-
