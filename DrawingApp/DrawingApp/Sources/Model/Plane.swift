@@ -11,15 +11,17 @@ class Plane {
     
     private var rectangles: [Rectangle] = []
     private var selctRectangle: Rectangle?
+    var delegate: PlaneDelegate?
     
     subscript(index: Int) -> Rectangle {
         return rectangles[index]
     }
     
-    func createRectangle(marginX: Double, marginY: Double) -> Rectangle {
-        let add = Factory.createRectangle(marginX: marginX, marginY: marginY)
+    func createRectangle() {
+        let add = Factory.createRectangle()
         rectangles.append(add)
-        return add
+        
+        delegate?.didCreatRectangel(rectangle: add)
     }
     
     func countingRectangle() -> Int {

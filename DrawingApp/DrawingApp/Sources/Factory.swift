@@ -10,11 +10,11 @@ import UIKit
 
 class Factory {
 
-    static func createRectangle(marginX: Double, marginY: Double) -> Rectangle {
+    static func createRectangle() -> Rectangle {
 
         let size = Size(width: 150, height: 120)
-        let point = Point(x: round(Double.random(in: 0..<marginX)),
-                          y: round(Double.random(in: 0..<marginY)))
+        let point = Point(x: round(Double.random(in: 0...700)),
+                          y: round(Double.random(in: 0...720)))
         let color = Color(r: round(Double.random(in: 0...255)),
                           g: round(Double.random(in: 0...255)),
                           b: round(Double.random(in: 0...255)))

@@ -7,20 +7,18 @@
 
 import UIKit
 
+class Panel: UIView {
 
-//@IBDesignable
-class RightView: UIView {
-
-    @IBOutlet weak var rightViewBackground: UIView!
+    var delegate: PanelDelegate?
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        loadXib()
+        self.loadXib()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        loadXib()
+        self.loadXib()
     }
     
     private func loadXib() {
@@ -33,4 +31,15 @@ class RightView: UIView {
         self.addSubview(inputView)
     }
     
+    @IBAction func backgroundColor(_ sender: UIButton) {
+        delegate?.didpressColorChangeButton()
+    }
+    
+    @IBAction func changAlpha(_ sender: Any) {
+        delegate?.didMoveSlider()
+    }
+    
+    @IBAction func createRectangle(_ sender: UIButton) {
+        delegate?.didpressCreateRectangleButton()
+    }
 }
