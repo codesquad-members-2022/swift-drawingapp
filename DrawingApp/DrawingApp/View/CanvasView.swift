@@ -46,7 +46,7 @@ class CanvasView: UIView {
     func select(rectangle: Rectangle) {
         for (key, value) in rectangles {
             if key == rectangle {
-                initializeRectangle()
+                unselectRectangle()
                 value.layer.borderWidth = 3
                 value.layer.borderColor = UIColor.blue.cgColor
                 value.layer.backgroundColor = UIColor(hex: rectangle.backgroundColor.getHexValue()).cgColor
@@ -55,7 +55,7 @@ class CanvasView: UIView {
         }
     }
     
-    func initializeRectangle() {
+    func unselectRectangle() {
         for (_, value) in rectangles {
             value.layer.borderWidth = 0
         }
