@@ -8,8 +8,8 @@ class RectangleViewFactory{
         ObjectIdentifier(ImageRectangle.self): ImageRectangleView.self
     ]
     
-    static func createRectangleView(rectangle: Rectangle, type: Rectangle.Type)-> AbstractRectangleView?{
-        guard let rectangleView = self.rectangleType[ObjectIdentifier(type)] else { return nil }
+    static func createRectangleView(rectangle: RectangleApplicable)-> AbstractRectangleView?{
+        guard let rectangleView = self.rectangleType[ObjectIdentifier(type(of: rectangle))] else { return nil }
         return rectangleView.init(rectangle: rectangle)
     }
 }
