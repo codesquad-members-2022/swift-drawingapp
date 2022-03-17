@@ -15,6 +15,7 @@ protocol Rectangularable {
     func isPointInArea(_ point: Point) -> Bool
     func changeAlphaValue(to newAlpha: Alpha)
     func move(to newPoint: Point)
+    func resize(to newSize: Size)
 }
 
 class AnyRectangularable: Rectangularable {
@@ -42,7 +43,10 @@ class AnyRectangularable: Rectangularable {
     func move(to newPoint: Point) {
         self.point = newPoint
     }
-
+    
+    func resize(to newSize: Size) {
+        self.size = newSize
+    }
 }
 
 extension AnyRectangularable: CustomStringConvertible {

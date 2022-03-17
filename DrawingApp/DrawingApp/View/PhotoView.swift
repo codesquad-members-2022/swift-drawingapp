@@ -60,6 +60,12 @@ class PhotoView: UIImageView, RectangleViewable {
         
         return PhotoView.init(frame: newFrame, alpha: newAlpha, image: newImage)
     }
+    
+    func resize(to newSize: (width: CGFloat, height: CGFloat)) {
+        let newFrame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y,
+                              width: newSize.width, height: newSize.height)
+        self.frame = newFrame
+    }
 }
 
 extension CGRect {

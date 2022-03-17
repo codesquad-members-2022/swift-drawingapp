@@ -9,12 +9,14 @@ import UIKit
 
 protocol RectangleViewable: NSCopying {
     var alpha: CGFloat {get}
+    var frame: CGRect {get}
     func hideBoundary()
     func showBoundary()
     func changeBackgroundColor(to newColor: UIColor)
     func changeAlphaValue(to newAlphaValue: CGFloat)
     func move(distance: CGPoint)
     func move(to newPoint: CGPoint)
+    func resize(to newSize: (width: CGFloat, height: CGFloat))
 }
 
 class RectangleView: UIView, RectangleViewable {
@@ -69,6 +71,12 @@ class RectangleView: UIView, RectangleViewable {
         let newAlpha = self.alpha.copy()
         
         return RectangleView.init(frame: newFrame, backgroundColor: newBackgroundColor, alpha: newAlpha)
+    }
+    
+    func resize(to newSize: (width: CGFloat, height: CGFloat)) {
+        let newFrame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y,
+                              width: newSize.width, height: newSize.height)
+        self.frame = newFrame
     }
 }
 
