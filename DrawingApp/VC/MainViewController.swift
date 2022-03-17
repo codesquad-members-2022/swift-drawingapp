@@ -124,10 +124,10 @@ extension MainViewController{
     }
     
     private func addChangedRectValueObserver(){
-        NotificationCenter.default.addObserver(self, selector: #selector(changeViewPoint), name: RectValue.NotificationName.changePoint, object: plane.selectedValue)
-        NotificationCenter.default.addObserver(self, selector: #selector(changeViewSize), name: RectValue.NotificationName.changeSize, object: plane.selectedValue)
-        NotificationCenter.default.addObserver(self, selector: #selector(changeViewAlpha), name: RectValue.NotificationName.changeAlpha, object: plane.selectedValue)
-        NotificationCenter.default.addObserver(self, selector: #selector(changeViewColor), name: Rectangle.NotificationName.changeColor, object: plane.selectedValue)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeViewPoint), name: Plane.NotificationName.changePoint, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeViewSize), name: Plane.NotificationName.changeSize, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeViewAlpha), name: Plane.NotificationName.changeAlpha, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeViewColor), name: Plane.NotificationName.changeColor, object: plane)
     }
 }
 
@@ -306,12 +306,8 @@ extension MainViewController: UIColorSliderDelegate{
     }
     
     private func changeRectangleColor(){
-        guard let rectangle = plane.selectedValue as? Rectangle else{
-            return
-        }
-        
         let newColor = RGBColor(red: rightAttributerView.redValue, green: rightAttributerView.greenValue, blue: rightAttributerView.blueValue)
-        rectangle.changeColor(color: newColor)
+        plane.changeRectangleColor(newColor: newColor)
     }
     
     @objc func changeViewColor(){
@@ -323,11 +319,7 @@ extension MainViewController: UIColorSliderDelegate{
     }
     
     private func changeRectValueAlpha(){
-        guard let rectValue = plane.selectedValue else{
-            return
-        }
-        
-        rectValue.changeAlpha(alpha: rightAttributerView.alphaValue)
+        plane.changeRectValueAlpha(newAlpha: rightAttributerView.alphaValue)
     }
     
     @objc func changeViewAlpha(){
@@ -345,30 +337,20 @@ extension MainViewController: UIColorSliderDelegate{
 extension MainViewController: StepperDelegate{
     func pointValueDidChange() {
         changeRectValuePoint()
-        rightAttributerView.changeStepperValue()
     }
     
     func sizeValueDidChange() {
         changeRectValueSize()
-        rightAttributerView.changeStepperValue()
     }
     
     private func changeRectValuePoint(){
-        guard let rectValue = plane.selectedValue else{
-            return
-        }
-        
         let newPoint = MyPoint(x: rightAttributerView.xValue, y: rightAttributerView.yValue)
-        rectValue.changePoint(point: newPoint)
+        plane.changeRectValuePoint(newPoint: newPoint)
     }
     
     private func changeRectValuePoint(extraView: UIView){
-        guard let rectValue = plane.selectedValue else{
-            return
-        }
-        
         let newPoint = MyPoint(x: extraView.frame.origin.x, y: extraView.frame.origin.y)
-        rectValue.changePoint(point: newPoint)
+        plane.changeRectValuePoint(newPoint: newPoint)
     }
     
     @objc func changeViewPoint(){
@@ -377,15 +359,12 @@ extension MainViewController: StepperDelegate{
         }
         
         view.frame.origin = CGPoint(x: rectValue.point.x, y: rectValue.point.y)
+        rightAttributerView.changeStepperValue()
     }
     
     private func changeRectValueSize(){
-        guard let rectValue = plane.selectedValue else{
-            return
-        }
-        
         let newSize = MySize(width: rightAttributerView.widthValue, height: rightAttributerView.heightValue)
-        rectValue.changeSize(size: newSize)
+        plane.changeRectValueSize(newSize: newSize)
     }
     
     @objc func changeViewSize(){
@@ -394,5 +373,6 @@ extension MainViewController: StepperDelegate{
         }
         
         view.frame.size = CGSize(width: rectValue.size.width, height: rectValue.size.height)
+        rightAttributerView.changeStepperValue()
     }
 }
