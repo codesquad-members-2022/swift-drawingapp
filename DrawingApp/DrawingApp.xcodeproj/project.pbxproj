@@ -13,6 +13,8 @@
 		B5C4716627E1B31B00E6D827 /* ColorRectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C4716527E1B31B00E6D827 /* ColorRectangleView.swift */; };
 		B5C4716827E1B32600E6D827 /* ImageRectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C4716727E1B32600E6D827 /* ImageRectangleView.swift */; };
 		B5C4716C27E1B68C00E6D827 /* AbstractRectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C4716B27E1B68C00E6D827 /* AbstractRectangleView.swift */; };
+		B5C4716F27E3112F00E6D827 /* CustomImageApplicable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C4716E27E3112F00E6D827 /* CustomImageApplicable.swift */; };
+		B5C4717127E3113F00E6D827 /* RandomColorApplicable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C4717027E3113F00E6D827 /* RandomColorApplicable.swift */; };
 		B5E73BA027CDC29E0016E628 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E73B9F27CDC29E0016E628 /* AppDelegate.swift */; };
 		B5E73BA227CDC29E0016E628 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E73BA127CDC29E0016E628 /* SceneDelegate.swift */; };
 		B5E73BA427CDC29E0016E628 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5E73BA327CDC29E0016E628 /* ViewController.swift */; };
@@ -47,6 +49,8 @@
 		B5C4716527E1B31B00E6D827 /* ColorRectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRectangleView.swift; sourceTree = "<group>"; };
 		B5C4716727E1B32600E6D827 /* ImageRectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRectangleView.swift; sourceTree = "<group>"; };
 		B5C4716B27E1B68C00E6D827 /* AbstractRectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AbstractRectangleView.swift; sourceTree = "<group>"; };
+		B5C4716E27E3112F00E6D827 /* CustomImageApplicable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageApplicable.swift; sourceTree = "<group>"; };
+		B5C4717027E3113F00E6D827 /* RandomColorApplicable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomColorApplicable.swift; sourceTree = "<group>"; };
 		B5E73B9C27CDC29E0016E628 /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5E73B9F27CDC29E0016E628 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B5E73BA127CDC29E0016E628 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -129,6 +133,8 @@
 				B5E73BB427CDC2F90016E628 /* ColorRectangle.swift */,
 				B5E73BB627CDE3910016E628 /* RectangleFactory.swift */,
 				B5E73BBB27CF457B0016E628 /* Plane.swift */,
+				B5C4716E27E3112F00E6D827 /* CustomImageApplicable.swift */,
+				B5C4717027E3113F00E6D827 /* RandomColorApplicable.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -282,11 +288,13 @@
 				B5E73BCC27D1340F0016E628 /* StylerViewDelegate.swift in Sources */,
 				B5E73BC827D083750016E628 /* StylerView.swift in Sources */,
 				B5C4716827E1B32600E6D827 /* ImageRectangleView.swift in Sources */,
+				B5C4717127E3113F00E6D827 /* RandomColorApplicable.swift in Sources */,
 				B5E73BA427CDC29E0016E628 /* ViewController.swift in Sources */,
 				B58D8E5C27DCC71B0018B3E2 /* Rectangle.swift in Sources */,
 				B5E73BA027CDC29E0016E628 /* AppDelegate.swift in Sources */,
 				B5E73BA227CDC29E0016E628 /* SceneDelegate.swift in Sources */,
 				B5E73BBC27CF457B0016E628 /* Plane.swift in Sources */,
+				B5C4716F27E3112F00E6D827 /* CustomImageApplicable.swift in Sources */,
 				B5E73BCE27D138300016E628 /* CanvasViewDeleagte.swift in Sources */,
 				B5E73BB527CDC2F90016E628 /* ColorRectangle.swift in Sources */,
 			);
