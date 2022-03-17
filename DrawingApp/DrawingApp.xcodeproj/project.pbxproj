@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B58D8E5C27DCC71B0018B3E2 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58D8E5B27DCC71B0018B3E2 /* Rectangle.swift */; };
 		B58D8E5E27DCC8260018B3E2 /* ImageRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = B58D8E5D27DCC8260018B3E2 /* ImageRectangle.swift */; };
 		B5B137BC27D9C8AE0033F9A5 /* RectangleViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5B137BB27D9C8AE0033F9A5 /* RectangleViewFactory.swift */; };
 		B5C4716627E1B31B00E6D827 /* ColorRectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5C4716527E1B31B00E6D827 /* ColorRectangleView.swift */; };
@@ -48,7 +47,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B58D8E5B27DCC71B0018B3E2 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 		B58D8E5D27DCC8260018B3E2 /* ImageRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageRectangle.swift; sourceTree = "<group>"; };
 		B5B137BB27D9C8AE0033F9A5 /* RectangleViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleViewFactory.swift; sourceTree = "<group>"; };
 		B5C4716527E1B31B00E6D827 /* ColorRectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRectangleView.swift; sourceTree = "<group>"; };
@@ -138,7 +136,6 @@
 		B5E73BB327CDC2D20016E628 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				B58D8E5B27DCC71B0018B3E2 /* Rectangle.swift */,
 				B58D8E5D27DCC8260018B3E2 /* ImageRectangle.swift */,
 				B5E73BB427CDC2F90016E628 /* ColorRectangle.swift */,
 				B5E73BB627CDE3910016E628 /* RectangleFactory.swift */,
@@ -308,7 +305,6 @@
 				B5C4716827E1B32600E6D827 /* ImageRectangleView.swift in Sources */,
 				B5C4717127E3113F00E6D827 /* RandomColorApplicable.swift in Sources */,
 				B5E73BA427CDC29E0016E628 /* ViewController.swift in Sources */,
-				B58D8E5C27DCC71B0018B3E2 /* Rectangle.swift in Sources */,
 				B5C4717727E318B800E6D827 /* RectangleSize.swift in Sources */,
 				B5E73BA027CDC29E0016E628 /* AppDelegate.swift in Sources */,
 				B5E73BA227CDC29E0016E628 /* SceneDelegate.swift in Sources */,
