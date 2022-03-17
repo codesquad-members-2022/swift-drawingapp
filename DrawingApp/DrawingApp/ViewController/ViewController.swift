@@ -41,10 +41,10 @@ class ViewController: UIViewController {
     }
     
     func configureSubscriber() {
-        NotificationCenter.default.addObserver(self, selector: #selector(rectangleDidMutate(_:)), name: .rectangleDidMutate, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(RectangleDidAdd(_:)), name: .rectangleDidAdd, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(BackgroundDidChanged(_:)), name: .backgroundDidChagned, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(alpahDidChanged(_:)), name: .alpahDidChanged, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(replaceSelectedRectangleView(_:)), name: .rectangleDidMutate, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(addRectangleView(_:)), name: .rectangleDidAdd, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeBackgroundColor(_:)), name: .backgroundDidChagned, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeAlpha(_:)), name: .alpahDidChanged, object: plane)
     }
     
     func clear() {
@@ -74,10 +74,10 @@ extension ViewController: RectangleViewDelegate {
     }
 }
 
-// Delegate : Model
+// Notification : Model
 extension ViewController {
     
-    @objc func rectangleDidMutate(_ notification: NSNotification) {
+    @objc func replaceSelectedRectangleView(_ notification: NSNotification) {
         guard let selected = notification.userInfo?["updateRectangle"] as? Rectangle else { return }
         selectedRectangleView?.layer.borderWidth = 0 // 이전 사각형테두리 지우기
         selectedRectangleView = rectangleViews[selected]
@@ -85,7 +85,7 @@ extension ViewController {
     }
     
     @objc
-    func RectangleDidAdd(_ notification: NSNotification) {
+    func addRectangleView(_ notification: NSNotification) {
         guard let newRectangle = notification.userInfo?["updateRectangle"] as? Rectangle else { return }
         let rect = UIView(frame: CGRect(x: newRectangle.position.x, y: newRectangle.position.y, width: newRectangle.size.width, height: newRectangle.size.height))
         let color = Convertor.convertColor(from: newRectangle.backgroundColor, alpha: newRectangle.alpha)
@@ -96,7 +96,7 @@ extension ViewController {
     }
     
     @objc
-    func BackgroundDidChanged(_ notification: NSNotification) {
+    func changeBackgroundColor(_ notification: NSNotification) {
         guard let selected = notification.userInfo?["updateRectangle"] as? Rectangle else { return }
         
         let hexString = Convertor.colorToHexString(selected.backgroundColor)
@@ -108,7 +108,7 @@ extension ViewController {
     }
     
     @objc
-    func alpahDidChanged(_ notification: NSNotification) {
+    func changeAlpha(_ notification: NSNotification) {
         guard let selected = notification.userInfo?["updateRectangle"] as? Rectangle else { return }
         
         let alpha = selected.alpha
