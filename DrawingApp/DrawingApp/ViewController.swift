@@ -27,10 +27,7 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Tap Gesture Recognizer 초기화
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
-        
-        // Tap Gesture Recognizer를 뷰 전체에 추가
         self.view.addGestureRecognizer(tapGestureRecognizer)
         
         rgbResetButton.isEnabled = false
@@ -98,7 +95,7 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func drawRectangle(_ sender: Any) {
+    @IBAction func drawRectangle(_ sender: UIButton) {
         let bounds = UIScreen.main.bounds
         let randomX = Int.random(in: 1...Int(bounds.width))
         let randomY = Int.random(in: 1...Int(bounds.height))
@@ -119,7 +116,7 @@ class ViewController: UIViewController {
         plane.addRectangle(rectangle)
     }
     
-    @IBAction func resetRGB(_ sender: Any) {
+    @IBAction func resetRGB(_ sender: UIButton) {
         guard let currentView = selectedView else {
             return
         }
@@ -137,7 +134,7 @@ class ViewController: UIViewController {
         blueValue.text = "B : \(randomCGBlue)"
     }
     
-    @IBAction func tapAlphaStepper(_ sender: Any) {
+    @IBAction func tapAlphaStepper(_ sender: UIStepper) {
         var selectedViewRed: CGFloat = 0
         var selectedViewGreen: CGFloat = 0
         var selectedViewBlue: CGFloat = 0
