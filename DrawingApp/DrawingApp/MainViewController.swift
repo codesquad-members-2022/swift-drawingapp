@@ -50,7 +50,7 @@ final class MainViewController: UIViewController{
     //버튼 액션 - 이미지 추가
     private func addImageAction() -> UIAction {
         let action = UIAction {[weak self] _ in
-            self?.showAlbum()
+            
         }
         return action
     }
@@ -212,19 +212,6 @@ extension MainViewController:DetailViewDelegate {
     }
 }
 
-extension MainViewController:UIImagePickerControllerDelegate,UINavigationControllerDelegate {
-    func showAlbum() {
-        let imagePickerController = UIImagePickerController()
-        imagePickerController.sourceType = .photoLibrary
-        imagePickerController.delegate = self
-        present(imagePickerController, animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        guard let imageUrl = info[UIImagePickerController.InfoKey.imageURL] else { return }
-        print(type(of: imageUrl) )
-        
-        dismiss(animated: true, completion: nil)
-    }
-    
+extension MainViewController {
+
 }
