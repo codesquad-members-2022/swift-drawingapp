@@ -9,9 +9,9 @@ import UIKit
 import OSLog
 
 final class MainViewController: UIViewController{
-    
     //model
     private var plane = Plane()
+    private var image = Image()
     //view
     private var detailView = DetailView(frame: .zero)       //생성시 오해를 막고 기존 생성자와 관련있게 하기 위해 frame에 .zero를 대입했습니다.
     private var rectangleButton:UIButton = RectangleButton(frame: .zero)
@@ -34,26 +34,8 @@ final class MainViewController: UIViewController{
         addViews()
     }
     
-    //TapGesture
-    private func configureTapGesture() {
-        let tapGesture = UITapGestureRecognizer()
-        tapGesture.delegate = self
-        self.view.addGestureRecognizer(tapGesture)
-    }
-    
-    //DetailView
-    private func configureDeatailView() {
-        detailView.delegate = self
-        detailView.layer.zPosition = 1.0                        //생성되는 사각형에 겹쳐서 클릭이 안되거나 안보이는 경우를 막기위해 zPosition을 주었다.
-        
-        let inset:CGFloat = 200
-        detailView.frame = CGRect(x:self.view.frame.maxX - inset,
-                                  y: 0,
-                                  width: inset,
-                                  height: self.view.frame.height
-        )
-    }
-    
+
+    //MARK: -- ImageButton
     private func configureImageButton() {
         let width = 150.0
         let height = 100.0
@@ -62,8 +44,20 @@ final class MainViewController: UIViewController{
         
         imageButton.layer.zPosition = 1.0
         imageButton.frame = CGRect(x: x, y: y, width: width, height: height)
+        imageButton.addAction(addImageAction(rectangleCreator: RectangleFactory.init()), for: .touchUpInside)
     }
     
+    //버튼 액션 - 이미지 추가
+    private func addImageAction(rectangleCreator:RectangleCreator) -> UIAction {
+        let action = UIAction {[weak self] _ in
+            self?.showAlbum()
+        }
+        return action
+    }
+    
+    
+    
+    //MARK: -- RectangleButton
     //사각형 추가 버튼 Frame정의 및 Action추가.
     private func configureRectangleButton() {
         let width = 150.0
@@ -85,6 +79,27 @@ final class MainViewController: UIViewController{
         return action
     }
     
+    //MARK: -- Else
+    //TapGesture
+    private func configureTapGesture() {
+        let tapGesture = UITapGestureRecognizer()
+        tapGesture.delegate = self
+        self.view.addGestureRecognizer(tapGesture)
+    }
+    
+    //DetailView
+    private func configureDeatailView() {
+        detailView.delegate = self
+        detailView.layer.zPosition = 1.0                        //생성되는 사각형에 겹쳐서 클릭이 안되거나 안보이는 경우를 막기위해 zPosition을 주었다.
+        
+        let inset:CGFloat = 200
+        detailView.frame = CGRect(x:self.view.frame.maxX - inset,
+                                  y: 0,
+                                  width: inset,
+                                  height: self.view.frame.height
+        )
+    }
+    
     //Custom View추가
     private func addViews() {
         view.addSubview(rectangleButton)
@@ -97,14 +112,11 @@ final class MainViewController: UIViewController{
 extension MainViewController:UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         
-        //터치된 View의 origin x와 y값을 plane에게 넘겨줍니다.
-        guard let touchedView = touch.view else { return true }
-        
         //Plane에게 touch된 View의 origin좌표를 넘겨준다.
-        let x:Double = touchedView.frame.origin.x
-        let y:Double = touchedView.frame.origin.y
-        let size:Size = Size(width: touchedView.frame.size.width, height: touchedView.frame.size.height)
-        plane.findSeletedRectangle(x: x, y: y, size: size)
+        let x = Double(touch.location(in: self.view).x)
+        let y = Double(touch.location(in: self.view).y)
+        let point = Point(x: x, y: y)
+        plane.findSeletedRectangle(point: point)
         
         return true
     }
@@ -200,4 +212,19 @@ extension MainViewController:DetailViewDelgate {
     }
 }
 
-
+extension MainViewController:UIImagePickerControllerDelegate,UINavigationControllerDelegate {
+    func showAlbum() {
+        let imagePickerController = UIImagePickerController()
+        imagePickerController.sourceType = .photoLibrary
+        imagePickerController.delegate = self
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let imageUrl = info[UIImagePickerController.InfoKey.imageURL] else { return }
+        print(type(of: imageUrl) )
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+}
