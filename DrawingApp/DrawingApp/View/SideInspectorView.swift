@@ -36,7 +36,15 @@ class SideInspectorView: UIView {
     let alphaLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "투명도"
+        label.text = "투명도 : "
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        return label
+    }()
+    
+    let alphaValueLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "0"
         label.font = UIFont.boldSystemFont(ofSize: 20)
         return label
     }()
@@ -91,6 +99,7 @@ class SideInspectorView: UIView {
         addSubview(colorButton)
         addSubview(backgroundColorLabel)
         addSubview(alphaLabel)
+        addSubview(alphaValueLabel)
         addSubview(alphaSlider)
         addSubview(createRectangleButton)
         
@@ -107,6 +116,9 @@ class SideInspectorView: UIView {
             
             alphaLabel.topAnchor.constraint(equalTo: self.colorButton.bottomAnchor, constant: 20),
             alphaLabel.leadingAnchor.constraint(equalTo: self.backgroundColorLabel.leadingAnchor),
+            
+            alphaValueLabel.topAnchor.constraint(equalTo: self.colorButton.bottomAnchor, constant: 20),
+            alphaValueLabel.leadingAnchor.constraint(equalTo: self.alphaLabel.trailingAnchor),
             
             alphaSlider.topAnchor.constraint(equalTo: self.alphaLabel.bottomAnchor, constant: 10),
             alphaSlider.leadingAnchor.constraint(equalTo: self.backgroundColorLabel.leadingAnchor),
