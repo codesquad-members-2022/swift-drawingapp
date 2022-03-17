@@ -36,8 +36,8 @@ class ViewController: UIViewController {
 
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
         let touchedCGPoint = sender.location(in: self.view)
-        let touchedPoint = Point(x: touchedCGPoint.x, y: touchedCGPoint.y)
         let touchedView = self.view.hitTest(touchedCGPoint, with: nil)
+        let touchedPoint = Point(x: touchedCGPoint.x, y: touchedCGPoint.y)
         
         guard let currentView = touchedView else {
             return
@@ -64,10 +64,10 @@ class ViewController: UIViewController {
     @IBAction func drawRectangle(_ sender: UIButton) {
         let randomX = getRandomXYInScreenBounds().x
         let randomY = getRandomXYInScreenBounds().y
-        let randomCGRed = CGFloat(Double.random(in: 0...255) / 255)
-        let randomCGGreen = CGFloat(Double.random(in: 0...255) / 255)
-        let randomCGBlue = CGFloat(Double.random(in: 0...255) / 255)
-        let randomCGAlpha = CGFloat(Double.random(in: 1...10) / 10)
+        let randomCGRed = generateRandomRGBA().r
+        let randomCGGreen = generateRandomRGBA().g
+        let randomCGBlue = generateRandomRGBA().b
+        let randomCGAlpha = generateRandomRGBA().a
         let rectangleView = UIView(frame: CGRect(x: randomX, y: randomY, width: 150, height: 120))
         rectangleView.backgroundColor = UIColor(red: randomCGRed, green: randomCGGreen, blue: randomCGBlue, alpha: randomCGAlpha)
         self.view.addSubview(rectangleView)
@@ -174,6 +174,15 @@ class ViewController: UIViewController {
         let bounds = UIScreen.main.bounds
         result.x = Int.random(in: 1...Int(bounds.width))
         result.y = Int.random(in: 1...Int(bounds.height))
+        return result
+    }
+    
+    private func generateRandomRGBA() -> (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) {
+        var result: (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) = (0.0, 0.0, 0.0, 0.0)
+        result.r = CGFloat(Double.random(in: 0...255) / 255)
+        result.g = CGFloat(Double.random(in: 0...255) / 255)
+        result.b = CGFloat(Double.random(in: 0...255) / 255)
+        result.a = CGFloat(Double.random(in: 1...10) / 10)
         return result
     }
 }
