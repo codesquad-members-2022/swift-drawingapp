@@ -63,4 +63,14 @@ struct Plane {
         let intBlue = Int("\(value[5])\(value[6])", radix: 16)!
         return (intRed, intGreen, intBlue)
     }
+    
+    func alphaValueDidChanged(alpha: Float, rectangle: Rectangle) {
+        for rect in rectangles.reversed() {
+            if rect == rectangle {
+                // 투명도 변경
+                rect.alpha = Alpha(rawValue: Int(alpha * 10))!
+                delegate?.planeDidChangedRectangle(rect)
+            }
+        }
+    }
 }
