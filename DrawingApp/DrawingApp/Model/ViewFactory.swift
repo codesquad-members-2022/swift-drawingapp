@@ -31,7 +31,6 @@ class ViewFactory {
         
         let newView = PhotoView(frame: frame, alpha: alpha, image: UIImage(data: image) ?? UIImage())
         newView.clipsToBounds = true
-        newView.contentMode = .scaleAspectFill
         
         return newView
     }
