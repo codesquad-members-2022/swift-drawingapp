@@ -25,7 +25,7 @@ struct Plane {
         let rectangle = factory.createRectangle()
         rectangles.append(rectangle)
         
-        delegate?.planeDidAddedRectangle(rectangle)
+        delegate?.planeDidAddRectangle(rectangle)
     }
     
     func findRectangle(on point: (x: Double, y: Double)) -> Rectangle? {
