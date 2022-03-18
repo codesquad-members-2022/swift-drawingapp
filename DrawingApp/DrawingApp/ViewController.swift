@@ -44,34 +44,25 @@ class ViewController: UIViewController {
         }
         
         let isRectangleAtPoint = plane.isThereARectangle(point: touchedPoint)
-        if isRectangleAtPoint, selectedView == nil { // select new Rectangle
+        if isRectangleAtPoint {
             selectShape(currentView)
-        }
-        if isRectangleAtPoint, selectedView != nil { // select another Rectangle
-            selectedView?.layer.borderWidth = 0
-            
-            selectShape(currentView)
-        }
-        if !isRectangleAtPoint { // select nothing
+        } else {
             unselectShape()
         }
     }
     
     @IBAction func drawRectangle(_ sender: UIButton) {
-        let randomXY = getRandomXYInScreenBounds()
-        let randomRGBA = generateRandomRGBA()
-        let rectangleView = UIView(frame: CGRect(x: randomXY.x, y: randomXY.y, width: 150, height: 120))
-        rectangleView.backgroundColor = UIColor(red: randomRGBA.r,
-                                                green: randomRGBA.g,
-                                                blue: randomRGBA.b,
-                                                alpha: randomRGBA.a)
+        let xyPoint = getRandomXYInScreenBounds()
+        let rgba = generateRandomRGBA()
+        let rectangleView = UIView(frame: CGRect(x: xyPoint.x, y: xyPoint.y, width: 150, height: 120))
+        rectangleView.backgroundColor = UIColor(red: rgba.r,
+                                                green: rgba.g,
+                                                blue: rgba.b,
+                                                alpha: rgba.a)
         self.view.addSubview(rectangleView)
         
-        let randomRGBAInt = convertRGBAToInteger(r: randomRGBA.r, g: randomRGBA.g, b: randomRGBA.b, a: randomRGBA.a)
-        let randomColor = Color(r: randomRGBAInt.r, g: randomRGBAInt.g, b: randomRGBAInt.b)
-        let randomAlpha: Alpha = Alpha(rawValue: Int(randomRGBA.a * 10))!
-        let rectangle = shapeFactory.createRectangle(point: Point(x: Double(randomXY.x), y: Double(randomXY.y)), size: Size(width: 150, height: 120), color: randomColor, alpha: randomAlpha)
-        plane.addRectangle(rectangle)
+        let rgbaInt = convertRGBAToInteger(r: rgba.r, g: rgba.g, b: rgba.b, a: rgba.a)
+        addRectangleToPlane(x: xyPoint.x, y: xyPoint.y, r: rgbaInt.r, g: rgbaInt.g, b: rgbaInt.b, a: rgbaInt.a)
     }
     
     @IBAction func resetRGB(_ sender: UIButton) {
@@ -101,8 +92,15 @@ class ViewController: UIViewController {
         setAlphaValueLabel(a: Int(alphaStepper.value))
     }
     
+    private func addRectangleToPlane(x: Int, y: Int, r: Int, g: Int, b: Int, a: Int) {
+        let randomColor = Color(r: r, g: g, b: b)
+        let randomAlpha: Alpha = Alpha(rawValue: a) ?? Alpha.one
+        let rectangle = shapeFactory.createRectangle(point: Point(x: Double(x), y: Double(y)), size: Size(width: 150, height: 120), color: randomColor, alpha: randomAlpha)
+        plane.addRectangle(rectangle)
+    }
+    
     private func selectShape(_ shape: UIView) {
-        if selectedView != nil { // select another value
+        if selectedView != nil { // select another View
             selectedView?.layer.borderWidth = 0
         }
         
@@ -113,7 +111,6 @@ class ViewController: UIViewController {
         }
         
         let intRGBA = convertRGBAToInteger(r: rgba.red, g: rgba.green, b: rgba.blue, a: rgba.alpha)
-        
         shape.layer.borderWidth = 5
         shape.layer.borderColor = UIColor.blue.cgColor
         setHexValueLabel(r: intRGBA.r, g: intRGBA.g, b: intRGBA.b)
@@ -124,7 +121,7 @@ class ViewController: UIViewController {
     }
     
     private func unselectShape() {
-        selectedView?.layer.borderWidth = 0 // select nothing
+        selectedView?.layer.borderWidth = 0
         selectedView = nil
         setDefaultLabel()
         alphaStepper.value = 1.0
