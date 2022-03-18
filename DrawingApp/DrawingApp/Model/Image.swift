@@ -26,19 +26,45 @@ class Image {
         NotificationCenter.default.post(
                 name: Image.NotificationName.didAddRectangle,
                 object: self,
-                userInfo:[Image.UserInfoKey.addedImageRectangle: rect]
+                userInfo:[Image.UserInfoKey.addedRectangle: rect]
         )
         return rect
     }
     
-    //Plane.UserInfoKey와 같이 Plane과 관련있게 하고싶어서 Nested Enum을 선언
+    //특정 좌표에 맞는 retangle을 찾고 seletedRectangle에 대입합니다.
+    func findSeletedRectangle(point:Point) {
+        let x = point.x
+        let y = point.y
+        
+        let foundRectangle = imageRectangles.last {
+            $0.origin.x <= x && $0.origin.y <= y && $0.size.width + $0.origin.x >= x && $0.size.height + $0.origin.y >= y
+        }
+        guard let foundRectangle = foundRectangle else { return }
+
+        self.selectedImageRectangle = foundRectangle
+        
+        NotificationCenter.default.post(
+            name: Image.NotificationName.didFindRectangle,
+            object: self,
+            userInfo: [Image.UserInfoKey.foundRectangle:foundRectangle]
+        )
+    }
+    
+    
+    
+    
+    //Image.UserInfoKey와
     enum UserInfoKey {
-        case addedImageRectangle
+        case addedRectangle
+        case foundRectangle
+        case changedAlpha
     }
     
    //NotificationNames
     struct NotificationName {
-        static let didAddRectangle = Notification.Name("didAddImageRectangle")
+        static let didchangeRectangleAlpha = Notification.Name("didChangeRectangleAlpha")
+        static let didAddRectangle = Notification.Name("didAddRectangle")
+        static let didFindRectangle = Notification.Name("didFindRectangle")
     }
     
 }

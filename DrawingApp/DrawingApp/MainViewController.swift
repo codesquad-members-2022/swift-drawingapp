@@ -22,11 +22,11 @@ final class MainViewController: UIViewController{
     private var rectangleButton:UIButton = RectangleButton(frame: .zero)
     private var imageButton:UIButton = ImageButton(frame: .zero)
     
-    private var rectangleViews = [PlaneRectangle:RectangleView]()
+    private var planeRectangleViews = [PlaneRectangle:RectangleView]()
     private var imageRectangleViews = [imageURLData:RectangleView]()
     
     //선택된 PlaneRectangleView
-    private var seletedRectangleView:UIView?
+    private var seletedRectangleView:RectangleView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,7 +55,7 @@ final class MainViewController: UIViewController{
         imageButton.addAction(addImageAction(), for: .touchUpInside)
     }
     
-    //버튼 액션 - 이미지 추가
+    //버튼 액션 - 앨범보여주기.
     private func addImageAction() -> UIAction {
         let action = UIAction {[weak self] _ in
             guard let picker = self?.configurePHPicker() else { return }
@@ -63,8 +63,6 @@ final class MainViewController: UIViewController{
         }
         return action
     }
-    
-    
     
     //MARK: -- RectangleButton
     //사각형 추가 버튼 Frame정의 및 Action추가.
@@ -166,7 +164,7 @@ final class MainViewController: UIViewController{
         guard let newRectangle = notification.userInfo?[Plane.UserInfoKey.addedRectangle] as? PlaneRectangle else { return }
         let rectangleView = RectangleViewFactory.makePlaneRectangleView(sourceRectangle: newRectangle)
         
-        self.rectangleViews[newRectangle] = rectangleView
+        self.planeRectangleViews[newRectangle] = rectangleView
         
         view.addSubview(rectangleView)
         self.view.bringSubviewToFront(rectangleButton)
@@ -179,11 +177,11 @@ final class MainViewController: UIViewController{
         
         guard let seletedRectangle = notification.userInfo?[Plane.UserInfoKey.foundRectangle] as? PlaneRectangle else { return }
         
-        let rectangleView = self.rectangleViews[seletedRectangle]
+        let rectangleView = self.planeRectangleViews[seletedRectangle]
         self.seletedRectangleView = rectangleView
         
         seletedRectangleView?.layer.borderWidth = 2.0
-        seletedRectangleView?.layer.borderColor = UIColor.blue.cgColor
+        seletedRectangleView?.layer.borderColor = UIColor.red.cgColor
         
         self.detailView.alphaLabel.text = "\(seletedRectangle.alpha.value)"
         self.detailView.alphaSlider.value = seletedRectangle.alpha.value
@@ -198,10 +196,16 @@ final class MainViewController: UIViewController{
                 name: Image.NotificationName.didAddRectangle,
                 object: image
             )
+            
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(findSelectedImageRectangle),
+                name: Image.NotificationName.didFindRectangle,
+                object: image )
         }
     
     @objc private func addImageRectangleView(_ notification:Notification) {
-        guard let newImageRectangle = notification.userInfo?[Image.UserInfoKey.addedImageRectangle] as? ImageRectangle else { return }
+        guard let newImageRectangle = notification.userInfo?[Image.UserInfoKey.addedRectangle] as? ImageRectangle else { return }
         
         DispatchQueue.main.async { [weak self]  in
             guard let self = self else { return  }
@@ -213,6 +217,24 @@ final class MainViewController: UIViewController{
             self.view.bringSubviewToFront(self.detailView)
         }
     }
+    
+    //findSelected ImageRectangle & Set View
+    @objc private func findSelectedImageRectangle(_ notification:Notification) {
+        seletedRectangleView?.layer.borderWidth = .zero
+        
+        guard let seletedRectangle = notification.userInfo?[Image.UserInfoKey.foundRectangle] as? ImageRectangle else { return }
+        
+        let rectangleView = self.imageRectangleViews[seletedRectangle.imageData]
+        self.seletedRectangleView = rectangleView
+        
+        seletedRectangleView?.layer.borderWidth = 2.0
+        seletedRectangleView?.layer.borderColor = UIColor.red.cgColor
+        
+        self.detailView.alphaLabel.text = "\(seletedRectangle.alpha.value)"
+        self.detailView.alphaSlider.value = seletedRectangle.alpha.value
+        
+        self.detailView.backgroundColorButton.setTitle("NONE", for: .normal)
+    }
 }
 
 
@@ -222,11 +244,12 @@ final class MainViewController: UIViewController{
 extension MainViewController:UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         
-        //Plane에게 touch된 View의 origin좌표를 넘겨준다.
+        //Plane에게 touch된 View의 좌표를 넘겨준다.
         let x = Double(touch.location(in: self.view).x)
         let y = Double(touch.location(in: self.view).y)
         let point = Point(x: x, y: y)
         plane.findSeletedRectangle(point: point)
+        image.findSeletedRectangle(point: point)
         
         return true
     }
@@ -267,6 +290,7 @@ extension MainViewController:PHPickerViewControllerDelegate {
         }
     }
     
+    //configurePHPicker
     private func configurePHPicker() -> PHPickerViewController {
         var configuration = PHPickerConfiguration()
         configuration.selectionLimit = 0
