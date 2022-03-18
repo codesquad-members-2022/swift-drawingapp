@@ -27,3 +27,14 @@ class Rectangle: RectangleApplicable, CustomStringConvertible{
     }
     
 }
+
+extension Rectangle: Hashable{
+    
+    var hashValue: Int{
+        return self.id.hashValue
+    }
+    
+    static func == (lhs: Rectangle, rhs: Rectangle) -> Bool {
+        return lhs.id == rhs.id
+    }
+}

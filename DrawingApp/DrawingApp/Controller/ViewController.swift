@@ -7,7 +7,7 @@ class ViewController: UIViewController{
     private var canvasView: CanvasView?
     private var stylerView: StylerView?
     private var plane: Plane = Plane()
-    private var rectangleDictionary:[Id:UIView] = [:]
+    private var rectangleDictionary:[Rectangle:UIView] = [:]
     private var temporarySelectedRectangleView: UIView?
     
     override func viewDidLoad() {
@@ -75,9 +75,11 @@ class ViewController: UIViewController{
         guard let rectangle = notification.userInfo?[Plane.UserInfoKey.rectangleAdded] as? RectangleApplicable else { return }
         guard let canvasView = self.canvasView else { return }
         
-        if let rectangleView = createRectangleView(rectangle: rectangle){
-            self.rectangleDictionary[rectangle.id] = rectangleView
+        if let rectangleView = createRectangleView(rectangle: rectangle),
+           let rectangle = rectangle as? Rectangle{
+            self.rectangleDictionary[rectangle] = rectangleView
             canvasView.insertSubview(rectangleView, belowSubview: canvasView.generatingButton)
+            print(canvasView.subviews)
         }
         
     }
@@ -93,7 +95,8 @@ class ViewController: UIViewController{
     
     private func updateViewWithSelectedRectangleModel(rectangle: RectangleApplicable){
         guard let canvasView = self.canvasView else { return }
-        guard let rectangleView = self.rectangleDictionary[rectangle.id] else { return }
+        guard let rectangle = rectangle as? Rectangle else { return }
+        guard let rectangleView = self.rectangleDictionary[rectangle] else { return }
         
         if rectangle is RandomColorApplicable{
             self.updateColorRectangleInfo(rectangle: rectangle)
