@@ -44,24 +44,14 @@ struct Plane {
         return (rangeOfX ~= point.x && rangeOfY ~= point.y)
     }
     
-    func backgroundColorDidChanged(color: String, rectangle: Rectangle) {
+    func backgroundColorDidChanged(color: Color, rectangle: Rectangle) {
         for rect in rectangles.reversed() {
             if rect == rectangle {
                 // 색상 변경
-                let colorValue = hexValueToInt(hex: color)
-                rect.backgroundColor = Color(red: colorValue.0, green: colorValue.1, blue: colorValue.2)
-                
+                rect.backgroundColor = color
                 delegate?.planeDidChangedRectangle(rect)
             }
         }
-    }
-    
-    private func hexValueToInt(hex: String) -> (Int, Int, Int) {
-        let value = Array(hex)
-        let intRed = Int("\(value[1])\(value[2])", radix: 16)!
-        let intGreen = Int("\(value[3])\(value[4])", radix: 16)!
-        let intBlue = Int("\(value[5])\(value[6])", radix: 16)!
-        return (intRed, intGreen, intBlue)
     }
     
     func alphaValueDidChanged(alpha: Float, rectangle: Rectangle) {
