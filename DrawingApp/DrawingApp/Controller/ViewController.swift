@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     
     // MARK: - Property for Model
     private let plane = Plane()
-    private var rectangleMap = [Shape: ShapeViewable]()
+    private var shapeMap = [Shape: ShapeViewable]()
     
     // MARK: - View Life Cycle Methods
     override func viewDidLoad() {
@@ -34,16 +34,16 @@ class ViewController: UIViewController {
     
     private func setObservers() {
         NotificationCenter.default.addObserver(forName: .RectangleModelDidCreated, object: nil, queue: .main, using: { notification in
-            guard let rectangle = notification.object as? Shape else { return }
-            self.createRectangleView(ofClass: ColoredRectangleView.self, with: rectangle)
+            guard let shape = notification.object as? Shape else { return }
+            self.createShapeView(ofClass: ColoredRectangleView.self, with: shape)
         })
-        NotificationCenter.default.addObserver(forName: .RectangleModelDidUpdated, object: nil, queue: .main, using: self.rectangleDataDidChanged)
+        NotificationCenter.default.addObserver(forName: .RectangleModelDidUpdated, object: nil, queue: .main, using: self.shapeModelDidChanged)
         
         NotificationCenter.default.addObserver(forName: .ImageRectangleModelDidCreated, object: nil, queue: .main, using: { notification in
-            guard let rectangle = notification.object as? Shape else { return }
-            self.createRectangleView(ofClass: ImageRectangleView.self, with: rectangle)
+            guard let shape = notification.object as? Shape else { return }
+            self.createShapeView(ofClass: ImageRectangleView.self, with: shape)
         })
-        NotificationCenter.default.addObserver(forName: .RectangleModelDidUpdated, object: nil, queue: .main, using: self.rectangleDataDidChanged)
+        NotificationCenter.default.addObserver(forName: .RectangleModelDidUpdated, object: nil, queue: .main, using: self.shapeModelDidChanged)
         
         NotificationCenter.default.addObserver(forName: .PlaneDidSelectItem, object: self.plane, queue: .main, using: self.planeDidSelectItem)
         NotificationCenter.default.addObserver(forName: .PlaneDidUnselectItem, object: self.plane, queue: .main, using: self.planeDidUnselectItem)
@@ -57,8 +57,9 @@ extension ViewController: PlaneViewDelegate {
     }
     
     func planeViewDidPressRectangleAddButton() {
-        let rectangle = RectangleFactory.makeRandomRectangle()
-        plane.append(item: rectangle)
+        // TODO: Factory 한단계 더 추상화 (ShapeFactory)
+        let shape = RectangleFactory.makeRandomRectangle()
+        plane.append(item: shape)
     }
     
     func planeViewDidPressImageAddButton() {
@@ -78,61 +79,62 @@ extension ViewController: PlaneViewDelegate {
 // MARK: - ControlPanelView To ViewController
 extension ViewController: ControlPanelViewDelegate {
     func controlPanelDidPressColorButton() {
-        guard let rectangle = self.plane.currentItem as? BackgroundAdaptable else { return }
+        guard let shape = self.plane.currentItem as? BackgroundAdaptable else { return }
         
         let color = ColorFactory.makeTypeRandomly()
 
-        rectangle.setBackgroundColor(color)
+        shape.setBackgroundColor(color)
     }
     
     func controlPanelDidMoveAlphaSlider(_ sender: UISlider) {
         let value = sender.value.toFixed(digits: 1)
         
-        guard let rectangle = self.plane.currentItem as? AlphaAdaptable else { return }
+        guard let shape = self.plane.currentItem as? AlphaAdaptable else { return }
         guard let alpha = Alpha(rawValue: value) else { return }
         
-        rectangle.setAlpha(alpha)
+        shape.setAlpha(alpha)
     }
 }
 
 // MARK: - RectangleView To ViewController
 extension ViewController {
-    @objc private func handleOnTapRectangleView(_ sender: UITapGestureRecognizer) {
+    @objc private func handleOnTapShapeView(_ sender: UITapGestureRecognizer) {
         guard sender.state == .ended else { return }
         
         let point = sender.location(in: self.planeView).convert(using: Point.self)
         
-        guard let rectangle = self.plane.findItemBy(point: point) else { return }
+        guard let shape = self.plane.findItemBy(point: point) else { return }
         
-        self.plane.selectItem(id: rectangle.id)
+        self.plane.selectItem(id: shape.id)
     }
 }
 
 // MARK: - Rectangle Model To ViewController
 extension ViewController {
-    private func createRectangleView(ofClass Class: ShapeViewable.Type, with rectangle: Shape) {
-        guard let rectangleView = RectangleViewFactory.makeView(ofClass: Class, with: rectangle) else { return }
+    private func createShapeView(ofClass Class: ShapeViewable.Type, with shape: Shape) {
+        // TODO: Factory 한단계 더 추상화 (ShapeFactory)
+        guard let shapeView = RectangleViewFactory.makeView(ofClass: Class, with: shape) else { return }
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleOnTapRectangleView))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleOnTapShapeView))
         
-        rectangleView.addGestureRecognizer(tap)
-        rectangleView.animateScale(CGFloat(1.2), duration: 0.15, delay: 0)
+        shapeView.addGestureRecognizer(tap)
+        shapeView.animateScale(CGFloat(1.2), duration: 0.15, delay: 0)
         
-        self.planeView.addSubview(rectangleView)
-        self.rectangleMap.updateValue(rectangleView, forKey: rectangle)
+        self.planeView.addSubview(shapeView)
+        self.shapeMap.updateValue(shapeView, forKey: shape)
     }
     
-    private func rectangleDataDidChanged(_ notification: Notification) {
-        guard let rectangle = self.plane.currentItem as? AlphaAdaptableShape else { return }
-        guard let rectangleView = self.rectangleMap[rectangle] else { return }
+    private func shapeModelDidChanged(_ notification: Notification) {
+        guard let shape = self.plane.currentItem as? AlphaAdaptableShape else { return }
+        guard let shapeView = self.shapeMap[shape] else { return }
         
         if let alpha = notification.userInfo?[NotificationKey.updated] as? Alpha {
-            rectangleView.setAlpha(alpha)
+            shapeView.setAlpha(alpha)
         }
         
-        if let colorableView = rectangleView as? BackgroundViewable, let color = notification.userInfo?[NotificationKey.updated] as? Color {
-            colorableView.setBackgroundColor(color: color, alpha: rectangle.alpha)
-            self.controlPanelView.setColorButtonTitle(title: rectangleView.backgroundColor?.toHexString() ?? "None")
+        if let colorableShapeView = shapeView as? BackgroundViewable, let color = notification.userInfo?[NotificationKey.updated] as? Color {
+            colorableShapeView.setBackgroundColor(color: color, alpha: shape.alpha)
+            self.controlPanelView.setColorButtonTitle(title: shapeView.backgroundColor?.toHexString() ?? "None")
         }
     }
 }
@@ -140,28 +142,28 @@ extension ViewController {
 // MARK: - Plane Model to ViewController
 extension ViewController {
     private func planeDidSelectItem(_ notification: Notification) {
-        guard let rectangle = notification.userInfo?[Plane.NotificationKey.select] as? AlphaAdaptableShape else { return }
-        guard let rectangleView = self.rectangleMap[rectangle] else { return }
+        guard let shape = notification.userInfo?[Plane.NotificationKey.select] as? AlphaAdaptableShape else { return }
+        guard let shapeView = self.shapeMap[shape] else { return }
         
-        rectangleView.setBorder(width: 2, color: .blue)
+        shapeView.setBorder(width: 2, color: .blue)
         
-        if let colorableShape = rectangle as? BackgroundAdaptable {
+        if let colorableShape = shape as? BackgroundAdaptable {
             let hexString = Color.toHexString(colorableShape.backgroundColor)
             self.controlPanelView.setColorButtonTitle(title: hexString)
         }
         
-        let isConformed = (rectangle as? ImageAdaptableShape) == nil
+        let isConformed = (shape as? ImageAdaptableShape) == nil
         
         self.controlPanelView.setColorButtonControllable(enable: isConformed)
         self.controlPanelView.setAlphaSliderControllable(enable: true)
-        self.controlPanelView.setAlphaSliderValue(value: rectangle.alpha)
+        self.controlPanelView.setAlphaSliderValue(value: shape.alpha)
     }
     
     private func planeDidUnselectItem(_ notification: Notification) {
-        guard let rectangle = notification.userInfo?[Plane.NotificationKey.unselect] as? Shape else { return }
-        guard let rectangleView = self.rectangleMap[rectangle] else { return }
+        guard let shape = notification.userInfo?[Plane.NotificationKey.unselect] as? Shape else { return }
+        guard let shapeView = self.shapeMap[shape] else { return }
         
-        rectangleView.removeBorder()
+        shapeView.removeBorder()
         
         self.controlPanelView.reset()
     }
@@ -180,8 +182,8 @@ extension ViewController: PHPickerViewControllerDelegate {
             itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.image.identifier) { url, error in
                 guard let url = url, error == nil else { return }
                 
-                let imageRectangle = RectangleFactory.makeRandomRectangle(with: url)
-                self.plane.append(item: imageRectangle)
+                let imageShape = RectangleFactory.makeRandomRectangle(with: url)
+                self.plane.append(item: imageShape)
             }
         }
     }
