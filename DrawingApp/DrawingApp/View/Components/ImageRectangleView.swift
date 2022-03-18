@@ -7,7 +7,11 @@
 
 import UIKit
 
-class ImageRectangleView: UIView, RectangleShapable {
+protocol ImageViewable {
+    func setImage(_ image: UIImage)
+}
+
+class ImageRectangleView: UIView {
     private let imageView = UIImageView()
     
     override init(frame: CGRect) {
@@ -24,12 +28,18 @@ class ImageRectangleView: UIView, RectangleShapable {
         self.imageView.frame = self.bounds
         self.addSubview(imageView)
     }
-    
+}
+
+// MARK: - ShapeViewable
+extension ImageRectangleView: ShapeViewable {
+    func setAlpha(_ alpha: Alpha) {
+        self.alpha = alpha.convert(using: CGFloat.self)
+    }
+}
+
+// MARK: - ImageViewable Protocol
+extension ImageRectangleView: ImageViewable {
     func setImage(_ image: UIImage) {
         self.imageView.image = image
-    }
-    
-    func setBackgroundColor(color: Color, alpha: Alpha) {
-        return
     }
 }

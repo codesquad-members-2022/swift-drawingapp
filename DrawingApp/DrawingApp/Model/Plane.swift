@@ -7,10 +7,6 @@
 
 import Foundation
 
-protocol Notifiable: AnyObject {
-    func notifyDidCreated()
-}
-
 class Plane {
     private var items = [String: Shapable]()
     

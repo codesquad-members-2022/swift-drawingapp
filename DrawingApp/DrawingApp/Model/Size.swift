@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Size {
+struct Size: SizeBuildable {
     static let range = 30.0...100.0
     
     let width: Double
