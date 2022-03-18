@@ -29,13 +29,25 @@ class Plane:CustomStringConvertible{
         return self.rectangles.description
     }
     
-    func findMatchingRectangleModel(x: Double, y: Double){
-        guard let rectangle = self[x,y] else {
+    func selectRectangleModelIfPointInsideTheRange(x: Double, y: Double){
+        guard let rectangle = self.findMatchingRectangleModel(x: x, y: y) else {
             self.selectedRectangleIndex = nil
             NotificationCenter.default.post(name: NotificationName.rectangleNotFoundFromPlane, object: self, userInfo: nil)
             return
         }
         NotificationCenter.default.post(name: NotificationName.rectangleFoundFromPlane, object: self, userInfo: [UserInfoKey.rectangleFound:rectangle])
+    }
+    
+    func findMatchingRectangleModel(x: Double = 0, y: Double = 0)-> RectangleApplicable?{
+        
+        for index in stride(from: self.rectangles.count-1, through: 0, by: -1){
+            let rectangle = self.rectangles[index]
+            if(rectangle.isPointInsideTheRectangleRange(x: x, y: y)){
+                self.selectedRectangleIndex = index
+                return rectangle
+            }
+        }
+        return nil
     }
     
     func addRectangle(_ rectangle: RectangleApplicable){
@@ -73,31 +85,5 @@ class Plane:CustomStringConvertible{
         let selectedRectangle = self.rectangles[selectedRectangleIndex]
         selectedRectangle.updatePoint(x: x, y: y)
         NotificationCenter.default.post(name: NotificationName.rectanglePointUpdated, object: self, userInfo: [UserInfoKey.rectanglePointUpdated:selectedRectangle])
-    }
-    
-    private func isRectangleInsideTheRange(x: Double, y: Double, rectangle: RectangleApplicable)-> Bool{
-        
-        let minX = rectangle.point.x
-        let minY = rectangle.point.y
-        let maxX = rectangle.point.x + rectangle.size.width
-        let maxY = rectangle.point.y + rectangle.size.height
-        if((x <= maxX && x >= minX) && (y <= maxY && y >= minY)){
-            return true
-        }
-        
-        return false
-    }
-    
-    subscript(x: Double = 0, y: Double = 0)-> RectangleApplicable?{
-        
-        for index in stride(from: self.rectangles.count-1, through: 0, by: -1){
-            let rectangle = self.rectangles[index]
-            if(isRectangleInsideTheRange(x: x, y: y, rectangle: rectangle)){
-                self.selectedRectangleIndex = index
-                return rectangle
-            }
-
-        }
-        return nil
     }
 }

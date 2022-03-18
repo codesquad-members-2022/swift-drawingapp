@@ -159,7 +159,7 @@ extension ViewController: UIGestureRecognizerDelegate{
 
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         let touchedPoint = touch.location(in: self.canvasView)
-        self.plane.findMatchingRectangleModel(x: touchedPoint.x, y: touchedPoint.y)
+        self.plane.selectRectangleModelIfPointInsideTheRange(x: touchedPoint.x, y: touchedPoint.y)
         return true
     }
     
@@ -180,7 +180,7 @@ extension ViewController: UIGestureRecognizerDelegate{
     
     private func startPanGesture(location: CGPoint){
         guard let canvasView = self.canvasView else { return }
-        guard let rectangle: RectangleApplicable = self.plane[location.x, location.y] else { return }
+        guard let rectangle: RectangleApplicable = self.plane.findMatchingRectangleModel(x: location.x, y: location.y) else { return }
         if let temporarySelectedRectangleView = RectangleViewFactory.createRectangleView(rectangle: rectangle){
             self.temporarySelectedRectangleView = temporarySelectedRectangleView
             canvasView.addSubview(temporarySelectedRectangleView)
