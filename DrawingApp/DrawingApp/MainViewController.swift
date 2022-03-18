@@ -207,9 +207,8 @@ final class MainViewController: UIViewController{
             guard let self = self else { return  }
             let rectangleView = RectangleViewFactory.makeImageRectangleView(sourceRectangle: newImageRectangle)
             self.imageRectangleViews[newImageRectangle.imageData] = rectangleView
-            print(rectangleView)
+            
             self.view.addSubview(rectangleView)
-
             self.view.bringSubviewToFront(self.rectangleButton)
             self.view.bringSubviewToFront(self.detailView)
         }
@@ -254,14 +253,17 @@ extension MainViewController:PHPickerViewControllerDelegate {
         
         picker.dismiss(animated: true, completion: nil)
         
-        guard let itemProvider = results.first?.itemProvider else { return }
-        //Can Load?
-        guard itemProvider.canLoadObject(ofClass: UIImage.self) == true else { return }
-        //Then Load
-        itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.image.identifier) { [weak self] url, Error in
-            guard let url = url else { return }
-            guard let data = try? Data(contentsOf: url) else { return }
-            self?.image.addRectangle(imageData: data)
+        //itemProviders
+        let _ = results.map { $0.itemProvider }
+        //Can load Object?
+            .filter { $0.canLoadObject(ofClass: UIImage.self)  }
+        //Then load
+            .map {
+                $0.loadFileRepresentation(forTypeIdentifier: UTType.image.identifier) { [weak self] url, Error in
+                    guard let url = url else { return }
+                    guard let data = try? Data(contentsOf: url) else { return }
+                    self?.image.addRectangle(imageData: data)
+            }
         }
     }
     
