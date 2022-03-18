@@ -27,7 +27,7 @@ final class RectangleViewFactory {
     }
     
     
-    //Setup private Static functions, Pure Func
+    //Setup private Static functions, Pure Func?
     private static func setUpFrameWithRectangle(_ source:Rectangleable) -> CGRect {
         let x = source.origin.x
         let y = source.origin.y

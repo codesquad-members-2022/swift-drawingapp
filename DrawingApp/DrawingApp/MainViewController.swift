@@ -19,7 +19,6 @@ final class MainViewController: UIViewController{
     private var rectangleButton:UIButton = RectangleButton(frame: .zero)
     private var imageButton:UIButton = ImageButton(frame: .zero)
     
-    //그려진 PlaneRetangleView를 모델(Rectangle)을 Key로 찾는 Dictionary로 만들어서 모델과 매칭을 시켜주었습니다.
     private var retangleViews = [PlaneRectangle:UIView]()
     //선택된 PlaneRectangleView
     private var seletedRectangleView:UIView?
@@ -52,12 +51,7 @@ final class MainViewController: UIViewController{
     //버튼 액션 - 이미지 추가
     private func addImageAction() -> UIAction {
         let action = UIAction {[weak self] _ in
-            var configuration = PHPickerConfiguration()
-            configuration.selectionLimit = 0
-            
-            let picker = PHPickerViewController(configuration: configuration)
-            picker.delegate = self
-            
+            guard let picker = self?.configurePHPicker() else { return }
             self?.present(picker, animated: true, completion: nil)
         }
         return action
@@ -157,7 +151,7 @@ extension MainViewController:UIGestureRecognizerDelegate {
     }
     
     //ChangeColor
-    @objc func changeColor(_ notification:Notification) {
+    @objc private func changeColor(_ notification:Notification) {
         guard let newRGB = notification.userInfo?[Plane.UserInfoKey.changedColor] as? RGB else { return }
         let alpha:Alpha = Alpha(Float(seletedRectangleView?.alpha ?? 0.0))
         
@@ -168,14 +162,14 @@ extension MainViewController:UIGestureRecognizerDelegate {
     
     
     //ChangeAlpha
-    @objc func changeAlpha(_ notification:Notification) {
+    @objc private func changeAlpha(_ notification:Notification) {
         guard let newAlpha = notification.userInfo?[Plane.UserInfoKey.changedAlpha] as? Alpha else { return }
         seletedRectangleView?.alpha = CGFloat(newAlpha.value)
     }
     
     
     //addRectagnleView
-    @objc func addRectangleView(_ notification:Notification) {
+    @objc private func addRectangleView(_ notification:Notification) {
         guard let newRectangle = notification.userInfo?[Plane.UserInfoKey.addedRectangle] as? PlaneRectangle else { return }
         let rectangleView = RectangleViewFactory.makePlaneRectangleView(sourceRectangle: newRectangle)
         
@@ -187,7 +181,7 @@ extension MainViewController:UIGestureRecognizerDelegate {
     }
     
     //findSelected Rectangle & Set View
-    @objc func findSelectedRectangle(_ notification:Notification) {
+    @objc private func findSelectedRectangle(_ notification:Notification) {
         seletedRectangleView?.layer.borderWidth = .zero
         
         guard let seletedRectangle = notification.userInfo?[Plane.UserInfoKey.foundRectangle] as? PlaneRectangle else { return }
@@ -223,6 +217,27 @@ extension MainViewController:DetailViewDelegate {
 //MARK: -- PHPikcer
 extension MainViewController:PHPickerViewControllerDelegate {
     func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-        print(results)
+        
+        picker.dismiss(animated: true, completion: nil)
+        
+        guard let itemProvider = results.first?.itemProvider else { return }
+        //Can Load?
+        guard itemProvider.canLoadObject(ofClass: UIImage.self) == true else { return }
+            //Then Load
+        itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.image.identifier) { [weak self] url, Error in
+            guard let url = url else { return }
+            guard let data = try? Data(contentsOf: url) else { return }
+            self?.image.addRectangle(imageData: data)
+        }
+    }
+    
+    private func configurePHPicker() -> PHPickerViewController {
+        var configuration = PHPickerConfiguration()
+        configuration.selectionLimit = 0
+        
+        let picker = PHPickerViewController(configuration: configuration)
+        picker.delegate = self
+        
+        return picker
     }
 }
