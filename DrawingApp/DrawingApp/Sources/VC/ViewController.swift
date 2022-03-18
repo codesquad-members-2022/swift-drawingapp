@@ -11,7 +11,7 @@ import OSLog
 class ViewController: UIViewController {
 
     @IBOutlet weak var canvas: UIView!
-    @IBOutlet weak var panel: Panel!
+    @IBOutlet weak var controlView: ControlView!
     
     private var plane = Plane()
     
@@ -23,13 +23,13 @@ class ViewController: UIViewController {
         self.view.addSubview(canvas)
 
         plane.delegate = self
-        panel.delegate = self
+        controlView.delegate = self
 
     }
     
 }
 
-extension ViewController: PanelDelegate {
+extension ViewController: ControlViewDelegate {
 
     func didpressColorChangeButton() {
         print("")

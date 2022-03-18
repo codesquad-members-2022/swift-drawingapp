@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol PanelDelegate {
+protocol ControlViewDelegate {
     func didpressColorChangeButton()
     func didMoveSlider()
     func didpressCreateRectangleButton()

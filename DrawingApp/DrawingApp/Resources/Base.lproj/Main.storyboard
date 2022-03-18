@@ -16,7 +16,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dhs-vt-R2s" customClass="Panel" customModule="DrawingApp" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dhs-vt-R2s" customClass="ControlView" customModule="DrawingApp" customModuleProvider="target">
                                 <rect key="frame" x="900" y="0.0" width="280" height="820"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -45,7 +45,7 @@
                     </view>
                     <connections>
                         <outlet property="canvas" destination="rUP-ih-w6b" id="Yfo-13-ueu"/>
-                        <outlet property="panel" destination="Dhs-vt-R2s" id="b2h-tS-kK7"/>
+                        <outlet property="controlView" destination="Dhs-vt-R2s" id="Pwi-ns-1Za"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

@@ -7,9 +7,9 @@
 
 import UIKit
 
-class Panel: UIView {
+class ControlView: UIView {
 
-    var delegate: PanelDelegate?
+    var delegate: ControlViewDelegate?
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
