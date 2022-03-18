@@ -7,7 +7,7 @@
 
 import Foundation
 
-class RandomShapeFactory {
+class ShapeFactory {
     
     static func createRandomBasicShape(xBound: Double, yBound: Double) -> BasicShape {
         return BasicShape(identifier: RandomAttributeFactory.generateRandomIdentifier(),
