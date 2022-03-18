@@ -22,8 +22,8 @@
 		1E541E8127CCBC98000C8B50 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E541E8027CCBC98000C8B50 /* Assets.xcassets */; };
 		1E541E8427CCBC98000C8B50 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E541E8227CCBC98000C8B50 /* LaunchScreen.storyboard */; };
 		1E5A155D27E4BC2400FA4C9B /* AddButtonFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5A155C27E4BC2400FA4C9B /* AddButtonFactory.swift */; };
+		1E5A156127E4BD7D00FA4C9B /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E5A156027E4BD7D00FA4C9B /* ButtonView.swift */; };
 		1E80BDF427D23EEB004F77C1 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E80BDF327D23EEB004F77C1 /* Plane.swift */; };
-		1E80BE7E27D6F96F004F77C1 /* AddRectangleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E80BE7D27D6F96F004F77C1 /* AddRectangleButton.swift */; };
 		1E80BE8027D6F97B004F77C1 /* SideInspectorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E80BE7F27D6F97B004F77C1 /* SideInspectorView.swift */; };
 		1EE4CCE527CCFD44005EA3D4 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCE427CCFD44005EA3D4 /* Rectangle.swift */; };
 		1EE4CCE727CD0751005EA3D4 /* RandomShapeFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE4CCE627CD0751005EA3D4 /* RandomShapeFactory.swift */; };
@@ -63,8 +63,8 @@
 		1E541E8327CCBC98000C8B50 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1E541E8527CCBC98000C8B50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		1E5A155C27E4BC2400FA4C9B /* AddButtonFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddButtonFactory.swift; sourceTree = "<group>"; };
+		1E5A156027E4BD7D00FA4C9B /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 		1E80BDF327D23EEB004F77C1 /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
-		1E80BE7D27D6F96F004F77C1 /* AddRectangleButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddRectangleButton.swift; sourceTree = "<group>"; };
 		1E80BE7F27D6F97B004F77C1 /* SideInspectorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideInspectorView.swift; sourceTree = "<group>"; };
 		1EE4CCE427CCFD44005EA3D4 /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 		1EE4CCE627CD0751005EA3D4 /* RandomShapeFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomShapeFactory.swift; sourceTree = "<group>"; };
@@ -167,9 +167,9 @@
 		1E541E8D27CCBD9E000C8B50 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1E80BE7D27D6F96F004F77C1 /* AddRectangleButton.swift */,
 				1E80BE7F27D6F97B004F77C1 /* SideInspectorView.swift */,
 				1E02CA9527E05D9C00B08B30 /* BasicShapeView.swift */,
+				1E5A156027E4BD7D00FA4C9B /* ButtonView.swift */,
 				1E02CA8827DF73E000B08B30 /* RectangleView.swift */,
 			);
 			path = Views;
@@ -321,6 +321,7 @@
 				1E02CA7B27DEFEC700B08B30 /* Alphable.swift in Sources */,
 				1E541E7C27CCBC97000C8B50 /* ViewController.swift in Sources */,
 				1E541E7827CCBC97000C8B50 /* AppDelegate.swift in Sources */,
+				1E5A156127E4BD7D00FA4C9B /* ButtonView.swift in Sources */,
 				1E80BE8027D6F97B004F77C1 /* SideInspectorView.swift in Sources */,
 				1E541E7A27CCBC97000C8B50 /* SceneDelegate.swift in Sources */,
 				1EE4CCEB27CDDC9F005EA3D4 /* Point.swift in Sources */,
@@ -334,7 +335,6 @@
 				1E02CA7727DEFEB400B08B30 /* Colorable.swift in Sources */,
 				1E80BDF427D23EEB004F77C1 /* Plane.swift in Sources */,
 				1E02CA9627E05D9C00B08B30 /* BasicShapeView.swift in Sources */,
-				1E80BE7E27D6F96F004F77C1 /* AddRectangleButton.swift in Sources */,
 				1EE4CCEF27CDDCA5005EA3D4 /* Alpha.swift in Sources */,
 				1E02CA9327E020DE00B08B30 /* BasicShape.swift in Sources */,
 			);
