@@ -212,6 +212,7 @@ extension ViewController {
         self.drawableAreaView.updateSelectedView(point: convertedNewPoint)
         updateXPointLabel(with: newPoint.x)
         updateYPointLabel(with: newPoint.y)
+        updatePointButtons(with: newPoint)
     }
     
     @objc func planeDidChangeRectangleSize(_ notification: Notification) {
@@ -226,6 +227,7 @@ extension ViewController {
         self.drawableAreaView.updateSelectedView(width: newWidth, height: newHeight)
         updateWidthLabel(with: newWidth)
         updateHeightLabel(with: newHeight)
+        updateSizeButtons(with: newSize)
     }
     
 }
@@ -329,7 +331,7 @@ extension ViewController {
     @IBAction func minusXPointButtonTouched(_ sender: UIButton) {
         guard let selectedView = self.drawableAreaView.selectedView else {return}
         let previousPoint = selectedView.frame.origin
-        let newXPoint = previousPoint.x - 10
+        let newXPoint = previousPoint.x > 11 ? previousPoint.x - 10 : 1
         let newPoint = Point(x: newXPoint, y: previousPoint.y)
         
         plane.changePointOfSpecifiedRectangle(to: newPoint)
@@ -347,7 +349,7 @@ extension ViewController {
     @IBAction func minusYPointButtonTouched(_ sender: UIButton) {
         guard let selectedView = self.drawableAreaView.selectedView else {return}
         let previousPoint = selectedView.frame.origin
-        let newYPoint = previousPoint.y - 10
+        let newYPoint = previousPoint.y > 11 ? previousPoint.y - 10 : 1
         let newPoint = Point(x: previousPoint.x, y: newYPoint)
         
         plane.changePointOfSpecifiedRectangle(to: newPoint)
@@ -364,7 +366,7 @@ extension ViewController {
     
     @IBAction func minusWidthButtonTouched(_ sender: UIButton) {
         guard let selectedView = self.drawableAreaView.selectedView else {return}
-        let newWidth = selectedView.frame.width - 10
+        let newWidth = selectedView.frame.width > 11 ? selectedView.frame.width - 10 : 1
         let previousHeight = selectedView.frame.height
         let newSize = Size(width: newWidth, height: previousHeight)
         
@@ -383,7 +385,7 @@ extension ViewController {
     @IBAction func minusHeightButtonTouched(_ sender: UIButton) {
         guard let selectedView = self.drawableAreaView.selectedView else {return}
         let previousWidth = selectedView.frame.size.width
-        let newHeight = selectedView.frame.size.height - 10
+        let newHeight = selectedView.frame.size.height > 11 ? selectedView.frame.size.height - 10 : 1
         let newSize = Size(width: previousWidth, height: newHeight)
         
         plane.changeSizeOfSpecifiedRectangle(to: newSize)
@@ -479,6 +481,34 @@ extension ViewController {
         
         let updatedText = String(format: "%.4f", height)
         heightLabel.text = defaultText + updatedText
+    }
+    
+    private func updatePointButtons(with point: Point) {
+        if point.x <= 1 {
+            minusXPointButton.isEnabled = false
+        } else {
+            minusXPointButton.isEnabled = true
+        }
+        
+        if point.y <= 1 {
+            minusYPointButton.isEnabled = false
+        } else {
+            minusYPointButton.isEnabled = true
+        }
+    }
+    
+    private func updateSizeButtons(with size: Size) {
+        if size.width <= 1 {
+            minusWidthButton.isEnabled = false
+        } else {
+            minusWidthButton.isEnabled = true
+        }
+        
+        if size.height <= 1 {
+            minusHeightButton.isEnabled = false
+        } else {
+            minusHeightButton.isEnabled = true
+        }
     }
 }
 
