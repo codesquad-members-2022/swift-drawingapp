@@ -38,24 +38,14 @@ class Plane {
     func clearSelected() {
         selected = nil
     }
-    
-    private func isShapeExist(on coordinate: (x: Double, y: Double), target shape: BasicShape) -> Bool {
-        let xBound = (shape.point.x)...(shape.point.x + shape.size.width)
-        let yBound = (shape.point.y)...(shape.point.y + shape.size.height)
-        
-        if (xBound ~= coordinate.x) && (yBound ~= coordinate.y) {
-            return true
-        }
-        
-        return false
-    }
-    
+
     func searchTopShape(on coordinate: (x: Double, y: Double)) {
         let previouslySelected = selected
         
         for shape in shapes.reversed() {
-            if isShapeExist(on: coordinate, target: shape) {
+            if shape.isExist(on: coordinate) {
                 let newlySelected = shape
+                
                 NotificationCenter.default.post(name: Plane.EventName.shapeDidSelect,
                                                 object: self,
                                                 userInfo: [UserInfoKeys.previouslySelectedShape: previouslySelected as Any,
