@@ -34,7 +34,6 @@ class LayerTableViewController: UITableViewController {
     
     private func subscribePlaneNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(didAddLayer(_:)), name: Plane.Event.didAddLayer, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(didSelectLayer(_:)), name: Plane.Event.didSelectLayer, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didReorderLayer(_:)), name: Plane.Event.didReorderLayer, object: nil)
     }
 }
@@ -50,25 +49,15 @@ extension LayerTableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "StoryBoardLayerCell", for: indexPath)
         
-        cell.selectionStyle = .default
-        cell.backgroundConfiguration?.backgroundColor = .white
-        
         var config = cell.defaultContentConfiguration()
         
         guard let layer = fetchLayer?(indexPath.row) else { return cell }
-        
         config.text = layer.title
-        config.textProperties.color = .black
         
         guard let symbol = ViewFactory.createSymbol(from: layer) else { return cell }
-        
         config.image = symbol
-        config.imageProperties.tintColor = .black
         
         cell.contentConfiguration = config
-        
-        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(self.handleLongPress(_:)))
-        cell.addGestureRecognizer(longPress)
         
         return cell
     }
@@ -89,28 +78,18 @@ extension LayerTableViewController {
 extension LayerTableViewController {
     
     @objc func didAddLayer(_ notification: Notification) {
-//        guard let newLayer = notification.userInfo?[Plane.InfoKey.added] as? Layer else { return }
-//        layers.append(newLayer)
         tableView.reloadData()
     }
 }
 
 // MARK: - Use case: Select Layer
 // MARK: [Input] Touch table cell (input)
-// MARK: [Output] Select table cell according to Plane (Output)
 
 extension LayerTableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         guard let selectedLayer = fetchLayer?(indexPath.row) else { return }
         didSelectRowHandler?(selectedLayer)
-    }
-    
-    @objc func didSelectLayer(_ notification: Notification) {
-//        guard let selected = notification.userInfo?[Plane.InfoKey.selected] as? Layer, let index = layers.firstIndex(of: selected)  else { return }
-//        let indexPath = IndexPath(row: index, section: 0)
-//        tableView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
     }
 }
 
@@ -124,41 +103,30 @@ extension LayerTableViewController {
         didMoveRowHandler?(sourceIndexPath.row, destinationIndexPath.row)
     }
     
-    
-    @objc func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
-        guard let pressedCell = gesture.view as? UITableViewCell, let pressedIndexPath = tableView.indexPath(for: pressedCell) else { return }
+    override func tableView(_ tableView: UITableView, contextMenuConfigurationForRowAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard let layer = fetchLayer?(indexPath.row) else { return nil }
         
-        guard let pressedLayer = fetchLayer?(pressedIndexPath.row) else { return }
-        
-        let alertController = UIAlertController(title: nil, message: "Arrange Layer", preferredStyle: .actionSheet)
-        
-        let sendToBack = UIAlertAction(title: "맨 뒤로 보내기", style: .default, handler: { (alert: UIAlertAction!) -> Void in
-            self.didCommandMoveHandler?(pressedLayer, .sendToBack)
-        })
-        
-        let bringToFront = UIAlertAction(title: "맨 앞으로 가져오기", style: .default, handler: { (alert: UIAlertAction!) -> Void in
-            self.didCommandMoveHandler?(pressedLayer, .bringToFront)
-        })
-        
-        let sendBackward = UIAlertAction(title: "뒤로 보내기", style: .default, handler: { (alert: UIAlertAction!) -> Void in
-            self.didCommandMoveHandler?(pressedLayer, .sendBackward)
-        })
-        
-        let bringForward = UIAlertAction(title: "앞으로 가져오기", style: .default, handler: { (alert: UIAlertAction!) -> Void in
-            self.didCommandMoveHandler?(pressedLayer, .bringForward)
-        })
-        
-        alertController.addAction(sendToBack)
-        alertController.addAction(bringToFront)
-        alertController.addAction(sendBackward)
-        alertController.addAction(bringForward)
-        
-        if let popoverController = alertController.popoverPresentationController {
-            popoverController.sourceView = pressedCell
+        let sendToBack = UIAction(title: "맨 뒤로 보내기", image: UIImage(systemName: "arrow.uturn.backward.square"), identifier: nil, discoverabilityTitle: nil) { _ in
+            self.didCommandMoveHandler?(layer, .sendToBack)
         }
         
-        self.present(alertController, animated: true, completion: nil)
+        let bringToFront = UIAction(title: "맨 앞으로 가져오기", image: UIImage(systemName: "arrow.uturn.forward.square"), identifier: nil, discoverabilityTitle: nil) { _ in
+            self.didCommandMoveHandler?(layer, .bringToFront)
+        }
         
+        let sendBackward = UIAction(title: "뒤로 보내기", image: UIImage(systemName: "arrow.backward.square"), identifier: nil, discoverabilityTitle: nil) { _ in
+            self.didCommandMoveHandler?(layer, .sendBackward)
+        }
+        
+        let bringForward = UIAction(title: "앞으로 가져오기", image: UIImage(systemName: "arrow.forward.square"), identifier: nil, discoverabilityTitle: nil) { _ in
+            self.didCommandMoveHandler?(layer, .bringForward)
+        }
+        
+        let menu = UIMenu(title: "Arrange Layer", image: nil, identifier: nil, options: .displayInline, children: [sendToBack, bringToFront, sendBackward, bringForward])
+        
+        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ in
+            return menu
+        }
     }
     
     @objc func didReorderLayer(_ notification: Notification) {

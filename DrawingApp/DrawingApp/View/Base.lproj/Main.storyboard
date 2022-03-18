@@ -5,7 +5,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
-        <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -23,7 +22,7 @@
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I43-gx-lAf">
                                         <rect key="frame" x="0.0" y="0.0" width="94.5" height="80"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="tinted" image="rectangle" catalog="system" imagePlacement="top" title="사각형">
+                                        <buttonConfiguration key="configuration" style="tinted" image="back" imagePlacement="top" title="사각형">
                                             <color key="baseForegroundColor" systemColor="labelColor"/>
                                             <color key="baseBackgroundColor" systemColor="systemGray2Color"/>
                                         </buttonConfiguration>
@@ -99,25 +98,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="StoryBoardLayerCell" id="NEk-hm-jyP">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="StoryBoardLayerCell" focusStyle="custom" id="NEk-hm-jyP">
                                 <rect key="frame" x="0.0" y="44.5" width="177" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NEk-hm-jyP" id="JQv-6j-g0q">
                                     <rect key="frame" x="0.0" y="0.0" width="177" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" changesSelectionAsPrimaryAction="YES" id="qzY-wb-5Tz">
-                                            <rect key="frame" x="120" y="7" width="41" height="30"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <menu key="menu" id="Noz-7R-Czp">
-                                                <children>
-                                                    <command title="Item 1" id="hES-pS-ycv"/>
-                                                    <command title="Item 2" id="OFu-EQ-sgS"/>
-                                                </children>
-                                            </menu>
-                                            <state key="normal" title="move"/>
-                                        </button>
-                                    </subviews>
                                 </tableViewCellContentView>
                                 <accessibility key="accessibilityConfiguration">
                                     <bool key="isElement" value="YES"/>
@@ -396,9 +382,9 @@
         </scene>
     </scenes>
     <resources>
+        <image name="back" width="128" height="128"/>
         <image name="character.textbox" catalog="system" width="128" height="91"/>
         <image name="photo.artframe" catalog="system" width="128" height="93"/>
-        <image name="rectangle" catalog="system" width="128" height="93"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
