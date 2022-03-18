@@ -12,83 +12,79 @@
             <rect key="frame" x="0.0" y="0.0" width="1180" height="820"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="95" translatesAutoresizingMaskIntoConstraints="NO" id="pbC-Ty-yQ3">
-                    <rect key="frame" x="450" y="57.5" width="280" height="705"/>
-                    <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="배경색" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Dj-2o-425">
-                            <rect key="frame" x="40" y="0.0" width="200" height="65"/>
-                            <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="15"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BNA-GM-NPs">
-                            <rect key="frame" x="40" y="160" width="200" height="65"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="65" id="dzq-Ab-9OS"/>
-                            </constraints>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="filled" title="Color">
-                                <backgroundConfiguration key="background">
-                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                </backgroundConfiguration>
-                                <fontDescription key="titleFontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="18"/>
-                                <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </buttonConfiguration>
-                            <connections>
-                                <action selector="backgroundColor:" destination="-1" eventType="touchUpInside" id="2gq-EH-10F"/>
-                            </connections>
-                        </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="투명도" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aSi-8J-06w">
-                            <rect key="frame" x="40" y="320" width="200" height="65"/>
-                            <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="15"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Qbm-bY-rdv">
-                            <rect key="frame" x="38" y="480" width="204" height="66"/>
-                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="200" id="3m3-Tc-PKe"/>
-                            </constraints>
-                            <connections>
-                                <action selector="changAlpha:" destination="-1" eventType="valueChanged" id="5KQ-gr-PjL"/>
-                            </connections>
-                        </slider>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GkM-Qf-dns">
-                            <rect key="frame" x="40" y="640" width="200" height="65"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="65" id="TvH-kH-gqv"/>
-                            </constraints>
-                            <state key="normal" title="Button"/>
-                            <buttonConfiguration key="configuration" style="filled" title="사각형 생성   +">
-                                <backgroundConfiguration key="background">
-                                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </backgroundConfiguration>
-                                <fontDescription key="titleFontDescription" name="NanumGothicBold" family="Nanum Gothic" pointSize="18"/>
-                            </buttonConfiguration>
-                            <connections>
-                                <action selector="createRectangle:" destination="-1" eventType="touchUpInside" id="I29-3k-eIZ"/>
-                            </connections>
-                        </button>
-                    </subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="배경색" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Dj-2o-425">
+                    <rect key="frame" x="490" y="51" width="200" height="18"/>
+                    <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BNA-GM-NPs">
+                    <rect key="frame" x="490" y="92.5" width="200" height="55"/>
                     <constraints>
-                        <constraint firstItem="aSi-8J-06w" firstAttribute="leading" secondItem="pbC-Ty-yQ3" secondAttribute="leading" constant="40" id="Cel-rX-OGd"/>
-                        <constraint firstItem="6Dj-2o-425" firstAttribute="top" secondItem="pbC-Ty-yQ3" secondAttribute="top" id="Hdg-9O-J7N"/>
-                        <constraint firstItem="BNA-GM-NPs" firstAttribute="leading" secondItem="pbC-Ty-yQ3" secondAttribute="leading" constant="40" id="KOj-Qq-Ool"/>
-                        <constraint firstAttribute="width" constant="280" id="Mde-Ew-Loq"/>
-                        <constraint firstItem="Qbm-bY-rdv" firstAttribute="top" secondItem="aSi-8J-06w" secondAttribute="bottom" id="ZLm-hp-ZKd"/>
-                        <constraint firstItem="GkM-Qf-dns" firstAttribute="leading" secondItem="pbC-Ty-yQ3" secondAttribute="leading" constant="40" id="dd3-dS-Ukj"/>
-                        <constraint firstItem="BNA-GM-NPs" firstAttribute="top" secondItem="6Dj-2o-425" secondAttribute="bottom" id="lLU-n2-g5G"/>
-                        <constraint firstItem="GkM-Qf-dns" firstAttribute="top" secondItem="Qbm-bY-rdv" secondAttribute="bottom" constant="600" id="ocL-ua-WTe"/>
-                        <constraint firstItem="aSi-8J-06w" firstAttribute="top" secondItem="BNA-GM-NPs" secondAttribute="bottom" constant="20" id="qjR-5y-9Dg"/>
-                        <constraint firstItem="6Dj-2o-425" firstAttribute="leading" secondItem="pbC-Ty-yQ3" secondAttribute="leading" constant="40" id="rGR-eN-k5F"/>
+                        <constraint firstAttribute="width" constant="200" id="Xay-aI-U1W"/>
+                        <constraint firstAttribute="height" constant="55" id="aiW-mk-JT0"/>
                     </constraints>
-                </stackView>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="filled" title="Color">
+                        <backgroundConfiguration key="background">
+                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        </backgroundConfiguration>
+                        <fontDescription key="titleFontDescription" name="DINAlternate-Bold" family="DIN Alternate" pointSize="18"/>
+                        <color key="baseForegroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </buttonConfiguration>
+                    <connections>
+                        <action selector="backgroundColor:" destination="-1" eventType="touchUpInside" id="2gq-EH-10F"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="투명도" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aSi-8J-06w">
+                    <rect key="frame" x="490" y="191" width="200" height="18"/>
+                    <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="15"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GkM-Qf-dns">
+                    <rect key="frame" x="490" y="727.5" width="200" height="65"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="65" id="1QG-wC-uzC"/>
+                        <constraint firstAttribute="width" constant="200" id="Frq-9K-okK"/>
+                    </constraints>
+                    <state key="normal" title="Button"/>
+                    <buttonConfiguration key="configuration" style="filled" title="사각형 생성   +">
+                        <backgroundConfiguration key="background">
+                            <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </backgroundConfiguration>
+                        <fontDescription key="titleFontDescription" name="NanumGothicBold" family="Nanum Gothic" pointSize="18"/>
+                    </buttonConfiguration>
+                    <connections>
+                        <action selector="createRectangle:" destination="-1" eventType="touchUpInside" id="I29-3k-eIZ"/>
+                    </connections>
+                </button>
+                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="Qbm-bY-rdv">
+                    <rect key="frame" x="488" y="220" width="204" height="31"/>
+                    <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="HXU-hG-xey"/>
+                        <constraint firstAttribute="width" constant="200" id="lcj-mz-UIb"/>
+                    </constraints>
+                    <connections>
+                        <action selector="changAlpha:" destination="-1" eventType="valueChanged" id="5KQ-gr-PjL"/>
+                    </connections>
+                </slider>
             </subviews>
             <color key="backgroundColor" red="0.90912934922680411" green="0.90912934922680411" blue="0.90912934922680411" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
             <constraints>
-                <constraint firstItem="pbC-Ty-yQ3" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="W6L-61-UZd"/>
-                <constraint firstItem="pbC-Ty-yQ3" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="l6W-O0-gms"/>
+                <constraint firstItem="aSi-8J-06w" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-210" id="4FL-n4-wXY"/>
+                <constraint firstItem="Qbm-bY-rdv" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="5gb-AV-9Om"/>
+                <constraint firstItem="6Dj-2o-425" firstAttribute="leading" secondItem="GkM-Qf-dns" secondAttribute="leading" id="Ci6-Gh-bu5"/>
+                <constraint firstItem="aSi-8J-06w" firstAttribute="leading" secondItem="GkM-Qf-dns" secondAttribute="leading" id="IN0-mH-uCQ"/>
+                <constraint firstItem="BNA-GM-NPs" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-290" id="Kz5-JT-84c"/>
+                <constraint firstItem="6Dj-2o-425" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-350" id="Qhe-oT-qW2"/>
+                <constraint firstItem="aSi-8J-06w" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Z9c-om-ruc"/>
+                <constraint firstItem="BNA-GM-NPs" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="gtA-hU-jBN"/>
+                <constraint firstItem="Qbm-bY-rdv" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="-175" id="h9i-qT-pRz"/>
+                <constraint firstItem="GkM-Qf-dns" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="miy-sk-hBM"/>
+                <constraint firstItem="GkM-Qf-dns" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" constant="350" id="vMs-Tw-EXj"/>
+                <constraint firstItem="6Dj-2o-425" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="vZj-CV-fLg"/>
             </constraints>
             <point key="canvasLocation" x="138.81355932203391" y="85.609756097560975"/>
         </view>
