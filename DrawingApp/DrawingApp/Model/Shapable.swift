@@ -7,16 +7,13 @@
 
 import Foundation
 
-protocol Shapable: CustomStringConvertible, AnyObject {
+protocol Shapable: AnyObject {
     var id: String { get }
     var size: Size { get }
-    var alpha: Alpha { get }
     var origin: Point { get }
-    var backgroundColor: Color { get }
-    
+    var diagonalPoint: Point { get }
+
     func contains(point: Point) -> Bool
-    func setBackgroundColor(_ color: Color)
-    func setAlpha(_ alpha: Alpha)
 }
 
 extension Shapable {
@@ -25,5 +22,11 @@ extension Shapable {
         let maxY = self.origin.y + self.size.height
         
         return self.origin <= point && point < Point(x: maxX, y: maxY)
+    }
+    
+    var diagonalPoint: Point {
+        let maxX = self.origin.x + self.size.width
+        let maxY = self.origin.y + self.size.height
+        return Point(x: maxX, y: maxY)
     }
 }

@@ -7,14 +7,14 @@
 
 import UIKit
 
-protocol BackgroundColorable {
+protocol BackgroundViewable {
     func setBackgroundColor(color: Color, alpha: Alpha)
     func setBackgroundColor(with color: Color)
     func setBackgroundColor(with alpha: CGFloat)
     func setBackgroundColor(with alpha: Alpha)
 }
 
-class RectangleView: UIView  {
+class ColoredRectangleView: UIView  {
     // MARK: - Initialisers
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -24,21 +24,21 @@ class RectangleView: UIView  {
         super.init(coder: coder)
     }
     
-    convenience init(with rectangle: Rectangle) {
+    convenience init(with rectangle: ColoredRectangle) {
         self.init(frame: CGRect(with: rectangle))
         self.setBackgroundColor(color: rectangle.backgroundColor, alpha: rectangle.alpha)
     }
 }
 
 // MARK: - ShapeViewable Protocol
-extension RectangleView: ShapeViewable {
+extension ColoredRectangleView: ShapeViewable {
     func setAlpha(_ alpha: Alpha) {
         self.setBackgroundColor(with: alpha)
     }
 }
 
 // MARK: - RectangleViewable
-extension RectangleView: BackgroundColorable {
+extension ColoredRectangleView: BackgroundViewable {
     func setBackgroundColor(color: Color, alpha: Alpha) {
         self.backgroundColor = UIColor(with: color, alpha: alpha)
     }

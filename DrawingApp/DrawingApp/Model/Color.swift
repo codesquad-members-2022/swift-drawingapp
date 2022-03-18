@@ -16,6 +16,11 @@ struct Color {
     static let blue = Color(red: 0, green: 0, blue: 255)
     static let white = Color(red: 255, green: 255, blue: 255)
     
+    static func toHexString(_ color: Self) -> String {
+        let RGB = Int(color.red * 255) << 16 | Int(color.green * 255) << 8 | Int(color.blue * 255)
+        return String(format:"#%06x", RGB).uppercased()
+    }
+    
     let red: Double
     let green: Double
     let blue: Double

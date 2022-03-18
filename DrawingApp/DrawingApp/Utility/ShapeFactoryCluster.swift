@@ -14,7 +14,7 @@ protocol ShapeFactory {
 enum ShapeFactoryCluster: ShapeFactory {
     static func makeShape(with type: Shapable.Type) -> Shapable? {
         switch type {
-        case is Rectangle.Type:
+        case is ColoredRectangle.Type:
             return RectangleFactory.makeShape()
         default:
             return nil
