@@ -9,7 +9,7 @@ import Foundation
 
 typealias BackgroundColorControllable = BackgroundAdaptable & AlphaAdaptable
 
-class ColoredRectangle: Shape, BackgroundColorControllable {
+class ColoredRectangle: NotifiableShape, BackgroundColorControllable {    
     // MARK: - Properties
     private(set) var backgroundColor: Color {
         didSet {
@@ -50,7 +50,7 @@ class ColoredRectangle: Shape, BackgroundColorControllable {
         self.alpha = alpha
     }
     
-    override func notifyDidCreated() {
+    func notifyDidCreated() {
         NotificationCenter.default.post(name: .RectangleModelDidCreated, object: self)
     }
     

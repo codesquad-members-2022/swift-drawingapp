@@ -7,8 +7,12 @@
 
 import Foundation
 
+typealias NotifiableShape = Shape & Notifiable
+typealias AlphaAdaptableShape = Shape & AlphaAdaptable
+typealias BackgroundAdaptableShape = Shape & BackgroundAdaptable
+
 /// 추상 클래스
-class Shape: Shapable, Notifiable, Hashable {
+class Shape: Shapable, Hashable {
     let id: String
     let size: Size
     let origin: Point
@@ -18,7 +22,4 @@ class Shape: Shapable, Notifiable, Hashable {
         self.origin = origin
         self.size = size
     }
-    
-    func notifyDidCreated() {}
-    func notifyDidUpdate<T>(key: T, data: Any) {}
 }

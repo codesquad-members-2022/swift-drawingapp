@@ -14,5 +14,5 @@ enum NotificationKey {
 
 protocol Notifiable: AnyObject {
     func notifyDidCreated()
-    func notifyDidUpdate(key: NotificationKey, data: Any)
+    func notifyDidUpdated(key: NotificationKey, data: Any)
 }

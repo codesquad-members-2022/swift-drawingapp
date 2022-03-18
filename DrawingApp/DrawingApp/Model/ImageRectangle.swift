@@ -11,9 +11,7 @@ protocol ImageAdaptable {
     func setImagePath(with url: URL)
 }
 
-typealias ImageAdaptableShape = AlphaAdaptable & ImageAdaptable
-
-class ImageRectangle: Shape, ImageAdaptableShape {
+class ImageRectangle: NotifiableShape, ImageAdaptable, AlphaAdaptable {
     private(set) var alpha: Alpha {
         didSet {
             self.notifyDidUpdated(key: .updated, data: self.alpha)
@@ -52,7 +50,7 @@ class ImageRectangle: Shape, ImageAdaptableShape {
         return Convertor.init(x: self.origin.x, y: self.origin.y, width: self.size.width, height: self.size.height)
     }
     
-    override func notifyDidCreated() {
+    func notifyDidCreated() {
         NotificationCenter.default.post(name: .ImageRectangleModelDidCreated, object: self)
     }
     

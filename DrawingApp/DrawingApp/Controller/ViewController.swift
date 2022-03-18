@@ -8,8 +8,6 @@
 import UIKit
 import PhotosUI
 
-typealias AlphaAdaptableShape = Shape & AlphaAdaptable
-
 class ViewController: UIViewController {
     // MARK: - Properties for View
     @IBOutlet weak var controlPanelView: ControlPanelView!
@@ -58,7 +56,7 @@ extension ViewController: PlaneViewDelegate {
     
     func planeViewDidPressRectangleAddButton() {
         // TODO: Factory 한단계 더 추상화 (ShapeFactory)
-        let shape = RectangleFactory.makeRandomRectangle()
+        guard let shape = RectangleFactory.makeRandomRectangle() as? NotifiableShape else { return }
         plane.append(item: shape)
     }
     
@@ -125,14 +123,19 @@ extension ViewController {
     }
     
     private func shapeModelDidChanged(_ notification: Notification) {
-        guard let shape = self.plane.currentItem as? AlphaAdaptableShape else { return }
+        guard let shape = self.plane.currentItem as? Shape else { return }
         guard let shapeView = self.shapeMap[shape] else { return }
         
-        if let alpha = notification.userInfo?[NotificationKey.updated] as? Alpha {
+        let color = notification.userInfo?[NotificationKey.updated] as? Color
+        let alpha = notification.userInfo?[NotificationKey.updated] as? Alpha
+        let alphaAdaptableShape = shape as? AlphaAdaptableShape
+        let colorableShapeView = shapeView as? BackgroundViewable
+        
+        if let _ = alphaAdaptableShape, let alpha = alpha {
             shapeView.setAlpha(alpha)
         }
-        
-        if let colorableShapeView = shapeView as? BackgroundViewable, let color = notification.userInfo?[NotificationKey.updated] as? Color {
+
+        if let shape = alphaAdaptableShape, let colorableShapeView = colorableShapeView, let color = color {
             colorableShapeView.setBackgroundColor(color: color, alpha: shape.alpha)
             self.controlPanelView.setColorButtonTitle(title: shapeView.backgroundColor?.toHexString() ?? "None")
         }
@@ -142,21 +145,24 @@ extension ViewController {
 // MARK: - Plane Model to ViewController
 extension ViewController {
     private func planeDidSelectItem(_ notification: Notification) {
-        guard let shape = notification.userInfo?[Plane.NotificationKey.select] as? AlphaAdaptableShape else { return }
+        guard let shape = notification.userInfo?[Plane.NotificationKey.select] as? Shape else { return }
         guard let shapeView = self.shapeMap[shape] else { return }
         
         shapeView.setBorder(width: 2, color: .blue)
         
-        if let colorableShape = shape as? BackgroundAdaptable {
-            let hexString = Color.toHexString(colorableShape.backgroundColor)
+        if let backgroundAdaptableShape = shape as? BackgroundAdaptable {
+            let hexString = Color.toHexString(backgroundAdaptableShape.backgroundColor)
             self.controlPanelView.setColorButtonTitle(title: hexString)
         }
         
-        let isConformed = (shape as? ImageAdaptableShape) == nil
+        if let AlphaAdaptableShape = shape as? AlphaAdaptable {
+            self.controlPanelView.setAlphaSliderValue(value: AlphaAdaptableShape.alpha)
+        }
+        
+        let isConformed = (shape as? ImageAdaptable) == nil
         
         self.controlPanelView.setColorButtonControllable(enable: isConformed)
         self.controlPanelView.setAlphaSliderControllable(enable: true)
-        self.controlPanelView.setAlphaSliderValue(value: shape.alpha)
     }
     
     private func planeDidUnselectItem(_ notification: Notification) {
@@ -182,7 +188,7 @@ extension ViewController: PHPickerViewControllerDelegate {
             itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.image.identifier) { url, error in
                 guard let url = url, error == nil else { return }
                 
-                let imageShape = RectangleFactory.makeRandomRectangle(with: url)
+                guard let imageShape = RectangleFactory.makeRandomRectangle(with: url) as? NotifiableShape else { return }
                 self.plane.append(item: imageShape)
             }
         }

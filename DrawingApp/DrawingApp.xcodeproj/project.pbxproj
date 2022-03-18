@@ -57,6 +57,11 @@
 		E49F7CDD27E30ED900BB19A2 /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D3DFA727CEFEB90096810A /* Alpha.swift */; };
 		E49F7CDE27E30ED900BB19A2 /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4641B4827D09C0000815795 /* Plane.swift */; };
 		E4BA038227E42781005BE75C /* Notifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BA038127E42781005BE75C /* Notifiable.swift */; };
+		E4BA038327E43C1E005BE75C /* AlphaAdaptable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E453DCA027E4251B00A317AF /* AlphaAdaptable.swift */; };
+		E4BA038427E43C1E005BE75C /* BackgroundAdaptable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E453DCA227E4262E00A317AF /* BackgroundAdaptable.swift */; };
+		E4BA038527E43C1E005BE75C /* RectangleBuildable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E453DC9E27E41FC200A317AF /* RectangleBuildable.swift */; };
+		E4BA038627E43C1E005BE75C /* Notifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4BA038127E42781005BE75C /* Notifiable.swift */; };
+		E4BA038727E43C1E005BE75C /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E453DC9C27E41B2400A317AF /* Shape.swift */; };
 		E4C9622D27D975A3005DBD2B /* Hashable+Hash.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C9622C27D975A3005DBD2B /* Hashable+Hash.swift */; };
 		E4C9623127D97D7F005DBD2B /* Equatable+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4C9623027D97D7F005DBD2B /* Equatable+Extensions.swift */; };
 		E4D3DFA227CEFE490096810A /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4D3DFA127CEFE490096810A /* Point.swift */; };
@@ -434,6 +439,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E4BA038327E43C1E005BE75C /* AlphaAdaptable.swift in Sources */,
+				E4BA038427E43C1E005BE75C /* BackgroundAdaptable.swift in Sources */,
+				E4BA038527E43C1E005BE75C /* RectangleBuildable.swift in Sources */,
+				E4BA038627E43C1E005BE75C /* Notifiable.swift in Sources */,
+				E4BA038727E43C1E005BE75C /* Shape.swift in Sources */,
 				E49F7CC427E30ED800BB19A2 /* Notification.Name+Extensions.swift in Sources */,
 				E49F7CC527E30ED800BB19A2 /* Hashable+Hash.swift in Sources */,
 				E49F7CC627E30ED800BB19A2 /* Equatable+Extensions.swift in Sources */,
