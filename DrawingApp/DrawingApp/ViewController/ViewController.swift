@@ -42,16 +42,16 @@ class ViewController: UIViewController {
     
     private func activateNotificationObservers() {
         // add rectangle
-        NotificationCenter.default.addObserver(self, selector: #selector(made(rectangleNoti: )), name: Notification.Name.add, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(made(from: )), name: Notification.Name.add, object: plane)
         
         // rectangle tapped
-        NotificationCenter.default.addObserver(self, selector: #selector(touched(rectangleNoti:)), name: Notification.Name.select, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(touched(from:)), name: Notification.Name.select, object: plane)
         
         // color changed
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeColor(rectangleNoti:)), name: Notification.Name.change, object: plane)
         
         // alpha changed
-        NotificationCenter.default.addObserver(self, selector: #selector(didChangeAlpha(rectangleNoti: )), name: Notification.Name.change, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeAlpha(from: )), name: Notification.Name.change, object: plane)
     }
     
     private func initDetailView() {
@@ -94,8 +94,8 @@ extension ViewController: UIGestureRecognizerDelegate {
 }
 
 extension ViewController {
-    @objc func made(rectangleNoti : Notification) {
-        guard let rectangle = rectangleNoti.userInfo?[NotificationKey.rectangle] as? Rectangle else {
+    @objc func made(from plane : Notification) {
+        guard let rectangle = plane.userInfo?[NotificationKey.rectangle] as? Rectangle else {
             return
         }
         let rectView = UIView(frame: CGRect(x: rectangle.point.x, y: rectangle.point.y, width: rectangle.size.width, height: rectangle.size.height))
@@ -119,8 +119,8 @@ extension ViewController {
     }
     
     	
-    @objc func touched(rectangleNoti: Notification) {
-        guard let rectangle = rectangleNoti.userInfo?[NotificationKey.rectangle] as? Rectangle else {
+    @objc func touched(from plane: Notification) {
+        guard let rectangle = plane.userInfo?[NotificationKey.rectangle] as? Rectangle else {
             return
         }
         if let view = self.selectedView {
@@ -151,8 +151,8 @@ extension ViewController {
 }
 
 extension ViewController  {
-    @objc func didChangeAlpha(rectangleNoti: Notification) {
-        guard let rectangle = rectangleNoti.userInfo?[NotificationKey.alpha] as? Rectangle else {
+    @objc func didChangeAlpha(from plane: Notification) {
+        guard let rectangle = plane.userInfo?[NotificationKey.alpha] as? Rectangle else {
             return
         }
         changeColorAndAlpha(rectangle)
