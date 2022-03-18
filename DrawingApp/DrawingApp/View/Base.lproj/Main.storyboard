@@ -13,11 +13,11 @@
             <objects>
                 <viewController title="캔버스" id="l8x-Ot-BnL" customClass="CanvasViewController" customModule="DrawingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xo9-MY-jyf">
-                        <rect key="frame" x="0.0" y="0.0" width="648" height="820"/>
+                        <rect key="frame" x="0.0" y="0.0" width="707" height="820"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="g98-d2-ots">
-                                <rect key="frame" x="174" y="688" width="300" height="80"/>
+                                <rect key="frame" x="203.5" y="688" width="300" height="80"/>
                                 <subviews>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I43-gx-lAf">
                                         <rect key="frame" x="0.0" y="0.0" width="94.5" height="80"/>
@@ -94,15 +94,15 @@
             <objects>
                 <tableViewController title="레이어" id="zC2-8W-PIV" customClass="LayerTableViewController" customModule="DrawingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="KL6-wg-Jse">
-                        <rect key="frame" x="0.0" y="0.0" width="236" height="820"/>
+                        <rect key="frame" x="0.0" y="0.0" width="177" height="820"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="StoryBoardLayerCell" focusStyle="custom" id="NEk-hm-jyP">
-                                <rect key="frame" x="0.0" y="44.5" width="236" height="43.5"/>
+                                <rect key="frame" x="0.0" y="44.5" width="177" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NEk-hm-jyP" id="JQv-6j-g0q">
-                                    <rect key="frame" x="0.0" y="0.0" width="236" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="177" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <accessibility key="accessibilityConfiguration">
@@ -123,7 +123,7 @@
         <!--Split View Controller-->
         <scene sceneID="cJd-5Y-eBh">
             <objects>
-                <splitViewController allowDoubleColumnStyle="YES" preferredDisplayMode="twoOver" behavior="tile" preferredPrimaryColumnWidthFraction="0.25" preferredSupplementaryColumnWidthFraction="0.20000000000000001" primaryEdge="trailing" id="IJ5-QC-bLz" sceneMemberID="viewController">
+                <splitViewController allowDoubleColumnStyle="YES" preferredDisplayMode="twoOver" behavior="tile" preferredPrimaryColumnWidthFraction="0.25" preferredSupplementaryColumnWidthFraction="0.14999999999999999" primaryEdge="trailing" id="IJ5-QC-bLz" sceneMemberID="viewController">
                     <connections>
                         <segue destination="LiX-43-8CF" kind="relationship" relationship="masterViewController" id="uXV-pM-oMX"/>
                         <segue destination="l8x-Ot-BnL" kind="relationship" relationship="detailViewController" id="89v-2C-Hgv"/>

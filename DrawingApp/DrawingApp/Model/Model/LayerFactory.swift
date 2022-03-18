@@ -9,7 +9,6 @@ import Foundation
 
 enum LayerFactory {
     static func makeRandom<T: Layer>(_ type: T.Type, titleOrder: Int, from data: Data? = nil) -> Layer? {
-        // Common property to initialize Layer
         let ID = ID.random()
         let origin = Point.random()
         let size = Size.standard()
@@ -18,7 +17,7 @@ enum LayerFactory {
         switch type {
         case is Rectangle.Type:
             let color = Color.random()
-            return Rectangle(title: "\(Rectangle.self) \(titleOrder)", id: ID, origin: origin, size: size, color: color, alpha: alpha)
+            return Rectangle(title: "Rect \(titleOrder)", id: ID, origin: origin, size: size, color: color, alpha: alpha)
         case is Photo.Type:
             guard let data = data else { return nil }
             return Photo(title: "\(Photo.self) \(titleOrder)", id: ID, origin: origin, size: size, photo: data, alpha: alpha)
@@ -29,7 +28,6 @@ enum LayerFactory {
         default:
             return nil
         }
-    
     }
     
     private static let dummyString: () -> String = {
