@@ -13,12 +13,12 @@ class LayerTableViewController: UITableViewController {
         static let cell = "LayerCell"
     }
     
-    private var layers: [Layer] = []
-    private var previousSelected: IndexPath?
-    
     var didSelectRowHandler: ((Layer?) -> ())?
     var didMoveRowHandler: ((Int, Int) -> ())?
     var didCommandMoveHandler: ((Layer, Plane.reorderCommand) -> ())?
+    
+    var fetchLayer: ((Int) -> Layer?)?
+    var getLayerCount: (() -> Int?)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +44,7 @@ class LayerTableViewController: UITableViewController {
 extension LayerTableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return layers.count
+        return getLayerCount?() ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -55,14 +55,15 @@ extension LayerTableViewController {
         
         var config = cell.defaultContentConfiguration()
         
-        let layer = layers[indexPath.row]
+        guard let layer = fetchLayer?(indexPath.row) else { return cell }
+        
         config.text = layer.title
         config.textProperties.color = .black
         
-        if let symbol = ViewFactory.createSymbol(from: layer) {
-            config.image = symbol
-            config.imageProperties.tintColor = .black
-        }
+        guard let symbol = ViewFactory.createSymbol(from: layer) else { return cell }
+        
+        config.image = symbol
+        config.imageProperties.tintColor = .black
         
         cell.contentConfiguration = config
         
@@ -88,8 +89,8 @@ extension LayerTableViewController {
 extension LayerTableViewController {
     
     @objc func didAddLayer(_ notification: Notification) {
-        guard let newLayer = notification.userInfo?[Plane.InfoKey.added] as? Layer else { return }
-        layers.append(newLayer)
+//        guard let newLayer = notification.userInfo?[Plane.InfoKey.added] as? Layer else { return }
+//        layers.append(newLayer)
         tableView.reloadData()
     }
 }
@@ -102,17 +103,14 @@ extension LayerTableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        // Will not select row because this method only handles input flow
-        tableView.deselectRow(at: indexPath, animated: false)
-        
-        let selectedLayer = layers[indexPath.row]
+        guard let selectedLayer = fetchLayer?(indexPath.row) else { return }
         didSelectRowHandler?(selectedLayer)
     }
     
     @objc func didSelectLayer(_ notification: Notification) {
-        guard let selected = notification.userInfo?[Plane.InfoKey.selected] as? Layer, let index = layers.firstIndex(of: selected)  else { return }
-        let indexPath = IndexPath(row: index, section: 0)
-        tableView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
+//        guard let selected = notification.userInfo?[Plane.InfoKey.selected] as? Layer, let index = layers.firstIndex(of: selected)  else { return }
+//        let indexPath = IndexPath(row: index, section: 0)
+//        tableView.selectRow(at: indexPath, animated: true, scrollPosition: .middle)
     }
 }
 
@@ -130,7 +128,7 @@ extension LayerTableViewController {
     @objc func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
         guard let pressedCell = gesture.view as? UITableViewCell, let pressedIndexPath = tableView.indexPath(for: pressedCell) else { return }
         
-        let pressedLayer = layers[pressedIndexPath.row]
+        guard let pressedLayer = fetchLayer?(pressedIndexPath.row) else { return }
         
         let alertController = UIAlertController(title: nil, message: "Arrange Layer", preferredStyle: .actionSheet)
         
@@ -166,7 +164,6 @@ extension LayerTableViewController {
     @objc func didReorderLayer(_ notification: Notification) {
         guard let from = notification.userInfo?[Plane.InfoKey.fromIndex] as? Int,
               let to = notification.userInfo?[Plane.InfoKey.toIndex] as? Int else { return }
-        layers.insert(layers.remove(at: from), at: to)
         tableView.moveRow(at: IndexPath(row: from, section: 0), to: IndexPath(row: to, section: 0))
     }
 }
