@@ -63,16 +63,15 @@ class Plane:CustomStringConvertible{
     
     func updateRectangleAlpha(opacity: Int){
         guard let selectedRectangleIndex = self.selectedRectangleIndex else { return }
-        var selectedRectangle = self.rectangles[selectedRectangleIndex]
-        selectedRectangle.alpha = Alpha(opacity: opacity)
+        let selectedRectangle = self.rectangles[selectedRectangleIndex]
+        selectedRectangle.updateAlpha(opacity: opacity)
         NotificationCenter.default.post(name: NotificationName.rectangleAlphaUpdated, object: self, userInfo: [UserInfoKey.rectangleAlphaUpdated:opacity])
     }
     
     func updateSelectedRectanglePoint(x: Double, y: Double){
         guard let selectedRectangleIndex = self.selectedRectangleIndex else { return }
-        var selectedRectangle = self.rectangles[selectedRectangleIndex]
-        selectedRectangle.point.x = x
-        selectedRectangle.point.y = y
+        let selectedRectangle = self.rectangles[selectedRectangleIndex]
+        selectedRectangle.updatePoint(x: x, y: y)
         NotificationCenter.default.post(name: NotificationName.rectanglePointUpdated, object: self, userInfo: [UserInfoKey.rectanglePointUpdated:selectedRectangle])
     }
     

@@ -2,11 +2,11 @@ import Foundation
 
 class ImageRectangle: RectangleApplicable, CustomImageApplicable, CustomStringConvertible{
     
-    var id: Id
-    var size: Size
-    var point: Point
-    var alpha: Alpha
-    var backgroundImage: Data
+    private (set) var id: Id
+    private (set) var size: Size
+    private (set) var point: Point
+    private (set) var alpha: Alpha
+    private (set) var backgroundImage: Data
     var description: String{
         return "(\(id)), \(size), \(point), \(backgroundImage.hashValue), \(alpha)"
     }
@@ -17,6 +17,15 @@ class ImageRectangle: RectangleApplicable, CustomImageApplicable, CustomStringCo
         self.size = size
         self.point = point
         self.alpha = alpha
+    }
+    
+    func updateAlpha(opacity: Int) {
+        self.alpha = Alpha(opacity: opacity)
+    }
+    
+    func updatePoint(x: Double, y: Double) {
+        self.point.x = x
+        self.point.y = y
     }
      
 }
