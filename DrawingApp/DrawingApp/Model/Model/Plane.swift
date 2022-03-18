@@ -61,14 +61,16 @@ class Plane {
         layers.count
     }
     
-    func layerCount(of layerType: LayerType) -> Int {
-        switch layerType {
-        case .rectangle:
+    func layerCount<T: Layer>(of type: T.Type) -> Int {
+        switch type {
+        case is Rectangle.Type:
             return rectangleCount
-        case .photo:
+        case is Photo.Type:
             return photoCount
-        case .label:
+        case is Label.Type:
             return labelCount
+        default:
+            return 0
         }
     }
     
@@ -76,8 +78,10 @@ class Plane {
         return (0..<layers.count).contains(index) ? layers[index] : nil
     }
     
-    func add(layerType: LayerType, data: Data? = nil) {
-        guard let newLayer = LayerFactory.makeRandom(layerType, titleOrder: layerCount(of: layerType)+1, from: data) else { return }
+    func add<T: Layer>(type: T.Type, data: Data? = nil) {
+        
+        guard let newLayer = LayerFactory.makeRandom(type, titleOrder: layerCount(of: type) + 1, from: data) else { return }
+        
         layers.append(newLayer)
         NotificationCenter.default.post(name: Plane.Event.didAddLayer, object: self, userInfo: [Plane.InfoKey.added: newLayer])
     }
