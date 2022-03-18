@@ -129,13 +129,14 @@ extension ViewController {
     
     @objc func didSelectShape(notification: Notification) {
         guard let newlySelectedShape = notification.userInfo?[Plane.UserInfoKeys.newlySelectedShape] as? BasicShape else { return }
-        let newlySelectedShapeView = shapeMap[newlySelectedShape]
-        newlySelectedShapeView?.toggleCorner()
         
         if let previouslySelectedShape = notification.userInfo?[Plane.UserInfoKeys.previouslySelectedShape] as? BasicShape {
             let previouslySelectedShapeView = shapeMap[previouslySelectedShape]
             previouslySelectedShapeView?.clearCorner()
         }
+        
+        let newlySelectedShapeView = shapeMap[newlySelectedShape]
+        newlySelectedShapeView?.toggleCorner()
         
         plane.updateSelected(shape: newlySelectedShape)
     }
