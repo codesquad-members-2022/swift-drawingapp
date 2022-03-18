@@ -109,8 +109,7 @@ extension ViewController {
 // MARK: - Rectangle Model To ViewController
 extension ViewController {
     private func createShapeView(ofClass Class: ShapeViewable.Type, with shape: Shape) {
-        // TODO: Factory 한단계 더 추상화 (ShapeFactory)
-        guard let shapeView = RectangleViewFactory.makeView(ofClass: Class, with: shape) else { return }
+        guard let shapeView = ShapeViewFactory.makeView(ofClass: Class, with: shape) else { return }
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleOnTapShapeView))
         

@@ -8,7 +8,7 @@
 import UIKit
 
 extension CGRect: RectangleBuildable {
-    init(with rectangle: ColoredRectangle) {
+    init(with rectangle: Shapable) {
         self.init(x: rectangle.origin.x, y: rectangle.origin.y, width: rectangle.size.width, height: rectangle.size.height)
     }
 }

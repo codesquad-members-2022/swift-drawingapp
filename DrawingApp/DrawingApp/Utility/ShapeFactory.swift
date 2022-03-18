@@ -1,5 +1,5 @@
 //
-//  ShapeFactoryCluster.swift
+//  ShapeFactory.swift
 //  DrawingApp
 //
 //  Created by 송태환 on 2022/03/01.
@@ -7,13 +7,13 @@
 
 import Foundation
 
-enum ShapeFactoryCluster: ShapeBuildable {
+enum ShapeFactory: ShapeBuildable {
     static func makeShape(ofClass type: Shapable.Type) -> Shapable? {
         switch type {
         case is ColoredRectangle.Type:
-            return RectangleFactory.makeColoredRectangle()
+            return RectangleFactory.makeShape(ofClass: ColoredRectangle.self)
         case is ImageRectangle.Type:
-            return RectangleFactory.makeImageRectangle()
+            return RectangleFactory.makeShape(ofClass: ImageRectangle.self)
         default:
             return nil
         }
