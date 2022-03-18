@@ -9,6 +9,9 @@ import UIKit
 import OSLog
 import PhotosUI
 
+typealias RectangleView = UIView
+typealias imageURLData = Data
+
 final class MainViewController: UIViewController{
     
     //model
@@ -19,14 +22,18 @@ final class MainViewController: UIViewController{
     private var rectangleButton:UIButton = RectangleButton(frame: .zero)
     private var imageButton:UIButton = ImageButton(frame: .zero)
     
-    private var retangleViews = [PlaneRectangle:UIView]()
+    private var rectangleViews = [PlaneRectangle:RectangleView]()
+    private var imageRectangleViews = [imageURLData:RectangleView]()
+    
     //선택된 PlaneRectangleView
     private var seletedRectangleView:UIView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureNotificationCenter()
+        configurePlaneNotificationCenter()
+        configureImageNotificationCenter()
+        
         configureTapGesture()
         
         configureImageButton()
@@ -108,23 +115,9 @@ final class MainViewController: UIViewController{
         view.addSubview(detailView)
         view.addSubview(imageButton)
     }
-}
-
-//MARK: -- UIGesture 처리
-extension MainViewController:UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        
-        //Plane에게 touch된 View의 origin좌표를 넘겨준다.
-        let x = Double(touch.location(in: self.view).x)
-        let y = Double(touch.location(in: self.view).y)
-        let point = Point(x: x, y: y)
-        plane.findSeletedRectangle(point: point)
-        
-        return true
-    }
     
-    //MARK: -- NotificationCenter
-    private func configureNotificationCenter() {
+    //MARK: -- PlaneNotificationCenter
+    private func configurePlaneNotificationCenter() {
         NotificationCenter.default.addObserver(
             self,
             selector:#selector(addRectangleView),
@@ -173,7 +166,7 @@ extension MainViewController:UIGestureRecognizerDelegate {
         guard let newRectangle = notification.userInfo?[Plane.UserInfoKey.addedRectangle] as? PlaneRectangle else { return }
         let rectangleView = RectangleViewFactory.makePlaneRectangleView(sourceRectangle: newRectangle)
         
-        self.retangleViews[newRectangle] = rectangleView
+        self.rectangleViews[newRectangle] = rectangleView
         
         view.addSubview(rectangleView)
         self.view.bringSubviewToFront(rectangleButton)
@@ -186,7 +179,7 @@ extension MainViewController:UIGestureRecognizerDelegate {
         
         guard let seletedRectangle = notification.userInfo?[Plane.UserInfoKey.foundRectangle] as? PlaneRectangle else { return }
         
-        let rectangleView = self.retangleViews[seletedRectangle]
+        let rectangleView = self.rectangleViews[seletedRectangle]
         self.seletedRectangleView = rectangleView
         
         seletedRectangleView?.layer.borderWidth = 2.0
@@ -196,6 +189,47 @@ extension MainViewController:UIGestureRecognizerDelegate {
         self.detailView.alphaSlider.value = seletedRectangle.alpha.value
         
         self.detailView.backgroundColorButton.setTitle("\(seletedRectangle.rgb.hexValue)", for: .normal)
+    }
+    //MARK: -- ImageNotificationCenter
+        private func configureImageNotificationCenter() {
+            NotificationCenter.default.addObserver(
+                self,
+                selector:#selector(addImageRectangleView),
+                name: Image.NotificationName.didAddRectangle,
+                object: image
+            )
+        }
+    
+    @objc private func addImageRectangleView(_ notification:Notification) {
+        guard let newImageRectangle = notification.userInfo?[Image.UserInfoKey.addedImageRectangle] as? ImageRectangle else { return }
+        
+        DispatchQueue.main.async { [weak self]  in
+            guard let self = self else { return  }
+            let rectangleView = RectangleViewFactory.makeImageRectangleView(sourceRectangle: newImageRectangle)
+            self.imageRectangleViews[newImageRectangle.imageData] = rectangleView
+            print(rectangleView)
+            self.view.addSubview(rectangleView)
+
+            self.view.bringSubviewToFront(self.rectangleButton)
+            self.view.bringSubviewToFront(self.detailView)
+        }
+    }
+}
+
+
+
+
+//MARK: -- UIGesture 처리
+extension MainViewController:UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        
+        //Plane에게 touch된 View의 origin좌표를 넘겨준다.
+        let x = Double(touch.location(in: self.view).x)
+        let y = Double(touch.location(in: self.view).y)
+        let point = Point(x: x, y: y)
+        plane.findSeletedRectangle(point: point)
+        
+        return true
     }
 }
 
@@ -223,7 +257,7 @@ extension MainViewController:PHPickerViewControllerDelegate {
         guard let itemProvider = results.first?.itemProvider else { return }
         //Can Load?
         guard itemProvider.canLoadObject(ofClass: UIImage.self) == true else { return }
-            //Then Load
+        //Then Load
         itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.image.identifier) { [weak self] url, Error in
             guard let url = url else { return }
             guard let data = try? Data(contentsOf: url) else { return }

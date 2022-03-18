@@ -23,6 +23,7 @@ final class RectangleViewFactory {
         let source = sourceRectangle as! ImageRectangle
         let rectangleView = UIImageView(frame: .zero)
         rectangleView.frame = setUpFrameWithRectangle(source)
+        rectangleView.image = setupImage(imageData: source.imageData)
         return rectangleView
     }
     
