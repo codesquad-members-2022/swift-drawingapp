@@ -5,7 +5,7 @@
 //  Created by 김상혁 on 2022/03/01.
 //
 
-import Foundation
+import UIKit
 
 enum Alpha: Int {
     
@@ -25,6 +25,10 @@ enum Alpha: Int {
     
     var value: Float {
         return Float(self.rawValue) / Float(Alpha.maxLevel.rawValue)
+    }
+    
+    func toCGFloat() -> CGFloat {
+        return CGFloat(value)
     }
 }
 

@@ -10,7 +10,6 @@
 		1E02CA7727DEFEB400B08B30 /* Colorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E02CA7627DEFEB400B08B30 /* Colorable.swift */; };
 		1E02CA7B27DEFEC700B08B30 /* Alphable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E02CA7A27DEFEC700B08B30 /* Alphable.swift */; };
 		1E02CA7F27DF4F4B00B08B30 /* ViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E02CA7E27DF4F4B00B08B30 /* ViewFactory.swift */; };
-		1E02CA8327DF5A8A00B08B30 /* CGConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E02CA8227DF5A8A00B08B30 /* CGConverter.swift */; };
 		1E02CA8927DF73E000B08B30 /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E02CA8827DF73E000B08B30 /* RectangleView.swift */; };
 		1E02CA9327E020DE00B08B30 /* BasicShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E02CA9227E020DE00B08B30 /* BasicShape.swift */; };
 		1E02CA9627E05D9C00B08B30 /* BasicShapeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E02CA9527E05D9C00B08B30 /* BasicShapeView.swift */; };
@@ -48,7 +47,6 @@
 		1E02CA7627DEFEB400B08B30 /* Colorable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colorable.swift; sourceTree = "<group>"; };
 		1E02CA7A27DEFEC700B08B30 /* Alphable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alphable.swift; sourceTree = "<group>"; };
 		1E02CA7E27DF4F4B00B08B30 /* ViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewFactory.swift; sourceTree = "<group>"; };
-		1E02CA8227DF5A8A00B08B30 /* CGConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGConverter.swift; sourceTree = "<group>"; };
 		1E02CA8827DF73E000B08B30 /* RectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
 		1E02CA9227E020DE00B08B30 /* BasicShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicShape.swift; sourceTree = "<group>"; };
 		1E02CA9527E05D9C00B08B30 /* BasicShapeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicShapeView.swift; sourceTree = "<group>"; };
@@ -155,7 +153,6 @@
 		1E541E8C27CCBD8C000C8B50 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				1E5A154927E2433500FA4C9B /* Tools */,
 				1E02CA6F27DEFE9200B08B30 /* Protocols */,
 				1E5A154A27E2438200FA4C9B /* ShapeAttributes */,
 				1E5A154B27E247DF00FA4C9B /* Shapes */,
@@ -174,14 +171,6 @@
 				1E02CA8827DF73E000B08B30 /* RectangleView.swift */,
 			);
 			path = Views;
-			sourceTree = "<group>";
-		};
-		1E5A154927E2433500FA4C9B /* Tools */ = {
-			isa = PBXGroup;
-			children = (
-				1E02CA8227DF5A8A00B08B30 /* CGConverter.swift */,
-			);
-			path = Tools;
 			sourceTree = "<group>";
 		};
 		1E5A154A27E2438200FA4C9B /* ShapeAttributes */ = {
@@ -335,7 +324,6 @@
 				1EE4CCFD27CF0282005EA3D4 /* Identifier.swift in Sources */,
 				1EE4CCE927CDDC96005EA3D4 /* Size.swift in Sources */,
 				1E02CA8927DF73E000B08B30 /* RectangleView.swift in Sources */,
-				1E02CA8327DF5A8A00B08B30 /* CGConverter.swift in Sources */,
 				1E02CA7F27DF4F4B00B08B30 /* ViewFactory.swift in Sources */,
 				1EE4CCE527CCFD44005EA3D4 /* Rectangle.swift in Sources */,
 				1E02CABF27E15EB500B08B30 /* RandomAttributeFactory.swift in Sources */,
