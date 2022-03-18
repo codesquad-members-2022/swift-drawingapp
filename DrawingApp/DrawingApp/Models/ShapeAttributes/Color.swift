@@ -5,7 +5,7 @@
 //  Created by 김상혁 on 2022/03/01.
 //
 
-import Foundation
+import UIKit
 
 class Color {
     
@@ -28,6 +28,15 @@ class Color {
         }
         
         self.init(validRed: red, validGreen: green, validBlue: blue)
+    }
+    
+    func toUIColor() -> UIColor {
+        let red = red / Color.Range.upper
+        let green = green / Color.Range.upper
+        let blue = blue / Color.Range.upper
+        let alpha = Color.Alpha.default
+        
+        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
     }
 }
 

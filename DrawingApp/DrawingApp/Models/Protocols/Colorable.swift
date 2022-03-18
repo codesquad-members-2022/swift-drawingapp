@@ -5,7 +5,7 @@
 //  Created by 김상혁 on 2022/03/14.
 //
 
-import Foundation
+import UIKit
 
 protocol Colorable {
     var backgroundColor: Color { get }
@@ -19,5 +19,9 @@ extension Colorable {
         let blue = Int(backgroundColor.blue)
         
         return "\(String(format: "#%02X%02X%02X", red, green, blue))"
+    }
+    
+    var convertedColor: UIColor {
+        return backgroundColor.toUIColor()
     }
 }

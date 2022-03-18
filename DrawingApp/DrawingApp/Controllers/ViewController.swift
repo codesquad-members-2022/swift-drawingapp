@@ -110,16 +110,16 @@ extension ViewController {
     @objc func didCreateShape(notification: Notification) {
         guard let shape = notification.userInfo?[Plane.UserInfoKeys.newRectangle] as? BasicShape else { return }
         
-        let frame = CGConverter.toCGRect(from: (shape.point, shape.size))
+        let frame = shape.convertedFrame
         var color: UIColor?
         var alpha: CGFloat?
         
         if let shape = shape as? Colorable {
-            color = CGConverter.toUIColor(from: shape.backgroundColor)
+            color = shape.convertedColor
         }
         
         if let shape = shape as? Alphable {
-            alpha = CGConverter.toCGFloat(from: shape.alpha)
+            alpha = shape.convertedAlpha
         }
         
         let shapeView = ViewFactory.createView(frame: frame, backgroundColor: color, alpha: alpha)
@@ -157,14 +157,14 @@ extension ViewController {
         guard let selectedShape = notification.userInfo?[Plane.UserInfoKeys.updatedSelectedShape] as? BasicShape else { return }
         
         if let selectedShape = selectedShape as? Colorable {
-            let newColor = CGConverter.toUIColor(from: selectedShape.backgroundColor)
+            let newColor = selectedShape.convertedColor
             let newColorHexaValue = selectedShape.hexaValue
             sideInspectorView.setBackgroundColorValueButtonColor(by: newColor)
             sideInspectorView.setBackgroundColorValueButtonTitle(by: newColorHexaValue)
         }
         
-        if let shape = selectedShape as? Alphable {
-            let newAlpha = CGConverter.toCGFloat(from: shape.alpha)
+        if let selectedShape = selectedShape as? Alphable {
+            let newAlpha = selectedShape.convertedAlpha
             sideInspectorView.setAlphaValueLabelText(by: Float(newAlpha))
             sideInspectorView.enableAlphaPlusButton()
             sideInspectorView.enableAlphaMinusButton()
@@ -175,7 +175,7 @@ extension ViewController {
         guard let selectedShape = notification.userInfo?[Plane.UserInfoKeys.selectedShape] as? BasicShape & Colorable else { return }
         let selectedShapeView = shapeMap[selectedShape] as? ViewColorChangable
         
-        let newColor = CGConverter.toUIColor(from: selectedShape.backgroundColor)
+        let newColor = selectedShape.convertedColor
         let newColorHexaValue = selectedShape.hexaValue
         
         selectedShapeView?.changeBackgroundColor(by: newColor)
@@ -187,8 +187,7 @@ extension ViewController {
         guard let selectedShape = notification.userInfo?[Plane.UserInfoKeys.selectedShape] as? BasicShape & Alphable else { return }
         let selectedShapeView = shapeMap[selectedShape] as? ViewAlphaChangable
         
-        let newAlpha = CGConverter.toCGFloat(from: selectedShape.alpha)
-        
+        let newAlpha = selectedShape.convertedAlpha
         selectedShapeView?.changeAlpha(to: newAlpha)
         sideInspectorView.setAlphaValueLabelText(by: selectedShape.alphaValue)
         

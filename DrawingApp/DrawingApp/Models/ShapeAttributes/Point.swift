@@ -5,7 +5,7 @@
 //  Created by 김상혁 on 2022/03/01.
 //
 
-import Foundation
+import UIKit
 
 struct Point {
     
@@ -15,6 +15,10 @@ struct Point {
     init(x: Double, y: Double) {
         self.x = x
         self.y = y
+    }
+    
+    func toCGPoint() -> CGPoint {
+        return CGPoint(x: x, y: y)
     }
 }
 

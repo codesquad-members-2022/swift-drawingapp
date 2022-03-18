@@ -5,13 +5,17 @@
 //  Created by 김상혁 on 2022/03/15.
 //
 
-import Foundation
+import UIKit
 
 class BasicShape {
     
     private(set) var id: Identifier
     private(set) var point: Point
     private(set) var size: Size
+    
+    var convertedFrame: CGRect {
+        return CGRect(origin: point.toCGPoint(), size: size.toCGSize())
+    }
     
     init(identifier: Identifier, point: Point, size: Size = Size(width: 150, height: 120)) {
         self.id = identifier
