@@ -55,8 +55,7 @@ class Plane{
             self.selectedRectangle = selected
             
             NotificationCenter.default.post(name: .rectangleDidMutate, object: self, userInfo: ["updateRectangle":selected])
-            NotificationCenter.default.post(name: .backgroundDidChagned, object: self, userInfo: ["updateRectangle":selected])
-            NotificationCenter.default.post(name: .alpahDidChanged, object: self, userInfo: ["updateRectangle":selected])
+        
         }
     }
     
