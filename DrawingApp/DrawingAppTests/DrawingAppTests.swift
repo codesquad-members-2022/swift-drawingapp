@@ -10,18 +10,25 @@ import XCTest
 
 class DrawingAppTests: XCTestCase {
     
-    func testId() {
-        let factory = Factory()
-        let id = factory.createId().count
-        
-        XCTAssertEqual(11, 11)
+    func testCreateID() {
+        let count = ID.createId().count
+        XCTAssertEqual(count, 11)
     }
     
-    func testFactoryArray() {
-        let factoryArray = FactoryArray()
-        let array = factoryArray.createRectanleArray().count
+    func testCountingRectangle() {
+        let plane = Plane()
+        plane.addRectangle()
+        let count = plane.countingRectangle()
         
-        XCTAssertEqual(4, 4)
+        XCTAssertEqual(count, 1)
     }
     
+    func testExist() {
+        let plane = Plane()
+        let rectangle = plane.addRectangle()
+        let point = rectangle.point
+        let exist = plane.isExist(point: point)
+        
+        XCTAssertEqual(rectangle, exist)
+    }
 }
