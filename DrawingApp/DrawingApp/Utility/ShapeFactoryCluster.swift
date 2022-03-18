@@ -7,15 +7,13 @@
 
 import Foundation
 
-protocol ShapeFactory {
-    static func makeShape(with type: Shapable.Type) -> Shapable?
-}
-
-enum ShapeFactoryCluster: ShapeFactory {
-    static func makeShape(with type: Shapable.Type) -> Shapable? {
+enum ShapeFactoryCluster: ShapeBuildable {
+    static func makeShape(ofClass type: Shapable.Type) -> Shapable? {
         switch type {
         case is ColoredRectangle.Type:
-            return RectangleFactory.makeShape()
+            return RectangleFactory.makeColoredRectangle()
+        case is ImageRectangle.Type:
+            return RectangleFactory.makeImageRectangle()
         default:
             return nil
         }

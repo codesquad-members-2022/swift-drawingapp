@@ -9,6 +9,7 @@ import Foundation
 
 typealias NotifiableShape = Shape & Notifiable
 typealias AlphaAdaptableShape = Shape & AlphaAdaptable
+typealias ImageAdaptableShape = Shape & ImageAdaptable
 typealias BackgroundAdaptableShape = Shape & BackgroundAdaptable
 
 /// 추상 클래스

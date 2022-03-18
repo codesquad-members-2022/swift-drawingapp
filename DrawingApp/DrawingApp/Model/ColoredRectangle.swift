@@ -9,7 +9,7 @@ import Foundation
 
 typealias BackgroundColorControllable = BackgroundAdaptable & AlphaAdaptable
 
-class ColoredRectangle: NotifiableShape, BackgroundColorControllable {    
+class ColoredRectangle: Shape, BackgroundColorControllable, Notifiable {
     // MARK: - Properties
     private(set) var backgroundColor: Color {
         didSet {

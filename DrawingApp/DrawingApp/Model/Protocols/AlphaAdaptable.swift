@@ -9,6 +9,5 @@ import Foundation
 
 protocol AlphaAdaptable {
     var alpha: Alpha { get }
-    
     func setAlpha(_ alpha: Alpha)
 }

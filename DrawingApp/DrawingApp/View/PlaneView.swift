@@ -9,8 +9,8 @@ import UIKit
 
 protocol PlaneViewDelegate {
     func planeViewDidTapped(_ sender: UITapGestureRecognizer)
-    func planeViewDidPressRectangleAddButton()
-    func planeViewDidPressImageAddButton()
+    func planeViewDidPressColoredRectangleAddButton()
+    func planeViewDidPressImageRectangleAddButton()
 }
 
 class PlaneView: UIView {
@@ -65,21 +65,21 @@ class PlaneView: UIView {
     }
     
     private func configureActions() {
-        self.rectangleAddButton.addTarget(self, action: #selector(PlaneView.handleOnPressRectangleAddButton), for: .touchUpInside)
-        self.imageAddButton.addTarget(self, action: #selector(PlaneView.handleOnPressImageAddButton), for: .touchUpInside)
+        self.rectangleAddButton.addTarget(self, action: #selector(PlaneView.handleOnPressColoredRectangleAddButton), for: .touchUpInside)
+        self.imageAddButton.addTarget(self, action: #selector(PlaneView.handleOnPressImageRectangleAddButton), for: .touchUpInside)
     }
     
     // MARK: - Action Methods
-    @objc private func handleOnPressRectangleAddButton(_ sender: RoundedButton) {
-        self.delegate?.planeViewDidPressRectangleAddButton()
-    }
-    
     @objc private func handleOnTapPlaneView(_ sender: UITapGestureRecognizer) {
         guard sender.state == .ended else { return }
         self.delegate?.planeViewDidTapped(sender)
     }
     
-    @objc private func handleOnPressImageAddButton(_ sender: RoundedButton) {
-        self.delegate?.planeViewDidPressImageAddButton()
+    @objc private func handleOnPressColoredRectangleAddButton(_ sender: RoundedButton) {
+        self.delegate?.planeViewDidPressColoredRectangleAddButton()
+    }
+    
+    @objc private func handleOnPressImageRectangleAddButton(_ sender: RoundedButton) {
+        self.delegate?.planeViewDidPressImageRectangleAddButton()
     }
 }

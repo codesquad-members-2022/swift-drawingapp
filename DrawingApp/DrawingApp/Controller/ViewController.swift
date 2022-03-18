@@ -54,13 +54,12 @@ extension ViewController: PlaneViewDelegate {
         self.plane.unselectItem()
     }
     
-    func planeViewDidPressRectangleAddButton() {
-        // TODO: Factory 한단계 더 추상화 (ShapeFactory)
-        guard let shape = RectangleFactory.makeRandomRectangle() as? NotifiableShape else { return }
+    func planeViewDidPressColoredRectangleAddButton() {
+        let shape = RectangleFactory.makeRandomRectangle()
         plane.append(item: shape)
     }
     
-    func planeViewDidPressImageAddButton() {
+    func planeViewDidPressImageRectangleAddButton() {
         var configuration = PHPickerConfiguration(photoLibrary: .shared())
         
         configuration.filter = .images
@@ -188,7 +187,8 @@ extension ViewController: PHPickerViewControllerDelegate {
             itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.image.identifier) { url, error in
                 guard let url = url, error == nil else { return }
                 
-                guard let imageShape = RectangleFactory.makeRandomRectangle(with: url) as? NotifiableShape else { return }
+                let imageShape = RectangleFactory.makeRandomRectangle(with: url)
+                
                 self.plane.append(item: imageShape)
             }
         }

@@ -7,11 +7,9 @@
 
 import Foundation
 
-protocol ImageAdaptable {
-    func setImagePath(with url: URL)
-}
+typealias ImageControllable = ImageAdaptable & AlphaAdaptable
 
-class ImageRectangle: NotifiableShape, ImageAdaptable, AlphaAdaptable {
+class ImageRectangle: Shape, ImageControllable, Notifiable {
     private(set) var alpha: Alpha {
         didSet {
             self.notifyDidUpdated(key: .updated, data: self.alpha)
