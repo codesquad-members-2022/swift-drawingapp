@@ -50,7 +50,6 @@ class CanvasView: UIView {
                 unselectRectangle()
                 value.layer.borderWidth = 3
                 value.layer.borderColor = UIColor.blue.cgColor
-                value.layer.backgroundColor = UIColor(hex: rectangle.backgroundColor.getHexValue()).cgColor
                 return
             }
         }
