@@ -42,6 +42,11 @@ class ViewController: UIViewController {
     
     func configureSubscriber() {
         NotificationCenter.default.addObserver(self, selector: #selector(replaceSelectedRectangleView(_:)), name: .rectangleDidMutate, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeBackgroundColor(_:)), name: .rectangleDidMutate, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeAlpha(_:)), name: .rectangleDidMutate, object: plane)
+        
+        
+        
         NotificationCenter.default.addObserver(self, selector: #selector(addRectangleView(_:)), name: .rectangleDidAdd, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(changeBackgroundColor(_:)), name: .backgroundDidChagned, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(changeAlpha(_:)), name: .alpahDidChanged, object: plane)
