@@ -40,11 +40,18 @@ class ViewController: UIViewController {
         self.plane.addRectangle()
     }
     
-    private func declareDelegates() {
-        plane.addedRectangleDelegate = self
-        plane.rectangleTapDelegate = self
-        plane.colorDelegate = self
-        plane.alphaDelegate = self
+    private func activateNotificationObservers() {
+        // add rectangle
+        NotificationCenter.default.addObserver(self, selector: #selector(made(from: )), name: Notification.Name.add, object: plane)
+        
+        // rectangle tapped
+        NotificationCenter.default.addObserver(self, selector: #selector(touched(from:)), name: Notification.Name.select, object: plane)
+        
+        // color changed
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeColor(rectangleNoti:)), name: Notification.Name.change, object: plane)
+        
+        // alpha changed
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeAlpha(from: )), name: Notification.Name.change, object: plane)
     }
     
     private func initDetailView() {
@@ -58,14 +65,23 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        declareDelegates()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        activateNotificationObservers()
         initDetailView()
-        touchBackgroundView()
+        activateBackgroundTappable()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
 extension ViewController: UIGestureRecognizerDelegate {
-        func touchBackgroundView() {
+        func activateBackgroundTappable() {
             let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap(_:)))
             self.view.addGestureRecognizer(tap)
         }
@@ -77,16 +93,19 @@ extension ViewController: UIGestureRecognizerDelegate {
         }
 }
 
-extension ViewController: RectangleAddedDelegate {
-    func made(rectangle: Rectangle) {
+extension ViewController {
+    @objc func made(from plane : Notification) {
+        guard let rectangle = plane.userInfo?[NotificationKey.rectangle] as? Rectangle else {
+            return
+        }
         let rectView = UIView(frame: CGRect(x: rectangle.point.x, y: rectangle.point.y, width: rectangle.size.width, height: rectangle.size.height))
         rectView.backgroundColor = UIColor(red: CGFloat(rectangle.color.R)/255.0, green: CGFloat(rectangle.color.G)/255.0, blue: CGFloat(rectangle.color.B)/255.0, alpha: CGFloat(rectangle.alpha.rawValue)/10.0)
         self.rectangleAndViewContainer[rectangle] = rectView
         self.view.addSubview(rectView)
     }
 }
-
-extension ViewController: RectangleTouchedDelegate {
+//
+extension ViewController {
     private func paintBorder(_ rectangle: Rectangle) {
         let touchedView = self.rectangleAndViewContainer[rectangle]
         touchedView?.layer.borderWidth = 3.0
@@ -94,32 +113,27 @@ extension ViewController: RectangleTouchedDelegate {
         self.selectedView = touchedView
     }
     
-    private func showDetailOfColorAndAlpha() {
-        var rectangle : Rectangle?
-        for (key, value) in rectangleAndViewContainer {
-            if self.selectedView === value {
-                rectangle = key
-                break
-            }
-        }
-        if let rect = rectangle {
-            colorButton.setTitle("#\(rect.color.showRGBVlaue())", for: .normal)
-            alphaSlider.value = Float(rect.alpha.rawValue)
-        }
+    private func showDetailOfColorAndAlpha(_ rectangle: Rectangle) {
+        colorButton.setTitle("#\(rectangle.color.showRGBVlaue())", for: .normal)
+        alphaSlider.value = Float(rectangle.alpha.rawValue)
     }
-    func touched(rectangle: Rectangle) {
+    
+    	
+    @objc func touched(from plane: Notification) {
+        guard let rectangle = plane.userInfo?[NotificationKey.rectangle] as? Rectangle else {
+            return
+        }
         if let view = self.selectedView {
             view.layer.borderWidth = .zero
         }
         paintBorder(rectangle)
-        showDetailOfColorAndAlpha()
+        showDetailOfColorAndAlpha(rectangle)
     }
 }
 
-extension ViewController: RectangleColorChangeDelegate {
+extension ViewController {
     func changeColorAndAlpha(_ rectangle: Rectangle) {
-        let viewValue = rectangleAndViewContainer[rectangle]
-        rectangleAndViewContainer.removeValue(forKey: rectangle)
+        let viewValue = rectangleAndViewContainer.removeValue(forKey: rectangle)
         rectangleAndViewContainer[rectangle] = viewValue
         if let view = rectangleAndViewContainer[rectangle] {
             view.backgroundColor = UIColor(red: CGFloat(rectangle.color.R)/255.0, green: CGFloat(rectangle.color.G)/255.0, blue: CGFloat(rectangle.color.B)/255.0, alpha: CGFloat(rectangle.alpha.rawValue)/10.0)
@@ -127,14 +141,20 @@ extension ViewController: RectangleColorChangeDelegate {
         }
     }
     
-    func didChangeColor(rectangle: Rectangle) {
+    @objc func didChangeColor(rectangleNoti: Notification) {
+        guard let rectangle = rectangleNoti.userInfo?[NotificationKey.color] as? Rectangle else {
+            return
+        }
         changeColorAndAlpha(rectangle)
         colorButton.setTitle("#\(rectangle.color.showRGBVlaue())", for: .normal)
     }
 }
 
-extension ViewController : RectangleAlaphaChangeDelegate {
-    func didChangeAlpha(rectangle: Rectangle) {
+extension ViewController  {
+    @objc func didChangeAlpha(from plane: Notification) {
+        guard let rectangle = plane.userInfo?[NotificationKey.alpha] as? Rectangle else {
+            return
+        }
         changeColorAndAlpha(rectangle)
         alphaSlider.value = Float(rectangle.alpha.rawValue)
     }

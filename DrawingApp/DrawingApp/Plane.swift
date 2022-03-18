@@ -1,27 +1,7 @@
 import Foundation
 
-protocol RectangleAddedDelegate {
-    func made(rectangle : Rectangle)
-}
-
-protocol RectangleTouchedDelegate {
-    func touched(rectangle: Rectangle)
-}
-
-protocol RectangleColorChangeDelegate {
-    func didChangeColor(rectangle: Rectangle)
-}
-protocol RectangleAlaphaChangeDelegate {
-    func didChangeAlpha(rectangle: Rectangle)
-}
-
 class Plane {
-    private var rectangles: [Rectangle] = []
-
-    var addedRectangleDelegate :RectangleAddedDelegate?
-    var rectangleTapDelegate : RectangleTouchedDelegate?
-    var colorDelegate: RectangleColorChangeDelegate?
-    var alphaDelegate: RectangleAlaphaChangeDelegate?
+    private(set) var rectangles: [Rectangle] = []
     
     var rectangleCount: Int {
         return rectangles.count
@@ -31,15 +11,13 @@ class Plane {
     func addRectangle() {
         let rectangle: Rectangle = Factory.createRandomRectangle()
         rectangles.append(rectangle)
-        
-        addedRectangleDelegate?.made(rectangle: rectangle)
+        NotificationCenter.default.post(name: .add, object: self, userInfo: [NotificationKey.rectangle : rectangle])
     }
     
     subscript(index: Int) -> Rectangle {
         return rectangles[index]
     }
     
-    //MARK: Bound Gate
     private func isTouchedOnRectangle(at point: Point) -> Rectangle? {
         var optionalRectangle: Rectangle?
         for rectangle in rectangles {
@@ -54,18 +32,18 @@ class Plane {
         guard let rectangle = isTouchedOnRectangle(at: point) else {
             return
         }
-        self.rectangleTapDelegate?.touched(rectangle: rectangle)
+        NotificationCenter.default.post(name: Notification.Name.select, object: self, userInfo: [NotificationKey.rectangle: rectangle])
     }
     
     func changeColorOfRectangle(_ rectangle: Rectangle) {
         var oldRectangle = rectangle
         let newRectangle = oldRectangle.changeColor()
-        self.colorDelegate?.didChangeColor(rectangle: newRectangle)
+        NotificationCenter.default.post(name: Notification.Name.change, object: self, userInfo: [NotificationKey.color: newRectangle])
     }
     
     func changeAlpha(_ rectangle: Rectangle, _ alpha: Int) {
         var willChangeRectangle = rectangle
         willChangeRectangle = willChangeRectangle.changeAlpha(alpha)
-        alphaDelegate?.didChangeAlpha(rectangle: willChangeRectangle)
+        NotificationCenter.default.post(name: Notification.Name.change, object: self, userInfo: [NotificationKey.alpha: willChangeRectangle])
     }
 }
