@@ -7,18 +7,31 @@
 
 import UIKit
 
+protocol LayerReoderable {
+    func setReorderHandler(handler: ((Int, Int) -> ())?)
+    func setReorderCommandHandler(handler: ((Layer, Plane.reorderCommand) -> ())?)
+}
+
+protocol LayerFetchable {
+    func setFetchLayerHandler(handler: ((Int) -> Layer?)?)
+    func setFetchLayerCountHandler(handler: (() -> Int?)?)
+}
+
+protocol LayerSelectable {
+    func setSelectHandler(handler: ((Layer?) -> ())?)
+}
+
 class LayerTableViewController: UITableViewController {
     
-    enum identifier {
-        static let cell = "LayerCell"
-    }
+    enum identifier { static let cell = "LayerCell" }
     
     var didSelectRowHandler: ((Layer?) -> ())?
+    
     var didMoveRowHandler: ((Int, Int) -> ())?
     var didCommandMoveHandler: ((Layer, Plane.reorderCommand) -> ())?
     
     var fetchLayer: ((Int) -> Layer?)?
-    var getLayerCount: (() -> Int?)?
+    var fetchLayerCount: (() -> Int?)?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,12 +51,37 @@ class LayerTableViewController: UITableViewController {
     }
 }
 
+extension LayerTableViewController: LayerSelectable {
+    func setSelectHandler(handler: ((Layer?) -> ())?) {
+        self.didSelectRowHandler = handler
+    }
+}
+
+extension LayerTableViewController: LayerReoderable {
+    func setReorderHandler(handler: ((Int, Int) -> ())?) {
+        self.didMoveRowHandler = handler
+    }
+    
+    func setReorderCommandHandler(handler: ((Layer, Plane.reorderCommand) -> ())?) {
+        self.didCommandMoveHandler = handler
+    }
+}
+
+extension LayerTableViewController: LayerFetchable {
+    func setFetchLayerHandler(handler: ((Int) -> Layer?)?) {
+        self.fetchLayer = handler
+    }
+    func setFetchLayerCountHandler(handler: (() -> Int?)?) {
+        self.fetchLayerCount = handler
+    }
+}
+
 // MARK: - Table view data source
 
 extension LayerTableViewController {
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return getLayerCount?() ?? 0
+        return fetchLayerCount?() ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

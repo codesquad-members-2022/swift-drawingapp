@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol LayerViewDraggable {
+    func setDragHandler(handler: ((UIView) -> ())?)
+}
+
 class CanvasViewController: UIViewController,
                             UIImagePickerControllerDelegate,
                             UINavigationControllerDelegate {
@@ -31,8 +35,11 @@ class CanvasViewController: UIViewController,
         photoPicker.delegate = self
         
         // Make other VC notify of User Interaction
-        setClosureToPanelVC()
-        setClosureToLayerTableVC()
+        guard let primaryVC = splitViewController?.viewController(for: .primary) else { return }
+        setHandler(to: primaryVC)
+        
+        guard let supplementaryVC = splitViewController?.viewController(for: .supplementary) else { return }
+        setHandler(to: supplementaryVC)
     }
     
     private func setCanvasView() {
@@ -49,35 +56,30 @@ class CanvasViewController: UIViewController,
         canvasView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
     }
     
-    private func setClosureToLayerTableVC() {
-        guard let layerTableVC = splitViewController?.viewController(for: .supplementary) as? LayerTableViewController else { return }
-        
-        setDidSelectRowHandler(to: layerTableVC)
-        setDidMoveRowHandler(to: layerTableVC)
-        setDidCommandMoveHandler(to: layerTableVC)
-        
-        layerTableVC.fetchLayer = { [weak self] index in
-            return self?.plane[index]
+    private func setHandler(to viewController: UIViewController) {
+        if let viewController = viewController as? LayerSelectable {
+            setSelectHandler(to: viewController)
         }
         
-        layerTableVC.getLayerCount = { [weak self] in
-            return self?.plane.layerCount
-        }
-    }
-    
-    private func setClosureToPanelVC() {
-        guard let panelVC = splitViewController?.viewController(for: .primary) as? PanelViewController else {
-            return
+        if let viewController = viewController as? LayerFetchable {
+            setFetchHandler(to: viewController)
         }
         
-        setDidTouchColorButtonHandler(to: panelVC)
-        setDidTouchSizeStepperHandler(to: panelVC)
-        setDidTouchOriginStepperHandler(to: panelVC)
-        setDidChangeSliderHandler(to: panelVC)
-        setDidEditTextFieldHandler(to: panelVC)
+        if let viewController = viewController as? LayerReoderable {
+            setReorderHandler(to: viewController)
+        }
+        
+        if let viewController = viewController as? LayerPropertyContollable {
+            setControlHandler(to: viewController)
+        }
     }
 }
 
+extension CanvasViewController: LayerViewDraggable {
+    func setDragHandler(handler: ((UIView) -> ())?) {
+        self.didMoveTemporaryView = handler
+    }
+}
 
 // MARK: - Use case: Launch App
 
@@ -204,15 +206,39 @@ extension CanvasViewController {
     }
 }
 
-// MARK: - Use Case: Touch Color Button (Input) & Change Color (Output)
+// MARK: - Use Case: Control property of selected layer (Input)
 
 extension CanvasViewController {
     
-    func setDidTouchColorButtonHandler(to panelVC: PanelViewController) {
-        panelVC.didTouchColorButtonHandler = { [weak self] color in
+    private func setControlHandler(to layerPropertyContollable: LayerPropertyContollable) {
+        
+        layerPropertyContollable.setColorButtonHandler { [weak self] color in
             self?.plane.changeSelected(toColor: color)
         }
+        
+        layerPropertyContollable.setSizeStepperHandler { [weak self] size in
+            self?.plane.changeSelected(toSize: size)
+        }
+        
+        layerPropertyContollable.setOriginStepperHandler { [weak self] origin in
+            self?.plane.changeSelected(toOrigin: origin)
+        }
+        
+        layerPropertyContollable.setSliderHandler { [weak self] value in
+            guard let alpha = Alpha(value) else { return }
+            self?.plane.changeSelected(toAlpha: alpha)
+        }
+        
+        layerPropertyContollable.setTextFieldHandler {
+            [weak self] text in
+                self?.plane.changeSelected(toText: text)
+        }
     }
+}
+
+// MARK: - Use Case: Change Color (Output)
+
+extension CanvasViewController {
     
     @objc func didChangeColor(_ notification: Notification) {
         guard let selected = plane.selected,
@@ -222,16 +248,9 @@ extension CanvasViewController {
     }
 }
 
-// MARK: - Use Case: Change slider (Input) & Change Alpha (Output)
+// MARK: - Use Case: Change Alpha (Output)
 
 extension CanvasViewController {
-    
-    func setDidChangeSliderHandler(to panelVC: PanelViewController) {
-        panelVC.didChangeSliderHandler = { [weak self] value in
-            guard let alpha = Alpha(value) else { return }
-            self?.plane.changeSelected(toAlpha: alpha)
-        }
-    }
     
     @objc func didChangeAlpha(_ notification: Notification) {
         guard let selected = plane.selected,
@@ -241,15 +260,9 @@ extension CanvasViewController {
     }
 }
 
-// MARK: - Use Case: Touch origin stepper (Input) & Change origin (Output)
+// MARK: - Use Case: Change origin (Output)
 
 extension CanvasViewController {
-    
-    func setDidTouchOriginStepperHandler(to panelVC: PanelViewController) {
-        panelVC.didTouchOriginStepperHandler = { [weak self] origin in
-            self?.plane.changeSelected(toOrigin: origin)
-        }
-    }
     
     @objc func didChangeOrigin(_ notification: Notification) {
         guard let mutated = notification.userInfo?[Plane.InfoKey.changed] as? Layer else { return }
@@ -258,15 +271,9 @@ extension CanvasViewController {
     }
 }
 
-// MARK: - Use Case: Touch size stepper slider (Input) & Change size (Output)
+// MARK: - Use Case: Change size (Output)
 
 extension CanvasViewController {
-    
-    func setDidTouchSizeStepperHandler(to panelVC: PanelViewController) {
-        panelVC.didTouchSizeStepperHandler = { [weak self] size in
-            self?.plane.changeSelected(toSize: size)
-        }
-    }
     
     @objc func didChangeSize(_ notification: Notification) {
         guard let mutated = notification.userInfo?[Plane.InfoKey.changed] as? Layer else { return }
@@ -275,15 +282,9 @@ extension CanvasViewController {
     }
 }
 
-// MARK: - Use Case: Edit textfield (Input) & Change text (Output)
+// MARK: - Use Case: Change text (Output)
 
 extension CanvasViewController {
-    
-    func setDidEditTextFieldHandler(to panelVC: PanelViewController) {
-        panelVC.didEditTextFieldHandler = { [weak self] text in
-            self?.plane.changeSelected(toText: text)
-        }
-    }
     
     @objc func didChangeText(_ notification: Notification) {
         guard let selected = plane.selected,
@@ -354,15 +355,14 @@ extension CanvasViewController {
 
 extension CanvasViewController {
     
-    func setDidCommandMoveHandler(to layerTableVC: LayerTableViewController) {
-        layerTableVC.didCommandMoveHandler = { [weak self] layer, command in
-            self?.plane.reorderLayer(layer, to: command)
-        }
-    }
-    
-    func setDidMoveRowHandler(to layerTableVC: LayerTableViewController) {
-        layerTableVC.didMoveRowHandler = { [weak self] from, to in
+    func setReorderHandler(to layerReorderable: LayerReoderable) {
+        
+        layerReorderable.setReorderHandler { [weak self] from, to in
             self?.plane.reorderLayer(fromIndex: from, toIndex: to)
+        }
+        
+        layerReorderable.setReorderCommandHandler { [weak self] layer, command in
+            self?.plane.reorderLayer(layer, to: command)
         }
     }
     
@@ -380,9 +380,23 @@ extension CanvasViewController {
 
 extension CanvasViewController {
     
-    @objc func setDidSelectRowHandler(to layerTableVC: LayerTableViewController) {
-        layerTableVC.didSelectRowHandler = { [weak self] selected in
+    private func setSelectHandler(to layerSelectable: LayerSelectable) {
+        layerSelectable.setSelectHandler { [weak self] selected in
             self?.plane.select(layer: selected)
+        }
+    }
+}
+
+
+extension CanvasViewController {
+    
+    private func setFetchHandler(to layerFetchable: LayerFetchable) {
+        layerFetchable.setFetchLayerHandler {  [weak self] index in
+            return self?.plane[index]
+        }
+        
+        layerFetchable.setFetchLayerCountHandler { [weak self] in
+            return self?.plane.layerCount
         }
     }
 }

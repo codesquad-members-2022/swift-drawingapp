@@ -7,6 +7,14 @@
 
 import UIKit
 
+protocol LayerPropertyContollable {
+    func setSizeStepperHandler(handler: ((Size) -> ())?)
+    func setOriginStepperHandler(handler:  ((Point) -> ())?)
+    func setSliderHandler(handler: ((Float) -> ())?)
+    func setColorButtonHandler(handler: ((Color) -> ())?)
+    func setTextFieldHandler(handler: ((String) -> ())?)
+}
+
 class PanelViewController: UIViewController {
     
     @IBOutlet weak var colorButton: UIButton!
@@ -38,10 +46,6 @@ class PanelViewController: UIViewController {
         static let didEditTextField = Notification.Name("didEditTextField")
     }
     
-    enum Handler {
-        static var didTouchSizeStepperHandler: ((Size) -> ())?
-    }
-    
     enum InfoKey {
         static let value = "value"
         static let origin = "origin"
@@ -49,17 +53,20 @@ class PanelViewController: UIViewController {
         static let text = "text"
     }
     
-    var didTouchSizeStepperHandler: ((Size) -> ())?
-    var didTouchOriginStepperHandler: ((Point) -> ())?
-    var didChangeSliderHandler: ((Float) -> ())?
-    var didTouchColorButtonHandler: ((Color) -> ())?
-    var didEditTextFieldHandler: ((String) -> ())?
+    var didTouchSizeStepper: ((Size) -> ())?
+    var didTouchOriginStepper: ((Point) -> ())?
+    var didChangeSlider: ((Float) -> ())?
+    var didTouchColorButton: ((Color) -> ())?
+    var didEditTextField: ((String) -> ())?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         subscribePlaneNotification()
         
-        setClosureToCanvasVC()
+        if let secondaryVC = splitViewController?.viewController(for: .secondary) {
+            setHandler(to: secondaryVC)
+        }
+        
         addTargetAction(to: textField)
     }
     
@@ -67,10 +74,14 @@ class PanelViewController: UIViewController {
         textField.addTarget(self, action: #selector(didEditTextField(_:)), for: .editingChanged)
     }
     
-    private func setClosureToCanvasVC() {
-        guard let canvasVC = splitViewController?.viewController(for: .secondary) as? CanvasViewController else { return }
-        
-        setDidMoveTemporaryViewHandler(to: canvasVC)
+    private func setHandler(to viewController: UIViewController) {
+        if let viewController = viewController as? LayerViewDraggable {
+            
+            viewController.setDragHandler { [weak self] temporaryView in
+                let temporaryOrigin = Point(x: temporaryView.frame.origin.x, y: temporaryView.frame.origin.y)
+                self?.displayTemporaryOrigin(temporaryOrigin)
+            }
+        }
     }
     
     private func subscribePlaneNotification() {
@@ -79,6 +90,24 @@ class PanelViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeAlpha(_:)), name: Plane.Event.didChangeAlpha, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeSize(_:)), name: Plane.Event.didChangeSize, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(didChangeOrigin(_:)), name: Plane.Event.didChangeOrigin, object: nil)
+    }
+}
+
+extension PanelViewController: LayerPropertyContollable {
+    func setSizeStepperHandler(handler: ((Size) -> ())?) {
+        self.didTouchSizeStepper = handler
+    }
+    func setOriginStepperHandler(handler:  ((Point) -> ())?) {
+        self.didTouchOriginStepper = handler
+    }
+    func setSliderHandler(handler: ((Float) -> ())?) {
+        self.didChangeSlider = handler
+    }
+    func setColorButtonHandler(handler: ((Color) -> ())?) {
+        self.didTouchColorButton = handler
+    }
+    func setTextFieldHandler(handler: ((String) -> ())?) {
+        self.didEditTextField = handler
     }
 }
 
@@ -222,13 +251,6 @@ extension PanelViewController {
 
 extension PanelViewController {
     
-    private func setDidMoveTemporaryViewHandler(to canvasVC: CanvasViewController) {
-        
-        canvasVC.didMoveTemporaryView = { [weak self] temporaryView in
-            let temporaryOrigin = Point(x: temporaryView.frame.origin.x, y: temporaryView.frame.origin.y)
-            self?.displayTemporaryOrigin(temporaryOrigin)
-        }
-    }
     
     private func displayTemporaryOrigin(_ origin: Point) {
         let selectedX = origin.x
@@ -248,7 +270,7 @@ extension PanelViewController {
     
     @IBAction func didTouchColorButton(_ sender: UIButton) {
         let randomColor = Color.random()
-        didTouchColorButtonHandler?(randomColor)
+        didTouchColorButton?(randomColor)
     }
     
     @objc func didChangeColor(_ notification: Notification) {
@@ -263,7 +285,7 @@ extension PanelViewController {
 extension PanelViewController {
 
     @IBAction func didChangeSlider(_ sender: UISlider) {
-        didChangeSliderHandler?(sender.value)
+        didChangeSlider?(sender.value)
     }
     
     @objc func didChangeAlpha(_ notification: Notification) {
@@ -279,7 +301,7 @@ extension PanelViewController {
 
     @IBAction func didTouchOriginStepper(_ sender: UIStepper) {
         let newOrigin = Point(x: xOriginStepper.value, y: yOriginStepper.value)
-        didTouchOriginStepperHandler?(newOrigin)
+        didTouchOriginStepper?(newOrigin)
     }
     
     @objc func didChangeOrigin(_ notification: Notification) {
@@ -304,7 +326,7 @@ extension PanelViewController {
             newSize = Size(width: widthStepper.value, height: heightStpper.value)
         }
         
-        didTouchSizeStepperHandler?(newSize)
+        didTouchSizeStepper?(newSize)
     }
     
     @objc func didChangeSize(_ notification: Notification) {
@@ -318,6 +340,6 @@ extension PanelViewController {
 extension PanelViewController {
     
     @objc func didEditTextField(_ sender: UITextField) {
-        didEditTextFieldHandler?(textField.text ?? "")
+        didEditTextField?(textField.text ?? "")
     }
 }
