@@ -55,6 +55,14 @@ class CanvasViewController: UIViewController,
         setDidSelectRowHandler(to: layerTableVC)
         setDidMoveRowHandler(to: layerTableVC)
         setDidCommandMoveHandler(to: layerTableVC)
+        
+        layerTableVC.fetchLayer = { [weak self] index in
+            return self?.plane[index]
+        }
+        
+        layerTableVC.getLayerCount = { [weak self] in
+            return self?.plane.layerCount
+        }
     }
     
     private func setClosureToPanelVC() {
