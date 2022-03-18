@@ -13,16 +13,15 @@ final class ImageRectangle:Rectangleable {
     private let id:ID
     private(set) var origin:Point
     private(set) var size:Size
-    private(set) var alpha:Alpha?
-    private(set) var rgb:RGB?
-    private(set) var image:Data?
+    private(set) var alpha:Alpha
+    private(set) var imageData:Data
     
-    init(id: ID, origin: Point, size: Size, rgb: RGB? = nil, alpha: Alpha? = nil) {
+    init(id: ID, origin: Point, size: Size, alpha: Alpha,imageData:Data) {
         self.id = id
         self.origin = origin
         self.size = size
         self.alpha = alpha
-        self.rgb = rgb
+        self.imageData = imageData
     }
 
     func changeOrigin(_ origin: Point) {
@@ -46,6 +45,6 @@ extension ImageRectangle:Hashable {
     }
     //이미지가 같은면 같은 사각형.
     static func == (lhs: ImageRectangle, rhs: ImageRectangle) -> Bool {
-        lhs.image == rhs.image
+        lhs.imageData == rhs.imageData
     }
 }

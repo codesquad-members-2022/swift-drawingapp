@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol DetailViewDelgate:AnyObject {
+protocol DetailViewDelegate:AnyObject {
     func sliderViewEndEditing(sender:UISlider)
     func colorButtonTouched(sender:UIButton)
 }
