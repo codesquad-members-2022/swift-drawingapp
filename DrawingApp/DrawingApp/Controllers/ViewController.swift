@@ -109,6 +109,7 @@ extension ViewController {
     
     @objc func didCreateShape(notification: Notification) {
         guard let shape = notification.userInfo?[Plane.UserInfoKeys.newRectangle] as? BasicShape else { return }
+        
         let frame = CGConverter.toCGRect(from: (shape.point, shape.size))
         var color: UIColor?
         var alpha: CGFloat?
@@ -127,22 +128,23 @@ extension ViewController {
     }
     
     @objc func didSelectShape(notification: Notification) {
-        guard let shape = notification.userInfo?[Plane.UserInfoKeys.tappedShape] as? BasicShape else { return }
-        if let selectedShape = plane.selected,
-           let selectedShapeView = shapeMap[selectedShape] {
-            selectedShapeView.clearCorner()
+        guard let newlySelectedShape = notification.userInfo?[Plane.UserInfoKeys.newlySelectedShape] as? BasicShape else { return }
+        let newlySelectedShapeView = shapeMap[newlySelectedShape]
+        newlySelectedShapeView?.toggleCorner()
+        
+        if let previouslySelectedShape = notification.userInfo?[Plane.UserInfoKeys.previouslySelectedShape] as? BasicShape {
+            let previouslySelectedShapeView = shapeMap[previouslySelectedShape]
+            previouslySelectedShapeView?.clearCorner()
         }
         
-        let shapeView = shapeMap[shape]
-        shapeView?.toggleCorner()
-        plane.updateSelected(shape: shape)
+        plane.updateSelected(shape: newlySelectedShape)
     }
     
-    @objc func didSelectEmptyView() {
-        guard let selectedShape = plane.selected,
-            let selectedShapeView = shapeMap[selectedShape] else { return }
+    @objc func didSelectEmptyView(notification: Notification) {
+        guard let previouslySelectedShape = notification.userInfo?[Plane.UserInfoKeys.previouslySelectedShape] as? BasicShape else { return }
+        let previouslySelectedShapeView = shapeMap[previouslySelectedShape]
+        previouslySelectedShapeView?.clearCorner()
         
-        selectedShapeView.clearCorner()
         sideInspectorView.clearBackgroundColorValueButtonTitle()
         sideInspectorView.clearBackgroundColorValueButtonColor()
         sideInspectorView.clearAlphaValueLabelText()
@@ -151,15 +153,16 @@ extension ViewController {
     }
     
     @objc func didChangeSelectedShape(notification: Notification) {
-        guard let shape = notification.userInfo?[Plane.UserInfoKeys.updatedSelectedShape] as? BasicShape else { return }
-        if let shape = shape as? Colorable {
-            let newColor = CGConverter.toUIColor(from: shape.backgroundColor)
-            let newColorHexaValue = shape.hexaValue
+        guard let selectedShape = notification.userInfo?[Plane.UserInfoKeys.updatedSelectedShape] as? BasicShape else { return }
+        
+        if let selectedShape = selectedShape as? Colorable {
+            let newColor = CGConverter.toUIColor(from: selectedShape.backgroundColor)
+            let newColorHexaValue = selectedShape.hexaValue
             sideInspectorView.setBackgroundColorValueButtonColor(by: newColor)
             sideInspectorView.setBackgroundColorValueButtonTitle(by: newColorHexaValue)
         }
         
-        if let shape = shape as? Alphable {
+        if let shape = selectedShape as? Alphable {
             let newAlpha = CGConverter.toCGFloat(from: shape.alpha)
             sideInspectorView.setAlphaValueLabelText(by: Float(newAlpha))
             sideInspectorView.enableAlphaPlusButton()
@@ -168,28 +171,30 @@ extension ViewController {
     }
     
     @objc func didUpdateSelectedShapeBackgroundColor(notification: Notification) {
-        guard let shape = notification.userInfo?[Plane.UserInfoKeys.selectedShape] as? BasicShape & Colorable else { return }
-        guard let selectedShapeView = shapeMap[shape] as? ViewColorChangable else { return }
-        let newColor = CGConverter.toUIColor(from: shape.backgroundColor)
-        let newColorHexaValue = shape.hexaValue
+        guard let selectedShape = notification.userInfo?[Plane.UserInfoKeys.selectedShape] as? BasicShape & Colorable else { return }
+        let selectedShapeView = shapeMap[selectedShape] as? ViewColorChangable
         
-        selectedShapeView.changeBackgroundColor(by: newColor)
+        let newColor = CGConverter.toUIColor(from: selectedShape.backgroundColor)
+        let newColorHexaValue = selectedShape.hexaValue
+        
+        selectedShapeView?.changeBackgroundColor(by: newColor)
         sideInspectorView.setBackgroundColorValueButtonColor(by: newColor)
         sideInspectorView.setBackgroundColorValueButtonTitle(by: newColorHexaValue)
     }
     
     @objc func didUpdateSelectedShapeAlpha(notification: Notification) {
-        guard let shape = notification.userInfo?[Plane.UserInfoKeys.selectedShape] as? BasicShape & Alphable else { return }
-        guard let selectedShapeView = shapeMap[shape] as? ViewAlphaChangable else { return }
-        let newAlpha = CGConverter.toCGFloat(from: shape.alpha)
+        guard let selectedShape = notification.userInfo?[Plane.UserInfoKeys.selectedShape] as? BasicShape & Alphable else { return }
+        let selectedShapeView = shapeMap[selectedShape] as? ViewAlphaChangable
         
-        selectedShapeView.changeAlpha(to: newAlpha)
-        sideInspectorView.setAlphaValueLabelText(by: shape.alphaValue)
+        let newAlpha = CGConverter.toCGFloat(from: selectedShape.alpha)
         
-        if !shape.canAlphaLevelUp() {
+        selectedShapeView?.changeAlpha(to: newAlpha)
+        sideInspectorView.setAlphaValueLabelText(by: selectedShape.alphaValue)
+        
+        if !selectedShape.canAlphaLevelUp() {
             sideInspectorView.disableAlphaPlusButton()
         }
-        else if !shape.canAlphaLevelDown() {
+        else if !selectedShape.canAlphaLevelDown() {
             sideInspectorView.disableAlphaMinusButton()
         }
         else {
@@ -213,7 +218,7 @@ extension ViewController {
                                                object: plane)
         
         NotificationCenter.default.addObserver(self,
-                                               selector: #selector(didSelectEmptyView),
+                                               selector: #selector(didSelectEmptyView(notification:)),
                                                name: Plane.EventName.emptyViewDidSelect,
                                                object: plane)
         
@@ -226,7 +231,7 @@ extension ViewController {
                                                selector: #selector(didUpdateSelectedShapeBackgroundColor(notification:)),
                                                name: Plane.EventName.selectedShapeDidUpdateBackgroundColor,
                                                object: plane)
-        
+
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(didUpdateSelectedShapeAlpha(notification:)),
                                                name: Plane.EventName.selectedShapeDidUpdateAlpha,
