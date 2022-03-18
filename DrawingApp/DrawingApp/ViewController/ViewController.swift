@@ -113,18 +113,9 @@ extension ViewController {
         self.selectedView = touchedView
     }
     
-    private func showDetailOfColorAndAlpha() {
-        var rectangle : Rectangle?
-        for (key, value) in rectangleAndViewContainer {
-            if self.selectedView === value {
-                rectangle = key
-                break
-            }
-        }
-        if let rect = rectangle {
-            colorButton.setTitle("#\(rect.color.showRGBVlaue())", for: .normal)
-            alphaSlider.value = Float(rect.alpha.rawValue)
-        }
+    private func showDetailOfColorAndAlpha(_ rectangle: Rectangle) {
+        colorButton.setTitle("#\(rectangle.color.showRGBVlaue())", for: .normal)
+        alphaSlider.value = Float(rectangle.alpha.rawValue)
     }
     
     	
@@ -136,7 +127,7 @@ extension ViewController {
             view.layer.borderWidth = .zero
         }
         paintBorder(rectangle)
-        showDetailOfColorAndAlpha()
+        showDetailOfColorAndAlpha(rectangle)
     }
 }
 
