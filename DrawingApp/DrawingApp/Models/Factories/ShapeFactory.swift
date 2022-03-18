@@ -1,5 +1,5 @@
 //
-//  RandomShapeFactory.swift
+//  ShapeFactory.swift
 //  DrawingApp
 //
 //  Created by 김상혁 on 2022/02/28.
