@@ -11,7 +11,7 @@ class Plane {
     func addRectangle() {
         let rectangle: Rectangle = Factory.createRandomRectangle()
         rectangles.append(rectangle)
-        notificationCenter.post(name: .addRectangleView, object: nil, userInfo: [NotificationKey.addedRectangle : rectangle])
+        NotificationCenter.default.post(name: .add, object: self, userInfo: [NotificationKey.rectangle : rectangle])
     }
     
     subscript(index: Int) -> Rectangle {
@@ -32,18 +32,18 @@ class Plane {
         guard let rectangle = isTouchedOnRectangle(at: point) else {
             return
         }
-        notificationCenter.post(name: Notification.Name.tappedRectangleView, object: nil, userInfo: [NotificationKey.tappedRectangle: rectangle])
+        NotificationCenter.default.post(name: Notification.Name.select, object: nil, userInfo: [NotificationKey.rectangle: rectangle])
     }
     
     func changeColorOfRectangle(_ rectangle: Rectangle) {
         var oldRectangle = rectangle
         let newRectangle = oldRectangle.changeColor()
-        notificationCenter.post(name: Notification.Name.colorChange, object: nil, userInfo: [NotificationKey.color: newRectangle])
+        NotificationCenter.default.post(name: Notification.Name.change, object: nil, userInfo: [NotificationKey.color: newRectangle])
     }
     
     func changeAlpha(_ rectangle: Rectangle, _ alpha: Int) {
         var willChangeRectangle = rectangle
         willChangeRectangle = willChangeRectangle.changeAlpha(alpha)
-        notificationCenter.post(name: Notification.Name.alphaChange, object: nil, userInfo: [NotificationKey.alpha: willChangeRectangle])
+        NotificationCenter.default.post(name: Notification.Name.change, object: nil, userInfo: [NotificationKey.alpha: willChangeRectangle])
     }
 }

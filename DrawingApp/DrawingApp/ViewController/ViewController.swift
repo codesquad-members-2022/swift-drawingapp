@@ -42,16 +42,16 @@ class ViewController: UIViewController {
     
     private func activateNotificationObservers() {
         // add rectangle
-        notificationCenter.addObserver(self, selector: #selector(made(rectangleNoti: )), name: Notification.Name.addRectangleView, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(made(rectangleNoti: )), name: Notification.Name.add, object: plane)
         
         // rectangle tapped
-        notificationCenter.addObserver(self, selector: #selector(touched(rectangleNoti:)), name: Notification.Name.tappedRectangleView, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(touched(rectangleNoti:)), name: Notification.Name.select, object: nil)
         
         // color changed
-        notificationCenter.addObserver(self, selector: #selector(didChangeColor(rectangleNoti:)), name: Notification.Name.colorChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeColor(rectangleNoti:)), name: Notification.Name.change, object: nil)
         
         // alpha changed
-        notificationCenter.addObserver(self, selector: #selector(didChangeAlpha(rectangleNoti: )), name: Notification.Name.alphaChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeAlpha(rectangleNoti: )), name: Notification.Name.change, object: nil)
     }
     
     private func initDetailView() {
@@ -72,7 +72,7 @@ class ViewController: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        notificationCenter.removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 }
 
@@ -91,7 +91,7 @@ extension ViewController: UIGestureRecognizerDelegate {
 
 extension ViewController {
     @objc func made(rectangleNoti : Notification) {
-        guard let rectangle = rectangleNoti.userInfo?[NotificationKey.addedRectangle] as? Rectangle else {
+        guard let rectangle = rectangleNoti.userInfo?[NotificationKey.rectangle] as? Rectangle else {
             return
         }
         let rectView = UIView(frame: CGRect(x: rectangle.point.x, y: rectangle.point.y, width: rectangle.size.width, height: rectangle.size.height))
@@ -123,8 +123,9 @@ extension ViewController {
         }
     }
     
+    	
     @objc func touched(rectangleNoti: Notification) {
-        guard let rectangle = rectangleNoti.userInfo?[NotificationKey.tappedRectangle] as? Rectangle else {
+        guard let rectangle = rectangleNoti.userInfo?[NotificationKey.rectangle] as? Rectangle else {
             return
         }
         if let view = self.selectedView {

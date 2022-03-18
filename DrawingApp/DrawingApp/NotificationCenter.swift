@@ -1,24 +1,14 @@
-//
-//  NotificationCenter.swift
-//  DrawingApp
-//
-//  Created by YEONGJIN JANG on 2022/03/16.
-//
-
 import Foundation
 
-let notificationCenter = NotificationCenter.default
-
+// 노티는 행위에 가깝다.
 extension Notification.Name {
-    static let addRectangleView = Notification.Name("A rectangle is made")
-    static let tappedRectangleView = Notification.Name("a rectangle view is Tapped")
-    static let colorChange = Notification.Name("color changed")
-    static let alphaChange = Notification.Name("alpha changed")
+    static let add = Notification.Name("A rectangle is made")
+    static let select = Notification.Name("Select a rectangle")
+    static let change = Notification.Name("Change some property")
 }
-
+// 키는 변수에 가깝다.
 enum NotificationKey {
     case color
     case alpha
-    case tappedRectangle
-    case addedRectangle
+    case rectangle
 }
