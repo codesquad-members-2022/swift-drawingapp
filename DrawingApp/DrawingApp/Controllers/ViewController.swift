@@ -108,7 +108,7 @@ extension ViewController {
 extension ViewController {
     
     @objc func didCreateShape(notification: Notification) {
-        guard let shape = notification.userInfo?[UserInfoKeys.newRectangle] as? BasicShape else { return }
+        guard let shape = notification.userInfo?[Plane.UserInfoKeys.newRectangle] as? BasicShape else { return }
         let frame = CGConverter.toCGRect(from: (shape.point, shape.size))
         var color: UIColor?
         var alpha: CGFloat?
@@ -127,7 +127,7 @@ extension ViewController {
     }
     
     @objc func didSelectShape(notification: Notification) {
-        guard let shape = notification.userInfo?[UserInfoKeys.tappedShape] as? BasicShape else { return }
+        guard let shape = notification.userInfo?[Plane.UserInfoKeys.tappedShape] as? BasicShape else { return }
         if let selectedShape = plane.selected,
            let selectedShapeView = shapeMap[selectedShape] {
             selectedShapeView.clearCorner()
@@ -151,7 +151,7 @@ extension ViewController {
     }
     
     @objc func didChangeSelectedShape(notification: Notification) {
-        guard let shape = notification.userInfo?[UserInfoKeys.updatedSelectedShape] as? BasicShape else { return }
+        guard let shape = notification.userInfo?[Plane.UserInfoKeys.updatedSelectedShape] as? BasicShape else { return }
         if let shape = shape as? Colorable {
             let newColor = CGConverter.toUIColor(from: shape.backgroundColor)
             let newColorHexaValue = shape.hexaValue
@@ -168,7 +168,7 @@ extension ViewController {
     }
     
     @objc func didUpdateSelectedShapeBackgroundColor(notification: Notification) {
-        guard let shape = notification.userInfo?[UserInfoKeys.selectedShape] as? BasicShape & Colorable else { return }
+        guard let shape = notification.userInfo?[Plane.UserInfoKeys.selectedShape] as? BasicShape & Colorable else { return }
         guard let selectedShapeView = shapeMap[shape] as? ViewColorChangable else { return }
         let newColor = CGConverter.toUIColor(from: shape.backgroundColor)
         let newColorHexaValue = shape.hexaValue
@@ -179,7 +179,7 @@ extension ViewController {
     }
     
     @objc func didUpdateSelectedShapeAlpha(notification: Notification) {
-        guard let shape = notification.userInfo?[UserInfoKeys.selectedShape] as? BasicShape & Alphable else { return }
+        guard let shape = notification.userInfo?[Plane.UserInfoKeys.selectedShape] as? BasicShape & Alphable else { return }
         guard let selectedShapeView = shapeMap[shape] as? ViewAlphaChangable else { return }
         let newAlpha = CGConverter.toCGFloat(from: shape.alpha)
         
@@ -204,32 +204,32 @@ extension ViewController {
     private func addObservers() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(didCreateShape(notification:)),
-                                               name: .newShapeDidCreate,
+                                               name: Plane.EventName.newShapeDidCreate,
                                                object: plane)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(didSelectShape(notification:)),
-                                               name: .shapeDidSelect,
+                                               name: Plane.EventName.shapeDidSelect,
                                                object: plane)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(didSelectEmptyView),
-                                               name: .emptyViewDidSelect,
+                                               name: Plane.EventName.emptyViewDidSelect,
                                                object: plane)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(didChangeSelectedShape(notification:)),
-                                               name: .selectedShapeDidChange,
+                                               name: Plane.EventName.selectedShapeDidChange,
                                                object: plane)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(didUpdateSelectedShapeBackgroundColor(notification:)),
-                                               name: .selectedShapeDidUpdateBackgroundColor,
+                                               name: Plane.EventName.selectedShapeDidUpdateBackgroundColor,
                                                object: plane)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(didUpdateSelectedShapeAlpha(notification:)),
-                                               name: .selectedShapeDidUpdateAlpha,
+                                               name: Plane.EventName.selectedShapeDidUpdateAlpha,
                                                object: plane)
     }
 }
