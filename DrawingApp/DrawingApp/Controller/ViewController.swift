@@ -78,8 +78,7 @@ extension ViewController: SideInspectorViewDelegate {
     }
     
     func sideInspectorViewSliderValueDidChanged(_ slider: UISlider) {
-        let sliderStringValue =  String(format: "%.1f", slider.value)
-        let sliderValue = Float(sliderStringValue)!
+        let sliderValue = round(slider.value * 10) / 10.0
         if let rectangle = selectedRectangle {
             plane.alphaValueDidChanged(alpha: sliderValue, rectangle: rectangle)
         }
