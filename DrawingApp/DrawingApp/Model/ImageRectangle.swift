@@ -8,25 +8,28 @@
 import Foundation
 
 protocol ImagePossessable {
-    var image: URL? { get }
     func setImage(with url: URL)
 }
 
 class ImageRectangle: Rectangle, ImagePossessable {
-    private(set) var image: URL?
+    private var imageURL: URL?
+    
+    var imagePath: String? {
+        return self.imageURL?.path
+    }
     
     init(id: String, origin: Point, size: Size, image: URL? = nil) {
         super.init(id: id, origin: origin, size: size)
-        self.image = image
+        self.imageURL = image
     }
     
     init(id: String, x: Double, y: Double, width: Double, height: Double, image: URL? = nil) {
         super.init(id: id, x: x, y: y, width: width, height: height)
-        self.image = image
+        self.imageURL = image
     }
     
     func setImage(with url: URL) {
-        self.image = url
+        self.imageURL = url
     }
     
     override func notifyDidCreated() {

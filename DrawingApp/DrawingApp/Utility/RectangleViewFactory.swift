@@ -20,7 +20,7 @@ enum RectangleViewFactory {
             return rectangleView
         case is ImageRectangleView.Type:
             guard let data = data as? ImageRectangle else { return nil }
-            guard let path = data.image?.path, let image = UIImage(contentsOfFile: path) else { return nil }
+            guard let path = data.imagePath, let image = UIImage(contentsOfFile: path) else { return nil }
             
             let imageRectangleView = ImageRectangleView(frame: data.convert(using: CGRect.self))
             
