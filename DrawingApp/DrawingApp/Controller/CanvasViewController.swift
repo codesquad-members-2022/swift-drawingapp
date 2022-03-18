@@ -96,7 +96,7 @@ extension CanvasViewController {
     }
     
     private func setUpInitialModels() {
-        (0..<4).forEach { _ in plane.add(layerType: .rectangle) }
+        (0..<4).forEach { _ in plane.add(type: Rectangle.self) }
     }
     
     private func setUpTapRecognizer() {
@@ -110,7 +110,7 @@ extension CanvasViewController {
 extension CanvasViewController {
     
     @IBAction func didTouchRectangleButton(_ sender: UIButton) {
-        plane.add(layerType: .rectangle)
+        plane.add(type: Rectangle.self)
     }
     
     @objc func didAddLayer(_ notification: Notification) {
@@ -148,7 +148,7 @@ extension CanvasViewController {
         guard let image = info[.originalImage] as? UIImage,
               let imageData = image.pngData() else { return }
         
-        plane.add(layerType: .photo, data: imageData)
+        plane.add(type: Photo.self, data: imageData)
         picker.dismiss(animated: true, completion: nil)
     }
 }
@@ -157,7 +157,7 @@ extension CanvasViewController {
 
 extension CanvasViewController {
     @IBAction func didTouchLabelButton(_ sender: UIButton) {
-        plane.add(layerType: .label)
+        plane.add(type: Label.self)
     }
     
     // Set Layer to fit intrinsic content size

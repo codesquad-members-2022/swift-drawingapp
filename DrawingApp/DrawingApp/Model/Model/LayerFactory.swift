@@ -8,25 +8,28 @@
 import Foundation
 
 enum LayerFactory {
-    static func makeRandom(_ layerType: LayerType, titleOrder: Int, from data: Data? = nil) -> Layer? {
+    static func makeRandom<T: Layer>(_ type: T.Type, titleOrder: Int, from data: Data? = nil) -> Layer? {
         // Common property to initialize Layer
         let ID = ID.random()
         let origin = Point.random()
         let size = Size.standard()
         let alpha = Alpha.random()
         
-        switch layerType {
-        case .rectangle:
+        switch type {
+        case is Rectangle.Type:
             let color = Color.random()
-            return Rectangle(title: "\(layerType) \(titleOrder)", id: ID, origin: origin, size: size, color: color, alpha: alpha)
-        case .photo:
+            return Rectangle(title: "\(Rectangle.self) \(titleOrder)", id: ID, origin: origin, size: size, color: color, alpha: alpha)
+        case is Photo.Type:
             guard let data = data else { return nil }
-            return Photo(title: "\(layerType) \(titleOrder)", id: ID, origin: origin, size: size, photo: data, alpha: alpha)
-        case .label:
+            return Photo(title: "\(Photo.self) \(titleOrder)", id: ID, origin: origin, size: size, photo: data, alpha: alpha)
+        case is Label.Type:
             let text = dummyString()
             let fontSize = Float.random(in: 16...32)
-            return Label(title: "\(layerType) \(titleOrder)", id: ID, origin: origin, size: size, text: text, fontSize: fontSize)
+            return Label(title: "\(Label.self) \(titleOrder)", id: ID, origin: origin, size: size, text: text, fontSize: fontSize)
+        default:
+            return nil
         }
+    
     }
     
     private static let dummyString: () -> String = {
@@ -37,21 +40,3 @@ enum LayerFactory {
     }
 }
 
-enum LayerType {
-    case rectangle
-    case photo
-    case label
-}
-
-extension LayerType: CustomStringConvertible {
-    var description: String {
-        switch self {
-        case .rectangle:
-            return "Rect"
-        case .photo:
-            return "Photo"
-        case .label:
-            return "Text"
-        }
-    }
-}
