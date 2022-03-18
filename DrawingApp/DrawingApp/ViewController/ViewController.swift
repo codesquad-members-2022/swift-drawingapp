@@ -45,13 +45,13 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(made(rectangleNoti: )), name: Notification.Name.add, object: plane)
         
         // rectangle tapped
-        NotificationCenter.default.addObserver(self, selector: #selector(touched(rectangleNoti:)), name: Notification.Name.select, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(touched(rectangleNoti:)), name: Notification.Name.select, object: plane)
         
         // color changed
-        NotificationCenter.default.addObserver(self, selector: #selector(didChangeColor(rectangleNoti:)), name: Notification.Name.change, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeColor(rectangleNoti:)), name: Notification.Name.change, object: plane)
         
         // alpha changed
-        NotificationCenter.default.addObserver(self, selector: #selector(didChangeAlpha(rectangleNoti: )), name: Notification.Name.change, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(didChangeAlpha(rectangleNoti: )), name: Notification.Name.change, object: plane)
     }
     
     private func initDetailView() {

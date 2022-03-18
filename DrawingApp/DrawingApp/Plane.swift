@@ -1,7 +1,7 @@
 import Foundation
 
 class Plane {
-    private var rectangles: [Rectangle] = []
+    private(set) var rectangles: [Rectangle] = []
     
     var rectangleCount: Int {
         return rectangles.count
@@ -32,18 +32,18 @@ class Plane {
         guard let rectangle = isTouchedOnRectangle(at: point) else {
             return
         }
-        NotificationCenter.default.post(name: Notification.Name.select, object: nil, userInfo: [NotificationKey.rectangle: rectangle])
+        NotificationCenter.default.post(name: Notification.Name.select, object: self, userInfo: [NotificationKey.rectangle: rectangle])
     }
     
     func changeColorOfRectangle(_ rectangle: Rectangle) {
         var oldRectangle = rectangle
         let newRectangle = oldRectangle.changeColor()
-        NotificationCenter.default.post(name: Notification.Name.change, object: nil, userInfo: [NotificationKey.color: newRectangle])
+        NotificationCenter.default.post(name: Notification.Name.change, object: self, userInfo: [NotificationKey.color: newRectangle])
     }
     
     func changeAlpha(_ rectangle: Rectangle, _ alpha: Int) {
         var willChangeRectangle = rectangle
         willChangeRectangle = willChangeRectangle.changeAlpha(alpha)
-        NotificationCenter.default.post(name: Notification.Name.change, object: nil, userInfo: [NotificationKey.alpha: willChangeRectangle])
+        NotificationCenter.default.post(name: Notification.Name.change, object: self, userInfo: [NotificationKey.alpha: willChangeRectangle])
     }
 }
