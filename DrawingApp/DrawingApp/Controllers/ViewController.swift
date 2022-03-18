@@ -80,7 +80,7 @@ extension ViewController {
     @objc func addRectangleButtonTouched() {
         let rectangleViewXBound = presentShapeView.frame.width - Size.Range.width
         let rectangleViewYBound = presentShapeView.frame.height - Size.Range.height
-        plane.addRectangle(bound: (rectangleViewXBound, rectangleViewYBound), by: RandomShapeFactory.self)
+        plane.addRectangle(bound: (rectangleViewXBound, rectangleViewYBound), by: ShapeFactory.self)
     }
     
     @objc func addPictureButtonTouched() {

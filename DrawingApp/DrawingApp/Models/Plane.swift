@@ -20,12 +20,16 @@ class Plane {
         return shapes.count
     }
     
-    func addRectangle(bound: (x: Double, y: Double), by factoryType: RandomShapeFactory.Type) {
+    func addRectangle(bound: (x: Double, y: Double), by factoryType: ShapeFactory.Type) {
         let newRectangle = factoryType.createRandomRectangle(xBound: bound.x, yBound: bound.y)
         shapes.append(newRectangle)
         NotificationCenter.default.post(name: Plane.EventName.newShapeDidCreate,
                                         object: self,
                                         userInfo: [UserInfoKeys.newRectangle: newRectangle])
+    }
+    
+    func addPicture(bound: (x: Double, y: Double), by factoryType: ShapeFactory.Type) {
+        
     }
     
     func updateSelected(shape: BasicShape) {
