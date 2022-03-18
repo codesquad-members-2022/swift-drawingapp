@@ -41,15 +41,15 @@ class ViewController: UIViewController {
     }
     
     func configureSubscriber() {
-        NotificationCenter.default.addObserver(self, selector: #selector(replaceSelectedRectangleView(_:)), name: .rectangleDidMutate, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(changeBackgroundColor(_:)), name: .rectangleDidMutate, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(changeAlpha(_:)), name: .rectangleDidMutate, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(replaceSelectedRectangleView(_:)), name: Plane.rectangleDidMutate, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeBackgroundColor(_:)), name: Plane.rectangleDidMutate, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeAlpha(_:)), name: Plane.rectangleDidMutate, object: plane)
         
         
         
-        NotificationCenter.default.addObserver(self, selector: #selector(addRectangleView(_:)), name: .rectangleDidAdd, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(changeBackgroundColor(_:)), name: .backgroundDidChagned, object: plane)
-        NotificationCenter.default.addObserver(self, selector: #selector(changeAlpha(_:)), name: .alpahDidChanged, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(addRectangleView(_:)), name: Plane.rectangleDidAdd, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeBackgroundColor(_:)), name: Plane.backgroundDidChagned, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeAlpha(_:)), name: Plane.alpahDidChanged, object: plane)
     }
     
     func clear() {
@@ -83,7 +83,7 @@ extension ViewController: RectangleViewDelegate {
 extension ViewController {
     
     @objc func replaceSelectedRectangleView(_ notification: NSNotification) {
-        guard let selected = notification.userInfo?[UserInfo.updateRectangle] as? Rectangle else { return }
+        guard let selected = notification.userInfo?[Plane.UserInfo.updateRectangle] as? Rectangle else { return }
         selectedRectangleView?.layer.borderWidth = 0 // 이전 사각형테두리 지우기
         selectedRectangleView = rectangleViews[selected]
         selectedRectangleView?.layer.borderWidth = 5
@@ -91,7 +91,7 @@ extension ViewController {
     
     @objc
     func addRectangleView(_ notification: NSNotification) {
-        guard let newRectangle = notification.userInfo?[UserInfo.updateRectangle] as? Rectangle else { return }
+        guard let newRectangle = notification.userInfo?[Plane.UserInfo.updateRectangle] as? Rectangle else { return }
         let rect = UIView(frame: CGRect(x: newRectangle.position.x, y: newRectangle.position.y, width: newRectangle.size.width, height: newRectangle.size.height))
         let color = Convertor.convertColor(from: newRectangle.backgroundColor, alpha: newRectangle.alpha)
         rect.backgroundColor = color
@@ -102,7 +102,7 @@ extension ViewController {
     
     @objc
     func changeBackgroundColor(_ notification: NSNotification) {
-        guard let selected = notification.userInfo?[UserInfo.updateRectangle] as? Rectangle else { return }
+        guard let selected = notification.userInfo?[Plane.UserInfo.updateRectangle] as? Rectangle else { return }
         
         let hexString = Convertor.colorToHexString(selected.backgroundColor)
         controllerView.backgroundButton.setTitle(hexString, for: .normal)
@@ -114,7 +114,7 @@ extension ViewController {
     
     @objc
     func changeAlpha(_ notification: NSNotification) {
-        guard let selected = notification.userInfo?[UserInfo.updateRectangle] as? Rectangle else { return }
+        guard let selected = notification.userInfo?[Plane.UserInfo.updateRectangle] as? Rectangle else { return }
         
         let alpha = selected.alpha
         controllerView.alphaSlider.setValue(Float(alpha.rawValue), animated: true)
