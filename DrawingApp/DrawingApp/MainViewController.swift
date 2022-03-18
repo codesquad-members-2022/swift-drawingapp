@@ -114,6 +114,14 @@ final class MainViewController: UIViewController{
         view.addSubview(imageButton)
     }
     
+    private func bringButtonViewToFront() {
+        self.view.bringSubviewToFront(self.rectangleButton)
+        self.view.bringSubviewToFront(self.detailView)
+        self.view.bringSubviewToFront(self.imageButton)
+    }
+    
+    
+    
     //MARK: -- PlaneNotificationCenter
     private func configurePlaneNotificationCenter() {
         NotificationCenter.default.addObserver(
@@ -167,8 +175,7 @@ final class MainViewController: UIViewController{
         self.planeRectangleViews[newRectangle] = rectangleView
         
         view.addSubview(rectangleView)
-        self.view.bringSubviewToFront(rectangleButton)
-        self.view.bringSubviewToFront(detailView)
+        bringButtonViewToFront()
     }
     
     //findSelected Rectangle & Set View
@@ -187,6 +194,7 @@ final class MainViewController: UIViewController{
         self.detailView.alphaSlider.value = seletedRectangle.alpha.value
         
         self.detailView.backgroundColorButton.setTitle("\(seletedRectangle.rgb.hexValue)", for: .normal)
+        self.detailView.backgroundColorButton.isEnabled = true
     }
     //MARK: -- ImageNotificationCenter
         private func configureImageNotificationCenter() {
@@ -194,14 +202,21 @@ final class MainViewController: UIViewController{
                 self,
                 selector:#selector(addImageRectangleView),
                 name: Image.NotificationName.didAddRectangle,
-                object: image
-            )
+                object: image)
             
             NotificationCenter.default.addObserver(
                 self,
                 selector: #selector(findSelectedImageRectangle),
                 name: Image.NotificationName.didFindRectangle,
                 object: image )
+            
+            NotificationCenter.default.addObserver(
+                self,
+                selector: #selector(changeIamgeAlpha),
+                name: Image.NotificationName.didchangeRectangleAlpha,
+                object: image )
+            
+            
         }
     
     @objc private func addImageRectangleView(_ notification:Notification) {
@@ -213,9 +228,9 @@ final class MainViewController: UIViewController{
             self.imageRectangleViews[newImageRectangle.imageData] = rectangleView
             
             self.view.addSubview(rectangleView)
-            self.view.bringSubviewToFront(self.rectangleButton)
-            self.view.bringSubviewToFront(self.detailView)
+            self.bringButtonViewToFront()
         }
+
     }
     
     //findSelected ImageRectangle & Set View
@@ -234,6 +249,14 @@ final class MainViewController: UIViewController{
         self.detailView.alphaSlider.value = seletedRectangle.alpha.value
         
         self.detailView.backgroundColorButton.setTitle("NONE", for: .normal)
+        self.detailView.backgroundColorButton.alpha = 0.3
+        self.detailView.backgroundColorButton.isEnabled = false
+    }
+    
+    //ChangeImageAlpha
+    @objc private func changeIamgeAlpha(_ notification:Notification) {
+        guard let newAlpha = notification.userInfo?[Image.UserInfoKey.changedAlpha] as? Alpha else { return }
+        seletedRectangleView?.alpha = CGFloat(newAlpha.value)
     }
 }
 
@@ -261,6 +284,7 @@ extension MainViewController:DetailViewDelegate {
     func sliderViewEndEditing(sender: UISlider) {
         let currentSliderValue = sender.value
         plane.change(alpha: Alpha(currentSliderValue))
+        image.change(alpha: Alpha(currentSliderValue))
     }
     
     //랜덤한 RGB값을 설정하고 현재 클릭한 모델 사각형의 rgb값을 변경한다

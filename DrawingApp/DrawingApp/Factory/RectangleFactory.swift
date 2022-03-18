@@ -20,11 +20,11 @@ final class RectangleFactory {
         return PlaneRectangle(id: id, origin: origin, size: size, rgb: rgb, alpha: alpha)
     }
     
-    static func makePlaneRectangle(imageData:Data) -> ImageRectangle {
+    static func makeImageRectangle(imageData:Data) -> ImageRectangle {
         let id = IDFactory.makeRandomID()
         let size = Size(width: 150, height: 120)
         let origin = Point.random()
-        let alpha = Alpha.random()
+        let alpha = Alpha(1)
         let imageData = imageData
         
         return ImageRectangle(id: id, origin: origin, size: size, alpha: alpha, imageData: imageData)

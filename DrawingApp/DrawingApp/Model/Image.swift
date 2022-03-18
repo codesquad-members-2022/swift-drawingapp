@@ -20,7 +20,7 @@ class Image {
     //사각형 생성,추가.
     @discardableResult
     func addRectangle(imageData:Data) -> ImageRectangle{
-        let rect = RectangleFactory.makePlaneRectangle(imageData: imageData)
+        let rect = RectangleFactory.makeImageRectangle(imageData: imageData)
         imageRectangles.append(rect)
         
         NotificationCenter.default.post(
@@ -50,7 +50,16 @@ class Image {
         )
     }
     
-    
+    func change(alpha:Alpha){
+        guard let selectedImageRectangle = selectedImageRectangle else { return }
+        selectedImageRectangle.changeAlpha(alpha)
+        
+        NotificationCenter.default.post(
+            name: Image.NotificationName.didchangeRectangleAlpha,
+            object: self,
+            userInfo: [Image.UserInfoKey.changedAlpha:alpha]
+        )
+    }
     
     
     //Image.UserInfoKey와
