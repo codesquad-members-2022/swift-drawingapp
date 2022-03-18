@@ -20,14 +20,12 @@ class ViewFactory {
     
     private static func createBasicShapeView(frame: CGRect) -> BasicShapeView {
         let view = BasicShapeView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.frame = frame
         return view
     }
     
     private static func createRectangleView(frame: CGRect, backgroundColor: UIColor, alpha: CGFloat) -> RectangleView {
         let view = RectangleView()
-        view.translatesAutoresizingMaskIntoConstraints = false
         view.frame = frame
         view.backgroundColor = backgroundColor
         view.alpha = alpha
