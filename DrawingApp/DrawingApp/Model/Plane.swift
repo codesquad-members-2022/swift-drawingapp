@@ -45,12 +45,9 @@ struct Plane {
     }
     
     func backgroundColorDidChanged(color: Color, rectangle: Rectangle) {
-        for rect in rectangles.reversed() {
-            if rect == rectangle {
-                // 색상 변경
-                rect.backgroundColor = color
-                delegate?.planeDidChangedRectangle(rect)
-            }
+        if let firstIndex = rectangles.firstIndex(of: rectangle) {
+            rectangles[firstIndex].backgroundColor = color // 색상 변경
+            delegate?.planeDidChangedRectangle(rectangles[firstIndex])
         }
     }
     
