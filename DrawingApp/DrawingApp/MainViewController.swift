@@ -218,7 +218,7 @@ final class MainViewController: UIViewController{
             
             
         }
-    
+    //ADD New ImageRectangleView
     @objc private func addImageRectangleView(_ notification:Notification) {
         guard let newImageRectangle = notification.userInfo?[Image.UserInfoKey.addedRectangle] as? ImageRectangle else { return }
         
