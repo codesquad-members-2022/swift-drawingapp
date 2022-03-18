@@ -369,6 +369,7 @@
                         <outlet property="plusAlphaValueButton" destination="9jV-SM-Q6f" id="Ult-t7-b0t"/>
                         <outlet property="plusHeightButton" destination="QsA-p4-vPA" id="cng-T1-6CQ"/>
                         <outlet property="plusWidthButton" destination="W9E-Za-k4M" id="kVV-Ur-1QY"/>
+                        <outlet property="plusXPointButton" destination="0r0-6X-xtS" id="dkW-kv-bdZ"/>
                         <outlet property="plusYPointButton" destination="gah-Xw-Bdl" id="jGB-0y-0eE"/>
                         <outlet property="statusView" destination="yWb-7v-xGg" id="DpJ-K5-RVs"/>
                         <outlet property="widthLabel" destination="JQ7-1p-yQQ" id="wWs-xn-aQX"/>
