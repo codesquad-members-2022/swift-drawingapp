@@ -12,11 +12,9 @@ class ViewController: UIViewController {
     
     private var plane = Plane()
     private var rectangleAndViewMap = [AnyHashable: RectangleViewable]()
-    private var selectedView: RectangleViewable?
-    private var movingTemporaryView: RectangleViewable?
     weak var generateRectangleButton: UIButton!
     weak var generateImageRectangleButton: UIButton!
-    weak var drawableAreaView: UIView!
+    weak var drawableAreaView: DrawableAreaView!
     @IBOutlet weak var statusView: UIView!
     @IBOutlet weak var backgroundColorButton: UIButton!
     @IBOutlet weak var alphaSlider: UISlider!
@@ -49,6 +47,7 @@ class ViewController: UIViewController {
         
         initializeViewsInTouchedEmptySpaceCondition()
         
+        self.drawableAreaView.delegate = self
     }
     
     func addGenerateRectangleButton() {
@@ -100,74 +99,21 @@ class ViewController: UIViewController {
     }
     
     func addDrawableAreaView() {
-        let drawableViewX = self.view.frame.origin.x
-        let drawableViewY = self.view.frame.origin.y
-        let drawableViewWidth = self.view.frame.width - self.statusView.frame.width
-        let generateButtonHeight = 100.0
-        let drawableViewHeight = self.view.frame.height - generateButtonHeight
-        let drawableAreaView = UIView(frame: CGRect(x: drawableViewX, y: drawableViewY, width: drawableViewWidth, height: drawableViewHeight))
-        drawableAreaView.clipsToBounds = true
+        let drawableAreaViewX = self.view.frame.origin.x
+        let drawableAreaViewY = self.view.frame.origin.y
+        let drawableAreaViewWidth = self.view.frame.width - self.statusView.frame.width
+        let generateButtonsHeight = 100.0
+        let drawableAreaViewHeight = self.view.frame.height - generateButtonsHeight
         
-        self.drawableAreaView = drawableAreaView
+        let newDrawableAreaView = DrawableAreaView.init(frame: CGRect(x: drawableAreaViewX, y: drawableAreaViewY, width: drawableAreaViewWidth, height: drawableAreaViewHeight))
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(viewDidTouched(sender:)))
-        drawableAreaView.addGestureRecognizer(tapGesture)
-        
-        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(panAction(_:)))
-        drawableAreaView.addGestureRecognizer(panGesture)
-        panGesture.minimumNumberOfTouches = 2
-        panGesture.maximumNumberOfTouches = 2
-        
-        self.view.addSubview(drawableAreaView)
-    }
-    
-    @objc func viewDidTouched(sender: UITapGestureRecognizer) {
-        let touchedLocation = sender.location(in: drawableAreaView)
-        let touchedPoint = Point(x: touchedLocation.x, y: touchedLocation.y)
-        
-        plane.specifyRectangle(point: touchedPoint)
-    }
-    
-    @objc func panAction(_ sender: UIPanGestureRecognizer) {
-        let translation = sender.translation(in: drawableAreaView)
-        
-        switch sender.state {
-            case .began:
-                let touchedLocation = sender.location(in: drawableAreaView)
-                let touchedPoint = Point(x: touchedLocation.x, y: touchedLocation.y)
-                plane.specifyRectangle(point: touchedPoint)
-                makeTemporaryView()
-            case .changed:
-                guard let movingTemporaryView = self.movingTemporaryView else { return }
-                movingTemporaryView.move(distance: translation)
-                sender.setTranslation(.zero, in: drawableAreaView)
-            case .ended:
-                guard let movingTemporaryView = self.movingTemporaryView as? UIView else {
-                    return
-                }
-                
-                let convertedNewPoint = Point(x: movingTemporaryView.frame.origin.x,
-                                           y:movingTemporaryView.frame.origin.y)
-                plane.changePointOfSpecifiedRectangle(to: convertedNewPoint)
-                movingTemporaryView.removeFromSuperview()
-            default:
-                return
-        }
-    }
-    
-    private func makeTemporaryView() {
-        guard let selectedView = self.selectedView,
-              let copiedView = selectedView.copy() as? UIView & RectangleViewable else { return }
-        
-        copiedView.changeAlphaValue(to: 0.5)
-        self.movingTemporaryView = copiedView
-        
-        self.drawableAreaView.addSubview(copiedView)
+        self.drawableAreaView = newDrawableAreaView
+        self.view.addSubview(newDrawableAreaView)
     }
     
     private func initializeViewsInTouchedEmptySpaceCondition() {
-        self.selectedView?.hideBoundary()
-        self.selectedView = nil
+
+        self.drawableAreaView.showSelectedView(nil)
         backgroundColorButton.isEnabled = false
         backgroundColorButton.setTitle("배경색 변경 불가", for: .disabled)
         backgroundColorButton.backgroundColor = .clear
@@ -222,59 +168,54 @@ extension ViewController {
                   return
               }
         
-        updateSelectedView(matchedView)
+        self.drawableAreaView.showSelectedView(matchedView)
         updateBackgroundColorButton(with: specifiedRectangle)
-        updateAlphaSlider(alpha: Float(matchedView.alpha))
-        updateMinusAlphaValueButton(with: Float(matchedView.alpha))
-        updatePlusAlphaValueButton(with: Float(matchedView.alpha))
-        updateXPointLabel(with: matchedView.frame.origin.x)
-        updateYPointLabel(with: matchedView.frame.origin.y)
-        updateWidthLabel(with: matchedView.frame.width)
-        updateHeightLabel(with: matchedView.frame.height)
+        updateAlphaSlider(alpha: specifiedRectangle.alpha.value)
+        updateMinusAlphaValueButton(with: specifiedRectangle.alpha.value)
+        updatePlusAlphaValueButton(with: specifiedRectangle.alpha.value)
+        updateXPointLabel(with: specifiedRectangle.point.x)
+        updateYPointLabel(with: specifiedRectangle.point.y)
+        updateWidthLabel(with: specifiedRectangle.size.width)
+        updateHeightLabel(with: specifiedRectangle.size.height)
     }
     
     @objc func planeDidChangeRectangleBackgroundColor(_ notification: Notification) {
-        guard let backgroundColorChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? AnyRectangularable,
-              let matchedView = rectangleAndViewMap[backgroundColorChangedRectangle] else {
+        guard let backgroundColorChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? AnyRectangularable  else {
                   return
               }
         if let backgroundColorChangedRectangle = backgroundColorChangedRectangle as? BackgroundColorChangable {
             let newBackgroundColor = backgroundColorChangedRectangle.backgroundColor
-            matchedView.changeBackgroundColor(to: newBackgroundColor.convertToUIColor())
+            self.drawableAreaView.updateSelectedView(backgroundColor: newBackgroundColor.convertToUIColor())
         }
         let previousAlpha = backgroundColorChangedRectangle.alpha
         updateBackgroundColorButton(with: backgroundColorChangedRectangle)
     }
     
     @objc func planeDidChangeRectangleAlpha(_ notification: Notification) {
-        guard let alphaChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? AnyRectangularable,
-              let matchedView = rectangleAndViewMap[alphaChangedRectangle] else {
+        guard let alphaChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? AnyRectangularable else {
                   return
               }
         
         let newAlphaValue = alphaChangedRectangle.alpha.value
-        matchedView.changeAlphaValue(to: CGFloat(newAlphaValue))
+        self.drawableAreaView.updateSelectedView(alpha: CGFloat(newAlphaValue))
         updateStatusViewElement(with: newAlphaValue)
     }
     
     @objc func planeDidChangeRectanglePoint(_ notification: Notification) {
-        guard let movedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? AnyRectangularable,
-              let matchedView = rectangleAndViewMap[movedRectangle] else {
+        guard let movedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? AnyRectangularable else {
                   return
               }
         
         let newPoint = movedRectangle.point
         let convertedNewPoint = CGPoint(x: newPoint.x, y: newPoint.y)
         
-        matchedView.move(to: convertedNewPoint)
+        self.drawableAreaView.updateSelectedView(point: convertedNewPoint)
         updateXPointLabel(with: newPoint.x)
         updateYPointLabel(with: newPoint.y)
-        self.movingTemporaryView = nil
     }
     
     @objc func planeDidChangeRectangleSize(_ notification: Notification) {
-        guard let sizeChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? AnyRectangularable,
-              let matchedView = rectangleAndViewMap[sizeChangedRectangle] else {
+        guard let sizeChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? AnyRectangularable else {
                   return
               }
         
@@ -282,18 +223,10 @@ extension ViewController {
         let newWidth = newSize.width
         let newHeight = newSize.height
         
-        matchedView.resize(to: (newWidth, newHeight))
+        self.drawableAreaView.updateSelectedView(width: newWidth, height: newHeight)
         updateWidthLabel(with: newWidth)
         updateHeightLabel(with: newHeight)
     }
-    
-    private func updateSelectedView(_ selectedView: RectangleViewable) {
-        self.selectedView?.hideBoundary()
-        
-        self.selectedView = selectedView
-        selectedView.showBoundary()
-    }
-    
     
 }
 
@@ -312,6 +245,33 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         }
         
         picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+extension ViewController: DrawableAreaViewDelegate {
+    func drawableAreaViewDidReceiveTap(_ drawableAreaView: DrawableAreaView) {
+        guard let touchedPoint = drawableAreaView.touchedPoint else {return}
+        plane.specifyRectangle(point: touchedPoint)
+    }
+    
+    func drawableAreaViewDidBeginPan(_ drawableAreaView: DrawableAreaView) {
+        guard let touchedPoint = drawableAreaView.touchedPoint else {return}
+        plane.specifyRectangle(point: touchedPoint)
+        self.drawableAreaView.makeTemporaryView()
+    }
+    
+    func drawableAreaViewDidChangePan(_ drawableAreaView: DrawableAreaView) { // 출력하는 메서드(나머지는 입력을 받고 plane에 지시하는 메서드)
+        guard let dummyView = drawableAreaView.movingTemporaryView else {return}
+        let newPoint = dummyView.frame.origin
+        updateXPointLabel(with: newPoint.x)
+        updateYPointLabel(with: newPoint.y)
+    }
+    
+    func drawableAreaViewDidEndPan(_ drawableAreaView: DrawableAreaView) {
+        guard let dummyView = drawableAreaView.movingTemporaryView else {return}
+        let newPoint = dummyView.frame.origin
+        let convertedNewPoint = Point(x: newPoint.x, y: newPoint.y)
+        plane.changePointOfSpecifiedRectangle(to: convertedNewPoint)
     }
 }
 
@@ -340,7 +300,7 @@ extension ViewController {
     }
     
     @IBAction func minusAlphaValueButtonTouched(_ sender: UIButton) {
-        guard let selectedView = self.selectedView else {return}
+        guard let selectedView = self.drawableAreaView.selectedView else {return}
         let previousAlphaValue = Float(selectedView.alpha)
         let newAlphaValue = previousAlphaValue - 0.1
         let normalizedNewAlphaValue = newAlphaValue.normalized()
@@ -349,7 +309,7 @@ extension ViewController {
     }
     
     @IBAction func plusAlphaValueButtonTouched(_ sender: UIButton) {
-        guard let selectedView = self.selectedView else {return}
+        guard let selectedView = self.drawableAreaView.selectedView else {return}
         let previousAlphaValue = Float(selectedView.alpha)
         let newAlphaValue = previousAlphaValue + 0.1
         let normalizedNewAlphaValue = newAlphaValue.normalized()
@@ -358,7 +318,7 @@ extension ViewController {
     }
     
     @IBAction func plusXPointButtonTouched(_ sender: UIButton) {
-        guard let selectedView = self.selectedView else {return}
+        guard let selectedView = self.drawableAreaView.selectedView else {return}
         let previousPoint = selectedView.frame.origin
         let newXPoint = previousPoint.x + 10
         let newPoint = Point(x: newXPoint, y: previousPoint.y)
@@ -367,7 +327,7 @@ extension ViewController {
     }
     
     @IBAction func minusXPointButtonTouched(_ sender: UIButton) {
-        guard let selectedView = self.selectedView else {return}
+        guard let selectedView = self.drawableAreaView.selectedView else {return}
         let previousPoint = selectedView.frame.origin
         let newXPoint = previousPoint.x - 10
         let newPoint = Point(x: newXPoint, y: previousPoint.y)
@@ -376,7 +336,7 @@ extension ViewController {
     }
     
     @IBAction func plusYPointButtonTouched(_ sender: UIButton) {
-        guard let selectedView = self.selectedView else {return}
+        guard let selectedView = self.drawableAreaView.selectedView else {return}
         let previousPoint = selectedView.frame.origin
         let newYPoint = previousPoint.y + 10
         let newPoint = Point(x: previousPoint.x, y: newYPoint)
@@ -385,7 +345,7 @@ extension ViewController {
     }
     
     @IBAction func minusYPointButtonTouched(_ sender: UIButton) {
-        guard let selectedView = self.selectedView else {return}
+        guard let selectedView = self.drawableAreaView.selectedView else {return}
         let previousPoint = selectedView.frame.origin
         let newYPoint = previousPoint.y - 10
         let newPoint = Point(x: previousPoint.x, y: newYPoint)
@@ -394,7 +354,7 @@ extension ViewController {
     }
     
     @IBAction func plusWidthButtonTouched(_ sender: UIButton) {
-        guard let selectedView = self.selectedView else {return}
+        guard let selectedView = self.drawableAreaView.selectedView else {return}
         let newWidth = selectedView.frame.width + 10
         let previousHeight = selectedView.frame.height
         let newSize = Size(width: newWidth, height: previousHeight)
@@ -403,7 +363,7 @@ extension ViewController {
     }
     
     @IBAction func minusWidthButtonTouched(_ sender: UIButton) {
-        guard let selectedView = self.selectedView else {return}
+        guard let selectedView = self.drawableAreaView.selectedView else {return}
         let newWidth = selectedView.frame.width - 10
         let previousHeight = selectedView.frame.height
         let newSize = Size(width: newWidth, height: previousHeight)
@@ -412,7 +372,7 @@ extension ViewController {
     }
     
     @IBAction func plusHeightButtonTouched(_ sender: UIButton) {
-        guard let selectedView = self.selectedView else {return}
+        guard let selectedView = self.drawableAreaView.selectedView else {return}
         let previousWidth = selectedView.frame.width
         let newHeight = selectedView.frame.height + 10
         let newSize = Size(width: previousWidth, height: newHeight)
@@ -421,7 +381,7 @@ extension ViewController {
     }
     
     @IBAction func minusHeightButtonTouched(_ sender: UIButton) {
-        guard let selectedView = self.selectedView else {return}
+        guard let selectedView = self.drawableAreaView.selectedView else {return}
         let previousWidth = selectedView.frame.size.width
         let newHeight = selectedView.frame.size.height - 10
         let newSize = Size(width: previousWidth, height: newHeight)
