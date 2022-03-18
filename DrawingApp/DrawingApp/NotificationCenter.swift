@@ -14,3 +14,6 @@ extension Notification.Name{
     static let rectangleDidMutate = NSNotification.Name("rectangleDidMutate")
 }
 
+enum UserInfo: String{
+    case updateRectangle
+}
