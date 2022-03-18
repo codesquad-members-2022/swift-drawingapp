@@ -18,6 +18,13 @@ class BasicShape {
         self.point = point
         self.size = size
     }
+    
+    func isExist(on coordinate: (x: Double, y: Double)) -> Bool {
+        let shapeXBound = (point.x)...(point.x + size.width)
+        let shapeYBound = (point.y)...(point.y + size.height)
+        
+        return (shapeXBound ~= coordinate.x) && (shapeYBound ~= coordinate.y)
+    }
 }
 
 extension BasicShape: CustomStringConvertible {
