@@ -11,6 +11,7 @@ import UIKit
 
 /// 사각형이 그려지는 뷰
 class CanvasView: UIView {
+    typealias RectangleView = UIView
     var delegate: CanvasViewDelegate?
     private var rectangles = [Rectangle: RectangleView]()
     

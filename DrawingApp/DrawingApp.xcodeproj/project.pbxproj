@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		D031063727D5A84300FCAEA7 /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D031063627D5A84300FCAEA7 /* Identifier.swift */; };
 		D057037427DE018500733404 /* PlaneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D057037327DE018500733404 /* PlaneDelegate.swift */; };
-		D057037627E06D0D00733404 /* RectangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D057037527E06D0D00733404 /* RectangleView.swift */; };
 		D057037827E1026000733404 /* CanvasViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D057037727E1026000733404 /* CanvasViewDelegate.swift */; };
 		D0662AB727DAF18700F2B2CD /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0662AB627DAF18700F2B2CD /* CanvasView.swift */; };
 		D06D5D6F27D6E8060031D3BF /* DrawingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D5D6E27D6E8060031D3BF /* DrawingAppTests.swift */; };
@@ -45,7 +44,6 @@
 /* Begin PBXFileReference section */
 		D031063627D5A84300FCAEA7 /* Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
 		D057037327DE018500733404 /* PlaneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneDelegate.swift; sourceTree = "<group>"; };
-		D057037527E06D0D00733404 /* RectangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleView.swift; sourceTree = "<group>"; };
 		D057037727E1026000733404 /* CanvasViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasViewDelegate.swift; sourceTree = "<group>"; };
 		D0662AB627DAF18700F2B2CD /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 		D06D5D6C27D6E8060031D3BF /* DrawingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -164,7 +162,6 @@
 			children = (
 				D0B4D19A27D8414E00EDA39D /* SideInspectorView.swift */,
 				D0662AB627DAF18700F2B2CD /* CanvasView.swift */,
-				D057037527E06D0D00733404 /* RectangleView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -293,7 +290,6 @@
 				D057037827E1026000733404 /* CanvasViewDelegate.swift in Sources */,
 				D0872B8627D1B20B00085C86 /* Color.swift in Sources */,
 				D06D5D7627D6ED6A0031D3BF /* Plane.swift in Sources */,
-				D057037627E06D0D00733404 /* RectangleView.swift in Sources */,
 				D031063727D5A84300FCAEA7 /* Identifier.swift in Sources */,
 				D057037427DE018500733404 /* PlaneDelegate.swift in Sources */,
 				D0662AB727DAF18700F2B2CD /* CanvasView.swift in Sources */,
