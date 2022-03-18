@@ -5,7 +5,7 @@
 //  Created by 김상혁 on 2022/03/01.
 //
 
-import UIKit
+import Foundation
 
 struct Point {
     
@@ -17,8 +17,8 @@ struct Point {
         self.y = y
     }
     
-    func toCGPoint() -> CGPoint {
-        return CGPoint(x: x, y: y)
+    func getCombinedPoint() -> (x: Double, y: Double) {
+        return (x: x, y: y)
     }
 }
 

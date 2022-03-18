@@ -5,7 +5,7 @@
 //  Created by 김상혁 on 2022/03/01.
 //
 
-import UIKit
+import Foundation
 
 struct Size {
     
@@ -17,8 +17,8 @@ struct Size {
         self.height = height
     }
     
-    func toCGSize() -> CGSize {
-        return CGSize(width: width, height: height)
+    func getCombinedSize() -> (width: Double, height: Double) {
+        return (width: width, height: height)
     }
 }
 

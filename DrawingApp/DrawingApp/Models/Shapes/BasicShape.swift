@@ -5,7 +5,7 @@
 //  Created by 김상혁 on 2022/03/15.
 //
 
-import UIKit
+import Foundation
 
 class BasicShape {
     
@@ -13,8 +13,12 @@ class BasicShape {
     private(set) var point: Point
     private(set) var size: Size
     
-    var convertedFrame: CGRect {
-        return CGRect(origin: point.toCGPoint(), size: size.toCGSize())
+    var combinedOrigin: (x: Double, y: Double) {
+        return point.getCombinedPoint()
+    }
+    
+    var combinedSize: (width: Double, height: Double) {
+        return size.getCombinedSize()
     }
     
     init(identifier: Identifier, point: Point, size: Size = Size(width: 150, height: 120)) {

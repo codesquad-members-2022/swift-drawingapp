@@ -5,7 +5,7 @@
 //  Created by 김상혁 on 2022/03/14.
 //
 
-import UIKit
+import Foundation
 
 protocol Alphable {
     var alpha: Alpha { get }
@@ -17,11 +17,7 @@ protocol Alphable {
 }
 
 extension Alphable {
-    var alphaValue: Float {
+    var alphaValue: Double {
         return alpha.value
-    }
-    
-    var convertedAlpha: CGFloat {
-        return alpha.toCGFloat()
     }
 }

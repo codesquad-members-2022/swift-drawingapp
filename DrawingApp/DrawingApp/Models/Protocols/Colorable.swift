@@ -5,7 +5,7 @@
 //  Created by 김상혁 on 2022/03/14.
 //
 
-import UIKit
+import Foundation
 
 protocol Colorable {
     var backgroundColor: Color { get }
@@ -21,7 +21,7 @@ extension Colorable {
         return "\(String(format: "#%02X%02X%02X", red, green, blue))"
     }
     
-    var convertedColor: UIColor {
-        return backgroundColor.toUIColor()
+    var combinedColor: (red: Double, green: Double, blue: Double, alpha: Double) {
+        return backgroundColor.getColorCombine()
     }
 }

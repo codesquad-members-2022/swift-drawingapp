@@ -35,7 +35,7 @@ class ViewController: UIViewController {
     
     //MARK: Set Up Views
     
-    func setUpViews() {
+    private func setUpViews() {
         view.addSubview(presentShapeView)
         view.addSubview(sideInspectorView)
         view.addSubview(addRectangleButton)
@@ -110,16 +110,16 @@ extension ViewController {
     @objc func didCreateShape(notification: Notification) {
         guard let shape = notification.userInfo?[Plane.UserInfoKeys.newRectangle] as? BasicShape else { return }
         
-        let frame = shape.convertedFrame
+        let frame = getCGRect(combinedPoint: shape.combinedOrigin, combinedSize: shape.combinedSize)
         var color: UIColor?
         var alpha: CGFloat?
         
         if let shape = shape as? Colorable {
-            color = shape.convertedColor
+            color = getUIColor(combinedColor: shape.combinedColor)
         }
         
         if let shape = shape as? Alphable {
-            alpha = shape.convertedAlpha
+            alpha = shape.alphaValue
         }
         
         let shapeView = ViewFactory.createView(frame: frame, backgroundColor: color, alpha: alpha)
@@ -157,15 +157,16 @@ extension ViewController {
         guard let selectedShape = notification.userInfo?[Plane.UserInfoKeys.updatedSelectedShape] as? BasicShape else { return }
         
         if let selectedShape = selectedShape as? Colorable {
-            let newColor = selectedShape.convertedColor
+            
+            let newColor = getUIColor(combinedColor: selectedShape.combinedColor)
             let newColorHexaValue = selectedShape.hexaValue
             sideInspectorView.setBackgroundColorValueButtonColor(by: newColor)
             sideInspectorView.setBackgroundColorValueButtonTitle(by: newColorHexaValue)
         }
         
         if let selectedShape = selectedShape as? Alphable {
-            let newAlpha = selectedShape.convertedAlpha
-            sideInspectorView.setAlphaValueLabelText(by: Float(newAlpha))
+            let newAlpha = selectedShape.alphaValue
+            sideInspectorView.setAlphaValueLabelText(by: newAlpha)
             sideInspectorView.enableAlphaPlusButton()
             sideInspectorView.enableAlphaMinusButton()
         }
@@ -175,7 +176,7 @@ extension ViewController {
         guard let selectedShape = notification.userInfo?[Plane.UserInfoKeys.selectedShape] as? BasicShape & Colorable else { return }
         let selectedShapeView = shapeMap[selectedShape] as? ViewColorChangable
         
-        let newColor = selectedShape.convertedColor
+        let newColor = getUIColor(combinedColor: selectedShape.combinedColor)
         let newColorHexaValue = selectedShape.hexaValue
         
         selectedShapeView?.changeBackgroundColor(by: newColor)
@@ -187,7 +188,7 @@ extension ViewController {
         guard let selectedShape = notification.userInfo?[Plane.UserInfoKeys.selectedShape] as? BasicShape & Alphable else { return }
         let selectedShapeView = shapeMap[selectedShape] as? ViewAlphaChangable
         
-        let newAlpha = selectedShape.convertedAlpha
+        let newAlpha = selectedShape.alphaValue
         selectedShapeView?.changeAlpha(to: newAlpha)
         sideInspectorView.setAlphaValueLabelText(by: selectedShape.alphaValue)
         
@@ -236,5 +237,23 @@ extension ViewController {
                                                selector: #selector(didUpdateSelectedShapeAlpha(notification:)),
                                                name: Plane.EventName.selectedShapeDidUpdateAlpha,
                                                object: plane)
+    }
+}
+
+//MARK: Private Functions
+
+extension ViewController {
+    private func getUIColor(combinedColor: (red: Double, green: Double, blue: Double, alpha: Double)) -> UIColor {
+        let color = UIColor(red: combinedColor.red,
+                        green: combinedColor.green,
+                        blue: combinedColor.blue,
+                        alpha: combinedColor.alpha)
+        return color
+    }
+    
+    private func getCGRect(combinedPoint: (x: Double, y: Double), combinedSize: (width: Double, height: Double)) -> CGRect {
+        let rect = CGRect(origin: CGPoint(x: combinedPoint.x, y: combinedPoint.y),
+                            size: CGSize(width: combinedSize.width, height: combinedSize.height))
+        return rect
     }
 }

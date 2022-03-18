@@ -5,7 +5,7 @@
 //  Created by 김상혁 on 2022/03/01.
 //
 
-import UIKit
+import Foundation
 
 class Color {
     
@@ -30,13 +30,13 @@ class Color {
         self.init(validRed: red, validGreen: green, validBlue: blue)
     }
     
-    func toUIColor() -> UIColor {
+    func getColorCombine() -> (red: Double, green: Double, blue: Double, alpha: Double) {
         let red = red / Color.Range.upper
         let green = green / Color.Range.upper
         let blue = blue / Color.Range.upper
         let alpha = Color.Alpha.default
         
-        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
+        return (red, green, blue, alpha)
     }
 }
 
