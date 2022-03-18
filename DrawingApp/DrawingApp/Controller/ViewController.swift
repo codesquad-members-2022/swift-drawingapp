@@ -88,7 +88,7 @@ extension ViewController: SideInspectorViewDelegate {
 
 
 extension ViewController: PlaneDelegate {
-    func planeDidAddedRectangle(_ rectangle: Rectangle) {
+    func planeDidAddRectangle(_ rectangle: Rectangle) {
         // 모델에서 생성한 사각형을 모델에서 VC로 전달하고, 전달 받은 것을 canvasView에 그려주기
         canvasView.drawRectangle(rectangle: rectangle)
         
