@@ -5,7 +5,7 @@
 //  Created by 김상혁 on 2022/03/01.
 //
 
-import UIKit
+import Foundation
 
 enum Alpha: Int {
     
@@ -23,12 +23,8 @@ enum Alpha: Int {
     static let minLevel = level1
     static let maxLevel = level10
     
-    var value: Float {
-        return Float(self.rawValue) / Float(Alpha.maxLevel.rawValue)
-    }
-    
-    func toCGFloat() -> CGFloat {
-        return CGFloat(value)
+    var value: Double {
+        return Double(self.rawValue) / Double(Alpha.maxLevel.rawValue)
     }
 }
 

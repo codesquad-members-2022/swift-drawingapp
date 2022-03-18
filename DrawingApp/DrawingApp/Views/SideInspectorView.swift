@@ -166,7 +166,7 @@ class SideInspectorView: UIStackView {
         backgroundColorValueButton.backgroundColor = .systemGray5
     }
     
-    func setAlphaValueLabelText(by text: Float) {
+    func setAlphaValueLabelText(by text: Double) {
         alphaValueLabel.text = "\(text)"
     }
     
