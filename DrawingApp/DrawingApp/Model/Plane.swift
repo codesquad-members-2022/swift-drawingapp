@@ -23,7 +23,7 @@ class Plane{
     
     func add(rectangle: Rectangle){
         rectangles.append(rectangle)
-        NotificationCenter.default.post(name: .rectangleDidAdd, object: self, userInfo: ["updateRectangle":rectangle])
+        NotificationCenter.default.post(name: .rectangleDidAdd, object: self, userInfo: [UserInfo.updateRectangle:rectangle])
     }
     
     func ExistRectangle(at point: Point) -> Rectangle?{
@@ -40,21 +40,21 @@ class Plane{
     func changeBackgroundColor(to color: Color){
         guard let selected = selectedRectangle else { return }
         selected.changedBackGroundColor(to: color)
-        NotificationCenter.default.post(name: .backgroundDidChagned, object: self, userInfo: ["updateRectangle":selected])
-        
+        NotificationCenter.default.post(name: .backgroundDidChagned, object: self, userInfo: [UserInfo.updateRectangle:selected])
+         
     }
     
     func changeAlpha(value : Int){
         guard let selected = selectedRectangle else { return }
         selected.changedAlpha(to: value)
-        NotificationCenter.default.post(name: .alpahDidChanged, object: self, userInfo: ["updateRectangle":selected])
+        NotificationCenter.default.post(name: .alpahDidChanged, object: self, userInfo: [UserInfo.updateRectangle:selected])
     }
   
     func setSelectedRectangle(_ selected: Rectangle){
         if selected != selectedRectangle {
             self.selectedRectangle = selected
             
-            NotificationCenter.default.post(name: .rectangleDidMutate, object: self, userInfo: ["updateRectangle":selected])
+            NotificationCenter.default.post(name: .rectangleDidMutate, object: self, userInfo: [UserInfo.updateRectangle:selected])
         
         }
     }
