@@ -10,7 +10,7 @@ import Foundation
 class Plane {
     
     private var shapes: [BasicShape] = []
-    private(set) var selected: BasicShape?
+    private var selected: BasicShape?
     
     subscript(index: Int) -> BasicShape {
         return shapes[index]
@@ -51,17 +51,22 @@ class Plane {
     }
     
     func searchTopShape(on coordinate: (x: Double, y: Double)) {
+        let previouslySelected = selected
+        
         for shape in shapes.reversed() {
             if isShapeExist(on: coordinate, target: shape) {
+                let newlySelected = shape
                 NotificationCenter.default.post(name: Plane.EventName.shapeDidSelect,
                                                 object: self,
-                                                userInfo: [UserInfoKeys.tappedShape: shape])
+                                                userInfo: [UserInfoKeys.previouslySelectedShape: previouslySelected as Any,
+                                                           UserInfoKeys.newlySelectedShape: newlySelected])
                 return
             }
         }
         
         NotificationCenter.default.post(name: Plane.EventName.emptyViewDidSelect,
-                                        object: self)
+                                        object: self,
+                                        userInfo: [UserInfoKeys.previouslySelectedShape: previouslySelected as Any])
     }
     
     func changeBackgroundColor() {
@@ -96,7 +101,8 @@ extension Plane {
     enum UserInfoKeys {
         static let newRectangle = "NewRectangle"
         static let updatedSelectedShape = "UpdatedSelectedShape"
-        static let tappedShape = "TappedShape"
+        static let newlySelectedShape = "NewlySelectedShape"
+        static let previouslySelectedShape = "PreviouslySelectedShape"
         static let selectedShape = "SelectedShape"
     }
     
