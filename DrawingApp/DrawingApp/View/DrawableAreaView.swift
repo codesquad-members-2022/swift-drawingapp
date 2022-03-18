@@ -69,9 +69,7 @@ class DrawableAreaView: UIView {
                 
             case .ended:
                 guard let movingTemporaryView = movingTemporaryView as? UIView else {return}
-                let convertedNewPoint = Point(x: movingTemporaryView.frame.origin.x,
-                                              y: movingTemporaryView.frame.origin.y)
-
+               
                 delegate?.drawableAreaViewDidEndPan(self)
                 movingTemporaryView.removeFromSuperview()
                 self.movingTemporaryView = nil
