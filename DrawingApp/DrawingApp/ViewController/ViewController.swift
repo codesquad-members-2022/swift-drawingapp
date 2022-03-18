@@ -10,13 +10,13 @@ import os
 
 class ViewController: UIViewController {
 
-    var plane = Plane()
-    let factory = RectangleFactory()
+    private var plane = Plane()
+    private let factory = RectangleFactory()
     private var selectedRectangleView: UIView?
-    var rectangleViews = [Rectangle : UIView]()
+    private var rectangleViews = [Rectangle : UIView]()
 
-    var controllerView: ControllerView!
-    var canvasView: CanvasView!
+    private var controllerView: ControllerView!
+    private var canvasView: CanvasView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
