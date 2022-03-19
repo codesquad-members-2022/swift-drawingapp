@@ -18,7 +18,7 @@ protocol Rectangularable {
     func resize(to newSize: Size)
 }
 
-class AnyRectangularable: Rectangularable {
+class BasicShape: Rectangularable {
     private(set) var id: ID
     private(set) var size: Size
     private(set) var point: Point
@@ -49,19 +49,19 @@ class AnyRectangularable: Rectangularable {
     }
 }
 
-extension AnyRectangularable: CustomStringConvertible {
+extension BasicShape: CustomStringConvertible {
     var description: String {
         return "\(id) Rectangle, \(point), \(size), \(alpha)"
     }
 }
 
-extension AnyRectangularable: Equatable {
-    static func == (lhs: AnyRectangularable, rhs: AnyRectangularable) -> Bool {
+extension BasicShape: Equatable {
+    static func == (lhs: BasicShape, rhs: BasicShape) -> Bool {
         return lhs === rhs
     }
 }
 
-extension AnyRectangularable: Hashable {
+extension BasicShape: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(self.id)
     }

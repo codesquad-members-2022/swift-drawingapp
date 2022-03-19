@@ -162,7 +162,7 @@ extension ViewController {
     }
     
     @objc func planeDidSpecifyRectangle(_ notification: Notification) {
-        guard let specifiedRectangle = notification.userInfo?[Plane.UserInfoKeys.specifiedRectangle] as? AnyRectangularable,
+        guard let specifiedRectangle = notification.userInfo?[Plane.UserInfoKeys.specifiedRectangle] as? BasicShape,
               let matchedView = rectangleAndViewMap[specifiedRectangle] else {
                   initializeViewsInTouchedEmptySpaceCondition()
                   return
@@ -180,7 +180,7 @@ extension ViewController {
     }
     
     @objc func planeDidChangeRectangleBackgroundColor(_ notification: Notification) {
-        guard let backgroundColorChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? AnyRectangularable  else {
+        guard let backgroundColorChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? BasicShape  else {
                   return
               }
         if let backgroundColorChangedRectangle = backgroundColorChangedRectangle as? BackgroundColorChangable {
@@ -192,7 +192,7 @@ extension ViewController {
     }
     
     @objc func planeDidChangeRectangleAlpha(_ notification: Notification) {
-        guard let alphaChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? AnyRectangularable else {
+        guard let alphaChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? BasicShape else {
                   return
               }
         
@@ -202,7 +202,7 @@ extension ViewController {
     }
     
     @objc func planeDidChangeRectanglePoint(_ notification: Notification) {
-        guard let movedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? AnyRectangularable else {
+        guard let movedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? BasicShape else {
                   return
               }
         
@@ -216,7 +216,7 @@ extension ViewController {
     }
     
     @objc func planeDidChangeRectangleSize(_ notification: Notification) {
-        guard let sizeChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? AnyRectangularable else {
+        guard let sizeChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? BasicShape else {
                   return
               }
         
@@ -391,8 +391,8 @@ extension ViewController {
         plane.changeSizeOfSpecifiedRectangle(to: newSize)
     }
     
-    private func updateBackgroundColorButton(with rectangle: AnyRectangularable) {
-        guard let rectangle = rectangle as? BackgroundColorChangable & AnyRectangularable else {
+    private func updateBackgroundColorButton(with rectangle: BasicShape) {
+        guard let rectangle = rectangle as? BackgroundColorChangable & BasicShape else {
             backgroundColorButton.isEnabled = false
             backgroundColorButton.backgroundColor = .clear
             return

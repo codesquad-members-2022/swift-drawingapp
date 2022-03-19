@@ -11,7 +11,7 @@ protocol imageDataHavable {
     var image: Data {get}
 }
 
-class Photo: AnyRectangularable, imageDataHavable {
+class Photo: BasicShape, imageDataHavable {
     private(set) var image: Data
     
     init(size: Size, point: Point, image: Data, alpha: Alpha) {
