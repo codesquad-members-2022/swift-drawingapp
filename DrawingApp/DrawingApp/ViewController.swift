@@ -180,7 +180,7 @@ extension ViewController {
     }
     
     @objc func planeDidChangeRectangleBackgroundColor(_ notification: Notification) {
-        guard let backgroundColorChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? BasicShape  else {
+        guard let backgroundColorChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? Rectangularable  else {
                   return
               }
         if let backgroundColorChangedRectangle = backgroundColorChangedRectangle as? BackgroundColorChangable {
@@ -192,7 +192,7 @@ extension ViewController {
     }
     
     @objc func planeDidChangeRectangleAlpha(_ notification: Notification) {
-        guard let alphaChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? BasicShape else {
+        guard let alphaChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? Rectangularable else {
                   return
               }
         
@@ -202,7 +202,7 @@ extension ViewController {
     }
     
     @objc func planeDidChangeRectanglePoint(_ notification: Notification) {
-        guard let movedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? BasicShape else {
+        guard let movedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? Rectangularable else {
                   return
               }
         
@@ -216,7 +216,7 @@ extension ViewController {
     }
     
     @objc func planeDidChangeRectangleSize(_ notification: Notification) {
-        guard let sizeChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? BasicShape else {
+        guard let sizeChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? Rectangularable else {
                   return
               }
         
@@ -391,8 +391,8 @@ extension ViewController {
         plane.changeSizeOfSpecifiedRectangle(to: newSize)
     }
     
-    private func updateBackgroundColorButton(with rectangle: BasicShape) {
-        guard let rectangle = rectangle as? BackgroundColorChangable & BasicShape else {
+    private func updateBackgroundColorButton(with rectangle: Rectangularable) {
+        guard let rectangle = rectangle as? BackgroundColorChangable & Rectangularable else {
             backgroundColorButton.isEnabled = false
             backgroundColorButton.backgroundColor = .clear
             return
