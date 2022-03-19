@@ -33,7 +33,7 @@ class DrawableAreaView: UIView {
         addGestures()
     }
     
-    func addGestures() {
+    private func addGestures() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapAction(_:)))
         self.addGestureRecognizer(tapGesture)
         
@@ -43,14 +43,14 @@ class DrawableAreaView: UIView {
         self.addGestureRecognizer(panGesture)
     }
     
-    @objc func tapAction(_ sender: UITapGestureRecognizer) {
+    @objc private func tapAction(_ sender: UITapGestureRecognizer) {
         let touchedLocation = sender.location(in: self)
         self.touchedPoint = Point(x: touchedLocation.x, y: touchedLocation.y)
         
         delegate?.drawableAreaViewDidReceiveTap(self)
     }
     
-    @objc func panAction(_ sender: UIPanGestureRecognizer) {
+    @objc private func panAction(_ sender: UIPanGestureRecognizer) {
         let tanslation = sender.translation(in: self)
         
         switch sender.state {
