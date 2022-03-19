@@ -53,30 +53,16 @@ class PhotoView: UIImageView, RectangleViewable {
         self.frame.origin.y = newPoint.y
     }
     
-    func copy(with zone: NSZone? = nil) -> Any {
-        let newFrame = self.frame.copy()
+    func copy() -> RectangleViewable {
         let newImage = self.image?.copy() as? UIImage ?? UIImage()
-        let newAlpha = self.alpha.copy()
         
-        return PhotoView.init(frame: newFrame, alpha: newAlpha, image: newImage)
+        return PhotoView.init(frame: self.frame, alpha: self.alpha, image: newImage)
     }
     
     func resize(to newSize: (width: CGFloat, height: CGFloat)) {
         let newFrame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y,
                               width: newSize.width, height: newSize.height)
         self.frame = newFrame
-    }
-}
-
-extension CGRect {
-    fileprivate func copy() -> CGRect {
-        return CGRect(x: self.minX, y: self.minY, width: self.width, height: self.height)
-    }
-}
-
-extension CGFloat {
-    fileprivate func copy() -> CGFloat {
-        return CGFloat(self)
     }
 }
 
