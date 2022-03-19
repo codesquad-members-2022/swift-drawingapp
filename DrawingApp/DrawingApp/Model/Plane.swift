@@ -25,17 +25,17 @@ class Plane {
         static let addedPhoto = "addedPhoto"
     }
     
-    private var rectangles = [BasicShape]()
-    private var specifiedRectangle: BasicShape?
+    private var rectangles = [Rectangularable]()
+    private var specifiedRectangle: Rectangularable?
     var count: Int {
         return rectangles.count
     }
     
-    subscript(_ index: Int) -> BasicShape? {
+    subscript(_ index: Int) -> Rectangularable? {
         return rectangles[index]
     }
     
-    public func specifyRectangle(point: Point) -> Result<BasicShape, PlaneError> {
+    public func specifyRectangle(point: Point) -> Result<Rectangularable, PlaneError> {
         guard let specifiedRectangle = findRectangle(above: point)  else {
             self.specifiedRectangle = nil
             NotificationCenter.default.post(name: Plane.NotificationNames.didSpecifyRectangle, object: self)
@@ -58,7 +58,7 @@ class Plane {
         NotificationCenter.default.post(name: Plane.NotificationNames.didAddPhoto, object: self, userInfo: [Plane.UserInfoKeys.addedPhoto: newPhoto])
     }
     
-    public func changeBackgroundColorOfSpecifiedRectangle(to newColor: BackgroundColor) -> Result<BasicShape, PlaneError> {
+    public func changeBackgroundColorOfSpecifiedRectangle(to newColor: BackgroundColor) -> Result<Rectangularable, PlaneError> {
         guard let specifiedRectangle = self.specifiedRectangle else {
             return .failure(.noSpecifiedRectangleToChangeError)
         }
@@ -71,7 +71,7 @@ class Plane {
         return .success(specifiedRectangle)
     }
 
-    public func changeAlphaValueOfSpecifiedRectangle(to newAlpha: Alpha) -> Result<BasicShape, PlaneError> {
+    public func changeAlphaValueOfSpecifiedRectangle(to newAlpha: Alpha) -> Result<Rectangularable, PlaneError> {
         guard let specifiedRectangle = self.specifiedRectangle else {
             return .failure(.noSpecifiedRectangleToChangeError)
         }
@@ -80,7 +80,7 @@ class Plane {
         return .success(specifiedRectangle)
     }
     
-    public func changePointOfSpecifiedRectangle(to newPoint: Point) -> Result<BasicShape, PlaneError> {
+    public func changePointOfSpecifiedRectangle(to newPoint: Point) -> Result<Rectangularable, PlaneError> {
         guard let specifiedRectangle = self.specifiedRectangle else {
             return .failure(.noSpecifiedRectangleToChangeError)
         }
@@ -90,7 +90,7 @@ class Plane {
         return .success(specifiedRectangle)
     }
     
-    public func changeSizeOfSpecifiedRectangle(to newSize: Size) -> Result<BasicShape, PlaneError> {
+    public func changeSizeOfSpecifiedRectangle(to newSize: Size) -> Result<Rectangularable, PlaneError> {
         guard let specifiedRectangle = self.specifiedRectangle else {
             return .failure(.noSpecifiedRectangleToChangeError)
         }
@@ -100,7 +100,7 @@ class Plane {
         return .success(specifiedRectangle)
     }
     
-    private func findRectangle(above point: Point) -> BasicShape? {
+    private func findRectangle(above point: Point) -> Rectangularable? {
         for rectangle in rectangles.reversed() {
             if rectangle.isPointInArea(point) {
                 return rectangle
