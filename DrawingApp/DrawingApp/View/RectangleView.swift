@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol RectangleViewable: NSCopying {
+protocol RectangleViewable {
     var alpha: CGFloat {get}
     var frame: CGRect {get}
     func hideBoundary()
@@ -16,6 +16,7 @@ protocol RectangleViewable: NSCopying {
     func changeAlphaValue(to newAlphaValue: CGFloat)
     func move(distance: CGPoint)
     func move(to newPoint: CGPoint)
+    func copy() -> RectangleViewable
     func resize(to newSize: (width: CGFloat, height: CGFloat))
 }
 
@@ -65,29 +66,15 @@ class RectangleView: UIView, RectangleViewable {
         self.frame.origin.y = newPoint.y
     }
     
-    func copy(with zone: NSZone? = nil) -> Any {
-        let newFrame = self.frame.copy()
+    func copy() -> RectangleViewable {
         let newBackgroundColor = self.backgroundColor?.copy() as? UIColor ?? UIColor.white
-        let newAlpha = self.alpha.copy()
         
-        return RectangleView.init(frame: newFrame, backgroundColor: newBackgroundColor, alpha: newAlpha)
+        return RectangleView.init(frame: self.frame, backgroundColor: newBackgroundColor, alpha: self.alpha)
     }
     
     func resize(to newSize: (width: CGFloat, height: CGFloat)) {
         let newFrame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y,
                               width: newSize.width, height: newSize.height)
         self.frame = newFrame
-    }
-}
-
-extension CGRect {
-    fileprivate func copy() -> CGRect {
-        return CGRect(x: self.minX, y: self.minY, width: self.width, height: self.height)
-    }
-}
-
-extension CGFloat {
-    fileprivate func copy() -> CGFloat {
-        return CGFloat(self)
     }
 }
