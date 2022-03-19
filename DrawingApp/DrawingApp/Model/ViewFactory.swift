@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 class ViewFactory {
-    static func makeRectangleView(of rectangle: AnyRectangularable & BackgroundColorChangable) -> UIView & RectangleViewable {
+    static func makeRectangleView(of rectangle: BasicShape & BackgroundColorChangable) -> UIView & RectangleViewable {
         let point = rectangle.point
         let size = rectangle.size
         let frame = CGRect(x: point.x, y: point.y, width: size.width, height: size.height)
@@ -22,7 +22,7 @@ class ViewFactory {
         return newView
     }
     
-    static func makePhotoView(of photo: AnyRectangularable & imageDataHavable) -> UIView & RectangleViewable {
+    static func makePhotoView(of photo: BasicShape & imageDataHavable) -> UIView & RectangleViewable {
         let point = photo.point
         let size = photo.size
         let frame = CGRect(x: point.x, y: point.y, width: size.width, height: size.height)

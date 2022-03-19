@@ -9,7 +9,7 @@ import Foundation
 
 class RectangleFactory {
     
-    public static func makeRandomRectangle(in frame: (width: Double, height: Double)) -> AnyRectangularable {
+    public static func makeRandomRectangle(in frame: (width: Double, height: Double)) -> BasicShape {
         let size = Size(width: 150, height: 120)
         let point = Point.random(in: frame)
         let backgroundColor = BackgroundColor.random()
@@ -19,7 +19,7 @@ class RectangleFactory {
         return newRectangle
     }
     
-    public static func makePhoto(in frame: (width: Double, height: Double), image: Data) -> AnyRectangularable {
+    public static func makePhoto(in frame: (width: Double, height: Double), image: Data) -> BasicShape {
         let size = Size(width: 150, height: 120)
         let point = Point.random(in: frame)
         let alpha = Alpha.random()

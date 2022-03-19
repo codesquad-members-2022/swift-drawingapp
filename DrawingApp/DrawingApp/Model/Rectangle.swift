@@ -13,7 +13,7 @@ protocol BackgroundColorChangable {
     func changeBackgroundColor(to newColor: BackgroundColor)
 }
 
-class Rectangle: AnyRectangularable, BackgroundColorChangable {
+class Rectangle: BasicShape, BackgroundColorChangable {
     private(set) var backgroundColor: BackgroundColor
     
     init(size: Size, point: Point, backgroundColor: BackgroundColor, alpha: Alpha) {
