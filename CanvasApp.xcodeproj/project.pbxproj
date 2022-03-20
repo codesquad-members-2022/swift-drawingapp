@@ -16,6 +16,8 @@
 		83450D5C26F5CFA6002E5C24 /* PropertyUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83450D5B26F5CFA6002E5C24 /* PropertyUsecase.swift */; };
 		83450D5E26F618AD002E5C24 /* ObjectListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83450D5D26F618AD002E5C24 /* ObjectListViewController.swift */; };
 		83450D6026F63AB8002E5C24 /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 83450D5F26F63AB8002E5C24 /* DrawingView.swift */; };
+		834D99DF27E6DEDD0005AAC8 /* TopApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834D99DE27E6DEDD0005AAC8 /* TopApplication.swift */; };
+		834D99E127E6DEE20005AAC8 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 834D99E027E6DEE20005AAC8 /* main.swift */; };
 		8390B22626F2346D008DDF56 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8390B22526F2346D008DDF56 /* AppDelegate.swift */; };
 		8390B22826F2346D008DDF56 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8390B22726F2346D008DDF56 /* SceneDelegate.swift */; };
 		8390B22A26F2346D008DDF56 /* CanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8390B22926F2346D008DDF56 /* CanvasViewController.swift */; };
@@ -59,6 +61,8 @@
 		83450D5B26F5CFA6002E5C24 /* PropertyUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PropertyUsecase.swift; sourceTree = "<group>"; };
 		83450D5D26F618AD002E5C24 /* ObjectListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectListViewController.swift; sourceTree = "<group>"; };
 		83450D5F26F63AB8002E5C24 /* DrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingView.swift; sourceTree = "<group>"; };
+		834D99DE27E6DEDD0005AAC8 /* TopApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopApplication.swift; sourceTree = "<group>"; };
+		834D99E027E6DEE20005AAC8 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		8390B22226F2346D008DDF56 /* CanvasApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CanvasApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8390B22526F2346D008DDF56 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8390B22726F2346D008DDF56 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -195,6 +199,8 @@
 		8390B25F26F4CA42008DDF56 /* AppDelegate */ = {
 			isa = PBXGroup;
 			children = (
+				834D99E027E6DEE20005AAC8 /* main.swift */,
+				834D99DE27E6DEDD0005AAC8 /* TopApplication.swift */,
 				8390B22526F2346D008DDF56 /* AppDelegate.swift */,
 				8390B22726F2346D008DDF56 /* SceneDelegate.swift */,
 			);
@@ -344,8 +350,10 @@
 				83450D5A26F5CDCE002E5C24 /* FigureFactory.swift in Sources */,
 				8390B25626F237DB008DDF56 /* Plane.swift in Sources */,
 				83450D5E26F618AD002E5C24 /* ObjectListViewController.swift in Sources */,
+				834D99DF27E6DEDD0005AAC8 /* TopApplication.swift in Sources */,
 				83450D5626F5CD43002E5C24 /* Drawing.swift in Sources */,
 				83450D6026F63AB8002E5C24 /* DrawingView.swift in Sources */,
+				834D99E127E6DEE20005AAC8 /* main.swift in Sources */,
 				8390B22826F2346D008DDF56 /* SceneDelegate.swift in Sources */,
 				8390B26326F4D636008DDF56 /* ViewFactory.swift in Sources */,
 				83450D5226F5CCF8002E5C24 /* UIColor+Extension.swift in Sources */,
