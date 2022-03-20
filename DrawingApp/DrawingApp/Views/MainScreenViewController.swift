@@ -90,11 +90,9 @@ final class MainScreenViewController: UIViewController {
             }
         }
         
-        selectGesture.delegate = self
         doubleTouchesCopyGesture.delegate = self
         doubleTouchesCopyGesture.numberOfTouchesRequired = 2
         view.addGestureRecognizer(selectGesture)
-        view.addGestureRecognizer(doubleTouchesCopyGesture)
     }
     
     // MARK: - Methods Process ObserverTask
@@ -151,26 +149,23 @@ final class MainScreenViewController: UIViewController {
     
     @objc func drag(_ sender: UIPanGestureRecognizer) {
         guard let rect = sender.view as? Rectangle else { return }
+        
         if sender.state == .ended, let copiedView = rect.copiedView {
+            rect.addGestureRecognizer(selectGesture)
+            
             let origin = RectOrigin(x: rect.frame.minX, y: rect.frame.minY)
+            let index = rect.index
             
             UIView.animate(withDuration: 0.5) {
                 copiedView.frame.origin = rect.frame.origin
                 rect.removeFromSuperview()
-                self.rectangleViews[rect.index] = copiedView
-                
-                rect.gestureRecognizers?.forEach({ recognizer in
-                    rect.removeGestureRecognizer(recognizer)
-                })
+                self.rectangleViews[index] = copiedView
             }
             
-            DispatchQueue.global(qos: .utility).async {
-                self.rectangleDelegate?.didMoved(rect: origin, at: rect.index)
-            }
+            rectangleDelegate?.didMoved(rect: origin, at: index)
             
             return
         }
-        
         
         let translation = sender.translation(in: self.view)
         rect.center = CGPoint(x: sender.view!.center.x + translation.x, y: sender.view!.center.y + translation.y)
@@ -190,20 +185,19 @@ extension MainScreenViewController: UIGestureRecognizerDelegate {
         }
         
         if touches.count == 1 {
-            
             rectangleDelegate?.didSelect(at: rect.index)
+            rect.addGestureRecognizer(doubleTouchesCopyGesture)
             
             let panGesture = UIPanGestureRecognizer(target: self, action: #selector(drag(_:)))
             rect.addGestureRecognizer(panGesture)
             panGesture.minimumNumberOfTouches = 2
             panGesture.delegate = self
-            rect.addGestureRecognizer(panGesture)
         }
     }
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         guard
-            gestureRecognizer is UITapGestureRecognizer,
+            gestureRecognizer == doubleTouchesCopyGesture,
             let rect = touch.view as? Rectangle, rect.isSelected, rect.copiedView == nil,
             let model = rectangleDelegate?.getRectangleModel(at: rect.index),
             let copiedView = factoryRectangle.makeRectangle(from: model, at: rect.index)
@@ -212,11 +206,21 @@ extension MainScreenViewController: UIGestureRecognizerDelegate {
         }
 
         view.insertSubview(copiedView, belowSubview: rect)
-        
-        rect.setCopiedView(rect: copiedView)
-        rectangleDelegate?.didSelect(at: nil)
-        rect.coverOpaqueView()
 
+        rect.setCopiedView(rect: copiedView)
+        rect.removeGestureRecognizer(selectGesture)
+        rect.setAlpha(model.alpha/20)
         return true
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesEnded(touches, with: event)
+        guard let rect = touches.first?.view as? Rectangle, let copiedView = rect.copiedView else { return }
+        
+        if rect.frame.origin == copiedView.frame.origin {
+            copiedView.removeFromSuperview()
+            rect.setAlpha((rectangleDelegate?.getRectangleModel(at: rect.index)?.alpha ?? 1)/10)
+            rect.setCopiedView(rect: nil)
+        }
     }
 }
