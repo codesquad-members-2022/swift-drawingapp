@@ -150,8 +150,9 @@ final class MainScreenViewController: UIViewController {
     @objc func drag(_ sender: UIPanGestureRecognizer) {
         guard let rect = sender.view as? Rectangle else { return }
         
+        // panGesture가 끝났기 때문에 copiedView를 rectangle이 있던 자리를 차지하도록 하고, 기존 이동하던 rectangle은 지웁니다.
         if sender.state == .ended, let copiedView = rect.copiedView {
-            rect.addGestureRecognizer(selectGesture)
+            copiedView.addGestureRecognizer(selectGesture)
             
             let origin = RectOrigin(x: rect.frame.minX, y: rect.frame.minY)
             let index = rect.index
@@ -184,6 +185,7 @@ extension MainScreenViewController: UIGestureRecognizerDelegate {
             return
         }
         
+        // 처음 rectangle을 선택하면 두 손가락으로 선택하는 제스쳐, 팬 제스쳐를 추가하여 임시 뷰 생성 및 이동이 가능하도록 합니다.
         if touches.count == 1 {
             rectangleDelegate?.didSelect(at: rect.index)
             rect.addGestureRecognizer(doubleTouchesCopyGesture)
@@ -204,7 +206,8 @@ extension MainScreenViewController: UIGestureRecognizerDelegate {
         else {
             return true
         }
-
+        
+        // 두 손가락으로 선택하는 제스쳐로 뷰를 복사하고 선택 효과는 낼 수 없게 만듭니다. 선택 효과를 내는 제스쳐와 두 손가락 제스쳐가 겹쳐서 오류가 발생하였습니다.
         view.insertSubview(copiedView, belowSubview: rect)
 
         rect.setCopiedView(rect: copiedView)
@@ -215,8 +218,10 @@ extension MainScreenViewController: UIGestureRecognizerDelegate {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
+        
         guard let rect = touches.first?.view as? Rectangle, let copiedView = rect.copiedView else { return }
         
+        // 만약 임시 뷰가 있음에도 이동이 없었던 경우라면 rectangle이 임시뷰 역할을 하지 않도록 하고, 복사된 뷰는 제거합니다.
         if rect.frame.origin == copiedView.frame.origin {
             copiedView.removeFromSuperview()
             rect.setAlpha((rectangleDelegate?.getRectangleModel(at: rect.index)?.alpha ?? 1)/10)
