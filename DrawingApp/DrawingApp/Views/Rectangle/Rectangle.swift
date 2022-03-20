@@ -21,6 +21,7 @@ protocol EnableSetAlphaRectangle {
 class Rectangle: UIView, IndexedRectangle {
     
     var index: Int = 0
+    private(set) var copiedView: Rectangle?
     
     var isSelected = false {
         didSet {
@@ -35,5 +36,32 @@ class Rectangle: UIView, IndexedRectangle {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+    }
+    
+    func setCopiedView(rect: Rectangle) {
+        copiedView = rect
+    }
+    
+    func setAlpha(_ alpha: Double) {
+        backgroundColor = backgroundColor?.withAlphaComponent(alpha)
+    }
+    
+    @objc func drag(_ sender: UIPanGestureRecognizer) {
+        let translation = sender.translation(in: self)
+        sender.view!.center = CGPoint(x: sender.view!.center.x + translation.x, y: sender.view!.center.y + translation.y)
+        sender.setTranslation(.zero, in: self)
+        isSelected = false
+    }
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        guard touches.count == 2 else { return }
+        
+        removeFromSuperview()
+    }
+    
+    func coverOpaqueView() {
+        let opaqueView = UIView(frame: self.bounds)
+        addSubview(opaqueView)
+        opaqueView.backgroundColor = UIColor.white.withAlphaComponent(0.5)
     }
 }

@@ -12,6 +12,8 @@ import Foundation
 protocol MainSceneTapDelegate {
     // 델리게이트 패턴의 메소드는 어떤 요소가 언제 누가 선택되었는지 명시하기 위해 네이밍을 변경하였습니다.
     func didSelect(at index: Int?)
+    func getRectangleModel(at index: Int)->RectangleProperty?
+    func didMoved(rect point: RectOrigin, at index: Int)
 }
 
 /// ViewController와 MainScreenViewController 사이를 잇고, 생성된 사각형의 모델들을 저장하는 모델입니다.
@@ -105,6 +107,11 @@ final class Plane: MainSceneTapDelegate {
         NotificationCenter.default.post(noti) // Plane.alphaDidChanged
     }
     
+    func didMoved(rect point: RectOrigin, at index: Int) {
+        guard (0..<rectangleModels.endIndex) ~= index else { return }
+        rectangleModels[index].setPoint(point)
+    }
+    
     // MARK: - RectangleViewTapDelegate implementation
     func didSelect(at index: Int?) {
         guard -1..<rectangleModels.endIndex ~= (index ?? -1) else {
@@ -124,6 +131,10 @@ final class Plane: MainSceneTapDelegate {
         }
         
         NotificationCenter.default.post(noti) // Plane.rectangleViewTouched
+    }
+    
+    func getRectangleModel(at index: Int) -> RectangleProperty? {
+        getRectangleProperty(at: index)
     }
     
     // MARK: - Plane no using Interface
