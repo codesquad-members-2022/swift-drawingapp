@@ -33,7 +33,7 @@ struct Plane {
     /// 터치된 좌표에 사각형의 유무 탐색 (Plane이 직접 하는 일)
     /// - Parameter point: 터치된 좌표
     /// - Returns: 사각형이 있으면 사각형, 없으면 nil.
-    func findRectangle(on point: (x: Double, y: Double)) -> Rectangle? {
+    private func findRectangle(on point: (x: Double, y: Double)) -> Rectangle? {
         for rectangle in rectangles.reversed() {
             if isRectangleExist(on: (x: point.x, y: point.y), rectangle: rectangle) {
                 return rectangle
