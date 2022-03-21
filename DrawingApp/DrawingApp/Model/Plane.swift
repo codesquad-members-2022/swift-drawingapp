@@ -42,10 +42,13 @@ class Plane {
         return nil
     }
     
+    // rectangle 속성이 아닌 Plane 내부 속성과 관련 있도록 구현하기.
     private func isRectangleExist(on point: (x: Double, y: Double), rectangle: Rectangle) -> Bool {
-        let rangeOfX = (rectangle.point.x)...(rectangle.point.x + rectangle.size.width)
-        let rangeOfY = (rectangle.point.y)...(rectangle.point.y + rectangle.size.height)
-        return (rangeOfX ~= point.x && rangeOfY ~= point.y)
+        let startPointOfX = rectangle.point.x
+        let endPointOfX = startPointOfX + rectangle.size.width
+        let startPointOfY = rectangle.point.y
+        let endPointOfY = startPointOfY + rectangle.size.height
+        return (startPointOfX...endPointOfX).contains(point.x) && (startPointOfY...endPointOfY).contains(point.y)
     }
     
     private func backgroundColorDidChanged(color: Color, rectangle: Rectangle) {
