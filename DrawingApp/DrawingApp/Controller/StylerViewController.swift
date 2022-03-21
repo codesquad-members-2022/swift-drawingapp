@@ -56,6 +56,11 @@ class StylerViewController: UIViewController{
         guard let stylerView = self.view as? StylerView else { return }
         stylerView.updateSelectedRectangleViewColorInfo(newColor: newColor, newHexString: newHexString)
     }
+    
+    func updateSelectedRectangleViewPointInfo(point: CGPoint){
+        guard let stylerView = self.view as? StylerView else { return }
+        stylerView.updateSelectedRectangleViewPointInfo(point: point)
+    }
 }
 
 extension StylerViewController: StylerViewDelegate{
@@ -68,5 +73,15 @@ extension StylerViewController: StylerViewDelegate{
     func updatingSelectedRectangleAlphaRequested(opacity: Int){
         guard let delegate = self.delegate else { return }
         delegate.updatingSelectedRectangleAlphaRequested(opacity: opacity)
+    }
+    
+    func updatingSelectedRectanglePointXRequested(increase: Bool){
+        guard let delegate = self.delegate else { return }
+        delegate.updatingSelectedRectanglePointXRequested(increase: increase)
+    }
+    
+    func updatingSelectedRectanglePointYRequested(increase: Bool){
+        guard let delegate = self.delegate else { return }
+        delegate.updatingSelectedRectanglePointYRequested(increase: increase)
     }
 }
