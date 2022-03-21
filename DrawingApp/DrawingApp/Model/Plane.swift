@@ -48,7 +48,7 @@ struct Plane {
         return (rangeOfX ~= point.x && rangeOfY ~= point.y)
     }
     
-    func backgroundColorDidChanged(color: Color, rectangle: Rectangle) {
+    private func backgroundColorDidChanged(color: Color, rectangle: Rectangle) {
         if let firstIndex = rectangles.firstIndex(of: rectangle) {
             rectangles[firstIndex].backgroundColor = color // 색상 변경
             delegate?.planeDidChangedRectangle(rectangles[firstIndex])
@@ -78,5 +78,19 @@ struct Plane {
         
         // selectedRectangle이 있으면, 이걸 통해 이제 출력을 해줘야한다. (Plane -> VC -> View)
         delegate?.planeDidTouchedRectangle(rectangle)
+    }
+    
+    /// VC로부터 색상 버튼이 탭되었음을 전달받았기 때문에, 랜덤 색상을 생성하여 모델을 변경 후 이를 VC에 알린다.
+    func changeBackgroundColor() {
+        let rectangeFactory = RectangleFactory()
+        let newColorValue = rectangeFactory.createRandomColor()
+        
+        // 선택된 사각형이 있을 때에만 색상 변경
+        if let rectangle = selectedRectangle {
+            backgroundColorDidChanged(color: newColorValue, rectangle: rectangle)
+            
+            // VC에게 알리기
+            delegate?.planeDidChangedRectangle(rectangle)
+        }
     }
 }

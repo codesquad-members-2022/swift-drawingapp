@@ -12,8 +12,8 @@ protocol SideInspectorViewDelegate {
     /// 사각형 버튼이 탭 되는 것을 알리기 (SideInspectorView -> VC)
     func sideInspectorViewDidTappedRectangleButton()
     
-    /// 색상 버튼이 탭 됨을 알림 (SideInspectorView -> VC)
-    func sideInspectorViewDidTappedColorButton(_ sender: UIButton)
+    /// 색상 버튼이 탭 됨을 단순하게 VC에게 알린다. (SideInspectorView -> VC)
+    func sideInspectorViewDidTappedColorButton()
     
     /// 슬라이더 값 변경 알림
     func sideInspectorViewSliderValueDidChanged(_ slider: UISlider)
