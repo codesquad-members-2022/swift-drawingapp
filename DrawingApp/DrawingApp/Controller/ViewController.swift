@@ -63,20 +63,10 @@ extension ViewController: SideInspectorViewDelegate {
         plane.createRectangle()
     }
     
-    func sideInspectorViewDidTappedColorButton(_ sender: UIButton) {
-        // 굳이 여기서 말구 plane에서..?
-        // VC는 모델에게 바꿔라고 시키고 바꾸는 로직은 plane이 알아서 하고 그 결과를 vc에게 전달,,
-        // 색상 버튼을 누르면 색상 값 랜덤으로 생성
-        let rectangleFactory = RectangleFactory()
-        
-        // 랜덤 색상을 플레인에서 만들기..?
-        let newColorValue = rectangleFactory.createRandomColor()
-        sender.setTitle(newColorValue.getHexValue(), for: .normal)
-        
-        // Plane에 색상 변경 알림. 사각형이 선택되었을 때만!
-        if let rectangle = selectedRectangle {
-            plane.backgroundColorDidChanged(color: newColorValue, rectangle: rectangle)
-        }
+    /// 입력 (VC -> Model)
+    /// 모델에게 알리고, 모델에게 랜덤 색상 생성하라고 시키기.
+    func sideInspectorViewDidTappedColorButton() {
+        plane.changeBackgroundColor()
     }
     
     func sideInspectorViewSliderValueDidChanged(_ slider: UISlider) {

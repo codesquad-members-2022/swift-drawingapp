@@ -71,7 +71,9 @@ class SideInspectorView: UIView {
     }()
     
     @objc func colorButtonDidTapped(_ sender: UIButton) {
-        delegate?.sideInspectorViewDidTappedColorButton(sender)
+//        delegate?.sideInspectorViewDidTappedColorButton(sender)
+        
+        delegate?.sideInspectorViewDidTappedColorButton() // 입력 (View -> VC)
     }
     
     @objc func createRectangleButtonTapped(_ sender: UIButton) {
@@ -133,5 +135,10 @@ class SideInspectorView: UIView {
             createRectangleButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             createRectangleButton.heightAnchor.constraint(equalToConstant: 120)
         ])
+    }
+    
+    /// VC로부터 색상 변경되었음을 전달 받으면, 버튼 타이틀을 해당 색상으로 변경한다.
+    func changeColor(hexValue: String) {
+        colorButton.setTitle(hexValue, for: .normal)
     }
 }
