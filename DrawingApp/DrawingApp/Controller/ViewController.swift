@@ -114,6 +114,11 @@ extension ViewController: PlaneDelegate {
         canvasView.select(rectangle: rectangle)
     }
     
+    /// 출력: Plane에서 빈 공간이 터치된 것을 View에게 전달 (VC -> View)
+    func planeDidTouchedEmptySpace() {
+        canvasView.unselectRectangle()
+    }
+    
     // plane의 사각형 속성 바뀐 것을 뷰에 알리기
     func planeDidChangedRectangle(_ rectangle: Rectangle) {
         canvasView.changeRectangle(rectangle)
