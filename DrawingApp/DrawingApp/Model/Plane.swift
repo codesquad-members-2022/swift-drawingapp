@@ -9,6 +9,7 @@ class Plane:CustomStringConvertible{
         case rectangleColorUpdated = "rectangleColorUpdated"
         case rectangleAlphaUpdated = "rectangleAlphaUpdated"
         case rectanglePointUpdated = "rectanglePointUpdated"
+        case rectangleSizeUpdated = "rectangleSizeUpdated"
     }
     
     struct NotificationName{
@@ -18,6 +19,7 @@ class Plane:CustomStringConvertible{
         static let rectangleColorUpdated = Notification.Name("rectangleColorUpdated")
         static let rectangleAlphaUpdated = Notification.Name("rectangleAlphaUpdated")
         static let rectanglePointUpdated = Notification.Name("rectanglePointUpdated")
+        static let rectangleSizeUpdated = Notification.Name("rectangleSizeUpdated")
     }
     
     private var rectangles:[RectangleApplicable] = []
@@ -101,5 +103,21 @@ class Plane:CustomStringConvertible{
         let value: Double = increase == true ? 5.0 : -5.0
         selectedRectangle.updatePoint(x: selectedRectangle.point.x, y: selectedRectangle.point.y+value)
         NotificationCenter.default.post(name: NotificationName.rectanglePointUpdated, object: self, userInfo: [UserInfoKey.rectanglePointUpdated:selectedRectangle])
+    }
+    
+    func updateRectangleWidth(increase: Bool){
+        guard let selectedRectangleIndex = self.selectedRectangleIndex else { return }
+        let selectedRectangle = self.rectangles[selectedRectangleIndex]
+        let value: Double = increase == true ? 5.0 : -5.0
+        selectedRectangle.updateSize(width: selectedRectangle.size.width + value, height: selectedRectangle.size.height)
+        NotificationCenter.default.post(name: NotificationName.rectangleSizeUpdated, object: self, userInfo: [UserInfoKey.rectangleSizeUpdated:selectedRectangle])
+    }
+    
+    func updateRectangleHeight(increase: Bool){
+        guard let selectedRectangleIndex = self.selectedRectangleIndex else { return }
+        let selectedRectangle = self.rectangles[selectedRectangleIndex]
+        let value: Double = increase == true ? 5.0 : -5.0
+        selectedRectangle.updateSize(width: selectedRectangle.size.width, height: selectedRectangle.size.height+value)
+        NotificationCenter.default.post(name: NotificationName.rectangleSizeUpdated, object: self, userInfo: [UserInfoKey.rectangleSizeUpdated:selectedRectangle])
     }
 }
