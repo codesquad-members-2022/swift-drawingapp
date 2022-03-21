@@ -8,7 +8,8 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+//    typealias RectangleView = UIView
+//    private var rectangles = [Rectangle: RectangleView]()
     private var selectedRectangle: Rectangle?
     private let canvasView: CanvasView = {
         let view = CanvasView()
@@ -22,8 +23,6 @@ class ViewController: UIViewController {
         return view
     }()
     
-    private let x = UIScreen.main.bounds.width
-    private let y = UIScreen.main.bounds.height
     private var plane = Plane()
     
     override func viewDidLoad() {
@@ -65,8 +64,12 @@ extension ViewController: SideInspectorViewDelegate {
     }
     
     func sideInspectorViewDidTappedColorButton(_ sender: UIButton) {
+        // 굳이 여기서 말구 plane에서..?
+        // VC는 모델에게 바꿔라고 시키고 바꾸는 로직은 plane이 알아서 하고 그 결과를 vc에게 전달,,
         // 색상 버튼을 누르면 색상 값 랜덤으로 생성
         let rectangleFactory = RectangleFactory()
+        
+        // 랜덤 색상을 플레인에서 만들기..?
         let newColorValue = rectangleFactory.createRandomColor()
         sender.setTitle(newColorValue.getHexValue(), for: .normal)
         
@@ -116,18 +119,8 @@ extension ViewController: PlaneDelegate {
 
 
 extension ViewController: CanvasViewDelegate {
-    // CanvasView로부터 터치된 좌표를 VC에 받아온다.
+    // CanvasView로부터 터치된 좌표를 VC에 받아오고, Plane에게 단순하게 터치된 좌표를 알리기. (CanvasView -> VC -> Model)
     func canvasViewDidTouched(x: Double, y: Double) {
-        // 여기서 x, y 값이 Plane 좌표의 직사각형을 포함하는지 확인하기
-        guard let rectangle = plane.findRectangle(on: (x, y)) else {
-            // 사각형이 없는 좌표이므로, 이전에 선택된 사각형이 있을 경우도 고려해야하므로 선택 취소를 해준다.
-            canvasView.unselectRectangle()
-            selectedRectangle = nil
-            return
-        }
-        
-        // 뷰에 터치된 사각형 표시
-        selectedRectangle = rectangle
-        canvasView.select(rectangle: rectangle)
+        plane.didTouched(on: (x, y))
     }
 }
