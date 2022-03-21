@@ -57,15 +57,6 @@ class Plane {
         }
     }
     
-    func alphaValueDidChanged(alpha: Float, rectangle: Rectangle) {
-        for rect in rectangles.reversed() {
-            if rect == rectangle {
-                // 투명도 변경
-                rect.alpha = Alpha(rawValue: Int(alpha * 10))!
-            }
-        }
-    }
-    
     /// View에서 터치된 좌표를 VC를 통해 얻어옴. (입력 처리)
     /// 선택된 좌표에 직사각형이 있는지 확인하기 (모델이 직접 함)
     func didTouched(on point: (x: Double, y: Double)) {
@@ -92,6 +83,17 @@ class Plane {
             
             // VC에게 색상 변경된 사각형 알리기
             delegate?.planeDidChangedColor(of: rectangle)
+        }
+    }
+    
+    /// VC로부터 투명도 변경되었음을 전달받았기 때문에, 모델의 투명도를 변경하고 이를 VC에 알린다.
+    func changeAlphaValue(alpha: Float) {
+        for rect in rectangles.reversed() {
+            if rect == selectedRectangle {
+                // 투명도 변경
+                rect.alpha = Alpha(rawValue: Int(alpha * 10))!
+                delegate?.planeDidChangedAlpha(of: rect)
+            }
         }
     }
 }
