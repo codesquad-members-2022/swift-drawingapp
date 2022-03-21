@@ -70,6 +70,7 @@ struct Plane {
     mutating func didTouched(on point: (x: Double, y: Double)) {
         guard let rectangle = findRectangle(on: point) else {
             selectedRectangle = nil
+            delegate?.planeDidTouchedEmptySpace() // 출력: Model -> VC (빈 공간 터치 알림)
             return
         }
         
