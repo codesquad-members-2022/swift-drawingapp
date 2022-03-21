@@ -103,12 +103,15 @@ extension ViewController: PlaneDelegate {
     }
     
     // 사각형 터치 시, SideInspectorView에 배경색과 투명도 나타내기
+    // CanvasView에도 선택되었다고 표시하기 (Plane -> VC -> View)
     func planeDidTouchedRectangle(_ rectangle: Rectangle) {
         sideInspectorView.colorButton.setTitle(rectangle.backgroundColor.getHexValue(), for: .normal)
         sideInspectorView.alphaSlider.value = Float(rectangle.alpha.opacity)
         
         let sliderValue = Int(rectangle.alpha.opacity * 10)
         sideInspectorView.alphaValueLabel.text = "\(sliderValue)"
+        
+        canvasView.select(rectangle: rectangle)
     }
     
     // plane의 사각형 속성 바뀐 것을 뷰에 알리기
