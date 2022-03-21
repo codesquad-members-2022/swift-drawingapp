@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-struct Plane {
+class Plane {
     var delegate: PlaneDelegate?
     
     private(set) var rectangles = [Rectangle]()
@@ -21,7 +21,7 @@ struct Plane {
         return rectangles[index]
     }
     
-    mutating func createRectangle() {
+    func createRectangle() {
         let factory = RectangleFactory()
         let rectangle = factory.createRectangle()
         rectangles.append(rectangle)
@@ -51,7 +51,6 @@ struct Plane {
     private func backgroundColorDidChanged(color: Color, rectangle: Rectangle) {
         if let firstIndex = rectangles.firstIndex(of: rectangle) {
             rectangles[firstIndex].backgroundColor = color // 색상 변경
-            delegate?.planeDidChangedRectangle(rectangles[firstIndex])
         }
     }
     
@@ -60,14 +59,13 @@ struct Plane {
             if rect == rectangle {
                 // 투명도 변경
                 rect.alpha = Alpha(rawValue: Int(alpha * 10))!
-                delegate?.planeDidChangedRectangle(rect)
             }
         }
     }
     
     /// View에서 터치된 좌표를 VC를 통해 얻어옴. (입력 처리)
     /// 선택된 좌표에 직사각형이 있는지 확인하기 (모델이 직접 함)
-    mutating func didTouched(on point: (x: Double, y: Double)) {
+    func didTouched(on point: (x: Double, y: Double)) {
         guard let rectangle = findRectangle(on: point) else {
             selectedRectangle = nil
             delegate?.planeDidTouchedEmptySpace() // 출력: Model -> VC (빈 공간 터치 알림)
@@ -89,8 +87,8 @@ struct Plane {
         if let rectangle = selectedRectangle {
             backgroundColorDidChanged(color: newColorValue, rectangle: rectangle)
             
-            // VC에게 알리기
-            delegate?.planeDidChangedColor(newColorValue)
+            // VC에게 색상 변경된 사각형 알리기
+            delegate?.planeDidChangedColor(of: rectangle)
         }
     }
 }

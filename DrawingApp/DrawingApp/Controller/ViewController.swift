@@ -109,14 +109,10 @@ extension ViewController: PlaneDelegate {
         canvasView.unselectRectangle()
     }
     
-    // plane의 사각형 속성 바뀐 것을 뷰에 알리기
-    func planeDidChangedRectangle(_ rectangle: Rectangle) {
-        canvasView.changeRectangle(rectangle)
-    }
-    
-    // plane이 색상 변경한 것을 뷰에 알리기 VC -> SideInspectorView (출력: 색상 변경 뷰에게 알림)
-    func planeDidChangedColor(_ color: Color) {
-        sideInspectorView.changeColor(color)
+    // plane이 색상 변경한 것을 SideInspectorView에 알리기 VC -> SideInspectorView (출력: 색상 변경 뷰에게 알림)
+    // plane이 색상 변경한 것을 CanvasView에 알리기
+    func planeDidChangedColor(of rectangle: Rectangle) {
+        sideInspectorView.changeColorString(rectangle.backgroundColor)
     }
 }
 
