@@ -244,23 +244,17 @@ class StylerView: UIView{
     
     func setRectangleSizeChangeAction(){
         self.rectangleWidthIncreaseButton.addAction(UIAction(title: ""){_ in
-            guard let delegate = self.delegate else { return }
-            delegate.updatingSelectedRectangleWidthRequested(increase: true)
+            self.delegate?.updatingSelectedRectangleWidthRequested(increase: true)
         }, for: .touchDown)
         self.rectangleWidthDecreaseButton.addAction(UIAction(title: ""){_ in
-            guard let delegate = self.delegate else { return }
-            delegate.updatingSelectedRectangleWidthRequested(increase: false)
+            self.delegate?.updatingSelectedRectangleWidthRequested(increase: false)
         }, for: .touchDown)
         self.rectangleHeightIncreaseButton.addAction(UIAction(title: ""){_ in
-            guard let delegate = self.delegate else { return }
-            delegate.updatingSelectedRectangleHeightRequested(increase: true)
+            self.delegate?.updatingSelectedRectangleHeightRequested(increase: true)
         }, for: .touchDown)
         self.rectangleHeightDecreaseButton.addAction(UIAction(title: ""){_ in
-            guard let delegate = self.delegate else { return }
-            delegate.updatingSelectedRectangleHeightRequested(increase: false)
+            self.delegate?.updatingSelectedRectangleHeightRequested(increase: false)
         }, for: .touchDown)
-        
-        
     }
     
     func updateSelectedRectangleViewColorInfo(newColor: UIColor, newHexString: String){
