@@ -60,21 +60,20 @@ class CanvasView: UIView {
             value.layer.borderWidth = 0
         }
     }
-    
-    func changeRectangle(_ rectangle: Rectangle) {
-        for (key, value) in rectangles {
-            if key == rectangle {
-                value.backgroundColor = UIColor(hex: rectangle.backgroundColor.getHexValue())
-                value.alpha = rectangle.alpha.opacity
-            }
-        }
-    }
 
-    /// VC에서 전달된 색상으로 뷰를 변경시키기
+    /// VC에서 전달된 색상으로 뷰를 변경시키기 (출력)
     func changeColor(of rectangle: Rectangle, color: Color) {
         for (key, value) in rectangles {
             if key == rectangle {
                 value.backgroundColor = UIColor(hex: color.getHexValue())
+            }
+        }
+    }
+    
+    /// VC에서 전달받은 alpha 값으로 뷰를 변경시키기 (출력)
+    func changeAlpha(of rectangle: Rectangle, _ alpha: Alpha) {
+        for (key, value) in rectangles {
+            if key == rectangle {
                 value.alpha = rectangle.alpha.opacity
             }
         }

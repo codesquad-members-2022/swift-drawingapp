@@ -16,5 +16,5 @@ protocol SideInspectorViewDelegate {
     func sideInspectorViewDidTappedColorButton()
 
     /// 슬라이더 값 변경 알림
-    func sideInspectorViewSliderValueDidChanged(_ slider: UISlider)
+    func sideInspectorViewSliderValueDidChanged(_ value: Float)
 }

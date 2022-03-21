@@ -69,11 +69,11 @@ extension ViewController: SideInspectorViewDelegate {
         plane.changeBackgroundColor()
     }
     
-    func sideInspectorViewSliderValueDidChanged(_ slider: UISlider) {
-        let sliderValue = round(slider.value * 10) / 10.0
-        if let rectangle = selectedRectangle {
-            plane.alphaValueDidChanged(alpha: sliderValue, rectangle: rectangle)
-        }
+    /// 입력 (VC -> Model)
+    ///  모델에게 변경된 값 알림
+    func sideInspectorViewSliderValueDidChanged(_ value: Float) {
+        let sliderValue = round(value * 10) / 10.0
+        plane.changeAlphaValue(alpha: sliderValue)
     }
 }
 
@@ -114,6 +114,12 @@ extension ViewController: PlaneDelegate {
     func planeDidChangedColor(of rectangle: Rectangle) {
         sideInspectorView.changeColorString(rectangle.backgroundColor)
         canvasView.changeColor(of: rectangle, color: rectangle.backgroundColor)
+    }
+    
+    // Plane에서 변경된 투명도를 SideInspector과 CanvasView에 알리기 (VC -> View)
+    func planeDidChangedAlpha(of rectangle: Rectangle) {
+        sideInspectorView.changeAlpha(rectangle.alpha)
+        canvasView.changeAlpha(of: rectangle, rectangle.alpha)
     }
 }
 

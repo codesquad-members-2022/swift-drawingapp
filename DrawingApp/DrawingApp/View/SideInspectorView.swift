@@ -79,11 +79,7 @@ class SideInspectorView: UIView {
     }
     
     @objc func sliderValueDidChanged(_ slider: UISlider) {
-        delegate?.sideInspectorViewSliderValueDidChanged(slider)
-        
-        let sliderStringValue =  String(format: "%.1f", slider.value)
-        let sliderValue = Int(Float(sliderStringValue)! * 10)
-        alphaValueLabel.text = "\(sliderValue)"
+        delegate?.sideInspectorViewSliderValueDidChanged(slider.value)
     }
     
     // TODO: init
@@ -138,5 +134,11 @@ class SideInspectorView: UIView {
     /// VC로부터 색상 변경되었음을 전달 받으면, 버튼 타이틀을 해당 색상으로 변경한다. (출력)
     func changeColorString(_ color: Color) {
         colorButton.setTitle(color.getHexValue(), for: .normal)
+    }
+    
+    /// VC로부터 Alpha 값 변경을 전달 받으면 변경 (출력)
+    func changeAlpha(_ alpha: Alpha) {
+        alphaValueLabel.text = "\(Int(alpha.opacity * 10))"
+        alphaSlider.value = Float(alpha.opacity)
     }
 }
