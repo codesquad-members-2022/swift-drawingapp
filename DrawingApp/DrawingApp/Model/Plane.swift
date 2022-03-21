@@ -90,7 +90,7 @@ struct Plane {
             backgroundColorDidChanged(color: newColorValue, rectangle: rectangle)
             
             // VC에게 알리기
-            delegate?.planeDidChangedRectangle(rectangle)
+            delegate?.planeDidChangedColor(newColorValue)
         }
     }
 }

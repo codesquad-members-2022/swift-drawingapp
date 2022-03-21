@@ -19,4 +19,7 @@ protocol PlaneDelegate {
     
     /// Plane에서 사각형 속성이 변경되었음을 알림
     func planeDidChangedRectangle(_ rectangle: Rectangle)
+    
+    /// Plane에서 사각형의 색상이 변경되었음을 VC에게 알림 (출력: Model -> VC)
+    func planeDidChangedColor(_ color: Color)
 }

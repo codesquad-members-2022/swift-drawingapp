@@ -137,8 +137,8 @@ class SideInspectorView: UIView {
         ])
     }
     
-    /// VC로부터 색상 변경되었음을 전달 받으면, 버튼 타이틀을 해당 색상으로 변경한다.
-    func changeColor(hexValue: String) {
-        colorButton.setTitle(hexValue, for: .normal)
+    /// VC로부터 색상 변경되었음을 전달 받으면, 버튼 타이틀을 해당 색상으로 변경한다. (출력)
+    func changeColor(_ color: Color) {
+        colorButton.setTitle(color.getHexValue(), for: .normal)
     }
 }
