@@ -22,11 +22,13 @@ class StylerViewController: UIViewController{
     }
     
     func updateSelectedRectangleInfo(rectangle: RectangleApplicable){
+        guard let stylerView = self.view as? StylerView else { return }
         if rectangle is RandomColorApplicable{
             self.updateColorRectangleInfo(rectangle: rectangle)
         }else{
             self.updateImageRectangleInfo(rectangle: rectangle)
         }
+        stylerView.updateRectanglePointInfo(rectangle: rectangle)
     }
     
     func clearSelectedRectangleInfo(){

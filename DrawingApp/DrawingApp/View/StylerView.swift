@@ -8,6 +8,14 @@ class StylerView: UIView{
     private var rectangleColorValueField: UIButton = UIButton()
     private var rectangleAlphaTextLabel: UILabel = UILabel()
     private var rectangleAlphaSlider: UISlider = UISlider()
+    private var rectanglePointXLabel: UILabel = UILabel()
+    private var rectanglePointXValueField: UILabel = UILabel()
+    private var rectanglePointXIncreaseButton: UIButton = UIButton()
+    private var rectanglePointXDecreaseButton: UIButton = UIButton()
+    private var rectanglePointYLabel: UILabel = UILabel()
+    private var rectanglePointYValueField: UILabel = UILabel()
+    private var rectanglePointYIncreaseButton: UIButton = UIButton()
+    private var rectanglePointYDecreaseButton: UIButton = UIButton()
     
     init(frame: CGRect, backgroundColor: UIColor){
         super.init(frame: frame)
@@ -16,6 +24,7 @@ class StylerView: UIView{
         setColorChangeAction()
         setRectangleAlphaInformationView()
         setAlphaChangeAction()
+        setRectanglePointInformationView()
     }
     
     required init?(coder: NSCoder) {
@@ -39,6 +48,11 @@ class StylerView: UIView{
         self.rectangleColorValueField.setTitle("", for: .normal)
         self.rectangleColorValueField.backgroundColor = .darkGray
         self.rectangleAlphaSlider.value = opacity
+    }
+    
+    func updateRectanglePointInfo(rectangle: RectangleApplicable){
+        self.rectanglePointXValueField.text = String(Int(rectangle.point.x))
+        self.rectanglePointYValueField.text = String(Int(rectangle.point.y))
     }
     
     private func setRectangleColorInformationView(){
@@ -90,9 +104,60 @@ class StylerView: UIView{
         }, for: .valueChanged)
     }
     
+    private func setRectanglePointInformationView(){
+        self.rectanglePointXLabel.text = "X: "
+        self.rectanglePointYLabel.text = "Y: "
+        self.rectanglePointXIncreaseButton.setTitle("🔼", for: .normal)
+        self.rectanglePointXDecreaseButton.setTitle("🔽", for: .normal)
+        self.rectanglePointYIncreaseButton.setTitle("🔼", for: .normal)
+        self.rectanglePointYDecreaseButton.setTitle("🔽", for: .normal)
+        
+        self.rectanglePointXLabel.frame = CGRect(x: self.frame.width*0.1,
+                                                 y: self.rectangleAlphaSlider.frame.maxY + 40,
+                                                 width: 30,
+                                                 height: self.frame.height*0.06)
+        self.rectanglePointXValueField.frame = CGRect(x: self.rectanglePointXLabel.frame.minX+30,
+                                                      y: self.rectanglePointXLabel.frame.minY,
+                                                      width: self.frame.width*0.4,
+                                                      height: self.frame.height*0.06)
+        self.rectanglePointXIncreaseButton.frame = CGRect(x: self.rectanglePointXValueField.frame.maxX,
+                                                          y: self.rectanglePointXLabel.frame.minY,
+                                                          width: self.frame.height*0.06,
+                                                          height: self.frame.height*0.03)
+        self.rectanglePointXDecreaseButton.frame = CGRect(x: self.rectanglePointXValueField.frame.maxX,
+                                                          y: self.rectanglePointXIncreaseButton.frame.maxY,
+                                                          width: self.frame.height*0.06,
+                                                          height: self.frame.height*0.03)
+        self.rectanglePointYLabel.frame = CGRect(x: self.frame.width*0.1,
+                                                 y: self.rectanglePointXLabel.frame.maxY + 10,
+                                                 width: 30,
+                                                 height: self.frame.height*0.06)
+        self.rectanglePointYValueField.frame = CGRect(x: self.rectanglePointYLabel.frame.minX+30,
+                                                      y: self.rectanglePointYLabel.frame.minY,
+                                                      width: self.frame.width*0.4,
+                                                      height: self.frame.height*0.06)
+        self.rectanglePointYIncreaseButton.frame = CGRect(x: self.rectanglePointYValueField.frame.maxX,
+                                                          y: self.rectanglePointYLabel.frame.minY,
+                                                          width: self.frame.height*0.06,
+                                                          height: self.frame.height*0.03)
+        self.rectanglePointYDecreaseButton.frame = CGRect(x: self.rectanglePointYValueField.frame.maxX,
+                                                          y: self.rectanglePointYIncreaseButton.frame.maxY,
+                                                          width: self.frame.height*0.06,
+                                                          height: self.frame.height*0.03)
+
+        
+        self.addSubview(self.rectanglePointXLabel)
+        self.addSubview(self.rectanglePointXValueField)
+        self.addSubview(self.rectanglePointXIncreaseButton)
+        self.addSubview(self.rectanglePointXDecreaseButton)
+        self.addSubview(self.rectanglePointYLabel)
+        self.addSubview(self.rectanglePointYValueField)
+        self.addSubview(self.rectanglePointYIncreaseButton)
+        self.addSubview(self.rectanglePointYDecreaseButton)
+    }
+    
     func updateSelectedRectangleViewColorInfo(newColor: UIColor, newHexString: String){
         self.rectangleColorValueField.backgroundColor = newColor
         self.rectangleColorValueField.setTitle(newHexString, for: .normal)
     }
-    
 }
