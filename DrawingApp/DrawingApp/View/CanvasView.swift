@@ -69,6 +69,16 @@ class CanvasView: UIView {
             }
         }
     }
+
+    /// VC에서 전달된 색상으로 뷰를 변경시키기
+    func changeColor(of rectangle: Rectangle, color: Color) {
+        for (key, value) in rectangles {
+            if key == rectangle {
+                value.backgroundColor = UIColor(hex: color.getHexValue())
+                value.alpha = rectangle.alpha.opacity
+            }
+        }
+    }
 }
 
 

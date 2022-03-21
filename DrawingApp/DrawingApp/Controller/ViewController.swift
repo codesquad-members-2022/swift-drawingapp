@@ -113,6 +113,7 @@ extension ViewController: PlaneDelegate {
     // plane이 색상 변경한 것을 CanvasView에 알리기
     func planeDidChangedColor(of rectangle: Rectangle) {
         sideInspectorView.changeColorString(rectangle.backgroundColor)
+        canvasView.changeColor(of: rectangle, color: rectangle.backgroundColor)
     }
 }
 
