@@ -72,32 +72,26 @@ class StylerViewController: UIViewController{
 extension StylerViewController: StylerViewDelegate{
     
     func updatingSelectedRectangleColorRequested(){
-        guard let delegate = self.delegate else { return }
-        delegate.updatingSelectedRectangleColorRequested()
+        self.delegate?.updatingSelectedRectangleColorRequested()
     }
     
     func updatingSelectedRectangleAlphaRequested(opacity: Int){
-        guard let delegate = self.delegate else { return }
-        delegate.updatingSelectedRectangleAlphaRequested(opacity: opacity)
+        self.delegate?.updatingSelectedRectangleAlphaRequested(opacity: opacity)
     }
     
     func updatingSelectedRectanglePointXRequested(increase: Bool){
-        guard let delegate = self.delegate else { return }
-        delegate.updatingSelectedRectanglePointXRequested(increase: increase)
+        self.delegate?.updatingSelectedRectanglePointXRequested(increase: increase)
     }
     
     func updatingSelectedRectanglePointYRequested(increase: Bool){
-        guard let delegate = self.delegate else { return }
-        delegate.updatingSelectedRectanglePointYRequested(increase: increase)
+        self.delegate?.updatingSelectedRectanglePointYRequested(increase: increase)
     }
     
     func updatingSelectedRectangleWidthRequested(increase: Bool) {
-        guard let delegate = self.delegate else { return }
-        delegate.updatingSelectedRectangleWidthRequested(increase: increase)
+        self.delegate?.updatingSelectedRectangleWidthRequested(increase: increase)
     }
     
     func updatingSelectedRectangleHeightRequested(increase: Bool) {
-        guard let delegate = self.delegate else { return }
-        delegate.updatingSelectedRectangleHeightRequested(increase: increase)
+        self.delegate?.updatingSelectedRectangleHeightRequested(increase: increase)
     }
 }
