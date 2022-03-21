@@ -50,12 +50,10 @@ class StylerViewController: UIViewController{
         stylerView.updateImageRectangleInfo(opacity: rectangle.alpha.opacity.rawValue)
     }
     
-    
     func updateSelectedRectangleViewColorInfo(newColor: UIColor, newHexString: String){
         guard let stylerView = self.view as? StylerView else { return }
         stylerView.updateSelectedRectangleViewColorInfo(newColor: newColor, newHexString: newHexString)
     }
-    
 }
 
 extension StylerViewController: StylerViewDelegate{
@@ -69,5 +67,4 @@ extension StylerViewController: StylerViewDelegate{
         guard let delegate = self.delegate else { return }
         delegate.updatingSelectedRectangleAlphaRequested(opacity: opacity)
     }
-
 }

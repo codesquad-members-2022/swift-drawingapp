@@ -5,7 +5,7 @@ class ViewController: UIViewController{
     
     private var logger: Logger = Logger()
     private var canvasView: CanvasView?
-    private var stylerView: StylerView?
+    private var stylerViewController: StylerViewController?
     private var plane: Plane = Plane()
     private var rectangleDictionary:[Rectangle:UIView] = [:]
     private var temporarilySelectedRectangleView: UIView?
@@ -20,7 +20,7 @@ class ViewController: UIViewController{
 
     private func initializeAllUIViews(){
         setCanvasView()
-        setStylerView()
+        setStylerViewController()
     }
     
     private func initializeNotificationCenter(){
@@ -59,16 +59,13 @@ class ViewController: UIViewController{
         self.view.addSubview(canvasView)
     }
     
-    private func setStylerView(){
-        guard let canvasView = self.canvasView else { return }
-        let frame = CGRect(x: canvasView.frame.width,
-                           y: self.view.frame.minY,
-                           width: self.view.frame.width - canvasView.frame.width,
-                           height: self.view.frame.height)
-        let stylerView = StylerView(frame: frame, backgroundColor: .white)
-        stylerView.delegate = self
-        self.stylerView = stylerView
-        self.view.addSubview(stylerView)
+    private func setStylerViewController(){
+        let stylerViewController = StylerViewController()
+        self.addChild(stylerViewController)
+        stylerViewController.delegate = self
+        stylerViewController.didMove(toParent: self)
+        self.view.addSubview(stylerViewController.view)
+        self.stylerViewController = stylerViewController
     }
     
     @objc func addingRectangleCompleted(_ notification: Notification) {
@@ -81,61 +78,41 @@ class ViewController: UIViewController{
             canvasView.insertSubview(rectangleView, belowSubview: canvasView.generatingButton)
         }
         
-    }
-    
-    private func createRectangleView(rectangle: RectangleApplicable)-> UIView?{
-        return RectangleViewFactory.createRectangleView(rectangle: rectangle)
+        func createRectangleView(rectangle: RectangleApplicable)-> UIView?{
+            return RectangleViewFactory.createRectangleView(rectangle: rectangle)
+        }
     }
     
     @objc func rectangleFoundFromPlane(_ notification: Notification){
         guard let rectangle = notification.userInfo?[Plane.UserInfoKey.rectangleFound] as? RectangleApplicable else { return }
-        self.updateViewWithSelectedRectangleModel(rectangle: rectangle)
-    }
-    
-    private func updateViewWithSelectedRectangleModel(rectangle: RectangleApplicable){
-        guard let canvasView = self.canvasView else { return }
-        guard let rectangle = rectangle as? Rectangle else { return }
-        guard let rectangleView = self.rectangleDictionary[rectangle] else { return }
+        updateViewWithSelectedRectangleModel(rectangle: rectangle)
         
-        if rectangle is RandomColorApplicable{
-            self.updateColorRectangleInfo(rectangle: rectangle)
-        }else{
-            self.updateImageRectangleInfo(rectangle: rectangle)
+        func updateViewWithSelectedRectangleModel(rectangle: RectangleApplicable){
+            guard let canvasView = self.canvasView else { return }
+            guard let stylerViewController = self.stylerViewController else { return }
+            guard let rectangle = rectangle as? Rectangle else { return }
+            guard let rectangleView = self.rectangleDictionary[rectangle] else { return }
+            
+            stylerViewController.updateSelectedRectangleInfo(rectangle: rectangle)
+            canvasView.updateSelectedRectangleView(subView: rectangleView)
         }
-        canvasView.updateSelectedRectangleView(subView: rectangleView)
-    }
-    
-    private func updateColorRectangleInfo(rectangle: RectangleApplicable){
-        guard let stylerView = self.stylerView else { return }
-        guard let rectangle = rectangle as? RectangleApplicable & RandomColorApplicable else { return }
-        let r = rectangle.backgroundColor.r
-        let g = rectangle.backgroundColor.g
-        let b = rectangle.backgroundColor.b
-        let opacity = rectangle.alpha.opacity.rawValue
-        let hexString = "#\(String(Int(r*255), radix: 16))\(String(Int(g*255), radix: 16))\(String(Int(b*255), radix: 16))"
-        stylerView.updateColorRectangleInfo(r: r, g: g, b: b, opacity: opacity, hexString: hexString)
-    }
-    
-    private func updateImageRectangleInfo(rectangle: RectangleApplicable){
-        guard let stylerView = self.stylerView else { return }
-        stylerView.updateImageRectangleInfo(opacity: rectangle.alpha.opacity.rawValue)
     }
     
     @objc func rectangleNotFoundFromPlane(){
-        guard let stylerView = self.stylerView else { return }
+        guard let stylerViewController = self.stylerViewController else { return }
         guard let canvasView = self.canvasView else { return }
-        stylerView.clearSelectedRectangleInfo()
+        stylerViewController.clearSelectedRectangleInfo()
         canvasView.clearRectangleViewSelection()
     }
     
     @objc func updateSelectedRecntalgeViewColor(_ notification: Notification){
         guard let newColor = notification.userInfo?[Plane.UserInfoKey.rectangleColorUpdated] as? Color else { return }
-        guard let stylerView = self.stylerView else { return }
+        guard let stylerViewController = self.stylerViewController else { return }
         guard let canvasView = self.canvasView else { return }
         
         let newUIColor = UIColor(red: newColor.r, green: newColor.g, blue: newColor.b, alpha: 1)
         let newHexString = "#\(String(Int(newColor.r*255), radix: 16))\(String(Int(newColor.g*255), radix: 16))\(String(Int(newColor.b*255), radix: 16))"
-        stylerView.updateSelectedRectangleViewColorInfo(newColor: newUIColor, newHexString: newHexString)
+        stylerViewController.updateSelectedRectangleViewColorInfo(newColor: newUIColor, newHexString: newHexString)
         canvasView.updateSelectedRectangleViewColor(newColor: newUIColor)
     }
     
@@ -245,15 +222,13 @@ extension ViewController: CanvasViewDelegate, UIImagePickerControllerDelegate, U
 
 }
 
-extension ViewController: StylerViewDelegate{
-    
-    func updatingSelectedRectangleColorRequested(){
+extension ViewController: StylerViewControllerDelegate{
+    func updatingSelectedRectangleColorRequested() {
         let newColor = RectangleFactory.createRandomColor()
         self.plane.updateRectangleColor(newColor: newColor)
     }
     
-    func updatingSelectedRectangleAlphaRequested(opacity: Int){
+    func updatingSelectedRectangleAlphaRequested(opacity: Int) {
         self.plane.updateRectangleAlpha(opacity: opacity)
     }
-
 }
