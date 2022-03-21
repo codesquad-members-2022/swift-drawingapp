@@ -120,7 +120,7 @@ extension ViewController: PlaneDelegate {
 
 extension ViewController: CanvasViewDelegate {
     // CanvasView로부터 터치된 좌표를 VC에 받아오고, Plane에게 단순하게 터치된 좌표를 알리기. (CanvasView -> VC -> Model)
-    func canvasViewDidTouched(x: Double, y: Double) {
-        plane.didTouched(on: (x, y))
+    func canvasViewDidTouched(on point: (x: Double, y: Double)) {
+        plane.didTouched(on: point)
     }
 }

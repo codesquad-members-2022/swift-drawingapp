@@ -86,7 +86,7 @@ class CanvasView: UIView {
 extension CanvasView: UIGestureRecognizerDelegate {
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         let positionOfCanvasView = gestureRecognizer.location(in: gestureRecognizer.view) // CanvasView에서 터치되는 좌표
-        delegate?.canvasViewDidTouched(x: positionOfCanvasView.x, y: positionOfCanvasView.y)
+        delegate?.canvasViewDidTouched(on: (positionOfCanvasView.x, positionOfCanvasView.y))
         return true
     }
 }
