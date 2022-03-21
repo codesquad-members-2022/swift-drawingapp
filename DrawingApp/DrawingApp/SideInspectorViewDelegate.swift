@@ -14,7 +14,7 @@ protocol SideInspectorViewDelegate {
     
     /// 색상 버튼이 탭 됨을 단순하게 VC에게 알린다. (SideInspectorView -> VC)
     func sideInspectorViewDidTappedColorButton()
-    
+
     /// 슬라이더 값 변경 알림
     func sideInspectorViewSliderValueDidChanged(_ slider: UISlider)
 }
