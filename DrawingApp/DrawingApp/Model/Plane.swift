@@ -29,10 +29,13 @@ struct Plane {
         delegate?.planeDidAddRectangle(rectangle)
     }
     
+    
+    /// 터치된 좌표에 사각형의 유무 탐색 (Plane이 직접 하는 일)
+    /// - Parameter point: 터치된 좌표
+    /// - Returns: 사각형이 있으면 사각형, 없으면 nil.
     func findRectangle(on point: (x: Double, y: Double)) -> Rectangle? {
         for rectangle in rectangles.reversed() {
             if isRectangleExist(on: (x: point.x, y: point.y), rectangle: rectangle) {
-                delegate?.planeDidTouchedRectangle(rectangle)
                 return rectangle
             }
         }
@@ -72,7 +75,7 @@ struct Plane {
         
         selectedRectangle = rectangle
         
-        // selectedRectangle이 있으면, 이걸 통해 이제 출력을 해줘야해. (Plane -> VC -> View)
-        
+        // selectedRectangle이 있으면, 이걸 통해 이제 출력을 해줘야한다. (Plane -> VC -> View)
+        delegate?.planeDidTouchedRectangle(rectangle)
     }
 }
