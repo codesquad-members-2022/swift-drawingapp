@@ -35,7 +35,7 @@ class Plane {
     /// - Returns: 사각형이 있으면 사각형, 없으면 nil.
     private func findRectangle(on point: (x: Double, y: Double)) -> Rectangle? {
         for rectangle in rectangles.reversed() {
-            if isRectangleExist(on: (x: point.x, y: point.y), rectangle: rectangle) {
+            if isRectangleExist(on: point, rectangle: rectangle) {
                 return rectangle
             }
         }
