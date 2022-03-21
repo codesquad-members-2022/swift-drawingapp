@@ -9,5 +9,6 @@ protocol RectangleApplicable: CustomStringConvertible{
     
     func updateAlpha(opacity: Int)
     func updatePoint(x: Double, y: Double)
+    func updateSize(width: Double, height: Double)
     func isPointInsideTheRectangleRange(x: Double, y: Double)->Bool
 }

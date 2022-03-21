@@ -26,6 +26,18 @@ class Rectangle: RectangleApplicable, CustomStringConvertible{
         self.point.y = y
     }
     
+    func updateSize(width: Double, height: Double) {
+        self.size.width = adjustRange(width)
+        self.size.height = adjustRange(height)
+        
+        func adjustRange(_ value: Double)->Double{
+            if(value<=0){
+                return Double(1)
+            }
+            return value
+        }
+    }
+    
     func isPointInsideTheRectangleRange(x: Double, y: Double) -> Bool {
         let minX = self.point.x
         let minY = self.point.y
@@ -37,7 +49,6 @@ class Rectangle: RectangleApplicable, CustomStringConvertible{
         
         return false
     }
-    
 }
 
 extension Rectangle: Hashable{

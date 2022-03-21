@@ -51,6 +51,12 @@ class CanvasView: UIView{
         selectedRectangleView.frame.origin = point
     }
     
+    func updateSelectedRectangleSize(size: CGSize){
+        guard let selectedRectangleView = selectedRectangleView else { return }
+        selectedRectangleView.frame.size.width = size.width
+        selectedRectangleView.frame.size.height = size.height
+    }
+    
     private func setGeneratingButton(){
         let buttonWidth = self.frame.width*0.15
         let buttonHeight = self.frame.height*0.15

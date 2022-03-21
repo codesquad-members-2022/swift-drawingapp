@@ -30,6 +30,7 @@ class ViewController: UIViewController{
         NotificationCenter.default.addObserver(self, selector: #selector(updateSelectedRecntalgeViewColor(_:)), name: Plane.NotificationName.rectangleColorUpdated , object: self.plane)
         NotificationCenter.default.addObserver(self, selector: #selector(updateSelectedRectangleViewAlpha(_:)), name: Plane.NotificationName.rectangleAlphaUpdated, object: self.plane)
         NotificationCenter.default.addObserver(self, selector: #selector(updateSelectedRectangleViewPoint(_:)), name: Plane.NotificationName.rectanglePointUpdated, object: self.plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateSelectedRectangleViewSize(_:)), name: Plane.NotificationName.rectangleSizeUpdated, object: self.plane)
     }
     
     private func setGestureRecognizer(){
@@ -130,6 +131,15 @@ class ViewController: UIViewController{
         canvasView.updateSelectedRectanglePoint(point:CGPoint(x: selectedRectangle.point.x, y: selectedRectangle.point.y))
         stylerViewController.updateSelectedRectangleViewPointInfo(point:CGPoint(x: selectedRectangle.point.x, y: selectedRectangle.point.y))
     }
+    
+    @objc func updateSelectedRectangleViewSize(_ notification: Notification){
+        guard let canvasView = self.canvasView else { return }
+        guard let stylerViewController = self.stylerViewController else { return }
+        guard let selectedRectangle = notification.userInfo?[Plane.UserInfoKey.rectangleSizeUpdated] as? RectangleApplicable else { return }
+        let newSize = CGSize(width: selectedRectangle.size.width, height: selectedRectangle.size.height)
+        canvasView.updateSelectedRectangleSize(size: newSize)
+        stylerViewController.updateSelectedRectangleViewSizeInfo(size: newSize)
+    }
 
 }
 
@@ -225,6 +235,7 @@ extension ViewController: CanvasViewDelegate, UIImagePickerControllerDelegate, U
 }
 
 extension ViewController: StylerViewControllerDelegate{
+    
     func updatingSelectedRectangleColorRequested() {
         let newColor = RectangleFactory.createRandomColor()
         self.plane.updateRectangleColor(newColor: newColor)
@@ -241,4 +252,13 @@ extension ViewController: StylerViewControllerDelegate{
     func updatingSelectedRectanglePointYRequested(increase: Bool) {
         self.plane.updateRectanglePointY(increase: increase)
     }
+    
+    func updatingSelectedRectangleWidthRequested(increase: Bool) {
+        self.plane.updateRectangleWidth(increase: increase)
+    }
+    
+    func updatingSelectedRectangleHeightRequested(increase: Bool) {
+        self.plane.updateRectangleHeight(increase: increase)
+    }
+    
 }

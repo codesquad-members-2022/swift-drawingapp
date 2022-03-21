@@ -16,6 +16,14 @@ class StylerView: UIView{
     private var rectanglePointYValueField: UILabel = UILabel()
     private var rectanglePointYIncreaseButton: UIButton = UIButton()
     private var rectanglePointYDecreaseButton: UIButton = UIButton()
+    private var rectangleWidthLabel: UILabel = UILabel()
+    private var rectangleHeightLabel: UILabel = UILabel()
+    private var rectangleWidthValueField: UILabel = UILabel()
+    private var rectangleHeightValueField: UILabel = UILabel()
+    private var rectangleWidthIncreaseButton: UIButton = UIButton()
+    private var rectangleWidthDecreaseButton: UIButton = UIButton()
+    private var rectangleHeightIncreaseButton: UIButton = UIButton()
+    private var rectangleHeightDecreaseButton: UIButton = UIButton()
     
     init(frame: CGRect, backgroundColor: UIColor){
         super.init(frame: frame)
@@ -26,6 +34,8 @@ class StylerView: UIView{
         setAlphaChangeAction()
         setRectanglePointInformationView()
         setRectanglePointChangeAction()
+        setRectangleSizeInformationView()
+        setRectangleSizeChangeAction()
     }
     
     required init?(coder: NSCoder) {
@@ -54,6 +64,11 @@ class StylerView: UIView{
     func updateRectanglePointInfo(rectangle: RectangleApplicable){
         self.rectanglePointXValueField.text = String(Int(rectangle.point.x))
         self.rectanglePointYValueField.text = String(Int(rectangle.point.y))
+    }
+    
+    func updateRectangleSizeInfo(rectangle: RectangleApplicable){
+        self.rectangleWidthValueField.text = "\(rectangle.size.width)"
+        self.rectangleHeightValueField.text = "\(rectangle.size.height)"
     }
     
     private func setRectangleColorInformationView(){
@@ -176,6 +191,78 @@ class StylerView: UIView{
         }, for: .touchDown)
     }
     
+    func setRectangleSizeInformationView(){
+        self.rectangleWidthLabel.text  = "W: "
+        self.rectangleHeightLabel.text = "H: "
+        self.rectangleWidthIncreaseButton.setTitle("🔼", for: .normal)
+        self.rectangleWidthDecreaseButton.setTitle("🔽", for: .normal)
+        self.rectangleHeightIncreaseButton.setTitle("🔼", for: .normal)
+        self.rectangleHeightDecreaseButton.setTitle("🔽", for: .normal)
+
+        self.rectangleWidthLabel.frame = CGRect(x: self.frame.width*0.1,
+                                                y: self.rectanglePointYLabel.frame.maxY + 40,
+                                                width: 30,
+                                                height: self.frame.height*0.06)
+        self.rectangleWidthValueField.frame = CGRect(x: self.rectangleWidthLabel.frame.minX+30,
+                                                     y: self.rectangleWidthLabel.frame.minY,
+                                                     width: self.frame.width*0.4,
+                                                     height: self.frame.height*0.06)
+        self.rectangleWidthIncreaseButton.frame = CGRect(x: self.rectangleWidthValueField.frame.maxX,
+                                                         y: self.rectangleWidthLabel.frame.minY,
+                                                         width: self.frame.height*0.06,
+                                                         height: self.frame.height*0.03)
+        self.rectangleWidthDecreaseButton.frame = CGRect(x: self.rectangleWidthValueField.frame.maxX,
+                                                         y: self.rectangleWidthIncreaseButton.frame.maxY,
+                                                         width: self.frame.height*0.06,
+                                                         height: self.frame.height*0.03)
+        self.rectangleHeightLabel.frame = CGRect(x: self.frame.width*0.1,
+                                                 y: self.rectangleWidthLabel.frame.maxY + 10,
+                                                 width: 30,
+                                                 height: self.frame.height*0.06)
+        self.rectangleHeightValueField.frame = CGRect(x: self.rectangleHeightLabel.frame.minX+30,
+                                                      y: self.rectangleHeightLabel.frame.minY,
+                                                      width: self.frame.width*0.4,
+                                                      height: self.frame.height*0.06)
+        self.rectangleHeightIncreaseButton.frame = CGRect(x: self.rectangleHeightValueField.frame.maxX,
+                                                          y: self.rectangleHeightLabel.frame.minY,
+                                                          width: self.frame.height*0.06,
+                                                          height: self.frame.height*0.03)
+        self.rectangleHeightDecreaseButton.frame = CGRect(x: self.rectangleHeightValueField.frame.maxX,
+                                                          y: self.rectangleHeightIncreaseButton.frame.maxY,
+                                                          width: self.frame.height*0.06,
+                                                          height: self.frame.height*0.03)
+        
+        self.addSubview(self.rectangleWidthLabel)
+        self.addSubview(self.rectangleWidthValueField)
+        self.addSubview(self.rectangleWidthIncreaseButton)
+        self.addSubview(self.rectangleWidthDecreaseButton)
+        self.addSubview(self.rectangleHeightLabel)
+        self.addSubview(self.rectangleHeightValueField)
+        self.addSubview(self.rectangleHeightIncreaseButton)
+        self.addSubview(self.rectangleHeightDecreaseButton)
+    }
+    
+    func setRectangleSizeChangeAction(){
+        self.rectangleWidthIncreaseButton.addAction(UIAction(title: ""){_ in
+            guard let delegate = self.delegate else { return }
+            delegate.updatingSelectedRectangleWidthRequested(increase: true)
+        }, for: .touchDown)
+        self.rectangleWidthDecreaseButton.addAction(UIAction(title: ""){_ in
+            guard let delegate = self.delegate else { return }
+            delegate.updatingSelectedRectangleWidthRequested(increase: false)
+        }, for: .touchDown)
+        self.rectangleHeightIncreaseButton.addAction(UIAction(title: ""){_ in
+            guard let delegate = self.delegate else { return }
+            delegate.updatingSelectedRectangleHeightRequested(increase: true)
+        }, for: .touchDown)
+        self.rectangleHeightDecreaseButton.addAction(UIAction(title: ""){_ in
+            guard let delegate = self.delegate else { return }
+            delegate.updatingSelectedRectangleHeightRequested(increase: false)
+        }, for: .touchDown)
+        
+        
+    }
+    
     func updateSelectedRectangleViewColorInfo(newColor: UIColor, newHexString: String){
         self.rectangleColorValueField.backgroundColor = newColor
         self.rectangleColorValueField.setTitle(newHexString, for: .normal)
@@ -184,5 +271,10 @@ class StylerView: UIView{
     func updateSelectedRectangleViewPointInfo(point: CGPoint){
         self.rectanglePointXValueField.text = "\(Int(point.x))"
         self.rectanglePointYValueField.text = "\(Int(point.y))"
+    }
+    
+    func updateSelectedRectangleViewSizeInfo(size: CGSize){
+        self.rectangleWidthValueField.text = "\(Int(size.width))"
+        self.rectangleHeightValueField.text = "\(Int(size.height))"
     }
 }

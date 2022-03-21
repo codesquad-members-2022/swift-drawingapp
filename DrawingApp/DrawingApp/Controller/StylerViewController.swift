@@ -29,6 +29,7 @@ class StylerViewController: UIViewController{
             self.updateImageRectangleInfo(rectangle: rectangle)
         }
         stylerView.updateRectanglePointInfo(rectangle: rectangle)
+        stylerView.updateRectangleSizeInfo(rectangle: rectangle)
     }
     
     func clearSelectedRectangleInfo(){
@@ -61,6 +62,11 @@ class StylerViewController: UIViewController{
         guard let stylerView = self.view as? StylerView else { return }
         stylerView.updateSelectedRectangleViewPointInfo(point: point)
     }
+    
+    func updateSelectedRectangleViewSizeInfo(size: CGSize){
+        guard let stylerView = self.view as? StylerView else { return }
+        stylerView.updateSelectedRectangleViewSizeInfo(size: size)
+    }
 }
 
 extension StylerViewController: StylerViewDelegate{
@@ -83,5 +89,15 @@ extension StylerViewController: StylerViewDelegate{
     func updatingSelectedRectanglePointYRequested(increase: Bool){
         guard let delegate = self.delegate else { return }
         delegate.updatingSelectedRectanglePointYRequested(increase: increase)
+    }
+    
+    func updatingSelectedRectangleWidthRequested(increase: Bool) {
+        guard let delegate = self.delegate else { return }
+        delegate.updatingSelectedRectangleWidthRequested(increase: increase)
+    }
+    
+    func updatingSelectedRectangleHeightRequested(increase: Bool) {
+        guard let delegate = self.delegate else { return }
+        delegate.updatingSelectedRectangleHeightRequested(increase: increase)
     }
 }
