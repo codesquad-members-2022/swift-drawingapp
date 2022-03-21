@@ -21,7 +21,7 @@ class SideInspectorView: UIView {
         button.layer.cornerRadius = 12
         button.layer.borderWidth = 3
         button.layer.borderColor = UIColor.systemGray3.cgColor
-        button.addTarget(self, action: #selector(colorButtonDidTapped(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(colorButtonDidTapped), for: .touchUpInside)
         return button
     }()
     
@@ -66,17 +66,15 @@ class SideInspectorView: UIView {
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .systemGray4
         button.layer.cornerRadius = 12
-        button.addTarget(self, action: #selector(createRectangleButtonTapped(_:)), for: .touchUpInside)
+        button.addTarget(self, action: #selector(createRectangleButtonTapped), for: .touchUpInside)
         return button
     }()
     
-    @objc func colorButtonDidTapped(_ sender: UIButton) {
-//        delegate?.sideInspectorViewDidTappedColorButton(sender)
-        
+    @objc func colorButtonDidTapped() {
         delegate?.sideInspectorViewDidTappedColorButton() // 입력 (View -> VC)
     }
     
-    @objc func createRectangleButtonTapped(_ sender: UIButton) {
+    @objc func createRectangleButtonTapped() {
         delegate?.sideInspectorViewDidTappedRectangleButton()
     }
     
