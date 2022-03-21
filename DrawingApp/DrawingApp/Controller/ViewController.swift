@@ -125,8 +125,10 @@ class ViewController: UIViewController{
     
     @objc func updateSelectedRectangleViewPoint(_ notification: Notification){
         guard let canvasView = self.canvasView else { return }
+        guard let stylerViewController = self.stylerViewController else { return }
         guard let selectedRectangle = notification.userInfo?[Plane.UserInfoKey.rectanglePointUpdated] as? RectangleApplicable else { return }
         canvasView.updateSelectedRectanglePoint(point:CGPoint(x: selectedRectangle.point.x, y: selectedRectangle.point.y))
+        stylerViewController.updateSelectedRectangleViewPointInfo(point:CGPoint(x: selectedRectangle.point.x, y: selectedRectangle.point.y))
     }
 
 }
@@ -230,5 +232,13 @@ extension ViewController: StylerViewControllerDelegate{
     
     func updatingSelectedRectangleAlphaRequested(opacity: Int) {
         self.plane.updateRectangleAlpha(opacity: opacity)
+    }
+    
+    func updatingSelectedRectanglePointXRequested(increase: Bool) {
+        self.plane.updateRectanglePointX(increase: increase)
+    }
+    
+    func updatingSelectedRectanglePointYRequested(increase: Bool) {
+        self.plane.updateRectanglePointY(increase: increase)
     }
 }

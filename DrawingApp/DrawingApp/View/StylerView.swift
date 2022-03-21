@@ -25,6 +25,7 @@ class StylerView: UIView{
         setRectangleAlphaInformationView()
         setAlphaChangeAction()
         setRectanglePointInformationView()
+        setRectanglePointChangeAction()
     }
     
     required init?(coder: NSCoder) {
@@ -156,8 +157,32 @@ class StylerView: UIView{
         self.addSubview(self.rectanglePointYDecreaseButton)
     }
     
+    func setRectanglePointChangeAction(){
+        self.rectanglePointXIncreaseButton.addAction(UIAction(title: ""){_ in
+            guard let delegate = self.delegate else { return }
+            delegate.updatingSelectedRectanglePointXRequested(increase: true)
+        }, for: .touchDown)
+        self.rectanglePointXDecreaseButton.addAction(UIAction(title: ""){_ in
+            guard let delegate = self.delegate else { return }
+            delegate.updatingSelectedRectanglePointXRequested(increase: false)
+        }, for: .touchDown)
+        self.rectanglePointYIncreaseButton.addAction(UIAction(title: ""){_ in
+            guard let delegate = self.delegate else { return }
+            delegate.updatingSelectedRectanglePointYRequested(increase: false)
+        }, for: .touchDown)
+        self.rectanglePointYDecreaseButton.addAction(UIAction(title: ""){_ in
+            guard let delegate = self.delegate else { return }
+            delegate.updatingSelectedRectanglePointYRequested(increase: true)
+        }, for: .touchDown)
+    }
+    
     func updateSelectedRectangleViewColorInfo(newColor: UIColor, newHexString: String){
         self.rectangleColorValueField.backgroundColor = newColor
         self.rectangleColorValueField.setTitle(newHexString, for: .normal)
+    }
+    
+    func updateSelectedRectangleViewPointInfo(point: CGPoint){
+        self.rectanglePointXValueField.text = "\(Int(point.x))"
+        self.rectanglePointYValueField.text = "\(Int(point.y))"
     }
 }

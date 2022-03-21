@@ -86,4 +86,20 @@ class Plane:CustomStringConvertible{
         selectedRectangle.updatePoint(x: x, y: y)
         NotificationCenter.default.post(name: NotificationName.rectanglePointUpdated, object: self, userInfo: [UserInfoKey.rectanglePointUpdated:selectedRectangle])
     }
+    
+    func updateRectanglePointX(increase: Bool){
+        guard let selectedRectangleIndex = self.selectedRectangleIndex else { return }
+        let selectedRectangle = self.rectangles[selectedRectangleIndex]
+        let value: Double = increase == true ? 5.0 : -5.0
+        selectedRectangle.updatePoint(x: selectedRectangle.point.x+value, y: selectedRectangle.point.y)
+        NotificationCenter.default.post(name: NotificationName.rectanglePointUpdated, object: self, userInfo: [UserInfoKey.rectanglePointUpdated:selectedRectangle])
+    }
+    
+    func updateRectanglePointY(increase: Bool){
+        guard let selectedRectangleIndex = self.selectedRectangleIndex else { return }
+        let selectedRectangle = self.rectangles[selectedRectangleIndex]
+        let value: Double = increase == true ? 5.0 : -5.0
+        selectedRectangle.updatePoint(x: selectedRectangle.point.x, y: selectedRectangle.point.y+value)
+        NotificationCenter.default.post(name: NotificationName.rectanglePointUpdated, object: self, userInfo: [UserInfoKey.rectanglePointUpdated:selectedRectangle])
+    }
 }
