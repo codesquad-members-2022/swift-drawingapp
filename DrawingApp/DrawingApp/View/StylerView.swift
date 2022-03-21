@@ -67,8 +67,8 @@ class StylerView: UIView{
     }
     
     func updateRectangleSizeInfo(rectangle: RectangleApplicable){
-        self.rectangleWidthValueField.text = "\(rectangle.size.width)"
-        self.rectangleHeightValueField.text = "\(rectangle.size.height)"
+        self.rectangleWidthValueField.text = "\(Int(rectangle.size.width))"
+        self.rectangleHeightValueField.text = "\(Int(rectangle.size.height))"
     }
     
     private func setRectangleColorInformationView(){
