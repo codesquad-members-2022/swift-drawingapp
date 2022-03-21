@@ -12,6 +12,7 @@ struct Plane {
     var delegate: PlaneDelegate?
     
     private(set) var rectangles = [Rectangle]()
+    private var selectedRectangle: Rectangle?
     var rectangleCount: Int {
         return rectangles.count
     }
@@ -59,5 +60,19 @@ struct Plane {
                 delegate?.planeDidChangedRectangle(rect)
             }
         }
+    }
+    
+    /// View에서 터치된 좌표를 VC를 통해 얻어옴. (입력 처리)
+    /// 선택된 좌표에 직사각형이 있는지 확인하기 (모델이 직접 함)
+    mutating func didTouched(on point: (x: Double, y: Double)) {
+        guard let rectangle = findRectangle(on: point) else {
+            selectedRectangle = nil
+            return
+        }
+        
+        selectedRectangle = rectangle
+        
+        // selectedRectangle이 있으면, 이걸 통해 이제 출력을 해줘야해. (Plane -> VC -> View)
+        
     }
 }
