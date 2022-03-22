@@ -24,7 +24,7 @@
 
 ![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/95578975/158830805-a03375ac-5805-4db5-81a1-fe07c396acfb.gif)
 
-## 🤔 고민과 해결
+## 🤔 고민과 해결 (1)
 
 ### 1️⃣ Alpha에 opacity를 추가하는 과정에서 오차 발생
 
@@ -56,6 +56,18 @@ backgroundColorValueView의 width, height를 설정해주지 않아서 생긴 �
 - ViewController를 SideInspectorView의 delegate로 지정했고, 색상 버튼을 누르면 색상 값을 랜덤으로 생성한 후에 Plane에 `backgroundColorDidChanged(color:rectangle:)` 를 통해 현재 직사각형과 변경된 색상을 전달하였습니다.
 - ViewController를 SideInspectorView의 delegate로 지정했고, 변경된 슬라이더 알파 값을 Plane에 `alphaValueDidChanged(alpha:rectangle:)` 메소드를 통해 현재 직사각형과 변경된 투명도 값을 전달하였습니다.
 - Plane에서는 속성이 변경된 직사각형을 찾아서 값을 변경한 후에 ViewController에 `planeDidChangedRectangle(_:)` 메소드로 변경된 직사각형을 알렸고, ViewController는 CanvasView에게 해당 속성이 변경된 것을 뷰에 알리도록 하였습니다. (`changeRectangle(_:)`)
+
+## 피드백 반영 사항
+
+- 소숫점 값을 제한하기 위해 round() 함수 사용
+- 합쳐진 입력과 출력의 흐름 분리
+- 함수 이름 변경 (`planeDidAddedRectangle` -> `planeDidAddRectangle` )
+- isRectangleExist 함수가 plane 내부 속성이 아닌 rectangle 내부 속성과 관련 있도록 개선
+- 색상 변경 시 String 타입을 전달하여 변환하던 것을 구체 타입을 활용할 수 있도록 Color 타입으로 변환
+- Plane에서 터치된 좌표에 직사각형이 있는지 찾을 때 for문 대신 `firstIndex(of:)`를 사용하는 방식으로 변경
+- 뷰가 모델을 갖지 않도록 변경
+- 사각형 뷰를 생성하고 추가하는 역할은 뷰컨트롤러가 하도록 변경
+- RectangleView.swift, CanvasView.swift 파일 제거하고 typealias를 활용
 
 ## 💡 학습 키워드
 
