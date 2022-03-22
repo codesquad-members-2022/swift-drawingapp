@@ -112,20 +112,20 @@
 		D0A18DA927CF489B003ADC8A /* DrawingApp */ = {
 			isa = PBXGroup;
 			children = (
+				D0FEF18E27D9BCA600A90C4B /* SideInspectorViewDelegate.swift */,
+				D057037327DE018500733404 /* PlaneDelegate.swift */,
+				D0E4EA8A27D7C17600906F76 /* UIColor+Extension.swift */,
+				D0A18DAA27CF489B003ADC8A /* AppDelegate.swift */,
+				D0A18DAC27CF489B003ADC8A /* SceneDelegate.swift */,
+				D0A18DB327CF489C003ADC8A /* Assets.xcassets */,
+				D0A18DB527CF489C003ADC8A /* LaunchScreen.storyboard */,
 				D0A18DC627CF507C003ADC8A /* View */,
 				D0A18DC527CF5077003ADC8A /* Model */,
 				D0A18DC427CF5071003ADC8A /* Controller */,
-				D0A18DAA27CF489B003ADC8A /* AppDelegate.swift */,
-				D0A18DAC27CF489B003ADC8A /* SceneDelegate.swift */,
 				D0A18DB027CF489B003ADC8A /* Main.storyboard */,
-				D0A18DB327CF489C003ADC8A /* Assets.xcassets */,
-				D0A18DB527CF489C003ADC8A /* LaunchScreen.storyboard */,
 				D0A18DB827CF489C003ADC8A /* Info.plist */,
 				D0872B8927D1E7EB00085C86 /* RectangleFactory.swift */,
 				D0872B8B27D1F15100085C86 /* RectangleError.swift */,
-				D0E4EA8A27D7C17600906F76 /* UIColor+Extension.swift */,
-				D0FEF18E27D9BCA600A90C4B /* SideInspectorViewDelegate.swift */,
-				D057037327DE018500733404 /* PlaneDelegate.swift */,
 			);
 			path = DrawingApp;
 			sourceTree = "<group>";
