@@ -36,7 +36,6 @@ class ViewController: UIViewController {
         setTapGesture()
     }
     
-    
     private func setLayout() {
         view.addSubview(canvasView)
         view.addSubview(sideInspectorView)
@@ -56,7 +55,10 @@ class ViewController: UIViewController {
     
     // 받은 직사각형을 CanvasView에 그려주기 (VC -> View)
     private func drawRectangle(rectangle: Rectangle) {
-        let rectangleView = RectangleView(frame: CGRect(x: rectangle.point.x, y: rectangle.point.y, width: rectangle.size.width, height: rectangle.size.height))
+        let rectangleView = RectangleView(frame: CGRect(x: rectangle.point.x,
+                                                        y: rectangle.point.y,
+                                                        width: rectangle.size.width,
+                                                        height: rectangle.size.height))
         rectangleView.backgroundColor = UIColor(hex: rectangle.backgroundColor.getHexValue())
         rectangleView.alpha = rectangle.alpha.opacity
         canvasView.addSubview(rectangleView)
@@ -73,16 +75,6 @@ class ViewController: UIViewController {
         for (_, value) in rectangles {
             value.layer.borderWidth = 0
         }
-    }
-    
-    /// VC에서 전달된 색상으로 뷰를 변경시키기 (출력)
-    private func changeColor(of rectangle: Rectangle, color: Color) {
-        rectangles[rectangle]?.backgroundColor = UIColor(hex: color.getHexValue())
-    }
-
-    /// VC에서 전달받은 alpha 값으로 뷰를 변경시키기 (출력)
-    private func changeAlpha(of rectangle: Rectangle, alpha: Alpha) {
-        rectangles[rectangle]?.alpha = rectangle.alpha.opacity
     }
     
     private func setTapGesture() {
@@ -152,13 +144,17 @@ extension ViewController: PlaneDelegate {
     // plane이 색상 변경한 것을 CanvasView에 알리기
     func planeDidChangedColor(of rectangle: Rectangle) {
         sideInspectorView.changeColorString(rectangle.backgroundColor)
-        changeColor(of: rectangle, color: rectangle.backgroundColor)
+
+        // VC에 전달된 색상으로 뷰를 변경시키기 (출력)
+        rectangles[rectangle]?.backgroundColor = UIColor(hex: rectangle.backgroundColor.getHexValue())
     }
     
     // Plane에서 변경된 투명도를 SideInspector과 CanvasView에 알리기 (VC -> View)
     func planeDidChangedAlpha(of rectangle: Rectangle) {
         sideInspectorView.changeAlpha(rectangle.alpha)
-        changeAlpha(of: rectangle, alpha: rectangle.alpha)
+        
+        // VC에 전달된 alpha 값으로 뷰를 변경시키기 (출력)
+        rectangles[rectangle]?.alpha = rectangle.alpha.opacity
     }
 }
 
