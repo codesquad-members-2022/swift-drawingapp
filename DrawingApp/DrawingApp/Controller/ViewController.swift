@@ -8,8 +8,10 @@
 import UIKit
 
 class ViewController: UIViewController {
-//    typealias RectangleView = UIView
-//    private var rectangles = [Rectangle: RectangleView]()
+    typealias RectangleView = UIView
+    typealias CanvasView = UIView
+    
+    private var rectangles = [Rectangle: RectangleView]()
     private var selectedRectangle: Rectangle?
     private let canvasView: CanvasView = {
         let view = CanvasView()
@@ -30,8 +32,8 @@ class ViewController: UIViewController {
         
         plane.delegate = self
         sideInspectorView.delegate = self
-        canvasView.delegate = self
         setLayout()
+        setTapGesture()
     }
     
     
@@ -50,6 +52,56 @@ class ViewController: UIViewController {
             canvasView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 0),
             canvasView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -200)
         ])
+    }
+    
+    // 받은 직사각형을 CanvasView에 그려주기 (VC -> View)
+    private func drawRectangle(rectangle: Rectangle) {
+        let rectangleView = RectangleView(frame: CGRect(x: rectangle.point.x, y: rectangle.point.y, width: rectangle.size.width, height: rectangle.size.height))
+        rectangleView.backgroundColor = UIColor(hex: rectangle.backgroundColor.getHexValue())
+        rectangleView.alpha = rectangle.alpha.opacity
+        canvasView.addSubview(rectangleView)
+        rectangles[rectangle] = rectangleView
+    }
+    
+    private func select(rectangle: Rectangle) {
+        for (key, value) in rectangles {
+            if key == rectangle {
+                unselectRectangle()
+                value.layer.borderWidth = 3
+                value.layer.borderColor = UIColor.blue.cgColor
+                return
+            }
+        }
+    }
+
+    private func unselectRectangle() {
+        for (_, value) in rectangles {
+            value.layer.borderWidth = 0
+        }
+    }
+    
+    /// VC에서 전달된 색상으로 뷰를 변경시키기 (출력)
+    private func changeColor(of rectangle: Rectangle, color: Color) {
+        for (key, value) in rectangles {
+            if key == rectangle {
+                value.backgroundColor = UIColor(hex: color.getHexValue())
+            }
+        }
+    }
+
+    /// VC에서 전달받은 alpha 값으로 뷰를 변경시키기 (출력)
+    private func changeAlpha(of rectangle: Rectangle, alpha: Alpha) {
+        for (key, value) in rectangles {
+            if key == rectangle {
+                value.alpha = rectangle.alpha.opacity
+            }
+        }
+    }
+    
+    private func setTapGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: nil)
+        tapGesture.delegate = self
+        canvasView.addGestureRecognizer(tapGesture)
     }
 }
 
@@ -81,7 +133,7 @@ extension ViewController: SideInspectorViewDelegate {
 extension ViewController: PlaneDelegate {
     func planeDidAddRectangle(_ rectangle: Rectangle) {
         // 모델에서 생성한 사각형을 모델에서 VC로 전달하고, 전달 받은 것을 canvasView에 그려주기
-        canvasView.drawRectangle(rectangle: rectangle)
+        drawRectangle(rectangle: rectangle)
         
         // 버튼에 색상 표시
         sideInspectorView.colorButton.setTitle(rectangle.backgroundColor.getHexValue(), for: .normal)
@@ -101,32 +153,33 @@ extension ViewController: PlaneDelegate {
         let sliderValue = Int(rectangle.alpha.opacity * 10)
         sideInspectorView.alphaValueLabel.text = "\(sliderValue)"
         
-        canvasView.select(rectangle: rectangle)
+        select(rectangle: rectangle)
     }
     
     /// 출력: Plane에서 빈 공간이 터치된 것을 View에게 전달 (VC -> View)
     func planeDidTouchedEmptySpace() {
-        canvasView.unselectRectangle()
+        unselectRectangle()
     }
     
     // plane이 색상 변경한 것을 SideInspectorView에 알리기 VC -> SideInspectorView (출력: 색상 변경 뷰에게 알림)
     // plane이 색상 변경한 것을 CanvasView에 알리기
     func planeDidChangedColor(of rectangle: Rectangle) {
         sideInspectorView.changeColorString(rectangle.backgroundColor)
-        canvasView.changeColor(of: rectangle, color: rectangle.backgroundColor)
+        changeColor(of: rectangle, color: rectangle.backgroundColor)
     }
     
     // Plane에서 변경된 투명도를 SideInspector과 CanvasView에 알리기 (VC -> View)
     func planeDidChangedAlpha(of rectangle: Rectangle) {
         sideInspectorView.changeAlpha(rectangle.alpha)
-        canvasView.changeAlpha(of: rectangle, rectangle.alpha)
+        changeAlpha(of: rectangle, alpha: rectangle.alpha)
     }
 }
 
 
-extension ViewController: CanvasViewDelegate {
-    // CanvasView로부터 터치된 좌표를 VC에 받아오고, Plane에게 단순하게 터치된 좌표를 알리기. (CanvasView -> VC -> Model)
-    func canvasViewDidTouched(on point: (x: Double, y: Double)) {
-        plane.didTouched(on: point)
+extension ViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        let touchedView = gestureRecognizer.location(in: gestureRecognizer.view) // 터치되는 좌표
+        plane.didTouched(on: (touchedView.x, touchedView.y))
+        return true
     }
 }
