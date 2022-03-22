@@ -64,14 +64,9 @@ class ViewController: UIViewController {
     }
     
     private func select(rectangle: Rectangle) {
-        for (key, value) in rectangles {
-            if key == rectangle {
-                unselectRectangle()
-                value.layer.borderWidth = 3
-                value.layer.borderColor = UIColor.blue.cgColor
-                return
-            }
-        }
+        unselectRectangle()
+        rectangles[rectangle]?.layer.borderWidth = 3
+        rectangles[rectangle]?.layer.borderColor = UIColor.blue.cgColor
     }
 
     private func unselectRectangle() {
@@ -82,20 +77,12 @@ class ViewController: UIViewController {
     
     /// VC에서 전달된 색상으로 뷰를 변경시키기 (출력)
     private func changeColor(of rectangle: Rectangle, color: Color) {
-        for (key, value) in rectangles {
-            if key == rectangle {
-                value.backgroundColor = UIColor(hex: color.getHexValue())
-            }
-        }
+        rectangles[rectangle]?.backgroundColor = UIColor(hex: color.getHexValue())
     }
 
     /// VC에서 전달받은 alpha 값으로 뷰를 변경시키기 (출력)
     private func changeAlpha(of rectangle: Rectangle, alpha: Alpha) {
-        for (key, value) in rectangles {
-            if key == rectangle {
-                value.alpha = rectangle.alpha.opacity
-            }
-        }
+        rectangles[rectangle]?.alpha = rectangle.alpha.opacity
     }
     
     private func setTapGesture() {
