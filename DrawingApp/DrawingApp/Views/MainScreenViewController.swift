@@ -167,10 +167,28 @@ final class MainScreenViewController: UIViewController {
             
             return
         }
-        
-        let translation = sender.translation(in: self.view)
-        rect.center = CGPoint(x: sender.view!.center.x + translation.x, y: sender.view!.center.y + translation.y)
-        sender.setTranslation(.zero, in: self.view)
+
+        let translation = sender.translation(in: view)
+        var positionMoved = CGPoint(x: rect.frame.minX + translation.x, y: rect.frame.minY + translation.y)
+
+        if positionMoved.x < 0 {
+            positionMoved.x = 0
+        }
+
+        if view.frame.width < (positionMoved.x + rect.frame.width) {
+            positionMoved.x = view.frame.width - rect.frame.width
+        }
+
+        if positionMoved.y < 0 {
+            positionMoved.y = 0
+        }
+
+        if view.frame.height < (positionMoved.y + rect.frame.height) {
+            positionMoved.y = view.frame.height - rect.frame.height
+        }
+
+        rect.frame.origin = positionMoved
+        sender.setTranslation(.zero, in: view)
     }
 }
 
@@ -186,7 +204,7 @@ extension MainScreenViewController: UIGestureRecognizerDelegate {
         }
         
         // 처음 rectangle을 선택하면 두 손가락으로 선택하는 제스쳐, 팬 제스쳐를 추가하여 임시 뷰 생성 및 이동이 가능하도록 합니다.
-        if touches.count == 1 {
+        if touches.count == 1 && rect.isSelected == false {
             rectangleDelegate?.didSelect(at: rect.index)
             rect.addGestureRecognizer(doubleTouchesCopyGesture)
             
@@ -220,9 +238,12 @@ extension MainScreenViewController: UIGestureRecognizerDelegate {
         super.touchesEnded(touches, with: event)
         
         guard let rect = touches.first?.view as? Rectangle, let copiedView = rect.copiedView else { return }
-        
+
+        let rectX = rect.frame.maxX
+        let rectY = rect.frame.maxY
+
         // 만약 임시 뷰가 있음에도 이동이 없었던 경우라면 rectangle이 임시뷰 역할을 하지 않도록 하고, 복사된 뷰는 제거합니다.
-        if rect.frame.origin == copiedView.frame.origin {
+        if (rectX...rectX+4) ~= copiedView.frame.maxX && (rectY...rectY+4) ~= copiedView.frame.maxY {
             copiedView.removeFromSuperview()
             rect.setAlpha((rectangleDelegate?.getRectangleModel(at: rect.index)?.alpha ?? 1)/10)
             rect.setCopiedView(rect: nil)
