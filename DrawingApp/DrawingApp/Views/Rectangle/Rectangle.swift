@@ -21,6 +21,8 @@ protocol EnableSetAlphaRectangle {
 class Rectangle: UIView, IndexedRectangle {
     
     var index: Int = 0
+    // copiedView 변수는 Rectangle이 바로 참조할 수 있도록 하기 위함입니다.
+    private(set) var copiedView: Rectangle?
     
     var isSelected = false {
         didSet {
@@ -35,5 +37,13 @@ class Rectangle: UIView, IndexedRectangle {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+    }
+    
+    func setCopiedView(rect: Rectangle?) {
+        copiedView = rect
+    }
+    
+    func setAlpha(_ alpha: Double) {
+        backgroundColor = backgroundColor?.withAlphaComponent(alpha)
     }
 }

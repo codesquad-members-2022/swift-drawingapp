@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1B1D7E0627E3510400683FA9 /* FactoryMainScreenRectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B1D7E0527E3510400683FA9 /* FactoryMainScreenRectangle.swift */; };
 		1B4A55AA27CD99EC009CDC7B /* RandomizeValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4A55A927CD99EC009CDC7B /* RandomizeValue.swift */; };
 		1B4A55AC27CD9F96009CDC7B /* RectanglePropertyCreator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B4A55AB27CD9F96009CDC7B /* RectanglePropertyCreator.swift */; };
 		1B54997127D09BE30086EC5F /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1B54997027D09BE30086EC5F /* Plane.swift */; };
@@ -61,6 +62,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1B1D7E0527E3510400683FA9 /* FactoryMainScreenRectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FactoryMainScreenRectangle.swift; sourceTree = "<group>"; };
 		1B4A55A927CD99EC009CDC7B /* RandomizeValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomizeValue.swift; sourceTree = "<group>"; };
 		1B4A55AB27CD9F96009CDC7B /* RectanglePropertyCreator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectanglePropertyCreator.swift; sourceTree = "<group>"; };
 		1B54997027D09BE30086EC5F /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
@@ -185,6 +187,7 @@
 				1B54997A27D0B4C00086EC5F /* Rectangle.swift */,
 				1BD3EA2827E1DC4600ADB359 /* ColoredRectangle.swift */,
 				1BD3EA2A27E1DC4F00ADB359 /* ImageRectangle.swift */,
+				1B1D7E0527E3510400683FA9 /* FactoryMainScreenRectangle.swift */,
 			);
 			path = Rectangle;
 			sourceTree = "<group>";
@@ -420,6 +423,7 @@
 				1BD7287427CCBC7A008DED9E /* SceneDelegate.swift in Sources */,
 				1B54997427D0A21F0086EC5F /* UIView+Extension.swift in Sources */,
 				1B4A55AA27CD99EC009CDC7B /* RandomizeValue.swift in Sources */,
+				1B1D7E0627E3510400683FA9 /* FactoryMainScreenRectangle.swift in Sources */,
 				1BD3EA2927E1DC4600ADB359 /* ColoredRectangle.swift in Sources */,
 				1BD728B027CD0E88008DED9E /* SystemLog.swift in Sources */,
 				1BD728AB27CCFB8D008DED9E /* FactoryRectangleProperty.swift in Sources */,
@@ -611,6 +615,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -639,6 +644,7 @@
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UIUserInterfaceStyle = Automatic;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
