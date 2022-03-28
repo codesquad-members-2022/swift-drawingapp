@@ -58,7 +58,7 @@ class Plane {
         NotificationCenter.default.post(name: Plane.NotificationNames.didAddPhoto, object: self, userInfo: [Plane.UserInfoKeys.addedPhoto: newPhoto])
     }
     
-    public func changeBackgroundColorOfSpecifiedRectangle(to newColor: BackgroundColor) -> Result<Rectangularable, PlaneError> {
+    public func changeBackgroundColor(to newColor: BackgroundColor) -> Result<Rectangularable, PlaneError> {
         guard let specifiedRectangle = self.specifiedRectangle else {
             return .failure(.noSpecifiedRectangleToChangeError)
         }
@@ -71,7 +71,7 @@ class Plane {
         return .success(specifiedRectangle)
     }
 
-    public func changeAlphaValueOfSpecifiedRectangle(to newAlpha: Alpha) -> Result<Rectangularable, PlaneError> {
+    public func changeAlphaValue(to newAlpha: Alpha) -> Result<Rectangularable, PlaneError> {
         guard let specifiedRectangle = self.specifiedRectangle else {
             return .failure(.noSpecifiedRectangleToChangeError)
         }
@@ -80,7 +80,7 @@ class Plane {
         return .success(specifiedRectangle)
     }
     
-    public func changePointOfSpecifiedRectangle(to newPoint: Point) -> Result<Rectangularable, PlaneError> {
+    public func changePoint(to newPoint: Point) -> Result<Rectangularable, PlaneError> {
         guard let specifiedRectangle = self.specifiedRectangle else {
             return .failure(.noSpecifiedRectangleToChangeError)
         }
@@ -90,7 +90,7 @@ class Plane {
         return .success(specifiedRectangle)
     }
     
-    public func changeSizeOfSpecifiedRectangle(to newSize: Size) -> Result<Rectangularable, PlaneError> {
+    public func changeSize(to newSize: Size) -> Result<Rectangularable, PlaneError> {
         guard let specifiedRectangle = self.specifiedRectangle else {
             return .failure(.noSpecifiedRectangleToChangeError)
         }

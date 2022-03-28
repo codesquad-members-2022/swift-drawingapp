@@ -273,7 +273,7 @@ extension ViewController: DrawableAreaViewDelegate {
         guard let dummyView = drawableAreaView.movingTemporaryView else {return}
         let newPoint = dummyView.frame.origin
         let convertedNewPoint = Point(x: newPoint.x, y: newPoint.y)
-        plane.changePointOfSpecifiedRectangle(to: convertedNewPoint)
+        plane.changePoint(to: convertedNewPoint)
     }
 }
 
@@ -290,7 +290,7 @@ extension ViewController {
     
     @IBAction func backgroundButtonTouched(_ sender: UIButton) {
         let newRandomColor = BackgroundColor.random()
-        plane.changeBackgroundColorOfSpecifiedRectangle(to: newRandomColor)
+        plane.changeBackgroundColor(to: newRandomColor)
     }
     
     @IBAction func alphaSliderValueChanged(_ sender: UISlider) {
@@ -298,7 +298,7 @@ extension ViewController {
         guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: newAlphaValue) else {return}
         let newAlpha = Alpha(opacityLevel: convertedOpacityLevel)
         
-        plane.changeAlphaValueOfSpecifiedRectangle(to: newAlpha)
+        plane.changeAlphaValue(to: newAlpha)
     }
     
     @IBAction func minusAlphaValueButtonTouched(_ sender: UIButton) {
@@ -307,7 +307,7 @@ extension ViewController {
         let newAlphaValue = previousAlphaValue - 0.1
         let normalizedNewAlphaValue = newAlphaValue.normalized()
         guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: normalizedNewAlphaValue) else {return}
-        plane.changeAlphaValueOfSpecifiedRectangle(to: Alpha(opacityLevel: convertedOpacityLevel))
+        plane.changeAlphaValue(to: Alpha(opacityLevel: convertedOpacityLevel))
     }
     
     @IBAction func plusAlphaValueButtonTouched(_ sender: UIButton) {
@@ -316,7 +316,7 @@ extension ViewController {
         let newAlphaValue = previousAlphaValue + 0.1
         let normalizedNewAlphaValue = newAlphaValue.normalized()
         guard let convertedOpacityLevel = Alpha.OpacityLevel(rawValue: normalizedNewAlphaValue) else {return}
-        plane.changeAlphaValueOfSpecifiedRectangle(to: Alpha(opacityLevel: convertedOpacityLevel))
+        plane.changeAlphaValue(to: Alpha(opacityLevel: convertedOpacityLevel))
     }
     
     @IBAction func plusXPointButtonTouched(_ sender: UIButton) {
@@ -325,7 +325,7 @@ extension ViewController {
         let newXPoint = previousPoint.x + 10
         let newPoint = Point(x: newXPoint, y: previousPoint.y)
         
-        plane.changePointOfSpecifiedRectangle(to: newPoint)
+        plane.changePoint(to: newPoint)
     }
     
     @IBAction func minusXPointButtonTouched(_ sender: UIButton) {
@@ -334,7 +334,7 @@ extension ViewController {
         let newXPoint = previousPoint.x > 11 ? previousPoint.x - 10 : 1
         let newPoint = Point(x: newXPoint, y: previousPoint.y)
         
-        plane.changePointOfSpecifiedRectangle(to: newPoint)
+        plane.changePoint(to: newPoint)
     }
     
     @IBAction func plusYPointButtonTouched(_ sender: UIButton) {
@@ -343,7 +343,7 @@ extension ViewController {
         let newYPoint = previousPoint.y + 10
         let newPoint = Point(x: previousPoint.x, y: newYPoint)
         
-        plane.changePointOfSpecifiedRectangle(to: newPoint)
+        plane.changePoint(to: newPoint)
     }
     
     @IBAction func minusYPointButtonTouched(_ sender: UIButton) {
@@ -352,7 +352,7 @@ extension ViewController {
         let newYPoint = previousPoint.y > 11 ? previousPoint.y - 10 : 1
         let newPoint = Point(x: previousPoint.x, y: newYPoint)
         
-        plane.changePointOfSpecifiedRectangle(to: newPoint)
+        plane.changePoint(to: newPoint)
     }
     
     @IBAction func plusWidthButtonTouched(_ sender: UIButton) {
@@ -361,7 +361,7 @@ extension ViewController {
         let previousHeight = selectedView.frame.height
         let newSize = Size(width: newWidth, height: previousHeight)
         
-        plane.changeSizeOfSpecifiedRectangle(to: newSize)
+        plane.changeSize(to: newSize)
     }
     
     @IBAction func minusWidthButtonTouched(_ sender: UIButton) {
@@ -370,7 +370,7 @@ extension ViewController {
         let previousHeight = selectedView.frame.height
         let newSize = Size(width: newWidth, height: previousHeight)
         
-        plane.changeSizeOfSpecifiedRectangle(to: newSize)
+        plane.changeSize(to: newSize)
     }
     
     @IBAction func plusHeightButtonTouched(_ sender: UIButton) {
@@ -379,7 +379,7 @@ extension ViewController {
         let newHeight = selectedView.frame.height + 10
         let newSize = Size(width: previousWidth, height: newHeight)
         
-        plane.changeSizeOfSpecifiedRectangle(to: newSize)
+        plane.changeSize(to: newSize)
     }
     
     @IBAction func minusHeightButtonTouched(_ sender: UIButton) {
@@ -388,7 +388,7 @@ extension ViewController {
         let newHeight = selectedView.frame.size.height > 11 ? selectedView.frame.size.height - 10 : 1
         let newSize = Size(width: previousWidth, height: newHeight)
         
-        plane.changeSizeOfSpecifiedRectangle(to: newSize)
+        plane.changeSize(to: newSize)
     }
     
     private func updateBackgroundColorButton(with rectangle: Rectangularable) {
