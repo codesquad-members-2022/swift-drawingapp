@@ -35,6 +35,10 @@
 		BC802D6B27DB4498002BD536 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC802D6A27DB4498002BD536 /* Label.swift */; };
 		BC9E8DDC27F1829600D65C41 /* PostIt.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8DDB27F1829600D65C41 /* PostIt.swift */; };
 		BC9E8DDD27F1829600D65C41 /* PostIt.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8DDB27F1829600D65C41 /* PostIt.swift */; };
+		BC9E8DE227F1956800D65C41 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8DE127F1956800D65C41 /* UIView.swift */; };
+		BC9E8DE527F1958A00D65C41 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8DE427F1958A00D65C41 /* UILabel.swift */; };
+		BC9E8DE827F195A900D65C41 /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8DE727F195A900D65C41 /* UITextView.swift */; };
+		BC9E8DEB27F195BC00D65C41 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8DEA27F195BC00D65C41 /* UIImageView.swift */; };
 		BCE3CB8027CC6D8E004F2AFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE3CB7F27CC6D8E004F2AFE /* AppDelegate.swift */; };
 		BCE3CB8227CC6D8E004F2AFE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE3CB8127CC6D8E004F2AFE /* SceneDelegate.swift */; };
 		BCE3CB8427CC6D8E004F2AFE /* CanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE3CB8327CC6D8E004F2AFE /* CanvasViewController.swift */; };
@@ -46,7 +50,6 @@
 		BCE3CBA327CC6D90004F2AFE /* DrawingAppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE3CBA227CC6D90004F2AFE /* DrawingAppUITestsLaunchTests.swift */; };
 		BCF9B77B27DEEAC8008B4879 /* LayerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF9B77A27DEEAC8008B4879 /* LayerFactory.swift */; };
 		BCF9B77C27DEF092008B4879 /* LayerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF9B77A27DEEAC8008B4879 /* LayerFactory.swift */; };
-		BCF9B77E27DEFAB9008B4879 /* ViewCopyExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF9B77D27DEFAB9008B4879 /* ViewCopyExtension.swift */; };
 		BCF9B78427DF2291008B4879 /* LayerTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF9B78327DF2291008B4879 /* LayerTableViewController.swift */; };
 		BCF9B78B27E1FF41008B4879 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF9B78A27E1FF40008B4879 /* Rectangle.swift */; };
 		BCF9B78D27E2002D008B4879 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCF9B78A27E1FF40008B4879 /* Rectangle.swift */; };
@@ -86,6 +89,10 @@
 		BC802D6027D72C10002BD536 /* ID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ID.swift; sourceTree = "<group>"; };
 		BC802D6A27DB4498002BD536 /* Label.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
 		BC9E8DDB27F1829600D65C41 /* PostIt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostIt.swift; sourceTree = "<group>"; };
+		BC9E8DE127F1956800D65C41 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
+		BC9E8DE427F1958A00D65C41 /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
+		BC9E8DE727F195A900D65C41 /* UITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextView.swift; sourceTree = "<group>"; };
+		BC9E8DEA27F195BC00D65C41 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
 		BCE3CB7C27CC6D8E004F2AFE /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCE3CB7F27CC6D8E004F2AFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCE3CB8127CC6D8E004F2AFE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -101,7 +108,6 @@
 		BCE3CBA227CC6D90004F2AFE /* DrawingAppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingAppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		BCE3CBAF27CC6E84004F2AFE /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		BCF9B77A27DEEAC8008B4879 /* LayerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerFactory.swift; sourceTree = "<group>"; };
-		BCF9B77D27DEFAB9008B4879 /* ViewCopyExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCopyExtension.swift; sourceTree = "<group>"; };
 		BCF9B78327DF2291008B4879 /* LayerTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LayerTableViewController.swift; sourceTree = "<group>"; };
 		BCF9B78A27E1FF40008B4879 /* Rectangle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -136,7 +142,6 @@
 			children = (
 				BC1806BC27CF3E4C0057679D /* Log.swift */,
 				BC1806D627D095E30057679D /* UIColorExtension.swift */,
-				BCF9B77D27DEFAB9008B4879 /* ViewCopyExtension.swift */,
 				BC1806D827D0D3D10057679D /* ConverterExtension.swift */,
 			);
 			path = Common;
@@ -218,6 +223,10 @@
 				BCE3CB8527CC6D8E004F2AFE /* Main.storyboard */,
 				BCE3CB8A27CC6D8F004F2AFE /* LaunchScreen.storyboard */,
 				BC1806D027D06DEF0057679D /* ViewFactory.swift */,
+				BC9E8DE127F1956800D65C41 /* UIView.swift */,
+				BC9E8DE427F1958A00D65C41 /* UILabel.swift */,
+				BC9E8DE727F195A900D65C41 /* UITextView.swift */,
+				BC9E8DEA27F195BC00D65C41 /* UIImageView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -410,12 +419,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC802D5D27D5FA29002BD536 /* Photo.swift in Sources */,
+				BC9E8DEB27F195BC00D65C41 /* UIImageView.swift in Sources */,
 				BC1806D927D0D3D10057679D /* ConverterExtension.swift in Sources */,
 				BCF9B78B27E1FF41008B4879 /* Rectangle.swift in Sources */,
 				BC1806D727D095E30057679D /* UIColorExtension.swift in Sources */,
 				BC1806BD27CF3E4C0057679D /* Log.swift in Sources */,
+				BC9E8DE527F1958A00D65C41 /* UILabel.swift in Sources */,
 				BCE3CB8427CC6D8E004F2AFE /* CanvasViewController.swift in Sources */,
-				BCF9B77E27DEFAB9008B4879 /* ViewCopyExtension.swift in Sources */,
 				BCF9B78427DF2291008B4879 /* LayerTableViewController.swift in Sources */,
 				BC802D5B27D5F96F002BD536 /* Layer.swift in Sources */,
 				BC1806C127CF41AE0057679D /* Size.swift in Sources */,
@@ -425,7 +435,9 @@
 				BCE3CB8027CC6D8E004F2AFE /* AppDelegate.swift in Sources */,
 				BC802D6127D72C10002BD536 /* ID.swift in Sources */,
 				BC7ECF9227CCB8CA00BC6AEC /* Color.swift in Sources */,
+				BC9E8DE227F1956800D65C41 /* UIView.swift in Sources */,
 				BCE3CB8227CC6D8E004F2AFE /* SceneDelegate.swift in Sources */,
+				BC9E8DE827F195A900D65C41 /* UITextView.swift in Sources */,
 				BC802D6B27DB4498002BD536 /* Label.swift in Sources */,
 				BC1806D127D06DEF0057679D /* ViewFactory.swift in Sources */,
 				BC1806C527CF49A90057679D /* Plane.swift in Sources */,
