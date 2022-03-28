@@ -27,6 +27,10 @@ class PhotoView: UIImageView, RectangleViewable {
         self.image = UIImage()
     }
     
+    func changeAlphaValue(to newAlphaValue: CGFloat) {
+        self.alpha = newAlphaValue
+    }
+    
     func hideBoundary() {
         self.layer.borderWidth = 0
     }
@@ -34,14 +38,6 @@ class PhotoView: UIImageView, RectangleViewable {
     func showBoundary() {
         self.layer.borderWidth = 3
         self.layer.borderColor = UIColor.black.cgColor
-    }
-    
-    func changeBackgroundColor(to newColor: UIColor) {
-        self.backgroundColor = newColor
-    }
-    
-    func changeAlphaValue(to newAlphaValue: CGFloat) {
-        self.alpha = newAlphaValue
     }
     
     func move(distance: CGPoint) {
@@ -53,7 +49,7 @@ class PhotoView: UIImageView, RectangleViewable {
         self.frame.origin.y = newPoint.y
     }
     
-    func copy() -> RectangleViewable {
+    func copy(with zone: NSZone? = nil) -> Any {
         let newImage = self.image?.copy() as? UIImage ?? UIImage()
         
         return PhotoView.init(frame: self.frame, alpha: self.alpha, image: newImage)
