@@ -15,9 +15,3 @@ protocol Alphable {
     func upAlphaLevel()
     func downAlphaLevel()
 }
-
-extension Alphable {
-    var alphaValue: Double {
-        return alpha.value
-    }
-}
