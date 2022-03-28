@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 
+// UILabel represents Label Class
+
 extension UILabel {
     public override func copy(with zone: NSZone? = nil) -> Any {
         let copy = UILabel(frame: self.frame)

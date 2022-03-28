@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 
+// UITextView represents PostIt Class
+
 extension UITextView {
     public override func copy(with zone: NSZone? = nil) -> Any {
         let copy = UITextView(frame: self.frame)
