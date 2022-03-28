@@ -89,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				023A3A4027D2F45100F56686 /* RectangleView.swift */,
+				0200345127D0A7AB0032EEA4 /* ViewFactory.swift */,
 				02F8198C27DEEBA00084F0AD /* PhotoView.swift */,
 				0250438C27E42DED003C26FA /* DrawableAreaView.swift */,
 			);
@@ -117,7 +118,6 @@
 				02D5541727CC5FF200291B27 /* Size.swift */,
 				02D5541927CC606300291B27 /* Point.swift */,
 				02B9D29E27CF033B00A7185E /* Alpha.swift */,
-				0200345127D0A7AB0032EEA4 /* ViewFactory.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
