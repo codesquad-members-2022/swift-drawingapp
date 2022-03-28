@@ -25,10 +25,16 @@ enum LayerFactory {
             let text = dummyString()
             let fontSize = Float.random(in: 16...32)
             return Label(title: "\(Label.self) \(titleOrder)", id: ID, origin: origin, size: size, text: text, fontSize: fontSize)
+        case is PostIt.Type:
+            let text = defaultString
+            let color = Color.random()
+            return PostIt(title: "\(PostIt.self) \(titleOrder)", id: ID, origin: origin, size: size, text: text, color: color)
         default:
             return nil
         }
     }
+    
+    private static let defaultString = "Text"
     
     private static let dummyString: () -> String = {
         let lorem = "Slip inside the eye of your mind Don't you know you might find A better place to play You said that you'd never been But all the things that you've seen Slowly fade away And so Sally can wait She knows it's too late As we're walking on by Her soul slides away But don't look back in anger I heard you say"
