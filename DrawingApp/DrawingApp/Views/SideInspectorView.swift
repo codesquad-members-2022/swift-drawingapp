@@ -158,16 +158,19 @@ class SideInspectorView: UIStackView {
         backgroundColorValueButton.setTitle("", for: .normal)
     }
 
-    func setBackgroundColorValueButtonColor(by color: UIColor) {
-        backgroundColorValueButton.backgroundColor = color
+    func setBackgroundColorValueButtonColor(by color: Color) {
+        backgroundColorValueButton.backgroundColor = UIColor(red: color.red / 255.0,
+                                                             green: color.green / 255.0,
+                                                             blue: color.blue / 255.0,
+                                                             alpha: 1.0)
     }
 
     func clearBackgroundColorValueButtonColor() {
         backgroundColorValueButton.backgroundColor = .systemGray5
     }
     
-    func setAlphaValueLabelText(by text: Double) {
-        alphaValueLabel.text = "\(text)"
+    func setAlphaValueLabelText(by alpah: Alpha) {
+        alphaValueLabel.text = "\(alpah.value)"
     }
     
     func clearAlphaValueLabelText() {
