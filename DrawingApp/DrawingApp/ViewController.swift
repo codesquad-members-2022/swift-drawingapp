@@ -187,7 +187,6 @@ extension ViewController {
             let newBackgroundColor = backgroundColorChangedRectangle.backgroundColor
             self.drawableAreaView.updateSelectedView(backgroundColor: newBackgroundColor.convertToUIColor())
         }
-        let previousAlpha = backgroundColorChangedRectangle.alpha
         updateBackgroundColorButton(with: backgroundColorChangedRectangle)
     }
     
