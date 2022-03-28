@@ -29,7 +29,6 @@ class CanvasViewController: UIViewController,
         subscribePlaneNotification()
         
         setCanvasView()
-        setUpInitialModels()
         setUpTapRecognizer()
         
         photoPicker.delegate = self
@@ -97,10 +96,6 @@ extension CanvasViewController {
         
     }
     
-    private func setUpInitialModels() {
-        (0..<4).forEach { _ in plane.add(type: Rectangle.self) }
-    }
-    
     private func setUpTapRecognizer() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
         canvasView?.addGestureRecognizer(tap)
@@ -166,6 +161,12 @@ extension CanvasViewController {
     private func resizeToFit(_ layer: Layer, for view: UIView) {
         let fitSize = Size(width: view.intrinsicContentSize.width, height: view.intrinsicContentSize.height)
         plane.change(layer: layer, toSize: fitSize)
+    }
+}
+
+extension CanvasViewController {
+    @IBAction func didTouchPostItButton(_ sender: UIButton) {
+        plane.add(type: PostIt.self)
     }
 }
 
@@ -288,9 +289,11 @@ extension CanvasViewController {
     
     @objc func didChangeText(_ notification: Notification) {
         guard let selected = plane.selected,
-              let mutatedUIView = search(for: selected) as? UILabel,
+              let textMutableView = search(for: selected) as? TextMutable,
               let newText = notification.userInfo?[Plane.InfoKey.changed] as? String else { return }
-        mutatedUIView.text = newText
+        textMutableView.set(to: newText)
+        
+        guard let mutatedUIView = textMutableView as? UILabel else { return }
         resizeToFit(selected, for: mutatedUIView)
     }
 }

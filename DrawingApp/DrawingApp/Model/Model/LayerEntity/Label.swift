@@ -8,11 +8,11 @@
 import Foundation
 
 class Label: Layer {
-    private(set) var text: String
+    private(set) var getText: String
     private(set) var fontSize: Float
     
     init(title: String, id: ID, origin: Point, size: Size, text: String, fontSize: Float) {
-        self.text = text
+        self.getText = text
         self.fontSize = fontSize
         super.init(title: title, id: id, origin: origin, size: size)
     }
@@ -20,12 +20,12 @@ class Label: Layer {
 
 extension Label: TextMutable {
     func set(to text: String) {
-        self.text = text
+        self.getText = text
     }
 }
 
 extension Label: CustomStringConvertible {
     var description: String {
-        return "(\(id)), \(origin), \(size), \(text), \(fontSize)p"
+        return "(\(id)), \(origin), \(size), \(getText), \(fontSize)p"
     }
 }

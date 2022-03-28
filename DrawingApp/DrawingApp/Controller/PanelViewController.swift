@@ -202,7 +202,7 @@ extension PanelViewController {
     
     private func displayText(_ selected: TextMutable) {
         textField.isEnabled = true
-        textField.text = selected.text
+        textField.text = selected.getText
     }
     
     private func clearPanel() {
