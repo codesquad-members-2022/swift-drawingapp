@@ -7,25 +7,30 @@
 
 import UIKit
 
-protocol RectangleViewable {
-    var alpha: CGFloat {get}
-    var frame: CGRect {get}
+protocol RectangleViewable: UIView, BoundaryExpressable, Movable, NSCopying, Resizable{
+    func changeAlphaValue(to newAlphaValue: CGFloat)
+}
+
+protocol BoundaryExpressable {
     func hideBoundary()
     func showBoundary()
-    func changeBackgroundColor(to newColor: UIColor)
-    func changeAlphaValue(to newAlphaValue: CGFloat)
+}
+
+protocol Movable {
     func move(distance: CGPoint)
     func move(to newPoint: CGPoint)
-    func copy() -> RectangleViewable
+}
+
+protocol Resizable {
     func resize(to newSize: (width: CGFloat, height: CGFloat))
 }
 
-class RectangleView: UIView, RectangleViewable {
-    
-    override var description: String {
-        return "Frame = \(frame); alpha = \(alpha); backgroundColor = \(backgroundColor ?? .white)"
-    }
-    
+protocol ViewBackgroundColorChangable {
+    var backgroundColor: UIColor? {get set}
+    func changeBackgroundColor(to newColor: UIColor)
+}
+
+class RectangleView: UIView, RectangleViewable, ViewBackgroundColorChangable {
     required override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -40,6 +45,14 @@ class RectangleView: UIView, RectangleViewable {
         self.alpha = alpha
     }
     
+    func changeAlphaValue(to newAlphaValue: CGFloat) {
+        self.alpha = newAlphaValue
+    }
+    
+    func changeBackgroundColor(to newColor: UIColor) {
+        self.backgroundColor = newColor
+    }
+    
     func hideBoundary() {
         self.layer.borderWidth = 0
     }
@@ -47,14 +60,6 @@ class RectangleView: UIView, RectangleViewable {
     func showBoundary() {
         self.layer.borderWidth = 3
         self.layer.borderColor = UIColor.black.cgColor
-    }
-    
-    func changeBackgroundColor(to newColor: UIColor) {
-        self.backgroundColor = newColor
-    }
-    
-    func changeAlphaValue(to newAlphaValue: CGFloat) {
-        self.alpha = newAlphaValue
     }
     
     func move(distance: CGPoint) {
@@ -66,7 +71,7 @@ class RectangleView: UIView, RectangleViewable {
         self.frame.origin.y = newPoint.y
     }
     
-    func copy() -> RectangleViewable {
+    func copy(with zone: NSZone? = nil) -> Any {
         let newBackgroundColor = self.backgroundColor?.copy() as? UIColor ?? UIColor.white
         
         return RectangleView.init(frame: self.frame, backgroundColor: newBackgroundColor, alpha: self.alpha)
@@ -76,5 +81,9 @@ class RectangleView: UIView, RectangleViewable {
         let newFrame = CGRect(x: self.frame.origin.x, y: self.frame.origin.y,
                               width: newSize.width, height: newSize.height)
         self.frame = newFrame
+    }
+    
+    override var description: String {
+        return "Frame = \(frame); alpha = \(alpha); backgroundColor = \(backgroundColor ?? .white)"
     }
 }
