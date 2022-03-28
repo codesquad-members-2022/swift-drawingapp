@@ -84,7 +84,8 @@ class Plane {
         guard let specifiedRectangle = self.specifiedRectangle else {
             return .failure(.noSpecifiedRectangleToChangeError)
         }
-        specifiedRectangle.move(to: newPoint)
+        let validatedPoint = validatePoint(newPoint)
+        specifiedRectangle.move(to: validatedPoint)
         NotificationCenter.default.post(name: Plane.NotificationNames.didChangeRectanglePoint, object: self, userInfo: [Plane.UserInfoKeys.changedRectangle: specifiedRectangle])
         
         return .success(specifiedRectangle)
@@ -104,6 +105,15 @@ class Plane {
         return rectangles.reversed().first { rectangle in
             rectangle.isPointInArea(point)
         }
+    }
+    
+    private func validatePoint(_ point: Point) -> Point {
+        var newX: Double, newY: Double
+        
+        newX = point.x < 1.0 ? 1.0 : point.x
+        newY = point.y < 1.0 ? 1.0 : point.y
+        
+        return Point(x: newX, y: newY)
     }
 
 }
