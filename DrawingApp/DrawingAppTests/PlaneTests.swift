@@ -13,9 +13,9 @@ class PlaneTests: XCTestCase {
     private var plane = Plane()
     
     override func setUp() {
-        (0..<5).forEach { _ in plane.add(layerType: .rectangle) }
-        (0..<5).forEach { _ in plane.add(layerType: .photo, data: Data()) }
-        (0..<5).forEach { _ in plane.add(layerType: .label) }
+        (0..<5).forEach { _ in plane.add(type: Rectangle.self) }
+        (0..<5).forEach { _ in plane.add(type: Photo.self, data: Data()) }
+        (0..<5).forEach { _ in plane.add(type: Label.self) }
         super.setUp()
     }
     
@@ -26,19 +26,19 @@ class PlaneTests: XCTestCase {
     
     func testAddRectangle() throws {
         let plane = Plane()
-        plane.add(layerType: .rectangle)
+        plane.add(type: Rectangle.self)
         XCTAssertEqual(plane.rectangleCount, 1)
     }
     
     func testAddPhoto() throws {
         let plane = Plane()
-        plane.add(layerType: .photo, data: Data())
+        plane.add(type: Photo.self, data: Data())
         XCTAssertEqual(plane.photoCount, 1)
     }
     
     func testAddLabel() throws {
         let plane = Plane()
-        plane.add(layerType: .label)
+        plane.add(type: Label.self)
         XCTAssertEqual(plane.labelCount, 1)
     }
     
