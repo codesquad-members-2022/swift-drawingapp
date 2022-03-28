@@ -60,6 +60,7 @@ enum ViewFactory {
         view.text = postIt.getText
         view.isEditable = false
         view.backgroundColor = UIColor(with: postIt.color)
+        view.textColor = UIColor(with: postIt.color).isDark ? .white : .black
         view.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
         view.textContainerInset = .init(top: 16, left: 16, bottom: 16, right: 16)
         UIView.addShadow(to: view)
