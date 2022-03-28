@@ -44,34 +44,13 @@ class Plane {
     }
     
     var selected: Layer?
-    
-    var rectangleCount: Int {
-        layers.filter { $0 is Rectangle }.count
-    }
-    
-    var photoCount: Int {
-        layers.filter { $0 is Photo }.count
-    }
-    
-    var labelCount: Int {
-        layers.filter { $0 is Label }.count
-    }
-    
+
     var layerCount: Int {
         layers.count
     }
     
     func layerCount<T: Layer>(of type: T.Type) -> Int {
-        switch type {
-        case is Rectangle.Type:
-            return rectangleCount
-        case is Photo.Type:
-            return photoCount
-        case is Label.Type:
-            return labelCount
-        default:
-            return 0
-        }
+        return layers.filter { $0 is T }.count
     }
     
     subscript(index: Int) -> Layer? {
