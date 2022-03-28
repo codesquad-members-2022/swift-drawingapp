@@ -16,10 +16,6 @@ struct Point {
         self.x = x
         self.y = y
     }
-    
-    func getCombinedPoint() -> (x: Double, y: Double) {
-        return (x: x, y: y)
-    }
 }
 
 extension Point {
