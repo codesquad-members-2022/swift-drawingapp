@@ -25,7 +25,7 @@ class Plane {
         shapes.append(newRectangle)
         NotificationCenter.default.post(name: Plane.EventName.newShapeDidCreate,
                                         object: self,
-                                        userInfo: [UserInfoKeys.newRectangle: newRectangle])
+                                        userInfo: [UserInfoKeys.newShape: newRectangle])
     }
     
     func addPicture(bound: (x: Double, y: Double), by factoryType: ShapeFactory.Type) {
@@ -42,7 +42,7 @@ class Plane {
     func clearSelected() {
         selected = nil
     }
-
+    
     func searchTopShape(on coordinate: (x: Double, y: Double)) {
         let previouslySelected = selected
         
@@ -93,7 +93,7 @@ class Plane {
 
 extension Plane {
     enum UserInfoKeys {
-        static let newRectangle = "NewRectangle"
+        static let newShape = "NewShape"
         static let updatedSelectedShape = "UpdatedSelectedShape"
         static let newlySelectedShape = "NewlySelectedShape"
         static let previouslySelectedShape = "PreviouslySelectedShape"
@@ -104,7 +104,7 @@ extension Plane {
         static let newShapeDidCreate = NSNotification.Name("NewShapeDidCreateNotification")
         static let shapeDidSelect = NSNotification.Name("ShapeDidSelectNotification")
         static let emptyViewDidSelect = NSNotification.Name("EmptyViewDidSelectNotification")
-
+        
         static let selectedShapeDidChange = NSNotification.Name("SelectedShapeDidChangeNotification")
         static let selectedShapeDidUpdateBackgroundColor = NSNotification.Name("SelectedShapeDidUpdateBackgroundColorNotification")
         static let selectedShapeDidUpdateAlpha = NSNotification.Name("SelectedShapeDidUpdateAlphaNotification")

@@ -84,7 +84,7 @@ extension ViewController {
     }
     
     @objc func addPictureButtonTouched() {
-
+        
     }
     
     @objc func handlePresentShapeViewTap(_ tap: UITapGestureRecognizer) {
@@ -113,21 +113,10 @@ extension ViewController {
 extension ViewController {
     
     @objc func didCreateShape(notification: Notification) {
-        guard let shape = notification.userInfo?[Plane.UserInfoKeys.newRectangle] as? BasicShape else { return }
+        guard let shape = notification.userInfo?[Plane.UserInfoKeys.newShape]
+                as? BasicShape & Alphable & Colorable else { return }
         
-        let frame = getCGRect(combinedPoint: shape.combinedOrigin, combinedSize: shape.combinedSize)
-        var color: UIColor?
-        var alpha: CGFloat?
-        
-        if let shape = shape as? Colorable {
-            color = getUIColor(combinedColor: shape.combinedColor)
-        }
-        
-        if let shape = shape as? Alphable {
-            alpha = shape.alphaValue
-        }
-        
-        let shapeView = ViewFactory.createView(frame: frame, backgroundColor: color, alpha: alpha)
+        let shapeView = ShapeViewFactory.createShapeView(by: shape)
         shapeMap[shape] = shapeView
         presentShapeView.addSubview(shapeView)
     }
@@ -162,15 +151,13 @@ extension ViewController {
         guard let selectedShape = notification.userInfo?[Plane.UserInfoKeys.updatedSelectedShape] as? BasicShape else { return }
         
         if let selectedShape = selectedShape as? Colorable {
-            
-            let newColor = getUIColor(combinedColor: selectedShape.combinedColor)
             let newColorHexaValue = selectedShape.hexaValue
-            sideInspectorView.setBackgroundColorValueButtonColor(by: newColor)
+            sideInspectorView.setBackgroundColorValueButtonColor(by: selectedShape.backgroundColor)
             sideInspectorView.setBackgroundColorValueButtonTitle(by: newColorHexaValue)
         }
         
         if let selectedShape = selectedShape as? Alphable {
-            let newAlpha = selectedShape.alphaValue
+            let newAlpha = selectedShape.alpha
             sideInspectorView.setAlphaValueLabelText(by: newAlpha)
             sideInspectorView.enableAlphaPlusButton()
             sideInspectorView.enableAlphaMinusButton()
@@ -181,7 +168,7 @@ extension ViewController {
         guard let selectedShape = notification.userInfo?[Plane.UserInfoKeys.selectedShape] as? BasicShape & Colorable else { return }
         let selectedShapeView = shapeMap[selectedShape] as? ViewColorChangable
         
-        let newColor = getUIColor(combinedColor: selectedShape.combinedColor)
+        let newColor = selectedShape.backgroundColor
         let newColorHexaValue = selectedShape.hexaValue
         
         selectedShapeView?.changeBackgroundColor(by: newColor)
@@ -193,9 +180,10 @@ extension ViewController {
         guard let selectedShape = notification.userInfo?[Plane.UserInfoKeys.selectedShape] as? BasicShape & Alphable else { return }
         let selectedShapeView = shapeMap[selectedShape] as? ViewAlphaChangable
         
-        let newAlpha = selectedShape.alphaValue
+        let newAlpha = selectedShape.alpha
+        
         selectedShapeView?.changeAlpha(to: newAlpha)
-        sideInspectorView.setAlphaValueLabelText(by: selectedShape.alphaValue)
+        sideInspectorView.setAlphaValueLabelText(by: newAlpha)
         
         if !selectedShape.canAlphaLevelUp() {
             sideInspectorView.disableAlphaPlusButton()
@@ -237,28 +225,10 @@ extension ViewController {
                                                selector: #selector(didUpdateSelectedShapeBackgroundColor(notification:)),
                                                name: Plane.EventName.selectedShapeDidUpdateBackgroundColor,
                                                object: plane)
-
+        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(didUpdateSelectedShapeAlpha(notification:)),
                                                name: Plane.EventName.selectedShapeDidUpdateAlpha,
                                                object: plane)
-    }
-}
-
-//MARK: Private Functions
-
-extension ViewController {
-    private func getUIColor(combinedColor: (red: Double, green: Double, blue: Double, alpha: Double)) -> UIColor {
-        let color = UIColor(red: combinedColor.red,
-                        green: combinedColor.green,
-                        blue: combinedColor.blue,
-                        alpha: combinedColor.alpha)
-        return color
-    }
-    
-    private func getCGRect(combinedPoint: (x: Double, y: Double), combinedSize: (width: Double, height: Double)) -> CGRect {
-        let rect = CGRect(origin: CGPoint(x: combinedPoint.x, y: combinedPoint.y),
-                            size: CGSize(width: combinedSize.width, height: combinedSize.height))
-        return rect
     }
 }
