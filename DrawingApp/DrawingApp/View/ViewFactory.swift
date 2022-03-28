@@ -16,6 +16,8 @@ enum ViewFactory {
             return createView(from: photo)
         case let label as Label:
             return createView(from: label)
+        case let postIt as PostIt:
+            return createView(from: postIt)
         default:
             return nil
         }
@@ -45,8 +47,22 @@ enum ViewFactory {
         let frame = CGRect(origin: label.origin, size: label.size)
         let view = UILabel(frame: frame)
         
-        view.text = label.text
+        view.text = label.getText
         view.font = UIFont.systemFont(ofSize: CGFloat(label.fontSize))
+        
+        return view
+    }
+    
+    private static func createView(from postIt: PostIt) -> UITextView {
+        let frame = CGRect(origin: postIt.origin, size: postIt.size)
+        let view = UITextView(frame: frame)
+        
+        view.text = postIt.getText
+        view.isEditable = false
+        view.backgroundColor = UIColor(with: postIt.color)
+        view.font = UIFont.systemFont(ofSize: UIFont.systemFontSize)
+        view.textContainerInset = .init(top: 16, left: 16, bottom: 16, right: 16)
+        UIView.addShadow(to: view)
         
         return view
     }
@@ -59,6 +75,8 @@ enum ViewFactory {
             return UIImage(systemName: "photo.artframe")
         case _ as Label:
             return UIImage(systemName: "character.textbox")
+        case _ as PostIt:
+            return UIImage(systemName: "text.bubble.fill")
         default:
             return nil
         }
