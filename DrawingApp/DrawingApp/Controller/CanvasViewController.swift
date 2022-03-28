@@ -46,8 +46,8 @@ class CanvasViewController: UIViewController,
         let canvasView = UIView()
         self.canvasView = canvasView
         
-        // CanvasView should be set behind of existing subviews
-        view.insertSubview(canvasView, at: 0)
+        // CanvasView should be set behind of existing subviews, in front of KPT layouts
+        view.insertSubview(canvasView, at: 1)
         
         canvasView.translatesAutoresizingMaskIntoConstraints = false
         canvasView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
