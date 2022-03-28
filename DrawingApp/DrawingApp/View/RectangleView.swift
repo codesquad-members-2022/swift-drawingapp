@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol RectangleViewable: UIView, BoundaryExpressable, Movable, NSCopying, Resizable{
+protocol RectangleViewable: UIView, BoundaryExpressable, ViewMovable, NSCopying, ViewResizable{
     func changeAlphaValue(to newAlphaValue: CGFloat)
 }
 
@@ -16,12 +16,12 @@ protocol BoundaryExpressable {
     func showBoundary()
 }
 
-protocol Movable {
+protocol ViewMovable {
     func move(distance: CGPoint)
     func move(to newPoint: CGPoint)
 }
 
-protocol Resizable {
+protocol ViewResizable {
     func resize(to newSize: (width: CGFloat, height: CGFloat))
 }
 

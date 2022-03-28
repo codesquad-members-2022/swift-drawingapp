@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol imageDataHavable {
+protocol ImageDataHavable {
     var image: Data {get}
 }
 
-class Photo: BasicShape, imageDataHavable {
+class Photo: BasicShape, ImageDataHavable {
     private(set) var image: Data
     
     init(size: Size, point: Point, image: Data, alpha: Alpha) {

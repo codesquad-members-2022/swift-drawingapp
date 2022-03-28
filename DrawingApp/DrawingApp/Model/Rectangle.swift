@@ -7,13 +7,13 @@
 
 import Foundation
 
-protocol BackgroundColorChangable {
+protocol ModelBackgroundColorChangable {
     var backgroundColor: BackgroundColor {get}
     
     func changeBackgroundColor(to newColor: BackgroundColor)
 }
 
-class Rectangle: BasicShape, BackgroundColorChangable {
+class Rectangle: BasicShape, ModelBackgroundColorChangable {
     private(set) var backgroundColor: BackgroundColor
     
     init(size: Size, point: Point, backgroundColor: BackgroundColor, alpha: Alpha) {
