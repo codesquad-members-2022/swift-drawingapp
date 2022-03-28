@@ -101,12 +101,9 @@ class Plane {
     }
     
     private func findRectangle(above point: Point) -> Rectangularable? {
-        for rectangle in rectangles.reversed() {
-            if rectangle.isPointInArea(point) {
-                return rectangle
-            }
+        return rectangles.reversed().first { rectangle in
+            rectangle.isPointInArea(point)
         }
-        return nil
     }
 
 }
