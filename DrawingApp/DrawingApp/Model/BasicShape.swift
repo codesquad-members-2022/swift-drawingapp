@@ -7,17 +7,22 @@
 
 import Foundation
 
-protocol Rectangularable {
+protocol Rectangularable: ModelMovable, ModelResizable {
     var id: ID {get}
     var size: Size {get}
     var point: Point {get}
     var alpha: Alpha {get}
     func isPointInArea(_ point: Point) -> Bool
     func changeAlphaValue(to newAlpha: Alpha)
-    func move(to newPoint: Point)
-    func resize(to newSize: Size)
 }
 
+protocol ModelMovable {
+    func move(to newPoint: Point)
+}
+
+protocol ModelResizable {
+    func resize(to newSize: Size)
+}
 class BasicShape: Rectangularable {
     private(set) var id: ID
     private(set) var size: Size
