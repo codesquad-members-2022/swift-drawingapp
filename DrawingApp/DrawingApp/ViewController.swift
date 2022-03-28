@@ -183,7 +183,7 @@ extension ViewController {
         guard let backgroundColorChangedRectangle = notification.userInfo?[Plane.UserInfoKeys.changedRectangle] as? Rectangularable  else {
                   return
               }
-        if let backgroundColorChangedRectangle = backgroundColorChangedRectangle as? BackgroundColorChangable {
+        if let backgroundColorChangedRectangle = backgroundColorChangedRectangle as? ModelBackgroundColorChangable {
             let newBackgroundColor = backgroundColorChangedRectangle.backgroundColor
             self.drawableAreaView.updateSelectedView(backgroundColor: newBackgroundColor.convertToUIColor())
         }
@@ -392,7 +392,7 @@ extension ViewController {
     }
     
     private func updateBackgroundColorButton(with rectangle: Rectangularable) {
-        guard let rectangle = rectangle as? BackgroundColorChangable & Rectangularable else {
+        guard let rectangle = rectangle as? ModelBackgroundColorChangable & Rectangularable else {
             backgroundColorButton.isEnabled = false
             backgroundColorButton.backgroundColor = .clear
             return

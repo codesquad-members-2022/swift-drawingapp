@@ -63,7 +63,7 @@ class Plane {
             return .failure(.noSpecifiedRectangleToChangeError)
         }
         
-        if let specifiedRectangle = specifiedRectangle as? BackgroundColorChangable {
+        if let specifiedRectangle = specifiedRectangle as? ModelBackgroundColorChangable {
             specifiedRectangle.changeBackgroundColor(to: newColor)
             NotificationCenter.default.post(name: Plane.NotificationNames.didChangeRectangleBackgroundColor, object: self, userInfo: [Plane.UserInfoKeys.changedRectangle: specifiedRectangle])
         }
