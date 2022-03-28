@@ -9,6 +9,15 @@ import UIKit
 
 class BasicShapeView: UIView {
     
+    init(point: Point, size: Size) {
+        super.init(frame: CGRect(origin: CGPoint(x: point.x, y: point.y),
+                                 size: CGSize(width: size.width, height: size.height)))
+    }
+    
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+    
     private var isHighlighted: Bool = false
     
     //MARK: Functions
@@ -31,9 +40,9 @@ class BasicShapeView: UIView {
 }
 
 protocol ViewColorChangable {
-    func changeBackgroundColor(by newColor: UIColor)
+    func changeBackgroundColor(by newColor: Color)
 }
 
 protocol ViewAlphaChangable {
-    func changeAlpha(to alphaLevel: CGFloat)
+    func changeAlpha(to alphaLevel: Alpha)
 }
