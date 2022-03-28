@@ -9,9 +9,9 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var plane = Plane()
-    var selectedView: UIView? = nil
-    let shapeFactory = ShapeFactory()
+    private var plane = Plane()
+    private var selectedView: UIView? = nil
+    private let shapeFactory = ShapeFactory()
     
     @IBOutlet weak var rectangleButton: UIButton!
     @IBOutlet weak var rgbResetButton: UIButton!
