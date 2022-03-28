@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 
+// UIImageView represents Photo Class
+
 extension UIImageView {
     public override func copy(with zone: NSZone? = nil) -> Any {
         let copy = UIImageView(frame: self.frame)

@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 
+// UIView represents Rectangle Class
+
 extension UIView {
     public static func addShadow(to view: UIView) {
         view.clipsToBounds = false
@@ -15,7 +17,6 @@ extension UIView {
         view.layer.shadowOpacity = 1
         view.layer.shadowOffset = .init(width: 2, height: 2)
         view.layer.shadowRadius = 2
-        view.layer.shadowPath = UIBezierPath(rect: view.bounds).cgPath
     }
 }
 
@@ -34,7 +35,6 @@ extension UIView: NSCopying {
     
     static func applyCopyEffect(_ copy: UIView) {
         copy.alpha *= 0.5
-        
         copy.layer.shadowColor = UIColor.black.cgColor
         copy.layer.shadowOpacity = 1
         copy.layer.shadowOffset = .zero

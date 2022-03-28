@@ -12,7 +12,7 @@ enum LayerFactory {
         let ID = ID.random()
         let origin = Point.random()
         let size = Size.standard()
-        let alpha = Alpha.random()
+        let alpha = Alpha(Alpha.max)!
         
         switch type {
         case is Rectangle.Type:

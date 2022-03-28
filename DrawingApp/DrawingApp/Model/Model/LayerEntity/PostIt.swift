@@ -8,19 +8,23 @@
 import Foundation
 
 class PostIt: Layer {
-    private(set) var getText: String
+    private(set) var text: String
     private(set) var backgroundColor: Color
     
     init(title: String, id: ID, origin: Point, size: Size, text: String, color: Color) {
-        self.getText = text
+        self.text = text
         self.backgroundColor = color
         super.init(title: title, id: id, origin: origin, size: size)
     }
 }
 
 extension PostIt: TextMutable {
+    var getText: String {
+        self.text
+    }
+    
     func set(to text: String) {
-        self.getText = text
+        self.text = text
     }
 }
 
@@ -36,6 +40,6 @@ extension PostIt: ColorMutable {
 
 extension PostIt: CustomStringConvertible {
     var description: String {
-        return "(\(id)), \(origin), \(size), \(backgroundColor), \(getText)"
+        return "(\(id)), \(origin), \(size), \(backgroundColor), \(text)"
     }
 }
