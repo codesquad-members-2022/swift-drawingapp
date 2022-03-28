@@ -68,7 +68,7 @@ class DrawableAreaView: UIView {
                 delegate?.drawableAreaViewDidChangePan(self)
                 
             case .ended:
-                guard let movingTemporaryView = movingTemporaryView as? UIView else {return}
+                guard let movingTemporaryView = movingTemporaryView else {return}
                
                 delegate?.drawableAreaViewDidEndPan(self)
                 movingTemporaryView.removeFromSuperview()
@@ -79,7 +79,7 @@ class DrawableAreaView: UIView {
     
     func makeTemporaryView() {
         guard let selectedView = selectedView,
-              let copiedView = selectedView.copy() as? UIView & RectangleViewable else {return}
+              let copiedView = selectedView.copy() as? RectangleViewable else {return}
         
         copiedView.changeAlphaValue(to: 0.5)
         self.movingTemporaryView = copiedView
@@ -99,7 +99,11 @@ class DrawableAreaView: UIView {
     }
     
     func updateSelectedView(backgroundColor: UIColor) {
-        self.selectedView?.changeBackgroundColor(to: backgroundColor)
+        guard let selectedView = selectedView as? ViewBackgroundColorChangable else {
+            return
+        }
+        
+        selectedView.changeBackgroundColor(to: backgroundColor)
     }
     
     func updateSelectedView(alpha: CGFloat) {
