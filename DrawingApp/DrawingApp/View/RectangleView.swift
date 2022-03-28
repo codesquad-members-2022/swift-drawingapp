@@ -67,8 +67,8 @@ class RectangleView: UIView, RectangleViewable, ViewBackgroundColorChangable {
     }
     
     func move(to newPoint: CGPoint) {
-        self.frame.origin.x = newPoint.x
-        self.frame.origin.y = newPoint.y
+        self.frame.origin.x = newPoint.x >= 1.0 ? newPoint.x : 1.0
+        self.frame.origin.y = newPoint.y >= 1.0 ? newPoint.y : 1.0
     }
     
     func copy(with zone: NSZone? = nil) -> Any {
