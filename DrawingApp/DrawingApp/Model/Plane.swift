@@ -70,7 +70,8 @@ class Plane {
         selectedRectangle = rectangle
         
         // selectedRectangle이 있으면, 이걸 통해 이제 출력을 해줘야한다. (Plane -> VC -> View)
-        delegate?.planeDidTouchedRectangle(rectangle)
+        // Plane에서 터치된 좌표에 사각형이 있음을 알림
+        NotificationCenter.default.post(name: NSNotification.Name.PlaneDidTouchRectangle, object: self, userInfo: [UserInfoKeys.rectangle: rectangle])
     }
     
     /// VC로부터 색상 버튼이 탭되었음을 전달받았기 때문에, 랜덤 색상을 생성하여 모델을 변경 후 이를 VC에 알린다.

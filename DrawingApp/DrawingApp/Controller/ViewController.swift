@@ -86,9 +86,15 @@ class ViewController: UIViewController {
     }
     
     private func subscribeObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(didCreateRectangle(_:)), name: NSNotification.Name.PlaneDidCreateRectangle, object: plane)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(didCreateRectangle(_:)),
+                                               name: NSNotification.Name.PlaneDidCreateRectangle,
+                                               object: plane)
         
-        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(didTouchRectangle(_:)),
+                                               name: NSNotification.Name.PlaneDidTouchRectangle,
+                                               object: plane)
     }
     
     @objc func didCreateRectangle(_ notification: Notification) {
@@ -105,6 +111,21 @@ class ViewController: UIViewController {
         sideInspectorView.alphaSlider.value = Float(rectangle.alpha.opacity)
         let sliderValue = Int(rectangle.alpha.opacity * 10)
         sideInspectorView.alphaValueLabel.text = "\(sliderValue)"
+    }
+    
+    // 사각형 터치 시, SideInspectorView에 배경색과 투명도 나타내기
+    @objc func didTouchRectangle(_ notification: Notification) {
+        guard let rectangle = notification.userInfo?[UserInfoKeys.rectangle] as? Rectangle else {
+            return
+        }
+        
+        sideInspectorView.colorButton.setTitle(rectangle.backgroundColor.getHexValue(), for: .normal)
+        sideInspectorView.alphaSlider.value = Float(rectangle.alpha.opacity)
+        
+        let sliderValue = Int(rectangle.alpha.opacity * 10)
+        sideInspectorView.alphaValueLabel.text = "\(sliderValue)"
+        
+        select(rectangle: rectangle)
     }
 }
 
@@ -134,18 +155,6 @@ extension ViewController: SideInspectorViewDelegate {
 
 
 extension ViewController: PlaneDelegate {
-    // 사각형 터치 시, SideInspectorView에 배경색과 투명도 나타내기
-    // CanvasView에도 선택되었다고 표시하기 (Plane -> VC -> View)
-    func planeDidTouchedRectangle(_ rectangle: Rectangle) {
-        sideInspectorView.colorButton.setTitle(rectangle.backgroundColor.getHexValue(), for: .normal)
-        sideInspectorView.alphaSlider.value = Float(rectangle.alpha.opacity)
-        
-        let sliderValue = Int(rectangle.alpha.opacity * 10)
-        sideInspectorView.alphaValueLabel.text = "\(sliderValue)"
-        
-        select(rectangle: rectangle)
-    }
-    
     /// 출력: Plane에서 빈 공간이 터치된 것을 View에게 전달 (VC -> View)
     func planeDidTouchedEmptySpace() {
         unselectRectangle()
