@@ -23,3 +23,8 @@ extension NSNotification.Name {
     /// Plane에서 투명도 변경 시 POST
     static let PlaneDidChangeAlpha = NSNotification.Name("PlaneDidChangeAlphaNotification")
 }
+
+
+enum UserInfoKeys {
+    static let rectangle = "Rectangle"
+}

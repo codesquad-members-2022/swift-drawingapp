@@ -26,7 +26,8 @@ class Plane {
         let rectangle = factory.createRectangle()
         rectangles.append(rectangle)
         
-        delegate?.planeDidAddRectangle(rectangle)
+        // NotificationCenter로 Notification 전달
+        NotificationCenter.default.post(name: NSNotification.Name.PlaneDidCreateRectangle, object: self, userInfo: [UserInfoKeys.rectangle: rectangle])
     }
     
     
