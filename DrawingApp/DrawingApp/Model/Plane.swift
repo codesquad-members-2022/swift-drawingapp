@@ -89,7 +89,7 @@ class Plane {
             
             NotificationCenter.default.post(name: NSNotification.Name.PlaneDidChangeColor,
                                             object: self,
-                                            userInfo: [UserInfoKeys.rectangle: rectangle])
+                                            userInfo: [UserInfoKeys.color: newColorValue])
         }
     }
     
@@ -102,7 +102,7 @@ class Plane {
                 
                 NotificationCenter.default.post(name: NSNotification.Name.PlaneDidChangeAlpha,
                                                 object: self,
-                                                userInfo: [UserInfoKeys.rectangle: rect])
+                                                userInfo: [UserInfoKeys.alpha: rect.alpha])
             }
         }
     }
