@@ -46,3 +46,7 @@ protocol ViewColorChangable {
 protocol ViewAlphaChangable {
     func changeAlpha(to alphaLevel: Alpha)
 }
+
+protocol ViewPictureChangable {
+    func changePicture(by imageBinaryData: Data)
+}
