@@ -9,4 +9,5 @@ import Foundation
 
 enum RectangleError: Error {
     case invalidAlphaValue
+    case invalidRectangle
 }

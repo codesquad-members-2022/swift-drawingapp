@@ -9,8 +9,6 @@ import Foundation
 import UIKit
 
 class Plane {
-    var delegate: PlaneDelegate?
-    
     private(set) var rectangles = [Rectangle]()
     private var selectedRectangle: Rectangle?
     var rectangleCount: Int {
@@ -86,7 +84,7 @@ class Plane {
             backgroundColorDidChanged(color: newColorValue, rectangle: rectangle)
             
             // VC에게 색상 변경된 사각형 알리기
-            delegate?.planeDidChangedColor(of: rectangle)
+            NotificationCenter.default.post(name: NSNotification.Name.PlaneDidChangeColor, object: self, userInfo: [UserInfoKeys.rectangle: rectangle])
         }
     }
     
@@ -96,7 +94,10 @@ class Plane {
             if rect == selectedRectangle {
                 // 투명도 변경
                 rect.alpha = Alpha(rawValue: Int(alpha * 10))!
-                delegate?.planeDidChangedAlpha(of: rect)
+                
+                NotificationCenter.default.post(name: NSNotification.Name.PlaneDidChangeAlpha,
+                                                object: self,
+                                                userInfo: [UserInfoKeys.rectangle: rect])
             }
         }
     }

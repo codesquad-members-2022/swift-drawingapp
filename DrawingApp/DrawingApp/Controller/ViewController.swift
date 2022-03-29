@@ -30,7 +30,6 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        plane.delegate = self
         sideInspectorView.delegate = self
         setLayout()
         setTapGesture()
@@ -100,6 +99,16 @@ class ViewController: UIViewController {
                                                selector: #selector(didTouchEmptyView(_:)),
                                                name: NSNotification.Name.PlaneDidTouchEmptyView,
                                                object: plane)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(didChangeColor(_:)),
+                                               name: NSNotification.Name.PlaneDidChangeColor,
+                                               object: plane)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(didChangeAlpha(_:)),
+                                               name: NSNotification.Name.PlaneDidChangeAlpha,
+                                               object: plane)
     }
     
     @objc func didCreateRectangle(_ notification: Notification) {
@@ -137,6 +146,22 @@ class ViewController: UIViewController {
     @objc func didTouchEmptyView(_ notification: Notification) {
         unselectRectangle()
     }
+    
+    // plane이 색상 변경한 것을 CanvasView에 알리기
+    @objc func didChangeColor(_ notification: Notification) {
+        if let rectangle = notification.userInfo?[UserInfoKeys.rectangle] as? Rectangle {
+            sideInspectorView.changeColorString(rectangle.backgroundColor)
+            rectangles[rectangle]?.backgroundColor = UIColor(hex: rectangle.backgroundColor.getHexValue())
+        }
+    }
+    
+    // Plane에서 변경된 투명도를 SideInspector과 CanvasView에 알리기 (VC -> View)
+    @objc func didChangeAlpha(_ notification: Notification) {
+        if let rectangle = notification.userInfo?[UserInfoKeys.rectangle] as? Rectangle {
+            sideInspectorView.changeAlpha(rectangle.alpha)
+            rectangles[rectangle]?.alpha = rectangle.alpha.opacity
+        }
+    }
 }
 
 
@@ -160,26 +185,6 @@ extension ViewController: SideInspectorViewDelegate {
     func sideInspectorViewSliderValueDidChanged(_ value: Float) {
         let sliderValue = round(value * 10) / 10.0
         plane.changeAlphaValue(alpha: sliderValue)
-    }
-}
-
-
-extension ViewController: PlaneDelegate {
-    // plane이 색상 변경한 것을 SideInspectorView에 알리기 VC -> SideInspectorView (출력: 색상 변경 뷰에게 알림)
-    // plane이 색상 변경한 것을 CanvasView에 알리기
-    func planeDidChangedColor(of rectangle: Rectangle) {
-        sideInspectorView.changeColorString(rectangle.backgroundColor)
-
-        // VC에 전달된 색상으로 뷰를 변경시키기 (출력)
-        rectangles[rectangle]?.backgroundColor = UIColor(hex: rectangle.backgroundColor.getHexValue())
-    }
-    
-    // Plane에서 변경된 투명도를 SideInspector과 CanvasView에 알리기 (VC -> View)
-    func planeDidChangedAlpha(of rectangle: Rectangle) {
-        sideInspectorView.changeAlpha(rectangle.alpha)
-        
-        // VC에 전달된 alpha 값으로 뷰를 변경시키기 (출력)
-        rectangles[rectangle]?.alpha = rectangle.alpha.opacity
     }
 }
 
