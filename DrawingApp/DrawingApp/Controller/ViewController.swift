@@ -111,38 +111,33 @@ class ViewController: UIViewController {
                                                object: plane)
     }
     
+    // 사각형 생성 시 뷰에 알리기
     @objc func didCreateRectangle(_ notification: Notification) {
-        guard let rectangle = notification.userInfo?[UserInfoKeys.rectangle] as? Rectangle else {
-            return
+        if let rectangle = notification.userInfo?[UserInfoKeys.rectangle] as? Rectangle {
+            drawRectangle(rectangle: rectangle) // 모델에서 생성한 사각형을 모델에서 VC로 전달하고, 전달 받은 것을 canvasView에 그려주기
+            
+            sideInspectorView.colorButton.setTitle(rectangle.backgroundColor.getHexValue(), for: .normal) // 버튼에 색상 표시
+            sideInspectorView.alphaSlider.value = Float(rectangle.alpha.opacity) // 슬라이더 투명도 표시
+            
+            let sliderValue = Int(rectangle.alpha.opacity * 10)
+            sideInspectorView.alphaValueLabel.text = "\(sliderValue)"
         }
-        // 모델에서 생성한 사각형을 모델에서 VC로 전달하고, 전달 받은 것을 canvasView에 그려주기
-        drawRectangle(rectangle: rectangle)
-        
-        // 버튼에 색상 표시
-        sideInspectorView.colorButton.setTitle(rectangle.backgroundColor.getHexValue(), for: .normal)
-        
-        // 슬라이더 투명도 표시
-        sideInspectorView.alphaSlider.value = Float(rectangle.alpha.opacity)
-        let sliderValue = Int(rectangle.alpha.opacity * 10)
-        sideInspectorView.alphaValueLabel.text = "\(sliderValue)"
     }
     
     // 사각형 터치 시, SideInspectorView에 배경색과 투명도 나타내기
     @objc func didTouchRectangle(_ notification: Notification) {
-        guard let rectangle = notification.userInfo?[UserInfoKeys.rectangle] as? Rectangle else {
-            return
+        if let rectangle = notification.userInfo?[UserInfoKeys.rectangle] as? Rectangle {
+            sideInspectorView.colorButton.setTitle(rectangle.backgroundColor.getHexValue(), for: .normal)
+            sideInspectorView.alphaSlider.value = Float(rectangle.alpha.opacity)
+            
+            let sliderValue = Int(rectangle.alpha.opacity * 10)
+            sideInspectorView.alphaValueLabel.text = "\(sliderValue)"
+            
+            select(rectangle: rectangle)
         }
-        
-        sideInspectorView.colorButton.setTitle(rectangle.backgroundColor.getHexValue(), for: .normal)
-        sideInspectorView.alphaSlider.value = Float(rectangle.alpha.opacity)
-        
-        let sliderValue = Int(rectangle.alpha.opacity * 10)
-        sideInspectorView.alphaValueLabel.text = "\(sliderValue)"
-        
-        select(rectangle: rectangle)
     }
     
-    // 출력: Plane에서 빈 공간이 터치된 것을 View에게 전달 (VC -> View)
+    // Plane에서 빈 공간이 터치된 것을 View에게 전달 (VC -> View)
     @objc func didTouchEmptyView(_ notification: Notification) {
         unselectRectangle()
     }
