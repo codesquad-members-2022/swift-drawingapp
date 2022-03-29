@@ -7,9 +7,9 @@
 
 import Foundation
 
-class ShapeFactory: ShapeCreator {
+class ShapeFactory {
 
-    func createRectangle(point: Point, size: Size, color: Color, alpha: Alpha) -> Shape {
+    func createRectangle(point: Point, size: Size, color: Color, alpha: Alpha) -> Rectangle {
         let id = generateId()
         return Rectangle(id: id, point: point, size: size, color: color, alpha: alpha)
     }
