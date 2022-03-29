@@ -89,27 +89,27 @@ class ViewController: UIViewController {
     private func subscribeObserver() {
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(didCreateRectangle(_:)),
-                                               name: NSNotification.Name.PlaneDidCreateRectangle,
+                                               name: .PlaneDidCreateRectangle,
                                                object: plane)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(didTouchRectangle(_:)),
-                                               name: NSNotification.Name.PlaneDidTouchRectangle,
+                                               name: .PlaneDidTouchRectangle,
                                                object: plane)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(didTouchEmptyView(_:)),
-                                               name: NSNotification.Name.PlaneDidTouchEmptyView,
+                                               name: .PlaneDidTouchEmptyView,
                                                object: plane)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(didChangeColor(_:)),
-                                               name: NSNotification.Name.PlaneDidChangeColor,
+                                               name: .PlaneDidChangeColor,
                                                object: plane)
         
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(didChangeAlpha(_:)),
-                                               name: NSNotification.Name.PlaneDidChangeAlpha,
+                                               name: .PlaneDidChangeAlpha,
                                                object: plane)
     }
     

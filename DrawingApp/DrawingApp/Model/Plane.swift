@@ -24,7 +24,7 @@ class Plane {
         let rectangle = factory.createRectangle()
         rectangles.append(rectangle)
         
-        NotificationCenter.default.post(name: NSNotification.Name.PlaneDidCreateRectangle,
+        NotificationCenter.default.post(name: .PlaneDidCreateRectangle,
                                         object: self,
                                         userInfo: [UserInfoKeys.rectangle: rectangle])
     }
@@ -64,7 +64,7 @@ class Plane {
             selectedRectangle = nil
             
             // 빈 공간 터치 알림
-            NotificationCenter.default.post(name: NSNotification.Name.PlaneDidTouchEmptyView,
+            NotificationCenter.default.post(name: .PlaneDidTouchEmptyView,
                                             object: self,
                                             userInfo: nil)
             return
@@ -73,7 +73,7 @@ class Plane {
         selectedRectangle = rectangle
         
         // selectedRectangle이 있으면, Plane에서 터치된 좌표에 사각형이 있음을 알림
-        NotificationCenter.default.post(name: NSNotification.Name.PlaneDidTouchRectangle,
+        NotificationCenter.default.post(name: .PlaneDidTouchRectangle,
                                         object: self,
                                         userInfo: [UserInfoKeys.rectangle: rectangle])
     }
@@ -87,7 +87,7 @@ class Plane {
         if let rectangle = selectedRectangle {
             backgroundColorDidChanged(color: newColorValue, rectangle: rectangle)
             
-            NotificationCenter.default.post(name: NSNotification.Name.PlaneDidChangeColor,
+            NotificationCenter.default.post(name: .PlaneDidChangeColor,
                                             object: self,
                                             userInfo: [UserInfoKeys.color: newColorValue])
         }
@@ -100,7 +100,7 @@ class Plane {
                 // 투명도 변경
                 rect.alpha = Alpha(rawValue: Int(alpha * 10))!
                 
-                NotificationCenter.default.post(name: NSNotification.Name.PlaneDidChangeAlpha,
+                NotificationCenter.default.post(name: .PlaneDidChangeAlpha,
                                                 object: self,
                                                 userInfo: [UserInfoKeys.alpha: rect.alpha])
             }
