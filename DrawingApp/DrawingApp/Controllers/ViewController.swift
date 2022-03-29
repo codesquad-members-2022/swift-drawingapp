@@ -162,6 +162,10 @@ extension ViewController {
             sideInspectorView.setBackgroundColorValueButtonColor(by: selectedShape.backgroundColor)
             sideInspectorView.setBackgroundColorValueButtonTitle(by: newColorHexaValue)
         }
+        else {
+            sideInspectorView.clearBackgroundColorValueButtonTitle()
+            sideInspectorView.clearBackgroundColorValueButtonColor()
+        }
         
         if let selectedShape = selectedShape as? Alphable {
             let newAlpha = selectedShape.alpha
