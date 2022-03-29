@@ -7,6 +7,7 @@
 
 import UIKit
 import OSLog
+import PhotosUI
 
 class ViewController: UIViewController {
     
@@ -84,7 +85,13 @@ extension ViewController {
     }
     
     @objc func addPictureButtonTouched() {
-        
+        var pickerConfiguration = PHPickerConfiguration()
+        pickerConfiguration.selectionLimit = 1
+        pickerConfiguration.filter = .any(of: [.images])
+        pickerConfiguration.preferredAssetRepresentationMode = .current
+        let pickerVC = PHPickerViewController(configuration: pickerConfiguration)
+        pickerVC.delegate = self
+        self.present(pickerVC, animated: true, completion: nil)
     }
     
     @objc func handlePresentShapeViewTap(_ tap: UITapGestureRecognizer) {
@@ -114,7 +121,7 @@ extension ViewController {
     
     @objc func didCreateShape(notification: Notification) {
         guard let shape = notification.userInfo?[Plane.UserInfoKeys.newShape]
-                as? BasicShape & Alphable & Colorable else { return }
+                as? BasicShape else { return }
         
         let shapeView = ShapeViewFactory.createShapeView(by: shape)
         shapeMap[shape] = shapeView
@@ -231,4 +238,24 @@ extension ViewController {
                                                name: Plane.EventName.selectedShapeDidUpdateAlpha,
                                                object: plane)
     }
+}
+
+extension ViewController: PHPickerViewControllerDelegate {
+    
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        guard let itemProvider = results.first?.itemProvider else { return }
+        
+        let presentViewXBound = self.presentShapeView.frame.width - Size.Range.width
+        let presentViewYBound = self.presentShapeView.frame.height - Size.Range.height
+        
+        itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.image.identifier) { url, error in
+            DispatchQueue.main.async {
+                guard let url = url, let data = try? Data(contentsOf: url) else { return }
+                self.plane.addPicture(bound: (presentViewXBound, presentViewYBound), data: data, by: ShapeFactory.self)
+            }
+        }
+    }
+    
 }
