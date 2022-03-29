@@ -53,15 +53,15 @@ class ViewController: UIViewController {
     
     @IBAction func drawRectangle(_ sender: UIButton) {
         let xyPoint = getRandomXYInScreenBounds()
-        let rgba = generateRandomRGBA()
+        let randomRGBA = generateRandomRGBA()
         let rectangleView = UIView(frame: CGRect(x: xyPoint.x, y: xyPoint.y, width: 150, height: 120))
-        rectangleView.backgroundColor = UIColor(red: rgba.r,
-                                                green: rgba.g,
-                                                blue: rgba.b,
-                                                alpha: rgba.a)
+        rectangleView.backgroundColor = UIColor(red: randomRGBA.r,
+                                                green: randomRGBA.g,
+                                                blue: randomRGBA.b,
+                                                alpha: randomRGBA.a)
         self.view.addSubview(rectangleView)
         
-        let rgbaInt = convertRGBAToInteger(r: rgba.r, g: rgba.g, b: rgba.b, a: rgba.a)
+        let rgbaInt = convertRGBAToInteger(r: randomRGBA.r, g: randomRGBA.g, b: randomRGBA.b, a: randomRGBA.a)
         addRectangleToPlane(x: xyPoint.x, y: xyPoint.y, r: rgbaInt.r, g: rgbaInt.g, b: rgbaInt.b, a: rgbaInt.a)
     }
     
@@ -96,7 +96,7 @@ class ViewController: UIViewController {
         let randomColor = Color(r: r, g: g, b: b)
         let randomAlpha: Alpha = Alpha(rawValue: a) ?? Alpha.one
         let rectangle = shapeFactory.createRectangle(point: Point(x: Double(x), y: Double(y)), size: Size(width: 150, height: 120), color: randomColor, alpha: randomAlpha)
-        plane.addRectangle(rectangle)
+        plane.addRectangle(rectangle as! Rectangle)
     }
     
     private func selectShape(_ shape: UIView) {
@@ -196,5 +196,17 @@ class ViewController: UIViewController {
         result.b = Int(round(b * 255))
         result.a = Int(round(a * 10))
         return result
+    }
+}
+
+extension UIColor {
+    var rgba: (red: Double, green: Double, blue: Double, alpha: Double) {
+        var red: CGFloat = 0
+        var green: CGFloat = 0
+        var blue: CGFloat = 0
+        var alpha: CGFloat = 0
+        getRed(&red, green: &green, blue: &blue, alpha: &alpha)
+
+        return (red, green, blue, alpha)
     }
 }
