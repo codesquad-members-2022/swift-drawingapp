@@ -24,8 +24,9 @@ class Plane {
         let rectangle = factory.createRectangle()
         rectangles.append(rectangle)
         
-        // NotificationCenter로 Notification 전달
-        NotificationCenter.default.post(name: NSNotification.Name.PlaneDidCreateRectangle, object: self, userInfo: [UserInfoKeys.rectangle: rectangle])
+        NotificationCenter.default.post(name: NSNotification.Name.PlaneDidCreateRectangle,
+                                        object: self,
+                                        userInfo: [UserInfoKeys.rectangle: rectangle])
     }
     
     
@@ -62,16 +63,19 @@ class Plane {
         guard let rectangle = findRectangle(on: point) else {
             selectedRectangle = nil
             
-            // 출력: Model -> VC (빈 공간 터치 알림)
-            NotificationCenter.default.post(name: NSNotification.Name.PlaneDidTouchEmptyView, object: self, userInfo: nil)
+            // 빈 공간 터치 알림
+            NotificationCenter.default.post(name: NSNotification.Name.PlaneDidTouchEmptyView,
+                                            object: self,
+                                            userInfo: nil)
             return
         }
         
         selectedRectangle = rectangle
         
-        // selectedRectangle이 있으면, 이걸 통해 이제 출력을 해줘야한다. (Plane -> VC -> View)
-        // Plane에서 터치된 좌표에 사각형이 있음을 알림
-        NotificationCenter.default.post(name: NSNotification.Name.PlaneDidTouchRectangle, object: self, userInfo: [UserInfoKeys.rectangle: rectangle])
+        // selectedRectangle이 있으면, Plane에서 터치된 좌표에 사각형이 있음을 알림
+        NotificationCenter.default.post(name: NSNotification.Name.PlaneDidTouchRectangle,
+                                        object: self,
+                                        userInfo: [UserInfoKeys.rectangle: rectangle])
     }
     
     /// VC로부터 색상 버튼이 탭되었음을 전달받았기 때문에, 랜덤 색상을 생성하여 모델을 변경 후 이를 VC에 알린다.
@@ -83,8 +87,9 @@ class Plane {
         if let rectangle = selectedRectangle {
             backgroundColorDidChanged(color: newColorValue, rectangle: rectangle)
             
-            // VC에게 색상 변경된 사각형 알리기
-            NotificationCenter.default.post(name: NSNotification.Name.PlaneDidChangeColor, object: self, userInfo: [UserInfoKeys.rectangle: rectangle])
+            NotificationCenter.default.post(name: NSNotification.Name.PlaneDidChangeColor,
+                                            object: self,
+                                            userInfo: [UserInfoKeys.rectangle: rectangle])
         }
     }
     
