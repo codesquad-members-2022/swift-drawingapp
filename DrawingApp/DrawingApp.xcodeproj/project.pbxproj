@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		D031063727D5A84300FCAEA7 /* Identifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D031063627D5A84300FCAEA7 /* Identifier.swift */; };
-		D057037427DE018500733404 /* PlaneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D057037327DE018500733404 /* PlaneDelegate.swift */; };
 		D06D5D6F27D6E8060031D3BF /* DrawingAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D5D6E27D6E8060031D3BF /* DrawingAppTests.swift */; };
 		D06D5D7627D6ED6A0031D3BF /* Plane.swift in Sources */ = {isa = PBXBuildFile; fileRef = D06D5D7527D6ED6A0031D3BF /* Plane.swift */; };
 		D0872B8027D1A41200085C86 /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0872B7F27D1A41200085C86 /* Rectangle.swift */; };
@@ -42,7 +41,6 @@
 
 /* Begin PBXFileReference section */
 		D031063627D5A84300FCAEA7 /* Identifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Identifier.swift; sourceTree = "<group>"; };
-		D057037327DE018500733404 /* PlaneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneDelegate.swift; sourceTree = "<group>"; };
 		D06D5D6C27D6E8060031D3BF /* DrawingAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DrawingAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D06D5D6E27D6E8060031D3BF /* DrawingAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingAppTests.swift; sourceTree = "<group>"; };
 		D06D5D7527D6ED6A0031D3BF /* Plane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plane.swift; sourceTree = "<group>"; };
@@ -125,7 +123,6 @@
 			children = (
 				D09369B427F2A3F4006FB8CA /* Extension */,
 				D0FEF18E27D9BCA600A90C4B /* SideInspectorViewDelegate.swift */,
-				D057037327DE018500733404 /* PlaneDelegate.swift */,
 				D0A18DAA27CF489B003ADC8A /* AppDelegate.swift */,
 				D0A18DAC27CF489B003ADC8A /* SceneDelegate.swift */,
 				D0A18DB327CF489C003ADC8A /* Assets.xcassets */,
@@ -296,7 +293,6 @@
 				D0872B8627D1B20B00085C86 /* Color.swift in Sources */,
 				D06D5D7627D6ED6A0031D3BF /* Plane.swift in Sources */,
 				D031063727D5A84300FCAEA7 /* Identifier.swift in Sources */,
-				D057037427DE018500733404 /* PlaneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
