@@ -264,11 +264,6 @@ extension ViewController {
         updateHeightLabel(with: newHeight)
         updateSizeButtons(with: newSize)
     }
-    
-//    private func adjustTextSize(to newSize: CGSize) {
-//        let convertedSize = Size(width: newSize.width, height: newSize.height)
-//        self.plane.changeSize(to: convertedSize)
-//    }
 }
 
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
