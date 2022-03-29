@@ -8,9 +8,6 @@
 import Foundation
 
 protocol PlaneDelegate {
-    /// Plane에서 터치된 좌표에 사각형이 있음을 알림
-    func planeDidTouchedRectangle(_ rectangle: Rectangle)
-    
     /// Plane에서 터치된 좌표에 아무것도 없음을 알림
     func planeDidTouchedEmptySpace()
     
