@@ -22,4 +22,11 @@ class ShapeFactory {
                          backgroundColor: RandomAttributeFactory.generateRandomColor(),
                          alpha: Alpha.random)
     }
+    
+    static func createRandomPointPicture(xBound: Double, yBound: Double, data: Data) -> Picture {
+        return Picture(identifier: RandomAttributeFactory.generateRandomIdentifier(),
+                       point: RandomAttributeFactory.generateRandomPoint(xBound: xBound, yBound: yBound),
+                       alpha: Alpha.maxLevel,
+                       imageBinaryData: data)
+    }
 }
