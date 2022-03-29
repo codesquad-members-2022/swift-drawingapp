@@ -63,7 +63,9 @@ class Plane {
     func didTouched(on point: (x: Double, y: Double)) {
         guard let rectangle = findRectangle(on: point) else {
             selectedRectangle = nil
-            delegate?.planeDidTouchedEmptySpace() // 출력: Model -> VC (빈 공간 터치 알림)
+            
+            // 출력: Model -> VC (빈 공간 터치 알림)
+            NotificationCenter.default.post(name: NSNotification.Name.PlaneDidTouchEmptyView, object: self, userInfo: nil)
             return
         }
         
