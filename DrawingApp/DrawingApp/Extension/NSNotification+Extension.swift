@@ -27,4 +27,6 @@ extension NSNotification.Name {
 
 enum UserInfoKeys {
     static let rectangle = "Rectangle"
+    static let color = "Color"
+    static let alpha = "Alpha"
 }

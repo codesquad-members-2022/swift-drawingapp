@@ -70,6 +70,8 @@ class ViewController: UIViewController {
         unselectRectangle()
         rectangles[rectangle]?.layer.borderWidth = 3
         rectangles[rectangle]?.layer.borderColor = UIColor.blue.cgColor
+        
+        selectedRectangle = rectangle
     }
 
     private func unselectRectangle() {
@@ -144,17 +146,21 @@ class ViewController: UIViewController {
     
     // plane이 색상 변경한 것을 CanvasView에 알리기
     @objc func didChangeColor(_ notification: Notification) {
-        if let rectangle = notification.userInfo?[UserInfoKeys.rectangle] as? Rectangle {
-            sideInspectorView.changeColorString(rectangle.backgroundColor)
-            rectangles[rectangle]?.backgroundColor = UIColor(hex: rectangle.backgroundColor.getHexValue())
+        if let selectedRectangle = selectedRectangle {
+            if let color = notification.userInfo?[UserInfoKeys.color] as? Color {
+                sideInspectorView.changeColorString(color)
+                rectangles[selectedRectangle]?.backgroundColor = UIColor(hex: color.getHexValue())
+            }
         }
     }
     
     // Plane에서 변경된 투명도를 SideInspector과 CanvasView에 알리기 (VC -> View)
     @objc func didChangeAlpha(_ notification: Notification) {
-        if let rectangle = notification.userInfo?[UserInfoKeys.rectangle] as? Rectangle {
-            sideInspectorView.changeAlpha(rectangle.alpha)
-            rectangles[rectangle]?.alpha = rectangle.alpha.opacity
+        if let selectedRectangle = selectedRectangle {
+            if let alpha = notification.userInfo?[UserInfoKeys.alpha] as? Alpha {
+                sideInspectorView.changeAlpha(alpha)
+                rectangles[selectedRectangle]?.alpha = alpha.opacity
+            }
         }
     }
 }
