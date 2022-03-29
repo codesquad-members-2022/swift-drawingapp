@@ -28,8 +28,12 @@ class Plane {
                                         userInfo: [UserInfoKeys.newShape: newRectangle])
     }
     
-    func addPicture(bound: (x: Double, y: Double), by factoryType: ShapeFactory.Type) {
-        
+    func addPicture(bound: (x: Double, y: Double), data: Data, by factoryType: ShapeFactory.Type) {
+        let newPicture = factoryType.createRandomPointPicture(xBound: bound.x, yBound: bound.y, data: data)
+        shapes.append(newPicture)
+        NotificationCenter.default.post(name: Plane.EventName.newShapeDidCreate,
+                                        object: self,
+                                        userInfo: [UserInfoKeys.newShape: newPicture])
     }
     
     func updateSelected(shape: BasicShape) {
