@@ -34,6 +34,8 @@ class ViewController: UIViewController {
         sideInspectorView.delegate = self
         setLayout()
         setTapGesture()
+        
+        subscribeObserver()
     }
     
     private func setLayout() {
@@ -82,6 +84,28 @@ class ViewController: UIViewController {
         tapGesture.delegate = self
         canvasView.addGestureRecognizer(tapGesture)
     }
+    
+    private func subscribeObserver() {
+        NotificationCenter.default.addObserver(self, selector: #selector(didCreateRectangle(_:)), name: NSNotification.Name.PlaneDidCreateRectangle, object: plane)
+        
+        
+    }
+    
+    @objc func didCreateRectangle(_ notification: Notification) {
+        guard let rectangle = notification.userInfo?[UserInfoKeys.rectangle] as? Rectangle else {
+            return
+        }
+        // 모델에서 생성한 사각형을 모델에서 VC로 전달하고, 전달 받은 것을 canvasView에 그려주기
+        drawRectangle(rectangle: rectangle)
+        
+        // 버튼에 색상 표시
+        sideInspectorView.colorButton.setTitle(rectangle.backgroundColor.getHexValue(), for: .normal)
+        
+        // 슬라이더 투명도 표시
+        sideInspectorView.alphaSlider.value = Float(rectangle.alpha.opacity)
+        let sliderValue = Int(rectangle.alpha.opacity * 10)
+        sideInspectorView.alphaValueLabel.text = "\(sliderValue)"
+    }
 }
 
 
@@ -110,19 +134,6 @@ extension ViewController: SideInspectorViewDelegate {
 
 
 extension ViewController: PlaneDelegate {
-    func planeDidAddRectangle(_ rectangle: Rectangle) {
-        // 모델에서 생성한 사각형을 모델에서 VC로 전달하고, 전달 받은 것을 canvasView에 그려주기
-        drawRectangle(rectangle: rectangle)
-        
-        // 버튼에 색상 표시
-        sideInspectorView.colorButton.setTitle(rectangle.backgroundColor.getHexValue(), for: .normal)
-        
-        // 슬라이더 투명도 표시
-        sideInspectorView.alphaSlider.value = Float(rectangle.alpha.opacity)
-        let sliderValue = Int(rectangle.alpha.opacity * 10)
-        sideInspectorView.alphaValueLabel.text = "\(sliderValue)"
-    }
-    
     // 사각형 터치 시, SideInspectorView에 배경색과 투명도 나타내기
     // CanvasView에도 선택되었다고 표시하기 (Plane -> VC -> View)
     func planeDidTouchedRectangle(_ rectangle: Rectangle) {
