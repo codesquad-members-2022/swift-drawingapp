@@ -18,6 +18,7 @@
 		D0872B8827D1D90800085C86 /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0872B8727D1D90800085C86 /* Alpha.swift */; };
 		D0872B8A27D1E7EB00085C86 /* RectangleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0872B8927D1E7EB00085C86 /* RectangleFactory.swift */; };
 		D0872B8C27D1F15100085C86 /* RectangleError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0872B8B27D1F15100085C86 /* RectangleError.swift */; };
+		D09369B327F2A3EF006FB8CA /* NSNotification+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D09369B227F2A3EF006FB8CA /* NSNotification+Extension.swift */; };
 		D0A18DAB27CF489B003ADC8A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A18DAA27CF489B003ADC8A /* AppDelegate.swift */; };
 		D0A18DAD27CF489B003ADC8A /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A18DAC27CF489B003ADC8A /* SceneDelegate.swift */; };
 		D0A18DAF27CF489B003ADC8A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A18DAE27CF489B003ADC8A /* ViewController.swift */; };
@@ -52,6 +53,7 @@
 		D0872B8727D1D90800085C86 /* Alpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alpha.swift; sourceTree = "<group>"; };
 		D0872B8927D1E7EB00085C86 /* RectangleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleFactory.swift; sourceTree = "<group>"; };
 		D0872B8B27D1F15100085C86 /* RectangleError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RectangleError.swift; sourceTree = "<group>"; };
+		D09369B227F2A3EF006FB8CA /* NSNotification+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSNotification+Extension.swift"; sourceTree = "<group>"; };
 		D0A18DA727CF489B003ADC8A /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D0A18DAA27CF489B003ADC8A /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D0A18DAC27CF489B003ADC8A /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -91,6 +93,15 @@
 			path = DrawingAppTests;
 			sourceTree = "<group>";
 		};
+		D09369B427F2A3F4006FB8CA /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				D0E4EA8A27D7C17600906F76 /* UIColor+Extension.swift */,
+				D09369B227F2A3EF006FB8CA /* NSNotification+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		D0A18D9E27CF489B003ADC8A = {
 			isa = PBXGroup;
 			children = (
@@ -112,15 +123,15 @@
 		D0A18DA927CF489B003ADC8A /* DrawingApp */ = {
 			isa = PBXGroup;
 			children = (
+				D09369B427F2A3F4006FB8CA /* Extension */,
 				D0FEF18E27D9BCA600A90C4B /* SideInspectorViewDelegate.swift */,
 				D057037327DE018500733404 /* PlaneDelegate.swift */,
-				D0E4EA8A27D7C17600906F76 /* UIColor+Extension.swift */,
 				D0A18DAA27CF489B003ADC8A /* AppDelegate.swift */,
 				D0A18DAC27CF489B003ADC8A /* SceneDelegate.swift */,
 				D0A18DB327CF489C003ADC8A /* Assets.xcassets */,
 				D0A18DB527CF489C003ADC8A /* LaunchScreen.storyboard */,
-				D0A18DC627CF507C003ADC8A /* View */,
 				D0A18DC527CF5077003ADC8A /* Model */,
+				D0A18DC627CF507C003ADC8A /* View */,
 				D0A18DC427CF5071003ADC8A /* Controller */,
 				D0A18DB027CF489B003ADC8A /* Main.storyboard */,
 				D0A18DB827CF489C003ADC8A /* Info.plist */,
@@ -281,6 +292,7 @@
 				D0E4EA8B27D7C17600906F76 /* UIColor+Extension.swift in Sources */,
 				D0872B8427D1AFEE00085C86 /* Size.swift in Sources */,
 				D0872B8027D1A41200085C86 /* Rectangle.swift in Sources */,
+				D09369B327F2A3EF006FB8CA /* NSNotification+Extension.swift in Sources */,
 				D0872B8627D1B20B00085C86 /* Color.swift in Sources */,
 				D06D5D7627D6ED6A0031D3BF /* Plane.swift in Sources */,
 				D031063727D5A84300FCAEA7 /* Identifier.swift in Sources */,
