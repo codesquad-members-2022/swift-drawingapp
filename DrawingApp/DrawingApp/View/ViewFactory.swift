@@ -35,6 +35,17 @@ class ViewFactory {
         return newView
     }
     
+    static func makeTextView(of text: BasicShape & TextDataHavable) -> RectangleViewable {
+        let point = text.point
+        let size = text.size
+        let frame = CGRect(x: point.x, y: point.y, width: size.width, height: size.height)
+        let alpha = CGFloat(text.alpha.value)
+        let text = text.text
+        
+        let newView = TextView(frame: frame, alpha: alpha, text: text)
+        return newView
+    }
+    
 }
 
 extension BackgroundColor {

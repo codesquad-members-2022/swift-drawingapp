@@ -42,6 +42,7 @@ class ViewController: UIViewController {
         addDrawableAreaView()
         addGenerateRectangleButton()
         addGenerateImageRectangleButton()
+        addGenerateTextButton()
         
         setStatusViewElements()
         
@@ -98,6 +99,31 @@ class ViewController: UIViewController {
         self.view.addSubview(generateButton)
     }
     
+    func addGenerateTextButton() {
+        let buttonUIAction = UIAction { _ in
+            let pointLimit = (Double(self.drawableAreaView.frame.width),
+                              Double(self.drawableAreaView.frame.height))
+            let randomText = String.makeRandomText()
+            let fittedSize = (randomText as NSString).size(withAttributes: [NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 20)])
+            self.plane.addNewText(in: pointLimit, text: randomText, size: Size(width: fittedSize.width, height: fittedSize.height))
+        }
+        let generateButton = UIButton(type: .custom, primaryAction: buttonUIAction)
+        let buttonWidth = 100.0
+        let buttonHeight = 100.0
+        let spacing = 0.5
+        let buttonX = (self.drawableAreaView.frame.size.width/2.0) + spacing + (buttonWidth + spacing)
+        let buttonY = self.view.frame.size.height - buttonHeight
+        let buttonImageConfiguration = UIImage.SymbolConfiguration.init(hierarchicalColor: .black)
+        let buttonImage = UIImage(systemName: "text.bubble", withConfiguration: buttonImageConfiguration)
+        generateButton.frame = CGRect(x: buttonX, y: buttonY, width: buttonWidth, height: buttonHeight)
+        generateButton.backgroundColor = .systemGray6
+        generateButton.setImage(buttonImage, for: .normal)
+        generateButton.layer.cornerRadius = 15
+        
+        self.generateRectangleButton = generateButton
+        self.view.addSubview(generateButton)
+    }
+    
     func addDrawableAreaView() {
         let drawableAreaViewX = self.view.frame.origin.x
         let drawableAreaViewY = self.view.frame.origin.y
@@ -138,6 +164,7 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidAddPhoto(_:)), name: Plane.NotificationNames.didAddPhoto, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidChangeRectanglePoint), name: Plane.NotificationNames.didChangeRectanglePoint, object: plane)
         NotificationCenter.default.addObserver(self, selector: #selector(planeDidChangeRectangleSize(_:)), name: Plane.NotificationNames.didChangeRectangleSize, object: plane)
+        NotificationCenter.default.addObserver(self, selector: #selector(planeDidAddText(_:)), name: Plane.NotificationNames.didAddText, object: plane)
     }
 }
 
@@ -159,6 +186,15 @@ extension ViewController {
         let newPhotoView = ViewFactory.makePhotoView(of: addedPhoto)
         self.drawableAreaView.addSubview(newPhotoView)
         rectangleAndViewMap[addedPhoto] = newPhotoView
+    }
+    
+    @objc func planeDidAddText(_ notification: Notification) {
+        guard let addedText = notification.userInfo?[Plane.UserInfoKeys.addedText] as? Text else {return}
+        os_log("\(addedText)")
+        
+        let newTextView = ViewFactory.makeTextView(of: addedText)
+        self.drawableAreaView.addSubview(newTextView)
+        rectangleAndViewMap[addedText] = newTextView
     }
     
     @objc func planeDidSpecifyRectangle(_ notification: Notification) {
@@ -229,6 +265,10 @@ extension ViewController {
         updateSizeButtons(with: newSize)
     }
     
+//    private func adjustTextSize(to newSize: CGSize) {
+//        let convertedSize = Size(width: newSize.width, height: newSize.height)
+//        self.plane.changeSize(to: convertedSize)
+//    }
 }
 
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -524,5 +564,15 @@ extension BackgroundColor {
 extension Float {
     fileprivate func normalized() -> Float {
         return roundf(self * 10) / 10
+    }
+}
+
+extension String {
+    fileprivate static func makeRandomText() -> String {
+        let wholeText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Egestas tellus rutrum tellus pellentesque eu. Viverra justo nec ultrices dui sapien eget mi proin sed. Vel pretium lectus quam id leo. Molestie at elementum eu facilisis sed odio morbi quis commodo. Risus at ultrices mi tempus imperdiet nulla malesuada. In est ante in nibh mauris cursus mattis molestie a. Venenatis urna cursus eget nunc. Eget velit aliquet sagittis id consectetur purus ut. Amet consectetur adipiscing elit pellentesque habitant morbi tristique senectus. Consequat nisl vel pretium lectus quam id. Nisl vel pretium lectus quam id leo in vitae turpis. Purus faucibus ornare suspendisse sed. Amet mauris commodo quis imperdiet.".components(separatedBy: " ")
+        
+        let selectedIndex = (0..<wholeText.count - 4).randomElement() ?? 0
+        
+        return wholeText[selectedIndex...selectedIndex+4].joined(separator: " ")
     }
 }
