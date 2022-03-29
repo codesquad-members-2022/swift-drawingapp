@@ -95,6 +95,11 @@ class ViewController: UIViewController {
                                                selector: #selector(didTouchRectangle(_:)),
                                                name: NSNotification.Name.PlaneDidTouchRectangle,
                                                object: plane)
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(didTouchEmptyView(_:)),
+                                               name: NSNotification.Name.PlaneDidTouchEmptyView,
+                                               object: plane)
     }
     
     @objc func didCreateRectangle(_ notification: Notification) {
@@ -127,6 +132,11 @@ class ViewController: UIViewController {
         
         select(rectangle: rectangle)
     }
+    
+    // 출력: Plane에서 빈 공간이 터치된 것을 View에게 전달 (VC -> View)
+    @objc func didTouchEmptyView(_ notification: Notification) {
+        unselectRectangle()
+    }
 }
 
 
@@ -155,11 +165,6 @@ extension ViewController: SideInspectorViewDelegate {
 
 
 extension ViewController: PlaneDelegate {
-    /// 출력: Plane에서 빈 공간이 터치된 것을 View에게 전달 (VC -> View)
-    func planeDidTouchedEmptySpace() {
-        unselectRectangle()
-    }
-    
     // plane이 색상 변경한 것을 SideInspectorView에 알리기 VC -> SideInspectorView (출력: 색상 변경 뷰에게 알림)
     // plane이 색상 변경한 것을 CanvasView에 알리기
     func planeDidChangedColor(of rectangle: Rectangle) {
