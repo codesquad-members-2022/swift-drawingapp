@@ -27,10 +27,10 @@ class Rectangle: Shape {
     }
     
     func isContainPoint(_ point: Point) -> Bool {
-        let rectangleX = self.point.getCurrentX()
-        let rectangleY = self.point.getCurrentY()
-        let isContainX = (rectangleX...rectangleX + self.size.getCurrentWidth()).contains(point.getCurrentX())
-        let isContainY = (rectangleY...rectangleY + self.size.getCurrentHeight()).contains(point.getCurrentY())
+        let rectangleX = self.point.getX()
+        let rectangleY = self.point.getY()
+        let isContainX = (rectangleX...rectangleX + self.size.getCurrentWidth()).contains(point.getX())
+        let isContainY = (rectangleY...rectangleY + self.size.getCurrentHeight()).contains(point.getY())
         return isContainX && isContainY
     }
     

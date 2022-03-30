@@ -12,8 +12,9 @@ class ViewController: UIViewController {
     static let screenWidth = UIScreen.main.bounds.width
     static let screenHeight = UIScreen.main.bounds.height
     
-    private var plane = Plane()
     private var selectedView: UIView? = nil
+    
+    private var plane = Plane()
     private let shapeFactory = ShapeFactory()
     
     @IBOutlet weak var rectangleButton: UIButton!
@@ -36,24 +37,11 @@ class ViewController: UIViewController {
         disableControlButtons()
         initAlphaStepper()
     }
-
-    @objc func didTapView(_ sender: UITapGestureRecognizer) {
-        let touchedCGPoint = sender.location(in: self.view)
-        let touchedView = self.view.hitTest(touchedCGPoint, with: nil)
-        guard let selectedRectangle = plane.selectRectangle(x: touchedCGPoint.x, y: touchedCGPoint.y) else {
-            print("no Rectangle - unselect")
-            unselectView()
-            return
-        }
-        print(selectedRectangle)
-    }
     
     @IBAction func drawRectangle(_ sender: UIButton) {
         let rectangle = plane.makeNewRandomRectangle()
-        print(rectangle)
         let rectangleView = convertRectangleToUIView(rectangle: rectangle)
         self.view.addSubview(rectangleView)
-    
     }
     
     @IBAction func resetRGB(_ sender: UIButton) {
@@ -83,22 +71,39 @@ class ViewController: UIViewController {
         setAlphaValueLabel(a: Int(alphaStepper.value))
     }
     
-    private func selectView(_ view: UIView) {
-        if plane.selectedShape != nil { // 기존 selectedShape가 있는데 새로운 view select했을 때
-            selectedView?.layer.borderWidth = 0
-            
-        }
+    @objc func didTapView(_ sender: UITapGestureRecognizer) {
+        let touchedCGPoint = sender.location(in: self.view)
         
-        plane.selectedShape = convertUIViewToRectangle(view: view)
-        selectedView = view
+        if let selectedRectangle = plane.getRectangleAtPoint(x: touchedCGPoint.x, y: touchedCGPoint.y) {
+            // 터치 지점에 사각형이 있다면
+            if let tappedView = self.view.hitTest(CGPoint(x: selectedRectangle.getPoint().getX(), y: selectedRectangle.getPoint().getY()), with: nil) {
+                // 사각형 지점의 뷰를 선택
+                selectedView = tappedView
+                showSelectedView(tappedView)
+            }
+            // 사각형 지점의 뷰를 모델에 저장
+            plane.setSelectedShape(to: selectedRectangle)
+        } else {
+            // 없다면 선택 해제
+            plane.resetSelectedShape()
+            hideSelectedView()
+        }
+    }
+    
+    private func showSelectedView(_ view: UIView) {
+        if plane.isThereSelectedShape() { // 기존 selectedShape가 있는데 새로운 view select했을 때
+            if let previousPoint = plane.getSelectedShapePoint() {
+                removeRectangleBorderAtPoint(Point(x: previousPoint.getX(), y: previousPoint.getY()))
+            }
+        }
         
         guard let rgba = view.backgroundColor?.rgba else {
             return
         }
-        
         let intRGBA = convertRGBAToInteger(r: rgba.red, g: rgba.green, b: rgba.blue, a: rgba.alpha)
-        selectedView?.layer.borderWidth = 5
-        selectedView?.layer.borderColor = UIColor.blue.cgColor
+        
+        let viewOrigin = view.frame.origin
+        addRectangleBorderAtPoint(Point(x: viewOrigin.x, y: viewOrigin.y))
         setHexValueLabel(r: intRGBA.r, g: intRGBA.g, b: intRGBA.b)
         setRGBValueLabel(r: intRGBA.r, g: intRGBA.g, b: intRGBA.b)
         setAlphaValueLabel(a: intRGBA.a)
@@ -106,12 +111,26 @@ class ViewController: UIViewController {
         enableControlButtons()
     }
     
-    private func unselectView() {
+    private func addRectangleBorderAtPoint(_ point: Point) {
+        let rectangleView = self.view.hitTest(CGPoint(x: point.getX(), y: point.getY()), with: nil)
+        rectangleView?.layer.borderWidth = 3
+        rectangleView?.layer.borderColor = UIColor.blue.cgColor
+    }
+    
+    private func removeRectangleBorderAtPoint(_ point: Point) {
+        let rectangleView = self.view.hitTest(CGPoint(x: point.getX(), y: point.getY()), with: nil)
+        rectangleView?.layer.borderWidth = 0
+    }
+    
+    private func hideSelectedView() {
         selectedView?.layer.borderWidth = 0
-        selectedView = nil
         setDefaultLabel()
         alphaStepper.value = 1.0
         disableControlButtons()
+    }
+    
+    private func findViewAtPoint(_ point: Point) -> UIView? {
+        return self.view.hitTest(CGPoint(x: point.getX(), y: point.getY()), with: nil)
     }
     
     private func disableControlButtons() {
@@ -185,8 +204,8 @@ class ViewController: UIViewController {
     }
     
     private func convertRectangleToUIView(rectangle: Rectangle) -> UIView {
-        let view = UIView(frame: CGRect(x: rectangle.getPoint().getCurrentX(),
-                                        y: rectangle.getPoint().getCurrentY(),
+        let view = UIView(frame: CGRect(x: rectangle.getPoint().getX(),
+                                        y: rectangle.getPoint().getY(),
                                         width: rectangle.getSize().getCurrentWidth(),
                                         height: rectangle.getSize().getCurrentHeight()))
         view.backgroundColor = UIColor(red: Double(rectangle.getColor().getRed()) / 255,
@@ -210,9 +229,9 @@ class ViewController: UIViewController {
                           b: intRGBA.b)
         let alpha: Alpha = Alpha(rawValue: intRGBA.a) ?? .one
         return shapeFactory.createRectangle(point: point,
-                                                     size: size,
-                                                     color: color,
-                                                     alpha: alpha)
+                                            size: size,
+                                            color: color,
+                                            alpha: alpha)
     }
 }
 
@@ -223,7 +242,7 @@ extension UIColor {
         var blue: CGFloat = 0
         var alpha: CGFloat = 0
         getRed(&red, green: &green, blue: &blue, alpha: &alpha)
-
+        
         return (red, green, blue, alpha)
     }
 }

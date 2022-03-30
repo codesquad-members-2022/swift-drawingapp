@@ -10,7 +10,7 @@ import Foundation
 struct Plane {
     private let factory = ShapeFactory()
     private var shapeArray = Array<Shape>()
-    var selectedShape: Shape? = nil
+    private var selectedShape: Shape? = nil
     
     var rectangleCount: Int {
         get {
@@ -25,27 +25,31 @@ struct Plane {
         return nil
     }
     
-    mutating func selectRectangle(x: Double, y: Double) -> Rectangle? {
+    mutating func getRectangleAtPoint(x: Double, y: Double) -> Rectangle? {
         for index in 0..<shapeArray.count {
             let shape = shapeArray[shapeArray.count - index - 1]
             if  shape is Rectangle,
                 shape.isContainPoint(Point(x: x, y: y)) {
-                print("사각형 있음")
-                selectedShape = shape
                 return shape as? Rectangle
             }
         }
-        selectedShape = nil
         return nil
     }
     
-    func isThereARectangle(point: Point) -> Bool {
-        for rectangle in shapeArray {
-            if rectangle.isContainPoint(point) {
-                return true
-            }
-        }
-        return false
+    func isThereSelectedShape() -> Bool {
+        return selectedShape != nil
+    }
+    
+    func getSelectedShapePoint() -> Point? {
+        return selectedShape?.getPoint()
+    }
+    
+    mutating func setSelectedShape(to shape: Shape) {
+        selectedShape = shape
+    }
+    
+    mutating func resetSelectedShape() {
+        selectedShape = nil
     }
     
     mutating func makeNewRandomRectangle() -> Rectangle {
