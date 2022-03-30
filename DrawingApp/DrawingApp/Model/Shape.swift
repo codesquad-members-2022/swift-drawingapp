@@ -8,7 +8,6 @@
 import Foundation
 
 protocol Shape {
-    var id: String { get }
     
     func isContainPoint(_ point: Point) -> Bool
     

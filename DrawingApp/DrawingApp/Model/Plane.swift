@@ -91,13 +91,4 @@ struct Plane {
         setSelectedShape(to: newRectangle)
         return newRectangle
     }
-    
-    func generateRandomRGBA() -> (r: Double, g: Double, b: Double, a: Double) {
-        var result: (r: Double, g: Double, b: Double, a: Double) = (0.0, 0.0, 0.0, 0.0)
-        result.r = Double.random(in: 0...255) / 255
-        result.g = Double.random(in: 0...255) / 255
-        result.b = Double.random(in: 0...255) / 255
-        result.a = Double.random(in: 1...10) / 10
-        return result
-    }
 }

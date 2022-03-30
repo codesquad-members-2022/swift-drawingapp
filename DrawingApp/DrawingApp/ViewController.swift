@@ -78,23 +78,20 @@ class ViewController: UIViewController {
         let touchedCGPoint = sender.location(in: self.view)
         
         if let selectedRectangle = plane.getRectangleAtPoint(x: touchedCGPoint.x, y: touchedCGPoint.y) {
-            // 터치 지점에 사각형이 있다면
             if let tappedView = self.view.hitTest(CGPoint(x: selectedRectangle.getPoint().getX(), y: selectedRectangle.getPoint().getY()), with: nil) {
-                // 사각형 지점의 뷰를 선택
                 selectedView = tappedView
-                showSelectedView(tappedView)
+                selectView(tappedView)
             }
-            // 사각형 지점의 뷰를 모델에 저장
             plane.setSelectedShape(to: selectedRectangle)
         } else {
             // 없다면 선택 해제
-            hideSelectedView()
+            disSelectView()
             selectedView = nil
             plane.resetSelectedShape()
         }
     }
     
-    private func showSelectedView(_ view: UIView) {
+    private func selectView(_ view: UIView) {
         if plane.isThereSelectedShape() { // 기존 selectedShape가 있는데 새로운 view select했을 때
             if let previousPoint = plane.getSelectedShapePoint() {
                 eraseRectangleBorderAtPoint(Point(x: previousPoint.getX(), y: previousPoint.getY()))
@@ -115,7 +112,7 @@ class ViewController: UIViewController {
         enableControlButtons()
     }
     
-    private func hideSelectedView() {
+    private func disSelectView() {
         selectedView?.layer.borderWidth = 0
         setLabelsDefaultValue()
         alphaStepper.value = 1.0
@@ -192,26 +189,6 @@ class ViewController: UIViewController {
                                        alpha: Double(rectangle.getAlpha().rawValue) / 10)
         return view
     }
-//    
-//    private func convertUIViewToRectangle(view: UIView) -> Rectangle? {
-//        guard let rgba = view.backgroundColor?.rgba else {
-//            return nil
-//        }
-//        let intColor = Color.convertColorToInt(r: rgba.red, g: rgba.green, b: rgba.blue)
-//        let intAlpha = Alpha.convertAlphaToInt(a: rgba.alpha)
-//        let point = Point(x: view.frame.origin.x,
-//                          y: view.frame.origin.y)
-//        let size = Size(width: view.frame.size.width,
-//                        height: view.frame.size.height)
-//        let color = Color(r: intColor.getRed(),
-//                          g: intColor.getGreen(),
-//                          b: intColor.getBlue())
-//        let alpha: Alpha = Alpha(rawValue: intAlpha) ?? .one
-//        return shapeFactory.createRectangle(point: point,
-//                                            size: size,
-//                                            color: color,
-//                                            alpha: alpha)
-//    }
 }
 
 extension UIColor {
