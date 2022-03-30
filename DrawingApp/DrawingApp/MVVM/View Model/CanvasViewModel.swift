@@ -12,6 +12,10 @@ class CanvasViewModel {
     let addService = AddService()
     let newView = Observable<UIView?>(nil)
     
+    let selectService = SelectService()
+    let selectedView = Observable<UIView?>(nil)
+    let unselectedView = Observable<UIView?>(nil)
+    
     var layerDict = [Layer: UIView]()
     
     func add<T: Layer>(of layerType: T.Type, imageData: Data? = nil) {
@@ -19,6 +23,16 @@ class CanvasViewModel {
             let newView = ViewFactory.create(from: newLayer)
             self?.layerDict[newLayer] = newView
             self?.newView.value = newView
+        }
+    }
+    
+    func select(on point: Point) {
+        selectService.select(on: point) { [weak self] unselected, selected in
+            guard let unselected = unselected else { return }
+            self?.unselectedView.value = self?.layerDict[unselected]
+            
+            guard let selected = selected else { return }
+            self?.selectedView.value = self?.layerDict[selected]
         }
     }
 }

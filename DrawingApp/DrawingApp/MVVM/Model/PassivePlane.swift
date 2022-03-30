@@ -7,10 +7,10 @@
 
 import Foundation
 
-class Layers {
+class PassivePlane {
     
     // Use singleton for different services to access
-    static let shared = Layers()
+    static let shared = PassivePlane()
     
     var layers: [Layer]
     var selected: Layer?
