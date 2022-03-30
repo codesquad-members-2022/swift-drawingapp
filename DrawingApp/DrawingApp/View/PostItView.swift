@@ -1,5 +1,5 @@
 //
-//  UITextView.swift
+//  PostItView.swift
 //  DrawingApp
 //
 //  Created by Bumgeun Song on 2022/03/28.
@@ -7,8 +7,6 @@
 
 import Foundation
 import UIKit
-
-// UITextView represents PostIt Class
 
 class PostItView: UITextView {
     
