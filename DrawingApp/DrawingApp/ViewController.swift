@@ -45,11 +45,13 @@ class ViewController: UIViewController {
             unselectView()
             return
         }
-        print("select")
+        print(selectedRectangle)
     }
     
     @IBAction func drawRectangle(_ sender: UIButton) {
-        let rectangleView = convertRectangleToUIView(rectangle: plane.makeNewRandomRectangle())
+        let rectangle = plane.makeNewRandomRectangle()
+        print(rectangle)
+        let rectangleView = convertRectangleToUIView(rectangle: rectangle)
         self.view.addSubview(rectangleView)
     
     }

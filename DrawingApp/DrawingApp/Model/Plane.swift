@@ -26,7 +26,8 @@ struct Plane {
     }
     
     mutating func selectRectangle(x: Double, y: Double) -> Rectangle? {
-        for shape in shapeArray {
+        for index in 0..<shapeArray.count {
+            let shape = shapeArray[shapeArray.count - index - 1]
             if  shape is Rectangle,
                 shape.isContainPoint(Point(x: x, y: y)) {
                 print("사각형 있음")
