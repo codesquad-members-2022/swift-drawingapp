@@ -12,7 +12,13 @@ class PassiveCanvasViewController: UIViewController,
                                    UINavigationControllerDelegate {
     
     private var canvasView: UIView?
+    
     private let canvasViewModel = CanvasViewModel()
+    
+    @IBOutlet weak var addRectangleButton: UIButton!
+    @IBOutlet weak var addPhotoButton: UIButton!
+    @IBOutlet weak var addLabelButton: UIButton!
+    @IBOutlet weak var addPostItButton: UIButton!
     
     private lazy var photoPicker: UIImagePickerController = {
         let photoPicker = UIImagePickerController()
@@ -28,7 +34,7 @@ class PassiveCanvasViewController: UIViewController,
     }
     
 }
- 
+
 // MARK: - Initial Setup
 
 extension PassiveCanvasViewController {
@@ -74,21 +80,15 @@ extension PassiveCanvasViewController {
 
 extension PassiveCanvasViewController {
     
-    @IBAction func RectangleButtonTouched(_ sender: UIButton) {
-        canvasViewModel.add(of: Rectangle.self)
-    }
-    
-    @IBAction func LabelButtonTouched(_ sender: UIButton) {
-        canvasViewModel.add(of: Label.self)
-    }
-    
-    @IBAction func PostItButtonTouched(_ sender: UIButton) {
-        canvasViewModel.add(of: PostIt.self)
-    }
-    
-    @IBAction func PhotoButtonTouched(_ sender: UIButton) {
-        present(photoPicker, animated: true, completion: nil)
-        canvasViewModel.add(of: Photo.self)
+    @IBAction func addButtonTouched(_ sender: UIButton) {
+        switch sender {
+        case addRectangleButton: canvasViewModel.addRectangle()
+        case addLabelButton: canvasViewModel.addLabel()
+        case addPostItButton: canvasViewModel.addPostIt()
+        case addPhotoButton:
+            present(photoPicker, animated: true, completion: nil)
+        default: return
+        }
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -96,7 +96,7 @@ extension PassiveCanvasViewController {
         guard let image = info[.originalImage] as? UIImage,
               let imageData = image.pngData() else { return }
         
-        canvasViewModel.add(of: Photo.self, imageData: imageData)
+        canvasViewModel.addPhoto(data: imageData)
         picker.dismiss(animated: true, completion: nil)
     }
 }
@@ -104,7 +104,7 @@ extension PassiveCanvasViewController {
 // MARK: - Use case: Tap to select & unselect
 
 extension PassiveCanvasViewController {
-
+    
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
         let location = gesture.location(in: canvasView)
         let tappedPoint = Point(x: location.x, y: location.y)

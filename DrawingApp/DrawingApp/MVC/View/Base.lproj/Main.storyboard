@@ -101,7 +101,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="RectangleButtonTouched:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="F22-wG-c92"/>
+                                            <action selector="addButtonTouched:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="XSF-IS-daj"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3cB-Gg-zBo">
@@ -118,7 +118,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="PhotoButtonTouched:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="9sB-kM-jGA"/>
+                                            <action selector="addButtonTouched:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="Pqj-3I-PLn"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K5x-AO-ZR2">
@@ -135,7 +135,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="LabelButtonTouched:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="UWA-Lm-Yne"/>
+                                            <action selector="addButtonTouched:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="dHe-RD-yKA"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="98B-HF-wKD">
@@ -152,7 +152,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="PostItButtonTouched:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="3UE-b3-OOn"/>
+                                            <action selector="addButtonTouched:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="O7V-UL-kzv"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -173,6 +173,12 @@
                             <constraint firstItem="g98-d2-ots" firstAttribute="centerX" secondItem="xo9-MY-jyf" secondAttribute="centerX" id="vqG-S3-fGR"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="addLabelButton" destination="K5x-AO-ZR2" id="caW-cb-anA"/>
+                        <outlet property="addPhotoButton" destination="3cB-Gg-zBo" id="7kn-YL-O9y"/>
+                        <outlet property="addPostItButton" destination="98B-HF-wKD" id="qsB-cu-9HN"/>
+                        <outlet property="addRectangleButton" destination="I43-gx-lAf" id="WkT-1J-Of4"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Pwx-7i-iYL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
