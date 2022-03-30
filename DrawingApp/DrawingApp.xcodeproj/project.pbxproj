@@ -172,8 +172,7 @@
 				BC1806C427CF49A90057679D /* Plane.swift */,
 				BCF9B77A27DEEAC8008B4879 /* LayerFactory.swift */,
 			);
-			name = Model;
-			path = Model/Model;
+			path = Model;
 			sourceTree = "<group>";
 		};
 		BC7ECF9727CCCB0000BC6AEC /* Screenshots */ = {
@@ -229,6 +228,16 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		BC9E8E3027F3EFFB00D65C41 /* MVC */ = {
+			isa = PBXGroup;
+			children = (
+				BC7ECF9027CCB48D00BC6AEC /* Model */,
+				BCE3CBB127CC7050004F2AFE /* View */,
+				BCE3CBB227CC7053004F2AFE /* Controller */,
+			);
+			path = MVC;
+			sourceTree = "<group>";
+		};
 		BCE3CB7327CC6D8E004F2AFE = {
 			isa = PBXGroup;
 			children = (
@@ -253,11 +262,9 @@
 		BCE3CB7E27CC6D8E004F2AFE /* DrawingApp */ = {
 			isa = PBXGroup;
 			children = (
+				BC9E8E3027F3EFFB00D65C41 /* MVC */,
 				BC9E8E2027F3EB0100D65C41 /* MVVM */,
 				BC1806BB27CF3E310057679D /* Common */,
-				BC7ECF9027CCB48D00BC6AEC /* Model */,
-				BCE3CBB127CC7050004F2AFE /* View */,
-				BCE3CBB227CC7053004F2AFE /* Controller */,
 				BCE3CBB427CC7100004F2AFE /* Resource */,
 				BCE3CBB327CC70EE004F2AFE /* SupportingFiles */,
 			);
