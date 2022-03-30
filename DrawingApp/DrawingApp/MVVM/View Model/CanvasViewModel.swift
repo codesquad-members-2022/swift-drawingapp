@@ -18,12 +18,28 @@ class CanvasViewModel {
     
     var layerDict = [Layer: UIView]()
     
-    func add<T: Layer>(of layerType: T.Type, imageData: Data? = nil) {
+    private func add<T: Layer>(of layerType: T.Type, imageData: Data? = nil) {
         addService.add(type: layerType, imageData: imageData) { [weak self] newLayer in
             let newView = ViewFactory.create(from: newLayer)
             self?.layerDict[newLayer] = newView
             self?.newView.value = newView
         }
+    }
+    
+    func addRectangle() {
+        self.add(of: Rectangle.self)
+    }
+    
+    func addLabel() {
+        self.add(of: Label.self)
+    }
+    
+    func addPhoto(data: Data) {
+        self.add(of: Photo.self, imageData: data)
+    }
+    
+    func addPostIt() {
+        self.add(of: PostIt.self)
     }
     
     func select(on point: Point) {
