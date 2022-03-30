@@ -17,6 +17,18 @@ struct Color {
         self.green = g
         self.blue = b
     }
+    
+    func getRed() -> Int {
+        return red
+    }
+    
+    func getGreen() -> Int {
+        return green
+    }
+    
+    func getBlue() -> Int {
+        return blue
+    }
 }
 
 extension Color: CustomStringConvertible {

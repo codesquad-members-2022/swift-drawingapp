@@ -8,34 +8,49 @@
 import Foundation
 
 struct Plane {
-    private var rectangleArray: Array<Shape> = Array<Rectangle>()
+    private let factory = ShapeFactory()
+    private var shapeArray = Array<Shape>()
+    var selectedShape: Shape? = nil
     
     var rectangleCount: Int {
         get {
-            return rectangleArray.count
+            return shapeArray.count
         }
     }
     
     subscript(index: Int) -> Rectangle? {
-        if index < rectangleCount, rectangleArray[index] is Rectangle {
-            return rectangleArray[index] as? Rectangle
+        if index < rectangleCount, shapeArray[index] is Rectangle {
+            return shapeArray[index] as? Rectangle
         }
         return nil
     }
     
-    mutating func addRectangle(_ rectangle: Shape) {
-        if rectangle is Rectangle {
-            rectangleArray.append(rectangle)
+    mutating func selectRectangle(x: Double, y: Double) -> Rectangle? {
+        for shape in shapeArray {
+            if  shape is Rectangle,
+                shape.isContainPoint(Point(x: x, y: y)) {
+                print("사각형 있음")
+                selectedShape = shape
+                return shape as? Rectangle
+            }
         }
+        selectedShape = nil
+        return nil
     }
     
     func isThereARectangle(point: Point) -> Bool {
-        for rectangle in rectangleArray {
+        for rectangle in shapeArray {
             if rectangle.isContainPoint(point) {
                 return true
             }
         }
         return false
+    }
+    
+    mutating func makeNewRandomRectangle() -> Rectangle {
+        let rectangle = factory.createRandomRectangle()
+        shapeArray.append(rectangle)
+        return rectangle
     }
     
     func convertRGBToHexColorCode(_ r: Int, _ g: Int, _ b: Int) -> String {
