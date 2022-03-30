@@ -16,11 +16,11 @@ struct Point {
         self.y = y
     }
     
-    func getCurrentX() -> Double {
+    func getX() -> Double {
         return x
     }
     
-    func getCurrentY() -> Double {
+    func getY() -> Double {
         return y
     }
 }
