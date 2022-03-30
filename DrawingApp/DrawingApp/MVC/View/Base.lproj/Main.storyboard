@@ -11,7 +11,7 @@
         <!--회고 캔버스-->
         <scene sceneID="2DC-Sr-hBE">
             <objects>
-                <viewController title="회고 캔버스" id="l8x-Ot-BnL" customClass="CanvasViewController" customModule="DrawingApp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="회고 캔버스" id="l8x-Ot-BnL" customClass="PassiveCanvasViewController" customModule="DrawingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="xo9-MY-jyf">
                         <rect key="frame" x="0.0" y="0.0" width="766" height="820"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -101,7 +101,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="didTouchRectangleButton:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="xHV-rV-bVe"/>
+                                            <action selector="RectangleButtonTouched:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="F22-wG-c92"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3cB-Gg-zBo">
@@ -118,7 +118,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="didTouchPhotoButton:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="l7E-vQ-O0o"/>
+                                            <action selector="PhotoButtonTouched:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="9sB-kM-jGA"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K5x-AO-ZR2">
@@ -135,7 +135,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="didTouchLabelButton:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="lD6-g7-ekf"/>
+                                            <action selector="LabelButtonTouched:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="UWA-Lm-Yne"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="98B-HF-wKD">
@@ -152,7 +152,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="didTouchPostItButton:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="S2s-27-bRZ"/>
+                                            <action selector="PostItButtonTouched:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="3UE-b3-OOn"/>
                                         </connections>
                                     </button>
                                 </subviews>
