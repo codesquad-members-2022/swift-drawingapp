@@ -166,6 +166,20 @@
 			path = Screenshots;
 			sourceTree = "<group>";
 		};
+		BC9E8E1527F3E40B00D65C41 /* View Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "View Model";
+			sourceTree = "<group>";
+		};
+		BC9E8E1627F3E41500D65C41 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		BCE3CB7327CC6D8E004F2AFE = {
 			isa = PBXGroup;
 			children = (
@@ -190,6 +204,8 @@
 		BCE3CB7E27CC6D8E004F2AFE /* DrawingApp */ = {
 			isa = PBXGroup;
 			children = (
+				BC9E8E1627F3E41500D65C41 /* Service */,
+				BC9E8E1527F3E40B00D65C41 /* View Model */,
 				BC1806BB27CF3E310057679D /* Common */,
 				BC7ECF9027CCB48D00BC6AEC /* Model */,
 				BCE3CBB127CC7050004F2AFE /* View */,
