@@ -14,12 +14,24 @@ class PassiveCanvasViewController: UIViewController,
     private var canvasView: UIView?
     private let canvasViewModel = CanvasViewModel()
     
+    private lazy var photoPicker: UIImagePickerController = {
+        let photoPicker = UIImagePickerController()
+        photoPicker.delegate = self
+        return photoPicker
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setCanvasView()
         setUpTapRecognizer()
         bindToViewModel()
     }
+    
+}
+ 
+// MARK: - Initial Setup
+
+extension PassiveCanvasViewController {
     
     private func bindToViewModel() {
         canvasViewModel.newView.bind { [weak self] view in
@@ -36,38 +48,6 @@ class PassiveCanvasViewController: UIViewController,
             guard let view = view else { return }
             self?.clearBorder(view)
         }
-    }
-    
-    @IBAction func RectangleButtonTouched(_ sender: UIButton) {
-        canvasViewModel.add(of: Rectangle.self)
-    }
-    
-    @IBAction func LabelButtonTouched(_ sender: UIButton) {
-        canvasViewModel.add(of: Label.self)
-    }
-    
-    @IBAction func PostItButtonTouched(_ sender: UIButton) {
-        canvasViewModel.add(of: PostIt.self)
-    }
-    
-    @IBAction func PhotoButtonTouched(_ sender: UIButton) {
-        present(photoPicker, animated: true, completion: nil)
-        canvasViewModel.add(of: Photo.self)
-    }
-    
-    private lazy var photoPicker: UIImagePickerController = {
-        let photoPicker = UIImagePickerController()
-        photoPicker.delegate = self
-        return photoPicker
-    }()
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        guard let image = info[.originalImage] as? UIImage,
-              let imageData = image.pngData() else { return }
-        
-        canvasViewModel.add(of: Photo.self, imageData: imageData)
-        picker.dismiss(animated: true, completion: nil)
     }
     
     private func setCanvasView() {
@@ -88,7 +68,43 @@ class PassiveCanvasViewController: UIViewController,
         let tap = UITapGestureRecognizer(target: self, action: #selector(self.handleTap))
         canvasView?.addGestureRecognizer(tap)
     }
+}
+
+// MARK: - Use case: Add new Layer
+
+extension PassiveCanvasViewController {
     
+    @IBAction func RectangleButtonTouched(_ sender: UIButton) {
+        canvasViewModel.add(of: Rectangle.self)
+    }
+    
+    @IBAction func LabelButtonTouched(_ sender: UIButton) {
+        canvasViewModel.add(of: Label.self)
+    }
+    
+    @IBAction func PostItButtonTouched(_ sender: UIButton) {
+        canvasViewModel.add(of: PostIt.self)
+    }
+    
+    @IBAction func PhotoButtonTouched(_ sender: UIButton) {
+        present(photoPicker, animated: true, completion: nil)
+        canvasViewModel.add(of: Photo.self)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        guard let image = info[.originalImage] as? UIImage,
+              let imageData = image.pngData() else { return }
+        
+        canvasViewModel.add(of: Photo.self, imageData: imageData)
+        picker.dismiss(animated: true, completion: nil)
+    }
+}
+
+// MARK: - Use case: Tap to select & unselect
+
+extension PassiveCanvasViewController {
+
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
         let location = gesture.location(in: canvasView)
         let tappedPoint = Point(x: location.x, y: location.y)
