@@ -45,9 +45,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func resetRGB(_ sender: UIButton) {
-        guard let currentView = selectedView,
-              let selectedRectangle = plane.resetSelectedRectangleRandomRGB()
-        else {
+        guard let selectedRectangle = plane.resetSelectedRectangleRandomRGB() else {
             return
         }
         
@@ -58,19 +56,22 @@ class ViewController: UIViewController {
         drawRectangleBorderAtPoint(selectedRectangle.getPoint())
         
         let color = selectedRectangle.getColor()
-        let alpha = selectedRectangle.getAlpha()
         setRGBValueLabel(r: color.getRed(), g: color.getGreen(), b: color.getBlue())
     }
     
     @IBAction func tapAlphaStepper(_ sender: UIStepper) {
-        guard let currentViewRGBA = selectedView?.backgroundColor?.rgba else {
+        let changedAlpha = Alpha(rawValue: Int(alphaStepper.value))!
+        guard let selectedRectangle = plane.resetSelectedRectangleAlpha(to: changedAlpha) else {
             return
         }
         
-        selectedView?.backgroundColor = UIColor(red: currentViewRGBA.red,
-                                                green: currentViewRGBA.green,
-                                                blue: currentViewRGBA.blue,
-                                                alpha: alphaStepper.value / 10)
+        selectedView?.removeFromSuperview()
+        let newRectangleView = convertRectangleToUIView(rectangle: selectedRectangle)
+        selectedView = newRectangleView
+        self.view.addSubview(newRectangleView)
+        drawRectangleBorderAtPoint(selectedRectangle.getPoint())
+        
+        let alpha = selectedRectangle.getAlpha()
         setAlphaValueLabel(a: Int(alphaStepper.value))
     }
     
