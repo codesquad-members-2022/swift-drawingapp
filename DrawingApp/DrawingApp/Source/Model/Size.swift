@@ -15,6 +15,12 @@ class Size {
         self.width = width
         self.height = height
     }
+    
+    static func randomSize() -> Size {
+        let randomWidth = Double.random(in: 50.0...200.0)
+        let randomHeight = Double.random(in: 50.0...200.0)
+        return Size(width: randomWidth, height: randomHeight)
+    }
 }
 
 extension Size: CustomStringConvertible {

@@ -8,20 +8,22 @@
 import Foundation
 
 // 투명도는 0~1사이인데 어디가 불투명인지 정해보아야한다!
-enum Alpha: Int, CustomStringConvertible {
-    case one = 1
-    case two
-    case three
-    case four
-    case five
-    case six
-    case seven
-    case eight
-    case nine
-    case ten
+enum Alpha: Double, CaseIterable {
+    case one = 0.1
+    case two = 0.2
+    case three = 0.3
+    case four = 0.4
+    case five = 0.5
+    case six = 0.6
+    case seven = 0.7
+    case eight = 0.8
+    case nine = 0.9
+    case ten = 1.0
     
-    var description: String {
-        return "Alpha: \(self.rawValue)"
+    static var random: Alpha {
+        var randomAlpha = Alpha.allCases.shuffled()
+        return randomAlpha.removeFirst()
     }
+    
 }
 
