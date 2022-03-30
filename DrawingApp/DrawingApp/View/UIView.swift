@@ -10,16 +10,6 @@ import UIKit
 
 // UIView represents Rectangle Class
 
-extension UIView {
-    public static func addShadow(to view: UIView) {
-        view.clipsToBounds = false
-        view.layer.shadowColor = UIColor.black.cgColor
-        view.layer.shadowOpacity = 1
-        view.layer.shadowOffset = .init(width: 2, height: 2)
-        view.layer.shadowRadius = 2
-    }
-}
-
 extension UIView: NSCopying {
     public func copy(with zone: NSZone? = nil) -> Any {
         let copy = UIView(frame: self.frame)
