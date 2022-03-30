@@ -7,6 +7,7 @@
 
 import Foundation
 
+// 투명도는 0~1사이인데 어디가 불투명인지 정해보아야한다!
 enum Alpha: Int, CustomStringConvertible {
     case one = 1
     case two
