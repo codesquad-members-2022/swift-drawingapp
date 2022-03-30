@@ -37,8 +37,20 @@
 		BC9E8DDD27F1829600D65C41 /* PostIt.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8DDB27F1829600D65C41 /* PostIt.swift */; };
 		BC9E8DE227F1956800D65C41 /* UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8DE127F1956800D65C41 /* UIView.swift */; };
 		BC9E8DE527F1958A00D65C41 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8DE427F1958A00D65C41 /* UILabel.swift */; };
-		BC9E8DE827F195A900D65C41 /* UITextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8DE727F195A900D65C41 /* UITextView.swift */; };
+		BC9E8DE827F195A900D65C41 /* PostItView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8DE727F195A900D65C41 /* PostItView.swift */; };
 		BC9E8DEB27F195BC00D65C41 /* UIImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8DEA27F195BC00D65C41 /* UIImageView.swift */; };
+		BC9E8E1827F3EA4800D65C41 /* AddService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8E1727F3EA4800D65C41 /* AddService.swift */; };
+		BC9E8E1927F3EA4800D65C41 /* AddService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8E1727F3EA4800D65C41 /* AddService.swift */; };
+		BC9E8E1B27F3EA5C00D65C41 /* SelectService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8E1A27F3EA5C00D65C41 /* SelectService.swift */; };
+		BC9E8E1C27F3EA5C00D65C41 /* SelectService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8E1A27F3EA5C00D65C41 /* SelectService.swift */; };
+		BC9E8E1E27F3EAD000D65C41 /* PassiveCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8E1D27F3EAD000D65C41 /* PassiveCanvasViewController.swift */; };
+		BC9E8E1F27F3EAD000D65C41 /* PassiveCanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8E1D27F3EAD000D65C41 /* PassiveCanvasViewController.swift */; };
+		BC9E8E2327F3EB6000D65C41 /* CanvasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8E2227F3EB6000D65C41 /* CanvasViewModel.swift */; };
+		BC9E8E2427F3EB6000D65C41 /* CanvasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8E2227F3EB6000D65C41 /* CanvasViewModel.swift */; };
+		BC9E8E2B27F3EB9500D65C41 /* PassivePlane.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8E2A27F3EB9500D65C41 /* PassivePlane.swift */; };
+		BC9E8E2C27F3EB9500D65C41 /* PassivePlane.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8E2A27F3EB9500D65C41 /* PassivePlane.swift */; };
+		BC9E8E2E27F3EBAE00D65C41 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8E2D27F3EBAE00D65C41 /* Observable.swift */; };
+		BC9E8E2F27F3EBAE00D65C41 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8E2D27F3EBAE00D65C41 /* Observable.swift */; };
 		BCE3CB8027CC6D8E004F2AFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE3CB7F27CC6D8E004F2AFE /* AppDelegate.swift */; };
 		BCE3CB8227CC6D8E004F2AFE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE3CB8127CC6D8E004F2AFE /* SceneDelegate.swift */; };
 		BCE3CB8427CC6D8E004F2AFE /* CanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE3CB8327CC6D8E004F2AFE /* CanvasViewController.swift */; };
@@ -91,8 +103,14 @@
 		BC9E8DDB27F1829600D65C41 /* PostIt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostIt.swift; sourceTree = "<group>"; };
 		BC9E8DE127F1956800D65C41 /* UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIView.swift; sourceTree = "<group>"; };
 		BC9E8DE427F1958A00D65C41 /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
-		BC9E8DE727F195A900D65C41 /* UITextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITextView.swift; sourceTree = "<group>"; };
+		BC9E8DE727F195A900D65C41 /* PostItView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostItView.swift; sourceTree = "<group>"; };
 		BC9E8DEA27F195BC00D65C41 /* UIImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageView.swift; sourceTree = "<group>"; };
+		BC9E8E1727F3EA4800D65C41 /* AddService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddService.swift; sourceTree = "<group>"; };
+		BC9E8E1A27F3EA5C00D65C41 /* SelectService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectService.swift; sourceTree = "<group>"; };
+		BC9E8E1D27F3EAD000D65C41 /* PassiveCanvasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassiveCanvasViewController.swift; sourceTree = "<group>"; };
+		BC9E8E2227F3EB6000D65C41 /* CanvasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasViewModel.swift; sourceTree = "<group>"; };
+		BC9E8E2A27F3EB9500D65C41 /* PassivePlane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassivePlane.swift; sourceTree = "<group>"; };
+		BC9E8E2D27F3EBAE00D65C41 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		BCE3CB7C27CC6D8E004F2AFE /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCE3CB7F27CC6D8E004F2AFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCE3CB8127CC6D8E004F2AFE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -169,6 +187,8 @@
 		BC9E8E1527F3E40B00D65C41 /* View Model */ = {
 			isa = PBXGroup;
 			children = (
+				BC9E8E2227F3EB6000D65C41 /* CanvasViewModel.swift */,
+				BC9E8E2D27F3EBAE00D65C41 /* Observable.swift */,
 			);
 			path = "View Model";
 			sourceTree = "<group>";
@@ -176,8 +196,37 @@
 		BC9E8E1627F3E41500D65C41 /* Service */ = {
 			isa = PBXGroup;
 			children = (
+				BC9E8E1727F3EA4800D65C41 /* AddService.swift */,
+				BC9E8E1A27F3EA5C00D65C41 /* SelectService.swift */,
 			);
 			path = Service;
+			sourceTree = "<group>";
+		};
+		BC9E8E2027F3EB0100D65C41 /* MVVM */ = {
+			isa = PBXGroup;
+			children = (
+				BC9E8E2527F3EB6A00D65C41 /* Model */,
+				BC9E8E2127F3EB1000D65C41 /* View */,
+				BC9E8E1527F3E40B00D65C41 /* View Model */,
+				BC9E8E1627F3E41500D65C41 /* Service */,
+			);
+			path = MVVM;
+			sourceTree = "<group>";
+		};
+		BC9E8E2127F3EB1000D65C41 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				BC9E8E1D27F3EAD000D65C41 /* PassiveCanvasViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		BC9E8E2527F3EB6A00D65C41 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				BC9E8E2A27F3EB9500D65C41 /* PassivePlane.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		BCE3CB7327CC6D8E004F2AFE = {
@@ -204,8 +253,7 @@
 		BCE3CB7E27CC6D8E004F2AFE /* DrawingApp */ = {
 			isa = PBXGroup;
 			children = (
-				BC9E8E1627F3E41500D65C41 /* Service */,
-				BC9E8E1527F3E40B00D65C41 /* View Model */,
+				BC9E8E2027F3EB0100D65C41 /* MVVM */,
 				BC1806BB27CF3E310057679D /* Common */,
 				BC7ECF9027CCB48D00BC6AEC /* Model */,
 				BCE3CBB127CC7050004F2AFE /* View */,
@@ -241,7 +289,7 @@
 				BC1806D027D06DEF0057679D /* ViewFactory.swift */,
 				BC9E8DE127F1956800D65C41 /* UIView.swift */,
 				BC9E8DE427F1958A00D65C41 /* UILabel.swift */,
-				BC9E8DE727F195A900D65C41 /* UITextView.swift */,
+				BC9E8DE727F195A900D65C41 /* PostItView.swift */,
 				BC9E8DEA27F195BC00D65C41 /* UIImageView.swift */,
 			);
 			path = View;
@@ -436,6 +484,7 @@
 			files = (
 				BC802D5D27D5FA29002BD536 /* Photo.swift in Sources */,
 				BC9E8DEB27F195BC00D65C41 /* UIImageView.swift in Sources */,
+				BC9E8E2B27F3EB9500D65C41 /* PassivePlane.swift in Sources */,
 				BC1806D927D0D3D10057679D /* ConverterExtension.swift in Sources */,
 				BCF9B78B27E1FF41008B4879 /* Rectangle.swift in Sources */,
 				BC1806D727D095E30057679D /* UIColorExtension.swift in Sources */,
@@ -448,17 +497,22 @@
 				BC1806BF27CF40970057679D /* Alpha.swift in Sources */,
 				BC1806C327CF41C30057679D /* Point.swift in Sources */,
 				BC9E8DDC27F1829600D65C41 /* PostIt.swift in Sources */,
+				BC9E8E1B27F3EA5C00D65C41 /* SelectService.swift in Sources */,
 				BCE3CB8027CC6D8E004F2AFE /* AppDelegate.swift in Sources */,
 				BC802D6127D72C10002BD536 /* ID.swift in Sources */,
 				BC7ECF9227CCB8CA00BC6AEC /* Color.swift in Sources */,
 				BC9E8DE227F1956800D65C41 /* UIView.swift in Sources */,
 				BCE3CB8227CC6D8E004F2AFE /* SceneDelegate.swift in Sources */,
-				BC9E8DE827F195A900D65C41 /* UITextView.swift in Sources */,
+				BC9E8DE827F195A900D65C41 /* PostItView.swift in Sources */,
 				BC802D6B27DB4498002BD536 /* Label.swift in Sources */,
+				BC9E8E1E27F3EAD000D65C41 /* PassiveCanvasViewController.swift in Sources */,
+				BC9E8E1827F3EA4800D65C41 /* AddService.swift in Sources */,
 				BC1806D127D06DEF0057679D /* ViewFactory.swift in Sources */,
 				BC1806C527CF49A90057679D /* Plane.swift in Sources */,
+				BC9E8E2E27F3EBAE00D65C41 /* Observable.swift in Sources */,
 				BC1806CD27CF565D0057679D /* PanelViewController.swift in Sources */,
 				BCF9B77B27DEEAC8008B4879 /* LayerFactory.swift in Sources */,
+				BC9E8E2327F3EB6000D65C41 /* CanvasViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,18 +522,24 @@
 			files = (
 				BC9E8DDD27F1829600D65C41 /* PostIt.swift in Sources */,
 				BC1806C627CF51600057679D /* Point.swift in Sources */,
+				BC9E8E2427F3EB6000D65C41 /* CanvasViewModel.swift in Sources */,
 				BCF9B77C27DEF092008B4879 /* LayerFactory.swift in Sources */,
 				BC802D5E27D60092002BD536 /* Layer.swift in Sources */,
+				BC9E8E1F27F3EAD000D65C41 /* PassiveCanvasViewController.swift in Sources */,
 				BCF9B78D27E2002D008B4879 /* Rectangle.swift in Sources */,
+				BC9E8E2C27F3EB9500D65C41 /* PassivePlane.swift in Sources */,
 				BC1806C727CF51620057679D /* Size.swift in Sources */,
 				BC1806C827CF51650057679D /* Alpha.swift in Sources */,
+				BC9E8E1927F3EA4800D65C41 /* AddService.swift in Sources */,
 				BC70F81B27DB83A400F880F0 /* Label.swift in Sources */,
 				BC802D5F27D60095002BD536 /* Photo.swift in Sources */,
 				BCE3CB9727CC6D90004F2AFE /* PlaneTests.swift in Sources */,
 				BC70F81C27DB83AC00F880F0 /* ID.swift in Sources */,
 				BC7ECF9327CCB8CA00BC6AEC /* Color.swift in Sources */,
+				BC9E8E2F27F3EBAE00D65C41 /* Observable.swift in Sources */,
 				BC1806CA27CF51730057679D /* Log.swift in Sources */,
 				BC1806C927CF516B0057679D /* Plane.swift in Sources */,
+				BC9E8E1C27F3EA5C00D65C41 /* SelectService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
