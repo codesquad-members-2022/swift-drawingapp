@@ -79,9 +79,9 @@ struct Plane {
         return newRectangle
     }
     
-    mutating func resetSelectedRectangleAlpha(to alpha: Alpha) {
+    mutating func resetSelectedRectangleAlpha(to alpha: Alpha) -> Rectangle? {
         guard let currentRectangle = selectedShape, selectedShape is Rectangle else {
-            return
+            return nil
         }
         
         let newRectangle = factory.createRectangle(point: currentRectangle.getPoint(),
@@ -89,6 +89,7 @@ struct Plane {
                                                    color: currentRectangle.getColor(),
                                                    alpha: alpha)
         setSelectedShape(to: newRectangle)
+        return newRectangle
     }
     
     func generateRandomRGBA() -> (r: Double, g: Double, b: Double, a: Double) {
