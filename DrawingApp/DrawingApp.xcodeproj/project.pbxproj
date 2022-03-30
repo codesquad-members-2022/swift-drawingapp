@@ -11,6 +11,8 @@
 		5B349D8A27F2DBB900AA602E /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349D8927F2DBB900AA602E /* Point.swift */; };
 		5B349D8D27F2DCA800AA602E /* Alpha.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349D8C27F2DCA800AA602E /* Alpha.swift */; };
 		5B349D8F27F2DDD900AA602E /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349D8E27F2DDD900AA602E /* Size.swift */; };
+		5B349D9127F43BF400AA602E /* Rectangle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349D9027F43BF400AA602E /* Rectangle.swift */; };
+		5B349D9327F43C9800AA602E /* BackgroundColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B349D9227F43C9700AA602E /* BackgroundColor.swift */; };
 		5B6F058527E31381006A8FC5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6F058427E31381006A8FC5 /* AppDelegate.swift */; };
 		5B6F058727E31381006A8FC5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6F058627E31381006A8FC5 /* SceneDelegate.swift */; };
 		5B6F058927E31381006A8FC5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B6F058827E31381006A8FC5 /* ViewController.swift */; };
@@ -44,6 +46,8 @@
 		5B349D8927F2DBB900AA602E /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		5B349D8C27F2DCA800AA602E /* Alpha.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Alpha.swift; sourceTree = "<group>"; };
 		5B349D8E27F2DDD900AA602E /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
+		5B349D9027F43BF400AA602E /* Rectangle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rectangle.swift; sourceTree = "<group>"; };
+		5B349D9227F43C9700AA602E /* BackgroundColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColor.swift; sourceTree = "<group>"; };
 		5B6F058127E31381006A8FC5 /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B6F058427E31381006A8FC5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B6F058627E31381006A8FC5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -132,10 +136,12 @@
 		5B349D8627F2D2C200AA602E /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5B349D9227F43C9700AA602E /* BackgroundColor.swift */,
 				5B349D8727F2D2D500AA602E /* Identifier.swift */,
 				5B349D8927F2DBB900AA602E /* Point.swift */,
 				5B349D8C27F2DCA800AA602E /* Alpha.swift */,
 				5B349D8E27F2DDD900AA602E /* Size.swift */,
+				5B349D9027F43BF400AA602E /* Rectangle.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -325,6 +331,8 @@
 				5B6F058527E31381006A8FC5 /* AppDelegate.swift in Sources */,
 				5B6F058727E31381006A8FC5 /* SceneDelegate.swift in Sources */,
 				5B349D8827F2D2D500AA602E /* Identifier.swift in Sources */,
+				5B349D9327F43C9800AA602E /* BackgroundColor.swift in Sources */,
+				5B349D9127F43BF400AA602E /* Rectangle.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,6 +511,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LSMZ653R3K;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DrawingApp/Configuration/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -520,7 +529,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -531,6 +540,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = LSMZ653R3K;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DrawingApp/Configuration/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -548,7 +558,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 2;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
