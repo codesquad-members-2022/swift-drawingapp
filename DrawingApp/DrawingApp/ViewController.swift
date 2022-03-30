@@ -71,7 +71,6 @@ class ViewController: UIViewController {
         self.view.addSubview(newRectangleView)
         drawRectangleBorderAtPoint(selectedRectangle.getPoint())
         
-        let alpha = selectedRectangle.getAlpha()
         setAlphaValueLabel(a: Int(alphaStepper.value))
     }
     
@@ -105,38 +104,22 @@ class ViewController: UIViewController {
         guard let rgba = view.backgroundColor?.rgba else {
             return
         }
-        let intRGB = convertRGBToInt(r: rgba.red, g: rgba.green, b: rgba.blue)
-        let intAlpha = convertAlphaToInt(a: rgba.alpha)
+        let intColor = Color.convertCGValueToInt(red: rgba.red, green: rgba.green, blue: rgba.blue)
+        let intAlpha = Alpha.convertCGValueToInt(alpha: rgba.alpha)
         
         let viewOrigin = view.frame.origin
         drawRectangleBorderAtPoint(Point(x: viewOrigin.x, y: viewOrigin.y))
-        
-        setRGBValueLabel(r: intRGB.r, g: intRGB.g, b: intRGB.b)
+        setRGBValueLabel(r: intColor.getRed(), g: intColor.getGreen(), b: intColor.getBlue())
         setAlphaValueLabel(a: intAlpha)
         setAlphaStepper(value: Double(intAlpha))
         enableControlButtons()
     }
     
-    private func drawRectangleBorderAtPoint(_ point: Point) {
-        let rectangleView = self.view.hitTest(CGPoint(x: point.getX(), y: point.getY()), with: nil)
-        rectangleView?.layer.borderWidth = 3
-        rectangleView?.layer.borderColor = UIColor.blue.cgColor
-    }
-    
-    private func eraseRectangleBorderAtPoint(_ point: Point) {
-        let rectangleView = self.view.hitTest(CGPoint(x: point.getX(), y: point.getY()), with: nil)
-        rectangleView?.layer.borderWidth = 0
-    }
-    
     private func hideSelectedView() {
         selectedView?.layer.borderWidth = 0
-        setDefaultLabel()
+        setLabelsDefaultValue()
         alphaStepper.value = 1.0
         disableControlButtons()
-    }
-    
-    private func findViewAtPoint(_ point: Point) -> UIView? {
-        return self.view.hitTest(CGPoint(x: point.getX(), y: point.getY()), with: nil)
     }
     
     private func disableControlButtons() {
@@ -160,19 +143,19 @@ class ViewController: UIViewController {
         alphaStepper.value = value
     }
     
-    private func setDefaultLabel() {
-        hexValue.text = "-"
-        redValue.text = "-"
-        greenValue.text = "-"
-        blueValue.text = "-"
-        alphaValue.text = "-"
+    private func setLabelsDefaultValue() {
+        hexValue.text = "Color code"
+        redValue.text = "R : -"
+        greenValue.text = "G : -"
+        blueValue.text = "B : -"
+        alphaValue.text = "A : -"
     }
 
     private func setRGBValueLabel(r: Int, g: Int, b: Int) {
+        hexValue.text = Color.convertRGBToHexColorCode(Int(r), Int(g), Int(b))
         redValue.text = "R : \(r)"
         greenValue.text = "G : \(g)"
         blueValue.text = "B : \(b)"
-        hexValue.text = Color.convertRGBToHexColorCode(Int(r), Int(g), Int(b))
     }
     
     private func setAlphaValueLabel(a: Int) {
@@ -187,24 +170,15 @@ class ViewController: UIViewController {
         return result
     }
     
-    private func convertRGBAToUIColor(color: Color, alpha: Alpha) -> UIColor {
-        let red = CGFloat(color.getRed() / 255)
-        let green = CGFloat(color.getGreen() / 255)
-        let blue = CGFloat(color.getBlue() / 255)
-        let alpha = CGFloat(alpha.rawValue / 10)
-        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
+    private func drawRectangleBorderAtPoint(_ point: Point) {
+        let rectangleView = self.view.hitTest(CGPoint(x: point.getX(), y: point.getY()), with: nil)
+        rectangleView?.layer.borderWidth = 3
+        rectangleView?.layer.borderColor = UIColor.blue.cgColor
     }
     
-    private func convertRGBToInt(r: CGFloat, g: CGFloat, b: CGFloat) -> (r: Int, g: Int, b: Int) {
-        var result: (r: Int, g: Int, b: Int) = (0, 0, 0)
-        result.r = Int(round(r * 255))
-        result.g = Int(round(g * 255))
-        result.b = Int(round(b * 255))
-        return result
-    }
-    
-    private func convertAlphaToInt(a: CGFloat) -> Int {
-        return Int(round(a * 10))
+    private func eraseRectangleBorderAtPoint(_ point: Point) {
+        let rectangleView = self.view.hitTest(CGPoint(x: point.getX(), y: point.getY()), with: nil)
+        rectangleView?.layer.borderWidth = 0
     }
     
     private func convertRectangleToUIView(rectangle: Rectangle) -> UIView {
@@ -218,26 +192,26 @@ class ViewController: UIViewController {
                                        alpha: Double(rectangle.getAlpha().rawValue) / 10)
         return view
     }
-    
-    private func convertUIViewToRectangle(view: UIView) -> Rectangle? {
-        guard let rgba = view.backgroundColor?.rgba else {
-            return nil
-        }
-        let intRGB = convertRGBToInt(r: rgba.red, g: rgba.green, b: rgba.blue)
-        let intAlpha = convertAlphaToInt(a: rgba.alpha)
-        let point = Point(x: view.frame.origin.x,
-                          y: view.frame.origin.y)
-        let size = Size(width: view.frame.size.width,
-                        height: view.frame.size.height)
-        let color = Color(r: intRGB.r,
-                          g: intRGB.g,
-                          b: intRGB.b)
-        let alpha: Alpha = Alpha(rawValue: intAlpha) ?? .one
-        return shapeFactory.createRectangle(point: point,
-                                            size: size,
-                                            color: color,
-                                            alpha: alpha)
-    }
+//    
+//    private func convertUIViewToRectangle(view: UIView) -> Rectangle? {
+//        guard let rgba = view.backgroundColor?.rgba else {
+//            return nil
+//        }
+//        let intColor = Color.convertColorToInt(r: rgba.red, g: rgba.green, b: rgba.blue)
+//        let intAlpha = Alpha.convertAlphaToInt(a: rgba.alpha)
+//        let point = Point(x: view.frame.origin.x,
+//                          y: view.frame.origin.y)
+//        let size = Size(width: view.frame.size.width,
+//                        height: view.frame.size.height)
+//        let color = Color(r: intColor.getRed(),
+//                          g: intColor.getGreen(),
+//                          b: intColor.getBlue())
+//        let alpha: Alpha = Alpha(rawValue: intAlpha) ?? .one
+//        return shapeFactory.createRectangle(point: point,
+//                                            size: size,
+//                                            color: color,
+//                                            alpha: alpha)
+//    }
 }
 
 extension UIColor {
