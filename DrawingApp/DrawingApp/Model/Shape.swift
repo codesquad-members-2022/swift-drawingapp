@@ -15,4 +15,8 @@ protocol Shape {
     func getSize() -> Size
     
     func getPoint() -> Point
+    
+    func getColor() -> Color
+    
+    func getAlpha() -> Alpha
 }

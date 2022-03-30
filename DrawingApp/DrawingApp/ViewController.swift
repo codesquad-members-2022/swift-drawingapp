@@ -45,18 +45,21 @@ class ViewController: UIViewController {
     }
     
     @IBAction func resetRGB(_ sender: UIButton) {
-        guard let currentView = selectedView else {
+        guard let currentView = selectedView,
+              let selectedRectangle = plane.resetSelectedRectangleRandomRGB()
+        else {
             return
         }
         
-        let randomRGBA = generateRandomRGBA()
-        selectedView?.backgroundColor = UIColor(red: randomRGBA.r,
-                                                green: randomRGBA.g,
-                                                blue: randomRGBA.b,
-                                                alpha: currentView.alpha)
-        let randomRGBAInt = convertRGBAToInteger(r: randomRGBA.r, g: randomRGBA.g, b: randomRGBA.b, a: randomRGBA.a)
-        setHexValueLabel(r: randomRGBAInt.r, g: randomRGBAInt.g, b: randomRGBAInt.b)
-        setRGBValueLabel(r: randomRGBAInt.r, g: randomRGBAInt.g, b: randomRGBAInt.b)
+        selectedView?.removeFromSuperview()
+        let newRectangleView = convertRectangleToUIView(rectangle: selectedRectangle)
+        selectedView = newRectangleView
+        self.view.addSubview(newRectangleView)
+        drawRectangleBorderAtPoint(selectedRectangle.getPoint())
+        
+        let color = selectedRectangle.getColor()
+        let alpha = selectedRectangle.getAlpha()
+        setRGBValueLabel(r: color.getRed(), g: color.getGreen(), b: color.getBlue())
     }
     
     @IBAction func tapAlphaStepper(_ sender: UIStepper) {
@@ -85,39 +88,41 @@ class ViewController: UIViewController {
             plane.setSelectedShape(to: selectedRectangle)
         } else {
             // 없다면 선택 해제
-            plane.resetSelectedShape()
             hideSelectedView()
+            selectedView = nil
+            plane.resetSelectedShape()
         }
     }
     
     private func showSelectedView(_ view: UIView) {
         if plane.isThereSelectedShape() { // 기존 selectedShape가 있는데 새로운 view select했을 때
             if let previousPoint = plane.getSelectedShapePoint() {
-                removeRectangleBorderAtPoint(Point(x: previousPoint.getX(), y: previousPoint.getY()))
+                eraseRectangleBorderAtPoint(Point(x: previousPoint.getX(), y: previousPoint.getY()))
             }
         }
         
         guard let rgba = view.backgroundColor?.rgba else {
             return
         }
-        let intRGBA = convertRGBAToInteger(r: rgba.red, g: rgba.green, b: rgba.blue, a: rgba.alpha)
+        let intRGB = convertRGBToInt(r: rgba.red, g: rgba.green, b: rgba.blue)
+        let intAlpha = convertAlphaToInt(a: rgba.alpha)
         
         let viewOrigin = view.frame.origin
-        addRectangleBorderAtPoint(Point(x: viewOrigin.x, y: viewOrigin.y))
-        setHexValueLabel(r: intRGBA.r, g: intRGBA.g, b: intRGBA.b)
-        setRGBValueLabel(r: intRGBA.r, g: intRGBA.g, b: intRGBA.b)
-        setAlphaValueLabel(a: intRGBA.a)
-        setAlphaStepper(value: Double(intRGBA.a))
+        drawRectangleBorderAtPoint(Point(x: viewOrigin.x, y: viewOrigin.y))
+        
+        setRGBValueLabel(r: intRGB.r, g: intRGB.g, b: intRGB.b)
+        setAlphaValueLabel(a: intAlpha)
+        setAlphaStepper(value: Double(intAlpha))
         enableControlButtons()
     }
     
-    private func addRectangleBorderAtPoint(_ point: Point) {
+    private func drawRectangleBorderAtPoint(_ point: Point) {
         let rectangleView = self.view.hitTest(CGPoint(x: point.getX(), y: point.getY()), with: nil)
         rectangleView?.layer.borderWidth = 3
         rectangleView?.layer.borderColor = UIColor.blue.cgColor
     }
     
-    private func removeRectangleBorderAtPoint(_ point: Point) {
+    private func eraseRectangleBorderAtPoint(_ point: Point) {
         let rectangleView = self.view.hitTest(CGPoint(x: point.getX(), y: point.getY()), with: nil)
         rectangleView?.layer.borderWidth = 0
     }
@@ -161,16 +166,12 @@ class ViewController: UIViewController {
         blueValue.text = "-"
         alphaValue.text = "-"
     }
-    
-    private func setHexValueLabel(r: Int, g: Int, b: Int) {
-        hexValue.text = plane.convertRGBToHexColorCode(Int(r), Int(g), Int(b))
-    }
-    
+
     private func setRGBValueLabel(r: Int, g: Int, b: Int) {
         redValue.text = "R : \(r)"
         greenValue.text = "G : \(g)"
         blueValue.text = "B : \(b)"
-        
+        hexValue.text = Color.convertRGBToHexColorCode(Int(r), Int(g), Int(b))
     }
     
     private func setAlphaValueLabel(a: Int) {
@@ -185,22 +186,24 @@ class ViewController: UIViewController {
         return result
     }
     
-    private func generateRandomRGBA() -> (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) {
-        var result: (r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) = (0.0, 0.0, 0.0, 0.0)
-        result.r = CGFloat(Double.random(in: 0...255) / 255)
-        result.g = CGFloat(Double.random(in: 0...255) / 255)
-        result.b = CGFloat(Double.random(in: 0...255) / 255)
-        result.a = CGFloat(Double.random(in: 1...10) / 10)
-        return result
+    private func convertRGBAToUIColor(color: Color, alpha: Alpha) -> UIColor {
+        let red = CGFloat(color.getRed() / 255)
+        let green = CGFloat(color.getGreen() / 255)
+        let blue = CGFloat(color.getBlue() / 255)
+        let alpha = CGFloat(alpha.rawValue / 10)
+        return UIColor(red: red, green: green, blue: blue, alpha: alpha)
     }
     
-    private func convertRGBAToInteger(r: CGFloat, g: CGFloat, b: CGFloat, a: CGFloat) -> (r: Int, g: Int, b: Int, a: Int) {
-        var result: (r: Int, g: Int, b: Int, a: Int) = (0, 0, 0, 0)
+    private func convertRGBToInt(r: CGFloat, g: CGFloat, b: CGFloat) -> (r: Int, g: Int, b: Int) {
+        var result: (r: Int, g: Int, b: Int) = (0, 0, 0)
         result.r = Int(round(r * 255))
         result.g = Int(round(g * 255))
         result.b = Int(round(b * 255))
-        result.a = Int(round(a * 10))
         return result
+    }
+    
+    private func convertAlphaToInt(a: CGFloat) -> Int {
+        return Int(round(a * 10))
     }
     
     private func convertRectangleToUIView(rectangle: Rectangle) -> UIView {
@@ -219,15 +222,16 @@ class ViewController: UIViewController {
         guard let rgba = view.backgroundColor?.rgba else {
             return nil
         }
-        let intRGBA = convertRGBAToInteger(r: rgba.red, g: rgba.green, b: rgba.blue, a: rgba.alpha)
+        let intRGB = convertRGBToInt(r: rgba.red, g: rgba.green, b: rgba.blue)
+        let intAlpha = convertAlphaToInt(a: rgba.alpha)
         let point = Point(x: view.frame.origin.x,
                           y: view.frame.origin.y)
         let size = Size(width: view.frame.size.width,
                         height: view.frame.size.height)
-        let color = Color(r: intRGBA.r,
-                          g: intRGBA.g,
-                          b: intRGBA.b)
-        let alpha: Alpha = Alpha(rawValue: intRGBA.a) ?? .one
+        let color = Color(r: intRGB.r,
+                          g: intRGB.g,
+                          b: intRGB.b)
+        let alpha: Alpha = Alpha(rawValue: intAlpha) ?? .one
         return shapeFactory.createRectangle(point: point,
                                             size: size,
                                             color: color,

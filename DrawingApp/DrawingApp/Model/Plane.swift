@@ -44,6 +44,14 @@ struct Plane {
         return selectedShape?.getPoint()
     }
     
+    func getSelectedShapeColor() -> Color? {
+        return selectedShape?.getColor()
+    }
+    
+    func getSelectedShapeAlpha() -> Alpha? {
+        return selectedShape?.getAlpha()
+    }
+    
     mutating func setSelectedShape(to shape: Shape) {
         selectedShape = shape
     }
@@ -58,19 +66,37 @@ struct Plane {
         return rectangle
     }
     
-    func convertRGBToHexColorCode(_ r: Int, _ g: Int, _ b: Int) -> String {
-        var hexR = String(r, radix: 16).uppercased()
-        var hexG = String(g, radix: 16).uppercased()
-        var hexB = String(b, radix: 16).uppercased()
-        if r < 16 {
-            hexR = "0" + hexR
+    mutating func resetSelectedRectangleRandomRGB() -> Rectangle? {
+        guard let currentRectangle = selectedShape, selectedShape is Rectangle else {
+            return nil
         }
-        if g < 16 {
-            hexG = "0" + hexG
+        
+        let newRectangle = factory.createRectangle(point: currentRectangle.getPoint(),
+                                                   size: currentRectangle.getSize(),
+                                                   color: Color.generateRandomColor(),
+                                                   alpha: currentRectangle.getAlpha())
+        setSelectedShape(to: newRectangle)
+        return newRectangle
+    }
+    
+    mutating func resetSelectedRectangleAlpha(to alpha: Alpha) {
+        guard let currentRectangle = selectedShape, selectedShape is Rectangle else {
+            return
         }
-        if b < 16 {
-            hexB = "0" + hexB
-        }
-        return "#" + hexR + hexG + hexB
+        
+        let newRectangle = factory.createRectangle(point: currentRectangle.getPoint(),
+                                                   size: currentRectangle.getSize(),
+                                                   color: currentRectangle.getColor(),
+                                                   alpha: alpha)
+        setSelectedShape(to: newRectangle)
+    }
+    
+    func generateRandomRGBA() -> (r: Double, g: Double, b: Double, a: Double) {
+        var result: (r: Double, g: Double, b: Double, a: Double) = (0.0, 0.0, 0.0, 0.0)
+        result.r = Double.random(in: 0...255) / 255
+        result.g = Double.random(in: 0...255) / 255
+        result.b = Double.random(in: 0...255) / 255
+        result.a = Double.random(in: 1...10) / 10
+        return result
     }
 }

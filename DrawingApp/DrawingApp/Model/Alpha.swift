@@ -14,6 +14,10 @@ enum Alpha: Int, Comparable {
     static func < (lhs: Alpha, rhs: Alpha) -> Bool {
         return lhs.rawValue < rhs.rawValue
     }
+    
+    static func generateRandomAlpha() -> Alpha {
+        return Alpha(rawValue: Int.random(in: one.rawValue...ten.rawValue))!
+    }
 }
 
 extension Alpha: CustomStringConvertible {
