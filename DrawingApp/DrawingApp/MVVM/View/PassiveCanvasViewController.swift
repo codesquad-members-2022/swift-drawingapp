@@ -8,8 +8,8 @@
 import UIKit
 
 class PassiveCanvasViewController: UIViewController,
-                                    UIImagePickerControllerDelegate,
-                                    UINavigationControllerDelegate {
+                                   UIImagePickerControllerDelegate,
+                                   UINavigationControllerDelegate {
     
     private var canvasView: UIView?
     private let canvasViewModel = CanvasViewModel()
@@ -25,6 +25,16 @@ class PassiveCanvasViewController: UIViewController,
         canvasViewModel.newView.bind { [weak self] view in
             guard let view = view else { return }
             self?.canvasView?.addSubview(view)
+        }
+        
+        canvasViewModel.selectedView.bind { [weak self] view in
+            guard let view = view else { return }
+            self?.changeBorder(view)
+        }
+        
+        canvasViewModel.unselectedView.bind { [weak self] view in
+            guard let view = view else { return }
+            self?.clearBorder(view)
         }
     }
     
@@ -82,6 +92,16 @@ class PassiveCanvasViewController: UIViewController,
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
         let location = gesture.location(in: canvasView)
         let tappedPoint = Point(x: location.x, y: location.y)
-        
+        canvasViewModel.select(on: tappedPoint)
+    }
+    
+    private func changeBorder(_ view: UIView) {
+        view.layer.borderWidth = 5
+        view.layer.borderColor = UIColor.systemBlue.cgColor
+    }
+    
+    private func clearBorder(_ view: UIView) {
+        view.layer.borderWidth = 0
+        view.layer.borderColor = UIColor.clear.cgColor
     }
 }
