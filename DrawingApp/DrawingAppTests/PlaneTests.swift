@@ -26,20 +26,31 @@ class PlaneTests: XCTestCase {
     
     func testAddRectangle() throws {
         let plane = Plane()
-        plane.add(type: Rectangle.self)
-        XCTAssertEqual(plane.rectangleCount, 1)
+        
+        let randomNumber = Int.random(in: 1..<10)
+        for _ in 0..<randomNumber {
+            
+            plane.add(type: Rectangle.self)
+        }
+        XCTAssertEqual(plane.layerCount(of: Rectangle.self), randomNumber)
     }
     
     func testAddPhoto() throws {
         let plane = Plane()
-        plane.add(type: Photo.self, data: Data())
-        XCTAssertEqual(plane.photoCount, 1)
+        
+        let randomNumber = Int.random(in: 1..<10)
+        
+        for _ in 0..<randomNumber {
+            plane.add(type: Photo.self, data: Data())
+        }
+        
+        XCTAssertEqual(plane.layerCount(of: Photo.self), randomNumber)
     }
     
     func testAddLabel() throws {
         let plane = Plane()
         plane.add(type: Label.self)
-        XCTAssertEqual(plane.labelCount, 1)
+        XCTAssertEqual(plane.layerCount(of: Label.self), 1)
     }
     
     func testSelect() {

@@ -1,4 +1,4 @@
-#  아이패드 드로잉 앱
+# KPT 회고 앱
 by Eddy
 
 
@@ -111,3 +111,18 @@ by Eddy
 
 **완료 일자**
 2022.03.16
+
+## Step 9. 포스트잇 기능 추가
+
+![step 9](https://user-images.githubusercontent.com/17468015/160514732-5f9ba8e3-165b-46ea-bb91-ff21f274aa46.png)
+
+**주요 기능**
+- 포스트잇을 추가할 수 있다.
+
+
+## Step 10. MVVM 구조로 리팩토링
+
+![step 10_diagram](https://user-images.githubusercontent.com/17468015/160744862-d62e975b-e2b3-4be4-8da2-b33a9c6f8445.png)
+
+![step 10](https://user-images.githubusercontent.com/17468015/160741515-478563d0-e784-48fa-965c-2da00efa6735.png)
+
