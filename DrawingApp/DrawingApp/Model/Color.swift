@@ -30,6 +30,14 @@ struct Color {
         return blue
     }
     
+    static func generateRandomColor() -> Color {
+        return Color(r: Int.random(in: 0...255), g: Int.random(in: 0...255), b: Int.random(in: 0...255))
+    }
+    
+    static func convertCGValueToInt(red: Double, green: Double, blue: Double) -> Color {
+        return Color(r: Int(round(red * 255)), g: Int(round(green * 255)), b: Int(round(blue * 255)))
+    }
+    
     static func convertRGBToHexColorCode(_ r: Int, _ g: Int, _ b: Int) -> String {
         var hexR = String(r, radix: 16).uppercased()
         var hexG = String(g, radix: 16).uppercased()
@@ -44,10 +52,6 @@ struct Color {
             hexB = "0" + hexB
         }
         return "#" + hexR + hexG + hexB
-    }
-    
-    static func generateRandomColor() -> Color {
-        return Color(r: Int.random(in: 0...255), g: Int.random(in: 0...255), b: Int.random(in: 0...255))
     }
 }
 

@@ -15,6 +15,10 @@ enum Alpha: Int, Comparable {
         return lhs.rawValue < rhs.rawValue
     }
     
+    static func convertCGValueToInt(alpha: Double) -> Int {
+        return Int(round(alpha * 10))
+    }
+    
     static func generateRandomAlpha() -> Alpha {
         return Alpha(rawValue: Int.random(in: one.rawValue...ten.rawValue))!
     }
