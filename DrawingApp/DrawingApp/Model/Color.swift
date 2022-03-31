@@ -34,8 +34,8 @@ struct Color {
         return Color(r: Int.random(in: 0...255), g: Int.random(in: 0...255), b: Int.random(in: 0...255))
     }
     
-    static func convertCGValueToInt(red: Double, green: Double, blue: Double) -> Color {
-        return Color(r: Int(round(red * 255)), g: Int(round(green * 255)), b: Int(round(blue * 255)))
+    static func convertCGValueToInt(red: Double, green: Double, blue: Double) -> (red: Int, green: Int, blue: Int) {
+        return (red: Int(round(red * 255)), green: Int(round(green * 255)), blue: Int(round(blue * 255)))
     }
     
     static func convertRGBToHexColorCode(_ r: Int, _ g: Int, _ b: Int) -> String {
