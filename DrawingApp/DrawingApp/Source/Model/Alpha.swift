@@ -27,3 +27,9 @@ enum Alpha: Double, CaseIterable {
     
 }
 
+extension Alpha: CustomStringConvertible {
+    var description: String {
+        return "Alpha: \(self.rawValue)"
+    }
+}
+

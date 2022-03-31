@@ -18,16 +18,19 @@ class Identifier {
             var uuid = UUID().uuidString.split(separator: "-").map{String($0)}
             uuid.removeFirst()
             uuid.removeLast()
-            print(uuid)
             var resultArr = [String]()
             for index in uuid {
                 var temp = index
                 temp.removeLast()
                 resultArr.append(temp)
             }
-            print(resultArr)
             return resultArr.joined(separator: "-")
         }()
     }
 }
 
+extension Identifier: CustomStringConvertible {
+    var description: String {
+        return "RectID \(self.uniqueID)"
+    }
+}

@@ -13,5 +13,5 @@ protocol CreateRandomRect {
     func generateRandomPoint() -> Point
     func generateRandomColor() -> BackgroundColor
     func generateRandomAlpha() -> Alpha
-    func createRandomRect() -> Rectangle
+    func createRandomRect() -> showRect
 }

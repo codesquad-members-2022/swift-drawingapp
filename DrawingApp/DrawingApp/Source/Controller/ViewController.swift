@@ -6,13 +6,20 @@
 //
 
 import UIKit
+import OSLog
 
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         
+        let randomRectFactory = RectFactory()
+        
+        (0..<4).forEach { _ in
+            let Rect = randomRectFactory.createRandomRect()
+            os_log(.debug, log: .default, "\n\(Rect.description)")
+        }
     }
+    
 }
 
