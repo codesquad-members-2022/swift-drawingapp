@@ -49,14 +49,12 @@ class ViewController: UIViewController {
             return
         }
         
-        selectedView?.removeFromSuperview()
         let newRectangleView = convertRectangleToUIView(rectangle: selectedRectangle)
-        selectedView = newRectangleView
-        self.view.addSubview(newRectangleView)
-        drawRectangleBorderAtPoint(selectedRectangle.getPoint())
+        replaceSelectedView(to: newRectangleView)
         
         let color = selectedRectangle.getColor()
-        setRGBValueLabel(r: color.getRed(), g: color.getGreen(), b: color.getBlue())
+        setRGBLabelFromColor(r: color.getRed(), g: color.getGreen(), b: color.getBlue())
+        drawRectangleBorderAtPoint(selectedRectangle.getPoint())
     }
     
     @IBAction func tapAlphaStepper(_ sender: UIStepper) {
@@ -65,58 +63,54 @@ class ViewController: UIViewController {
             return
         }
         
-        selectedView?.removeFromSuperview()
         let newRectangleView = convertRectangleToUIView(rectangle: selectedRectangle)
-        selectedView = newRectangleView
-        self.view.addSubview(newRectangleView)
-        drawRectangleBorderAtPoint(selectedRectangle.getPoint())
+        replaceSelectedView(to: newRectangleView)
         
         setAlphaValueLabel(a: Int(alphaStepper.value))
+        drawRectangleBorderAtPoint(selectedRectangle.getPoint())
     }
     
     @objc func didTapView(_ sender: UITapGestureRecognizer) {
-        let touchedCGPoint = sender.location(in: self.view)
+        disselectView()
         
+        let touchedCGPoint = sender.location(in: self.view)
         if let selectedRectangle = plane.getRectangleAtPoint(x: touchedCGPoint.x, y: touchedCGPoint.y) {
             if let tappedView = self.view.hitTest(CGPoint(x: selectedRectangle.getPoint().getX(), y: selectedRectangle.getPoint().getY()), with: nil) {
+                plane.setSelectedShape(to: selectedRectangle)
                 selectedView = tappedView
                 selectView(tappedView)
             }
-            plane.setSelectedShape(to: selectedRectangle)
         } else {
-            // 없다면 선택 해제
-            disSelectView()
-            selectedView = nil
             plane.resetSelectedShape()
+            selectedView = nil
         }
     }
     
     private func selectView(_ view: UIView) {
-        if plane.isThereSelectedShape() { // 기존 selectedShape가 있는데 새로운 view select했을 때
-            if let previousPoint = plane.getSelectedShapePoint() {
-                eraseRectangleBorderAtPoint(Point(x: previousPoint.getX(), y: previousPoint.getY()))
-            }
-        }
-        
-        guard let rgba = view.backgroundColor?.rgba else {
+        guard let rectangleColor = plane.getSelectedShapeColor(),
+              let rectangleAlpha = plane.getSelectedShapeAlpha() else {
             return
         }
-        let intColor = Color.convertCGValueToInt(red: rgba.red, green: rgba.green, blue: rgba.blue)
-        let intAlpha = Alpha.convertCGValueToInt(alpha: rgba.alpha)
-        
+
         let viewOrigin = view.frame.origin
         drawRectangleBorderAtPoint(Point(x: viewOrigin.x, y: viewOrigin.y))
-        setRGBValueLabel(r: intColor.getRed(), g: intColor.getGreen(), b: intColor.getBlue())
-        setAlphaValueLabel(a: intAlpha)
-        setAlphaStepper(value: Double(intAlpha))
+        setRGBLabelFromColor(r: rectangleColor.getRed(), g: rectangleColor.getGreen(), b: rectangleColor.getBlue())
+        setAlphaValueLabel(a: rectangleAlpha.rawValue)
+        setAlphaStepper(value: Double(rectangleAlpha.rawValue))
         enableControlButtons()
     }
     
-    private func disSelectView() {
+    private func disselectView() {
         selectedView?.layer.borderWidth = 0
         setLabelsDefaultValue()
         alphaStepper.value = 1.0
         disableControlButtons()
+    }
+    
+    private func replaceSelectedView(to view: UIView) {
+        selectedView?.removeFromSuperview()
+        selectedView = view
+        self.view.addSubview(view)
     }
     
     private func disableControlButtons() {
@@ -147,9 +141,14 @@ class ViewController: UIViewController {
         blueValue.text = "B : -"
         alphaValue.text = "A : -"
     }
-
-    private func setRGBValueLabel(r: Int, g: Int, b: Int) {
-        hexValue.text = Color.convertRGBToHexColorCode(Int(r), Int(g), Int(b))
+    
+    private func setRGBLabelFromBackgroundColor(r: Double, g: Double, b: Double) {
+        let intColor = Color.convertCGValueToInt(red: r, green: g, blue: b)
+        setRGBLabelFromColor(r: intColor.red, g: intColor.green, b: intColor.blue)
+    }
+    
+    private func setRGBLabelFromColor(r: Int, g: Int, b: Int) {
+        hexValue.text = Color.convertRGBToHexColorCode(r, g, b)
         redValue.text = "R : \(r)"
         greenValue.text = "G : \(g)"
         blueValue.text = "B : \(b)"
@@ -157,14 +156,6 @@ class ViewController: UIViewController {
     
     private func setAlphaValueLabel(a: Int) {
         alphaValue.text = "A : \(a)"
-    }
-    
-    private func getRandomXYInScreenBounds() -> (x: Int, y: Int) {
-        var result: (x: Int, y: Int) = (0, 0)
-        let bounds = UIScreen.main.bounds
-        result.x = Int.random(in: 1...Int(bounds.width))
-        result.y = Int.random(in: 1...Int(bounds.height))
-        return result
     }
     
     private func drawRectangleBorderAtPoint(_ point: Point) {
