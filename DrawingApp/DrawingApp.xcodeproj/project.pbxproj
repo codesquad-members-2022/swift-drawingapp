@@ -201,7 +201,6 @@
 			children = (
 				BC9E8E1727F3EA4800D65C41 /* AddService.swift */,
 				BC9E8E1A27F3EA5C00D65C41 /* SelectService.swift */,
-				BC9E8E3427F56D7F00D65C41 /* DIContainer.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -321,6 +320,7 @@
 		BCE3CBB327CC70EE004F2AFE /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				BC9E8E3427F56D7F00D65C41 /* DIContainer.swift */,
 				BCE3CB7F27CC6D8E004F2AFE /* AppDelegate.swift */,
 				BCE3CB8127CC6D8E004F2AFE /* SceneDelegate.swift */,
 				BCE3CB8D27CC6D8F004F2AFE /* Info.plist */,

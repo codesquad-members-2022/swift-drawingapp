@@ -15,7 +15,7 @@ class PassiveCanvasViewController: UIViewController,
     private var canvasView: UIView?
     private var canvasViewModel: CanvasViewModel? = nil
     
-    private let buttonType: [Int: Layer.Type] = [1: Rectangle.self, 2: Photo.self, 3: Label.self, 4: PostIt.self]
+    private let buttonTagToType: [Int: Layer.Type] = [1: Rectangle.self, 2: Photo.self, 3: Label.self, 4: PostIt.self]
     
     @IBOutlet weak var addRectangleButton: UIButton!
     @IBOutlet weak var addPhotoButton: UIButton!
@@ -33,16 +33,18 @@ class PassiveCanvasViewController: UIViewController,
         setCanvasView()
         setUpTapRecognizer()
         
-        canvasViewModel = container?.resolve(type: CanvasViewModel.self)
-        
+        setViewModel()
         bindToViewModel()
     }
-    
 }
 
 // MARK: - Initial Setup
 
 extension PassiveCanvasViewController {
+    
+    private func setViewModel() {
+        canvasViewModel = container?.resolve(type: CanvasViewModel.self)
+    }
     
     private func bindToViewModel() {
         canvasViewModel?.newView.bind { [weak self] view in
@@ -86,7 +88,7 @@ extension PassiveCanvasViewController {
 extension PassiveCanvasViewController {
     
     @IBAction func addButtonTouched(_ sender: UIButton) {
-        guard let layerType = buttonType[sender.tag] else { return }
+        guard let layerType = buttonTagToType[sender.tag] else { return }
         
         if layerType == Photo.self {
             present(photoPicker, animated: true, completion: nil)

@@ -126,3 +126,11 @@ by Eddy
 
 ![step 10](https://user-images.githubusercontent.com/17468015/160741515-478563d0-e784-48fa-965c-2da00efa6735.png)
 
+
+## Step 11. 의존성 역전, 의존성 주입을 위한 컨테이너 추가
+
+![step 11_diagram](![Screen Shot 2022-03-31 at 4 06 10 PM](https://user-images.githubusercontent.com/17468015/160997465-fe851675-028f-4738-951c-d5d31beb7d22.png)
+
+- Logic, Model 레이어에 프로토콜을 추가해 의존성 역전
+- 의존성 주입을 위한 DIContainer 구현
+- 설정한 DIConainter를 SceneDelegate에서 ViewController까지 전달
