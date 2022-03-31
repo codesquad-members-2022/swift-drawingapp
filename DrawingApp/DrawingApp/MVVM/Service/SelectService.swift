@@ -9,11 +9,11 @@ import Foundation
 
 typealias onSelectHandler = ((Layer?, Layer?) -> Void)?
 
-protocol LayerSelectable1 {
+protocol LayerSelectable {
     func select(on point: Point, onSelect: onSelectHandler)
 }
 
-struct SelectService: LayerSelectable1 {
+struct SelectService: LayerSelectable {
     
     var layerContainable: LayerContainable?
     

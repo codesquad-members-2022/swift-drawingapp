@@ -12,13 +12,13 @@ class CanvasViewModel {
     let layerAddable: LayerAddable?
     let newView = Observable<UIView?>(nil)
     
-    let layerSelectable: LayerSelectable1?
+    let layerSelectable: LayerSelectable?
     let selectedView = Observable<UIView?>(nil)
     let unselectedView = Observable<UIView?>(nil)
     
     var layerDict = [Layer: UIView]()
     
-    init(layerAddable: LayerAddable?, layerSelectable: LayerSelectable1?) {
+    init(layerAddable: LayerAddable?, layerSelectable: LayerSelectable?) {
         self.layerAddable = layerAddable
         self.layerSelectable = layerSelectable
     }
