@@ -33,11 +33,13 @@ class CanvasViewModel {
     
     func select(on point: Point) {
         layerSelectable?.select(on: point) { [weak self] unselected, selected in
-            guard let unselected = unselected else { return }
-            self?.unselectedView.value = self?.layerDict[unselected]
+            if let unselected = unselected {
+                self?.unselectedView.value = self?.layerDict[unselected]
+            }
             
-            guard let selected = selected else { return }
-            self?.selectedView.value = self?.layerDict[selected]
+            if let selected = selected {
+                self?.selectedView.value = self?.layerDict[selected]
+            }
         }
     }
 }
