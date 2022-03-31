@@ -26,7 +26,7 @@ class PlaneTests: XCTestCase {
     
     func testAddRectangle() throws {
         let plane = Plane()
-        
+
         let randomNumber = Int.random(in: 1..<10)
         for _ in 0..<randomNumber {
             
@@ -37,7 +37,7 @@ class PlaneTests: XCTestCase {
     
     func testAddPhoto() throws {
         let plane = Plane()
-        
+
         let randomNumber = Int.random(in: 1..<10)
         
         for _ in 0..<randomNumber {
