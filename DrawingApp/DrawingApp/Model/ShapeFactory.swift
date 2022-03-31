@@ -36,12 +36,10 @@ class ShapeFactory {
     }
     
     private func generateRandomColor() -> Color {
-        return Color(r: Int.random(in: 0...255),
-                     g: Int.random(in: 0...255),
-                     b: Int.random(in: 0...255))
+        return Color.generateRandomColor()
     }
     
     private func generateRandomAlpha() -> Alpha {
-        return Alpha(rawValue: Int.random(in: Alpha.one.rawValue...Alpha.ten.rawValue))!
+        return Alpha.generateRandomAlpha()
     }
 }
