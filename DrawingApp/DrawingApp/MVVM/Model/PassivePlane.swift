@@ -7,10 +7,14 @@
 
 import Foundation
 
-class PassivePlane {
-    
+protocol LayerContainable: AnyObject {
+    var layers: [Layer] { get set }
+    var selected: Layer? { get set }
+}
+
+class PassivePlane: LayerContainable {
+    static let shared = PassivePlane() as LayerContainable
     // Use singleton for different services to access
-    static let shared = PassivePlane()
     
     var layers: [Layer]
     var selected: Layer?

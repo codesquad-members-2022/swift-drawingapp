@@ -11,9 +11,9 @@ class PassiveCanvasViewController: UIViewController,
                                    UIImagePickerControllerDelegate,
                                    UINavigationControllerDelegate {
     
+    var container: DIContainable? = nil
     private var canvasView: UIView?
-    
-    private let canvasViewModel = CanvasViewModel()
+    private var canvasViewModel: CanvasViewModel? = nil
     
     private let buttonType: [Int: Layer.Type] = [1: Rectangle.self, 2: Photo.self, 3: Label.self, 4: PostIt.self]
     
@@ -32,6 +32,9 @@ class PassiveCanvasViewController: UIViewController,
         super.viewDidLoad()
         setCanvasView()
         setUpTapRecognizer()
+        
+        canvasViewModel = container?.resolve(type: CanvasViewModel.self)
+        
         bindToViewModel()
     }
     
@@ -42,17 +45,17 @@ class PassiveCanvasViewController: UIViewController,
 extension PassiveCanvasViewController {
     
     private func bindToViewModel() {
-        canvasViewModel.newView.bind { [weak self] view in
+        canvasViewModel?.newView.bind { [weak self] view in
             guard let view = view else { return }
             self?.canvasView?.addSubview(view)
         }
         
-        canvasViewModel.selectedView.bind { [weak self] view in
+        canvasViewModel?.selectedView.bind { [weak self] view in
             guard let view = view else { return }
             self?.changeBorder(view)
         }
         
-        canvasViewModel.unselectedView.bind { [weak self] view in
+        canvasViewModel?.unselectedView.bind { [weak self] view in
             guard let view = view else { return }
             self?.clearBorder(view)
         }
@@ -89,7 +92,7 @@ extension PassiveCanvasViewController {
             present(photoPicker, animated: true, completion: nil)
         }
         
-        canvasViewModel.add(of: layerType)
+        canvasViewModel?.add(of: layerType)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -97,7 +100,7 @@ extension PassiveCanvasViewController {
         guard let image = info[.originalImage] as? UIImage,
               let imageData = image.pngData() else { return }
         
-        canvasViewModel.add(of: Photo.self, imageData: imageData)
+        canvasViewModel?.add(of: Photo.self, imageData: imageData)
         picker.dismiss(animated: true, completion: nil)
     }
 }
@@ -109,7 +112,7 @@ extension PassiveCanvasViewController {
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
         let location = gesture.location(in: canvasView)
         let tappedPoint = Point(x: location.x, y: location.y)
-        canvasViewModel.select(on: tappedPoint)
+        canvasViewModel?.select(on: tappedPoint)
     }
     
     private func changeBorder(_ view: UIView) {

@@ -51,6 +51,8 @@
 		BC9E8E2C27F3EB9500D65C41 /* PassivePlane.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8E2A27F3EB9500D65C41 /* PassivePlane.swift */; };
 		BC9E8E2E27F3EBAE00D65C41 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8E2D27F3EBAE00D65C41 /* Observable.swift */; };
 		BC9E8E2F27F3EBAE00D65C41 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8E2D27F3EBAE00D65C41 /* Observable.swift */; };
+		BC9E8E3527F56D7F00D65C41 /* DIContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8E3427F56D7F00D65C41 /* DIContainer.swift */; };
+		BC9E8E3727F5775D00D65C41 /* DrawingSplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9E8E3627F5775D00D65C41 /* DrawingSplitViewController.swift */; };
 		BCE3CB8027CC6D8E004F2AFE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE3CB7F27CC6D8E004F2AFE /* AppDelegate.swift */; };
 		BCE3CB8227CC6D8E004F2AFE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE3CB8127CC6D8E004F2AFE /* SceneDelegate.swift */; };
 		BCE3CB8427CC6D8E004F2AFE /* CanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCE3CB8327CC6D8E004F2AFE /* CanvasViewController.swift */; };
@@ -111,6 +113,8 @@
 		BC9E8E2227F3EB6000D65C41 /* CanvasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasViewModel.swift; sourceTree = "<group>"; };
 		BC9E8E2A27F3EB9500D65C41 /* PassivePlane.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PassivePlane.swift; sourceTree = "<group>"; };
 		BC9E8E2D27F3EBAE00D65C41 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		BC9E8E3427F56D7F00D65C41 /* DIContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIContainer.swift; sourceTree = "<group>"; };
+		BC9E8E3627F5775D00D65C41 /* DrawingSplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingSplitViewController.swift; sourceTree = "<group>"; };
 		BCE3CB7C27CC6D8E004F2AFE /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BCE3CB7F27CC6D8E004F2AFE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BCE3CB8127CC6D8E004F2AFE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -197,6 +201,7 @@
 			children = (
 				BC9E8E1727F3EA4800D65C41 /* AddService.swift */,
 				BC9E8E1A27F3EA5C00D65C41 /* SelectService.swift */,
+				BC9E8E3427F56D7F00D65C41 /* DIContainer.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -216,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				BC9E8E1D27F3EAD000D65C41 /* PassiveCanvasViewController.swift */,
+				BC9E8E3627F5775D00D65C41 /* DrawingSplitViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -502,6 +508,7 @@
 				BC802D5B27D5F96F002BD536 /* Layer.swift in Sources */,
 				BC1806C127CF41AE0057679D /* Size.swift in Sources */,
 				BC1806BF27CF40970057679D /* Alpha.swift in Sources */,
+				BC9E8E3727F5775D00D65C41 /* DrawingSplitViewController.swift in Sources */,
 				BC1806C327CF41C30057679D /* Point.swift in Sources */,
 				BC9E8DDC27F1829600D65C41 /* PostIt.swift in Sources */,
 				BC9E8E1B27F3EA5C00D65C41 /* SelectService.swift in Sources */,
@@ -517,6 +524,7 @@
 				BC1806D127D06DEF0057679D /* ViewFactory.swift in Sources */,
 				BC1806C527CF49A90057679D /* Plane.swift in Sources */,
 				BC9E8E2E27F3EBAE00D65C41 /* Observable.swift in Sources */,
+				BC9E8E3527F56D7F00D65C41 /* DIContainer.swift in Sources */,
 				BC1806CD27CF565D0057679D /* PanelViewController.swift in Sources */,
 				BCF9B77B27DEEAC8008B4879 /* LayerFactory.swift in Sources */,
 				BC9E8E2327F3EB6000D65C41 /* CanvasViewModel.swift in Sources */,

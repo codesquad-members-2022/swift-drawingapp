@@ -215,10 +215,10 @@
             </objects>
             <point key="canvasLocation" x="841" y="2156"/>
         </scene>
-        <!--Split View Controller-->
+        <!--Drawing Split View Controller-->
         <scene sceneID="cJd-5Y-eBh">
             <objects>
-                <splitViewController allowDoubleColumnStyle="YES" preferredDisplayMode="twoOver" behavior="tile" preferredPrimaryColumnWidthFraction="0.20000000000000001" preferredSupplementaryColumnWidthFraction="0.14999999999999999" primaryEdge="trailing" id="IJ5-QC-bLz" sceneMemberID="viewController">
+                <splitViewController storyboardIdentifier="SplitViewController" allowDoubleColumnStyle="YES" preferredDisplayMode="twoOver" behavior="tile" preferredPrimaryColumnWidthFraction="0.20000000000000001" preferredSupplementaryColumnWidthFraction="0.14999999999999999" primaryEdge="trailing" id="IJ5-QC-bLz" customClass="DrawingSplitViewController" customModule="DrawingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <connections>
                         <segue destination="LiX-43-8CF" kind="relationship" relationship="masterViewController" id="uXV-pM-oMX"/>
                         <segue destination="l8x-Ot-BnL" kind="relationship" relationship="detailViewController" id="89v-2C-Hgv"/>
