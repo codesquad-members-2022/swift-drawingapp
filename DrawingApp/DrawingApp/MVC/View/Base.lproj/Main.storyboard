@@ -11,11 +11,7 @@
         <!--회고 캔버스-->
         <scene sceneID="2DC-Sr-hBE">
             <objects>
-<<<<<<< HEAD:DrawingApp/DrawingApp/MVC/View/Base.lproj/Main.storyboard
                 <viewController title="회고 캔버스" id="l8x-Ot-BnL" customClass="PassiveCanvasViewController" customModule="DrawingApp" customModuleProvider="target" sceneMemberID="viewController">
-=======
-                <viewController title="회고 캔버스" id="l8x-Ot-BnL" customClass="CanvasViewController" customModule="DrawingApp" customModuleProvider="target" sceneMemberID="viewController">
->>>>>>> 50aaf377350a1bf3118eec070a81b2783766d441:DrawingApp/DrawingApp/View/Base.lproj/Main.storyboard
                     <view key="view" contentMode="scaleToFill" id="xo9-MY-jyf">
                         <rect key="frame" x="0.0" y="0.0" width="766" height="820"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -30,11 +26,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="357" height="410.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="좋았던 점 👍" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vb5-bm-Vti">
-<<<<<<< HEAD:DrawingApp/DrawingApp/MVC/View/Base.lproj/Main.storyboard
                                                         <rect key="frame" x="20" y="8" width="91" height="20.5"/>
-=======
-                                                        <rect key="frame" x="8" y="8" width="91" height="20.5"/>
->>>>>>> 50aaf377350a1bf3118eec070a81b2783766d441:DrawingApp/DrawingApp/View/Base.lproj/Main.storyboard
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -43,23 +35,15 @@
                                                 <color key="backgroundColor" red="0.0" green="0.47843137254901963" blue="1" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstItem="vb5-bm-Vti" firstAttribute="top" secondItem="V3K-hJ-Cyg" secondAttribute="top" constant="8" id="0Uk-gT-I1L"/>
-<<<<<<< HEAD:DrawingApp/DrawingApp/MVC/View/Base.lproj/Main.storyboard
                                                     <constraint firstAttribute="trailing" secondItem="vb5-bm-Vti" secondAttribute="trailing" priority="249" constant="258" id="N1i-bV-Ylf"/>
                                                     <constraint firstItem="vb5-bm-Vti" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="V3K-hJ-Cyg" secondAttribute="leading" constant="20" symbolic="YES" id="uR6-yf-gzc"/>
-=======
-                                                    <constraint firstItem="vb5-bm-Vti" firstAttribute="leading" secondItem="V3K-hJ-Cyg" secondAttribute="leading" constant="8" id="uR6-yf-gzc"/>
->>>>>>> 50aaf377350a1bf3118eec070a81b2783766d441:DrawingApp/DrawingApp/View/Base.lproj/Main.storyboard
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5po-sV-FeY" userLabel="Problem">
                                                 <rect key="frame" x="369" y="0.0" width="357" height="410.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="아쉬운 점 😞" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jIS-5o-fWD">
-<<<<<<< HEAD:DrawingApp/DrawingApp/MVC/View/Base.lproj/Main.storyboard
                                                         <rect key="frame" x="20" y="8" width="91" height="20.5"/>
-=======
-                                                        <rect key="frame" x="8" y="8" width="91" height="20.5"/>
->>>>>>> 50aaf377350a1bf3118eec070a81b2783766d441:DrawingApp/DrawingApp/View/Base.lproj/Main.storyboard
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -67,14 +51,9 @@
                                                 </subviews>
                                                 <color key="backgroundColor" red="1" green="0.17647058823529413" blue="0.33333333333333331" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
-<<<<<<< HEAD:DrawingApp/DrawingApp/MVC/View/Base.lproj/Main.storyboard
                                                     <constraint firstAttribute="trailing" secondItem="jIS-5o-fWD" secondAttribute="trailing" priority="248" constant="258" id="6QS-Jq-Bek"/>
                                                     <constraint firstItem="jIS-5o-fWD" firstAttribute="top" secondItem="5po-sV-FeY" secondAttribute="top" constant="8" id="zQm-pl-HRj"/>
                                                     <constraint firstItem="jIS-5o-fWD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="5po-sV-FeY" secondAttribute="leading" constant="20" symbolic="YES" id="zRP-Rl-1DJ"/>
-=======
-                                                    <constraint firstItem="jIS-5o-fWD" firstAttribute="top" secondItem="5po-sV-FeY" secondAttribute="top" constant="8" id="zQm-pl-HRj"/>
-                                                    <constraint firstItem="jIS-5o-fWD" firstAttribute="leading" secondItem="5po-sV-FeY" secondAttribute="leading" constant="8" id="zRP-Rl-1DJ"/>
->>>>>>> 50aaf377350a1bf3118eec070a81b2783766d441:DrawingApp/DrawingApp/View/Base.lproj/Main.storyboard
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -87,11 +66,7 @@
                                         <rect key="frame" x="0.0" y="422.5" width="726" height="205.5"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="시도해볼 것 💪" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gUH-ka-Gcy">
-<<<<<<< HEAD:DrawingApp/DrawingApp/MVC/View/Base.lproj/Main.storyboard
                                                 <rect key="frame" x="20" y="8" width="105.5" height="20.5"/>
-=======
-                                                <rect key="frame" x="8" y="8" width="105.5" height="20.5"/>
->>>>>>> 50aaf377350a1bf3118eec070a81b2783766d441:DrawingApp/DrawingApp/View/Base.lproj/Main.storyboard
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -99,14 +74,9 @@
                                         </subviews>
                                         <color key="backgroundColor" red="1" green="0.80000000000000004" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-<<<<<<< HEAD:DrawingApp/DrawingApp/MVC/View/Base.lproj/Main.storyboard
                                             <constraint firstItem="gUH-ka-Gcy" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HyZ-HY-c3U" secondAttribute="leading" constant="20" symbolic="YES" id="UYg-FW-w7g"/>
                                             <constraint firstItem="gUH-ka-Gcy" firstAttribute="top" secondItem="HyZ-HY-c3U" secondAttribute="top" constant="8" id="jVt-C6-hqa"/>
                                             <constraint firstAttribute="trailing" secondItem="gUH-ka-Gcy" secondAttribute="trailing" priority="248" constant="612.5" id="w8q-CW-y5O"/>
-=======
-                                            <constraint firstItem="gUH-ka-Gcy" firstAttribute="leading" secondItem="HyZ-HY-c3U" secondAttribute="leading" constant="8" id="UYg-FW-w7g"/>
-                                            <constraint firstItem="gUH-ka-Gcy" firstAttribute="top" secondItem="HyZ-HY-c3U" secondAttribute="top" constant="8" id="jVt-C6-hqa"/>
->>>>>>> 50aaf377350a1bf3118eec070a81b2783766d441:DrawingApp/DrawingApp/View/Base.lproj/Main.storyboard
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -115,17 +85,10 @@
                                 </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="g98-d2-ots" userLabel="buttonStack">
-<<<<<<< HEAD:DrawingApp/DrawingApp/MVC/View/Base.lproj/Main.storyboard
                                 <rect key="frame" x="133" y="708" width="500" height="60"/>
                                 <subviews>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I43-gx-lAf">
+                                    <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I43-gx-lAf">
                                         <rect key="frame" x="0.0" y="0.0" width="119" height="60"/>
-=======
-                                <rect key="frame" x="233" y="708" width="300" height="60"/>
-                                <subviews>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I43-gx-lAf">
-                                        <rect key="frame" x="0.0" y="0.0" width="94.5" height="60"/>
->>>>>>> 50aaf377350a1bf3118eec070a81b2783766d441:DrawingApp/DrawingApp/View/Base.lproj/Main.storyboard
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="tinted" image="rectangle" catalog="system" imagePlacement="leading" title="사각형">
                                             <color key="baseForegroundColor" systemColor="labelColor"/>
@@ -141,12 +104,8 @@
                                             <action selector="addButtonTouched:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="XSF-IS-daj"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3cB-Gg-zBo">
-<<<<<<< HEAD:DrawingApp/DrawingApp/MVC/View/Base.lproj/Main.storyboard
+                                    <button opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3cB-Gg-zBo">
                                         <rect key="frame" x="127" y="0.0" width="119" height="60"/>
-=======
-                                        <rect key="frame" x="102.5" y="0.0" width="95" height="60"/>
->>>>>>> 50aaf377350a1bf3118eec070a81b2783766d441:DrawingApp/DrawingApp/View/Base.lproj/Main.storyboard
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="tinted" image="photo.artframe" catalog="system" imagePlacement="leading" title="사진">
                                             <color key="baseForegroundColor" systemColor="labelColor"/>
@@ -162,8 +121,7 @@
                                             <action selector="addButtonTouched:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="Pqj-3I-PLn"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K5x-AO-ZR2">
-<<<<<<< HEAD:DrawingApp/DrawingApp/MVC/View/Base.lproj/Main.storyboard
+                                    <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K5x-AO-ZR2">
                                         <rect key="frame" x="254" y="0.0" width="119" height="60"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="tinted" image="character.textbox" catalog="system" imagePlacement="leading" title="텍스트">
@@ -180,11 +138,8 @@
                                             <action selector="addButtonTouched:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="dHe-RD-yKA"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="98B-HF-wKD">
+                                    <button opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="98B-HF-wKD">
                                         <rect key="frame" x="381" y="0.0" width="119" height="60"/>
-=======
-                                        <rect key="frame" x="205.5" y="0.0" width="94.5" height="60"/>
->>>>>>> 50aaf377350a1bf3118eec070a81b2783766d441:DrawingApp/DrawingApp/View/Base.lproj/Main.storyboard
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="tinted" image="rectangle" catalog="system" imagePlacement="leading" title="포스트잇">
                                             <color key="baseForegroundColor" systemColor="labelColor"/>
@@ -202,11 +157,7 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-<<<<<<< HEAD:DrawingApp/DrawingApp/MVC/View/Base.lproj/Main.storyboard
                                     <constraint firstAttribute="width" constant="500" id="RZc-sp-zfs"/>
-=======
-                                    <constraint firstAttribute="width" constant="300" id="RZc-sp-zfs"/>
->>>>>>> 50aaf377350a1bf3118eec070a81b2783766d441:DrawingApp/DrawingApp/View/Base.lproj/Main.storyboard
                                     <constraint firstAttribute="height" constant="60" id="pzx-hE-hPR"/>
                                 </constraints>
                             </stackView>
