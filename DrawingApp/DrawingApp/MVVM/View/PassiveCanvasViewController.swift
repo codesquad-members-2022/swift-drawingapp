@@ -11,9 +11,11 @@ class PassiveCanvasViewController: UIViewController,
                                    UIImagePickerControllerDelegate,
                                    UINavigationControllerDelegate {
     
+    var container: DIContainable? = nil
     private var canvasView: UIView?
+    private var canvasViewModel: CanvasViewModel? = nil
     
-    private let canvasViewModel = CanvasViewModel()
+    private let buttonTagToType: [Int: Layer.Type] = [1: Rectangle.self, 2: Photo.self, 3: Label.self, 4: PostIt.self]
     
     @IBOutlet weak var addRectangleButton: UIButton!
     @IBOutlet weak var addPhotoButton: UIButton!
@@ -30,27 +32,32 @@ class PassiveCanvasViewController: UIViewController,
         super.viewDidLoad()
         setCanvasView()
         setUpTapRecognizer()
+        
+        setViewModel()
         bindToViewModel()
     }
-    
 }
 
 // MARK: - Initial Setup
 
 extension PassiveCanvasViewController {
     
+    private func setViewModel() {
+        canvasViewModel = container?.resolve(type: CanvasViewModel.self)
+    }
+    
     private func bindToViewModel() {
-        canvasViewModel.newView.bind { [weak self] view in
+        canvasViewModel?.newView.bind { [weak self] view in
             guard let view = view else { return }
             self?.canvasView?.addSubview(view)
         }
         
-        canvasViewModel.selectedView.bind { [weak self] view in
+        canvasViewModel?.selectedView.bind { [weak self] view in
             guard let view = view else { return }
             self?.changeBorder(view)
         }
         
-        canvasViewModel.unselectedView.bind { [weak self] view in
+        canvasViewModel?.unselectedView.bind { [weak self] view in
             guard let view = view else { return }
             self?.clearBorder(view)
         }
@@ -81,14 +88,13 @@ extension PassiveCanvasViewController {
 extension PassiveCanvasViewController {
     
     @IBAction func addButtonTouched(_ sender: UIButton) {
-        switch sender {
-        case addRectangleButton: canvasViewModel.addRectangle()
-        case addLabelButton: canvasViewModel.addLabel()
-        case addPostItButton: canvasViewModel.addPostIt()
-        case addPhotoButton:
+        guard let layerType = buttonTagToType[sender.tag] else { return }
+        
+        if layerType == Photo.self {
             present(photoPicker, animated: true, completion: nil)
-        default: return
         }
+        
+        canvasViewModel?.add(of: layerType)
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
@@ -96,7 +102,7 @@ extension PassiveCanvasViewController {
         guard let image = info[.originalImage] as? UIImage,
               let imageData = image.pngData() else { return }
         
-        canvasViewModel.addPhoto(data: imageData)
+        canvasViewModel?.add(of: Photo.self, imageData: imageData)
         picker.dismiss(animated: true, completion: nil)
     }
 }
@@ -108,7 +114,7 @@ extension PassiveCanvasViewController {
     @objc func handleTap(_ gesture: UITapGestureRecognizer) {
         let location = gesture.location(in: canvasView)
         let tappedPoint = Point(x: location.x, y: location.y)
-        canvasViewModel.select(on: tappedPoint)
+        canvasViewModel?.select(on: tappedPoint)
     }
     
     private func changeBorder(_ view: UIView) {

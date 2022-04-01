@@ -7,19 +7,27 @@
 
 import Foundation
 
-struct SelectService {
+typealias onSelectHandler = ((Layer?, Layer?) -> Void)?
+
+protocol LayerSelectable {
+    func select(on point: Point, onSelect: onSelectHandler)
+}
+
+struct SelectService: LayerSelectable {
     
-    let plane = PassivePlane.shared
+    var layerContainable: LayerContainable?
     
-    typealias onSelectHandler = ((Layer?, Layer?) -> Void)?
+    init(layerContainable: LayerContainable?) {
+        self.layerContainable = layerContainable
+    }
     
     func select(on point: Point, onSelect: onSelectHandler) {
-        let unselected = plane.selected
-        let newSelected = plane.layers.last(where: { layer in
+        let unselected = layerContainable?.selected
+        let newSelected = layerContainable?.layers.last(where: { layer in
             layer.contains(point)
         })
         
-        plane.selected = newSelected
+        layerContainable?.selected = newSelected
         
         onSelect?(unselected, newSelected)
     }

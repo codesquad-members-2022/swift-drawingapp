@@ -56,7 +56,7 @@ class CanvasViewController: UIViewController,
     }
     
     private func setHandler(to viewController: UIViewController) {
-        if let viewController = viewController as? LayerSelectable {
+        if let viewController = viewController as? LayerSelectableNoUse {
             setSelectHandler(to: viewController)
         }
         
@@ -383,7 +383,7 @@ extension CanvasViewController {
 
 extension CanvasViewController {
     
-    private func setSelectHandler(to layerSelectable: LayerSelectable) {
+    private func setSelectHandler(to layerSelectable: LayerSelectableNoUse) {
         layerSelectable.setSelectHandler { [weak self] selected in
             self?.plane.select(layer: selected)
         }

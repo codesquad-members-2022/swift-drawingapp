@@ -87,7 +87,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="g98-d2-ots" userLabel="buttonStack">
                                 <rect key="frame" x="133" y="708" width="500" height="60"/>
                                 <subviews>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I43-gx-lAf">
+                                    <button opaque="NO" clipsSubviews="YES" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I43-gx-lAf">
                                         <rect key="frame" x="0.0" y="0.0" width="119" height="60"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="tinted" image="rectangle" catalog="system" imagePlacement="leading" title="사각형">
@@ -104,7 +104,7 @@
                                             <action selector="addButtonTouched:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="XSF-IS-daj"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3cB-Gg-zBo">
+                                    <button opaque="NO" clipsSubviews="YES" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3cB-Gg-zBo">
                                         <rect key="frame" x="127" y="0.0" width="119" height="60"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="tinted" image="photo.artframe" catalog="system" imagePlacement="leading" title="사진">
@@ -121,7 +121,7 @@
                                             <action selector="addButtonTouched:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="Pqj-3I-PLn"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K5x-AO-ZR2">
+                                    <button opaque="NO" clipsSubviews="YES" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K5x-AO-ZR2">
                                         <rect key="frame" x="254" y="0.0" width="119" height="60"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="tinted" image="character.textbox" catalog="system" imagePlacement="leading" title="텍스트">
@@ -138,7 +138,7 @@
                                             <action selector="addButtonTouched:" destination="l8x-Ot-BnL" eventType="touchUpInside" id="dHe-RD-yKA"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="98B-HF-wKD">
+                                    <button opaque="NO" clipsSubviews="YES" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="98B-HF-wKD">
                                         <rect key="frame" x="381" y="0.0" width="119" height="60"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="tinted" image="rectangle" catalog="system" imagePlacement="leading" title="포스트잇">
@@ -215,10 +215,10 @@
             </objects>
             <point key="canvasLocation" x="841" y="2156"/>
         </scene>
-        <!--Split View Controller-->
+        <!--Drawing Split View Controller-->
         <scene sceneID="cJd-5Y-eBh">
             <objects>
-                <splitViewController allowDoubleColumnStyle="YES" preferredDisplayMode="twoOver" behavior="tile" preferredPrimaryColumnWidthFraction="0.20000000000000001" preferredSupplementaryColumnWidthFraction="0.14999999999999999" primaryEdge="trailing" id="IJ5-QC-bLz" sceneMemberID="viewController">
+                <splitViewController storyboardIdentifier="SplitViewController" allowDoubleColumnStyle="YES" preferredDisplayMode="twoOver" behavior="tile" preferredPrimaryColumnWidthFraction="0.20000000000000001" preferredSupplementaryColumnWidthFraction="0.14999999999999999" primaryEdge="trailing" id="IJ5-QC-bLz" customClass="DrawingSplitViewController" customModule="DrawingApp" customModuleProvider="target" sceneMemberID="viewController">
                     <connections>
                         <segue destination="LiX-43-8CF" kind="relationship" relationship="masterViewController" id="uXV-pM-oMX"/>
                         <segue destination="l8x-Ot-BnL" kind="relationship" relationship="detailViewController" id="89v-2C-Hgv"/>

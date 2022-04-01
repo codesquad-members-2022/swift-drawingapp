@@ -17,7 +17,7 @@ protocol LayerFetchable {
     func setFetchLayerCountHandler(handler: (() -> Int?)?)
 }
 
-protocol LayerSelectable {
+protocol LayerSelectableNoUse {
     func setSelectHandler(handler: ((Layer?) -> ())?)
 }
 
@@ -51,7 +51,7 @@ class LayerTableViewController: UITableViewController {
     }
 }
 
-extension LayerTableViewController: LayerSelectable {
+extension LayerTableViewController: LayerSelectableNoUse {
     func setSelectHandler(handler: ((Layer?) -> ())?) {
         self.didSelectRowHandler = handler
     }

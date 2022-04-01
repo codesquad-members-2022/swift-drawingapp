@@ -7,21 +7,29 @@
 
 import Foundation
 
-struct AddService {
+typealias onAddHandler = ((Layer) -> Void)?
+
+protocol LayerAddable {
+    func add<T: Layer>(type: T.Type, imageData: Data?, onAdd: onAddHandler)
+}
+
+struct AddService: LayerAddable {
     
-    let plane = PassivePlane.shared
+    var layerContainable: LayerContainable?
     
-    typealias onAddHandler = ((Layer) -> Void)?
+    init(layerContainable: LayerContainable?) {
+        self.layerContainable = layerContainable
+    }
     
     func add<T: Layer>(type: T.Type, imageData: Data? = nil, onAdd: onAddHandler) {
         guard let newLayer = LayerFactory.makeRandom(type, titleOrder: layerCount(of: type) + 1, from: imageData) else { return }
         
-        plane.layers.append(newLayer)
+        layerContainable?.layers.append(newLayer)
         
         onAdd?(newLayer)
     }
     
     private func layerCount<T: Layer>(of type: T.Type) -> Int {
-        return plane.layers.filter { $0 is T }.count
+        return layerContainable?.layers.filter { $0 is T }.count ?? 0
     }
 }
