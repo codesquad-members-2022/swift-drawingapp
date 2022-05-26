@@ -6,6 +6,10 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        let recognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView(_:)))
+        
+        self.view.addGestureRecognizer(recognizer)
         
         var squareAry : [Square] = []
         
@@ -16,5 +20,9 @@ class ViewController: UIViewController {
         for i in 0..<4 {
             os_log("Rect%@ %@", "\(i)", "\(squareAry[i])")
         }
+    }
+
+    @objc func didTapView(_ sender: UITapGestureRecognizer) {
+        print("did tap: ", sender.location(in: self.view))
     }
 }
