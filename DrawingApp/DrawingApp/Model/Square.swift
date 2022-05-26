@@ -1,10 +1,3 @@
-//
-//  Square.swift
-//  DrawingApp
-//
-//  Created by 허태양 on 2022/03/10.
-//
-
 import Foundation
 
 class Square : CustomStringConvertible {
