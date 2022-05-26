@@ -1,10 +1,3 @@
-//
-//  SquareFactory.swift
-//  DrawingApp
-//
-//  Created by 허태양 on 2022/03/16.
-//
-
 import Foundation
 
 class SquareFactory {

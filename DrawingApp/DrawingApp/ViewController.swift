@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  DrawingApp
-//
-//  Created by 허태양 on 2022/02/28.
-//
-
 import UIKit
 import OSLog
 
