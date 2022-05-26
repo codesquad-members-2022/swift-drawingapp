@@ -38,6 +38,17 @@ class Square : CustomStringConvertible {
         return false
     }
     
+    func isPointIncluded(position: Point) -> Bool {
+        let X1: Double = self.point.X
+        let X2: Double = self.point.X + self.size.Width
+        let Y1: Double = self.point.Y
+        let Y2: Double = self.point.Y + self.size.Height
+        if (X1 <= position.X && position.X <= X2) && (Y1 <= position.Y && position.Y <= Y2) {
+            return true
+        }
+        return false
+    }
+    
     var description: String {
         return "(\(id)), X:\(point.X),Y:\(point.Y), W\(size.Width), H\(size.Height), R:\(R), G:\(G), B:\(B), alpha: \(alpha)"
     }
