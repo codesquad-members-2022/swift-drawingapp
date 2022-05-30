@@ -2,12 +2,12 @@ import Foundation
 
 class Square : CustomStringConvertible {
     private var id: String
-    private var size: Size
-    private var point: Point
-    private var R: UInt8
-    private var G: UInt8
-    private var B: UInt8
-    private var alpha: Int
+    private(set) var size: Size
+    private(set) var point: Point
+    private(set) var R: UInt8
+    private(set) var G: UInt8
+    private(set) var B: UInt8
+    private(set) var alpha: Int
 
     init(id: String, size: Size, point: Point, R: UInt8, G: UInt8, B: UInt8, alpha: Int) {
         self.id = id
@@ -40,5 +40,11 @@ class Square : CustomStringConvertible {
     
     var description: String {
         return "(\(id)), X:\(point.X),Y:\(point.Y), W\(size.Width), H\(size.Height), R:\(R), G:\(G), B:\(B), alpha: \(alpha)"
+    }
+}
+
+extension Square: Equatable {
+    public static func ==(lhs: Square, rhs: Square) -> Bool {
+        return lhs.id == rhs.id
     }
 }
