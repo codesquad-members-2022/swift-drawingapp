@@ -43,8 +43,12 @@ class Square : CustomStringConvertible {
     }
 }
 
-extension Square: Equatable {
-    public static func ==(lhs: Square, rhs: Square) -> Bool {
+extension Square: Hashable {
+    static func == (lhs: Square, rhs: Square) -> Bool {
         return lhs.id == rhs.id
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 }
