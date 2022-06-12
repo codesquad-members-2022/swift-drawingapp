@@ -11,9 +11,6 @@
 		F5329F6427D9EC8800B7706C /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5329F6327D9EC8800B7706C /* Size.swift */; };
 		F5329F6627D9EC9B00B7706C /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5329F6527D9EC9B00B7706C /* Point.swift */; };
 		F56BAD112849F0FA00C607E4 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BAD102849F0FA00C607E4 /* MainView.swift */; };
-		F56BAD15284D1AF200C607E4 /* StatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BAD14284D1AF200C607E4 /* StatusView.swift */; };
-		F56BAD17284D1E4300C607E4 /* BackgroundColorStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BAD16284D1E4300C607E4 /* BackgroundColorStatusView.swift */; };
-		F56BAD19284D1E5B00C607E4 /* AlphaStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BAD18284D1E5B00C607E4 /* AlphaStatusView.swift */; };
 		F5C730F427CC7AB8001B4EFF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C730F327CC7AB8001B4EFF /* AppDelegate.swift */; };
 		F5C730F627CC7AB8001B4EFF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C730F527CC7AB8001B4EFF /* SceneDelegate.swift */; };
 		F5C730F827CC7AB8001B4EFF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C730F727CC7AB8001B4EFF /* ViewController.swift */; };
@@ -29,9 +26,6 @@
 		F5329F6327D9EC8800B7706C /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		F5329F6527D9EC9B00B7706C /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		F56BAD102849F0FA00C607E4 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
-		F56BAD14284D1AF200C607E4 /* StatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusView.swift; sourceTree = "<group>"; };
-		F56BAD16284D1E4300C607E4 /* BackgroundColorStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundColorStatusView.swift; sourceTree = "<group>"; };
-		F56BAD18284D1E5B00C607E4 /* AlphaStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlphaStatusView.swift; sourceTree = "<group>"; };
 		F5C730F027CC7AB8001B4EFF /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5C730F327CC7AB8001B4EFF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5C730F527CC7AB8001B4EFF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -104,9 +98,6 @@
 				F5C730FE27CC7AB8001B4EFF /* LaunchScreen.storyboard */,
 				F5C7310127CC7AB8001B4EFF /* Info.plist */,
 				F56BAD102849F0FA00C607E4 /* MainView.swift */,
-				F56BAD14284D1AF200C607E4 /* StatusView.swift */,
-				F56BAD16284D1E4300C607E4 /* BackgroundColorStatusView.swift */,
-				F56BAD18284D1E5B00C607E4 /* AlphaStatusView.swift */,
 			);
 			path = DrawingApp;
 			sourceTree = "<group>";
@@ -221,13 +212,10 @@
 				F56BAD112849F0FA00C607E4 /* MainView.swift in Sources */,
 				F5329F6227D9E70700B7706C /* Square.swift in Sources */,
 				F5329F6427D9EC8800B7706C /* Size.swift in Sources */,
-				F56BAD15284D1AF200C607E4 /* StatusView.swift in Sources */,
 				F5329F6627D9EC9B00B7706C /* Point.swift in Sources */,
 				F5C730F827CC7AB8001B4EFF /* ViewController.swift in Sources */,
 				F5C730F427CC7AB8001B4EFF /* AppDelegate.swift in Sources */,
 				F5D3D0C027E1A5E200B6DFDF /* Plane.swift in Sources */,
-				F56BAD19284D1E5B00C607E4 /* AlphaStatusView.swift in Sources */,
-				F56BAD17284D1E4300C607E4 /* BackgroundColorStatusView.swift in Sources */,
 				F5C730F627CC7AB8001B4EFF /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

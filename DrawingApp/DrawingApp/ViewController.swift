@@ -18,7 +18,46 @@ class ViewController: UIViewController {
         return view
     }()
 
-    private let statusView = StatusView()
+    private let statusView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .gray
+        return view
+    }()
+    
+    private let backgroundTitle: UILabel = {
+        let label = UILabel()
+        label.text = "배경색"
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let alphaTitle: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "투명도"
+        return label
+    }()
+    
+    private let backgroundColorStatus: UITextField = {
+        let textField = UITextField()
+        textField.text = "Default"
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }()
+
+    private let alphaStatus: UIStepper = {
+        let stepper = UIStepper()
+        stepper.translatesAutoresizingMaskIntoConstraints = false
+        stepper.maximumValue = 10
+        stepper.minimumValue = 0
+        stepper.value = 0
+        stepper.wraps = false
+        stepper.autorepeat = true
+        stepper.addTarget(self, action: #selector(stepperValueChanged(_:)), for: .valueChanged)
+        
+        return stepper
+    }()
     
     override func loadView() {
         self.view = MainView()
@@ -33,17 +72,37 @@ class ViewController: UIViewController {
 
         self.view.addSubview(self.drawingView)
         self.view.addSubview(self.statusView)
+        self.view.addSubview(self.backgroundTitle)
+        self.view.addSubview(self.backgroundColorStatus)
+        self.view.addSubview(self.alphaTitle)
+        self.view.addSubview(self.alphaStatus)
         
         NSLayoutConstraint.activate([
             self.drawingView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            self.drawingView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             self.drawingView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.drawingView.trailingAnchor.constraint(equalTo: self.statusView.leadingAnchor),
-            self.drawingView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             
+            self.statusView.widthAnchor.constraint(equalToConstant: 300),
             self.statusView.topAnchor.constraint(equalTo: self.view.topAnchor),
             self.statusView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
-            self.statusView.widthAnchor.constraint(equalToConstant: 300),
-            self.statusView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
+            self.statusView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            
+            self.backgroundTitle.topAnchor.constraint(equalTo: self.statusView.topAnchor),
+            self.backgroundTitle.leadingAnchor.constraint(equalTo: self.statusView.leadingAnchor),
+            self.backgroundTitle.trailingAnchor.constraint(equalTo: self.statusView.trailingAnchor),
+            
+            self.backgroundColorStatus.topAnchor.constraint(equalTo: self.backgroundTitle.bottomAnchor),
+            self.backgroundColorStatus.leadingAnchor.constraint(equalTo: self.statusView.leadingAnchor),
+            self.backgroundColorStatus.trailingAnchor.constraint(equalTo: self.statusView.trailingAnchor),
+            
+            self.alphaTitle.topAnchor.constraint(equalTo: self.backgroundColorStatus.bottomAnchor),
+            self.alphaTitle.leadingAnchor.constraint(equalTo: self.statusView.leadingAnchor),
+            self.alphaTitle.trailingAnchor.constraint(equalTo: self.statusView.trailingAnchor),
+            
+            self.alphaStatus.topAnchor.constraint(equalTo: self.alphaTitle.bottomAnchor),
+            self.alphaStatus.leadingAnchor.constraint(equalTo: self.statusView.leadingAnchor),
+            self.alphaStatus.trailingAnchor.constraint(equalTo: self.statusView.trailingAnchor)
         ])
         
         for _ in 0..<4 {
@@ -74,6 +133,7 @@ class ViewController: UIViewController {
             os_log("Rect%@ %@", "\(i)", "\(self.plane[i])")
         }
     }
+
 }
 
 extension ViewController: UIGestureRecognizerDelegate, UITextFieldDelegate {
@@ -88,5 +148,8 @@ extension ViewController: UIGestureRecognizerDelegate, UITextFieldDelegate {
 
         return true
     }
-
+    
+    @objc func stepperValueChanged(_ sender: UIStepper) {
+        print(self.alphaStatus.value)
+    }
 }
