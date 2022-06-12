@@ -11,14 +11,14 @@ class ViewController: UIViewController {
     
     private var selectedSquare: UIView?
 
-    private let drawingView = DrawingView()
-
-    private let statusView: UIView = {
+    private let drawingView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .systemGray
+        view.backgroundColor = .white
         return view
     }()
+
+    private let statusView = StatusView()
     
     override func loadView() {
         self.view = MainView()
@@ -43,7 +43,7 @@ class ViewController: UIViewController {
             self.statusView.topAnchor.constraint(equalTo: self.view.topAnchor),
             self.statusView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             self.statusView.widthAnchor.constraint(equalToConstant: 300),
-            self.statusView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.statusView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
         
         for _ in 0..<4 {
@@ -66,7 +66,7 @@ class ViewController: UIViewController {
             let squareView = UIView(frame: CGRect(x: x, y: y, width: width, height: height))
             squareView.backgroundColor = UIColor(red: CGFloat(r)/255, green: CGFloat(g)/255, blue: CGFloat(b)/255, alpha: 10)
             self.planeViews[square] = squareView
-            self.drawingView.addSquareView(squareView: squareView)
+            self.drawingView.addSubview(squareView)
             self.plane.addSquare(square: square)
         }
         
@@ -76,7 +76,7 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController: UIGestureRecognizerDelegate {
+extension ViewController: UIGestureRecognizerDelegate, UITextFieldDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         let hitView = self.view.hitTest(touch.location(in: self.view), with: nil)
         
