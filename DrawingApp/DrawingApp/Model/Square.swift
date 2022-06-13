@@ -50,5 +50,9 @@ extension Square: Hashable {
 
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
+        hasher.combine(size.Width)
+        hasher.combine(size.Height)
+        hasher.combine(point.X)
+        hasher.combine(point.Y)
     }
 }
