@@ -7,9 +7,9 @@ class ViewController: UIViewController {
     
     var plane: Plane = Plane()
     
-    var planeViews: [Square: UIView] = [:]
+    var planeViews: [UIView: Square] = [:]
     
-    private var selectedSquare: UIView?
+    private var selectedSquareView: UIView?
 
     private let drawingView: UIView = {
         let view = UIView()
@@ -21,7 +21,7 @@ class ViewController: UIViewController {
     private let statusView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .gray
+        view.backgroundColor = .systemGray4
         return view
     }()
     
@@ -123,8 +123,8 @@ class ViewController: UIViewController {
             b = Int.random(in: 0..<255)
             let square = factory.createSquare(size: Size(width: width, height: height), point: Point(X: x, Y: y), R: UInt8(r), G: UInt8(g), B: UInt8(b), alpha: 10)
             let squareView = UIView(frame: CGRect(x: x, y: y, width: width, height: height))
-            squareView.backgroundColor = UIColor(red: CGFloat(r)/255, green: CGFloat(g)/255, blue: CGFloat(b)/255, alpha: 10)
-            self.planeViews[square] = squareView
+            squareView.backgroundColor = UIColor(red: CGFloat(r)/255, green: CGFloat(g)/255, blue: CGFloat(b)/255, alpha: 10/10)
+            self.planeViews[squareView] = square
             self.drawingView.addSubview(squareView)
             self.plane.addSquare(square: square)
         }
@@ -138,18 +138,36 @@ class ViewController: UIViewController {
 
 extension ViewController: UIGestureRecognizerDelegate, UITextFieldDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        let hitView = self.view.hitTest(touch.location(in: self.view), with: nil)
+        let hitView = self.view.hitTest(touch.location(in: self.drawingView), with: nil)
         
-        self.selectedSquare?.layer.borderWidth = CGFloat(0.0)
-        self.selectedSquare = (hitView == self.view) ? nil : hitView
+        if hitView == self.drawingView {
+            self.selectedSquareView?.layer.borderWidth = CGFloat(0.0)
+            self.selectedSquareView = nil
+            return true
+        }
         
-        self.selectedSquare?.layer.borderWidth = CGFloat(5.0)
-        self.selectedSquare?.layer.borderColor = CGColor(red: 0.0, green: 0.0, blue: 1.0, alpha: 1)
+        for (key, _) in self.planeViews {
+            if key === hitView {
+                self.selectedSquareView?.layer.borderWidth = CGFloat(0.0)
+                self.selectedSquareView = hitView
+                self.selectedSquareView?.layer.borderWidth = CGFloat(5.0)
+                self.selectedSquareView?.layer.borderColor = CGColor(red: 0.0, green: 0.0, blue: 1.0, alpha: 1.0)
+                self.alphaStatus.value = (self.selectedSquareView!.backgroundColor?.cgColor.alpha)! * 10
+                
+                break
+            }
+        }
 
         return true
     }
     
     @objc func stepperValueChanged(_ sender: UIStepper) {
-        print(self.alphaStatus.value)
+        if self.selectedSquareView != nil {
+            let color = self.selectedSquareView!.backgroundColor!.rgbFloat
+            let r = color.red
+            let g = color.green
+            let b = color.blue
+            self.selectedSquareView?.backgroundColor = UIColor(red: r, green: g, blue: b, alpha: alphaStatus.value / 10.0)
+        }
     }
 }
