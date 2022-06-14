@@ -39,11 +39,13 @@ class ViewController: UIViewController {
         return label
     }()
     
-    private let backgroundColorStatus: UITextField = {
-        let textField = UITextField()
-        textField.text = "Default"
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
+    private let backgroundColorStatus: UIColorWell = {
+        let colorWell = UIColorWell()
+        colorWell.translatesAutoresizingMaskIntoConstraints = false
+        colorWell.supportsAlpha = false
+        colorWell.addTarget(self, action: #selector(colorChanged(_:)), for: .valueChanged)
+        
+        return colorWell
     }()
 
     private let alphaStatus: UIStepper = {
@@ -136,7 +138,7 @@ class ViewController: UIViewController {
 
 }
 
-extension ViewController: UIGestureRecognizerDelegate, UITextFieldDelegate {
+extension ViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         let hitView = self.view.hitTest(touch.location(in: self.drawingView), with: nil)
         
@@ -168,6 +170,17 @@ extension ViewController: UIGestureRecognizerDelegate, UITextFieldDelegate {
             let g = color.green
             let b = color.blue
             self.selectedSquareView?.backgroundColor = UIColor(red: r, green: g, blue: b, alpha: alphaStatus.value / 10.0)
+            self.planeViews[selectedSquareView!]!.alpha = Int(alphaStatus.value)
+        }
+    }
+    
+    @objc func colorChanged(_ sender: UIColorWell) {
+        if self.selectedSquareView != nil {
+            self.selectedSquareView?.backgroundColor = self.backgroundColorStatus.selectedColor
+            let color = self.backgroundColorStatus.selectedColor!.rgbFloat
+            self.planeViews[selectedSquareView!]!.R = UInt8(color.red * 255.0)
+            self.planeViews[selectedSquareView!]!.G = UInt8(color.green * 255.0)
+            self.planeViews[selectedSquareView!]!.B = UInt8(color.blue * 255.0)
         }
     }
 }
