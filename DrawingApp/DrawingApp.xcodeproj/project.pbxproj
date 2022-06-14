@@ -11,6 +11,7 @@
 		F5329F6427D9EC8800B7706C /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5329F6327D9EC8800B7706C /* Size.swift */; };
 		F5329F6627D9EC9B00B7706C /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5329F6527D9EC9B00B7706C /* Point.swift */; };
 		F56BAD112849F0FA00C607E4 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BAD102849F0FA00C607E4 /* MainView.swift */; };
+		F56DE4472858E0370085F74D /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56DE4462858E0370085F74D /* UIColorExtension.swift */; };
 		F5C730F427CC7AB8001B4EFF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C730F327CC7AB8001B4EFF /* AppDelegate.swift */; };
 		F5C730F627CC7AB8001B4EFF /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C730F527CC7AB8001B4EFF /* SceneDelegate.swift */; };
 		F5C730F827CC7AB8001B4EFF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C730F727CC7AB8001B4EFF /* ViewController.swift */; };
@@ -26,6 +27,7 @@
 		F5329F6327D9EC8800B7706C /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		F5329F6527D9EC9B00B7706C /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		F56BAD102849F0FA00C607E4 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
+		F56DE4462858E0370085F74D /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		F5C730F027CC7AB8001B4EFF /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F5C730F327CC7AB8001B4EFF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F5C730F527CC7AB8001B4EFF /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -69,6 +71,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		F56DE4482858E03C0085F74D /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				F56DE4462858E0370085F74D /* UIColorExtension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		F5C730E727CC7AB8001B4EFF = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +100,7 @@
 		F5C730F227CC7AB8001B4EFF /* DrawingApp */ = {
 			isa = PBXGroup;
 			children = (
+				F56DE4482858E03C0085F74D /* Extension */,
 				F5329F6027D9E6DC00B7706C /* Model */,
 				F5C730F327CC7AB8001B4EFF /* AppDelegate.swift */,
 				F5C730F527CC7AB8001B4EFF /* SceneDelegate.swift */,
@@ -217,6 +228,7 @@
 				F5C730F427CC7AB8001B4EFF /* AppDelegate.swift in Sources */,
 				F5D3D0C027E1A5E200B6DFDF /* Plane.swift in Sources */,
 				F5C730F627CC7AB8001B4EFF /* SceneDelegate.swift in Sources */,
+				F56DE4472858E0370085F74D /* UIColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
