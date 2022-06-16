@@ -79,14 +79,16 @@ class ViewController: UIViewController {
         self.view.addSubview(self.alphaTitle)
         self.view.addSubview(self.alphaStatus)
         
+        let guide = view.safeAreaLayoutGuide
+        
         NSLayoutConstraint.activate([
-            self.drawingView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            self.drawingView.topAnchor.constraint(equalTo: guide.topAnchor),
             self.drawingView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             self.drawingView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.drawingView.trailingAnchor.constraint(equalTo: self.statusView.leadingAnchor),
             
             self.statusView.widthAnchor.constraint(equalToConstant: 300),
-            self.statusView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            self.statusView.topAnchor.constraint(equalTo: guide.topAnchor),
             self.statusView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
             self.statusView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             
