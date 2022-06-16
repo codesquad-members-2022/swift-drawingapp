@@ -68,6 +68,10 @@ class ViewController: UIViewController {
         tapGestureRecognizer.delegate = self
         self.drawingView.addGestureRecognizer(tapGestureRecognizer)
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
