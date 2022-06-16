@@ -113,9 +113,11 @@ class ViewController: UIViewController {
             self.alphaStatus.trailingAnchor.constraint(equalTo: self.statusView.trailingAnchor)
         ])
         
+        self.view.layoutIfNeeded()
+        
         for _ in 0..<4 {
-            let frameWidth = self.view.frame.width - 300
-            let frameHeight = self.view.frame.height
+            let frameWidth = self.drawingView.frame.width
+            let frameHeight = self.drawingView.frame.height
             var width, height, x, y: Double
             var r, g, b: Int
 
