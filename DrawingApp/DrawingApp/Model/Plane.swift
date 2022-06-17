@@ -1,9 +1,15 @@
 import Foundation
 
 struct Plane {
+
+    let factory: SquareFactory = SquareFactory()
+
     var square: [Square] = []
-    mutating func addSquare(square: Square) {
+
+    mutating func addSquare(frameWidth: Double, frameHeight: Double) -> Square {
+        let square = self.factory.createRandomSquare(frameWidth: frameWidth, frameHeight: frameHeight)
         self.square.append(square)
+        return square
     }
     
     var totalSquareCount: Int {
