@@ -83,17 +83,17 @@ class ViewController: UIViewController {
         self.view.addSubview(self.alphaTitle)
         self.view.addSubview(self.alphaStatus)
         
-        let guide = view.safeAreaLayoutGuide
+        let safeArea = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
-            self.drawingView.topAnchor.constraint(equalTo: guide.topAnchor),
-            self.drawingView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            self.drawingView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            self.drawingView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
             self.drawingView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.drawingView.trailingAnchor.constraint(equalTo: self.statusView.leadingAnchor),
             
             self.statusView.widthAnchor.constraint(equalToConstant: 300),
-            self.statusView.topAnchor.constraint(equalTo: guide.topAnchor),
-            self.statusView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor),
+            self.statusView.topAnchor.constraint(equalTo: safeArea.topAnchor),
+            self.statusView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
             self.statusView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
             
             self.backgroundTitle.topAnchor.constraint(equalTo: self.statusView.topAnchor),
@@ -112,31 +112,15 @@ class ViewController: UIViewController {
             self.alphaStatus.leadingAnchor.constraint(equalTo: self.statusView.leadingAnchor),
             self.alphaStatus.trailingAnchor.constraint(equalTo: self.statusView.trailingAnchor)
         ])
-        
-        self.view.layoutIfNeeded()
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
         for _ in 0..<4 {
-            let frameWidth = self.drawingView.frame.width
-            let frameHeight = self.drawingView.frame.height
-            var width, height, x, y: Double
-            var r, g, b: Int
-
-            repeat {
-                width = Double(Int.random(in: 1..<Int(frameWidth)))
-                height = Double(Int.random(in: 1..<Int(frameHeight)))
-                x = Double(Int.random(in: 0..<Int(frameWidth)))
-                y = Double(Int.random(in: 0..<Int(frameHeight)))
-            } while !((x + width < Double(frameWidth)) && (y + height < Double(frameHeight)))
-            
-            r = Int.random(in: 0..<255)
-            g = Int.random(in: 0..<255)
-            b = Int.random(in: 0..<255)
-            let square = factory.createSquare(size: Size(width: width, height: height), point: Point(X: x, Y: y), R: UInt8(r), G: UInt8(g), B: UInt8(b), alpha: 10)
-            let squareView = UIView(frame: CGRect(x: x, y: y, width: width, height: height))
-            squareView.backgroundColor = UIColor(red: CGFloat(r)/255, green: CGFloat(g)/255, blue: CGFloat(b)/255, alpha: 10/10)
+            let square = plane.addSquare(frameWidth: self.view.safeAreaLayoutGuide.layoutFrame.width - self.statusView.frame.width, frameHeight: self.view.safeAreaLayoutGuide.layoutFrame.height)
+            let squareView = UIView(frame: CGRect(x: square.point.X, y: square.point.Y, width: square.size.Width, height: square.size.Height))
+            squareView.backgroundColor = UIColor(red: CGFloat(square.R)/255, green: CGFloat(square.G)/255, blue: CGFloat(square.B)/255, alpha: CGFloat(square.alpha)/10)
             self.planeViews[square] = squareView
             self.drawingView.addSubview(squareView)
-            self.plane.addSquare(square: square)
         }
         
         for i in 0..<4 {
