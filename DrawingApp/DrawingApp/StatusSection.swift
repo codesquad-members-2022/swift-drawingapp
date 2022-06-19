@@ -1,8 +1,6 @@
 import UIKit
 
 class StatusSection: UIView {
-    
-    var delegate: ViewController?
 
     private let backgroundColorTitle: UILabel = {
         let label = UILabel()
@@ -18,14 +16,14 @@ class StatusSection: UIView {
         return label
     }()
     
-    private let backgroundColorStatus: UIColorWell = {
+    let backgroundColorStatus: UIColorWell = {
         let colorWell = UIColorWell()
         colorWell.translatesAutoresizingMaskIntoConstraints = false
         colorWell.supportsAlpha = false
         return colorWell
     }()
 
-    private let alphaStatus: UIStepper = {
+    let alphaStatus: UIStepper = {
         let stepper = UIStepper()
         stepper.translatesAutoresizingMaskIntoConstraints = false
         stepper.maximumValue = 10
@@ -66,5 +64,16 @@ class StatusSection: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+    
+    func getAlpha() -> Double {
+        return self.alphaStatus.value
+    }
 
+    func setAlpha(alpha: Double) {
+        self.alphaStatus.value = alpha
+    }
+
+    func getSelectedColor() -> UIColor? {
+        return self.backgroundColorStatus.selectedColor
+    }
 }
