@@ -7,7 +7,22 @@ class Square : CustomStringConvertible {
     var R: UInt8
     var G: UInt8
     var B: UInt8
-    var alpha: Int
+    var _alpha: Int = 10
+    var alpha: Int {
+        get {
+            return self._alpha
+        }
+        set {
+            switch newValue {
+            case ...0 :
+                self._alpha = 0
+            case 10...:
+                self._alpha = 10
+            default:
+                self._alpha = newValue
+            }
+        }
+    }
 
     init(id: String, size: Size, point: Point, R: UInt8, G: UInt8, B: UInt8, alpha: Int) {
         self.id = id
@@ -17,14 +32,7 @@ class Square : CustomStringConvertible {
         self.R = R
         self.G = G
         self.B = B
-        switch alpha {
-        case ...0 :
-            self.alpha = 0
-        case 10...:
-            self.alpha = 10
-        default:
-            self.alpha = alpha
-        }
+        self.alpha = alpha
     }
     
     func isPointIncluded(position: Point) -> Bool {
