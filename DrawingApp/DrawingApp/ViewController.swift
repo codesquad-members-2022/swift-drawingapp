@@ -10,6 +10,20 @@ class ViewController: UIViewController {
     var planeViews: [Square: UIView] = [:]
     
     private var selectedSquare: Square?
+    
+    private let drawingSection: DrawingSection = {
+        let section = DrawingSection()
+        section.translatesAutoresizingMaskIntoConstraints = false
+        section.backgroundColor = .white
+        return section
+    }()
+    
+    private let statusSection: StatusSection = {
+        let section = StatusSection()
+        section.translatesAutoresizingMaskIntoConstraints = false
+        section.backgroundColor = .systemGray4
+        return section
+    }()
 
     private let drawingView: UIView = {
         let view = UIView()
@@ -43,7 +57,7 @@ class ViewController: UIViewController {
         let colorWell = UIColorWell()
         colorWell.translatesAutoresizingMaskIntoConstraints = false
         colorWell.supportsAlpha = false
-        colorWell.addTarget(self, action: #selector(colorChanged(_:)), for: .valueChanged)
+        colorWell.addTarget(ViewController.self, action: #selector(colorChanged(_:)), for: .valueChanged)
         
         return colorWell
     }()
@@ -56,7 +70,7 @@ class ViewController: UIViewController {
         stepper.value = 0
         stepper.wraps = false
         stepper.autorepeat = true
-        stepper.addTarget(self, action: #selector(stepperValueChanged(_:)), for: .valueChanged)
+        stepper.addTarget(ViewController.self, action: #selector(stepperValueChanged(_:)), for: .valueChanged)
         
         return stepper
     }()
@@ -76,6 +90,8 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.statusSection.delegate = self
+        
         self.view.addSubview(self.drawingView)
         self.view.addSubview(self.statusView)
         self.view.addSubview(self.backgroundTitle)

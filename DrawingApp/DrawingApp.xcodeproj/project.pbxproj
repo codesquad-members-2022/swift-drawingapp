@@ -10,6 +10,8 @@
 		F5329F6227D9E70700B7706C /* Square.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5329F6127D9E70700B7706C /* Square.swift */; };
 		F5329F6427D9EC8800B7706C /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5329F6327D9EC8800B7706C /* Size.swift */; };
 		F5329F6627D9EC9B00B7706C /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5329F6527D9EC9B00B7706C /* Point.swift */; };
+		F557CCCA285F7C090050C24D /* StatusSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F557CCC9285F7C090050C24D /* StatusSection.swift */; };
+		F5628865285E4B6E0071289E /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5628864285E4B6E0071289E /* DrawingView.swift */; };
 		F56BAD112849F0FA00C607E4 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BAD102849F0FA00C607E4 /* MainView.swift */; };
 		F56DE4472858E0370085F74D /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56DE4462858E0370085F74D /* UIColorExtension.swift */; };
 		F5C730F427CC7AB8001B4EFF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C730F327CC7AB8001B4EFF /* AppDelegate.swift */; };
@@ -26,6 +28,8 @@
 		F5329F6127D9E70700B7706C /* Square.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Square.swift; sourceTree = "<group>"; };
 		F5329F6327D9EC8800B7706C /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		F5329F6527D9EC9B00B7706C /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
+		F557CCC9285F7C090050C24D /* StatusSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusSection.swift; sourceTree = "<group>"; };
+		F5628864285E4B6E0071289E /* DrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingView.swift; sourceTree = "<group>"; };
 		F56BAD102849F0FA00C607E4 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		F56DE4462858E0370085F74D /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		F5C730F027CC7AB8001B4EFF /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -109,6 +113,8 @@
 				F5C730FE27CC7AB8001B4EFF /* LaunchScreen.storyboard */,
 				F5C7310127CC7AB8001B4EFF /* Info.plist */,
 				F56BAD102849F0FA00C607E4 /* MainView.swift */,
+				F5628864285E4B6E0071289E /* DrawingView.swift */,
+				F557CCC9285F7C090050C24D /* StatusSection.swift */,
 			);
 			path = DrawingApp;
 			sourceTree = "<group>";
@@ -226,8 +232,10 @@
 				F5329F6627D9EC9B00B7706C /* Point.swift in Sources */,
 				F5C730F827CC7AB8001B4EFF /* ViewController.swift in Sources */,
 				F5C730F427CC7AB8001B4EFF /* AppDelegate.swift in Sources */,
+				F557CCCA285F7C090050C24D /* StatusSection.swift in Sources */,
 				F5D3D0C027E1A5E200B6DFDF /* Plane.swift in Sources */,
 				F5C730F627CC7AB8001B4EFF /* SceneDelegate.swift in Sources */,
+				F5628865285E4B6E0071289E /* DrawingView.swift in Sources */,
 				F56DE4472858E0370085F74D /* UIColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
