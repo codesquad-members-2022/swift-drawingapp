@@ -25,4 +25,8 @@ class DrawingSection: UIView {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+
+    func addSquare(square: UIView) {
+        self.drawingView.addSubview(square)
+    }
 }
