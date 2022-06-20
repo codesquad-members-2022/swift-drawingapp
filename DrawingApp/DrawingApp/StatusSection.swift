@@ -36,7 +36,15 @@ class StatusSection: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        setUpView()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setUpView()
+    }
+    
+    func setUpView() {
         self.addSubview(backgroundColorTitle)
         self.addSubview(backgroundColorStatus)
         self.addSubview(alphaTitle)
@@ -59,10 +67,6 @@ class StatusSection: UIView {
             self.alphaStatus.leadingAnchor.constraint(equalTo: self.leadingAnchor),
             self.alphaStatus.trailingAnchor.constraint(equalTo: self.trailingAnchor)
         ])
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
     }
     
     func getAlpha() -> Double {

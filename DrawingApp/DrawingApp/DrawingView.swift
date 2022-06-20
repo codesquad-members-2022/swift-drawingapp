@@ -11,7 +11,15 @@ class DrawingSection: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        setUpView()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setUpView()
+    }
+    
+    func setUpView() {
         self.addSubview(drawingView)
         
         NSLayoutConstraint.activate([
@@ -20,10 +28,6 @@ class DrawingSection: UIView {
             self.drawingView.leadingAnchor.constraint(equalTo: leadingAnchor),
             self.drawingView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
-    }
-
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
     }
 
     func addSquare(square: UIView) {
