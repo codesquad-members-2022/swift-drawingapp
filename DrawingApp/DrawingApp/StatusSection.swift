@@ -16,14 +16,14 @@ class StatusSection: UIView {
         return label
     }()
     
-    let backgroundColorStatus: UIColorWell = {
+    private let backgroundColorStatus: UIColorWell = {
         let colorWell = UIColorWell()
         colorWell.translatesAutoresizingMaskIntoConstraints = false
         colorWell.supportsAlpha = false
         return colorWell
     }()
 
-    let alphaStatus: UIStepper = {
+    private let alphaStatus: UIStepper = {
         let stepper = UIStepper()
         stepper.translatesAutoresizingMaskIntoConstraints = false
         stepper.maximumValue = 10
@@ -75,5 +75,10 @@ class StatusSection: UIView {
 
     func getSelectedColor() -> UIColor? {
         return self.backgroundColorStatus.selectedColor
+    }
+
+    func addStatusTarget(_ target: Any?, backgroundColorAction: Selector, alphaAction: Selector, for controlEvents: UIControl.Event) {
+        self.backgroundColorStatus.addTarget(target, action: backgroundColorAction, for: controlEvents)
+        self.alphaStatus.addTarget(target, action: alphaAction, for: controlEvents)
     }
 }
