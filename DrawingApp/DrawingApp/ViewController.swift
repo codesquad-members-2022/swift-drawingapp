@@ -22,8 +22,7 @@ class ViewController: UIViewController {
         let section = StatusSection()
         section.translatesAutoresizingMaskIntoConstraints = false
         section.backgroundColor = .systemGray4
-        section.backgroundColorStatus.addTarget(self, action: #selector(colorChanged(_:)), for: .valueChanged)
-        section.alphaStatus.addTarget(self, action: #selector(stepperValueChanged(_:)), for: .valueChanged)
+        section.addStatusTarget(self, backgroundColorAction: #selector(colorChanged(_:)), alphaAction: #selector(stepperValueChanged(_:)), for: .valueChanged)
         return section
     }()
     
