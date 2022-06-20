@@ -2,12 +2,12 @@ import Foundation
 
 class Square : CustomStringConvertible {
     private var id: String
+    private var _alpha: Int = 10
     var size: Size
     var point: Point
     var R: UInt8
     var G: UInt8
     var B: UInt8
-    var _alpha: Int = 10
     var alpha: Int {
         get {
             return self._alpha
