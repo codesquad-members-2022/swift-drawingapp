@@ -83,11 +83,9 @@ class ViewController: UIViewController {
     }
 
     @objc func squareDidDraw(_ notification: Notification) {
-        self.drawingSection.clearSquare()
-        for square in notification.object as! [Square] {
-            os_log("Rect %@", "\(square)")
-            self.planeViews[square] = self.drawingSection.drawSquare(square: square)
-        }
+        let square = notification.object as! Square
+        os_log("Rect %@", "\(square)")
+        self.planeViews[square] = self.drawingSection.drawSquare(square: square)
     }
 }
 

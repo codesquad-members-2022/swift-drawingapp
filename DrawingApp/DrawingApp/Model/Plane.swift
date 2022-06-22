@@ -9,7 +9,7 @@ struct Plane {
     mutating func addSquare(frameWidth: Double, frameHeight: Double) {
         let square = self.factory.createRandomSquare(frameWidth: frameWidth, frameHeight: frameHeight)
         self.square.append(square)
-        NotificationCenter.default.post(name: Notification.Name("UpdatePlane"), object: self.square)
+        NotificationCenter.default.post(name: Notification.Name("UpdatePlane"), object: square)
     }
     
     var totalSquareCount: Int {

@@ -12,7 +12,7 @@
 		F5329F6627D9EC9B00B7706C /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5329F6527D9EC9B00B7706C /* Point.swift */; };
 		F557CCCA285F7C090050C24D /* StatusSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F557CCC9285F7C090050C24D /* StatusSection.swift */; };
 		F55C78A828632D4B00E12764 /* addSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = F55C78A728632D4B00E12764 /* addSquare.png */; };
-		F5628865285E4B6E0071289E /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5628864285E4B6E0071289E /* DrawingView.swift */; };
+		F5628865285E4B6E0071289E /* DrawingSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5628864285E4B6E0071289E /* DrawingSection.swift */; };
 		F56BAD112849F0FA00C607E4 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BAD102849F0FA00C607E4 /* MainView.swift */; };
 		F56DE4472858E0370085F74D /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56DE4462858E0370085F74D /* UIColorExtension.swift */; };
 		F5C730F427CC7AB8001B4EFF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5C730F327CC7AB8001B4EFF /* AppDelegate.swift */; };
@@ -31,7 +31,7 @@
 		F5329F6527D9EC9B00B7706C /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		F557CCC9285F7C090050C24D /* StatusSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusSection.swift; sourceTree = "<group>"; };
 		F55C78A728632D4B00E12764 /* addSquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addSquare.png; sourceTree = "<group>"; };
-		F5628864285E4B6E0071289E /* DrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingView.swift; sourceTree = "<group>"; };
+		F5628864285E4B6E0071289E /* DrawingSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingSection.swift; sourceTree = "<group>"; };
 		F56BAD102849F0FA00C607E4 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		F56DE4462858E0370085F74D /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
 		F5C730F027CC7AB8001B4EFF /* DrawingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DrawingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,7 +124,7 @@
 				F5C730FE27CC7AB8001B4EFF /* LaunchScreen.storyboard */,
 				F5C7310127CC7AB8001B4EFF /* Info.plist */,
 				F56BAD102849F0FA00C607E4 /* MainView.swift */,
-				F5628864285E4B6E0071289E /* DrawingView.swift */,
+				F5628864285E4B6E0071289E /* DrawingSection.swift */,
 				F557CCC9285F7C090050C24D /* StatusSection.swift */,
 			);
 			path = DrawingApp;
@@ -247,7 +247,7 @@
 				F557CCCA285F7C090050C24D /* StatusSection.swift in Sources */,
 				F5D3D0C027E1A5E200B6DFDF /* Plane.swift in Sources */,
 				F5C730F627CC7AB8001B4EFF /* SceneDelegate.swift in Sources */,
-				F5628865285E4B6E0071289E /* DrawingView.swift in Sources */,
+				F5628865285E4B6E0071289E /* DrawingSection.swift in Sources */,
 				F56DE4472858E0370085F74D /* UIColorExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
