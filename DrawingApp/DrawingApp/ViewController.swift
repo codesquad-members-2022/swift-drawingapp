@@ -125,14 +125,14 @@ extension ViewController: StatusSectionDelegate {
     func colorDidChanged(color: UIColor?) {
         if let square = self.selectedSquare {
             let squareView = planeViews[square]!
-            squareView.backgroundColor = color
+            squareView.backgroundColor = color?.withAlphaComponent(squareView.backgroundColor?.alphaFloat ?? 1.0)
             let rgbColor = color!.rgbFloat
             square.R = UInt8(rgbColor.red * 255.0)
             square.G = UInt8(rgbColor.green * 255.0)
             square.B = UInt8(rgbColor.blue * 255.0)
         }
     }
-    
+
     func alphaDidChanged(alpha: Double) {
         if let square = self.selectedSquare {
             let squareView = self.planeViews[square]!
