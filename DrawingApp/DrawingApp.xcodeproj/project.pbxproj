@@ -11,6 +11,7 @@
 		F5329F6427D9EC8800B7706C /* Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5329F6327D9EC8800B7706C /* Size.swift */; };
 		F5329F6627D9EC9B00B7706C /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5329F6527D9EC9B00B7706C /* Point.swift */; };
 		F557CCCA285F7C090050C24D /* StatusSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = F557CCC9285F7C090050C24D /* StatusSection.swift */; };
+		F55C78A828632D4B00E12764 /* addSquare.png in Resources */ = {isa = PBXBuildFile; fileRef = F55C78A728632D4B00E12764 /* addSquare.png */; };
 		F5628865285E4B6E0071289E /* DrawingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5628864285E4B6E0071289E /* DrawingView.swift */; };
 		F56BAD112849F0FA00C607E4 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56BAD102849F0FA00C607E4 /* MainView.swift */; };
 		F56DE4472858E0370085F74D /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F56DE4462858E0370085F74D /* UIColorExtension.swift */; };
@@ -29,6 +30,7 @@
 		F5329F6327D9EC8800B7706C /* Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Size.swift; sourceTree = "<group>"; };
 		F5329F6527D9EC9B00B7706C /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
 		F557CCC9285F7C090050C24D /* StatusSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusSection.swift; sourceTree = "<group>"; };
+		F55C78A728632D4B00E12764 /* addSquare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = addSquare.png; sourceTree = "<group>"; };
 		F5628864285E4B6E0071289E /* DrawingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingView.swift; sourceTree = "<group>"; };
 		F56BAD102849F0FA00C607E4 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		F56DE4462858E0370085F74D /* UIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColorExtension.swift; sourceTree = "<group>"; };
@@ -75,6 +77,14 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		F55C78A628632D3800E12764 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				F55C78A728632D4B00E12764 /* addSquare.png */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		F56DE4482858E03C0085F74D /* Extension */ = {
 			isa = PBXGroup;
 			children = (
@@ -104,6 +114,7 @@
 		F5C730F227CC7AB8001B4EFF /* DrawingApp */ = {
 			isa = PBXGroup;
 			children = (
+				F55C78A628632D3800E12764 /* Resource */,
 				F56DE4482858E03C0085F74D /* Extension */,
 				F5329F6027D9E6DC00B7706C /* Model */,
 				F5C730F327CC7AB8001B4EFF /* AppDelegate.swift */,
@@ -208,6 +219,7 @@
 			files = (
 				F5C7310027CC7AB8001B4EFF /* LaunchScreen.storyboard in Resources */,
 				F5C730FD27CC7AB8001B4EFF /* Assets.xcassets in Resources */,
+				F55C78A828632D4B00E12764 /* addSquare.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

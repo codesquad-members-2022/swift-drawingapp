@@ -1,6 +1,9 @@
 import UIKit
 import OSLog
 
+protocol DrawingSectionDelegate {
+    func squareDidAdded()
+}
 
 protocol StatusSectionDelegate {
     func colorDidChanged(color: UIColor?)
@@ -28,7 +31,6 @@ class ViewController: UIViewController {
         let section = StatusSection()
         section.translatesAutoresizingMaskIntoConstraints = false
         section.backgroundColor = .systemGray4
-//        section.addStatusTarget(ViewController.self, backgroundColorAction: #selector(colorChanged(_:)), alphaAction: #selector(stepperValueChanged(_:)), for: .valueChanged)
         return section
     }()
     
@@ -50,6 +52,7 @@ class ViewController: UIViewController {
         self.view.addSubview(self.drawingSection)
         self.view.addSubview(self.statusSection)
         
+        self.drawingSection.delegate = self
         self.statusSection.delegate = self
         
         let safeArea = view.safeAreaLayoutGuide
@@ -66,21 +69,6 @@ class ViewController: UIViewController {
             self.statusSection.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
     }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        for _ in 0..<4 {
-            plane.addSquare(frameWidth: self.view.safeAreaLayoutGuide.layoutFrame.width - self.statusSection.frame.width, frameHeight: self.view.safeAreaLayoutGuide.layoutFrame.height)
-        }
-        
-        for s in self.plane.square {
-            os_log("Rect %@", "\(s)")
-            let squareView = UIView(frame: CGRect(x: s.point.X, y: s.point.Y, width: s.size.Width, height: s.size.Height))
-            squareView.backgroundColor = UIColor(red: CGFloat(s.R)/255, green: CGFloat(s.G)/255, blue: CGFloat(s.B)/255, alpha: CGFloat(s.alpha)/10)
-            self.planeViews[s] = squareView
-            self.drawingSection.addSquare(square: squareView)
-        }
-    }
-
 }
 
 extension ViewController: UIGestureRecognizerDelegate {
@@ -104,6 +92,21 @@ extension ViewController: UIGestureRecognizerDelegate {
         self.statusSection.setAlpha(alpha: (squareView.backgroundColor?.cgColor.alpha)! * 10)
 
         return true
+    }
+}
+
+extension ViewController: DrawingSectionDelegate {
+    func squareDidAdded() {
+        plane.addSquare(frameWidth: self.view.safeAreaLayoutGuide.layoutFrame.width - self.statusSection.frame.width, frameHeight: self.view.safeAreaLayoutGuide.layoutFrame.height)
+        
+        for s in self.plane.square {
+            os_log("Rect %@", "\(s)")
+            let squareView = UIView(frame: CGRect(x: s.point.X, y: s.point.Y, width: s.size.Width, height: s.size.Height))
+            squareView.backgroundColor = UIColor(red: CGFloat(s.R)/255, green: CGFloat(s.G)/255, blue: CGFloat(s.B)/255, alpha: CGFloat(s.alpha)/10)
+            self.planeViews[s] = squareView
+            self.drawingSection.addSquare(square: squareView)
+        }
+
     }
 }
 
