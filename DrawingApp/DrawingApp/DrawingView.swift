@@ -4,6 +4,13 @@ class DrawingSection: UIView {
     
     var delegate: DrawingSectionDelegate?
 
+    private let drawingView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        return view
+    }()
+
     private let addSquareButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -12,17 +19,6 @@ class DrawingSection: UIView {
         button.setImage(UIImage(named: "addSquare.png"), for: .normal)
         button.addTarget(self, action: #selector(buttonTouched), for: .touchDown)
         return button
-    }()
-    
-    @objc func buttonTouched() {
-        self.delegate?.squareDidAdded()
-    }
-
-    private let drawingView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .white
-        return view
     }()
 
     override init(frame: CGRect) {
@@ -54,5 +50,20 @@ class DrawingSection: UIView {
 
     func addSquare(square: UIView) {
         self.drawingView.addSubview(square)
+    }
+    
+    func drawSquare(square: Square) -> UIView {
+        let squareView = UIView(frame: CGRect(x: square.point.X, y: square.point.Y, width: square.size.Width, height: square.size.Height))
+        squareView.backgroundColor = UIColor(red: CGFloat(square.R)/255, green: CGFloat(square.G)/255, blue: CGFloat(square.B)/255, alpha: CGFloat(square.alpha)/10)
+        self.drawingView.addSubview(squareView)
+        return squareView
+    }
+
+    func clearSquare() {
+        self.drawingView.subviews.forEach({ $0.removeFromSuperview() })
+    }
+
+    @objc func buttonTouched() {
+        self.delegate?.squareDidAdd()
     }
 }

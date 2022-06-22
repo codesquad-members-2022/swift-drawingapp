@@ -2,7 +2,7 @@ import UIKit
 import OSLog
 
 protocol DrawingSectionDelegate {
-    func squareDidAdded()
+    func squareDidAdd()
 }
 
 protocol StatusSectionDelegate {
@@ -19,6 +19,10 @@ class ViewController: UIViewController {
     var planeViews: [Square: UIView] = [:]
     
     private var selectedSquare: Square?
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
     
     private let drawingSection: DrawingSection = {
         let section = DrawingSection()
@@ -41,10 +45,6 @@ class ViewController: UIViewController {
         tapGestureRecognizer.delegate = self
         self.drawingSection.addGestureRecognizer(tapGestureRecognizer)
     }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +54,12 @@ class ViewController: UIViewController {
         
         self.drawingSection.delegate = self
         self.statusSection.delegate = self
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(squareDidDraw(_:)),
+            name: Notification.Name("UpdatePlane"),
+            object: nil)
         
         let safeArea = view.safeAreaLayoutGuide
         
@@ -68,6 +74,20 @@ class ViewController: UIViewController {
             self.statusSection.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
             self.statusSection.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name("UpdatePlane"), object: nil)
+    }
+
+    @objc func squareDidDraw(_ notification: Notification) {
+        self.drawingSection.clearSquare()
+        for square in notification.object as! [Square] {
+            os_log("Rect %@", "\(square)")
+            self.planeViews[square] = self.drawingSection.drawSquare(square: square)
+        }
     }
 }
 
@@ -96,17 +116,8 @@ extension ViewController: UIGestureRecognizerDelegate {
 }
 
 extension ViewController: DrawingSectionDelegate {
-    func squareDidAdded() {
+    func squareDidAdd() {
         plane.addSquare(frameWidth: self.view.safeAreaLayoutGuide.layoutFrame.width - self.statusSection.frame.width, frameHeight: self.view.safeAreaLayoutGuide.layoutFrame.height)
-        
-        for s in self.plane.square {
-            os_log("Rect %@", "\(s)")
-            let squareView = UIView(frame: CGRect(x: s.point.X, y: s.point.Y, width: s.size.Width, height: s.size.Height))
-            squareView.backgroundColor = UIColor(red: CGFloat(s.R)/255, green: CGFloat(s.G)/255, blue: CGFloat(s.B)/255, alpha: CGFloat(s.alpha)/10)
-            self.planeViews[s] = squareView
-            self.drawingSection.addSquare(square: squareView)
-        }
-
     }
 }
 
