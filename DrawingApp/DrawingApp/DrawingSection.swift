@@ -59,10 +59,6 @@ class DrawingSection: UIView {
         return squareView
     }
 
-    func clearSquare() {
-        self.drawingView.subviews.forEach({ $0.removeFromSuperview() })
-    }
-
     @objc func buttonTouched() {
         self.delegate?.squareDidAdd()
     }
