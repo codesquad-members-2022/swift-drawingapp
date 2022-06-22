@@ -1,6 +1,12 @@
 import UIKit
 import OSLog
 
+
+protocol StatusSectionDelegate {
+    func colorDidChanged(color: UIColor?)
+    func alphaDidChanged(alpha: Double)
+}
+
 class ViewController: UIViewController {
 
     let factory: SquareFactory = SquareFactory()
@@ -22,7 +28,7 @@ class ViewController: UIViewController {
         let section = StatusSection()
         section.translatesAutoresizingMaskIntoConstraints = false
         section.backgroundColor = .systemGray4
-        section.addStatusTarget(self, backgroundColorAction: #selector(colorChanged(_:)), alphaAction: #selector(stepperValueChanged(_:)), for: .valueChanged)
+//        section.addStatusTarget(ViewController.self, backgroundColorAction: #selector(colorChanged(_:)), alphaAction: #selector(stepperValueChanged(_:)), for: .valueChanged)
         return section
     }()
     
@@ -44,6 +50,8 @@ class ViewController: UIViewController {
         self.view.addSubview(self.drawingSection)
         self.view.addSubview(self.statusSection)
         
+        self.statusSection.delegate = self
+        
         let safeArea = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
@@ -61,15 +69,15 @@ class ViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         for _ in 0..<4 {
-            let square = plane.addSquare(frameWidth: self.view.safeAreaLayoutGuide.layoutFrame.width - self.statusSection.frame.width, frameHeight: self.view.safeAreaLayoutGuide.layoutFrame.height)
-            let squareView = UIView(frame: CGRect(x: square.point.X, y: square.point.Y, width: square.size.Width, height: square.size.Height))
-            squareView.backgroundColor = UIColor(red: CGFloat(square.R)/255, green: CGFloat(square.G)/255, blue: CGFloat(square.B)/255, alpha: CGFloat(square.alpha)/10)
-            self.planeViews[square] = squareView
-            self.drawingSection.addSquare(square: squareView)
+            plane.addSquare(frameWidth: self.view.safeAreaLayoutGuide.layoutFrame.width - self.statusSection.frame.width, frameHeight: self.view.safeAreaLayoutGuide.layoutFrame.height)
         }
         
-        for i in 0..<4 {
-            os_log("Rect%@ %@", "\(i)", "\(self.plane[i])")
+        for s in self.plane.square {
+            os_log("Rect %@", "\(s)")
+            let squareView = UIView(frame: CGRect(x: s.point.X, y: s.point.Y, width: s.size.Width, height: s.size.Height))
+            squareView.backgroundColor = UIColor(red: CGFloat(s.R)/255, green: CGFloat(s.G)/255, blue: CGFloat(s.B)/255, alpha: CGFloat(s.alpha)/10)
+            self.planeViews[s] = squareView
+            self.drawingSection.addSquare(square: squareView)
         }
     }
 
@@ -97,27 +105,29 @@ extension ViewController: UIGestureRecognizerDelegate {
 
         return true
     }
+}
+
+extension ViewController: StatusSectionDelegate {
+    func colorDidChanged(color: UIColor?) {
+        if let square = self.selectedSquare {
+            let squareView = planeViews[square]!
+            squareView.backgroundColor = color
+            let rgbColor = color!.rgbFloat
+            square.R = UInt8(rgbColor.red * 255.0)
+            square.G = UInt8(rgbColor.green * 255.0)
+            square.B = UInt8(rgbColor.blue * 255.0)
+        }
+    }
     
-    @objc func stepperValueChanged(_ sender: UIStepper) {
+    func alphaDidChanged(alpha: Double) {
         if let square = self.selectedSquare {
             let squareView = self.planeViews[square]!
             let color = squareView.backgroundColor!.rgbFloat
             let r = color.red
             let g = color.green
             let b = color.blue
-            squareView.backgroundColor = UIColor(red: r, green: g, blue: b, alpha: statusSection.getAlpha() / 10.0)
-            square.alpha = Int(statusSection.getAlpha())
-        }
-    }
-    
-    @objc func colorChanged(_ sender: UIColorWell) {
-        if let square = self.selectedSquare {
-            let squareView = planeViews[square]!
-            squareView.backgroundColor = self.statusSection.getSelectedColor()
-            let color = self.statusSection.getSelectedColor()!.rgbFloat
-            square.R = UInt8(color.red * 255.0)
-            square.G = UInt8(color.green * 255.0)
-            square.B = UInt8(color.blue * 255.0)
+            squareView.backgroundColor = UIColor(red: r, green: g, blue: b, alpha: alpha / 10.0)
+            square.alpha = Int(alpha)
         }
     }
 }

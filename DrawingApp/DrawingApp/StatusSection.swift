@@ -1,6 +1,8 @@
 import UIKit
 
 class StatusSection: UIView {
+    
+    var delegate: StatusSectionDelegate?
 
     private let backgroundColorTitle: UILabel = {
         let label = UILabel()
@@ -20,6 +22,7 @@ class StatusSection: UIView {
         let colorWell = UIColorWell()
         colorWell.translatesAutoresizingMaskIntoConstraints = false
         colorWell.supportsAlpha = false
+        colorWell.addTarget(self, action: #selector(colorWellValueChanged), for: .valueChanged)
         return colorWell
     }()
 
@@ -31,6 +34,7 @@ class StatusSection: UIView {
         stepper.value = 0
         stepper.wraps = false
         stepper.autorepeat = true
+        stepper.addTarget(self, action: #selector(stepperValueChanged), for: .valueChanged)
         return stepper
     }()
 
@@ -69,20 +73,15 @@ class StatusSection: UIView {
         ])
     }
     
-    func getAlpha() -> Double {
-        return self.alphaStatus.value
-    }
-
     func setAlpha(alpha: Double) {
         self.alphaStatus.value = alpha
     }
 
-    func getSelectedColor() -> UIColor? {
-        return self.backgroundColorStatus.selectedColor
+    @objc func colorWellValueChanged() {
+        delegate?.colorDidChanged(color: self.backgroundColorStatus.selectedColor)
     }
-
-    func addStatusTarget(_ target: Any?, backgroundColorAction: Selector, alphaAction: Selector, for controlEvents: UIControl.Event) {
-        self.backgroundColorStatus.addTarget(target, action: backgroundColorAction, for: controlEvents)
-        self.alphaStatus.addTarget(target, action: alphaAction, for: controlEvents)
+    
+    @objc func stepperValueChanged() {
+        delegate?.alphaDidChanged(alpha: alphaStatus.value)
     }
 }
