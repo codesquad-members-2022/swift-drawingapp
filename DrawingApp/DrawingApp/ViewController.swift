@@ -55,12 +55,6 @@ class ViewController: UIViewController {
         self.drawingSection.delegate = self
         self.statusSection.delegate = self
         
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(squareDidDraw(_:)),
-            name: Notification.Name("UpdatePlane"),
-            object: nil)
-        
         let safeArea = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
@@ -74,6 +68,16 @@ class ViewController: UIViewController {
             self.statusSection.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor),
             self.statusSection.trailingAnchor.constraint(equalTo: self.view.trailingAnchor)
         ])
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(squareDidDraw(_:)),
+            name: Notification.Name("UpdatePlane"),
+            object: nil)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
