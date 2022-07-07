@@ -47,10 +47,6 @@ class DrawingSection: UIView {
             self.addSquareButton.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
     }
-
-    func addSquare(square: UIView) {
-        self.drawingView.addSubview(square)
-    }
     
     func drawSquare(square: Square) -> UIView {
         let squareView = UIView(frame: CGRect(x: square.point.X, y: square.point.Y, width: square.size.Width, height: square.size.Height))
