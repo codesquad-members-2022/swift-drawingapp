@@ -11,15 +11,13 @@ protocol StatusSectionDelegate {
 }
 
 class ViewController: UIViewController {
-
-    let factory: SquareFactory = SquareFactory()
     
     var plane: Plane = Plane()
     
     var planeViews: [Square: UIView] = [:]
-    
+
     private var selectedSquare: Square?
-    
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
