@@ -1,6 +1,6 @@
 import Foundation
 
-class Point {
+struct Point {
     private(set) var X: Double
     private(set) var Y: Double
 

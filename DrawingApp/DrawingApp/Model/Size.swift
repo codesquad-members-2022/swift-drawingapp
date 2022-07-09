@@ -1,6 +1,6 @@
 import Foundation
 
-class Size {
+struct Size {
     private(set) var Width: Double
     private(set) var Height: Double
 
