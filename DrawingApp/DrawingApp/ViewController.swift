@@ -85,10 +85,10 @@ class ViewController: UIViewController {
     @objc func squareDidDraw(_ notification: Notification) {
         let userInfo = notification.userInfo!
         let id = userInfo["id"] as! String
-        let rectangle = userInfo["rectangle"] as! Rectangle
-        os_log("Rect %@", "\(rectangle)")
-        let squareView = UIView(frame: CGRect(x: rectangle.point.X, y: rectangle.point.Y, width: rectangle.size.Width, height: rectangle.size.Height))
-        squareView.backgroundColor = UIColor(red: CGFloat(rectangle.R)/255, green: CGFloat(rectangle.G)/255, blue: CGFloat(rectangle.B)/255, alpha: CGFloat(rectangle.alpha)/10)
+        let frame = userInfo["frame"] as! Frame
+        os_log("Frame %@", "\(frame)")
+        let squareView = UIView(frame: CGRect(x: frame.point.X, y: frame.point.Y, width: frame.size.Width, height: frame.size.Height))
+        squareView.backgroundColor = UIColor(red: CGFloat(frame.R)/255, green: CGFloat(frame.G)/255, blue: CGFloat(frame.B)/255, alpha: CGFloat(frame.alpha)/10)
         self.drawingSection.addSquare(id: id, squareView: squareView)
     }
 }

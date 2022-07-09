@@ -35,8 +35,8 @@ class Square : CustomStringConvertible {
         self.alpha = alpha
     }
     
-    var rectangle: Rectangle {
-        return Rectangle(size: self.size, point: self.point, R: self.R, G: self.G, B: self.B, alpha: self.alpha)
+    var frame: Frame {
+        return Frame(size: self.size, point: self.point, R: self.R, G: self.G, B: self.B, alpha: self.alpha)
     }
     
     func isPointIncluded(position: Point) -> Bool {

@@ -1,6 +1,6 @@
 import Foundation
 
-struct Rectangle {
+struct Frame {
     let size: Size
     let point: Point
     let R: UInt8

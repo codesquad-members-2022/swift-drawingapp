@@ -12,7 +12,7 @@ struct Plane {
         var userInfo: [AnyHashable : Any]? = [:]
         print(square)
         userInfo?["id"] = square.id
-        userInfo?["rectangle"] = square.rectangle
+        userInfo?["frame"] = square.frame
 
         NotificationCenter.default.post(name: Notification.Name("UpdatePlane"), object: nil, userInfo: userInfo)
     }
