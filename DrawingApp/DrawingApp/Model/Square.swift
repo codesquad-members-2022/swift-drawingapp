@@ -1,7 +1,7 @@
 import Foundation
 
 class Square : CustomStringConvertible {
-    private var id: String
+    let id: String
     private var _alpha: Int = 10
     var size: Size
     var point: Point
@@ -33,6 +33,10 @@ class Square : CustomStringConvertible {
         self.G = G
         self.B = B
         self.alpha = alpha
+    }
+    
+    var rectangle: Rectangle {
+        return Rectangle(size: self.size, point: self.point, R: self.R, G: self.G, B: self.B, alpha: self.alpha)
     }
     
     func isPointIncluded(position: Point) -> Bool {

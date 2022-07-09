@@ -4,6 +4,10 @@ class DrawingSection: UIView {
     
     var delegate: DrawingSectionDelegate?
 
+    var selectedSquare: String?
+    
+    var square: [String: UIView] = [:]
+
     private let drawingView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -47,12 +51,36 @@ class DrawingSection: UIView {
             self.addSquareButton.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
     }
-    
-    func drawSquare(square: Square) -> UIView {
-        let squareView = UIView(frame: CGRect(x: square.point.X, y: square.point.Y, width: square.size.Width, height: square.size.Height))
-        squareView.backgroundColor = UIColor(red: CGFloat(square.R)/255, green: CGFloat(square.G)/255, blue: CGFloat(square.B)/255, alpha: CGFloat(square.alpha)/10)
+
+    func addSquare(id: String, squareView: UIView) {
+        self.square[id] = squareView
         self.drawingView.addSubview(squareView)
-        return squareView
+    }
+    
+    func setSquareBorder(state: BorderState) {
+        switch state {
+        case .selected:
+            self.square[selectedSquare!]!.layer.borderWidth = CGFloat(5.0)
+            self.square[selectedSquare!]!.layer.borderColor = CGColor(red: 0.0, green: 0.0, blue: 1.0, alpha: 1.0)
+        case .unselected:
+            self.square[selectedSquare!]!.layer.borderWidth = CGFloat(0.0)
+        }
+    }
+
+    func setSquareColor(id: String, color: UIColor?) {
+        square[id]?.backgroundColor = color?.withAlphaComponent(square[id]?.backgroundColor?.alphaFloat ?? 1.0)
+    }
+
+    func setSquareAlpha(id: String, alpha: Double) {
+        let color = self.square[id]!.backgroundColor!.rgbFloat
+        let r = color.red
+        let g = color.green
+        let b = color.blue
+        self.square[id]!.backgroundColor = UIColor(red: r, green: g, blue: b, alpha: alpha / 10.0)
+    }
+
+    func getSquareColor(id: String) -> UIColor? {
+        return self.square[id]?.backgroundColor
     }
 
     @objc func buttonTouched() {
