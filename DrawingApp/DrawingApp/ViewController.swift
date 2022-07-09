@@ -2,7 +2,7 @@ import UIKit
 import OSLog
 
 protocol DrawingSectionDelegate {
-    func squareDidAdd()
+    func rectangleDidAdd()
 }
 
 protocol StatusSectionDelegate {
@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     
     var plane: Plane = Plane()
 
-    var selectedSquare: String?
+    var selectedRectangle: String?
 
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
@@ -71,7 +71,7 @@ class ViewController: UIViewController {
         
         NotificationCenter.default.addObserver(
             self,
-            selector: #selector(squareDidDraw(_:)),
+            selector: #selector(rectangleDidDraw(_:)),
             name: Notification.Name("UpdatePlane"),
             object: nil)
     }
@@ -82,14 +82,14 @@ class ViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name("UpdatePlane"), object: nil)
     }
 
-    @objc func squareDidDraw(_ notification: Notification) {
+    @objc func rectangleDidDraw(_ notification: Notification) {
         let userInfo = notification.userInfo!
         let id = userInfo["id"] as! String
         let frame = userInfo["frame"] as! Frame
         os_log("Frame %@", "\(frame)")
-        let squareView = UIView(frame: CGRect(x: frame.point.X, y: frame.point.Y, width: frame.size.Width, height: frame.size.Height))
-        squareView.backgroundColor = UIColor(red: CGFloat(frame.R)/255, green: CGFloat(frame.G)/255, blue: CGFloat(frame.B)/255, alpha: CGFloat(frame.alpha)/10)
-        self.drawingSection.addSquare(id: id, squareView: squareView)
+        let rectangleView = UIView(frame: CGRect(x: frame.point.X, y: frame.point.Y, width: frame.size.Width, height: frame.size.Height))
+        rectangleView.backgroundColor = UIColor(red: CGFloat(frame.R)/255, green: CGFloat(frame.G)/255, blue: CGFloat(frame.B)/255, alpha: CGFloat(frame.alpha)/10)
+        self.drawingSection.addRectangle(id: id, rectangleView: rectangleView)
     }
 }
 
@@ -97,41 +97,41 @@ extension ViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         let CGPosition = touch.location(in: self.drawingSection)
 
-        if self.selectedSquare != nil {
-            self.drawingSection.setSquareBorder(selectedSquare: self.selectedSquare!, state: BorderState.unselected)
+        if self.selectedRectangle != nil {
+            self.drawingSection.setRectangleBorder(selectedRectangle: self.selectedRectangle!, state: BorderState.unselected)
         }
 
-        guard let square = self.plane[Point(X: CGPosition.x, Y: CGPosition.y)] else {
-            self.selectedSquare = nil
+        guard let rectangle = self.plane[Point(X: CGPosition.x, Y: CGPosition.y)] else {
+            self.selectedRectangle = nil
             return false
         }
 
-        self.selectedSquare = square
-        self.drawingSection.setSquareBorder(selectedSquare: self.selectedSquare!, state: BorderState.selected)
-        self.statusSection.setAlpha(alpha: (self.drawingSection.getSquareColor(id: square)?.cgColor.alpha)! * 10)
+        self.selectedRectangle = rectangle
+        self.drawingSection.setRectangleBorder(selectedRectangle: self.selectedRectangle!, state: BorderState.selected)
+        self.statusSection.setAlpha(alpha: (self.drawingSection.getRectangleColor(id: rectangle)?.cgColor.alpha)! * 10)
         return true
     }
 }
 
 extension ViewController: DrawingSectionDelegate {
-    func squareDidAdd() {
-        plane.addSquare(frameWidth: self.view.safeAreaLayoutGuide.layoutFrame.width - self.statusSection.frame.width, frameHeight: self.view.safeAreaLayoutGuide.layoutFrame.height)
+    func rectangleDidAdd() {
+        plane.addRectangle(frameWidth: self.view.safeAreaLayoutGuide.layoutFrame.width - self.statusSection.frame.width, frameHeight: self.view.safeAreaLayoutGuide.layoutFrame.height)
     }
 }
 
 extension ViewController: StatusSectionDelegate {
     func colorDidChanged(color: UIColor?) {
-        if let square = self.selectedSquare {
-            self.drawingSection.setSquareColor(id: square, color: color)
+        if let rectangle = self.selectedRectangle {
+            self.drawingSection.setRectangleColor(id: rectangle, color: color)
             let rgbColor = color!.rgbFloat
-            self.plane.setSquareColor(id: square, R: UInt8(rgbColor.red * 255.0), G: UInt8(rgbColor.green * 255.0), B: UInt8(rgbColor.blue * 255.0))
+            self.plane.setRectangleColor(id: rectangle, R: UInt8(rgbColor.red * 255.0), G: UInt8(rgbColor.green * 255.0), B: UInt8(rgbColor.blue * 255.0))
         }
     }
 
     func alphaDidChanged(alpha: Double) {
-        if let square = self.selectedSquare {
-            self.drawingSection.setSquareAlpha(id: square, alpha: alpha)
-            self.plane.setSquareAlpha(id: square, alpha: alpha)
+        if let rectangle = self.selectedRectangle {
+            self.drawingSection.setRectangleAlpha(id: rectangle, alpha: alpha)
+            self.plane.setRectangleAlpha(id: rectangle, alpha: alpha)
         }
     }
 }

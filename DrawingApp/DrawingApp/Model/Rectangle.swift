@@ -1,6 +1,6 @@
 import Foundation
 
-class Square : CustomStringConvertible {
+class Rectangle : CustomStringConvertible {
     let id: String
     private var _alpha: Int = 10
     var size: Size
@@ -55,8 +55,8 @@ class Square : CustomStringConvertible {
     }
 }
 
-extension Square: Hashable {
-    static func == (lhs: Square, rhs: Square) -> Bool {
+extension Rectangle: Hashable {
+    static func == (lhs: Rectangle, rhs: Rectangle) -> Bool {
         return lhs.id == rhs.id
     }
 

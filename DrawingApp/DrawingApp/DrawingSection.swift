@@ -4,7 +4,7 @@ class DrawingSection: UIView {
     
     var delegate: DrawingSectionDelegate?
     
-    var square: [String: UIView] = [:]
+    var rectangle: [String: UIView] = [:]
 
     private let drawingView: UIView = {
         let view = UIView()
@@ -13,12 +13,12 @@ class DrawingSection: UIView {
         return view
     }()
 
-    private let addSquareButton: UIButton = {
+    private let addRectangleButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.backgroundColor = .systemGray4
         button.layer.cornerRadius = 20
-        button.setImage(UIImage(named: "addSquare.png"), for: .normal)
+        button.setImage(UIImage(named: "addRectangle.png"), for: .normal)
         button.addTarget(self, action: #selector(buttonTouched), for: .touchDown)
         return button
     }()
@@ -35,7 +35,7 @@ class DrawingSection: UIView {
     
     func setUpView() {
         self.addSubview(drawingView)
-        self.addSubview(addSquareButton)
+        self.addSubview(addRectangleButton)
         
         NSLayoutConstraint.activate([
             self.drawingView.topAnchor.constraint(equalTo: self.topAnchor),
@@ -43,45 +43,45 @@ class DrawingSection: UIView {
             self.drawingView.leadingAnchor.constraint(equalTo: leadingAnchor),
             self.drawingView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
-            self.addSquareButton.widthAnchor.constraint(equalToConstant: 100),
-            self.addSquareButton.heightAnchor.constraint(equalToConstant: 100),
-            self.addSquareButton.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            self.addSquareButton.centerXAnchor.constraint(equalTo: self.centerXAnchor)
+            self.addRectangleButton.widthAnchor.constraint(equalToConstant: 100),
+            self.addRectangleButton.heightAnchor.constraint(equalToConstant: 100),
+            self.addRectangleButton.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            self.addRectangleButton.centerXAnchor.constraint(equalTo: self.centerXAnchor)
         ])
     }
 
-    func addSquare(id: String, squareView: UIView) {
-        self.square[id] = squareView
-        self.drawingView.addSubview(squareView)
+    func addRectangle(id: String, rectangleView: UIView) {
+        self.rectangle[id] = rectangleView
+        self.drawingView.addSubview(rectangleView)
     }
     
-    func setSquareBorder(selectedSquare: String, state: BorderState) {
+    func setRectangleBorder(selectedRectangle: String, state: BorderState) {
         switch state {
         case .selected:
-            self.square[selectedSquare]!.layer.borderWidth = CGFloat(5.0)
-            self.square[selectedSquare]!.layer.borderColor = CGColor(red: 0.0, green: 0.0, blue: 1.0, alpha: 1.0)
+            self.rectangle[selectedRectangle]!.layer.borderWidth = CGFloat(5.0)
+            self.rectangle[selectedRectangle]!.layer.borderColor = CGColor(red: 0.0, green: 0.0, blue: 1.0, alpha: 1.0)
         case .unselected:
-            self.square[selectedSquare]!.layer.borderWidth = CGFloat(0.0)
+            self.rectangle[selectedRectangle]!.layer.borderWidth = CGFloat(0.0)
         }
     }
 
-    func setSquareColor(id: String, color: UIColor?) {
-        square[id]?.backgroundColor = color?.withAlphaComponent(square[id]?.backgroundColor?.alphaFloat ?? 1.0)
+    func setRectangleColor(id: String, color: UIColor?) {
+        rectangle[id]?.backgroundColor = color?.withAlphaComponent(rectangle[id]?.backgroundColor?.alphaFloat ?? 1.0)
     }
 
-    func setSquareAlpha(id: String, alpha: Double) {
-        let color = self.square[id]!.backgroundColor!.rgbFloat
+    func setRectangleAlpha(id: String, alpha: Double) {
+        let color = self.rectangle[id]!.backgroundColor!.rgbFloat
         let r = color.red
         let g = color.green
         let b = color.blue
-        self.square[id]!.backgroundColor = UIColor(red: r, green: g, blue: b, alpha: alpha / 10.0)
+        self.rectangle[id]!.backgroundColor = UIColor(red: r, green: g, blue: b, alpha: alpha / 10.0)
     }
 
-    func getSquareColor(id: String) -> UIColor? {
-        return self.square[id]?.backgroundColor
+    func getRectangleColor(id: String) -> UIColor? {
+        return self.rectangle[id]?.backgroundColor
     }
 
     @objc func buttonTouched() {
-        self.delegate?.squareDidAdd()
+        self.delegate?.rectangleDidAdd()
     }
 }

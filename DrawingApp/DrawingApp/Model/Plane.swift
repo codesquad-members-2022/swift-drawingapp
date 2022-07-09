@@ -2,39 +2,39 @@ import Foundation
 
 struct Plane {
 
-    let factory: SquareFactory = SquareFactory()
+    let factory: RectangleFactory = RectangleFactory()
 
-    var square: [String: Square] = [:]
+    var rectangle: [String: Rectangle] = [:]
 
-    mutating func addSquare(frameWidth: Double, frameHeight: Double) {
-        let square = self.factory.createRandomSquare(frameWidth: frameWidth, frameHeight: frameHeight)
-        self.square[square.id] = square
+    mutating func addRectangle(frameWidth: Double, frameHeight: Double) {
+        let rectangle = self.factory.createRandomRectangle(frameWidth: frameWidth, frameHeight: frameHeight)
+        self.rectangle[rectangle.id] = rectangle
         var userInfo: [AnyHashable : Any]? = [:]
-        print(square)
-        userInfo?["id"] = square.id
-        userInfo?["frame"] = square.frame
+        print(rectangle)
+        userInfo?["id"] = rectangle.id
+        userInfo?["frame"] = rectangle.frame
 
         NotificationCenter.default.post(name: Notification.Name("UpdatePlane"), object: nil, userInfo: userInfo)
     }
 
-    var totalSquareCount: Int {
+    var totalRectangleCount: Int {
         get {
-            return self.square.count
+            return self.rectangle.count
         }
     }
 
-    func setSquareColor(id: String, R: UInt8, G: UInt8, B: UInt8) {
-        square[id]?.R = R
-        square[id]?.G = G
-        square[id]?.B = B
+    func setRectangleColor(id: String, R: UInt8, G: UInt8, B: UInt8) {
+        rectangle[id]?.R = R
+        rectangle[id]?.G = G
+        rectangle[id]?.B = B
     }
 
-    func setSquareAlpha(id: String, alpha: Double) {
-        square[id]?.alpha = Int(alpha)
+    func setRectangleAlpha(id: String, alpha: Double) {
+        rectangle[id]?.alpha = Int(alpha)
     }
 
     subscript(position: Point) -> String? {
-        for (_, value) in self.square.reversed() {
+        for (_, value) in self.rectangle.reversed() {
             if value.isPointIncluded(position: position) == true {
                 return value.id
             }
