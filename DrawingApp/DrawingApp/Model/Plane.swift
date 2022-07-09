@@ -27,7 +27,6 @@ struct Plane {
         square[id]?.R = R
         square[id]?.G = G
         square[id]?.B = B
-        print(square[id]!)
     }
 
     func setSquareAlpha(id: String, alpha: Double) {

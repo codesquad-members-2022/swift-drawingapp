@@ -3,8 +3,6 @@ import UIKit
 class DrawingSection: UIView {
     
     var delegate: DrawingSectionDelegate?
-
-    var selectedSquare: String?
     
     var square: [String: UIView] = [:]
 
@@ -57,13 +55,13 @@ class DrawingSection: UIView {
         self.drawingView.addSubview(squareView)
     }
     
-    func setSquareBorder(state: BorderState) {
+    func setSquareBorder(selectedSquare: String, state: BorderState) {
         switch state {
         case .selected:
-            self.square[selectedSquare!]!.layer.borderWidth = CGFloat(5.0)
-            self.square[selectedSquare!]!.layer.borderColor = CGColor(red: 0.0, green: 0.0, blue: 1.0, alpha: 1.0)
+            self.square[selectedSquare]!.layer.borderWidth = CGFloat(5.0)
+            self.square[selectedSquare]!.layer.borderColor = CGColor(red: 0.0, green: 0.0, blue: 1.0, alpha: 1.0)
         case .unselected:
-            self.square[selectedSquare!]!.layer.borderWidth = CGFloat(0.0)
+            self.square[selectedSquare]!.layer.borderWidth = CGFloat(0.0)
         }
     }
 

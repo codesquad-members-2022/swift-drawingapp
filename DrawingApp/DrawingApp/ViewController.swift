@@ -14,6 +14,8 @@ class ViewController: UIViewController {
     
     var plane: Plane = Plane()
 
+    var selectedSquare: String?
+
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
     }
@@ -95,17 +97,17 @@ extension ViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         let CGPosition = touch.location(in: self.drawingSection)
 
-        if self.drawingSection.selectedSquare != nil {
-            self.drawingSection.setSquareBorder(state: BorderState.unselected)
+        if self.selectedSquare != nil {
+            self.drawingSection.setSquareBorder(selectedSquare: self.selectedSquare!, state: BorderState.unselected)
         }
 
         guard let square = self.plane[Point(X: CGPosition.x, Y: CGPosition.y)] else {
-            self.drawingSection.selectedSquare = nil
+            self.selectedSquare = nil
             return false
         }
 
-        self.drawingSection.selectedSquare = square
-        self.drawingSection.setSquareBorder(state: BorderState.selected)
+        self.selectedSquare = square
+        self.drawingSection.setSquareBorder(selectedSquare: self.selectedSquare!, state: BorderState.selected)
         self.statusSection.setAlpha(alpha: (self.drawingSection.getSquareColor(id: square)?.cgColor.alpha)! * 10)
         return true
     }
@@ -119,7 +121,7 @@ extension ViewController: DrawingSectionDelegate {
 
 extension ViewController: StatusSectionDelegate {
     func colorDidChanged(color: UIColor?) {
-        if let square = self.drawingSection.selectedSquare {
+        if let square = self.selectedSquare {
             self.drawingSection.setSquareColor(id: square, color: color)
             let rgbColor = color!.rgbFloat
             self.plane.setSquareColor(id: square, R: UInt8(rgbColor.red * 255.0), G: UInt8(rgbColor.green * 255.0), B: UInt8(rgbColor.blue * 255.0))
@@ -127,7 +129,7 @@ extension ViewController: StatusSectionDelegate {
     }
 
     func alphaDidChanged(alpha: Double) {
-        if let square = self.drawingSection.selectedSquare {
+        if let square = self.selectedSquare {
             self.drawingSection.setSquareAlpha(id: square, alpha: alpha)
             self.plane.setSquareAlpha(id: square, alpha: alpha)
         }
