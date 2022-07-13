@@ -29,7 +29,7 @@ struct Plane {
         rectangle[id]?.B = B
     }
 
-    func setRectangleAlpha(id: String, alpha: Double) {
+    func setRectangleAlpha(id: String, alpha: Float) {
         rectangle[id]?.alpha = Int(alpha)
     }
 

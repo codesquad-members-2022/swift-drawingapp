@@ -7,7 +7,7 @@ protocol DrawingSectionDelegate {
 
 protocol StatusSectionDelegate {
     func colorDidChanged(color: UIColor?)
-    func alphaDidChanged(alpha: Double)
+    func alphaDidChanged(alpha: Float)
 }
 
 class ViewController: UIViewController {
@@ -108,7 +108,7 @@ extension ViewController: UIGestureRecognizerDelegate {
 
         self.selectedRectangle = rectangle
         self.drawingSection.setRectangleBorder(selectedRectangle: self.selectedRectangle!, state: BorderState.selected)
-        self.statusSection.setAlpha(alpha: (self.drawingSection.getRectangleColor(id: rectangle)?.cgColor.alpha)! * 10)
+        self.statusSection.setAlpha(alpha: Float(self.drawingSection.getRectangleColor(id: rectangle).cgColor.alpha))
         return true
     }
 }
@@ -128,7 +128,7 @@ extension ViewController: StatusSectionDelegate {
         }
     }
 
-    func alphaDidChanged(alpha: Double) {
+    func alphaDidChanged(alpha: Float) {
         if let rectangle = self.selectedRectangle {
             self.drawingSection.setRectangleAlpha(id: rectangle, alpha: alpha)
             self.plane.setRectangleAlpha(id: rectangle, alpha: alpha)

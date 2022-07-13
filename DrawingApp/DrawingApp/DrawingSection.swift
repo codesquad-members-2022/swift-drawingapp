@@ -69,16 +69,16 @@ class DrawingSection: UIView {
         rectangle[id]?.backgroundColor = color?.withAlphaComponent(rectangle[id]?.backgroundColor?.alphaFloat ?? 1.0)
     }
 
-    func setRectangleAlpha(id: String, alpha: Double) {
+    func setRectangleAlpha(id: String, alpha: Float) {
         let color = self.rectangle[id]!.backgroundColor!.rgbFloat
         let r = color.red
         let g = color.green
         let b = color.blue
-        self.rectangle[id]!.backgroundColor = UIColor(red: r, green: g, blue: b, alpha: alpha / 10.0)
+        self.rectangle[id]!.backgroundColor = UIColor(red: r, green: g, blue: b, alpha: CGFloat(alpha / 10.0))
     }
 
-    func getRectangleColor(id: String) -> UIColor? {
-        return self.rectangle[id]?.backgroundColor
+    func getRectangleColor(id: String) -> UIColor {
+        return self.rectangle[id]?.backgroundColor! ?? UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
     }
 
     @objc func buttonTouched() {
