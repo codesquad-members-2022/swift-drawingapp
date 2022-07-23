@@ -1,8 +1,12 @@
 import UIKit
 
 class StatusSection: UIView {
-    
-    var delegate: StatusSectionDelegate?
+
+    var delegate: StatusSectionDelegate? {
+        didSet(oldVal) {
+            self.backgroundColorStatus.delegate = self.delegate
+        }
+    }
 
     private let backgroundColorTitle: UILabel = {
         let label = UILabel()
@@ -17,13 +21,16 @@ class StatusSection: UIView {
         label.text = "투명도"
         return label
     }()
-    
-    private let backgroundColorStatus: UIColorWell = {
-        let colorWell = UIColorWell()
-        colorWell.translatesAutoresizingMaskIntoConstraints = false
-        colorWell.supportsAlpha = false
-        colorWell.addTarget(self, action: #selector(colorWellValueChanged), for: .valueChanged)
-        return colorWell
+
+    let backgroundColorStatus: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.keyboardType = .alphabet
+        textField.autocapitalizationType = .allCharacters
+        textField.text = "None"
+        textField.isUserInteractionEnabled = false
+        textField.layer.opacity = 0.5
+        return textField
     }()
 
     private let alphaStatus: UISlider = {
@@ -34,6 +41,8 @@ class StatusSection: UIView {
         slider.isContinuous = true
         slider.addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
         slider.value = 0
+        slider.isUserInteractionEnabled = false
+        slider.layer.opacity = 0.5
         return slider
     }()
 
@@ -71,13 +80,27 @@ class StatusSection: UIView {
             self.alphaStatus.trailingAnchor.constraint(equalTo: self.trailingAnchor)
         ])
     }
+
+    func setUserInteractionEnabled(isEnable: Bool) {
+        self.backgroundColorStatus.isUserInteractionEnabled = isEnable
+        self.alphaStatus.isUserInteractionEnabled = isEnable
+
+        if isEnable == false {
+            self.backgroundColorStatus.text = "None"
+            self.alphaStatus.value = 5
+        }
+
+        let opacity = isEnable ? Float(1.0): Float(0.5)
+        self.backgroundColorStatus.layer.opacity = opacity
+        self.alphaStatus.layer.opacity = opacity
+    }
+
+    func setColor(color: UIColor) {
+        self.backgroundColorStatus.text = color.htmlRGBColor
+    }
     
     func setAlpha(alpha: Float) {
         self.alphaStatus.value = alpha * 10
-    }
-
-    @objc func colorWellValueChanged(_ sender: UIColorWell!) {
-        delegate?.colorDidChanged(color: sender.selectedColor)
     }
     
     @objc func sliderValueChanged(_ sender: UISlider!) {

@@ -5,8 +5,7 @@ protocol DrawingSectionDelegate {
     func rectangleDidAdd()
 }
 
-protocol StatusSectionDelegate {
-    func colorDidChanged(color: UIColor?)
+protocol StatusSectionDelegate: UITextFieldDelegate {
     func alphaDidChanged(alpha: Float)
 }
 
@@ -44,13 +43,14 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.view.addSubview(self.drawingSection)
         self.view.addSubview(self.statusSection)
         
         self.drawingSection.delegate = self
         self.statusSection.delegate = self
-        
+        self.statusSection.backgroundColorStatus.delegate = self
+
         let safeArea = view.safeAreaLayoutGuide
         
         NSLayoutConstraint.activate([
@@ -103,12 +103,17 @@ extension ViewController: UIGestureRecognizerDelegate {
 
         guard let rectangle = self.plane[Point(X: CGPosition.x, Y: CGPosition.y)] else {
             self.selectedRectangle = nil
+            self.statusSection.setUserInteractionEnabled(isEnable: false)
             return false
         }
 
         self.selectedRectangle = rectangle
         self.drawingSection.setRectangleBorder(selectedRectangle: self.selectedRectangle!, state: BorderState.selected)
-        self.statusSection.setAlpha(alpha: Float(self.drawingSection.getRectangleColor(id: rectangle).cgColor.alpha))
+
+        let color = self.drawingSection.getRectangleColor(id: rectangle)
+        self.statusSection.setUserInteractionEnabled(isEnable: true)
+        self.statusSection.setColor(color: color)
+        self.statusSection.setAlpha(alpha: Float(color.cgColor.alpha))
         return true
     }
 }
@@ -120,12 +125,53 @@ extension ViewController: DrawingSectionDelegate {
 }
 
 extension ViewController: StatusSectionDelegate {
-    func colorDidChanged(color: UIColor?) {
-        if let rectangle = self.selectedRectangle {
-            self.drawingSection.setRectangleColor(id: rectangle, color: color)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        textField.text!.remove(at: textField.text!.startIndex)
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let rectangle = self.selectedRectangle else { return }
+
+        if textField.text?.count == 6 {
+            let color = UIColor(hexRGB: textField.text!)
             let rgbColor = color!.rgbFloat
+
+            self.drawingSection.setRectangleColor(id: rectangle, color: color)
             self.plane.setRectangleColor(id: rectangle, R: UInt8(rgbColor.red * 255.0), G: UInt8(rgbColor.green * 255.0), B: UInt8(rgbColor.blue * 255.0))
+
+            textField.text = "#" + textField.text!
+        } else {
+            self.statusSection.setColor(color: self.drawingSection.getRectangleColor(id: rectangle))
         }
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+
+        if string.isEmpty {
+            return true
+        }
+
+        guard textField.text?.count ?? 0 < 6 || string.count > 1 else {
+            return false
+        }
+
+        if string[0].isHexDigit == false {
+            return false
+        } else if string[0].isLowercase {
+            textField.insertText(string[0].uppercased())
+            return false
+        }
+        
+        return true
     }
 
     func alphaDidChanged(alpha: Float) {
