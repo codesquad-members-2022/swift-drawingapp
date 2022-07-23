@@ -2,30 +2,41 @@ import Foundation
 
 struct Plane {
 
-    let factory: SquareFactory = SquareFactory()
+    let factory: RectangleFactory = RectangleFactory()
 
-    var square: [Square] = []
+    var rectangle: [String: Rectangle] = [:]
 
-    mutating func addSquare(frameWidth: Double, frameHeight: Double) {
-        let square = self.factory.createRandomSquare(frameWidth: frameWidth, frameHeight: frameHeight)
-        self.square.append(square)
-        NotificationCenter.default.post(name: Notification.Name("UpdatePlane"), object: square)
+    mutating func addRectangle(frameWidth: Double, frameHeight: Double) {
+        let rectangle = self.factory.createRandomRectangle(frameWidth: frameWidth, frameHeight: frameHeight)
+        self.rectangle[rectangle.id] = rectangle
+        var userInfo: [AnyHashable : Any]? = [:]
+        print(rectangle)
+        userInfo?["id"] = rectangle.id
+        userInfo?["frame"] = rectangle.frame
+
+        NotificationCenter.default.post(name: Notification.Name("UpdatePlane"), object: nil, userInfo: userInfo)
     }
-    
-    var totalSquareCount: Int {
+
+    var totalRectangleCount: Int {
         get {
-            return self.square.count
+            return self.rectangle.count
         }
     }
 
-    subscript(index: Int) -> Square {
-        return square[index]
+    func setRectangleColor(id: String, R: UInt8, G: UInt8, B: UInt8) {
+        rectangle[id]?.R = R
+        rectangle[id]?.G = G
+        rectangle[id]?.B = B
     }
 
-    subscript(position: Point) -> Square? {
-        for s in self.square.reversed() {
-            if s.isPointIncluded(position: position) == true {
-                return s
+    func setRectangleAlpha(id: String, alpha: Float) {
+        rectangle[id]?.alpha = Int(alpha)
+    }
+
+    subscript(position: Point) -> String? {
+        for (_, value) in self.rectangle.reversed() {
+            if value.isPointIncluded(position: position) == true {
+                return value.id
             }
         }
         return nil

@@ -1,7 +1,7 @@
 import Foundation
 
-class Square : CustomStringConvertible {
-    private var id: String
+class Rectangle : CustomStringConvertible {
+    let id: String
     private var _alpha: Int = 10
     var size: Size
     var point: Point
@@ -35,6 +35,10 @@ class Square : CustomStringConvertible {
         self.alpha = alpha
     }
     
+    var frame: Frame {
+        return Frame(size: self.size, point: self.point, R: self.R, G: self.G, B: self.B, alpha: self.alpha)
+    }
+    
     func isPointIncluded(position: Point) -> Bool {
         let X1: Double = self.point.X
         let X2: Double = self.point.X + self.size.Width
@@ -51,8 +55,8 @@ class Square : CustomStringConvertible {
     }
 }
 
-extension Square: Hashable {
-    static func == (lhs: Square, rhs: Square) -> Bool {
+extension Rectangle: Hashable {
+    static func == (lhs: Rectangle, rhs: Rectangle) -> Bool {
         return lhs.id == rhs.id
     }
 

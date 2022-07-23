@@ -26,16 +26,15 @@ class StatusSection: UIView {
         return colorWell
     }()
 
-    private let alphaStatus: UIStepper = {
-        let stepper = UIStepper()
-        stepper.translatesAutoresizingMaskIntoConstraints = false
-        stepper.maximumValue = 10
-        stepper.minimumValue = 0
-        stepper.value = 0
-        stepper.wraps = false
-        stepper.autorepeat = true
-        stepper.addTarget(self, action: #selector(stepperValueChanged), for: .valueChanged)
-        return stepper
+    private let alphaStatus: UISlider = {
+        let slider = UISlider()
+        slider.translatesAutoresizingMaskIntoConstraints = false
+        slider.maximumValue = 10
+        slider.minimumValue = 0
+        slider.isContinuous = true
+        slider.addTarget(self, action: #selector(sliderValueChanged), for: .valueChanged)
+        slider.value = 0
+        return slider
     }()
 
     override init(frame: CGRect) {
@@ -73,15 +72,15 @@ class StatusSection: UIView {
         ])
     }
     
-    func setAlpha(alpha: Double) {
-        self.alphaStatus.value = alpha
+    func setAlpha(alpha: Float) {
+        self.alphaStatus.value = alpha * 10
     }
 
-    @objc func colorWellValueChanged() {
-        delegate?.colorDidChanged(color: self.backgroundColorStatus.selectedColor)
+    @objc func colorWellValueChanged(_ sender: UIColorWell!) {
+        delegate?.colorDidChanged(color: sender.selectedColor)
     }
     
-    @objc func stepperValueChanged() {
-        delegate?.alphaDidChanged(alpha: alphaStatus.value)
+    @objc func sliderValueChanged(_ sender: UISlider!) {
+        delegate?.alphaDidChanged(alpha: Float(Int(sender.value)))
     }
 }
